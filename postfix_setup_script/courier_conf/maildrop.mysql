@@ -1,0 +1,17 @@
+hostname localhost
+port 3306
+socket /var/lib/mysql/mysql.sock
+database mail
+dbuser mail
+dbpw secret
+dbtable USER
+default_uidnumber 450
+default_gidnumner 450
+uid_field MAIL 
+uidnumber_field UID
+gidnumber_field GID
+maildir_field MAILDIR
+homedirectory_field HOMEDIR
+quota_field QUOTA
+mailstatus_field STATUS
+where_clause "" 

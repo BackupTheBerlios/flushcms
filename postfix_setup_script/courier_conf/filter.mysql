@@ -1,0 +1,16 @@
+#
+# mysql config file for filter flag on postfix
+#
+# the user name and password to log into the mysql server
+hosts = localhost
+user = mail
+password = secret
+# the database name on the servers
+dbname = mail
+# the table name
+table = USER
+select_field = FILTER
+# OK : ignore filter
+# DUNNO : filter 
+where_field = MAIL 
+additional_conditions = and STATUS = 1 limit 1

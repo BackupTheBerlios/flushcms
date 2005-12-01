@@ -1,0 +1,15 @@
+user = postfix
+password = postfix
+hosts = localhost
+dbname = postfix
+table = domain
+select_field = domain
+where_field = domain
+additional_conditions = and backupmx = '1'
+
+Syntax with postfix 2.2.x:
+user = postfix
+password = postfix
+hosts = localhost
+dbname = postfix
+query = SELECT domain FROM domain WHERE domain='%s' and backupmx = '1'

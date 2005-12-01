@@ -1,0 +1,15 @@
+user = postfix
+password = postfix
+hosts = localhost
+dbname = postfix
+table = mailbox
+select_field = maildir
+where_field = username
+#additional_conditions = and active = '1'
+
+Syntax with postfix 2.2.x:
+user = postfix
+password = postfix
+hosts = localhost
+dbname = postfix
+query = SELECT maildir FROM mailbox WHERE username='%s' AND active = 1

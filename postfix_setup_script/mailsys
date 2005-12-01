@@ -1,0 +1,90 @@
+#!/bin/bash
+#
+# mailsys This shell script takes care of starting and stopping
+# Postfix and Cyrus-IMAP.
+# author : xingyu.wang <wxy@cngnu.org> 2004/1/18
+#
+# chkconfig: 2345 80 30
+# description: Postfix is a Mail Transport Agent, which is the program
+# that moves mail from one machine to another.Cyrus-IMAP is a Mail 
+# Deliver Agent, which provide POP3 and IMAP4 services for user and 
+# deliver mail to local mailbox.
+#
+# processname: mailsys
+# pidfile: /var/run/mailsys.pid
+# Source function library.
+. /etc/rc.d/init.d/functions
+# Source networking configuration.
+. /etc/sysconfig/network
+
+# Check that networking is up.
+[ ${NETWORKING} = "no" ] && exit 0
+[ -f /usr/sbin/postfix ] || exit 0
+[ -f /usr/cyrus/bin/cyrusd ] || exit 0
+RETVAL=0
+prog="Mail System"
+
+start() {
+    # Start daemons.
+    echo -n $"Starting $prog: "
+    echo -n $"SMTP "
+    /usr/sbin/postfix start > /dev/null 2>&1 &
+
+    echo -n $"POP3 IMAP4 "
+    /usr/cyrus/bin/cyrusd > /dev/null 2>&1 &
+
+    RETVAL=$?
+
+    if [ $RETVAL -eq 0 ]; then
+        touch /var/lock/subsys/mailsys
+        success $"$prog start" 
+    else
+        failure $"$prog start failure"
+    fi
+
+    echo
+    return $RETVAL
+}
+
+stop() {
+    # Stop daemons.
+    echo -n $"Shutting down $prog: "
+
+    echo -n $"SMTP "
+    /usr/sbin/postfix stop > /dev/null 2>&1 & 
+ 
+    echo -n $"POP3 IMAP4 " 
+    killproc cyrusd
+
+    RETVAL=$?
+
+    if [ $RETVAL -eq 0 ]; then
+        rm -f /var/lock/subsys/mailsys
+        success $"$prog stop"
+    else
+        failure $"$prog stop failure"
+    fi
+
+    echo
+    return $RETVAL
+}
+
+# See how we were called.
+case "$1" in
+    start)
+        start
+    ;;
+    stop)
+        stop
+    ;;
+    restart|reload)
+        stop
+        start
+        RETVAL=$?
+    ;;
+    *)
+        echo $"Usage: $0 {start|stop|restart}"
+        exit 1
+esac
+exit $RETVAL
+
