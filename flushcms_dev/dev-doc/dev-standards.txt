@@ -1,0 +1,174 @@
+$Id: dev-standards.txt,v 1.1 2005/12/01 23:21:47 arzen Exp $
+==============
+Coding Standards and Syntax:
+===============
+    Part I: Indenting and line length
+        a.) Use an indent of 4 spaces with no tabs on. Please set your text
+            editor to replace tabs with four spaces.
+        b.) Lines should be delimited at 72 characters for printing 
+            reasons, with a maximum of 80.
+
+    Part II: Control Structure
+
+        a.) Every if, while, for, case, etc... statement should be written
+            in the following manner.
+
+            EX.(please ignore leading white space)
+
+            if($something)
+            {
+                // do something
+            } 
+            elseif($somethingelse)
+            {
+                // do something else
+            }
+            else
+            {
+                // do the default
+            }
+
+        b.) Case statements should have the following format
+
+            EX.(please ignore leading white space)
+
+            switch($value)
+            {
+                case 1:
+                    // do case 1
+                    break;
+                case 2:
+                    // do case 2
+                    break;
+                default:
+                    // do default
+                    break;
+            }
+
+    Part III: Function Definitions
+
+        a.) Functions should be written to accept arguments in the 
+            following manner
+            
+            Example 1:
+            function add_msg($arg1, $arg2)
+            {
+                // set up our arguments
+            }
+            
+            Example 2:
+            function getAll($query, $params=array(), $fetchmode=NULL)
+        	{
+        	    $numArg = func_num_args();
+                $cf = __CLASS__."::".__FUNCTION__;
+                if($numArg == 0)
+                {
+                    $err  = "[$cf] Missing Argument.";
+                    $this->error_add($err);
+                }
+        
+        	    $res = $this->dbh->getAll($query, $params, $fetchmode);
+            }            
+
+    Part IV: Comments
+    (http://pear.php.net/manual/en/standards.php)
+
+        a.)  C style comments (/* */) and standard C++ comments (//) 
+             are both fine. Use of Perl/shell style comments (#) is 
+             discouraged.
+
+        b.)  Inline documentation for classes should follow the PHPDoc 
+             convention, similar to Javadoc. More information about PHPDoc 
+             can be found here: http://www.phpdoc.org/  
+
+    Part V: Including Code
+    (http://pear.php.net/manual/en/standards.php)
+
+        a.) Anywhere you are unconditionally including a class file, 
+            use require_once(). Anywhere you are conditionally including 
+            a class file (for example, factory methods), use include_once(). 
+            Either of these will ensure that class files are included only 
+            once. They share the same file list, so you don't need to worry 
+            about mixing them - a file included with require_once() will 
+            not be included again by include_once().
+
+            Note: include_once() and require_once() are statements, not 
+                  functions. You don't need parentheses around the filename 
+                  to be included. 
+
+    Part VI: PHP Code Tags
+    (http://pear.php.net/manual/en/standards.php)
+
+        a.) Always use <?php ?> to delimit PHP code, not the <? ?> 
+            shorthand. This is required for PEAR compliance and is also the 
+            most portable way to include PHP code on differing operating 
+            systems and setups.
+
+
+    Part VII: Header Comment Blocks
+        a.) All header comment blocks should
+
+/*
+   +----------------------------------------------------------------------+
+   | FlushPHP                                                             |
+   +----------------------------------------------------------------------+
+   | Copyright (c) 2005 The FlushPHP Group                                |
+   +----------------------------------------------------------------------+
+   | This library is free software; you can redistribute it and/or        |
+   | modify it under the terms of the GNU Lesser General Public           |
+   | License as published by the Free Software Foundation; either         |
+   | version 2.1 of the License, or (at your option) any later version.   |
+   +----------------------------------------------------------------------+
+   | Author:                                                              |
+   +----------------------------------------------------------------------+
+ */
+
+/* $Id: dev-standards.txt,v 1.1 2005/12/01 23:21:47 arzen Exp $ */
+
+
+    Part VIII: Using CVS (Version Control)
+        a.) No rules as of yet. 
+
+
+
+    Part IX: Naming Conventions
+
+        a.) Classes: 
+            Classes should be given descriptive names. Avoid 
+            using abbreviations where possible. Class names should 
+            always begin with an uppercase letter. The PEAR class hierarchy 
+            is also reflected in the class name, each level of the 
+            hierarchy separated with a single underscore. 
+
+            Examples of good class names are: 
+                Log Net_Finger HTML_Upload_Error
+
+        b.) Functions and Methods:
+            Functions and methods should be named using the "studly caps" 
+            style (also referred to as "bumpy case" or "camel caps"). 
+            Functions should in addition have the package name as a prefix,
+            to avoid name collisions between packages. The initial letter of 
+            the name (after the prefix) is lowercase, and each letter that 
+            starts a new "word" is capitalized. 
+
+            Some good examples: 
+                connect() getData() buildSomeWidget()
+                addErr()
+                deleteErr()
+                printAllErr()
+
+
+            Private class members (meaning class members that are intented 
+            to be used only from within the same class in which they are 
+            declared; PHP does not yet support truly-enforceable private 
+            namespaces) are preceded by a single underscore. 
+
+            For example: 
+                _sort() _initTree() $this->_status
+
+        c.) Constants:
+
+            Constants should always be all-uppercase, with underscores to 
+            separate words. Prefix constant names with the uppercased name 
+            of the class/package they are used in. For example, the 
+            constants used by the DB:: package all begin with DB_.

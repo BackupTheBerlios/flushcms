@@ -1,0 +1,18 @@
+$Id: dir-deploy.txt,v 1.1 2005/12/01 23:21:47 arzen Exp $
+
+===============
+Directory Deploy:
+===============
+
+
+   |-------- Config
+   |
+   |-------- Utility
+   |	
+   |-------- Module
+   |	
+   |-------- Include
+   |
+   |-------- Log	
+   |	
+   |-------- FlushPHP.php
