@@ -1,0 +1,29 @@
+.SCREEN {
+  margin-left: 6pt;
+  margin-top: 6pt;
+  text-align: left;
+  line-height: 13.2pt;
+  text-indent: 0pt;
+  background-color: #EBEBF5;
+}
+
+.HR
+{
+  size:1px;
+}
+.NAVHEADER { BACKGROUND-COLOR: #CCCCFF; }
+.NAVFOOTER,.TITLEPAGE { BACKGROUND-COLOR: #CCCCFF; }
+.TOC,.SCREEN      { PADDING-LEFT: 20px;}
+.SCREEN22    {BACKGROUND-COLOR: #CCCCCC;}
+
+.NAVTOC    { margin-left: 15; }
+
+.NAVBTN    { font-size: 10pt }
+
+.TOCTITLE  { font-size: 10pt;
+             color: blue;
+ 	     text-decoration: underline; }
+
+  BODY, TABLE, TH, TD, DIV { margin-top: 0px;margin-left: 1px;margin-right: 1px;margin-bottom:0px;font-family: Times New Roman; font-size: 16px; }
+  H1                       { font-family: Times New Roman; font-size: 32px; font-weight: bold; }
+  H2                       { font-family: Times New Roman; font-size: 24px; font-weight: bold; }

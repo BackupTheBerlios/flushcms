@@ -1,0 +1,24 @@
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V4.0//EN">
+<book>
+ 
+<bookinfo>
+<title>FlushCMS</title>
+	<author>
+	<othername>Author:John.meng YahooIM:arzen1013@yahoo.com.cn	QQ:3440895 MSN:arzen10132@hotmail.com</othername>
+	<para></para>
+	</author>
+</bookinfo>
+
+<dedication>
+	<para>FlushCMS is a Content Manage System use FlushPHP framework.</para>
+</dedication>
+
+<chapter>
+ <title>FlushCMS Overview</title>
+	<section>
+		<para>FlushCMS is a Content Manage System use FlushPHP framework.</para>
+	</section>
+</chapter>
+
+
+</book>
