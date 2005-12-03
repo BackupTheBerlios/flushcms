@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: setup.sh,v 1.5 2005/12/03 01:58:59 arzen Exp $
+# $Id: setup.sh,v 1.6 2005/12/03 07:04:01 arzen Exp $
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 
 # Linux Server Setup Script v2.0
@@ -10,7 +10,9 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 
 _INSTALL_APACHE="n" 
 _INSTALL_MYSQL="n" 
+_INSTALL_LIBXML2="y" 
 _INSTALL_PHP="n" 
+_INSTALL_PHP5="y" 
 _INSTALL_POSTFIX="n" 
 _INSTALL_PAM_MYSQL="n" 
 _INSTALL_CYRUSIMAP="n" 
@@ -24,7 +26,7 @@ _INSTALL_BOOST="n"
 _INSTALL_PUREFTPD="n" 
 _INSTALL_JABBERD2="n" 
 _INSTALL_POWERDNS="n"
-_SET_SECURITY="y"
+_SET_SECURITY="n"
 
 _INSTALL_DOMAIN_NAME="518ic.com" 
 _TODO_METHOD="INSTALL" 
@@ -97,12 +99,6 @@ function checkSystem()
 	exit 0
 	fi
 
-	echo "Checking...for libxml2"
-	rpm -q libxml2
-	if [ "$?" = 1 ]; then
-	echo 'Sorry,Your system not "libxml2" program!'
-	exit 0
-	fi
 }
 
 
@@ -597,20 +593,32 @@ function getPostfix()
 
 function getApacheInstall()
 {
-	echo "==> Star apache install ... ";
+	echo " "
+	echo -n $"==> Star apache installl ... " 
+	echo " "
+
+	echo " " >>$_INSTALL_LOG;
+	echo -n $"==> Star apache install ... " >>$_INSTALL_LOG;
+	echo " " >>$_INSTALL_LOG;
+
 	if [ ! -f httpd-2.0.55.tar.gz ]; then
 
 		wget http://mirror.worria.com/apache/httpd/httpd-2.0.55.tar.gz || return 1
 
 	fi
 	if [ -f httpd-2.0.55.tar.gz ]; then
-		rm -rf httpd-2.0.55
-		tar -xvzf httpd-2.0.55.tar.gz
-		cd httpd-2.0.55
-		./configure --enable-rewrite=shared --enable-speling=shared
-		make
-		make install
+
+		if [ ! -d httpd-2.0.55 ]; then
+			tar -xvzf httpd-2.0.55.tar.gz >>$_INSTALL_LOG 2>&1
+		fi
+
+		cd httpd-2.0.55 >>$_INSTALL_LOG 2>&1
+		./configure --enable-rewrite --enable-ssl --enable-mods-shared --enable-cgi >>$_INSTALL_LOG 2>&1
+		make >>$_INSTALL_LOG 2>&1
+		make install >>$_INSTALL_LOG 2>&1
+
 		cd ..
+
 	fi
 	return 0
 	
@@ -645,25 +653,43 @@ function getIMAPPlus()
 
 function getMysqlInstall()
 {
-	echo "==> Star mysql install ... ";
+	echo " "
+	echo -n $"==> Star mysql install ... " 
+	echo " "
+
+	echo " " >>$_INSTALL_LOG;
+	echo -n $"==> Star mysql install ... " >>$_INSTALL_LOG;
+	echo " " >>$_INSTALL_LOG;
+
 	if [ ! -f mysql-4.0.26.tar.gz ]; then
 
 		wget http://dev.mysql.com/get/Downloads/MySQL-4.0/mysql-4.0.26.tar.gz/from/http://mysql.isu.edu.tw/ || return 1
 
 	fi
 	if [ -f mysql-4.0.26.tar.gz ]; then
-		groupadd mysql
-		useradd -g mysql mysql
-		tar -xvzf mysql-4.0.26.tar.gz
-		cd mysql-4.0.26
-		./configure
-		make
-		make install
-		mysql_install_db --user=mysql
-		ln -s /usr/local/var/mysql /usr/local/libexec/mysql
-		cp /usr/local/lib/mysql/*.* /usr/lib
-		mysqld_safe --user=mysql &
+
+		sh mysleep.sh &        
+		EID=$!
+
+		groupadd mysql >>$_INSTALL_LOG 2>&1
+		useradd -g mysql mysql >>$_INSTALL_LOG 2>&1
+		
+		if [ ! -d mysql-4.0.26 ]; then
+			tar -xvzf mysql-4.0.26.tar.gz >>$_INSTALL_LOG 2>&1
+		fi
+
+		cd mysql-4.0.26 >>$_INSTALL_LOG 2>&1
+		./configure >>$_INSTALL_LOG 2>&1
+		make >>$_INSTALL_LOG 2>&1
+		make install >>$_INSTALL_LOG 2>&1
+		mysql_install_db --user=mysql >>$_INSTALL_LOG 2>&1
+		ln -s /usr/local/var/mysql /usr/local/libexec/mysql >>$_INSTALL_LOG 2>&1
+		cp /usr/local/lib/mysql/*.* /usr/lib >>$_INSTALL_LOG 2>&1
+		mysqld_safe --user=mysql & >>$_INSTALL_LOG 2>&1
 		cd ..
+
+		kill $EID >/dev/null 2>&1
+
 	fi
 	return 0
 }
@@ -696,39 +722,71 @@ function getPHPInstall()
 
 function getLibxml2()
 {
-	echo "==> Star php install ... ";
+	echo " "
+	echo -n $"==> Star Libxml2 install ... " 
+	echo " "
+
+	echo " " >>$_INSTALL_LOG;
+	echo -n $"==> Star Libxml2 install ... " >>$_INSTALL_LOG;
+	echo " " >>$_INSTALL_LOG;
+
 	if [ ! -f libxml2-2.6.22.tar.gz ]; then
 
 		wget http://xmlsoft.org/sources/libxml2-2.6.22.tar.gz || return 1
 	fi
 	if [ -f libxml2-2.6.22.tar.gz ]; then
-		rm -rf libxml2-2.6.22
-		tar -xvzf libxml2-2.6.22.tar.gz
-		cd libxml2-2.6.22
-		./configure
-		make
-		make install
+
+		sh mysleep.sh &        
+		EID=$!
+
+		if [ ! -d libxml2-2.6.22 ]; then
+			tar -xvzf libxml2-2.6.22.tar.gz >>$_INSTALL_LOG 2>&1
+		fi
+
+		cd libxml2-2.6.22 >>$_INSTALL_LOG 2>&1
+		./configure >>$_INSTALL_LOG 2>&1
+		make >>$_INSTALL_LOG 2>&1
+		make install >>$_INSTALL_LOG 2>&1
 		cd ..
+
+		kill $EID >/dev/null 2>&1
+
 	fi
 	return 0
 }
 
 function getPHP5Install()
 {
-	echo "==> Star php install ... ";
+	echo " "
+	echo -n $"==> Star php install ... " 
+	echo " "
+
+	echo " " >>$_INSTALL_LOG;
+	echo -n $"==> Star php install ... " >>$_INSTALL_LOG;
+	echo " " >>$_INSTALL_LOG;
+
 	if [ ! -f php-5.1.0RC6.tar.gz ]; then
 
 		wget http://downloads.php.net/ilia/php-5.1.0RC6.tar.gz || return 1
 	fi
 	if [ -f php-5.1.0RC6.tar.gz ]; then
-		rm -rf php-5.1.0RC6
-		tar -xvzf php-5.1.0RC6.tar.gz
-		cd php-5.1.0RC6
-		./configure --with-apxs2=/usr/local/apache2/bin/apxs --with-mysql --enable-so --with-gettext --with-gd --enable-ftp  --with-jpeg-dir  --with-png-dir  --with-zlib --with-libxml-dir
-		make
-		make install
-		cd ..
+
+		sh mysleep.sh &        
+		EID=$!
+		
+		if [ ! -d php-5.1.0RC6 ]; then
+			tar -xvzf php-5.1.0RC6.tar.gz >>$_INSTALL_LOG 2>&1
+		fi
+
+		cd php-5.1.0RC6 >>$_INSTALL_LOG 2>&1
+		./configure --with-apxs2=/usr/local/apache2/bin/apxs --with-mysql --enable-so --with-gettext --with-gd --enable-ftp  --with-jpeg-dir  --with-png-dir  --with-zlib --with-libxml-dir >>$_INSTALL_LOG 2>&1
+		make >>$_INSTALL_LOG 2>&1
+		make install >>$_INSTALL_LOG 2>&1
+		cd .. 
 		cp php.ini /usr/local/lib
+
+		kill $EID >/dev/null 2>&1
+
 	fi
 	return 0
 }
@@ -1002,9 +1060,19 @@ if [ "$_TODO_METHOD" = "INSTALL"  ]; then
 		getMysqlInstall
 	fi
 
+	if [ "$_INSTALL_LIBXML2" = "y" ]; then
+
+		getLibxml2
+	fi
+
 	if [ "$_INSTALL_PHP" = "y" ]; then
 
 		getPHPInstall
+	fi
+
+	if [ "$_INSTALL_PHP5" = "y" ]; then
+
+		getPHP5Install
 	fi
 
 	if [ "$_INSTALL_PAM_MYSQL" = "y" ]; then
