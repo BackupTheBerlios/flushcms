@@ -1,0 +1,74 @@
+#!/bin/bash
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Source networking configuration.
+[ -r /etc/sysconfig/network ] && . /etc/sysconfig/network
+
+RETVAL=0
+prog="Web server System"
+
+start() {
+    # Start daemons.
+    echo -n $"Starting $prog: "
+    echo -n $"Apache2 "
+    /usr/local/apache2/bin/apachectl startssl > /dev/null 2>&1 &
+
+    echo -n $"Mysql4 "
+    /usr/local/bin/mysqld_safe & > /dev/null 2>&1 &
+
+    RETVAL=$?
+
+    if [ $RETVAL -eq 0 ]; then
+        touch /var/lock/subsys/webserver
+        success $"$prog start" 
+    else
+        failure $"$prog start failure"
+    fi
+
+    echo
+    return $RETVAL
+}
+
+stop() {
+    # Stop daemons.
+    echo -n $"Shutting down $prog: "
+
+    echo -n $"Apache2 "
+    /usr/local/apache2/bin/apachectl stop > /dev/null 2>&1 & 
+ 
+    echo -n $"Mysql4 " 
+    killproc mysqld
+
+    RETVAL=$?
+
+    if [ $RETVAL -eq 0 ]; then
+        rm -f /var/lock/subsys/webserver
+        success $"$prog stop"
+    else
+        failure $"$prog stop failure"
+    fi
+
+    echo
+    return $RETVAL
+}
+
+# See how we were called.
+case "$1" in
+    start)
+        start
+    ;;
+    stop)
+        stop
+    ;;
+    restart|reload)
+        stop
+        start
+        RETVAL=$?
+    ;;
+    *)
+        echo $"Usage: $0 {start|stop|restart}"
+        exit 1
+esac
+exit $RETVAL
