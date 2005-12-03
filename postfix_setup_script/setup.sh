@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: setup.sh,v 1.2 2005/12/03 01:11:56 arzen Exp $
+# $Id: setup.sh,v 1.3 2005/12/03 01:17:56 arzen Exp $
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 
 # Linux Server Setup Script v2.0
@@ -35,12 +35,15 @@ _UNINSTALL_LOG="/var/uninstall/linux_server_uninstall.log"
 _OS="Linux"
 _START_DATE=`date +"%Y-%m-%d %H:%M:%S"`
 _SOURCE_DIR=`pwd`
+
+echo " "
+echo " "
 echo "+---------------------------------------------------------+";
-echo "|		Linux Server Setup Script v2.0			";
-echo "|		2005-11-2					";
-echo "|		compile by √œ‘∂Ú˚				";
-echo "|		Copyright (C) 2004 by arzen			";
-echo "|		E-mail:arzen1013@yahoo.com.cn QQ:3440895	";
+echo "|         Linux Server Setup Script v2.0                  |";
+echo "|         2005 11 2                                       |";
+echo "|         compile by √œ‘∂Ú˚                               |";
+echo "|         Copyright (C) 2004 by arzen                     |";
+echo "|         E mail:arzen1013@yahoo.com.cn QQ:3440895        |";
 echo "+---------------------------------------------------------+";
 echo " ";
 echo " ";
@@ -958,11 +961,14 @@ function uninstallIsure()
 
 function thankyouMsg()
 {
+	echo " "
+	echo " "
 	echo "+---------------------------------------------------------+";
-	echo "|			Thank you				";
-	echo "|		Copyright (C) 2004 by √œ‘∂Ú˚ arzen		";
-	echo "|		E-mail:arzen1013@163.com QQ:3440895		";
+	echo "|                 Thank you                               |";
+	echo "|         Copyright (C) 2004 by √œ‘∂Ú˚ arzen              |";
+	echo "|         E mail:arzen1013@163.com QQ:3440895             |";
 	echo "+---------------------------------------------------------+";
+	echo " "
 }
 
 #--------------- Install Part --------------------------#
