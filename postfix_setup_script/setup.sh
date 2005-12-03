@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: setup.sh,v 1.4 2005/12/03 01:30:20 arzen Exp $
+# $Id: setup.sh,v 1.5 2005/12/03 01:58:59 arzen Exp $
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 
 # Linux Server Setup Script v2.0
@@ -903,29 +903,29 @@ function setSecurity()
 
 	sed -e "s/ca::ctrlaltdel:/#ca::ctrlaltdel:/" -r -i.org /etc/inittab >>$_INSTALL_LOG 2>&1
 
-	echo "TMOUT=3600" >> /etc/profile >>$_INSTALL_LOG 2>&1
+	echo "TMOUT=3600" >> /etc/profile
 	
 	[ -f /etc/securetty ] && mv /etc/securetty /etc/securetty.orig >>$_INSTALL_LOG 2>&1
-	echo "tty1" > /etc/securetty >>$_INSTALL_LOG 2>&1
+	echo tty1 > /etc/securetty
 	
-	echo 1 > /proc/sys/net/ipv4/icmp_echo_ignore_all >>$_INSTALL_LOG 2>&1
+	echo 1 > /proc/sys/net/ipv4/icmp_echo_ignore_all
 
-	userdel adm >>$_INSTALL_LOG 2>&1
-	userdel lp >>$_INSTALL_LOG 2>&1
-	userdel sync >>$_INSTALL_LOG 2>&1
-	userdel shutdown >>$_INSTALL_LOG 2>&1
-	userdel halt >>$_INSTALL_LOG 2>&1
+	userdel adm 
+	userdel lp 
+	userdel sync 
+	userdel shutdown 
+	userdel halt 
 
-	userdel news >>$_INSTALL_LOG 2>&1
-	userdel uucp >>$_INSTALL_LOG 2>&1
-	userdel operator >>$_INSTALL_LOG 2>&1
-	userdel games >>$_INSTALL_LOG 2>&1
+	userdel news 
+	userdel uucp 
+	userdel operator 
+	userdel games 
 
-	userdel gopher >>$_INSTALL_LOG 2>&1
-	userdel ftp >>$_INSTALL_LOG 2>&1
+	userdel gopher 
+	userdel ftp 
 
-	groupdel adm >>$_INSTALL_LOG 2>&1
-	groupdel lp >>$_INSTALL_LOG 2>&1
+	groupdel adm 
+	groupdel lp 
 
 	chattr +i /etc/passwd >>$_INSTALL_LOG 2>&1
 	chattr +i /etc/shadow >>$_INSTALL_LOG 2>&1
@@ -935,8 +935,9 @@ function setSecurity()
 	cd $_SOURCE_DIR >>$_INSTALL_LOG 2>&1
 	cp conf/rc.firewall /etc/init.d/ >>$_INSTALL_LOG 2>&1
 	chmod +x /etc/init.d/rc.firewall >>$_INSTALL_LOG 2>&1
-	chkconfig --level 0123456 rc.firewall on >>$_INSTALL_LOG 2>&1
 	/etc/init.d/rc.firewall start >>$_INSTALL_LOG 2>&1
+
+	echo "/etc/init.d/rc.firewall start" >>/etc/rc.d/rc.local
 	
 	kill $EID >/dev/null 2>&1
 
