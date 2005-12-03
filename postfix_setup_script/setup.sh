@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: setup.sh,v 1.6 2005/12/03 07:04:01 arzen Exp $
+# $Id: setup.sh,v 1.7 2005/12/03 14:08:16 arzen Exp $
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 
 # Linux Server Setup Script v2.0
@@ -1045,11 +1045,6 @@ if [ "$_TODO_METHOD" = "INSTALL"  ]; then
 	echo " ">>$_INSTALL_LOG 2>&1
 	checkSystem
 
-	if [ "$_SET_SECURITY" = "y" ]; then
-
-		setSecurity
-	fi
-
 	if [ "$_INSTALL_APACHE" = "y" ]; then
 
 		getApacheInstall
@@ -1140,6 +1135,10 @@ if [ "$_TODO_METHOD" = "INSTALL"  ]; then
 		getPowerDNS
 	fi
 
+	if [ "$_SET_SECURITY" = "y" ]; then
+
+		setSecurity
+	fi
 
 	thankyouMsg
 
