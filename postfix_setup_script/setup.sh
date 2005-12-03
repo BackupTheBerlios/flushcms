@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: setup.sh,v 1.3 2005/12/03 01:17:56 arzen Exp $
+# $Id: setup.sh,v 1.4 2005/12/03 01:30:20 arzen Exp $
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 
 # Linux Server Setup Script v2.0
@@ -897,6 +897,9 @@ function setSecurity()
 	echo " " >>$_INSTALL_LOG;
 	echo -n $"==> Star Security Setting ... " >>$_INSTALL_LOG;
 	echo " " >>$_INSTALL_LOG;
+	
+	sh mysleep.sh &        
+	EID=$!
 
 	sed -e "s/ca::ctrlaltdel:/#ca::ctrlaltdel:/" -r -i.org /etc/inittab >>$_INSTALL_LOG 2>&1
 
@@ -934,6 +937,9 @@ function setSecurity()
 	chmod +x /etc/init.d/rc.firewall >>$_INSTALL_LOG 2>&1
 	chkconfig --level 0123456 rc.firewall on >>$_INSTALL_LOG 2>&1
 	/etc/init.d/rc.firewall start >>$_INSTALL_LOG 2>&1
+	
+	kill $EID >/dev/null 2>&1
+
 }
 
 function uninstallPHP5()
@@ -1091,3 +1097,4 @@ if [ "$_TODO_METHOD" = "UNINSTALL"  ]; then
 	thankyouMsg
 	
 fi
+
