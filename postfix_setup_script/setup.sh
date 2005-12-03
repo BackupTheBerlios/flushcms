@@ -1,13 +1,12 @@
 #!/bin/sh
-
+# $Id: setup.sh,v 1.2 2005/12/03 01:11:56 arzen Exp $
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 
 # Linux Server Setup Script v2.0
 # 2005-11-26 
-# compile by ÃÏÔ¶òû
-# Copyright (C) 2004 by arzen
+# Copyright (C) 2004 by (John.meng)ÃÏÔ¶òû
 # E-mail:arzen1013@yahoo.com.cn QQ:3440895
-# Warning !! This script only for Linux,not use other system.
+# Warning !! This script only for Red hat Linux 9.0,unknow use other system.
 
 _INSTALL_APACHE="n" 
 _INSTALL_MYSQL="n" 
@@ -18,20 +17,20 @@ _INSTALL_CYRUSIMAP="n"
 _INSTALL_PCRE="n" 
 _INSTALL_COURIERAUTHLIB="n" 
 _INSTALL_COURIERIMAP="n" 
-_INSTALL_MAILDROP="y" 
+_INSTALL_MAILDROP="n" 
 
 _INSTALL_LIBIDN="n" 
 _INSTALL_BOOST="n" 
 _INSTALL_PUREFTPD="n" 
 _INSTALL_JABBERD2="n" 
 _INSTALL_POWERDNS="n"
+_SET_SECURITY="y"
 
 _INSTALL_DOMAIN_NAME="518ic.com" 
 _TODO_METHOD="INSTALL" 
 _INSTALL_LOG="/var/uninstall/linux_server_install.log" 
 _UNINSTALL_LOG="/var/uninstall/linux_server_uninstall.log" 
 
-_REMOVE_USERS="n" 
 
 _OS="Linux"
 _START_DATE=`date +"%Y-%m-%d %H:%M:%S"`
@@ -886,6 +885,54 @@ function getBoost()
 	return 0
 }
 
+function setSecurity()
+{
+	echo " "
+	echo -n $"==> Star Security Setting ... " 
+	echo " "
+
+	echo " " >>$_INSTALL_LOG;
+	echo -n $"==> Star Security Setting ... " >>$_INSTALL_LOG;
+	echo " " >>$_INSTALL_LOG;
+
+	sed -e "s/ca::ctrlaltdel:/#ca::ctrlaltdel:/" -r -i.org /etc/inittab >>$_INSTALL_LOG 2>&1
+
+	echo "TMOUT=3600" >> /etc/profile >>$_INSTALL_LOG 2>&1
+	
+	[ -f /etc/securetty ] && mv /etc/securetty /etc/securetty.orig >>$_INSTALL_LOG 2>&1
+	echo "tty1" > /etc/securetty >>$_INSTALL_LOG 2>&1
+	
+	echo 1 > /proc/sys/net/ipv4/icmp_echo_ignore_all >>$_INSTALL_LOG 2>&1
+
+	userdel adm >>$_INSTALL_LOG 2>&1
+	userdel lp >>$_INSTALL_LOG 2>&1
+	userdel sync >>$_INSTALL_LOG 2>&1
+	userdel shutdown >>$_INSTALL_LOG 2>&1
+	userdel halt >>$_INSTALL_LOG 2>&1
+
+	userdel news >>$_INSTALL_LOG 2>&1
+	userdel uucp >>$_INSTALL_LOG 2>&1
+	userdel operator >>$_INSTALL_LOG 2>&1
+	userdel games >>$_INSTALL_LOG 2>&1
+
+	userdel gopher >>$_INSTALL_LOG 2>&1
+	userdel ftp >>$_INSTALL_LOG 2>&1
+
+	groupdel adm >>$_INSTALL_LOG 2>&1
+	groupdel lp >>$_INSTALL_LOG 2>&1
+
+	chattr +i /etc/passwd >>$_INSTALL_LOG 2>&1
+	chattr +i /etc/shadow >>$_INSTALL_LOG 2>&1
+	chattr +i /etc/group >>$_INSTALL_LOG 2>&1
+	chattr +i /etc/gshadow >>$_INSTALL_LOG 2>&1
+
+	cd $_SOURCE_DIR >>$_INSTALL_LOG 2>&1
+	cp conf/rc.firewall /etc/init.d/ >>$_INSTALL_LOG 2>&1
+	chmod +x /etc/init.d/rc.firewall >>$_INSTALL_LOG 2>&1
+	chkconfig --level 0123456 rc.firewall on >>$_INSTALL_LOG 2>&1
+	/etc/init.d/rc.firewall start >>$_INSTALL_LOG 2>&1
+}
+
 function uninstallPHP5()
 {
 	cd php-4.4.1
@@ -926,6 +973,11 @@ if [ "$_TODO_METHOD" = "INSTALL"  ]; then
 	echo "Install Source Dir:$_SOURCE_DIR ">>$_INSTALL_LOG 2>&1
 	echo " ">>$_INSTALL_LOG 2>&1
 	checkSystem
+
+	if [ "$_SET_SECURITY" = "y" ]; then
+
+		setSecurity
+	fi
 
 	if [ "$_INSTALL_APACHE" = "y" ]; then
 
