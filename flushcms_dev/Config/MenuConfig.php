@@ -14,6 +14,8 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: MenuConfig.php,v 1.1 2005/12/08 08:52:37 arzen Exp $ */
-
+/* $Id: MenuConfig.php,v 1.2 2005/12/08 10:13:08 arzen Exp $ */
+$MainMenu = array(
+	array("PID"=>0,"ID"=>1,"Name"=>$__Lang__['langMenu'],"URL"=>"###")
+	);
 ?>
