@@ -1,0 +1,6 @@
+langGeneralCharset = iso-8859-1
+langGeneralSystemName = FlushPHP FrameWork
+
+langGeneralFileNotExist = Sorry,file not exist
+
+langGeneralCopyRight= CopyRight(c) 2005 FlushPHP Group

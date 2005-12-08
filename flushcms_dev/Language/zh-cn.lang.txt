@@ -1,0 +1,4 @@
+langGeneralCharset = gb2312
+langGeneralSystemName = FlushPHP FrameWork
+
+langGeneralFileNotExist = 对不起，文件不存在
