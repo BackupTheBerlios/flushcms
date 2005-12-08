@@ -14,9 +14,9 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: index.php,v 1.1 2005/12/08 08:52:36 arzen Exp $ */
+/* $Id: index.php,v 1.2 2005/12/08 08:58:42 arzen Exp $ */
 
-include_once("../FlushPHP.class.php");
+include_once("FlushPHP.class.php");
 $FlushPHPObj = new FlushPHP();
 
 $smarty->display("admin_index.tpl.htm");
