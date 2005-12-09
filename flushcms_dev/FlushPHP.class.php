@@ -14,27 +14,11 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: FlushPHP.class.php,v 1.2 2005/12/09 03:44:22 arzen Exp $ */
+/* $Id: FlushPHP.class.php,v 1.3 2005/12/09 08:17:47 arzen Exp $ */
 
 /**
  * @package	Kelnel
  */
-define(ROOT_DIR,dirname(__FILE__));
-define(UTIL_DIR,ROOT_DIR."/Utility/");
-define(MODULE_DIR,ROOT_DIR."/Module/");
-define(INCLUDE_DIR,ROOT_DIR."/Include/");
-define(LANG_DIR,ROOT_DIR."/Language/");
-define(APP_DIR,ROOT_DIR."/App/");
-define(CONFIG_DIR,ROOT_DIR."/Config/");
-include_once(CONFIG_DIR."Config.php");
-include_once(INCLUDE_DIR."/smarty/Smarty.class.php");
-define(THEMES_DIR,ROOT_DIR."/templates/".$Themes."/");
-$__Lang__ = array();
-$smarty = new Smarty;
-$smarty->compile_check = true;
-$smarty->debugging = false;
-$smarty->template_dir=THEMES_DIR;
-$smarty->compile_dir=ROOT_DIR."/templates_c";
 class FlushPHP
 {
 
