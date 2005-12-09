@@ -14,8 +14,16 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: MenuConfig.php,v 1.2 2005/12/08 10:13:08 arzen Exp $ */
-$MainMenu = array(
-	array("PID"=>0,"ID"=>1,"Name"=>$__Lang__['langMenu'],"URL"=>"###")
-	);
+/* $Id: MenuConfig.php,v 1.3 2005/12/09 08:13:49 arzen Exp $ */
+//$MainMenu = array(
+//	array("PID"=>0,"ID"=>1,"Name"=>$__Lang__['langMenu'],"URL"=>"###")
+//	);
+	
+$MainMenu[0]['Name']= $__Lang__['langMenuGeneral'];
+$MainMenu[0]['URL']= "###";
+$MainMenu[0][0]['Name']= $__Lang__['langMenuModel'].$__Lang__['langGeneralList'];
+$MainMenu[0][0]['URL']= "#####";
+$MainMenu[0][1]['Name']= $__Lang__['langMenuUser'].$__Lang__['langGeneralList'];
+$MainMenu[0][1]['URL']= "#####";
+
 ?>
