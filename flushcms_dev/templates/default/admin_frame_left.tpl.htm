@@ -5,7 +5,7 @@
 <TR>
 	<TD>
 	{section name=data2 loop=$MainMenu[data]}
-		<div class="box1">{$MainMenu[data][data2].Name}</div>
+		<div class="box1"><a href="{$MainMenu[data][data2].URL}">{$MainMenu[data][data2].Name}</a></div>
 		<div class="section">
 		{section name=data3 loop=$MainMenu[data][data2]}
 			<div class="box2">
