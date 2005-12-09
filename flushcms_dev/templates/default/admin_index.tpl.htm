@@ -2,14 +2,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <title>{$langGeneralSystemName}</title>
-<link href="sytle.css" rel="stylesheet" type="text/css">
+<link href="{$smarty.const.THEMES_DIR}sytle.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 {include file="admin_frame_top.tpl.htm"}
 <table width="100%" height="80%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="20%">{include file="admin_frame_left.tpl.htm"}</td>
-    <td >{$main}</td>
+    <td >{$template_dir}{$main}</td>
   </tr>
 </table>
 {include file="admin_frame_foot.tpl.htm"}
