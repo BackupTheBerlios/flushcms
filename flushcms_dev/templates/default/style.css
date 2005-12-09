@@ -1,0 +1,88 @@
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+
+td
+{
+	font-size: 12px;
+	text-decoration: none;
+}
+.click-menu {
+    width: 135px;
+}
+.click-menu .box1 {
+    color: #99bb99;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-width: 1px;
+    border-color: #448882;
+    border-style: solid solid solid solid;
+    cursor: default;
+    position: relative;
+}
+.click-menu .box1-hover {
+    font-weight: bold;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-width: 1px;
+    border-color: #99CCAE;
+    border-style: solid solid solid solid;
+    cursor: default;
+    position: relative;
+}
+.click-menu .box1-open {
+    font-weight: bold;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-width: 1px;
+    border-color: #448882;
+    border-style: solid solid none solid;
+    cursor: default;
+    position: relative;
+}
+.click-menu .box1-open-hover {
+    font-weight: bold;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-width: 1px;
+    border-color: #99CCAE;
+    border-style: solid solid none solid;
+    cursor: default;
+    position: relative;
+}
+.click-menu .box1 img, .click-menu .box1-hover img, .click-menu .box1-open img, .click-menu .box1-open-hover img {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+}
+.click-menu .section {
+    font-size: 12px;
+    line-height: 15px;
+    padding: 5px 5px 6px 5px;
+    border-width: 1px;
+    border-color: #448882;
+    border-style: none solid solid solid;
+    display: none;
+}
+.click-menu .section a {
+    color: #8BAA88;
+    text-decoration: none;
+    white-space: nowrap;
+}
+.click-menu .section a:hover {
+    color: #CCEEEB;
+    text-decoration: none;
+    white-space: nowrap;
+}
+.click-menu .box2 {
+}
+.click-menu .box2-hover {
+}
+.click-menu .section .active,
+.click-menu .section .active:hover {
+    color: yellow;
+}

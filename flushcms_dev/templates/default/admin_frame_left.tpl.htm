@@ -1,20 +1,44 @@
-<table width="100%" border="0">
-  <tr>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-  </tr>
-</table>
+
+<script type="text/javascript" src="{$smarty.const.THEMES_DIR}site.js"></script>
+
+
+<!--<TABLE id="click-menu1" class="click-menu">
+<TR>
+	<TD>
+
+	<div class="box1">gdsafdsaf</div>
+	<div class="section">
+	<div class="box2">²âÊÔ1</div>
+	<div class="box2">²âÊÔ2</div>
+	</div>
+	<div class="box1"><A HREF="###">ÍË³ö</A></div>
+
+	</TD>
+</TR>
+</TABLE>-->
+
+<TABLE id="click-menu1" class="click-menu">
+{section name=data loop=$MainMenu}
+<TR>
+	<TD>
+	{section name=data2 loop=$MainMenu[data]}
+		<div class="box1">{$MainMenu[data][data2].Name}</div>
+		<div class="section">
+		{section name=data3 loop=$MainMenu[data][data2]}
+			<div class="box2">{$MainMenu[data][data2][data3].Name}</div>
+		{/section}
+		</div>
+	{/section}
+	</TD>
+</TR>
+{/section}
+</TABLE>
+
+
+
+{literal}
+    <script type="text/javascript">
+    var clickMenu1 = new ClickShowHideMenu('click-menu1');
+    clickMenu1.init();
+    </script>
+{/literal}
