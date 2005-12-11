@@ -11,78 +11,124 @@ td
 	text-decoration: none;
 }
 .click-menu {
-    width: 135px;
+	width: 135px;
+	background-color: #CCCCDD;
 }
 .click-menu .box1 {
-    color: #99bb99;
-    font-weight: bold;
-    font-size: 12px;
-    padding: 4px 8px;
-    border-width: 1px;
-    border-color: #448882;
-    border-style: solid solid solid solid;
-    cursor: default;
-    position: relative;
+	color: #000000;
+	font-weight: bold;
+	font-size: 14px;
+	padding: 4px 8px;
+	border-width: 1px;
+	border-color: #666699;
+	border-style: solid solid solid solid;
+	cursor: default;
+	position: relative;
+	text-decoration: none;
+	background-color: #666699;
+}
+.click-menu .box1 a {
+	color: #494949;
+	text-decoration: none;
+	white-space: nowrap;
 }
 .click-menu .box1-hover {
-    font-weight: bold;
-    font-size: 12px;
-    padding: 4px 8px;
-    border-width: 1px;
-    border-color: #99CCAE;
-    border-style: solid solid solid solid;
-    cursor: default;
-    position: relative;
+	font-weight: bold;
+	font-size: 14px;
+	padding: 4px 8px;
+	border-width: 1px;
+	border-color: #6666CC;
+	border-style: solid solid solid solid;
+	cursor: default;
+	position: relative;
+	text-decoration: none;
+	background-color: #7D7DAA;
+	color: #000000;
 }
+.click-menu .box1-hover a {
+	color: #494949;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
 .click-menu .box1-open {
-    font-weight: bold;
-    font-size: 12px;
-    padding: 4px 8px;
-    border-width: 1px;
-    border-color: #448882;
-    border-style: solid solid none solid;
-    cursor: default;
-    position: relative;
+	font-weight: bold;
+	font-size: 14px;
+	padding: 4px 8px;
+	border-width: 1px;
+	border-color: #6666CC;
+	border-style: solid solid none solid;
+	cursor: default;
+	position: relative;
+	background-color: #666699;
+	color: #000000;
 }
+.click-menu .box1-open a {
+	color: #494949;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
 .click-menu .box1-open-hover {
-    font-weight: bold;
-    font-size: 12px;
-    padding: 4px 8px;
-    border-width: 1px;
-    border-color: #99CCAE;
-    border-style: solid solid none solid;
-    cursor: default;
-    position: relative;
+	font-weight: bold;
+	font-size: 14px;
+	padding: 4px 8px;
+	border-width: 1px;
+	border-color: #6666CC;
+	border-style: solid solid none solid;
+	cursor: default;
+	position: relative;
+	background-color: #7D7DAA;
+	color: #000000;
 }
+.click-menu .box1-open-hover a {
+	color: #494949;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+
 .click-menu .box1 img, .click-menu .box1-hover img, .click-menu .box1-open img, .click-menu .box1-open-hover img {
-    position: absolute;
-    top: 6px;
-    right: 6px;
+	position: absolute;
+	top: 6px;
+	right: 6px;
+	color: #000000;
+	text-decoration: none;
 }
 .click-menu .section {
-    font-size: 12px;
-    line-height: 15px;
-    padding: 5px 5px 6px 5px;
-    border-width: 1px;
-    border-color: #448882;
-    border-style: none solid solid solid;
-    display: none;
+	font-size: 14px;
+	line-height: 15px;
+	padding: 5px 5px 6px 5px;
+	border-width: 1px;
+	border-color: #6666CC;
+	border-style: none solid solid solid;
+	display: none;
+	background-color: #B5B5CE;
 }
 .click-menu .section a {
-    color: #8BAA88;
-    text-decoration: none;
-    white-space: nowrap;
+	color: #6666CC;
+	text-decoration: none;
+	white-space: nowrap;
+	background-color: #B5B5CE;
 }
 .click-menu .section a:hover {
-    color: #CCEEEB;
-    text-decoration: none;
-    white-space: nowrap;
+	color: #6666CC;
+	text-decoration: none;
+	white-space: nowrap;
+	background-color: #B5B5CE;
 }
 .click-menu .box2 {
+	background-color: #B5B5CE;
 }
 .click-menu .box2-hover {
+	background-color: #B5B5CE;
 }
 .click-menu .section .active,
 .click-menu .section .active:hover {
     color: yellow;
+}
+.copyright {
+	color: #333333;
+	text-decoration: none;
+	background-color: #F9F9F9;
 }

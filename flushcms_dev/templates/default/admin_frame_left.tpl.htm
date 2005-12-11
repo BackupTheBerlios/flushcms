@@ -1,22 +1,27 @@
 <script type="text/javascript" src="{$smarty.const.THEMES_DIR}site.js"></script>
 
-<TABLE id="click-menu1" class="click-menu">
-{section name=data loop=$MainMenu}
-<TR>
-	<TD>
-	{section name=data2 loop=$MainMenu[data]}
-		<div class="box1"><a href="{$MainMenu[data][data2].URL}">{$MainMenu[data][data2].Name}</a></div>
-		<div class="section">
-		{section name=data3 loop=$MainMenu[data][data2]}
-			<div class="box2">
-			  <a href="{$MainMenu[data][data2][data3].URL}">{$MainMenu[data][data2][data3].Name}</a>
+<TABLE class="click-menu" id="click-menu1">
+	{section name=data loop=$MainMenu}
+	<TR>
+		<TD>
+		{section name=data2 loop=$MainMenu[data]}
+			<div class="box1"><a href="{$MainMenu[data][data2].URL}">{$MainMenu[data][data2].Name}</a></div>
+			<div class="section">
+			{section name=data3 loop=$MainMenu[data][data2]}
+				<div class="box2">
+				  <a href="{$MainMenu[data][data2][data3].URL}">{$MainMenu[data][data2][data3].Name}</a>
+				</div>
+			{/section}
 			</div>
 		{/section}
-		</div>
+		</TD>
+	</TR>
 	{/section}
-	</TD>
-</TR>
-{/section}
+
+	<TR>
+		<TD><div class="box1"><a href="{$MainMenu[data][data2].URL}">{$langGeneralLogout}</a></div></TD>
+	</TR>
+
 </TABLE>
 
 {literal}
