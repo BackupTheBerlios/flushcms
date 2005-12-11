@@ -7,7 +7,7 @@ body {
 
 td
 {
-	font-size: 12px;
+	font-size: 14px;
 	text-decoration: none;
 }
 .click-menu {
@@ -131,4 +131,44 @@ td
 	color: #333333;
 	text-decoration: none;
 	background-color: #F9F9F9;
+}
+.msg_table_head_msg {
+	margin: 2px;
+	padding: 2px;
+	border: 3px dashed #666666;
+	height: 30%;
+	width: 60%;
+}
+.msg_td_msg {
+	background-color: #CCCCCC;
+	margin: 0px;
+	padding: 0px;
+}
+.msg_td_head_msg {
+	background-color: #666699;
+	height: 30px;
+	margin: 0px;
+	padding: 0px;
+	font-size: 14px;
+}
+.msg_td_head_warnning {
+	background-color: #CC6600;
+	height: 30px;
+	margin: 0px;
+	padding: 0px;
+	font-size: 14px;
+}
+.msg_td_head_error {
+	background-color: #660000;
+	height: 30px;
+	margin: 0px;
+	padding: 0px;
+	font-size: 14px;
+}
+.msg_td_head_notice {
+	background-color: #006699;
+	height: 30px;
+	margin: 0px;
+	padding: 0px;
+	font-size: 14px;
 }
