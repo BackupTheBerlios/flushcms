@@ -1,4 +1,14 @@
 langGeneralCharset = gb2312
 langGeneralSystemName = FlushPHP FrameWork
 
+langMenuGeneral = 常规
+langMenuModel = 模块
+
+langMenuUser = 用户
+
+langGeneralLogout = Logout
+
+langGeneralList = 列表
 langGeneralFileNotExist = 对不起，文件不存在
+
+langGeneralCopyRight= CopyRight(c) 2005 FlushPHP Group
