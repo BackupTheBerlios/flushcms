@@ -16,7 +16,7 @@
 // | Authors: Tal Peer <tal@php.net>                                      |
 // |          Pierre-Alain Joye <paj@pearfr.org>                          |
 // +----------------------------------------------------------------------+
-// $Id: Javascript.php,v 1.1 2005/12/11 14:54:11 arzen Exp $
+// $Id: Javascript.php,v 1.2 2005/12/11 15:16:20 arzen Exp $
 
 /**
  * A class for performing basic JavaScript operations
@@ -100,7 +100,7 @@ if(!defined('HTML_JAVASCRIPT_NL')){
 }
 
 /** Convertion tools */
-require_once 'HTML/Javascript/Convert.php';
+require_once PEAR_DIR.'HTML/Javascript/Convert.php';
 
 /**
  * Main Javascript class
@@ -194,7 +194,7 @@ class HTML_Javascript
     function raiseError($code)
     {
         $ret = null;
-        require_once 'PEAR.php';
+        require_once PEAR_DIR.'PEAR.php';
         switch ($code) {
             case HTML_JAVASCRIPT_ERROR_NOSTART:
                 $ret = PEAR::raiseError(

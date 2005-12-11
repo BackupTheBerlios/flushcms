@@ -16,16 +16,16 @@
 // | Authors: Alexey Borzov <avb@php.net>                                 |
 // +----------------------------------------------------------------------+
 //
-// $Id: SigmaTreeRenderer.php,v 1.1 2005/12/11 14:52:48 arzen Exp $
+// $Id: SigmaTreeRenderer.php,v 1.2 2005/12/11 15:16:21 arzen Exp $
 //
 
-require_once 'HTML/Menu/Renderer.php';
+require_once PEAR_DIR.'HTML/Menu/Renderer.php';
 
 /**
  * HTML_Template_Sigma-based renderer for 'tree' and 'sitemap' type menus,
  * where menu level is represented by tag nesting.
  * 
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  * @author  Alexey Borzov <avb@php.net>
  * @access  public
  * @package HTML_Menu
@@ -84,7 +84,7 @@ class HTML_Menu_SigmaTreeRenderer extends HTML_Menu_Renderer
         if ('tree' == $menuType || 'sitemap' == $menuType) {
             $this->_menuType = $menuType;
         } else {
-            require_once 'PEAR.php';
+            require_once PEAR_DIR.'PEAR.php';
             return PEAR::raiseError("HTML_Menu_SigmaTreeRenderer: unable to render '$menuType' type menu");
         }
         $this->_level = -1;

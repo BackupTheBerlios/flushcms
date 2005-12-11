@@ -18,17 +18,17 @@
 // |          Alexey Borzov <avb@php.net>                                 |
 // +----------------------------------------------------------------------+
 //
-// $Id: DirectRenderer.php,v 1.1 2005/12/11 14:52:48 arzen Exp $
+// $Id: DirectRenderer.php,v 1.2 2005/12/11 15:16:21 arzen Exp $
 //
 
-require_once 'HTML/Menu/Renderer.php';
+require_once PEAR_DIR.'HTML/Menu/Renderer.php';
 
 /**
  * The renderer that generates HTML for the menu all by itself.
  * 
  * Inspired by HTML_Menu 1.0 code
  * 
- * @version  $Revision: 1.1 $
+ * @version  $Revision: 1.2 $
  * @author   Ulf Wendel <ulf.wendel@phpdoc.de>
  * @author   Alexey Borzov <avb@php.net>
  * @access   public

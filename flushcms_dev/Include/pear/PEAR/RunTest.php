@@ -18,7 +18,7 @@
 // |                                                                      |
 // +----------------------------------------------------------------------+
 //
-// $Id: RunTest.php,v 1.1 2005/12/11 14:54:44 arzen Exp $
+// $Id: RunTest.php,v 1.2 2005/12/11 15:16:21 arzen Exp $
 //
 
 /**
@@ -36,7 +36,7 @@ Actually finish the development and testing
 
  */
 
-require_once 'PEAR.php';
+require_once PEAR_DIR.'PEAR.php';
 require_once 'PEAR/Config.php';
 
 define('DETAILED', 1);

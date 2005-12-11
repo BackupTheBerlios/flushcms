@@ -16,10 +16,10 @@
 // | Author:  Alexey Borzov <avb@php.net>                                 |
 // +----------------------------------------------------------------------+
 //
-// $Id: ArrayRenderer.php,v 1.1 2005/12/11 14:52:48 arzen Exp $
+// $Id: ArrayRenderer.php,v 1.2 2005/12/11 15:16:21 arzen Exp $
 //
 
-require_once 'HTML/Menu/Renderer.php';
+require_once PEAR_DIR.'HTML/Menu/Renderer.php';
 
 /**
  * The renderer that creates an array of visible menu entries.
@@ -49,7 +49,7 @@ require_once 'HTML/Menu/Renderer.php';
  *    // than 'url', 'title' and 'sub', they will be copied here, too
  * )
  * 
- * @version  $Revision: 1.1 $
+ * @version  $Revision: 1.2 $
  * @author   Alexey Borzov <avb@php.net>
  * @access   public
  * @package  HTML_Menu

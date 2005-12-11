@@ -16,12 +16,12 @@
  * @author     Laurent Laville <pear@laurent-laville.org>
  * @copyright  1997-2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: UI.php,v 1.1 2005/12/11 14:53:04 arzen Exp $
+ * @version    CVS: $Id: UI.php,v 1.2 2005/12/11 15:16:21 arzen Exp $
  * @link       http://pear.php.net/package/HTML_Progress
  * @since      File available since Release 1.0
  */
 
-require_once 'HTML/Common.php';
+require_once PEAR_DIR.'HTML/Common.php';
 
 /**
  * HTML loading bar with only PHP and JS interface.

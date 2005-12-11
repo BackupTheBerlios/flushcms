@@ -17,10 +17,10 @@
 // |          Uwe Mindrup <uwe@mindrup.de>                                |
 // +----------------------------------------------------------------------+
 //
-// $Id: DirectTreeRenderer.php,v 1.1 2005/12/11 14:52:48 arzen Exp $
+// $Id: DirectTreeRenderer.php,v 1.2 2005/12/11 15:16:21 arzen Exp $
 //
 
-require_once 'HTML/Menu/Renderer.php';
+require_once PEAR_DIR.'HTML/Menu/Renderer.php';
 
 /**
  * The 'direct' renderer for 'tree' and 'sitemap' menu types where level is
@@ -28,7 +28,7 @@ require_once 'HTML/Menu/Renderer.php';
  * 
  * Thanks to Uwe Mindrup for the idea and initial implementation.
  * 
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  * @author  Alexey Borzov <avb@php.net>
  * @author  Uwe Mindrup <uwe@mindrup.de>
  * @access  public
@@ -85,7 +85,7 @@ class HTML_Menu_DirectTreeRenderer extends HTML_Menu_Renderer
         if ('tree' == $menuType || 'sitemap' == $menuType) {
             $this->_menuType = $menuType;
         } else {
-            require_once 'PEAR.php';
+            require_once PEAR_DIR.'PEAR.php';
             return PEAR::raiseError("HTML_Menu_DirectTreeRenderer: unable to render '$menuType' type menu");
         }
     }

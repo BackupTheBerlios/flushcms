@@ -17,11 +17,11 @@
  * @author     Laurent Laville <pear@laurent-laville.org>
  * @copyright  1997-2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: SmartyDynamic.php,v 1.1 2005/12/11 14:53:04 arzen Exp $
+ * @version    CVS: $Id: SmartyDynamic.php,v 1.2 2005/12/11 15:16:20 arzen Exp $
  * @link       http://pear.php.net/package/HTML_Progress
  */
 
-require_once 'HTML/QuickForm/Renderer/Array.php';
+require_once PEAR_DIR.'HTML/QuickForm/Renderer/Array.php';
 // fix this if your Smarty is somewhere else
 require_once 'Smarty.class.php';
 

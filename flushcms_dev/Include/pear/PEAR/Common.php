@@ -17,9 +17,9 @@
 // |          Tomas V.V.Cox <cox@idecnet.com>                             |
 // +----------------------------------------------------------------------+
 //
-// $Id: Common.php,v 1.1 2005/12/11 14:54:44 arzen Exp $
+// $Id: Common.php,v 1.2 2005/12/11 15:16:20 arzen Exp $
 
-require_once 'PEAR.php';
+require_once PEAR_DIR.'PEAR.php';
 require_once 'Archive/Tar.php';
 require_once 'System.php';
 require_once 'PEAR/Config.php';

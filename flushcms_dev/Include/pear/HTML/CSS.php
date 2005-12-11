@@ -16,7 +16,7 @@
 // | Author:  Klaus Guenther <klaus@capitalfocus.org>                     |
 // +----------------------------------------------------------------------+
 //
-// $Id: CSS.php,v 1.1 2005/12/11 14:54:11 arzen Exp $
+// $Id: CSS.php,v 1.2 2005/12/11 15:16:20 arzen Exp $
 
 require_once "HTML/Common.php";
 
@@ -27,7 +27,7 @@ require_once "HTML/Common.php";
  *
  * Example for direct output of stylesheet:
  * <code>
- * require_once 'HTML/CSS.php';
+ * require_once PEAR_DIR.'HTML/CSS.php';
  * 
  * $css = new HTML_CSS();
  * 
@@ -44,8 +44,8 @@ require_once "HTML/Common.php";
  *
  * Example in combination with HTML_Page:
  * <code>
- * require_once 'HTML/Page.php';
- * require_once 'HTML/CSS.php';
+ * require_once PEAR_DIR.'HTML/Page.php';
+ * require_once PEAR_DIR.'HTML/CSS.php';
  * 
  * $css = new HTML_CSS();
  * $css->setStyle('body', 'background-color', '#0c0c0c');
@@ -69,7 +69,7 @@ require_once "HTML/Common.php";
  * 
  * Example for generating inline code:
  * <code>
- * require_once 'HTML/CSS.php';
+ * require_once PEAR_DIR.'HTML/CSS.php';
  * 
  * $css = new HTML_CSS();
  * 

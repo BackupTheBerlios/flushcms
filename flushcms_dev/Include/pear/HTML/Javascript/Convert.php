@@ -16,7 +16,7 @@
 // | Authors: Tal Peer <tal@php.net>                                      |
 // |          Pierre-Alain Joye <paj@pearfr.org>                          |
 // +----------------------------------------------------------------------+
-// $Id: Convert.php,v 1.1 2005/12/11 14:52:34 arzen Exp $
+// $Id: Convert.php,v 1.2 2005/12/11 15:16:21 arzen Exp $
 /**
  * A class for converting PHP variables into JavaScript variables
  *
@@ -158,7 +158,7 @@ class HTML_Javascript_Convert
      */
     function raiseError($code,$str='')
     {
-        require_once 'PEAR.php';
+        require_once PEAR_DIR.'PEAR.php';
         switch ($code) {
             case HTML_JAVASCRIPT_CONVERT_ERROR_INVVAR:
                 return PEAR::raiseError(

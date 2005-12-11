@@ -17,7 +17,7 @@
 // |                                                                      |
 // +----------------------------------------------------------------------+
 //
-// $Id: ErrorStack.php,v 1.1 2005/12/11 14:54:44 arzen Exp $
+// $Id: ErrorStack.php,v 1.2 2005/12/11 15:16:21 arzen Exp $
 
 /**
  * Error Stack Implementation
@@ -971,7 +971,7 @@ class PEAR_ErrorStack {
      */
     function raiseError()
     {
-        require_once 'PEAR.php';
+        require_once PEAR_DIR.'PEAR.php';
         $args = func_get_args();
         return call_user_func_array(array('PEAR', 'raiseError'), $args);
     }
