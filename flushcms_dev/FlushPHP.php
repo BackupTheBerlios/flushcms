@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: FlushPHP.php,v 1.2 2005/12/11 13:25:15 arzen Exp $ */
+/* $Id: FlushPHP.php,v 1.3 2005/12/11 14:55:29 arzen Exp $ */
 
 define(ROOT_DIR,dirname(__FILE__));
 define(UTIL_DIR,ROOT_DIR."/Utility/");
@@ -23,6 +23,7 @@ define(INCLUDE_DIR,ROOT_DIR."/Include/");
 define(LANG_DIR,ROOT_DIR."/Language/");
 define(APP_DIR,ROOT_DIR."/App/");
 define(CONFIG_DIR,ROOT_DIR."/Config/");
+define(PEAR_DIR,INCLUDE_DIR."/pear/");
 
 include_once(ROOT_DIR."/FlushPHP.class.php");
 include_once(CONFIG_DIR."Config.php");
@@ -43,6 +44,6 @@ include_once(CONFIG_DIR."MenuConfig.php");
 
 $smarty->append('MainMenu',$MainMenu);
 
-$FlushPHPObj->loadModel($_GET['Model'],$_GET['Page']);
+$FlushPHPObj->loadModel($_REQUEST['Model'],$_REQUEST['Page']);
 
 ?>
