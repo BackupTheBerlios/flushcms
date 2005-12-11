@@ -11,4 +11,9 @@ langGeneralLogout = Logout
 langGeneralList = List
 langGeneralFileNotExist = Sorry,file not exist
 
+langMessageMsg = Message
+langMessageWarnning = Warnning
+langMessageError = Error
+langMessageNotice = Notice
+
 langGeneralCopyRight= CopyRight(c) 2005 FlushPHP Group
