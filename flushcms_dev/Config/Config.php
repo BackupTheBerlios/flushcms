@@ -14,9 +14,11 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: Config.php,v 1.1 2005/12/09 03:40:32 arzen Exp $ */
+/* $Id: Config.php,v 1.2 2005/12/12 05:57:34 arzen Exp $ */
 
 // Below section is database setting
+$__Version__ = "1.0";
+
 $DB_Type = "mysql";
 $DB_Host = "localhost";
 $DB_UserName = "root";

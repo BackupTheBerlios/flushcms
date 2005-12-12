@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: FlushPHP.class.php,v 1.4 2005/12/11 13:25:15 arzen Exp $ */
+/* $Id: FlushPHP.class.php,v 1.5 2005/12/12 05:57:34 arzen Exp $ */
 
 /**
  * @package	Kelnel
@@ -88,7 +88,7 @@ class FlushPHP
 	 */
 	function loadModel ($Modle,$Page) 
 	{
-		global $__Lang__,$MessageObj,$smarty;
+		global $__Lang__,$__Version__,$MessageObj,$smarty;
 		$model_file_path = MODULE_DIR.$Modle."/".$Page.".php";
 		if (file_exists($model_file_path)) 
 		{

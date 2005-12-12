@@ -9,6 +9,12 @@ langMenuUser = User
 langGeneralLogout = Logout
 
 langGeneralList = List
+langGeneralStatus = Status
+langGeneralOperation = Operation
+langGeneralInstall = Install
+langGeneralUnInstall = UnInstall
+
+
 langGeneralFileNotExist = Sorry,file not exist
 
 langMessageMsg = Message
