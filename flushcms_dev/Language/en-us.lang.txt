@@ -10,6 +10,7 @@ langGeneralLogout = Logout
 
 langGeneralList = List
 langGeneralStatus = Status
+langGeneralSummary = Summary
 langGeneralOperation = Operation
 langGeneralInstall = Install
 langGeneralUnInstall = UnInstall

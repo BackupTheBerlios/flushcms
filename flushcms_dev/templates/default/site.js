@@ -183,3 +183,18 @@ if (typeof String.prototype.trim == "undefined") {
         return s.replace(/\s*$/, "");
     }
 }
+
+function popOpenWindow(win, winName, param, w, h, scroll) {
+	var move = screen ? 'left=' + ((screen.width - w) >> 1) + ',top=' + ((screen.height - h) >> 1) : '';
+	var url;
+	if (param.length == 0) {
+		url = win;
+	}else{		
+		url = win+"?"+param;
+	}
+	if (winName == "")
+	{
+		winName = "newWindow" + Math.floor(Math.random() * 100000);
+	}
+	window.open(url, winName, move + ",width=" + w + ",height=" + h + ",scrollBars=" + scroll + ",resizable=yes");
+}
