@@ -27,6 +27,19 @@ td
 	text-decoration: none;
 	background-color: #666699;
 }
+.grid_table {
+	width: 100%;
+}
+.grid_table_head {
+	font-size: 14px;
+	font-weight: bold;
+	text-decoration: none;
+	background-color: #CCCCCC;
+	height: 25px;
+}
+.grid_table_tr_alternate {
+	background-color: #F3F3F3;
+}
 .click-menu .box1 a {
 	color: #494949;
 	text-decoration: none;
@@ -159,7 +172,7 @@ td
 	font-size: 14px;
 }
 .msg_td_head_error {
-	background-color: #660000;
+	background-color: #FF0000;
 	height: 30px;
 	margin: 0px;
 	padding: 0px;
