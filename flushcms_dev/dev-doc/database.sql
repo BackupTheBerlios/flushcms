@@ -48,28 +48,28 @@ UNLOCK TABLES;
 /*!40000 ALTER TABLE `group` ENABLE KEYS */;
 
 --
--- Table structure for table `model`
+-- Table structure for table `module`
 --
 
-DROP TABLE IF EXISTS `model`;
-CREATE TABLE `model` (
+DROP TABLE IF EXISTS `module`;
+CREATE TABLE `module` (
   `ID` int(2) unsigned NOT NULL auto_increment,
   `ModelName` varchar(40) NOT NULL default '',
   `Version` varchar(10) NOT NULL default '',
   `CreateTime` datetime NOT NULL default '0000-00-00 00:00:00',
   `AddIP` varchar(24) NOT NULL default '',
   PRIMARY KEY  (`ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='model install list';
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Module install list';
 
 --
--- Dumping data for table `model`
+-- Dumping data for table `module`
 --
 
 
-/*!40000 ALTER TABLE `model` DISABLE KEYS */;
-LOCK TABLES `model` WRITE;
+/*!40000 ALTER TABLE `module` DISABLE KEYS */;
+LOCK TABLES `module` WRITE;
 UNLOCK TABLES;
-/*!40000 ALTER TABLE `model` ENABLE KEYS */;
+/*!40000 ALTER TABLE `module` ENABLE KEYS */;
 
 --
 -- Table structure for table `users`
