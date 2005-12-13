@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: Messages.class.php,v 1.1 2005/12/11 13:22:39 arzen Exp $ */
+/* $Id: Messages.class.php,v 1.2 2005/12/13 01:16:25 arzen Exp $ */
 
 /**
  * Load language file
@@ -65,8 +65,10 @@ class Messages
 				$msg_head_class = "msg_td_head_notice";
 				break;
 		}
+		$template_dir = THEMES_DIR;
 		$html_code = <<<EOT
-		<table border="0" class = "$msg_table_class" >
+		<link href="$template_dir/style.css" rel="stylesheet" type="text/css">
+		<table border="0" class = "$msg_table_class" align="center">
 		  <tr>
 		    <td class = "$msg_head_class" >&nbsp;&nbsp;<strong> $msg_prefix </strong> : </td>
 		  </tr>

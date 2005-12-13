@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: FlushPHP.php,v 1.4 2005/12/12 05:57:34 arzen Exp $ */
+/* $Id: FlushPHP.php,v 1.5 2005/12/13 01:16:25 arzen Exp $ */
 
 define(ROOT_DIR,dirname(__FILE__));
 define(UTIL_DIR,ROOT_DIR."/Utility/");
@@ -28,7 +28,9 @@ define(PEAR_DIR,INCLUDE_DIR."/pear/");
 include_once(ROOT_DIR."/FlushPHP.class.php");
 include_once(CONFIG_DIR."Config.php");
 include_once(INCLUDE_DIR."/smarty/Smarty.class.php");
+include(INCLUDE_DIR."/adodb/adodb.inc.php");
 define(THEMES_DIR,ROOT_DIR."/templates/".$Themes."/");
+
 $__Lang__ = array();
 $smarty = new Smarty;
 
@@ -45,5 +47,9 @@ include_once(CONFIG_DIR."MenuConfig.php");
 $smarty->append('MainMenu',$MainMenu);
 
 $FlushPHPObj->loadModel($_REQUEST['Model'],$_REQUEST['Page']);
+
+$SiteDB = & ADONewConnection($DB_Type); # eg. 'mysql' or 'oci8' 
+$SiteDB->debug = false;
+$SiteDB->Connect($DB_Host, $DB_UserName, $DB_PassWord, $DB_Name) or die($MessageObj->displayMsg($SiteDB->ErrorMsg(),"ERROR"));
 
 ?>

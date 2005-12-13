@@ -1,0 +1,6 @@
+CREATE TABLE `model` (
+`ID` INT( 2 ) UNSIGNED NOT NULL AUTO_INCREMENT ,
+`ModelName` VARCHAR( 40 ) NOT NULL ,
+`AddTime` DATETIME NOT NULL ,
+PRIMARY KEY ( `ID` ) 
+) TYPE = MYISAM COMMENT = 'model install list';

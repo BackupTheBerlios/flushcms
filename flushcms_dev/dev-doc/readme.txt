@@ -1,4 +1,4 @@
-$Id: readme.txt,v 1.2 2005/12/01 23:21:47 arzen Exp $
+$Id: readme.txt,v 1.3 2005/12/13 01:16:25 arzen Exp $
 
 ===============
 Introduction:
@@ -18,4 +18,10 @@ Directory Deploy:
 ===============
 
 	Please see dir-deploy.txt
+	
+===============
+DataBase Design:
+===============
+
+	Please see database-design.txt
 	

@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: Config.php,v 1.2 2005/12/12 05:57:34 arzen Exp $ */
+/* $Id: Config.php,v 1.3 2005/12/13 01:16:25 arzen Exp $ */
 
 // Below section is database setting
 $__Version__ = "1.0";
@@ -23,7 +23,7 @@ $DB_Type = "mysql";
 $DB_Host = "localhost";
 $DB_UserName = "root";
 $DB_PassWord = "test1234";
-$DB_Name = "my_flushcms";
+$DB_Name = "flushcms";
 
 $Themes = "default";// Set themes your can change it 
 
