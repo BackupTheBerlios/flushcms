@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: FlushPHP.class.php,v 1.6 2005/12/13 05:36:06 arzen Exp $ */
+/* $Id: FlushPHP.class.php,v 1.7 2005/12/13 08:59:37 arzen Exp $ */
 
 /**
  * @package	Kelnel
@@ -79,20 +79,20 @@ class FlushPHP
 		
 	}
 	/**
-	 * Load model
+	 * Load Module
 	 *
 	 * @author  John.meng (√œ‘∂Ú˚)
 	 * @since   version1.0 - 2005-12-11 21:11:13
 	 * @param   string  
 	 *
 	 */
-	function loadModel ($Model,$Page) 
+	function loadModule ($Module,$Page) 
 	{
 		global $__Lang__,$__Version__,$MessageObj,$smarty;
-		$model_file_path = MODULE_DIR.$Model."/".$Page.".php";
-		if (file_exists($model_file_path)) 
+		$Module_file_path = MODULE_DIR.$Module."/".$Page.".php";
+		if (file_exists($Module_file_path)) 
 		{
-			include_once($model_file_path);
+			include_once($Module_file_path);
 		}
 		else 
 		{
@@ -100,20 +100,20 @@ class FlushPHP
 		}
 	}
 	/**
-	* Get model info
+	* Get Module info
 	*
 	* @author	John.meng
 	* @since    version - Dec 13, 2005
 	* @param	datatype paramname description
 	* @return   datatype description
 	*/
-	function getModelInfo ($Model) 
+	function getModuleInfo ($Module) 
 	{
 		$_mod_desc = array();
-		$_mod_desc['name']= $_mod_desc['description']= $Model;
-		if (file_exists(MODULE_DIR.$Model."/version.php")) 
+		$_mod_desc['name']= $_mod_desc['description']= $Module;
+		if (file_exists(MODULE_DIR.$Module."/version.php")) 
 		{
-			include_once(MODULE_DIR.$Model."/version.php");
+			include_once(MODULE_DIR.$Module."/version.php");
 		}
 		
 		return $_mod_desc;

@@ -2,7 +2,7 @@ langGeneralCharset = gb2312
 langGeneralSystemName = FlushPHP FrameWork
 
 langMenuGeneral = 常规
-langMenuModel = 模块
+langMenuModule = 模块
 
 langMenuUser = 用户
 

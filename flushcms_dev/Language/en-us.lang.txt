@@ -2,7 +2,7 @@ langGeneralCharset = iso-8859-1
 langGeneralSystemName = FlushPHP FrameWork
 
 langMenuGeneral = General
-langMenuModel = Model
+langMenuModule = Module
 
 langMenuUser = User
 

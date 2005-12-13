@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: FlushPHP.php,v 1.5 2005/12/13 01:16:25 arzen Exp $ */
+/* $Id: FlushPHP.php,v 1.6 2005/12/13 08:59:37 arzen Exp $ */
 
 define(ROOT_DIR,dirname(__FILE__));
 define(UTIL_DIR,ROOT_DIR."/Utility/");
@@ -46,7 +46,7 @@ include_once(CONFIG_DIR."MenuConfig.php");
 
 $smarty->append('MainMenu',$MainMenu);
 
-$FlushPHPObj->loadModel($_REQUEST['Model'],$_REQUEST['Page']);
+$FlushPHPObj->loadModule($_REQUEST['Module'],$_REQUEST['Page']);
 
 $SiteDB = & ADONewConnection($DB_Type); # eg. 'mysql' or 'oci8' 
 $SiteDB->debug = false;

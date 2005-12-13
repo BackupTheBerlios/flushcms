@@ -1,8 +1,8 @@
 ===============
-model
+Module
 ===============
 ID
-ModelName
+ModuleName
 Version
 CreateTime
 AddIP
@@ -17,10 +17,22 @@ CreateTime
 AddIP
 
 ===============
-users_group
+group
 ===============
 ID
 GroupName
 Descrition
+CreateTime
+AddIP
+
+===============
+var_config
+===============
+ID
+AppModule
+VarName
+VarType
+VarType
+UserID
 CreateTime
 AddIP

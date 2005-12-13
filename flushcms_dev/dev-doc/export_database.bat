@@ -1,0 +1,1 @@
+c:\mysql\bin\mysqldump -h localhost -C -u root -ptest1234 --databases flushcms -r d:/www/flushcms_dev/dev-doc/database.sql
