@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: FlushPHP.class.php,v 1.5 2005/12/12 05:57:34 arzen Exp $ */
+/* $Id: FlushPHP.class.php,v 1.6 2005/12/13 05:36:06 arzen Exp $ */
 
 /**
  * @package	Kelnel
@@ -86,10 +86,10 @@ class FlushPHP
 	 * @param   string  
 	 *
 	 */
-	function loadModel ($Modle,$Page) 
+	function loadModel ($Model,$Page) 
 	{
 		global $__Lang__,$__Version__,$MessageObj,$smarty;
-		$model_file_path = MODULE_DIR.$Modle."/".$Page.".php";
+		$model_file_path = MODULE_DIR.$Model."/".$Page.".php";
 		if (file_exists($model_file_path)) 
 		{
 			include_once($model_file_path);
@@ -99,6 +99,26 @@ class FlushPHP
 			$smarty->assign("Main",$MessageObj->displayMsg($__Lang__['langGeneralFileNotExist'],"ERROR"));
 		}
 	}
+	/**
+	* Get model info
+	*
+	* @author	John.meng
+	* @since    version - Dec 13, 2005
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function getModelInfo ($Model) 
+	{
+		$_mod_desc = array();
+		$_mod_desc['name']= $_mod_desc['description']= $Model;
+		if (file_exists(MODULE_DIR.$Model."/version.php")) 
+		{
+			include_once(MODULE_DIR.$Model."/version.php");
+		}
+		
+		return $_mod_desc;
+	}
+	
 	
 }
 ?>

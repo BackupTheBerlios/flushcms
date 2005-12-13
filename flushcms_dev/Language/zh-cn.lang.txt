@@ -9,6 +9,18 @@ langMenuUser = 用户
 langGeneralLogout = Logout
 
 langGeneralList = 列表
+langGeneralAuthor = 作者
+langGeneralStatus = 状态
+langGeneralSummary = 描述
+langGeneralOperation = 操作
+langGeneralInstall = 安装
+langGeneralUnInstall = 卸装
+
 langGeneralFileNotExist = 对不起，文件不存在
+
+langMessageMsg = 消息
+langMessageWarnning = 敬告
+langMessageError = 错误
+langMessageNotice = 提示
 
 langGeneralCopyRight= CopyRight(c) 2005 FlushPHP Group

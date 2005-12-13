@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: Model.class.php,v 1.3 2005/12/12 14:13:07 arzen Exp $ */
+/* $Id: Model.class.php,v 1.4 2005/12/13 05:36:06 arzen Exp $ */
 
 class Model
 {
@@ -39,7 +39,7 @@ class Model
 		$form = & new HTML_QuickForm();
 		
 		$FilesDirsObj = $FlushPHPObj->loadUtility("FilesDirs");
-		$FilesDirsObj->FilesDirs(ROOT_DIR, 1, "CVS,General");
+		$FilesDirsObj->FilesDirs(MODULE_DIR, 1, "CVS,General");
 		$model_arr = $FilesDirsObj->listDirs();
 		asort($model_arr);
 		reset($model_arr);
@@ -50,8 +50,13 @@ class Model
 		{
 			foreach ($model_arr as $key => $value)
 			{
-				
-				$data[$key] = array ($value, '',$unInstallImageObj->toHTML()."<br/>".$__Lang__['langGeneralUnInstall'], $installImageObj->toHTML()."<br/>".$__Lang__['langGeneralInstall']);
+				$temp_model_arr = $FlushPHPObj->getModelInfo($value);
+				if (file_exists(MODULE_DIR."/".$temp_model_arr['name']."/".$temp_model_arr['logo']) && $temp_model_arr['logo']) 
+				{
+					$modelImageLogo =  new UIImage(MODULE_DIR."/".$temp_model_arr['name']."/".$temp_model_arr['logo']);
+					$model_logo = $modelImageLogo->toHTML()."<br/>";
+				}
+				$data[$key] = array ($model_logo.$temp_model_arr['name']." <b> ".$temp_model_arr['version']." <b/> ",$temp_model_arr['description'],$temp_model_arr['author'],$unInstallImageObj->toHTML()."<br/>".$__Lang__['langGeneralUnInstall'], $installImageObj->toHTML()."<br/>".$__Lang__['langGeneralInstall']);
 			}
 		}
 
@@ -63,14 +68,15 @@ class Model
 		for ($nr = 0; $nr < count($data); $nr ++)
 		{
 			$table->setHeaderContents($nr +1, 0, (string) $nr);
-			for ($i = 0; $i < 4; $i ++)
+			for ($i = 0; $i < 5; $i ++)
 			{
 				if ("" != $data[$nr][$i])
 					$table->setCellContents($nr +1, $i +1, $data[$nr][$i]);
 			}
 		}
-		$table->setColAttributes (2,array (" align"=>"center"));
 		$table->setColAttributes (3,array (" align"=>"center"));
+		$table->setColAttributes (4,array (" align"=>"center"));
+		$table->setColAttributes (5,array (" align"=>"center"));
 
 		$altRow = array ("class" => "grid_table_tr_alternate");
 		$table->altRowAttributes(1, null, $altRow);
@@ -78,8 +84,9 @@ class Model
 		$table->setHeaderContents(0, 0, "");
 		$table->setHeaderContents(0, 1, $__Lang__['langMenuModel']);
 		$table->setHeaderContents(0, 2, $__Lang__['langGeneralSummary']);
-		$table->setHeaderContents(0, 3, $__Lang__['langGeneralStatus']);
-		$table->setHeaderContents(0, 4, $__Lang__['langGeneralOperation']);
+		$table->setHeaderContents(0, 3, $__Lang__['langGeneralAuthor']);
+		$table->setHeaderContents(0, 4, $__Lang__['langGeneralStatus']);
+		$table->setHeaderContents(0, 5, $__Lang__['langGeneralOperation']);
 
 		$hrAttrs = array ("class" => "grid_table_head");
 		$table->setRowAttributes(0, $hrAttrs, true);
