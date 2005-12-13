@@ -185,3 +185,70 @@ td
 	padding: 0px;
 	font-size: 14px;
 }
+
+/* TAB ELEMENTS DEFINITIONS */
+
+#navContainer
+{
+	text-align: left;
+	text-indent: 20px;
+}
+
+#navlist
+{
+padding: 3px 0;
+margin-left: 0px;
+border-bottom: 0.1em solid #003399;
+font: bold 12px Verdana, sans-serif;
+}
+
+#navlist li
+{
+    list-style: none;
+    margin: 0;
+    display: inline;
+	white-space: nowrap;
+}
+
+#navlist li a
+{
+	/* CHANGE HERE - INACTIVE TAB ELEMENTS BACKGROUND COLOR*/
+    color: #6666CC;
+	padding: 3px 0.5em;
+	margin-left: 3px;
+	border: 1px solid #666666;
+	border-bottom: none;
+	font-weight : normal;
+	text-decoration: none;
+	background-color: #CCCCDD;
+}
+
+#navlist li a:link {
+	color: #6666CC;
+	font-size: 14px;
+	font-weight: bold;
+}
+#navlist li a:visited {
+	color: #6666CC;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+#navlist li a:hover
+{
+	/* CHANGE HERE - TAB ELEMENTS: HOVER OVER BACKGROUND COLOR*/
+    color:#FFFFFF;
+	font-weight : bold;
+	border-color: #227;
+	background-color: #7D7DAA;
+}
+
+#navlist li a#current
+{
+	/* CHANGE HERE - SELECTED TAB ELEMENTS BACKGROUND COLOR*/
+    color: rgb(255,255,255);
+	font-weight: bold;
+	border-bottom: 1px solid #003399;
+	background-color: #7D7DAA;
+}
+

@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: User.class.php,v 1.1 2005/12/13 08:59:18 arzen Exp $ */
+/* $Id: User.class.php,v 1.2 2005/12/13 10:27:54 arzen Exp $ */
 
 class User
 {
@@ -34,6 +34,19 @@ class User
 	*/
 	function viewList () 
 	{
+		global $__Lang__, $FlushPHPObj, $smarty;
+		include_once (APP_DIR."UI.class.php");
+		
+	    $tabs = array(
+	                  array($__Lang__['langMenuUser'].$__Lang__['langGeneralList'], "Main.php?module=Event&page=my_events"),
+	                  array($__Lang__['langUserGroup'].$__Lang__['langGeneralList'], "Main.php?module=Event&page=pas_events"),
+	                  array($__Lang__['langUserGroup'].$__Lang__['langMenuUser'], "Main.php?module=Event&page=all_events"),  
+	                  array($__Lang__['langMenuUser'].$__Lang__['langGeneralConfigure'], "Main.php?module=Event&page=e_calendar")
+	                  ); 
+	           
+	    $tab = new Tabset($tabs, 0);
+		
+		$smarty->assign("Main", $tab->toHtml());
 		
 	}
 	

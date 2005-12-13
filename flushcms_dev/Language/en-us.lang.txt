@@ -8,7 +8,12 @@ langMenuUser = User
 
 langGeneralLogout = Logout
 
+langUserGroup = Group
+
 langGeneralList = List
+langGeneralConfigure = Configure
+langGeneralAdd = Add
+langGeneralUpdate = Update
 langGeneralAuthor = Author
 langGeneralStatus = Status
 langGeneralSummary = Summary

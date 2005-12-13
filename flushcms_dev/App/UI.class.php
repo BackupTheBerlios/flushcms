@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: UI.class.php,v 1.1 2005/12/12 14:13:08 arzen Exp $ */
+/* $Id: UI.class.php,v 1.2 2005/12/13 10:27:34 arzen Exp $ */
 
 require_once (PEAR_DIR.'HTML/QuickForm.php');
 require_once (PEAR_DIR.'HTML/QuickForm/element.php');
@@ -121,6 +121,114 @@ class UIElement
 		//return array($module, $page, $mode); 
 	}
 }
+
+/* example for using UI tools:
+*******************************************
+Tabset:
+
+$tabs = new Tabset($tabdef, $active);
+$tabs->addTab("Page 1", "page1.php", true);
+$tabs->addTab("Page 2", "page2.php");
+$tabs->display();
+*/
+class Tabset extends UIElement
+{
+
+    var $_tabs = array();
+    var $_selected = 0;
+
+    /*
+    *  default constructor for a tabset
+    *
+    * @param $tabs array - optional array of ($title, $link) for
+    *                      adding all the tabs at creation time
+    * @param $selected integer - optional index in the array of the currently selected tab.  defaults to 1st tab.
+    *
+    */
+    function Tabset($tabs = array(), $selected = 0)
+    {
+         //$this->_tabs = $tabs;
+         $this->addTabs($tabs, $selected);
+         //$this->_selected = $selected;
+
+    }
+
+    
+    /* Adds a tab to a tabset
+    *@param $title  the title displayed for the tab
+    *@param $link  the link the tab goes to
+    *@param $current boolean  optional whether this is the currently selected tab (defaults to false)
+    *@param $module  string   module name for permissions mgmt
+    *@param $page    string   page name for permissions mgmt
+    *@param $mode    string   mode name for permissions mgmt
+    */
+    function addTab($title, $link, $current = false, $module = null, $page=null, $mode=null)
+    {
+        if ($this->hasReadPermission($module, $page, $mode))
+        {
+            $this->_tabs[] = array($title, $link);
+            if ($current === true)
+            {
+               $this->_selected = count($this->_tabs) - 1;
+            }
+        }
+        else
+        {
+            if (count($this->_tabs) <= $this->_selected)
+            {
+               $this->_selected--; 
+            }
+        }
+    }
+
+    /* Adds multiple tabs to the tabset
+    *
+    *@param $tabs  array of ($title, $link, [$module], [$page], [$mode]) for tabs
+    *@param $selected optional integer specifying index of active tab
+    */
+    function addTabs($tabs, $selected = "")
+    {
+        if ($selected !== "")
+        {
+           $this->_selected = $selected; 
+        }
+
+        foreach ($tabs as $tab)
+        {
+            $this->addTab($tab[0], $tab[1], false, $tab[2], $tab[3], $tab[4]);        
+        }
+    }
+
+    /* displays the tabset 
+    *
+    *  displays a tabset to the screen
+    */
+    function toHtml()
+    {
+        $out = "";
+       $out .= "<div id='navcontainer'>\n";
+       $out .= "<ul id='navlist'>\n";
+
+       $ctr = 0;
+       foreach ($this->_tabs as $tab)
+       {
+           $active = "";
+           if ($ctr == $this->_selected)
+           {
+              $active = "id=\"current\" "; 
+           }
+           $out .= "<li ><a $active href=\"$tab[1]\">$tab[0]</a></li>\n";
+           $ctr++;
+       }
+       $out .= "</ul>\n";
+       $out .= "</div>\n";
+
+       return $out;
+        
+    }
+    
+}
+
 
 /**
  * class_description
