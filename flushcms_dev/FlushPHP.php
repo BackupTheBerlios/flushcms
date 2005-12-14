@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: FlushPHP.php,v 1.7 2005/12/14 09:50:20 arzen Exp $ */
+/* $Id: FlushPHP.php,v 1.8 2005/12/14 10:33:21 arzen Exp $ */
 
 define(ROOT_DIR,dirname(__FILE__));
 define(UTIL_DIR,ROOT_DIR."/Utility/");
@@ -46,6 +46,7 @@ include_once(CONFIG_DIR."MenuConfig.php");
 require_once PEAR_DIR.'HTML/Menu.php';
 require_once PEAR_DIR.'HTML/Menu/DirectRenderer.php';
 $menu =& new HTML_Menu($MainMenu);
+$menu->forceCurrentUrl("?".$_SERVER["QUERY_STRING"]);
 $type = 'sitemap';
 $renderer =& new HTML_Menu_DirectRenderer();
 $renderer->setMenuTemplate("<table border=0>","</table>");
