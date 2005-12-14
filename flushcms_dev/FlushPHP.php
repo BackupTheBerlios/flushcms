@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: FlushPHP.php,v 1.10 2005/12/14 13:46:32 arzen Exp $ */
+/* $Id: FlushPHP.php,v 1.11 2005/12/14 15:16:16 arzen Exp $ */
 
 define(ROOT_DIR,dirname(__FILE__));
 define(UTIL_DIR,ROOT_DIR."/Utility/");
@@ -27,6 +27,7 @@ define(PEAR_DIR,INCLUDE_DIR."/pear/");
 
 include_once(ROOT_DIR."/FlushPHP.class.php");
 include_once(CONFIG_DIR."Config.php");
+include_once(CONFIG_DIR."DBConfig.php");
 include_once(INCLUDE_DIR."/smarty/Smarty.class.php");
 include(INCLUDE_DIR."/adodb/adodb.inc.php");
 define(THEMES_DIR,ROOT_DIR."/templates/".$Themes."/");
@@ -47,13 +48,15 @@ include_once(CONFIG_DIR."MenuConfig.php");
 $MenuObj = $FlushPHPObj->loadApp("AppMenu");
 $MenuObj->setMenuType("sitemap");
 $MenuObj->loadMenu($MainMenu);
+$AddIPObj = $FlushPHPObj->loadApp("ClientIP");
+
+$SiteDB = & ADONewConnection($DB_Type); # eg. 'mysql' or 'oci8' 
+$SiteDB->debug = false;
+@$SiteDB->Connect($DB_Host, $DB_UserName, $DB_PassWord, $DB_Name) or die($MessageObj->displayMsg($SiteDB->ErrorMsg(),"ERROR"));
 
 $UrlParameter="";
 $UrlParameter = "?Module=".$_REQUEST['Module']."&Page=".$_REQUEST['Page'];
 $FlushPHPObj->loadModule($_REQUEST['Module'],$_REQUEST['Page']);
 
-$SiteDB = & ADONewConnection($DB_Type); # eg. 'mysql' or 'oci8' 
-$SiteDB->debug = false;
-@$SiteDB->Connect($DB_Host, $DB_UserName, $DB_PassWord, $DB_Name) or die($MessageObj->displayMsg($SiteDB->ErrorMsg(),"ERROR"));
 
 ?>

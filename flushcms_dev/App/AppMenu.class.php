@@ -15,7 +15,12 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: AppMenu.class.php,v 1.1 2005/12/14 13:46:32 arzen Exp $ */
+/* $Id: AppMenu.class.php,v 1.2 2005/12/14 15:16:16 arzen Exp $ */
+/**
+ * Load language file
+ * @package	App
+ */
+
 require_once PEAR_DIR.'HTML/Menu.php';
 require_once PEAR_DIR.'HTML/Menu/DirectRenderer.php';
 class AppMenu

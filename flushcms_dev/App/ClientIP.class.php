@@ -1,4 +1,5 @@
 <?php
+
 /*
    +----------------------------------------------------------------------+
    | FlushPHP                                                             |
@@ -10,45 +11,45 @@
    | License as published by the Free Software Foundation; either         |
    | version 2.1 of the License, or (at your option) any later version.   |
    +----------------------------------------------------------------------+
-   | Author: John.meng(ÃÏÔ¶òû)  Dec 13, 2005 4:34:42 PM                        
+   | Author: John.meng(ÃÏÔ¶òû)  2005-12-14 23:05:13                        
    +----------------------------------------------------------------------+
  */
- 
-/* $Id: User.php,v 1.3 2005/12/14 15:16:16 arzen Exp $ */
-if (empty($__Version__))
+
+/* $Id: ClientIP.class.php,v 1.1 2005/12/14 15:16:16 arzen Exp $ */
+
+/**
+ * Load language file
+ * @package	App
+ */
+
+class ClientIP
 {
-	echo "Big error! ";
-	exit;
+
+	function ClientIP()
+	{
+	}
+	/**
+	* Get client true IP though client use proxy
+	* @return $AddIP;
+	*/
+	function getTrueIP() 
+	{
+		if($_SERVER["HTTP_X_FORWARDED_FOR"]) //check is use proxy
+		{
+			if($leng = strpos($_SERVER["HTTP_X_FORWARDED_FOR"], ",")) 
+			{
+				$AddIP = substr($_SERVER["HTTP_X_FORWARDED_FOR"],0,$leng);//if use proxy,get the first client IP
+			}
+			else
+			{
+				$AddIP =$_SERVER["HTTP_X_FORWARDED_FOR"];
+			}
+		}
+		else
+		{
+			$AddIP = $_SERVER["REMOTE_ADDR"];
+		}
+		Return $AddIP;
+	}	
 }
-
-include_once("User.class.php");
-$thisObj = new User();
-
-switch ($_REQUEST['Action']) 
-{
-	case 'UserList':
-			$thisObj->viewList();
-		break;
-
-	case 'AddUser':
-			$thisObj->opAddUser();
-		break;
-		
-	case 'GroupList':
-			$select_tab = 1;
-		break;
-
-	case 'GroupUser':
-			$select_tab = 2;
-		break;
-
-	case 'Configure':
-			$select_tab = 3;
-		break;
-	
-	default:
-		$thisObj->viewList();
-		break;
-}
-
 ?>

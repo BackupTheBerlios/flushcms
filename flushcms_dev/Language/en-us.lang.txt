@@ -9,14 +9,17 @@ langMenuUser = User
 langGeneralLogout = Logout
 
 langUserGroup = Group
+langUserAddHeader = Enter User Base Info
 
 langGeneralCreateTime = Create Time
 langGeneralAddIP = Add IP
 langGeneralName = Name
 langGeneralPassword = Password
+langGeneralConfirm = Confirm
 langGeneralList = List
 langGeneralConfigure = Configure
 langGeneralAdd = Add
+langGeneralSubmit = Submit
 langGeneralUpdate = Update
 langGeneralAuthor = Author
 langGeneralStatus = Status
