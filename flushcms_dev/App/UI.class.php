@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: UI.class.php,v 1.2 2005/12/13 10:27:34 arzen Exp $ */
+/* $Id: UI.class.php,v 1.3 2005/12/14 13:46:32 arzen Exp $ */
 
 require_once (PEAR_DIR.'HTML/QuickForm.php');
 require_once (PEAR_DIR.'HTML/QuickForm/element.php');
@@ -343,4 +343,5 @@ class PopupLinkButton extends JSButton
 		JSButton :: JSButton($label, "popOpenWindow", "'$link','','',$width,$height,1", $module, $page, $mode);
 	}
 }
+
 ?>

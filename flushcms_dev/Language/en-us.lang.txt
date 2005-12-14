@@ -10,6 +10,10 @@ langGeneralLogout = Logout
 
 langUserGroup = Group
 
+langGeneralCreateTime = Create Time
+langGeneralAddIP = Add IP
+langGeneralName = Name
+langGeneralPassword = Password
 langGeneralList = List
 langGeneralConfigure = Configure
 langGeneralAdd = Add

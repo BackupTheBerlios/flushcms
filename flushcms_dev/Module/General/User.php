@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: User.php,v 1.1 2005/12/13 08:59:18 arzen Exp $ */
+/* $Id: User.php,v 1.2 2005/12/14 13:46:32 arzen Exp $ */
 if (empty($__Version__))
 {
 	echo "Big error! ";
@@ -26,8 +26,20 @@ $thisObj = new User();
 
 switch ($_REQUEST['Action']) 
 {
-	case value:
+	case 'UserList':
+			$thisObj->viewList();
+		break;
 		
+	case 'GroupList':
+			$select_tab = 1;
+		break;
+
+	case 'GroupUser':
+			$select_tab = 2;
+		break;
+
+	case 'Configure':
+			$select_tab = 3;
 		break;
 	
 	default:

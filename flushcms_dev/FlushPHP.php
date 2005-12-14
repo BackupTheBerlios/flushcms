@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: FlushPHP.php,v 1.9 2005/12/14 12:12:26 arzen Exp $ */
+/* $Id: FlushPHP.php,v 1.10 2005/12/14 13:46:32 arzen Exp $ */
 
 define(ROOT_DIR,dirname(__FILE__));
 define(UTIL_DIR,ROOT_DIR."/Utility/");
@@ -43,17 +43,13 @@ $FlushPHPObj = & new FlushPHP();
 $MessageObj = $FlushPHPObj->loadApp("Messages");
 
 include_once(CONFIG_DIR."MenuConfig.php");
-require_once PEAR_DIR.'HTML/Menu.php';
-require_once PEAR_DIR.'HTML/Menu/DirectRenderer.php';
-$menu =& new HTML_Menu($MainMenu);
-$menu->forceCurrentUrl("?".$_SERVER["QUERY_STRING"]);
-$type = 'sitemap';
-$renderer =& new HTML_Menu_DirectRenderer();
-$renderer->setMenuTemplate("<table border=0>","</table>");
-$menu->render($renderer,$type);
-// Output the menu
-$smarty->assign('MainMenu',$renderer->toHtml());
 
+$MenuObj = $FlushPHPObj->loadApp("AppMenu");
+$MenuObj->setMenuType("sitemap");
+$MenuObj->loadMenu($MainMenu);
+
+$UrlParameter="";
+$UrlParameter = "?Module=".$_REQUEST['Module']."&Page=".$_REQUEST['Page'];
 $FlushPHPObj->loadModule($_REQUEST['Module'],$_REQUEST['Page']);
 
 $SiteDB = & ADONewConnection($DB_Type); # eg. 'mysql' or 'oci8' 
