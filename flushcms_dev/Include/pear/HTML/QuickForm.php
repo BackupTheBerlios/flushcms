@@ -17,7 +17,7 @@
 // |          Bertrand Mansion <bmansion@mamasam.com>                     |
 // +----------------------------------------------------------------------+
 //
-// $Id: QuickForm.php,v 1.1 2005/12/11 14:54:11 arzen Exp $
+// $Id: QuickForm.php,v 1.2 2005/12/14 01:45:55 arzen Exp $
 
 require_once(PEAR_DIR.'PEAR.php');
 require_once(PEAR_DIR.'/HTML/Common.php');
@@ -1324,7 +1324,7 @@ class HTML_QuickForm extends HTML_Common {
             return false;
         }
         // automatically register the rule if requested
-        include_once 'HTML/QuickForm/RuleRegistry.php';
+        include_once PEAR_DIR.'HTML/QuickForm/RuleRegistry.php';
         $ruleName = false;
         if (is_object($name) && is_a($name, 'html_quickform_rule')) {
             $ruleName = !empty($name->name)? $name->name: strtolower(get_class($name));
@@ -1795,7 +1795,7 @@ class HTML_QuickForm extends HTML_Common {
      */
     function toArray($collectHidden = false)
     {
-        include_once 'HTML/QuickForm/Renderer/Array.php';
+        include_once PEAR_DIR.'HTML/QuickForm/Renderer/Array.php';
         $renderer =& new HTML_QuickForm_Renderer_Array($collectHidden);
         $this->accept($renderer);
         return $renderer->toArray();

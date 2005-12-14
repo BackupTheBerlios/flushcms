@@ -18,7 +18,7 @@
 // |          Alexey Borzov <avb@php.net>                                 |
 // +----------------------------------------------------------------------+
 //
-// $Id: Menu.php,v 1.1 2005/12/11 14:54:11 arzen Exp $
+// $Id: Menu.php,v 1.2 2005/12/14 01:45:55 arzen Exp $
 //
 
 // Types of the menu entries, instead of former magic numbers
@@ -35,7 +35,7 @@ define('HTML_MENU_ENTRY_BREADCRUMB',    6); // like activepath, but for 'urhere'
 *
 * Special thanks to the original author: Alex Vorobiev  <sasha@mathforum.com>.
 *
-* @version  $Revision: 1.1 $
+* @version  $Revision: 1.2 $
 * @author   Ulf Wendel <ulf.wendel@phpdoc.de>
 * @author   Alexey Borzov <avb@php.net>
 * @access   public
@@ -206,7 +206,7 @@ class HTML_Menu
     */
     function get($menuType = '') 
     {
-        include_once 'HTML/Menu/DirectRenderer.php';
+        include_once PEAR_DIR.'HTML/Menu/DirectRenderer.php';
         $renderer =& new HTML_Menu_DirectRenderer();
         $this->render($renderer, $menuType);
         return $renderer->toHtml();
@@ -224,6 +224,19 @@ class HTML_Menu
     {
         print $this->get($menuType);
     }
+    /**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - Dec 14, 2005
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function function_name () 
+	{
+		
+	}
+	
 
 
    /**

@@ -18,7 +18,7 @@
  * @author     Laurent Laville <pear@laurent-laville.org>
  * @copyright  1997-2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: generator.php,v 1.2 2005/12/11 15:16:21 arzen Exp $
+ * @version    CVS: $Id: generator.php,v 1.3 2005/12/14 01:45:55 arzen Exp $
  * @link       http://pear.php.net/package/HTML_Progress
  */
 
@@ -167,15 +167,15 @@ class HTML_Progress_Generator extends HTML_QuickForm_Controller
 
         // The customized actions
         if (!class_exists($ActionPreview)) {
-            include_once 'HTML/Progress/generator/preview.php';
+            include_once PEAR_DIR.'HTML/Progress/generator/preview.php';
             $ActionPreview = 'ActionPreview';
         }
         if (!class_exists($ActionDisplay)) {
-            include_once 'HTML/Progress/generator/default.php';
+            include_once PEAR_DIR.'HTML/Progress/generator/default.php';
             $ActionDisplay = 'ActionDisplay';
         }
         if (!class_exists($ActionProcess)) {
-            include_once 'HTML/Progress/generator/process.php';
+            include_once PEAR_DIR.'HTML/Progress/generator/process.php';
             $ActionProcess = 'ActionProcess';
         }
         $preview->addAction('apply', new $ActionPreview());
