@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: FlushPHP.php,v 1.6 2005/12/13 08:59:37 arzen Exp $ */
+/* $Id: FlushPHP.php,v 1.7 2005/12/14 09:50:20 arzen Exp $ */
 
 define(ROOT_DIR,dirname(__FILE__));
 define(UTIL_DIR,ROOT_DIR."/Utility/");
@@ -43,8 +43,15 @@ $FlushPHPObj = & new FlushPHP();
 $MessageObj = $FlushPHPObj->loadApp("Messages");
 
 include_once(CONFIG_DIR."MenuConfig.php");
-
-$smarty->append('MainMenu',$MainMenu);
+require_once PEAR_DIR.'HTML/Menu.php';
+require_once PEAR_DIR.'HTML/Menu/DirectRenderer.php';
+$menu =& new HTML_Menu($MainMenu);
+$type = 'sitemap';
+$renderer =& new HTML_Menu_DirectRenderer();
+$renderer->setMenuTemplate("<table border=0>","</table>");
+$menu->render($renderer,$type);
+// Output the menu
+$smarty->assign('MainMenu',$renderer->toHtml());
 
 $FlushPHPObj->loadModule($_REQUEST['Module'],$_REQUEST['Page']);
 
