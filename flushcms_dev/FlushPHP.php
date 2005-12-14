@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: FlushPHP.php,v 1.8 2005/12/14 10:33:21 arzen Exp $ */
+/* $Id: FlushPHP.php,v 1.9 2005/12/14 12:12:26 arzen Exp $ */
 
 define(ROOT_DIR,dirname(__FILE__));
 define(UTIL_DIR,ROOT_DIR."/Utility/");
@@ -58,6 +58,6 @@ $FlushPHPObj->loadModule($_REQUEST['Module'],$_REQUEST['Page']);
 
 $SiteDB = & ADONewConnection($DB_Type); # eg. 'mysql' or 'oci8' 
 $SiteDB->debug = false;
-$SiteDB->Connect($DB_Host, $DB_UserName, $DB_PassWord, $DB_Name) or die($MessageObj->displayMsg($SiteDB->ErrorMsg(),"ERROR"));
+@$SiteDB->Connect($DB_Host, $DB_UserName, $DB_PassWord, $DB_Name) or die($MessageObj->displayMsg($SiteDB->ErrorMsg(),"ERROR"));
 
 ?>
