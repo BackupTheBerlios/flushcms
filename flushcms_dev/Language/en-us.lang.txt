@@ -10,6 +10,7 @@ langGeneralLogout = Logout
 
 langUserGroup = Group
 langUserAddHeader = Enter User Base Info
+langUserNameExist = Sorry that username is exists,please enter another username!
 
 langGeneralCreateTime = Create Time
 langGeneralAddIP = Add IP
@@ -27,6 +28,8 @@ langGeneralSummary = Summary
 langGeneralOperation = Operation
 langGeneralInstall = Install
 langGeneralUnInstall = UnInstall
+langGeneralSuccess = Success
+langGeneralFail = Fail
 
 langGeneralFileNotExist = Sorry,file not exist
 

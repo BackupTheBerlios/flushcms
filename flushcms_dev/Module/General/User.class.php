@@ -15,8 +15,9 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: User.class.php,v 1.4 2005/12/14 15:16:16 arzen Exp $ */
+/* $Id: User.class.php,v 1.5 2005/12/15 03:29:22 arzen Exp $ */
 
+include_once("DAO/UserDAO.class.php");
 class User
 {
 
@@ -59,9 +60,19 @@ class User
 			$record["UserName"] = $form->exportValue('user_name');
 			$record["Passwd"] = md5($form->exportValue('user_passwd'));
 			$record["AddIP"] = $AddIPObj->getTrueIP();
-			$SiteDB->AutoExecute(USERS_TABLE,$record,'INSERT');
-			
-			$form->freeze();
+			$record["CreateTime"] = time();
+			$dbAppObj = $FlushPHPObj->loadApp("DBApp");
+			if ($dbAppObj->checkExists(USERS_TABLE," UserName='".$record["UserName"]."' ")) 
+			{
+				$form->setElementError('user_name',$__Lang__['langUserNameExist']);
+			}
+			 else
+			{
+				$userDAO = new UserDAO();
+				$userDAO->addUser($record);
+				$form->setElementError('user_name',$__Lang__['langGeneralOperation'].$__Lang__['langGeneralSuccess']);
+				$form->freeze();
+			}
 		}
 		
 		$smarty->assign("Main", $head_tabs.$form->toHTML());
@@ -79,6 +90,7 @@ class User
 	{
 		global $__Lang__,$UrlParameter,$FlushPHPObj, $smarty;
 		include_once (PEAR_DIR."HTML/Table.php");
+		require_once PEAR_DIR.'Pager/Pager.php';
 		
 		$tableAttrs = array ("class" => "grid_table");
 		$table = new HTML_Table($tableAttrs);
@@ -91,13 +103,42 @@ class User
 		$table->setHeaderContents(0, 4, $__Lang__['langGeneralStatus']);
 		$table->setHeaderContents(0, 5, $__Lang__['langGeneralOperation']);
 
+		$userDAO = new UserDAO();
+		$all_user_arr = $userDAO->getAllUsers();
+		
+		$params = array(
+		    'itemData' => $all_user_arr,
+		    'perPage' => 10,
+		    'delta' => 8,             // for 'Jumping'-style a lower number is better
+		    'append' => true,
+		    //'separator' => ' | ',
+		    'clearIfVoid' => false,
+		    'urlVar' => 'entrant',
+		    'useSessions' => true,
+		    'closeSession' => true,
+		    //'mode'  => 'Sliding',    //try switching modes
+		    'mode'  => 'Jumping',
+		
+		);
+		$pager = & Pager::factory($params);
+		$page_data = $pager->getPageData();
+		$links = $pager->getLinks();
+		$selectBox = $pager->getPerPageSelectBox();
+		foreach($page_data as $key=>$data )
+		{
+			$table->addRow(array($key,$data['UserName'],$data['CreateTime'],$data['AddIP']));
+		}
+		
+		$altRow = array ("class" => "grid_table_tr_alternate");
+		$table->altRowAttributes(1, null, $altRow);
+		
 		$hrAttrs = array ("class" => "grid_table_head");
 		$table->setRowAttributes(0, $hrAttrs, true);
 		$table->setColAttributes(0, $hrAttrs);
 		$html_grib = $table->toHtml();
 		
 		$head_tabs = $this->headTabs();
-		$smarty->assign("Main", $head_tabs.$html_grib);
+		$smarty->assign("Main", $head_tabs.$html_grib.$links['all']);
 		
 	}
 	/**
