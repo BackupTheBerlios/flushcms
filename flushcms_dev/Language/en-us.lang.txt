@@ -1,17 +1,20 @@
 langGeneralCharset = iso-8859-1
 langGeneralSystemName = FlushPHP FrameWork
 
+langMenu = Menu
 langMenuGeneral = General
 langMenuModule = Module
 
 langMenuUser = User
 
-langGeneralLogout = Logout
 
 langUserGroup = Group
 langUserAddHeader = Enter User Base Info
 langUserNameExist = Sorry that username is exists,please enter another username!
 
+langGeneralLogout = Logout
+langGeneralHome = Home
+langGeneralPosition = Position
 langGeneralCreateTime = Create Time
 langGeneralAddIP = Add IP
 langGeneralName = Name

@@ -33,8 +33,12 @@
                 <img src="{$smarty.const.THEMES_DIR}images/logo.gif" border="0" >&nbsp;&nbsp;
             </td>
 
-            <td>
-                <a class="button" href="javascript:void(0)">{$langMenuGeneral}</a>
+            <td valign="middle">
+                <a class="button" href="?" ><img src="{$smarty.const.THEMES_DIR}images/frontpage.png" alt="" border="0" align="absmiddle" />{$langGeneralHome}</a>
+            </td>
+
+            <td valign="middle">
+                <a class="button" href="javascript:void(0)"><img src="{$smarty.const.THEMES_DIR}images/menu.png" alt="" border="0" align="absmiddle" />{$langMenu}</a>
                 <div class="section">
                     <a class="item" href="?Module=General&Page=Module">{$langMenuModule}{$langGeneralList}<img class="arrow" src="{$smarty.const.THEMES_DIR}images/arrow1.gif" width="4" height="7" alt="" /></a>
                     <a class="item" href="javascript:void(0)">{$langMenuUser}{$langGeneralList}<img class="arrow" src="{$smarty.const.THEMES_DIR}images/arrow1.gif" width="4" height="7" alt="" /></a>
@@ -44,7 +48,7 @@
                  </div>
             </td>
             
-            <td>
+            <td >
                 <a class="button" href="javascript:void(0)"><img src="{$smarty.const.THEMES_DIR}images/users.png" alt="" border="0" align="absmiddle" />{$langMenuUser}</a>
                 <div class="section">
                     <a class="item" href="?Module=General&Page=User">{$langMenuUser}{$langGeneralList}</a>
@@ -53,7 +57,7 @@
             </td>
 
             <td>
-                <a class="button" href="javascript:void(0)">{$langMenuModule}</a>
+                <a class="button" href="javascript:void(0)"><img src="{$smarty.const.THEMES_DIR}images/config.png" alt="" border="0" align="absmiddle" />{$langMenuModule}</a>
                 <div class="section">
                     <a class="item" href="?Module=General&Page=Module">{$langMenuModule}{$langGeneralList}<img class="arrow" src="{$smarty.const.THEMES_DIR}images/arrow1.gif" width="4" height="7" alt="" /></a>
                     <a class="item" href="javascript:void(0)">{$langMenuUser}{$langGeneralList}<img class="arrow" src="{$smarty.const.THEMES_DIR}images/arrow1.gif" width="4" height="7" alt="" /></a>
@@ -70,7 +74,7 @@
     
 	<TABLE cellspacing="0" cellpadding="0" class="navigator">
 	<TR>
-		<TD>Position::{$navigator_str}</TD>
+		<TD>{$langGeneralPosition} :: {$navigator_str}</TD>
 	</TR>
 	</TABLE>
 

@@ -10,7 +10,7 @@ td
 {
 	margin: 2px;
 	padding: 2px;
-	width:100%;
+	width:99%;
 	font-size: 14px;
 	text-decoration: none;
 	background-color: #F9F9F9;
@@ -150,19 +150,33 @@ font: bold 12px Verdana, sans-serif;
 .XulMenu .button:hover,
 .XulMenu .button-active,
 .XulMenu .button-active:hover {
-	height:35px;
-    line-height: normal;
-    padding: 5px 6px 4px 6px;
-    border: 1px solid #ECE9D8;
-    color: #000000;
-    text-decoration: none;
-    cursor: default;
-    white-space: nowrap;
-    display: block;
-    position: relative;
+	height:25px;
+	line-height: normal;
+	padding: 1px 6px 1px 6px;
+	color: #000000;
+	text-decoration: none;
+	cursor: default;
+	white-space: nowrap;
+	display: block;
+	position: relative;
+	vertical-align: baseline;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-right-color: #ECE9D8;
+	border-bottom-color: #ECE9D8;
+	border-left-color: #ECE9D8;
+	border-top-color: #FAF8F1;
 }
 .XulMenu .button:hover {
-    border-color: #ffffff #ACA899 #ACA899 #ffffff;
+	height:25px;
+	border-color: #ffffff #ACA899 #ACA899 #ffffff;
+	vertical-align: baseline;
 }
 .XulMenu .button-active,
 .XulMenu .button-active:hover {
