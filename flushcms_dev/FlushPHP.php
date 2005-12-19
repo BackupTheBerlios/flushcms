@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: FlushPHP.php,v 1.11 2005/12/14 15:16:16 arzen Exp $ */
+/* $Id: FlushPHP.php,v 1.12 2005/12/19 10:28:26 arzen Exp $ */
 
 define(ROOT_DIR,dirname(__FILE__));
 define(UTIL_DIR,ROOT_DIR."/Utility/");
@@ -56,6 +56,20 @@ $SiteDB->debug = false;
 
 $UrlParameter="";
 $UrlParameter = "?Module=".$_REQUEST['Module']."&Page=".$_REQUEST['Page'];
+$navigator_str = "";
+if ($_REQUEST['Module']) 
+{
+	$navigator_str .= ">>".$_REQUEST['Module'];
+}
+if ($_REQUEST['Page']) 
+{
+	$navigator_str .= ">>".$_REQUEST['Page'];
+}
+if ($_REQUEST['Action']) 
+{
+	$navigator_str .= ">>".$_REQUEST['Action'];
+}
+$smarty->assign("navigator_str",$navigator_str);
 $FlushPHPObj->loadModule($_REQUEST['Module'],$_REQUEST['Page']);
 
 
