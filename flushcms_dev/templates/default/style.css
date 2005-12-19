@@ -150,6 +150,7 @@ font: bold 12px Verdana, sans-serif;
 .XulMenu .button:hover,
 .XulMenu .button-active,
 .XulMenu .button-active:hover {
+	height:35px;
     line-height: normal;
     padding: 5px 6px 4px 6px;
     border: 1px solid #ECE9D8;
