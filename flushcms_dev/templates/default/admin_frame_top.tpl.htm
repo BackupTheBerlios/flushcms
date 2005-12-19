@@ -1,6 +1,83 @@
-<table width="100%" height="15%" border="0" cellpadding="0" cellspacing="0">
-  <tr>
-    <td width="152px" align="center"><img src="{$smarty.const.THEMES_DIR}images/logo.gif" /></td>
-    <td bgcolor="#666699">&nbsp;</td>
-  </tr>
-</table>
+<script type="text/javascript" src="{$smarty.const.THEMES_DIR}site.js"></script>
+
+    {literal}
+    <style type="text/css">
+    body { margin: 0; padding: 0; background: #ffffff; }
+    #search {
+        position: absolute;
+        top: 0;
+        right: 5px;
+    }
+    #search input,
+    #search select {
+        font-family: georgia, tahoma, verdana;
+        font-size: 12px;
+        margin-top: 4px;
+    }
+    p { font-family: georgia, tahoma, verdana; font-size: 11px; margin: 2em; }
+    </style>
+ 	{/literal}
+    <script type="text/javscript">
+    /* preload images */
+    var arrow1 = new Image(4, 7);
+    arrow1.src = "{$smarty.const.THEMES_DIR}images/arrow1.gif";
+    var arrow2 = new Image(4, 7);
+    arrow2.src = "{$smarty.const.THEMES_DIR}images/arrow2.gif";
+    </script>
+
+    <div id="bar">
+        
+        <table cellspacing="0" cellpadding="0" id="menu1" class="XulMenu">
+        <tr>
+            <td>
+                <img src="{$smarty.const.THEMES_DIR}images/logo.gif" border="0" >&nbsp;&nbsp;
+            </td>
+
+            <td>
+                <a class="button" href="javascript:void(0)">{$langMenuGeneral}</a>
+                <div class="section">
+                    <a class="item" href="?Module=General&Page=Module">{$langMenuModule}{$langGeneralList}<img class="arrow" src="{$smarty.const.THEMES_DIR}images/arrow1.gif" width="4" height="7" alt="" /></a>
+                    <a class="item" href="javascript:void(0)">{$langMenuUser}{$langGeneralList}<img class="arrow" src="{$smarty.const.THEMES_DIR}images/arrow1.gif" width="4" height="7" alt="" /></a>
+                    <div class="section">
+                         <a class="item" href="?Module=General&Page=User">{$langMenuUser}{$langGeneralList}</a>
+                    </div>
+            </td>
+            
+            <td>
+                <a class="button" href="javascript:void(0)">{$langMenuUser}</a>
+                <div class="section">
+                    <a class="item" href="?Module=General&Page=Module">{$langMenuModule}{$langGeneralList}<img class="arrow" src="{$smarty.const.THEMES_DIR}images/arrow1.gif" width="4" height="7" alt="" /></a>
+                    <a class="item" href="javascript:void(0)">{$langMenuUser}{$langGeneralList}<img class="arrow" src="{$smarty.const.THEMES_DIR}images/arrow1.gif" width="4" height="7" alt="" /></a>
+                    <div class="section">
+                         <a class="item" href="?Module=General&Page=User">{$langMenuUser}{$langGeneralList}</a>
+                    </div>
+            </td>
+
+            <td>
+                <a class="button" href="javascript:void(0)">{$langMenuModule}</a>
+                <div class="section">
+                    <a class="item" href="?Module=General&Page=Module">{$langMenuModule}{$langGeneralList}<img class="arrow" src="{$smarty.const.THEMES_DIR}images/arrow1.gif" width="4" height="7" alt="" /></a>
+                    <a class="item" href="javascript:void(0)">{$langMenuUser}{$langGeneralList}<img class="arrow" src="{$smarty.const.THEMES_DIR}images/arrow1.gif" width="4" height="7" alt="" /></a>
+                    <div class="section">
+                         <a class="item" href="?Module=General&Page=User">{$langMenuUser}{$langGeneralList}</a>
+                    </div>
+            </td>
+            
+        </tr>
+        </table>
+
+    </div>
+    
+	<TABLE cellspacing="0" cellpadding="0" class="navigator">
+	<TR>
+		<TD>test</TD>
+	</TR>
+	</TABLE>
+
+    <script type="text/javascript">
+    var menu1 = new XulMenu("menu1");
+    menu1.arrow1 = "{$smarty.const.THEMES_DIR}images/arrow1.gif";
+    menu1.arrow2 = "{$smarty.const.THEMES_DIR}images/arrow2.gif";
+    menu1.init();
+    </script>
+    

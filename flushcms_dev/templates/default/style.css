@@ -1,35 +1,22 @@
-body {
-	margin-left: 0px;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-}
-
 td
 {
-	font-size: 14px;
+	font-size: 12px;
 	text-decoration: none;
-}
-.click-menu {
-	width: 135px;
-	background-color: #CCCCDD;
-}
-.click-menu .box1 {
-	color: #000000;
-	font-weight: bold;
-	font-size: 14px;
-	padding: 4px 8px;
-	border-width: 1px;
-	border-color: #666699;
-	border-style: solid solid solid solid;
-	cursor: default;
-	position: relative;
-	text-decoration: none;
-	background-color: #666699;
 }
 .grid_table {
 	width: 100%;
 }
+.navigator
+{
+	margin: 2px;
+	padding: 2px;
+	width:100%;
+	font-size: 14px;
+	text-decoration: none;
+	background-color: #F9F9F9;
+	height: 25px;
+}
+
 .grid_table_head {
 	font-size: 14px;
 	font-weight: bold;
@@ -40,107 +27,9 @@ td
 .grid_table_tr_alternate {
 	background-color: #F3F3F3;
 }
-.click-menu .box1 a {
-	color: #494949;
-	text-decoration: none;
-	white-space: nowrap;
-}
-.click-menu .box1-hover {
-	font-weight: bold;
-	font-size: 14px;
-	padding: 4px 8px;
-	border-width: 1px;
-	border-color: #6666CC;
-	border-style: solid solid solid solid;
-	cursor: default;
-	position: relative;
-	text-decoration: none;
-	background-color: #7D7DAA;
-	color: #000000;
-}
-.click-menu .box1-hover a {
-	color: #494949;
-	text-decoration: none;
-	white-space: nowrap;
-}
 
-.click-menu .box1-open {
-	font-weight: bold;
-	font-size: 14px;
-	padding: 4px 8px;
-	border-width: 1px;
-	border-color: #6666CC;
-	border-style: solid solid none solid;
-	cursor: default;
-	position: relative;
-	background-color: #666699;
-	color: #000000;
-}
-.click-menu .box1-open a {
-	color: #494949;
-	text-decoration: none;
-	white-space: nowrap;
-}
-
-.click-menu .box1-open-hover {
-	font-weight: bold;
-	font-size: 14px;
-	padding: 4px 8px;
-	border-width: 1px;
-	border-color: #6666CC;
-	border-style: solid solid none solid;
-	cursor: default;
-	position: relative;
-	background-color: #7D7DAA;
-	color: #000000;
-}
-.click-menu .box1-open-hover a {
-	color: #494949;
-	text-decoration: none;
-	white-space: nowrap;
-}
-
-
-.click-menu .box1 img, .click-menu .box1-hover img, .click-menu .box1-open img, .click-menu .box1-open-hover img {
-	position: absolute;
-	top: 6px;
-	right: 6px;
-	color: #000000;
-	text-decoration: none;
-}
-.click-menu .section {
-	font-size: 14px;
-	line-height: 15px;
-	padding: 5px 5px 6px 5px;
-	border-width: 1px;
-	border-color: #6666CC;
-	border-style: none solid solid solid;
-	display: none;
-	background-color: #B5B5CE;
-}
-.click-menu .section a {
-	color: #6666CC;
-	text-decoration: none;
-	white-space: nowrap;
-	background-color: #B5B5CE;
-}
-.click-menu .section a:hover {
-	color: #6666CC;
-	text-decoration: none;
-	white-space: nowrap;
-	background-color: #B5B5CE;
-}
-.click-menu .box2 {
-	background-color: #B5B5CE;
-}
-.click-menu .box2-hover {
-	background-color: #B5B5CE;
-}
-.click-menu .section .active,
-.click-menu .section .active:hover {
-    color: yellow;
-}
 .copyright {
+	background-image: url(images/bgcolor.gif);
 	color: #333333;
 	text-decoration: none;
 	background-color: #F9F9F9;
@@ -252,3 +141,76 @@ font: bold 12px Verdana, sans-serif;
 	background-color: #7D7DAA;
 }
 
+.XulMenu {
+	font-family: georgia, tahoma, verdana;
+	font-size: 11px;
+    -moz-user-select: none;
+}
+.XulMenu .button,
+.XulMenu .button:hover,
+.XulMenu .button-active,
+.XulMenu .button-active:hover {
+    line-height: normal;
+    padding: 5px 6px 4px 6px;
+    border: 1px solid #ECE9D8;
+    color: #000000;
+    text-decoration: none;
+    cursor: default;
+    white-space: nowrap;
+    display: block;
+    position: relative;
+}
+.XulMenu .button:hover {
+    border-color: #ffffff #ACA899 #ACA899 #ffffff;
+}
+.XulMenu .button-active,
+.XulMenu .button-active:hover {
+    border-color: #ACA899 #ffffff #ffffff #ACA899;
+}
+.XulMenu .item,
+.XulMenu .item:hover,
+.XulMenu .item-active,
+.XulMenu .item-active:hover {
+    background: #ffffff;
+    line-height: normal;
+    padding: 3px 30px 3px 20px;
+    color: #000000;
+    text-decoration: none;
+    cursor: default;
+    white-space: nowrap;
+    display: block;
+    position: relative;
+}
+.XulMenu .item:hover,
+.XulMenu .item-active,
+.XulMenu .item-active:hover {
+    background: #316AC5;
+    color: #ffffff;
+}
+.XulMenu .section {
+    background: #ffffff;
+    border: 1px solid;
+    border-color: #F1EFE2 #716F64 #716F64 #F1EFE2;
+    padding: 2px 1px 1px 2px;
+    position: absolute;
+    visibility: hidden;
+    z-index: -1;
+}
+.XulMenu .arrow {
+    position: absolute;
+    top: 7px;
+    right: 8px;
+    border: 0;
+}
+#bar {
+	background-image: url(images/bgcolor.gif);
+	border: 1px solid;
+	border-color: #ffffff #ACA899 #ACA899 #ffffff;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left: 5px;
+	cursor: default;
+	background-color: #4791C5;
+}
+
+* html .XulMenu td { position: relative; } /* ie 5.0 fix */
