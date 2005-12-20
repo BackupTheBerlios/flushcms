@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: DBApp.class.php,v 1.2 2005/12/20 09:37:21 arzen Exp $ */
+/* $Id: DBApp.class.php,v 1.3 2005/12/20 10:35:36 arzen Exp $ */
 
 class DBApp
 {
@@ -39,6 +39,23 @@ class DBApp
 		return $SiteDB->Insert_ID();
 		
 	}
+	
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - Dec 20, 2005
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function getRowByID ($table,$field,$field_value) 
+	{
+		global $SiteDB;
+		
+		$Sql = " SELECT * FROM $table WHERE $field='$field_value' ";
+		return $SiteDB->GetRow($Sql);
+	}
+	
 	
 	
 	/**

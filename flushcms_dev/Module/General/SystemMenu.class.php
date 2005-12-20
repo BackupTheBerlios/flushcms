@@ -14,13 +14,14 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: SystemMenu.class.php,v 1.1 2005/12/20 09:37:22 arzen Exp $ */
+/* $Id: SystemMenu.class.php,v 1.2 2005/12/20 10:35:37 arzen Exp $ */
 
 class SystemMenu
 {
 
 	function SystemMenu()
 	{
+		include_once ('DAO/SystemMenuDAO.class.php');
 		$this->subNavigator();
 	}
 	/**
@@ -92,8 +93,54 @@ class SystemMenu
 	*/
 	function viewList () 
 	{
+		global $__Lang__, $FlushPHPObj, $smarty;
+		
+		include_once (PEAR_DIR."HTML/Table.php");
+
+		$sysMenuDao = new SystemMenuDAO();
+		$data_menu = $sysMenuDao->getMenuArr();
+
+		$tableAttrs = array ("class" => "grid_table");
+		$table = new HTML_Table($tableAttrs);
+		$table->setAutoGrow(true);
+		$table->setAutoFill("n/a");
+		$cell_x=0;
+		foreach ($data_menu as $key=>$value)
+		{
+			$table->addRow(array($cell_x, $value, " <table><tr><td><a href='?Module=General&Page=SystemMenu&Action=Update&ID=".$key."'><img src='".THEMES_DIR."images/edit_f2.png' border='0'><br />".$__Lang__['langGeneralUpdate']."</a></td><td><a href='?Module=General&Page=SystemMenu&Action=Update&ID=".$key."'><img src='".THEMES_DIR."images/cancel_f2.png' border='0'><br />".$__Lang__['langGeneralCancel']."</a></td></tr></table>"));
+			$cell_x++;
+		}
+		
+		$altRow = array ("class" => "grid_table_tr_alternate");
+		$table->altRowAttributes(1, null, $altRow);
+		$hrAttrs = array ("class" => "grid_table_head");
+		$table->setRowAttributes(0, $hrAttrs, true);
+		$table->setColAttributes(0, $hrAttrs);
+
+		$table->setHeaderContents(0, 0, "");
+		$table->setHeaderContents(0, 1, $__Lang__['langMenu']);
+		$table->setHeaderContents(0, 2, $__Lang__['langGeneralOperation']);
+		
+		$smarty->assign("Main", $table->toHtml());
+	}
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - Dec 20, 2005
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function opUpdate () 
+	{
+		global $__Lang__, $FlushPHPObj, $smarty;
+		
+		$sysMenuDao = new SystemMenuDAO();
+		$sysMenuDao->getRowByID(SYSMENU_TABLE,"SysmenuID",$_REQUEST['ID']);
+		$this->opAdd();
 		
 	}
+	
 	/**
 	* function_description
 	*

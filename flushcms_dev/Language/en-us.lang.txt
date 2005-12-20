@@ -30,6 +30,7 @@ langGeneralConfigure = Configure
 langGeneralAdd = New
 langGeneralSubmit = Submit
 langGeneralUpdate = Update
+langGeneralCancel = Cancel
 langGeneralAuthor = Author
 langGeneralStatus = Status
 langGeneralSummary = Summary
