@@ -40,10 +40,10 @@
             <td valign="middle">
                 <a class="button" href="javascript:void(0)"><img src="{$smarty.const.THEMES_DIR}images/menu.png" alt="" border="0" align="absmiddle" />{$langMenu}</a>
                 <div class="section">
-                    <a class="item" href="?Module=General&Page=Module">{$langMenuModule}{$langGeneralList}<img class="arrow" src="{$smarty.const.THEMES_DIR}images/arrow1.gif" width="4" height="7" alt="" /></a>
-                    <a class="item" href="javascript:void(0)">{$langMenuUser}{$langGeneralList}<img class="arrow" src="{$smarty.const.THEMES_DIR}images/arrow1.gif" width="4" height="7" alt="" /></a>
+                    <a class="item" href="javascript:void(0)">{$langGeneralSystem}{$langMenu}<img class="arrow" src="{$smarty.const.THEMES_DIR}images/arrow1.gif" width="4" height="7" alt="" /></a>
                     <div class="section">
-                         <a class="item" href="?Module=General&Page=User">{$langMenuUser}{$langGeneralList}</a>
+                        <a class="item" href="?Module=General&Page=SystemMenu&Action=Add">{$langGeneralAdd}{$langMenu}</a>
+                        <a class="item" href="?Module=General&Page=SystemMenu">{$langGeneralSystem}{$langMenu}{$langGeneralList}</a>
                     </div>
                  </div>
             </td>
@@ -59,11 +59,7 @@
             <td>
                 <a class="button" href="javascript:void(0)"><img src="{$smarty.const.THEMES_DIR}images/config.png" alt="" border="0" align="absmiddle" />{$langMenuModule}</a>
                 <div class="section">
-                    <a class="item" href="?Module=General&Page=Module">{$langMenuModule}{$langGeneralList}<img class="arrow" src="{$smarty.const.THEMES_DIR}images/arrow1.gif" width="4" height="7" alt="" /></a>
-                    <a class="item" href="javascript:void(0)">{$langMenuUser}{$langGeneralList}<img class="arrow" src="{$smarty.const.THEMES_DIR}images/arrow1.gif" width="4" height="7" alt="" /></a>
-                    <div class="section">
-                         <a class="item" href="?Module=General&Page=User">{$langMenuUser}{$langGeneralList}</a>
-                    </div>
+                    <a class="item" href="?Module=General&Page=Module">{$langMenuModule}{$langGeneralList}</a>
                 </div>
             </td>
             
@@ -72,9 +68,10 @@
 
     </div>
     
-	<TABLE cellspacing="0" cellpadding="0" class="navigator">
+	<TABLE class="navigator">
 	<TR>
-		<TD>{$langGeneralPosition} :: {$navigator_str}</TD>
+		<TD >{$langGeneralPosition} :: {$navigator_str}</TD>
+		{$subNavigator}
 	</TR>
 	</TABLE>
 

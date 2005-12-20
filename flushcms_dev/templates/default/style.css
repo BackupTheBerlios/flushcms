@@ -8,9 +8,7 @@ td
 }
 .navigator
 {
-	margin: 2px;
-	padding: 2px;
-	width:99%;
+	width:100%;
 	font-size: 14px;
 	text-decoration: none;
 	background-color: #F9F9F9;
@@ -229,3 +227,11 @@ font: bold 12px Verdana, sans-serif;
 }
 
 * html .XulMenu td { position: relative; } /* ie 5.0 fix */
+a:link {
+	color: #333333;
+	text-decoration: none;
+}
+a {
+	color: #333333;
+	text-decoration: none;
+}

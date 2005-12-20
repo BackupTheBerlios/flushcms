@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: DBApp.class.php,v 1.1 2005/12/15 03:29:22 arzen Exp $ */
+/* $Id: DBApp.class.php,v 1.2 2005/12/20 09:37:21 arzen Exp $ */
 
 class DBApp
 {
@@ -22,6 +22,24 @@ class DBApp
 	function DBApp()
 	{
 	}
+	
+	/**
+	* Insert data into table
+	*
+	* @author	John.meng
+	* @since    version 1.0- Dec 20, 2005
+	* @param	sting $table  table name
+	* @param	array $record inster data array
+	* @return   Insert ID
+	*/
+	function opAdd ($table,$record) 
+	{
+		global $SiteDB;
+		$SiteDB->AutoExecute($table,$record,'INSERT');
+		return $SiteDB->Insert_ID();
+		
+	}
+	
 	
 	/**
 	* function_description

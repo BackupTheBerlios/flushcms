@@ -1,8 +1,8 @@
 ===============
-Module
+modules
 ===============
-ID
-ModuleName
+ModulesID
+ModelName
 Version
 CreateTime
 AddIP
@@ -10,18 +10,28 @@ AddIP
 ===============
 users
 ===============
-ID
+UsersID
 UserName
 Passwd
 CreateTime
 AddIP
 
 ===============
-group
+groups
 ===============
-ID
+GroupsID
 GroupName
 Descrition
+CreateTime
+AddIP
+
+===============
+sysmenu
+===============
+SysmenuID
+PID
+Title
+URL
 CreateTime
 AddIP
 
