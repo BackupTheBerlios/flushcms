@@ -39,6 +39,7 @@ langGeneralInstall = Install
 langGeneralUnInstall = UnInstall
 langGeneralSuccess = Success
 langGeneralFail = Fail
+langGeneralCancelConfirm = Are you sure cancel this?
 
 langGeneralFileNotExist = Sorry,file not exist
 

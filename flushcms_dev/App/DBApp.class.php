@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: DBApp.class.php,v 1.3 2005/12/20 10:35:36 arzen Exp $ */
+/* $Id: DBApp.class.php,v 1.4 2005/12/20 14:55:40 arzen Exp $ */
 
 class DBApp
 {
@@ -39,6 +39,20 @@ class DBApp
 		return $SiteDB->Insert_ID();
 		
 	}
+	/**
+	 *
+	 *
+	 * @author  John.meng (ÃÏÔ¶òû)
+	 * @since   version - 2005-12-20 21:51:10
+	 * @param   string  
+	 *
+	 */
+	function opUpdate ($table,$record,$whereis) 
+	{
+		global $SiteDB;
+		$SiteDB->AutoExecute($table,$record,'UPDATE',$whereis);
+	}
+	
 	
 	/**
 	* function_description

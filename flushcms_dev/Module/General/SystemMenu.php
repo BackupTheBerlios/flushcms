@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: SystemMenu.php,v 1.2 2005/12/20 10:35:37 arzen Exp $ */
+/* $Id: SystemMenu.php,v 1.3 2005/12/20 14:55:40 arzen Exp $ */
 
 if (empty($__Version__))
 {
@@ -31,7 +31,7 @@ switch ($_REQUEST['Action'])
 		break;
 
 	case 'Update':
-			$thisObj->opUpdate();
+			$thisObj->opAdd();
 		break;
 		
 	default:

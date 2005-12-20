@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: SystemMenu.class.php,v 1.2 2005/12/20 10:35:37 arzen Exp $ */
+/* $Id: SystemMenu.class.php,v 1.3 2005/12/20 14:55:40 arzen Exp $ */
 
 class SystemMenu
 {
@@ -34,17 +34,22 @@ class SystemMenu
 	*/
 	function opAdd () 
 	{
-		global $__Lang__,$UrlParameter,$SiteDB,$AddIPObj,$FlushPHPObj, $smarty;
+		global $__Lang__,$UrlParameter,$SiteDB,$AddIPObj,$FlushPHPObj,$form,$smarty;
 		
-		include_once ('DAO/SystemMenuDAO.class.php');
-		$sysMenuDao = new SystemMenuDAO();
-		$data_menu = $sysMenuDao->getMenuArr();
 		include_once (PEAR_DIR.'HTML/QuickForm.php');
 		$form = new HTML_QuickForm('firstForm');
+		include_once ('DAO/SystemMenuDAO.class.php');
+		$sysMenuDao = &new SystemMenuDAO();
+		$data_menu = $sysMenuDao->getMenuArr();
 		$form->addElement('header', null, $__Lang__['langMenuHeader']);
 		$menu_array = array("0"=>$__Lang__['langGeneralNone']);
 		$menu_all = $menu_array+$data_menu;
 		
+		if ($_REQUEST['Action']=='Update') 
+		{
+			$this->opUpdate();
+		}
+
 		$form->addElement('select', 'PID', $__Lang__['langMenuCategory'].$__Lang__['langGeneralName'].' : ',$menu_all);
 		$form->addElement('text', 'Title', $__Lang__['langMenu'].$__Lang__['langGeneralName'].' : ');
 		$form->addElement('text', 'URL', $__Lang__['langMenu'].$__Lang__['langGeneralURL'].' : ');
@@ -57,7 +62,7 @@ class SystemMenu
 		
 		$form->addRule('PID', 'Please enter a username.', 'required');
 		$form->addRule('Title', 'Please enter a password.', 'required');
-		
+
 		if ($form->validate()) 
 		{
 			$record["PID"] = $form->exportValue('PID');
@@ -66,20 +71,51 @@ class SystemMenu
 			$record["AddIP"] = $AddIPObj->getTrueIP();
 			$record["CreateTime"] = time();
 			$dbAppObj = $FlushPHPObj->loadApp("DBApp");
-			if ($dbAppObj->checkExists(SYSMENU_TABLE," Title='".$record["Title"]."' ")) 
+			if ($_POST['ID'] && $_POST['Action']=='Update') 
 			{
-				$form->setElementError('Title',$__Lang__['langUserNameExist']);
-			}
-			 else
-			{
-				$thisDAO = new SystemMenuDAO();
-				$thisDAO->opAdd(SYSMENU_TABLE,$record);
+				$thisDAO = &new SystemMenuDAO();
+				$thisDAO->opUpdate(SYSMENU_TABLE,$record," SysmenuID = ".$_POST['ID']);
 				$form->setElementError('Title',$__Lang__['langGeneralOperation'].$__Lang__['langGeneralSuccess']);
 				$form->freeze();
+				
+			} 
+			else 
+			{
+				if ($dbAppObj->checkExists(SYSMENU_TABLE," Title='".$record["Title"]."' ")) 
+				{
+					$form->setElementError('Title',$__Lang__['langUserNameExist']);
+				}
+				 else
+				{
+					$thisDAO = &new SystemMenuDAO();
+					$thisDAO->opAdd(SYSMENU_TABLE,$record);
+					$form->setElementError('Title',$__Lang__['langGeneralOperation'].$__Lang__['langGeneralSuccess']);
+					$form->freeze();
+				}
 			}
 		}
 		
 		$smarty->assign("Main", $form->toHTML());
+		
+	}
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - Dec 20, 2005
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function opUpdate () 
+	{
+		global $__Lang__, $FlushPHPObj,$form, $smarty;
+		
+		$sysMenuDao = &new SystemMenuDAO();
+		$user_data = $sysMenuDao->getRowByID(SYSMENU_TABLE,"SysmenuID",$_REQUEST['ID']);
+		$form->setDefaults(array("PID"=>$user_data['PID'],
+							"Title"=>$user_data['Title'],
+							"URL"=>$user_data['URL']));
+		$form->addElement('hidden', 'ID', $user_data['SysmenuID']); 
 		
 	}
 	
@@ -105,9 +141,10 @@ class SystemMenu
 		$table->setAutoGrow(true);
 		$table->setAutoFill("n/a");
 		$cell_x=0;
+		
 		foreach ($data_menu as $key=>$value)
 		{
-			$table->addRow(array($cell_x, $value, " <table><tr><td><a href='?Module=General&Page=SystemMenu&Action=Update&ID=".$key."'><img src='".THEMES_DIR."images/edit_f2.png' border='0'><br />".$__Lang__['langGeneralUpdate']."</a></td><td><a href='?Module=General&Page=SystemMenu&Action=Update&ID=".$key."'><img src='".THEMES_DIR."images/cancel_f2.png' border='0'><br />".$__Lang__['langGeneralCancel']."</a></td></tr></table>"));
+			$table->addRow(array($cell_x, $value, " <table><tr><td><a href='?Module=General&Page=SystemMenu&Action=Update&ID=".$key."'><img src='".THEMES_DIR."images/edit_f2.png' border='0'><br />".$__Lang__['langGeneralUpdate']."</a></td><td><a href='?Module=General&Page=SystemMenu&Action=Update&ID=".$key."' onclick=\"return confirm ( '".$__Lang__['langGeneralCancelConfirm']."');\"><img src='".THEMES_DIR."images/cancel_f2.png' border='0'><br />".$__Lang__['langGeneralCancel']."</a></td></tr></table>"));
 			$cell_x++;
 		}
 		
@@ -123,23 +160,6 @@ class SystemMenu
 		
 		$smarty->assign("Main", $table->toHtml());
 	}
-	/**
-	* function_description
-	*
-	* @author	John.meng
-	* @since    version - Dec 20, 2005
-	* @param	datatype paramname description
-	* @return   datatype description
-	*/
-	function opUpdate () 
-	{
-		global $__Lang__, $FlushPHPObj, $smarty;
-		
-		$sysMenuDao = new SystemMenuDAO();
-		$sysMenuDao->getRowByID(SYSMENU_TABLE,"SysmenuID",$_REQUEST['ID']);
-		$this->opAdd();
-		
-	}
 	
 	/**
 	* function_description
@@ -154,7 +174,7 @@ class SystemMenu
 		global $__Lang__,$smarty;
 		
 		$str_html = "<td align='center' ><a href='?Module=General&Page=SystemMenu&Action=Add'><img src='".THEMES_DIR."images/new_f2.png' border='0' ><br />".$__Lang__['langGeneralAdd']."</a></td>";
-		$str_html .= "<td><a href='?Module=General&Page=SystemMenu'><img src='".THEMES_DIR."images/publish_f2.png' border='0' ><br />".$__Lang__['langGeneralList']."</a></td>";
+		$str_html .= "<td><a href='?Module=General&Page=SystemMenu' ><img src='".THEMES_DIR."images/publish_f2.png' border='0' ><br />".$__Lang__['langGeneralList']."</a></td>";
 		
 		$smarty->assign("subNavigator", $str_html);
 	}
