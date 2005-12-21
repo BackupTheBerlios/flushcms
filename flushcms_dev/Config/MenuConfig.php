@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: MenuConfig.php,v 1.10 2005/12/21 14:42:02 arzen Exp $ */
+/* $Id: MenuConfig.php,v 1.11 2005/12/21 14:48:23 arzen Exp $ */
 
 $MainMenu = array(
 // home menu

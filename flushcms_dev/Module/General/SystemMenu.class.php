@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: SystemMenu.class.php,v 1.5 2005/12/21 14:42:02 arzen Exp $ */
+/* $Id: SystemMenu.class.php,v 1.6 2005/12/21 14:48:23 arzen Exp $ */
 
 /**
  * Menu class handle
