@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: AppMenu.class.php,v 1.3 2005/12/21 07:20:17 arzen Exp $ */
+/* $Id: AppMenu.class.php,v 1.4 2005/12/21 07:44:03 arzen Exp $ */
 
 /**
  * Load language file
@@ -62,12 +62,13 @@ class AppMenu
 		$smarty->assign('MainMenu',$this->_menu_html);
 	}
 	/**
-	* function_description
+	* On top dropdown menu 
 	*
 	* @author	John.meng
-	* @since    version - Dec 21, 2005
-	* @param	datatype paramname description
-	* @return   datatype description
+	* @since    version 1.0- Dec 21, 2005
+	* @param	array    $menu    menu array
+	* @param	int      $level   menu node level
+	* @return   HTML code
 	*/
 	function _topDropDown ($menu,$level = 0) 
 	{

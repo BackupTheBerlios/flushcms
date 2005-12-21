@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: MenuConfig.php,v 1.7 2005/12/21 07:20:17 arzen Exp $ */
+/* $Id: MenuConfig.php,v 1.8 2005/12/21 07:44:03 arzen Exp $ */
 
 $MainMenu = array(
 // home menu
@@ -35,6 +35,7 @@ $MainMenu = array(
 				'url' => '',
 				'sub' => array(
 					"AddMenu"=>array(
+						'ico' =>'doc.gif',
 						'title' => $__Lang__['langGeneralAdd'].$__Lang__['langMenu'], 
 						'url' => '?Module=General&Page=SystemMenu&Action=Add'
 					),
@@ -56,14 +57,16 @@ $MainMenu = array(
 		'sub' => array(
 		
 			"UserList"=>array(
+				'ico' => 'user_small.png',
 				'title' => $__Lang__['langMenuUser'].$__Lang__['langGeneralList'], 
 				'url' => '',
 				'sub' => array(
-					"AddMenu"=>array(
+					"AddUser"=>array(
+						'ico' =>'doc.gif',
 						'title' => $__Lang__['langGeneralAdd'].$__Lang__['langMenuUser'], 
 						'url' => '?Module=General&Page=SystemMenu&Action=Add'
 					),
-					"MenuList"=>array(
+					"UserList"=>array(
 						'title' =>$__Lang__['langMenuUser'].$__Lang__['langGeneralList'], 
 						'url' => '?Module=General&Page=SystemMenu'
 					),
@@ -72,14 +75,16 @@ $MainMenu = array(
 			),
 
 			"GroupList"=>array(
+				'ico' => 'users_small.png',
 				'title' => $__Lang__['langUserGroup'].$__Lang__['langGeneralList'], 
 				'url' => '',
 				'sub' => array(
-					"AddMenu"=>array(
+					"AddGroup"=>array(
+						'ico' =>'doc.gif',
 						'title' => $__Lang__['langGeneralAdd'].$__Lang__['langUserGroup'], 
 						'url' => '?Module=General&Page=SystemMenu&Action=Add'
 					),
-					"MenuList"=>array(
+					"GroupList"=>array(
 						'title' =>$__Lang__['langUserGroup'].$__Lang__['langGeneralList'], 
 						'url' => '?Module=General&Page=SystemMenu'
 					),
@@ -92,19 +97,20 @@ $MainMenu = array(
 // module menu
 	"Module"=>array(
 		'ico' => "config.png",
-		'title' => $__Lang__['langMenu'], 
+		'title' => $__Lang__['langMenuModule'], 
 		'url' => '',
 		'sub' => array(
 		
-			"SystemMenu"=>array(
+			"ModuleList"=>array(
+				'ico' => 'package.gif',
 				'title' => $__Lang__['langMenuModule'].$__Lang__['langGeneralList'], 
 				'url' => '',
 				'sub' => array(
-					"AddMenu"=>array(
+					"AddModule"=>array(
 						'title' => $__Lang__['langGeneralAdd'].$__Lang__['langMenuModule'], 
 						'url' => '?Module=General&Page=SystemMenu&Action=Add'
 					),
-					"MenuList"=>array(
+					"ModuleList"=>array(
 						'title' =>$__Lang__['langMenuModule'].$__Lang__['langGeneralList'], 
 						'url' => '?Module=General&Page=Module'
 					),
