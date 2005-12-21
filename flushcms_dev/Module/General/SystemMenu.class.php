@@ -14,14 +14,19 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: SystemMenu.class.php,v 1.3 2005/12/20 14:55:40 arzen Exp $ */
+/* $Id: SystemMenu.class.php,v 1.4 2005/12/21 10:12:14 arzen Exp $ */
 
+/**
+ * Menu class handle
+ * @package	Module
+ */
+
+include_once ('DAO/SystemMenuDAO.class.php');
 class SystemMenu
 {
 
 	function SystemMenu()
 	{
-		include_once ('DAO/SystemMenuDAO.class.php');
 		$this->subNavigator();
 	}
 	/**

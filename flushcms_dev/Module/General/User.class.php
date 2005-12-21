@@ -15,7 +15,12 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: User.class.php,v 1.5 2005/12/15 03:29:22 arzen Exp $ */
+/* $Id: User.class.php,v 1.6 2005/12/21 10:12:14 arzen Exp $ */
+
+/**
+ * User class handle
+ * @package	Module
+ */
 
 include_once("DAO/UserDAO.class.php");
 class User
@@ -23,6 +28,7 @@ class User
 
 	function User()
 	{
+		$this->subNavigator();
 	}
 	/**
 	 * Add user
@@ -32,13 +38,18 @@ class User
 	 * @param   string  
 	 *
 	 */
-	function opAddUser () 
+	function opAdd () 
 	{
-		global $__Lang__,$UrlParameter,$SiteDB,$AddIPObj,$FlushPHPObj, $smarty;
+		global $__Lang__,$UrlParameter,$SiteDB,$AddIPObj,$FlushPHPObj,$form,$smarty;
 		
-		$head_tabs = $this->headTabs();
 		include_once (PEAR_DIR.'HTML/QuickForm.php');
 		$form = new HTML_QuickForm('firstForm');
+		
+		if ($_REQUEST['Action']=='Update') 
+		{
+			$this->opUpdate();
+		}
+		
 		$form->addElement('header', null, $__Lang__['langUserAddHeader']);
 		$form->addElement('text', 'user_name', $__Lang__['langMenuUser'].$__Lang__['langGeneralName'].' : ');
 		$form->addElement('password', 'user_passwd', $__Lang__['langMenuUser'].$__Lang__['langGeneralPassword'].' : ');
@@ -62,20 +73,65 @@ class User
 			$record["AddIP"] = $AddIPObj->getTrueIP();
 			$record["CreateTime"] = time();
 			$dbAppObj = $FlushPHPObj->loadApp("DBApp");
-			if ($dbAppObj->checkExists(USERS_TABLE," UserName='".$record["UserName"]."' ")) 
+			if ($_POST['ID'] && $_POST['Action']=='Update') 
 			{
-				$form->setElementError('user_name',$__Lang__['langUserNameExist']);
-			}
-			 else
-			{
-				$userDAO = new UserDAO();
-				$userDAO->addUser($record);
+				$thisDAO = &new UserDAO();
+				$thisDAO->opUpdate(USERS_TABLE,$record," UsersID = ".$_POST['ID']);
 				$form->setElementError('user_name',$__Lang__['langGeneralOperation'].$__Lang__['langGeneralSuccess']);
 				$form->freeze();
+				
+			} 
+			else 
+			{
+				if ($dbAppObj->checkExists(USERS_TABLE," UserName='".$record["UserName"]."' ")) 
+				{
+					$form->setElementError('user_name',$__Lang__['langUserNameExist']);
+				}
+				 else
+				{
+					$userDAO = new UserDAO();
+					$userDAO->addUser($record);
+					$form->setElementError('user_name',$__Lang__['langGeneralOperation'].$__Lang__['langGeneralSuccess']);
+					$form->freeze();
+				}
 			}
 		}
 		
-		$smarty->assign("Main", $head_tabs.$form->toHTML());
+		$smarty->assign("Main", $form->toHTML());
+	}
+	
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - Dec 20, 2005
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function opUpdate () 
+	{
+		global $__Lang__, $FlushPHPObj,$form, $smarty;
+		
+		$thisDao = &new UserDAO();
+		$this_data = $thisDao->getRowByID(USERS_TABLE,"UsersID",$_REQUEST['ID']);
+		$form->setDefaults(array(
+							"user_name"=>$this_data['UserName']
+							)
+						   );
+		$form->addElement('hidden', 'ID', $this_data['UsersID']); 
+		
+	}
+	/**
+	* Cancel operation
+	*
+	* @author	John.meng
+	* @since    version - Dec 21, 2005
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function opCancel () 
+	{
+		
 	}
 	
 	/**
@@ -126,7 +182,8 @@ class User
 		$selectBox = $pager->getPerPageSelectBox();
 		foreach($page_data as $key=>$data )
 		{
-			$table->addRow(array($key,$data['UserName'],$data['CreateTime'],$data['AddIP']));
+			$user_id = $data['UsersID'];
+			$table->addRow(array($key,$data['UserName'],$data['CreateTime'],$data['AddIP'],""," <table><tr><td><a href='?Module=General&Page=User&Action=Update&ID=".$user_id."'><img src='".THEMES_DIR."images/edit_f2.png' border='0'><br />".$__Lang__['langGeneralUpdate']."</a></td><td><a href='?Module=General&Page=User&Action=Update&ID=".$user_id."' onclick=\"return confirm ( '".$__Lang__['langGeneralCancelConfirm']."');\"><img src='".THEMES_DIR."images/cancel_f2.png' border='0'><br />".$__Lang__['langGeneralCancel']."</a></td></tr></table>"));
 		}
 		
 		$altRow = array ("class" => "grid_table_tr_alternate");
@@ -137,64 +194,24 @@ class User
 		$table->setColAttributes(0, $hrAttrs);
 		$html_grib = $table->toHtml();
 		
-		$head_tabs = $this->headTabs();
-		$smarty->assign("Main", $head_tabs.$html_grib.$links['all']);
+		$smarty->assign("Main", $html_grib.$links['all']);
 		
 	}
 	/**
-	 * Display head tabs
-	 *
-	 * @author  John.meng (√œ‘∂Ú˚)
-	 * @since   version 1.0 - 2005-12-14 21:00:50
-	 * @param   string  
-	 *
-	 */
-	function headTabs () 
+	* sub navigator html code
+	*
+	* @author	John.meng
+	* @since    version 1.0- Dec 20, 2005
+	* @return   html code
+	*/
+	function subNavigator () 
 	{
-		global $__Lang__,$UrlParameter,$FlushPHPObj, $smarty;
-		include_once (APP_DIR."UI.class.php");
+		global $__Lang__,$smarty;
 		
-	    $tabs = array(
-	                  array($__Lang__['langMenuUser'].$__Lang__['langGeneralList'], $UrlParameter."&Action=UserList"),
-	                  array($__Lang__['langGeneralAdd'].$__Lang__['langMenuUser'], $UrlParameter."&Action=AddUser"),
-	                  array($__Lang__['langUserGroup'].$__Lang__['langGeneralList'], $UrlParameter."&Action=GroupList"),
-	                  array($__Lang__['langGeneralAdd'].$__Lang__['langUserGroup'], $UrlParameter."&Action=AddGroup"),
-	                  array($__Lang__['langUserGroup'].$__Lang__['langMenuUser'], $UrlParameter."&Action=GroupUser"),  
-	                  array($__Lang__['langMenuUser'].$__Lang__['langGeneralConfigure'], $UrlParameter."&Action=Configure")
-	                  ); 
-	    switch ($_REQUEST['Action']) 
-		{
-			case 'UserList':
-					$select_tab = 0;
-				break;
-				
-			case 'AddUser':
-					$select_tab = 1;
-				break;
-				
-			case 'GroupList':
-					$select_tab = 2;
-				break;
-				
-			case 'AddGroup':
-					$select_tab = 3;
-				break;
-
-			case 'GroupUser':
-					$select_tab = 4;
-				break;
-
-			case 'Configure':
-					$select_tab = 5;
-				break;
+		$str_html = "<td align='center' ><a href='?Module=General&Page=User&Action=Add'><img src='".THEMES_DIR."images/new_f2.png' border='0' ><br />".$__Lang__['langGeneralAdd']."</a></td>";
+		$str_html .= "<td><a href='?Module=General&Page=User' ><img src='".THEMES_DIR."images/publish_f2.png' border='0' ><br />".$__Lang__['langGeneralList']."</a></td>";
 		
-			default:
-					$select_tab = 0;
-				break;
-		}
-		       
-	    $tab = new Tabset($tabs, $select_tab);
-		return $tab->toHtml();
+		$smarty->assign("subNavigator", $str_html);
 	}
 	
 	

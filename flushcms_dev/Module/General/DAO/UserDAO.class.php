@@ -14,9 +14,10 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: UserDAO.class.php,v 1.1 2005/12/15 03:29:22 arzen Exp $ */
+/* $Id: UserDAO.class.php,v 1.2 2005/12/21 10:12:14 arzen Exp $ */
 
-class UserDAO
+include_once(APP_DIR."DBApp.class.php");
+class UserDAO extends DBApp
 {
 
 	function UserDAO()

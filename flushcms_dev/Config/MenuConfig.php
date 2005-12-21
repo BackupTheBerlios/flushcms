@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: MenuConfig.php,v 1.8 2005/12/21 07:44:03 arzen Exp $ */
+/* $Id: MenuConfig.php,v 1.9 2005/12/21 10:12:14 arzen Exp $ */
 
 $MainMenu = array(
 // home menu
@@ -64,11 +64,11 @@ $MainMenu = array(
 					"AddUser"=>array(
 						'ico' =>'doc.gif',
 						'title' => $__Lang__['langGeneralAdd'].$__Lang__['langMenuUser'], 
-						'url' => '?Module=General&Page=SystemMenu&Action=Add'
+						'url' => '?Module=General&Page=User&Action=Add'
 					),
 					"UserList"=>array(
 						'title' =>$__Lang__['langMenuUser'].$__Lang__['langGeneralList'], 
-						'url' => '?Module=General&Page=SystemMenu'
+						'url' => '?Module=General&Page=User'
 					),
 				)
 			
