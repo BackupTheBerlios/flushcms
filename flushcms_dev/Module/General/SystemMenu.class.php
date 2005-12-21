@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: SystemMenu.class.php,v 1.4 2005/12/21 10:12:14 arzen Exp $ */
+/* $Id: SystemMenu.class.php,v 1.5 2005/12/21 14:42:02 arzen Exp $ */
 
 /**
  * Menu class handle
@@ -149,7 +149,7 @@ class SystemMenu
 		
 		foreach ($data_menu as $key=>$value)
 		{
-			$table->addRow(array($cell_x, $value, " <table><tr><td><a href='?Module=General&Page=SystemMenu&Action=Update&ID=".$key."'><img src='".THEMES_DIR."images/edit_f2.png' border='0'><br />".$__Lang__['langGeneralUpdate']."</a></td><td><a href='?Module=General&Page=SystemMenu&Action=Update&ID=".$key."' onclick=\"return confirm ( '".$__Lang__['langGeneralCancelConfirm']."');\"><img src='".THEMES_DIR."images/cancel_f2.png' border='0'><br />".$__Lang__['langGeneralCancel']."</a></td></tr></table>"));
+			$table->addRow(array($value, " <table><tr><td><a href='?Module=General&Page=SystemMenu&Action=Update&ID=".$key."'><img src='".THEMES_DIR."images/edit.gif' border='0'><br />".$__Lang__['langGeneralUpdate']."</a></td><td><a href='?Module=General&Page=SystemMenu&Action=Update&ID=".$key."' onclick=\"return confirm ( '".$__Lang__['langGeneralCancelConfirm']."');\"><img src='".THEMES_DIR."images/delete.gif' border='0'><br />".$__Lang__['langGeneralCancel']."</a></td></tr></table>"));
 			$cell_x++;
 		}
 		
@@ -157,11 +157,10 @@ class SystemMenu
 		$table->altRowAttributes(1, null, $altRow);
 		$hrAttrs = array ("class" => "grid_table_head");
 		$table->setRowAttributes(0, $hrAttrs, true);
-		$table->setColAttributes(0, $hrAttrs);
+//		$table->setColAttributes(0, $hrAttrs);
 
-		$table->setHeaderContents(0, 0, "");
-		$table->setHeaderContents(0, 1, $__Lang__['langMenu']);
-		$table->setHeaderContents(0, 2, $__Lang__['langGeneralOperation']);
+		$table->setHeaderContents(0, 0, $__Lang__['langMenu']);
+		$table->setHeaderContents(0, 1, $__Lang__['langGeneralOperation']);
 		
 		$smarty->assign("Main", $table->toHtml());
 	}

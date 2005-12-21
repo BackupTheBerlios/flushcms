@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: User.class.php,v 1.6 2005/12/21 10:12:14 arzen Exp $ */
+/* $Id: User.class.php,v 1.7 2005/12/21 14:42:02 arzen Exp $ */
 
 /**
  * User class handle
@@ -152,12 +152,11 @@ class User
 		$table = new HTML_Table($tableAttrs);
 		$table->setAutoGrow(true);
 		$table->setAutoFill("n/a");
-		$table->setHeaderContents(0, 0, "");
-		$table->setHeaderContents(0, 1, $__Lang__['langMenuUser'].$__Lang__['langGeneralName']);
-		$table->setHeaderContents(0, 2, $__Lang__['langGeneralCreateTime']);
-		$table->setHeaderContents(0, 3, $__Lang__['langGeneralAddIP']);
-		$table->setHeaderContents(0, 4, $__Lang__['langGeneralStatus']);
-		$table->setHeaderContents(0, 5, $__Lang__['langGeneralOperation']);
+		$table->setHeaderContents(0, 0, $__Lang__['langMenuUser'].$__Lang__['langGeneralName']);
+		$table->setHeaderContents(0, 1, $__Lang__['langGeneralCreateTime']);
+		$table->setHeaderContents(0, 2, $__Lang__['langGeneralAddIP']);
+		$table->setHeaderContents(0, 3, $__Lang__['langGeneralStatus']);
+		$table->setHeaderContents(0, 4, $__Lang__['langGeneralOperation']);
 
 		$userDAO = new UserDAO();
 		$all_user_arr = $userDAO->getAllUsers();
@@ -183,7 +182,7 @@ class User
 		foreach($page_data as $key=>$data )
 		{
 			$user_id = $data['UsersID'];
-			$table->addRow(array($key,$data['UserName'],$data['CreateTime'],$data['AddIP'],""," <table><tr><td><a href='?Module=General&Page=User&Action=Update&ID=".$user_id."'><img src='".THEMES_DIR."images/edit_f2.png' border='0'><br />".$__Lang__['langGeneralUpdate']."</a></td><td><a href='?Module=General&Page=User&Action=Update&ID=".$user_id."' onclick=\"return confirm ( '".$__Lang__['langGeneralCancelConfirm']."');\"><img src='".THEMES_DIR."images/cancel_f2.png' border='0'><br />".$__Lang__['langGeneralCancel']."</a></td></tr></table>"));
+			$table->addRow(array($data['UserName'],$data['CreateTime'],$data['AddIP'],""," <table><tr><td><a href='?Module=General&Page=User&Action=Update&ID=".$user_id."'><img src='".THEMES_DIR."images/edit.gif' border='0'><br />".$__Lang__['langGeneralUpdate']."</a></td><td><a href='?Module=General&Page=User&Action=Update&ID=".$user_id."' onclick=\"return confirm ( '".$__Lang__['langGeneralCancelConfirm']."');\"><img src='".THEMES_DIR."images/delete.gif' border='0'><br />".$__Lang__['langGeneralCancel']."</a></td></tr></table>"));
 		}
 		
 		$altRow = array ("class" => "grid_table_tr_alternate");
@@ -191,7 +190,6 @@ class User
 		
 		$hrAttrs = array ("class" => "grid_table_head");
 		$table->setRowAttributes(0, $hrAttrs, true);
-		$table->setColAttributes(0, $hrAttrs);
 		$html_grib = $table->toHtml();
 		
 		$smarty->assign("Main", $html_grib.$links['all']);

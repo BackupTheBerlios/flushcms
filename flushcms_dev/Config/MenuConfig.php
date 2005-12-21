@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: MenuConfig.php,v 1.9 2005/12/21 10:12:14 arzen Exp $ */
+/* $Id: MenuConfig.php,v 1.10 2005/12/21 14:42:02 arzen Exp $ */
 
 $MainMenu = array(
 // home menu
@@ -62,11 +62,12 @@ $MainMenu = array(
 				'url' => '',
 				'sub' => array(
 					"AddUser"=>array(
-						'ico' =>'doc.gif',
+//						'ico' =>'doc.gif',
 						'title' => $__Lang__['langGeneralAdd'].$__Lang__['langMenuUser'], 
 						'url' => '?Module=General&Page=User&Action=Add'
 					),
 					"UserList"=>array(
+//						'ico' => 'info.gif',
 						'title' =>$__Lang__['langMenuUser'].$__Lang__['langGeneralList'], 
 						'url' => '?Module=General&Page=User'
 					),
@@ -80,11 +81,12 @@ $MainMenu = array(
 				'url' => '',
 				'sub' => array(
 					"AddGroup"=>array(
-						'ico' =>'doc.gif',
+//						'ico' =>'doc.gif',
 						'title' => $__Lang__['langGeneralAdd'].$__Lang__['langUserGroup'], 
 						'url' => '?Module=General&Page=SystemMenu&Action=Add'
 					),
 					"GroupList"=>array(
+//						'ico' => 'info.gif',
 						'title' =>$__Lang__['langUserGroup'].$__Lang__['langGeneralList'], 
 						'url' => '?Module=General&Page=SystemMenu'
 					),
