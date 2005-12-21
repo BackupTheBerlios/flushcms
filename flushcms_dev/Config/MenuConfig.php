@@ -14,23 +14,107 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: MenuConfig.php,v 1.6 2005/12/14 09:49:59 arzen Exp $ */
-	
+/* $Id: MenuConfig.php,v 1.7 2005/12/21 07:20:17 arzen Exp $ */
+
 $MainMenu = array(
-			    'General' => array(
-			        'title' => $__Lang__['langMenuGeneral'], 
-			        'url' => '####',
-			        'sub' => array(
-			            11 => array(
-									'title' => $__Lang__['langMenuModule'].$__Lang__['langGeneralList'],
-									'url' => '?Module=General&Page=Module'
-									),
-			            12 => array(
-					                'title' => $__Lang__['langMenuUser'].$__Lang__['langGeneralList'], 
-					                'url' => '?Module=General&Page=User'
-			            			)
-			        )
-			    )
-			);
+// home menu
+	"Home"=>array(
+		'ico' => "frontpage.png",
+		'title' => $__Lang__['langGeneralHome'], 
+		'url' => '?'
+	),
+// menu	
+	"Menu"=>array(
+		'ico' => "menu.png",
+		'title' => $__Lang__['langMenu'], 
+		'url' => '',
+		'sub' => array(
+		
+			"SystemMenu"=>array(
+				'title' => $__Lang__['langGeneralSystem'].$__Lang__['langMenu'], 
+				'url' => '',
+				'sub' => array(
+					"AddMenu"=>array(
+						'title' => $__Lang__['langGeneralAdd'].$__Lang__['langMenu'], 
+						'url' => '?Module=General&Page=SystemMenu&Action=Add'
+					),
+					"MenuList"=>array(
+						'title' => $__Lang__['langGeneralSystem'].$__Lang__['langMenu'].$__Lang__['langGeneralList'], 
+						'url' => '?Module=General&Page=SystemMenu'
+					),
+				)
+			
+			)
+			
+		)
+	),
+// user menu	
+	"User"=>array(
+		'ico' => "users.png",
+		'title' => $__Lang__['langMenuUser'], 
+		'url' => '',
+		'sub' => array(
+		
+			"UserList"=>array(
+				'title' => $__Lang__['langMenuUser'].$__Lang__['langGeneralList'], 
+				'url' => '',
+				'sub' => array(
+					"AddMenu"=>array(
+						'title' => $__Lang__['langGeneralAdd'].$__Lang__['langMenuUser'], 
+						'url' => '?Module=General&Page=SystemMenu&Action=Add'
+					),
+					"MenuList"=>array(
+						'title' =>$__Lang__['langMenuUser'].$__Lang__['langGeneralList'], 
+						'url' => '?Module=General&Page=SystemMenu'
+					),
+				)
+			
+			),
+
+			"GroupList"=>array(
+				'title' => $__Lang__['langUserGroup'].$__Lang__['langGeneralList'], 
+				'url' => '',
+				'sub' => array(
+					"AddMenu"=>array(
+						'title' => $__Lang__['langGeneralAdd'].$__Lang__['langUserGroup'], 
+						'url' => '?Module=General&Page=SystemMenu&Action=Add'
+					),
+					"MenuList"=>array(
+						'title' =>$__Lang__['langUserGroup'].$__Lang__['langGeneralList'], 
+						'url' => '?Module=General&Page=SystemMenu'
+					),
+				)
+			
+			)
+			
+		)
+	),
+// module menu
+	"Module"=>array(
+		'ico' => "config.png",
+		'title' => $__Lang__['langMenu'], 
+		'url' => '',
+		'sub' => array(
+		
+			"SystemMenu"=>array(
+				'title' => $__Lang__['langMenuModule'].$__Lang__['langGeneralList'], 
+				'url' => '',
+				'sub' => array(
+					"AddMenu"=>array(
+						'title' => $__Lang__['langGeneralAdd'].$__Lang__['langMenuModule'], 
+						'url' => '?Module=General&Page=SystemMenu&Action=Add'
+					),
+					"MenuList"=>array(
+						'title' =>$__Lang__['langMenuModule'].$__Lang__['langGeneralList'], 
+						'url' => '?Module=General&Page=Module'
+					),
+				)
+			
+			)
+			
+		)
+	)
+
+);
 
 ?>

@@ -15,17 +15,17 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: AppMenu.class.php,v 1.2 2005/12/14 15:16:16 arzen Exp $ */
+/* $Id: AppMenu.class.php,v 1.3 2005/12/21 07:20:17 arzen Exp $ */
+
 /**
  * Load language file
  * @package	App
  */
 
-require_once PEAR_DIR.'HTML/Menu.php';
-require_once PEAR_DIR.'HTML/Menu/DirectRenderer.php';
 class AppMenu
 {
-	var $_type='sitemap';
+	var $_type='topdropdown';
+	var $_menu_html='';
 	function AppMenu()
 	{
 
@@ -53,15 +53,55 @@ class AppMenu
 	function loadMenu ($MainMenu) 
 	{
 		global $smarty;
-		$menu =& new HTML_Menu($MainMenu);
-		$menu->forceCurrentUrl("?".$_SERVER["QUERY_STRING"]);
-		$type = $this->_type;
-		$renderer =& new HTML_Menu_DirectRenderer();
-		$renderer->setMenuTemplate("<table border=0>","</table>");
-		$menu->render($renderer,$type);
-		$smarty->assign('MainMenu',$renderer->toHtml());
+		switch ($this->_type) 
+		{
+			case 'topdropdown':
+				$this->_topDropDown($MainMenu);
+				break;
+		}
+		$smarty->assign('MainMenu',$this->_menu_html);
 	}
-	
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - Dec 21, 2005
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function _topDropDown ($menu,$level = 0) 
+	{
+		foreach($menu as $node_id => $node)
+		{
+			$_url = $node['url']?$node['url']:'javascript:void(0)';
+			$_title = $node['title'];
+			$_ico = $node['ico']?"<img src='".THEMES_DIR."images/".$node['ico']."' alt='' border='0' align='absmiddle' />":"";
+			if ($level==0) 
+			{
+				$this->_menu_html .= "<td ><a class='button' href=\"$_url\"> $_ico $_title</a>";
+			}else 
+			{
+				if (isset($node['sub']) && $level>=1) 
+				{
+					$this->_menu_html .= "<a class='item' href='$_url'> $_ico $_title <img class='arrow' src='".THEMES_DIR."images/arrow1.gif' width='4' height='7' alt='' /></a>";
+				}else 
+				{
+					$this->_menu_html .= "<a class='item' href='$_url'> $_ico $_title</a>";
+				}
+			}
+			if (isset($node['sub'])) 
+			{
+				$this->_menu_html .="<div class='section'>";
+				$this->_topDropDown($node['sub'], $level + 1);
+			}
+		}
+        $this->_menu_html .="</div>";
+        if (0 == $level) 
+        {
+            $this->_menu_html .="</td>";
+        }
+		
+	}
 	
 }
 ?>

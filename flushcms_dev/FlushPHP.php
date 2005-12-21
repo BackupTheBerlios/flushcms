@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: FlushPHP.php,v 1.12 2005/12/19 10:28:26 arzen Exp $ */
+/* $Id: FlushPHP.php,v 1.13 2005/12/21 07:20:17 arzen Exp $ */
 
 define(ROOT_DIR,dirname(__FILE__));
 define(UTIL_DIR,ROOT_DIR."/Utility/");
@@ -46,7 +46,7 @@ $MessageObj = $FlushPHPObj->loadApp("Messages");
 include_once(CONFIG_DIR."MenuConfig.php");
 
 $MenuObj = $FlushPHPObj->loadApp("AppMenu");
-$MenuObj->setMenuType("sitemap");
+$MenuObj->setMenuType("topdropdown");
 $MenuObj->loadMenu($MainMenu);
 $AddIPObj = $FlushPHPObj->loadApp("ClientIP");
 
