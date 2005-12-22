@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: User.class.php,v 1.8 2005/12/21 14:48:23 arzen Exp $ */
+/* $Id: User.class.php,v 1.9 2005/12/22 15:04:06 arzen Exp $ */
 
 /**
  * User class handle
@@ -23,7 +23,8 @@
  */
 
 include_once("DAO/UserDAO.class.php");
-class User
+include_once(APP_DIR."UI.class.php");
+class User extends UI
 {
 
 	function User()
@@ -42,9 +43,7 @@ class User
 	{
 		global $__Lang__,$UrlParameter,$SiteDB,$AddIPObj,$FlushPHPObj,$form,$smarty;
 		
-		include_once (PEAR_DIR.'HTML/QuickForm.php');
-		$form = new HTML_QuickForm('firstForm');
-		
+		parent::opAdd();
 		if ($_REQUEST['Action']=='Update') 
 		{
 			$this->opUpdate();

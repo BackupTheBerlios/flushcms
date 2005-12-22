@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: SystemMenu.class.php,v 1.6 2005/12/21 14:48:23 arzen Exp $ */
+/* $Id: SystemMenu.class.php,v 1.7 2005/12/22 15:04:06 arzen Exp $ */
 
 /**
  * Menu class handle
@@ -22,7 +22,9 @@
  */
 
 include_once ('DAO/SystemMenuDAO.class.php');
-class SystemMenu
+include_once(APP_DIR."UI.class.php");
+
+class SystemMenu extends UI
 {
 
 	function SystemMenu()
@@ -41,9 +43,7 @@ class SystemMenu
 	{
 		global $__Lang__,$UrlParameter,$SiteDB,$AddIPObj,$FlushPHPObj,$form,$smarty;
 		
-		include_once (PEAR_DIR.'HTML/QuickForm.php');
-		$form = new HTML_QuickForm('firstForm');
-		include_once ('DAO/SystemMenuDAO.class.php');
+		parent::opAdd();
 		$sysMenuDao = &new SystemMenuDAO();
 		$data_menu = $sysMenuDao->getMenuArr();
 		$form->addElement('header', null, $__Lang__['langMenuHeader']);

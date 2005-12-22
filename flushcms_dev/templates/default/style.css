@@ -4,7 +4,20 @@ td
 	text-decoration: none;
 }
 .grid_table {
-	width: 100%;
+	width: 99%;
+	margin: 0px;
+	padding: 0px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: outset;
+	border-right-style: outset;
+	border-bottom-style: outset;
+	border-left-style: outset;
+}
+.new_table {
+	width: 85%;
 	margin: 0px;
 	padding: 0px;
 	border-top-width: 1px;
