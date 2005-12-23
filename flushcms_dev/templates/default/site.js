@@ -524,7 +524,7 @@ if (typeof String.prototype.substrCount == "undefined") {
 
 /*start button*/
 if (!Bs_Objects) {var Bs_Objects = [];};function Bs_ButtonBar() {
-this._id;this._objectId;this.imgPath = '';this.useHelpBar;this.alignment = 'hor';this.ignoreEvents = false;this.helpBarStyle = "font-family:arial; font-size:11px; height:16px;";this._buttons = new Array;this._parentButton;this._constructor = function() {
+this._id;this._objectId;this.imgPath = '';this.useHelpBar;this.alignment = 'hor';this.ignoreEvents = false;this.helpBarStyle = "font-family:arial; font-size:11px; height:12px;";this._buttons = new Array;this._parentButton;this._constructor = function() {
 this._id = Bs_Objects.length;Bs_Objects[this._id] = this;this._objectId = "Bs_ButtonBar_"+this._id;}
 this.addButton = function(btn, helpBarText) {
 btn._buttonBar = this;this._buttons[this._buttons.length] = new Array(btn, helpBarText);}
@@ -532,8 +532,8 @@ this.newGroup = function() {
 this._buttons[this._buttons.length] = '|';}
 this.render = function() {
 var out = new Array;if (this._isGecko()) {
-out[out.length] = '<div style="background-color: #ECE9D8; padding: 2px">';} else {
-out[out.length] = '<div style="background-color:#ECE9D8;">';}
+out[out.length] = '<div style="background-color: #ECE9D8; padding: 0px;border-top-width: 1px;border-right-width: 1px;border-bottom-width: 1px;border-left-width: 1px;border-top-style: outset;border-right-style: outset;border-bottom-style: outset;border-left-style: outset;">';} else {
+out[out.length] = '<div style="background-color:#ECE9D8;border-top-width: 1px;border-right-width: 1px;border-bottom-width: 1px;border-left-width: 1px;border-top-style: outset;border-right-style: outset;border-bottom-style: outset;border-left-style: outset;">';}
 out[out.length] = '<div>';for (var i=0; i<this._buttons.length; i++) {
 if (this.alignment != 'hor') {
 out[out.length] = '<div>';}
