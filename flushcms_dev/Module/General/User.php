@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: User.php,v 1.4 2005/12/21 10:12:14 arzen Exp $ */
+/* $Id: User.php,v 1.5 2005/12/23 06:30:05 arzen Exp $ */
 if (empty($__Version__))
 {
 	echo "Big error! ";
@@ -40,6 +40,10 @@ switch ($_REQUEST['Action'])
 		
 	case 'Cancel':
 			$thisObj->opCancel();
+		break;
+		
+	case 'CancelSelected':
+			$thisObj->opCancelSelected();
 		break;
 
 	case 'GroupList':

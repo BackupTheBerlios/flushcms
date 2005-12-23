@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: User.class.php,v 1.10 2005/12/23 01:25:05 arzen Exp $ */
+/* $Id: User.class.php,v 1.11 2005/12/23 06:30:05 arzen Exp $ */
 
 /**
  * User class handle
@@ -130,8 +130,40 @@ class User extends UI
 	*/
 	function opCancel () 
 	{
+		global $__Lang__, $MessageObj,$smarty;
+		$userDAO = new UserDAO();
+		if ($delNum = $userDAO->delRowsByID(USERS_TABLE,"UsersID",$_REQUEST['ID'])) 
+		{
+			$smarty->assign("Main",$MessageObj->displayMsg($__Lang__['langGeneralCancel']." <font color='red' > <b> $delNum </b> </font> ".$__Lang__['langGeneralRecord'],"MSG"));
+		}
+	}
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - Dec 23, 2005
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function opCancelSelected () 
+	{
+		global $__Lang__, $MessageObj,$smarty;
+		
+		$userDAO = &new UserDAO();
+		if (is_array($_POST['CheckID'])) 
+		{
+			$check_ids = implode(",",$_POST['CheckID']);
+			if ($delNum = $userDAO->delRowsByID(USERS_TABLE,"UsersID",$check_ids)) 
+			{
+				$smarty->assign("Main",$MessageObj->displayMsg($__Lang__['langGeneralCancel']." <font color='red' > <b> $delNum </b> </font> ".$__Lang__['langGeneralRecord'],"MSG"));
+			}
+		}else 
+		{
+			$smarty->assign("Main",$MessageObj->displayMsg($__Lang__['langGeneralCancel']." <font color='red' > <b> $delNum </b> </font> ".$__Lang__['langGeneralRecord'],"NOTICE"));
+		}
 		
 	}
+	
 	
 	/**
 	* View list
@@ -143,25 +175,34 @@ class User extends UI
 	*/
 	function viewList () 
 	{
-		global $__Lang__,$UrlParameter,$FlushPHPObj,$table,$page_data,$all_data,$links, $smarty;
+		global $__Lang__,$UrlParameter,$FlushPHPObj,$table,$page_data,$all_data,$links,$form, $smarty;
 
 		$userDAO = new UserDAO();
 		$all_data = $userDAO->getAllUsers();
 
 		parent::viewList();
-		$table->setHeaderContents(0, 0, $__Lang__['langMenuUser'].$__Lang__['langGeneralName']);
-		$table->setHeaderContents(0, 1, $__Lang__['langGeneralCreateTime']);
-		$table->setHeaderContents(0, 2, $__Lang__['langGeneralAddIP']);
-		$table->setHeaderContents(0, 3, $__Lang__['langGeneralStatus']);
-		$table->setHeaderContents(0, 4, $__Lang__['langGeneralOperation']);
+		$table->setHeaderContents(0, 0,NULL);
+		$table->setHeaderContents(0, 1, $__Lang__['langMenuUser'].$__Lang__['langGeneralName']);
+		$table->setHeaderContents(0, 2, $__Lang__['langGeneralCreateTime']);
+		$table->setHeaderContents(0, 3, $__Lang__['langGeneralAddIP']);
+		$table->setHeaderContents(0, 4, $__Lang__['langGeneralStatus']);
+		$table->setHeaderContents(0, 5, $__Lang__['langGeneralOperation']);
 
 		foreach($page_data as $key=>$data )
 		{
 			$user_id = $data['UsersID'];
-			$table->addRow(array($data['UserName'],$data['CreateTime'],$data['AddIP'],""," <table><tr><td><a href='?Module=General&Page=User&Action=Update&ID=".$user_id."'><img src='".THEMES_DIR."images/edit.gif' border='0'><br />".$__Lang__['langGeneralUpdate']."</a></td><td><a href='?Module=General&Page=User&Action=Update&ID=".$user_id."' onclick=\"return confirm ( '".$__Lang__['langGeneralCancelConfirm']."');\"><img src='".THEMES_DIR."images/delete.gif' border='0'><br />".$__Lang__['langGeneralCancel']."</a></td></tr></table>"));
+			$table->addRow(array("<INPUT TYPE=\"checkbox\" NAME=\"CheckID[]\" value=\"$user_id\">",$data['UserName'],$data['CreateTime'],$data['AddIP'],""," <table><tr><td><a href='?Module=General&Page=User&Action=Update&ID=".$user_id."'><img src='".THEMES_DIR."images/edit.gif' border='0'><br />".$__Lang__['langGeneralUpdate']."</a></td><td><a href='?Module=General&Page=User&Action=Cancel&ID=".$user_id."' onclick=\"return confirm ( '".$__Lang__['langGeneralCancelConfirm']."');\"><img src='".THEMES_DIR."images/delete.gif' border='0'><br />".$__Lang__['langGeneralCancel']."</a></td></tr></table>"));
 		}
 		
-		$html_grib = $table->toHtml();
+		$altRow = array ("class" => "grid_table_tr_alternate");
+		$table->altRowAttributes(1, null, $altRow);
+		
+		$form->addElement('static', 'fieldsAssoc','',$table->toHtml());
+		$form->addElement('submit', NULL,$__Lang__['langGeneralCancel'].$__Lang__['langGeneralSelect']);
+		$form->addElement('hidden', 'Module', $_REQUEST['Module']); 
+		$form->addElement('hidden', 'Page', $_REQUEST['Page']); 
+		$form->addElement('hidden', 'Action', 'CancelSelected'); 
+		$html_grib = $form->toHtml();          
 		
 		$smarty->assign("Main", $html_grib.$links['all']);
 		

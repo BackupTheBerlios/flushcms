@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: UI.class.php,v 1.5 2005/12/23 01:25:05 arzen Exp $ */
+/* $Id: UI.class.php,v 1.6 2005/12/23 06:30:05 arzen Exp $ */
 
 /**
  * class_description
@@ -58,26 +58,28 @@ class UI
 	*/
 	function viewList () 
 	{
-		global $__Lang__,$UrlParameter,$FlushPHPObj,$table,$page_data,$all_data,$links, $smarty;
+		global $__Lang__,$UrlParameter,$FlushPHPObj,$table,$page_data,$all_data,$links,$form, $smarty;
 		
+		include_once (PEAR_DIR.'HTML/QuickForm.php');
 		include_once (PEAR_DIR."HTML/Table.php");
 		require_once PEAR_DIR.'Pager/Pager.php';
 		
+		$form = new HTML_QuickForm('viewList');
+		$renderer =& $form->defaultRenderer();
+		$renderer->setFormTemplate("\n<form{attributes}>\n<table border=\"0\" width=\"99%\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\">\n{content}\n</table>\n</form>");
 		$tableAttrs = array ("class" => "grid_table");
 		$table = new HTML_Table($tableAttrs);
 
 		$table->setAutoGrow(true);
-		$table->setAutoFill("n/a");
+//		$table->setAutoFill("n/a");
 
-		$altRow = array ("class" => "grid_table_tr_alternate");
-		$table->altRowAttributes(1, null, $altRow);
 		
 		$hrAttrs = array ("class" => "grid_table_head");
 		$table->setRowAttributes(0, $hrAttrs, true);
 
 		$params = array(
 		    'itemData' => $all_data,
-		    'perPage' => 2,
+		    'perPage' => 10,
 		    'delta' => 3,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
 		    'separator' => ' . ',

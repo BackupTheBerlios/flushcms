@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: DBApp.class.php,v 1.4 2005/12/20 14:55:40 arzen Exp $ */
+/* $Id: DBApp.class.php,v 1.5 2005/12/23 06:30:05 arzen Exp $ */
 
 class DBApp
 {
@@ -87,6 +87,23 @@ class DBApp
 		$Sql = " SELECT * FROM $table WHERE $where_is ";
 		return $SiteDB->GetRow($Sql);
 	}
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - Dec 23, 2005
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function delRowsByID ($table,$field,$field_value) 
+	{
+		global $SiteDB;
+		$Sql = " DELETE FROM $table WHERE $field IN ($field_value) ";
+		$SiteDB->Execute($Sql);
+		return $SiteDB->Affected_Rows();
+		
+	}
+	
 	
 }
 ?>
