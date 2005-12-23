@@ -246,7 +246,7 @@ font: bold 12px Verdana, sans-serif;
     right: 8px;
     border: 0;
 }
-#bar {
+#bartop {
 	background-image: url(images/bgcolor.gif);
 	border: 1px solid;
 	border-color: #ffffff #ACA899 #ACA899 #ffffff;

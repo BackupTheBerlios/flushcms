@@ -2,9 +2,46 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset={$langGeneralCharset}" />
 <title>{$langGeneralSystemName}</title>
+<script type="text/javascript" src="{$smarty.const.THEMES_DIR}site.js"></script>
 <link href="{$smarty.const.THEMES_DIR}style.css" rel="stylesheet" type="text/css">
+<link rel='stylesheet' href='{$smarty.const.THEMES_DIR}win2k_mz.css'>
+<link rel='stylesheet' href='{$smarty.const.THEMES_DIR}win2k_ie.css'>
+{literal}
+<script>
+function btnClicked(btnObj) {
+	alert('Clicked the button: ' + btnObj.title);
+}
+
+function go() {
+{/literal}
+  bar = new Bs_ButtonBar();
+  bar.useHelpBar = true;
+  
+  b1 = new Bs_Button();
+  b1.title = 'New';
+  b1.imgName = '{$smarty.const.THEMES_DIR}info';
+  b1.attachEvent(btnClicked);
+  bar.addButton(b1, 'Create a new document.');
+  
+  b2 = new Bs_Button();
+  b2.title = 'Open';
+  b2.imgName = 'bs_open';
+  b2.attachEvent(btnClicked);
+  bar.addButton(b2, 'Open an existing document.');
+  
+  b3 = new Bs_Button();
+  b3.title = 'Save';
+  b3.imgName = 'bs_save';
+  b3.attachEvent(btnClicked);
+  bar.addButton(b3, 'Save the active document.');
+  
+  bar.drawInto('buttonBar');
+{literal}
+}    
+</script>
+{/literal}
 </head>
-<body>
+<body onload="go();">
 {include file="admin_frame_top.tpl.htm"}
 <table width="100%" height="78%" border="0" cellpadding="0" cellspacing="0">
   <tr>
