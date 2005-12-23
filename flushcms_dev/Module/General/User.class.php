@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: User.class.php,v 1.9 2005/12/22 15:04:06 arzen Exp $ */
+/* $Id: User.class.php,v 1.10 2005/12/23 01:25:05 arzen Exp $ */
 
 /**
  * User class handle
@@ -143,52 +143,24 @@ class User extends UI
 	*/
 	function viewList () 
 	{
-		global $__Lang__,$UrlParameter,$FlushPHPObj, $smarty;
-		include_once (PEAR_DIR."HTML/Table.php");
-		require_once PEAR_DIR.'Pager/Pager.php';
-		
-		$tableAttrs = array ("class" => "grid_table");
-		$table = new HTML_Table($tableAttrs);
-		$table->setAutoGrow(true);
-		$table->setAutoFill("n/a");
+		global $__Lang__,$UrlParameter,$FlushPHPObj,$table,$page_data,$all_data,$links, $smarty;
+
+		$userDAO = new UserDAO();
+		$all_data = $userDAO->getAllUsers();
+
+		parent::viewList();
 		$table->setHeaderContents(0, 0, $__Lang__['langMenuUser'].$__Lang__['langGeneralName']);
 		$table->setHeaderContents(0, 1, $__Lang__['langGeneralCreateTime']);
 		$table->setHeaderContents(0, 2, $__Lang__['langGeneralAddIP']);
 		$table->setHeaderContents(0, 3, $__Lang__['langGeneralStatus']);
 		$table->setHeaderContents(0, 4, $__Lang__['langGeneralOperation']);
 
-		$userDAO = new UserDAO();
-		$all_user_arr = $userDAO->getAllUsers();
-		
-		$params = array(
-		    'itemData' => $all_user_arr,
-		    'perPage' => 10,
-		    'delta' => 8,             // for 'Jumping'-style a lower number is better
-		    'append' => true,
-		    //'separator' => ' | ',
-		    'clearIfVoid' => false,
-		    'urlVar' => 'entrant',
-		    'useSessions' => true,
-		    'closeSession' => true,
-		    //'mode'  => 'Sliding',    //try switching modes
-		    'mode'  => 'Jumping',
-		
-		);
-		$pager = & Pager::factory($params);
-		$page_data = $pager->getPageData();
-		$links = $pager->getLinks();
-		$selectBox = $pager->getPerPageSelectBox();
 		foreach($page_data as $key=>$data )
 		{
 			$user_id = $data['UsersID'];
 			$table->addRow(array($data['UserName'],$data['CreateTime'],$data['AddIP'],""," <table><tr><td><a href='?Module=General&Page=User&Action=Update&ID=".$user_id."'><img src='".THEMES_DIR."images/edit.gif' border='0'><br />".$__Lang__['langGeneralUpdate']."</a></td><td><a href='?Module=General&Page=User&Action=Update&ID=".$user_id."' onclick=\"return confirm ( '".$__Lang__['langGeneralCancelConfirm']."');\"><img src='".THEMES_DIR."images/delete.gif' border='0'><br />".$__Lang__['langGeneralCancel']."</a></td></tr></table>"));
 		}
 		
-		$altRow = array ("class" => "grid_table_tr_alternate");
-		$table->altRowAttributes(1, null, $altRow);
-		
-		$hrAttrs = array ("class" => "grid_table_head");
-		$table->setRowAttributes(0, $hrAttrs, true);
 		$html_grib = $table->toHtml();
 		
 		$smarty->assign("Main", $html_grib.$links['all']);

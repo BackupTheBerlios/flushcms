@@ -32,14 +32,14 @@
  * @author     Lorenzo Alberton <l dot alberton at quipo dot it>
  * @copyright  2003-2005 Lorenzo Alberton
  * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version    CVS: $Id: Sliding.php,v 1.1 2005/12/15 03:10:52 arzen Exp $
+ * @version    CVS: $Id: Sliding.php,v 1.2 2005/12/23 01:25:05 arzen Exp $
  * @link       http://pear.php.net/package/Pager
  */
 
 /**
  * require PEAR::Pager_Common base class
  */
-require_once 'Pager/Common.php';
+require_once PEAR_DIR.'Pager/Common.php';
 
 /**
  * Pager_Sliding - Generic data paging class  ("sliding window" style)

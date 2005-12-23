@@ -33,7 +33,7 @@
  * @author     Richard Heyes <richard@phpguru.org>
  * @copyright  2003-2005 Lorenzo Alberton, Richard Heyes
  * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version    CVS: $Id: Pager.php,v 1.1 2005/12/15 03:10:52 arzen Exp $
+ * @version    CVS: $Id: Pager.php,v 1.2 2005/12/23 01:25:05 arzen Exp $
  * @link       http://pear.php.net/package/Pager
  */
 
@@ -170,7 +170,7 @@ class Pager
         $mode = (isset($options['mode']) ? ucfirst($options['mode']) : 'Jumping');
         $classname = 'Pager_' . $mode;
         $classfile = 'Pager' . DIRECTORY_SEPARATOR . $mode . '.php';
-        require_once $classfile;
+        require_once PEAR_DIR.$classfile;
         $pager =& new $classname($options);
         return $pager;
     }

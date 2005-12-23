@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: UI.class.php,v 1.4 2005/12/22 15:04:06 arzen Exp $ */
+/* $Id: UI.class.php,v 1.5 2005/12/23 01:25:05 arzen Exp $ */
 
 /**
  * class_description
@@ -48,6 +48,55 @@ class UI
 		$renderer->setHeaderTemplate("\n\t<tr>\n\t\t<td class=\"grid_table_head\" align=\"left\" valign=\"top\" colspan=\"2\"><b>{header}</b></td>\n\t</tr>");
 		
 	}
+	/**
+	* View list
+	*
+	* @author	John.meng
+	* @since    version - Dec 23, 2005
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function viewList () 
+	{
+		global $__Lang__,$UrlParameter,$FlushPHPObj,$table,$page_data,$all_data,$links, $smarty;
+		
+		include_once (PEAR_DIR."HTML/Table.php");
+		require_once PEAR_DIR.'Pager/Pager.php';
+		
+		$tableAttrs = array ("class" => "grid_table");
+		$table = new HTML_Table($tableAttrs);
+
+		$table->setAutoGrow(true);
+		$table->setAutoFill("n/a");
+
+		$altRow = array ("class" => "grid_table_tr_alternate");
+		$table->altRowAttributes(1, null, $altRow);
+		
+		$hrAttrs = array ("class" => "grid_table_head");
+		$table->setRowAttributes(0, $hrAttrs, true);
+
+		$params = array(
+		    'itemData' => $all_data,
+		    'perPage' => 2,
+		    'delta' => 3,             // for 'Jumping'-style a lower number is better
+		    'append' => true,
+		    'separator' => ' . ',
+		    'clearIfVoid' => false,
+		    'urlVar' => 'entrant',
+		    'useSessions' => true,
+		    'closeSession' => true,
+		    //'mode'  => 'Sliding',    //try switching modes
+		    'mode'  => 'Jumping',
+		    'prevImg'=>$__Lang__['langPaginationPrev'],
+		    'nextImg'=>$__Lang__['langPaginationNext']
+		
+		);
+		$pager = & Pager::factory($params);
+		$page_data = $pager->getPageData();
+		$links = $pager->getLinks();
+		$selectBox = $pager->getPerPageSelectBox();
+	}
+	
 
   
 }

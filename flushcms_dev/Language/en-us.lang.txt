@@ -14,6 +14,9 @@ langUserGroup = Group
 langUserAddHeader = Enter User Base Info
 langUserNameExist = Sorry that username is exists,please enter another username!
 
+langPaginationPrev = << Prev
+langPaginationNext = Next >>
+
 langGeneralNone = None
 langGeneralURL = URL
 langGeneralSystem = System
