@@ -19,19 +19,19 @@ function go() {
   
   b1 = new Bs_Button();
   b1.title = 'New';
-  b1.imgName = '{$smarty.const.THEMES_DIR}info';
+  b1.imgName = '{$smarty.const.THEMES_DIR}images/info.gif';
   b1.attachEvent(btnClicked);
   bar.addButton(b1, 'Create a new document.');
   
   b2 = new Bs_Button();
   b2.title = 'Open';
-  b2.imgName = 'bs_open';
+  b2.imgName = '{$smarty.const.THEMES_DIR}images/info.gif';
   b2.attachEvent(btnClicked);
   bar.addButton(b2, 'Open an existing document.');
   
   b3 = new Bs_Button();
   b3.title = 'Save';
-  b3.imgName = 'bs_save';
+  b3.imgName = '{$smarty.const.THEMES_DIR}images/info.gif';
   b3.attachEvent(btnClicked);
   bar.addButton(b3, 'Save the active document.');
   

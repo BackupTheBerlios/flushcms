@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: FlushPHP.php,v 1.13 2005/12/21 07:20:17 arzen Exp $ */
+/* $Id: FlushPHP.php,v 1.14 2005/12/23 09:31:35 arzen Exp $ */
 
 define(ROOT_DIR,dirname(__FILE__));
 define(UTIL_DIR,ROOT_DIR."/Utility/");
@@ -30,7 +30,7 @@ include_once(CONFIG_DIR."Config.php");
 include_once(CONFIG_DIR."DBConfig.php");
 include_once(INCLUDE_DIR."/smarty/Smarty.class.php");
 include(INCLUDE_DIR."/adodb/adodb.inc.php");
-define(THEMES_DIR,ROOT_DIR."/templates/".$Themes."/");
+define(THEMES_DIR,str_replace("\\","/",ROOT_DIR."/templates/".$Themes."/"));
 
 $__Lang__ = array();
 $smarty = new Smarty;

@@ -588,14 +588,14 @@ case 1:
 out[out.length] = ' class="' + this.cssClassDefault + '"';break;case 2:
 out[out.length] = ' class="' + this.cssClassMouseDown + '"';break;}
 out[out.length] = ' style="' + containerStyle.join(';') + '"';out[out.length] = ' onMouseOver="Bs_Objects['+this._id+'].mouseOver(this);"';out[out.length] = ' onMouseOut="Bs_Objects['+this._id+'].mouseOut(this);"';out[out.length] = ' onMouseDown="Bs_Objects['+this._id+'].mouseDown(this);"';out[out.length] = ' onMouseUp="Bs_Objects['+this._id+'].mouseUp(this);"';out[out.length] = '>';if (typeof(this.imgName) != 'undefined') {
-var imgFullPath = '';imgFullPath += this._getImgPath();imgFullPath += this.imgName;if (this.imgName.substr(this.imgName.length -4) != '.gif') imgFullPath += '.gif';out[out.length] = '<img id="' + this._getId() + '_icon" src="' + imgFullPath + '"';if ((typeof(this.height) == 'undefined') || (this.height > 18)) out[out.length] = ' style="vertical-align:top;"';out[out.length] = '>';}
+var imgFullPath = '';imgFullPath += this._getImgPath();imgFullPath += this.imgName;if (this.imgName.substr(this.imgName.length -4) != '.gif') imgFullPath += '.gif';out[out.length] = '<img id="' + this._getId() + '_icon" src="' + this.imgName + '"';if ((typeof(this.height) == 'undefined') || (this.height > 18)) out[out.length] = ' style="vertical-align:top;"';out[out.length] = '>';}
 captionType = typeof(this.caption);if (captionType != 'undefined') {
 if (captionType == 'string') {
 out[out.length] = this.caption;} else {
 out[out.length] = this.title;}
 if (!isGecko) out[out.length] = '&nbsp;';}
 if ((typeof(this._childrenButtonBar) != 'undefined') && (this.numberOfAttachedEvents('on') == 0)) {
-this.group =  this._objectId + '_pseudoGroup';var imgFullPath = '';if (this.imgPath) imgFullPath += this._getImgPath();imgFullPath += 'small_black_arrow_down.gif';out[out.length] = '&nbsp;<img src="' + imgFullPath + '" style="vertical-align:middle;">&nbsp;';var subBarString = this._childrenButtonBar.render();subBarString = '<div id="' + this._objectId + '_childBar" class="bsBtnMouseOver" style="width:auto; height:auto; display:none; position:absolute; left:50px; top:50px;">' + subBarString + '</div>';out[out.length] = subBarString;}
+this.group =  this._objectId + '_pseudoGroup';var imgFullPath = '';if (this.imgPath) imgFullPath += this._getImgPath();imgFullPath += 'small_black_arrow_down.gif';out[out.length] = '&nbsp;<img src="' + this.imgName + '" style="vertical-align:middle;">&nbsp;';var subBarString = this._childrenButtonBar.render();subBarString = '<div id="' + this._objectId + '_childBar" class="bsBtnMouseOver" style="width:auto; height:auto; display:none; position:absolute; left:50px; top:50px;">' + subBarString + '</div>';out[out.length] = subBarString;}
 out[out.length] = '</' + tagType + '>';out[out.length] = '</div>';return out.join('');}
 this.drawOut = function() {
 document.writeln(this.render());}
