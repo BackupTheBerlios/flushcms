@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: AppMenu.class.php,v 1.4 2005/12/21 07:44:03 arzen Exp $ */
+/* $Id: AppMenu.class.php,v 1.5 2005/12/25 13:36:34 arzen Exp $ */
 
 /**
  * Load language file
@@ -103,6 +103,40 @@ class AppMenu
         }
 		
 	}
+	/**
+	 *
+	 *
+	 * @author  John.meng (ÃÏÔ¶òû)
+	 * @since   version - 2005-12-25 20:57:21
+	 * @param   string  
+	 *
+	 */
+	function _toolbars ($toolbars_data) 
+	{
+		$x=0;
+		$_html_code="";
+		foreach($toolbars_data as $key=>$value)
+		{
+			$x++;
+			$_name = "b".$x;
+			$_title = $value['title'];
+			$_url = $value['url'];
+			$_imgName = THEMES_DIR."images/".$value['imgName'];
+			$_desc = $value['desc'];
+			$_html_code .= <<<EOT
+			
+  $_name = new Bs_Button();
+  $_name.title = '$_title';
+  $_name.url = '$_url';
+  $_name.imgName = '$_imgName';
+  $_name.attachEvent(btnClicked);
+  bar.addButton($_name, '$_desc');
+			
+EOT;
+		}
+		return $_html_code;
+	}
+	
 	
 }
 ?>

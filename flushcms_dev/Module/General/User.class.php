@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: User.class.php,v 1.11 2005/12/23 06:30:05 arzen Exp $ */
+/* $Id: User.class.php,v 1.12 2005/12/25 13:36:34 arzen Exp $ */
 
 /**
  * User class handle
@@ -30,6 +30,7 @@ class User extends UI
 	function User()
 	{
 		$this->subNavigator();
+		$this->toolBars ();
 	}
 	/**
 	 * Add user
@@ -222,6 +223,39 @@ class User extends UI
 		$str_html .= "<td><a href='?Module=General&Page=User' ><img src='".THEMES_DIR."images/publish_f2.png' border='0' ><br />".$__Lang__['langGeneralList']."</a></td>";
 		
 		$smarty->assign("subNavigator", $str_html);
+	}
+	/**
+	 *
+	 *
+	 * @author  John.meng (ÃÏÔ¶òû)
+	 * @since   version - 2005-12-25 20:48:48
+	 * @param   string  
+	 *
+	 */
+	function toolBars () 
+	{
+		global $__Lang__,$MenuObj,$smarty;
+		$toolbar = array(
+			'new'=>array(
+				'title'=>$__Lang__['langGeneralAdd'],
+				'url'=>'?Module=General&Page=User&Action=Add',
+				'imgName'=>'new_f2.png',
+				'desc'=>$__Lang__['langGeneralAdd']
+			),
+			'list'=>array(
+				'title'=>'Users List',
+				'url'=>'?Module=General&Page=User',
+				'imgName'=>'publish_f2.png',
+				'desc'=>'Open an existing document.'
+			),
+			'config'=>array(
+				'title'=>'Users List',
+				'url'=>'?Module=General&Page=User',
+				'imgName'=>'publish_f2.png',
+				'desc'=>'Open an existing document.'
+			),
+		);
+		$smarty->assign("_toolbars",$MenuObj->_toolbars($toolbar));
 	}
 	
 	

@@ -9,7 +9,7 @@
 {literal}
 <script>
 function btnClicked(btnObj) {
-	alert('Clicked the button: ' + btnObj.title);
+	window.location=btnObj.url;
 }
 
 function go() {
@@ -17,23 +17,7 @@ function go() {
   bar = new Bs_ButtonBar();
   bar.useHelpBar = true;
   
-  b1 = new Bs_Button();
-  b1.title = 'New';
-  b1.imgName = '{$smarty.const.THEMES_DIR}images/new_f2.png';
-  b1.attachEvent(btnClicked);
-  bar.addButton(b1, 'Create a new document.');
-  
-  b2 = new Bs_Button();
-  b2.title = 'Open';
-  b2.imgName = '{$smarty.const.THEMES_DIR}images/publish_f2.png';
-  b2.attachEvent(btnClicked);
-  bar.addButton(b2, 'Open an existing document.');
-  
-  b3 = new Bs_Button();
-  b3.title = 'Save';
-  b3.imgName = '{$smarty.const.THEMES_DIR}images/publish_f2.png';
-  b3.attachEvent(btnClicked);
-  bar.addButton(b3, 'Save the active document.');
+{$_toolbars}
   
   bar.drawInto('buttonBar');
 {literal}

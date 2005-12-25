@@ -1,15 +1,15 @@
 
-SPAN.bsBtnDefault IMG {vertical-align: bottom; padding: 3px }
-SPAN.bsBtnMouseDown IMG {vertical-align: bottom; padding: 4px 2px 2px 4px }
-DIV.bsBtnDefault IMG {vertical-align: bottom; padding: 3px }
-DIV.bsBtnMouseDown IMG {vertical-align: bottom; padding: 4px 2px 2px 4px }
+SPAN.bsBtnDefault IMG {vertical-align: bottom; padding: 0px }
+SPAN.bsBtnMouseDown IMG {vertical-align: bottom; padding: 0px 2px 2px 4px }
+DIV.bsBtnDefault IMG {vertical-align: bottom; padding: 0px }
+DIV.bsBtnMouseDown IMG {vertical-align: bottom; padding: 0px 2px 2px 4px }
 
 SPAN.bsBtnDefault {
 /*  line-height: 24px;*/
   background-color:#ECE9D8;
   margin: 0px;
   padding-left:0px;
-  padding-top:3px;
+  padding-top:0px;
   padding-bottom: 2px;
   border: 1px solid #ECE9D8;
 	font-family: arial, helvetica;
@@ -21,7 +21,7 @@ DIV.bsBtnDefault {
   background-color:#ECE9D8;
   margin: 0px;
   padding-left:0px;
-  padding-top:3px;
+  padding-top:0px;
   padding-bottom: 2px;
   border: 1px solid #ECE9D8;
 	font-family: arial, helvetica;
@@ -40,7 +40,7 @@ SPAN.bsBtnMouseDown {
   background-color:#ECE9D8;
   margin: 0px;
   padding-left:0px;
-  padding-top:3px;
+  padding-top:0px;
   padding-bottom: 2px;
   border: 1px inset #ECE9D8;
 	font-family: arial, helvetica;
@@ -51,7 +51,7 @@ DIV.bsBtnMouseDown {
   background-color:#ECE9D8;
   margin: 0px;
   padding-left:0px;
-  padding-top:3px;
+  padding-top:0px;
   padding-bottom: 2px;
   border: 1px inset #ECE9D8;
 	font-family: arial, helvetica;
