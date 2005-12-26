@@ -9,14 +9,17 @@ langMenuCategory = Category
 
 langMenuUser = User
 
-
 langUserGroup = Group
 langUserAddHeader = Enter User Base Info
+
+langGroupAddHeader = Enter Group Base Info
+
 langUserNameExist = Sorry that username is exists,please enter another username!
 
 langPaginationPrev = << Prev
 langPaginationNext = Next >>
 
+langGeneralDescrition = Descrition
 langGeneralNone = None
 langGeneralURL = URL
 langGeneralSystem = System
@@ -45,6 +48,8 @@ langGeneralUnInstall = UnInstall
 langGeneralSuccess = Success
 langGeneralFail = Fail
 langGeneralCancelConfirm = Are you sure cancel this?
+langGeneralPleaseEnter = Please enter
+langGeneralPleaseSelect = Please select
 
 langGeneralFileNotExist = Sorry,file not exist
 

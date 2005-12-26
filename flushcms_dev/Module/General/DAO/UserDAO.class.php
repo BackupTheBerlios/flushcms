@@ -14,8 +14,12 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: UserDAO.class.php,v 1.2 2005/12/21 10:12:14 arzen Exp $ */
+/* $Id: UserDAO.class.php,v 1.3 2005/12/26 10:48:38 arzen Exp $ */
 
+/**
+ * User class handle
+ * @package	Module
+ */
 include_once(APP_DIR."DBApp.class.php");
 class UserDAO extends DBApp
 {

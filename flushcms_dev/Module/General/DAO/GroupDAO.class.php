@@ -1,4 +1,5 @@
 <?php
+
 /*
    +----------------------------------------------------------------------+
    | FlushPHP                                                             |
@@ -10,14 +11,24 @@
    | License as published by the Free Software Foundation; either         |
    | version 2.1 of the License, or (at your option) any later version.   |
    +----------------------------------------------------------------------+
-   | Author: John.meng(ÃÏÔ¶òû)  2005-12-14 22:56:32                        
+   | Author: John.meng(ÃÏÔ¶òû)  Dec 26, 2005 6:09:30 PM                        
    +----------------------------------------------------------------------+
  */
+
+/* $Id: GroupDAO.class.php,v 1.1 2005/12/26 10:48:38 arzen Exp $ */
+
+/**
+ * User class handle
+ * @package	Module
+ */
  
-/* $Id: DBConfig.php,v 1.3 2005/12/26 10:48:38 arzen Exp $ */
-define(USERS_TABLE,'users');
-define(GROUPS_TABLE,'groups');
+include_once(APP_DIR."DBApp.class.php");
+class GroupDAO extends DBApp
+{
 
-define(SYSMENU_TABLE,'sysmenu');
+	function GroupDAO()
+	{
+	}
 
+}
 ?>

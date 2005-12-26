@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: User.php,v 1.5 2005/12/23 06:30:05 arzen Exp $ */
+/* $Id: User.php,v 1.6 2005/12/26 10:48:38 arzen Exp $ */
 if (empty($__Version__))
 {
 	echo "Big error! ";
@@ -46,18 +46,6 @@ switch ($_REQUEST['Action'])
 			$thisObj->opCancelSelected();
 		break;
 
-	case 'GroupList':
-			$select_tab = 1;
-		break;
-
-	case 'GroupUser':
-			$select_tab = 2;
-		break;
-
-	case 'Configure':
-			$select_tab = 3;
-		break;
-	
 	default:
 		$thisObj->viewList();
 		break;

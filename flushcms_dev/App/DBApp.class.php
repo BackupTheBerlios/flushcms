@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: DBApp.class.php,v 1.5 2005/12/23 06:30:05 arzen Exp $ */
+/* $Id: DBApp.class.php,v 1.6 2005/12/26 10:48:38 arzen Exp $ */
 
 class DBApp
 {
@@ -102,6 +102,20 @@ class DBApp
 		$SiteDB->Execute($Sql);
 		return $SiteDB->Affected_Rows();
 		
+	}
+	/**
+	* Get all users from user table
+	*
+	* @author	John.meng
+	* @since    version1.0 - Dec 15, 2005
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function getRows ($table,$whereis="1") 
+	{
+		global $SiteDB;
+		$Sql = " SELECT * FROM ".$table." WHERE $whereis ";
+		return $SiteDB->GetAll($Sql);
 	}
 	
 	

@@ -1,5 +1,4 @@
 <?php
-
 /*
    +----------------------------------------------------------------------+
    | FlushPHP                                                             |
@@ -11,28 +10,28 @@
    | License as published by the Free Software Foundation; either         |
    | version 2.1 of the License, or (at your option) any later version.   |
    +----------------------------------------------------------------------+
-   | Author: John.meng(ÃÏÔ¶òû)  Dec 13, 2005 4:35:41 PM                        
+   | Author: John.meng(ÃÏÔ¶òû)  Dec 26, 2005 6:04:12 PM                        
    +----------------------------------------------------------------------+
  */
 
-/* $Id: User.class.php,v 1.15 2005/12/26 10:48:38 arzen Exp $ */
+/* $Id: Group.class.php,v 1.1 2005/12/26 10:48:38 arzen Exp $ */
 
 /**
- * User class handle
+ * Group class handle
  * @package	Module
  */
 
-include_once("DAO/UserDAO.class.php");
+include_once("DAO/GroupDAO.class.php");
 include_once(APP_DIR."UI.class.php");
-class User extends UI
+class Group  extends UI
 {
 
-	function User()
+	function Group()
 	{
 		$this->toolBars ();
 	}
 	/**
-	 * Add user
+	 * Add Group
 	 *
 	 * @author  John.meng (ÃÏÔ¶òû)
 	 * @since   version 1.0 - 2005-12-14 22:27:14
@@ -49,10 +48,9 @@ class User extends UI
 			$this->opUpdate();
 		}
 		
-		$form->addElement('header', null, $__Lang__['langUserAddHeader']);
-		$form->addElement('text', 'user_name', $__Lang__['langMenuUser'].$__Lang__['langGeneralName'].' : ');
-		$form->addElement('password', 'user_passwd', $__Lang__['langMenuUser'].$__Lang__['langGeneralPassword'].' : ');
-		$form->addElement('password', 'user_passwd2', $__Lang__['langGeneralConfirm'].$__Lang__['langGeneralPassword'].' : ');
+		$form->addElement('header', null, $__Lang__['langGroupAddHeader']);
+		$form->addElement('text', 'GroupName', $__Lang__['langUserGroup'].$__Lang__['langGeneralName'].' : ');
+		$form->addElement('text', 'Descrition', $__Lang__['langUserGroup'].$__Lang__['langGeneralDescrition'].' : ');
 
 		$form->addElement('hidden', 'Module', $_REQUEST['Module']); 
 		$form->addElement('hidden', 'Page', $_REQUEST['Page']); 
@@ -60,37 +58,34 @@ class User extends UI
 		
 		$form->addElement('submit', null, $__Lang__['langGeneralSubmit']);
 		
-		$form->addRule('user_name', 'Please enter a username.', 'required');
-		$form->addRule('user_passwd', 'Please enter a password.', 'required');
-		$form->addRule('user_passwd2', 'Please enter a confirm password.', 'required');
-		$form->addRule(array('user_passwd2', 'user_passwd'), 'The passwords do not match', 'compare');
+		$form->addRule('GroupName', $__Lang__['langGeneralPleaseEnter']." ".$__Lang__['langUserGroup'].$__Lang__['langGeneralName'], 'required');
 		
 		if ($form->validate()) 
 		{
-			$record["UserName"] = $form->exportValue('user_name');
-			$record["Passwd"] = md5($form->exportValue('user_passwd'));
+			$record["GroupName"] = $form->exportValue('GroupName');
+			$record["Descrition"] = $form->exportValue('Descrition');
 			$record["AddIP"] = $AddIPObj->getTrueIP();
 			$record["CreateTime"] = time();
 			$dbAppObj = $FlushPHPObj->loadApp("DBApp");
 			if ($_POST['ID'] && $_POST['Action']=='Update') 
 			{
-				$thisDAO = &new UserDAO();
-				$thisDAO->opUpdate(USERS_TABLE,$record," UsersID = ".$_POST['ID']);
-				$form->setElementError('user_name',$__Lang__['langGeneralOperation'].$__Lang__['langGeneralSuccess']);
+				$thisDAO = &new GroupDAO();
+				$thisDAO->opUpdate(GROUPS_TABLE,$record," GroupsID = ".$_POST['ID']);
+				$form->setElementError('GroupName',$__Lang__['langGeneralOperation'].$__Lang__['langGeneralSuccess']);
 				$form->freeze();
 				
 			} 
 			else 
 			{
-				if ($dbAppObj->checkExists(USERS_TABLE," UserName='".$record["UserName"]."' ")) 
+				if ($dbAppObj->checkExists(GROUPS_TABLE," GroupName='".$record["GroupName"]."' ")) 
 				{
-					$form->setElementError('user_name',$__Lang__['langUserNameExist']);
+					$form->setElementError('GroupName',$__Lang__['langUserNameExist']);
 				}
 				 else
 				{
-					$userDAO = new UserDAO();
-					$userDAO->addUser($record);
-					$form->setElementError('user_name',$__Lang__['langGeneralOperation'].$__Lang__['langGeneralSuccess']);
+					$thisDAO = new GroupDAO();
+					$thisDAO->opAdd(GROUPS_TABLE,$record);
+					$form->setElementError('GroupName',$__Lang__['langGeneralOperation'].$__Lang__['langGeneralSuccess']);
 					$form->freeze();
 				}
 			}
@@ -111,13 +106,14 @@ class User extends UI
 	{
 		global $__Lang__, $FlushPHPObj,$form, $smarty;
 		
-		$thisDao = &new UserDAO();
-		$this_data = $thisDao->getRowByID(USERS_TABLE,"UsersID",$_REQUEST['ID']);
+		$thisDao = &new GroupDAO();
+		$this_data = $thisDao->getRowByID(GROUPS_TABLE,"GroupsID",$_REQUEST['ID']);
 		$form->setDefaults(array(
-							"user_name"=>$this_data['UserName']
+							"GroupName"=>$this_data['GroupName'],
+							"Descrition"=>$this_data['Descrition']
 							)
 						   );
-		$form->addElement('hidden', 'ID', $this_data['UsersID']); 
+		$form->addElement('hidden', 'ID', $this_data['GroupsID']); 
 		
 	}
 	/**
@@ -131,8 +127,8 @@ class User extends UI
 	function opCancel () 
 	{
 		global $__Lang__, $MessageObj,$smarty;
-		$userDAO = new UserDAO();
-		if ($delNum = $userDAO->delRowsByID(USERS_TABLE,"UsersID",$_REQUEST['ID'])) 
+		$GroupDAO = new GroupDAO();
+		if ($delNum = $GroupDAO->delRowsByID(GROUPS_TABLE,"GroupsID",$_REQUEST['ID'])) 
 		{
 			$smarty->assign("Main",$MessageObj->displayMsg($__Lang__['langGeneralCancel']." <font color='red' > <b> $delNum </b> </font> ".$__Lang__['langGeneralRecord'],"MSG"));
 		}
@@ -149,11 +145,11 @@ class User extends UI
 	{
 		global $__Lang__, $MessageObj,$smarty;
 		
-		$userDAO = &new UserDAO();
+		$GroupDAO = &new GroupDAO();
 		if (is_array($_POST['CheckID'])) 
 		{
 			$check_ids = implode(",",$_POST['CheckID']);
-			if ($delNum = $userDAO->delRowsByID(USERS_TABLE,"UsersID",$check_ids)) 
+			if ($delNum = $GroupDAO->delRowsByID(GROUPS_TABLE,"GroupsID",$check_ids)) 
 			{
 				$smarty->assign("Main",$MessageObj->displayMsg($__Lang__['langGeneralCancel']." <font color='red' > <b> $delNum </b> </font> ".$__Lang__['langGeneralRecord'],"MSG"));
 			}
@@ -177,31 +173,35 @@ class User extends UI
 	{
 		global $__Lang__,$UrlParameter,$FlushPHPObj,$table,$page_data,$all_data,$links,$form, $smarty;
 
-		$userDAO = new UserDAO();
-		$all_data = $userDAO->getAllUsers();
+		$allDAO = new GroupDAO();
+		$all_data = $allDAO->getRows(GROUPS_TABLE);
 
 		parent::viewList();
 		$table->setHeaderContents(0, 0,NULL);
-		$table->setHeaderContents(0, 1, $__Lang__['langMenuUser'].$__Lang__['langGeneralName']);
-		$table->setHeaderContents(0, 2, $__Lang__['langGeneralCreateTime']);
-		$table->setHeaderContents(0, 3, $__Lang__['langGeneralAddIP']);
-		$table->setHeaderContents(0, 4, $__Lang__['langGeneralStatus']);
+		$table->setHeaderContents(0, 1, $__Lang__['langUserGroup'].$__Lang__['langGeneralName']);
+		$table->setHeaderContents(0, 2, $__Lang__['langUserGroup'].$__Lang__['langGeneralDescrition']);
+		$table->setHeaderContents(0, 3, $__Lang__['langGeneralCreateTime']);
+		$table->setHeaderContents(0, 4, $__Lang__['langGeneralAddIP']);
 		$table->setHeaderContents(0, 5, $__Lang__['langGeneralOperation']);
-
-		foreach($page_data as $key=>$data )
+		if (is_array($page_data)) 
 		{
-			$user_id = $data['UsersID'];
-			$table->addRow(array("<INPUT TYPE=\"checkbox\" NAME=\"CheckID[]\" value=\"$user_id\">",$data['UserName'],$data['CreateTime'],$data['AddIP'],"",$this->_actionBars($user_id)));
+			foreach($page_data as $key=>$data )
+			{
+				$user_id = $data['GroupsID'];
+				$table->addRow(array("<INPUT TYPE=\"checkbox\" NAME=\"CheckID[]\" value=\"$user_id\">",$data['GroupName'],$data['Descrition'],$data['CreateTime'],$data['AddIP'],$this->_actionBars($user_id)));
+			}
+			
+			$altRow = array ("class" => "grid_table_tr_alternate");
+			$table->altRowAttributes(1, null, $altRow);
+			
+			$form->addElement('static', 'fieldsAssoc','',$table->toHtml());
+			$form->addElement('submit', NULL,$__Lang__['langGeneralCancel'].$__Lang__['langGeneralSelect']);
+			$form->addElement('hidden', 'Module', $_REQUEST['Module']); 
+			$form->addElement('hidden', 'Page', $_REQUEST['Page']); 
+			$form->addElement('hidden', 'Action', 'CancelSelected'); 
+		
 		}
 		
-		$altRow = array ("class" => "grid_table_tr_alternate");
-		$table->altRowAttributes(1, null, $altRow);
-		
-		$form->addElement('static', 'fieldsAssoc','',$table->toHtml());
-		$form->addElement('submit', NULL,$__Lang__['langGeneralCancel'].$__Lang__['langGeneralSelect']);
-		$form->addElement('hidden', 'Module', $_REQUEST['Module']); 
-		$form->addElement('hidden', 'Page', $_REQUEST['Page']); 
-		$form->addElement('hidden', 'Action', 'CancelSelected'); 
 		$html_grib = $form->toHtml();          
 		
 		$smarty->assign("Main", $html_grib.$links['all']);
@@ -220,17 +220,17 @@ class User extends UI
 		global $__Lang__,$MenuObj,$smarty;
 		$toolbar = array(
 			'new'=>array(
-				'title'=>$__Lang__['langGeneralAdd'].$__Lang__['langMenuUser'],
-				'url'=>'?Module=General&Page=User&Action=Add',
+				'title'=>$__Lang__['langGeneralAdd'].$__Lang__['langUserGroup'],
+				'url'=>'?Module=General&Page=Group&Action=Add',
 				'imgName'=>'new_f2.png',
-				'desc'=>$__Lang__['langGeneralAdd'].$__Lang__['langMenuUser']
+				'desc'=>$__Lang__['langGeneralAdd'].$__Lang__['langUserGroup']
 			),
 			
 			'list'=>array(
-				'title'=>$__Lang__['langMenuUser'].$__Lang__['langGeneralList'],
-				'url'=>'?Module=General&Page=User',
+				'title'=>$__Lang__['langUserGroup'].$__Lang__['langGeneralList'],
+				'url'=>'?Module=General&Page=Group',
 				'imgName'=>'publish_f2.png',
-				'desc'=>$__Lang__['langMenuUser'].$__Lang__['langGeneralList']
+				'desc'=>$__Lang__['langUserGroup'].$__Lang__['langGeneralList']
 			)
 			
 		);
@@ -251,20 +251,18 @@ class User extends UI
 		$action_data = array(
 			'update'=>array(
 				'title'=>$__Lang__['langGeneralUpdate'],
-				'url'=>'?Module=General&Page=User&Action=Update&ID='.$id,
+				'url'=>'?Module=General&Page=Group&Action=Update&ID='.$id,
 				'imgName'=>'edit.gif'
 			),
 			'del'=>array(
 				'title'=>$__Lang__['langGeneralCancel'],
-				'url'=>'?Module=General&Page=User&Action=Cancel&ID='.$id,
+				'url'=>'?Module=General&Page=Group&Action=Cancel&ID='.$id,
 				'js'=>" onclick=\"return confirm ( '".$__Lang__['langGeneralCancelConfirm']."');\" ",
 				'imgName'=>'delete.gif'
 			)
 		);
 		return $MenuObj->_actionBars(&$action_data);
 	}
-	
-	
 	
 }
 ?>
