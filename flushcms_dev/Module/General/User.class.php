@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: User.class.php,v 1.12 2005/12/25 13:36:34 arzen Exp $ */
+/* $Id: User.class.php,v 1.13 2005/12/26 09:49:23 arzen Exp $ */
 
 /**
  * User class handle
@@ -29,7 +29,6 @@ class User extends UI
 
 	function User()
 	{
-		$this->subNavigator();
 		$this->toolBars ();
 	}
 	/**
@@ -192,7 +191,7 @@ class User extends UI
 		foreach($page_data as $key=>$data )
 		{
 			$user_id = $data['UsersID'];
-			$table->addRow(array("<INPUT TYPE=\"checkbox\" NAME=\"CheckID[]\" value=\"$user_id\">",$data['UserName'],$data['CreateTime'],$data['AddIP'],""," <table><tr><td><a href='?Module=General&Page=User&Action=Update&ID=".$user_id."'><img src='".THEMES_DIR."images/edit.gif' border='0'><br />".$__Lang__['langGeneralUpdate']."</a></td><td><a href='?Module=General&Page=User&Action=Cancel&ID=".$user_id."' onclick=\"return confirm ( '".$__Lang__['langGeneralCancelConfirm']."');\"><img src='".THEMES_DIR."images/delete.gif' border='0'><br />".$__Lang__['langGeneralCancel']."</a></td></tr></table>"));
+			$table->addRow(array("<INPUT TYPE=\"checkbox\" NAME=\"CheckID[]\" value=\"$user_id\">",$data['UserName'],$data['CreateTime'],$data['AddIP'],"",$this->_actionBars($user_id)));
 		}
 		
 		$altRow = array ("class" => "grid_table_tr_alternate");
@@ -209,22 +208,6 @@ class User extends UI
 		
 	}
 	/**
-	* sub navigator html code
-	*
-	* @author	John.meng
-	* @since    version 1.0- Dec 20, 2005
-	* @return   html code
-	*/
-	function subNavigator () 
-	{
-		global $__Lang__,$smarty;
-		
-		$str_html = "<td align='center' ><a href='?Module=General&Page=User&Action=Add'><img src='".THEMES_DIR."images/new_f2.png' border='0' ><br />".$__Lang__['langGeneralAdd']."</a></td>";
-		$str_html .= "<td><a href='?Module=General&Page=User' ><img src='".THEMES_DIR."images/publish_f2.png' border='0' ><br />".$__Lang__['langGeneralList']."</a></td>";
-		
-		$smarty->assign("subNavigator", $str_html);
-	}
-	/**
 	 *
 	 *
 	 * @author  John.meng (ÃÏÔ¶òû)
@@ -237,16 +220,16 @@ class User extends UI
 		global $__Lang__,$MenuObj,$smarty;
 		$toolbar = array(
 			'new'=>array(
-				'title'=>$__Lang__['langGeneralAdd'],
+				'title'=>$__Lang__['langGeneralAdd'].$__Lang__['langMenuUser'],
 				'url'=>'?Module=General&Page=User&Action=Add',
 				'imgName'=>'new_f2.png',
-				'desc'=>$__Lang__['langGeneralAdd']
+				'desc'=>$__Lang__['langGeneralAdd'].$__Lang__['langMenuUser']
 			),
 			'list'=>array(
-				'title'=>'Users List',
+				'title'=>$__Lang__['langMenuUser'].$__Lang__['langGeneralList'],
 				'url'=>'?Module=General&Page=User',
 				'imgName'=>'publish_f2.png',
-				'desc'=>'Open an existing document.'
+				'desc'=>$__Lang__['langMenuUser'].$__Lang__['langGeneralList']
 			),
 			'config'=>array(
 				'title'=>'Users List',
@@ -257,6 +240,34 @@ class User extends UI
 		);
 		$smarty->assign("_toolbars",$MenuObj->_toolbars($toolbar));
 	}
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - Dec 26, 2005
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function &_actionBars ($id) 
+	{
+		global $__Lang__,$MenuObj;
+		
+		$action_data = array(
+			'update'=>array(
+				'title'=>$__Lang__['langGeneralUpdate'],
+				'url'=>'?Module=General&Page=User&Action=Update&ID='.$id,
+				'imgName'=>'edit.gif'
+			),
+			'del'=>array(
+				'title'=>$__Lang__['langGeneralCancel'],
+				'url'=>'?Module=General&Page=User&Action=Cancel&ID='.$id,
+				'js'=>" onclick=\"return confirm ( '".$__Lang__['langGeneralCancelConfirm']."');\" ",
+				'imgName'=>'delete.gif'
+			)
+		);
+		return $MenuObj->_actionBars(&$action_data);
+	}
+	
 	
 	
 }

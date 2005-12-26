@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: AppMenu.class.php,v 1.5 2005/12/25 13:36:34 arzen Exp $ */
+/* $Id: AppMenu.class.php,v 1.6 2005/12/26 09:49:23 arzen Exp $ */
 
 /**
  * Load language file
@@ -104,7 +104,7 @@ class AppMenu
 		
 	}
 	/**
-	 *
+	 * on top right toolbar html code
 	 *
 	 * @author  John.meng (√œ‘∂Ú˚)
 	 * @since   version - 2005-12-25 20:57:21
@@ -133,6 +133,35 @@ class AppMenu
   bar.addButton($_name, '$_desc');
 			
 EOT;
+		}
+		return $_html_code;
+	}
+	/**
+	* on list grid action ico
+	*
+	* @author	John.meng
+	* @since    version - Dec 26, 2005
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function &_actionBars (&$action_data) 
+	{
+		global $__Lang__;
+		$_html_code="";
+		if (is_array($action_data)) 
+		{
+			$_html_code .="<table><tr>";
+			foreach($action_data as $key=>$value)
+			{
+				$_title = $value['title'];
+				$_url = $value['url'];
+				$_imgName = THEMES_DIR."images/".$value['imgName'];
+				$_js = $value['js'];
+				$_html_code .="<td><a href='$_url' $_js>";
+				if($value['imgName'])$_html_code .="<img src='$_imgName' border='0'><br />";
+				$_html_code .=$_title."</a></td>";
+			}
+			$_html_code .="</tr></table>";
 		}
 		return $_html_code;
 	}
