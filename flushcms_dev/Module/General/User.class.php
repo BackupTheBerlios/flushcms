@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: User.class.php,v 1.13 2005/12/26 09:49:23 arzen Exp $ */
+/* $Id: User.class.php,v 1.14 2005/12/26 09:57:08 arzen Exp $ */
 
 /**
  * User class handle
@@ -238,7 +238,7 @@ class User extends UI
 				'desc'=>'Open an existing document.'
 			),
 		);
-		$smarty->assign("_toolbars",$MenuObj->_toolbars($toolbar));
+		$smarty->assign("_toolbars",$MenuObj->_toolbars(&$toolbar));
 	}
 	/**
 	* function_description

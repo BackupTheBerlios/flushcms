@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: AppMenu.class.php,v 1.6 2005/12/26 09:49:23 arzen Exp $ */
+/* $Id: AppMenu.class.php,v 1.7 2005/12/26 09:57:08 arzen Exp $ */
 
 /**
  * Load language file
@@ -111,7 +111,7 @@ class AppMenu
 	 * @param   string  
 	 *
 	 */
-	function _toolbars ($toolbars_data) 
+	function _toolbars (&$toolbars_data) 
 	{
 		$x=0;
 		$_html_code="";
