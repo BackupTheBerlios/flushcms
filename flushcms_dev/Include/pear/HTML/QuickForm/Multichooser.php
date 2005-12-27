@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: Multichooser.php,v 1.2 2005/12/27 14:09:08 arzen Exp $ */
+/* $Id: Multichooser.php,v 1.3 2005/12/27 14:26:14 arzen Exp $ */
 require_once(PEAR_DIR."HTML/QuickForm/hidden.php");
 require_once PEAR_DIR.'HTML/QuickForm.php';
 require_once (PEAR_DIR.'HTML/QuickForm/element.php');
@@ -332,19 +332,19 @@ class HTML_QuickForm_Multichooser extends HTML_QuickForm_element
 //
 //		$lastPicker = $commUtil->request($this->_multiname."PICKER");
 
-		$out .= "<script src='/Html/JS/multichooser.js' language='Javascript' type='text/Javascript'></script>\n";
+//		$out .= "<script src='/Html/JS/multichooser.js' language='Javascript' type='text/Javascript'></script>\n";
 
 		$out .= "<table>";
 
 		if ($this->_usePicker)
 		{
 			//$pickerVals = array("0"=>"Please Select...");
-			$pickerVals = array ();
+			$pickerVals = $this->_pickerOptions;
 			$optionArray = array ();
 
 			foreach ($this->_pickerOptions as $label => $options)
 			{
-				$pickerVals[] = $label;
+//				$pickerVals[] = $label;
 				$optionArray[] = $options;
 			}
 
@@ -357,19 +357,23 @@ class HTML_QuickForm_Multichooser extends HTML_QuickForm_element
 			{
 				$out .= ",[";
 				$first = 1;
-				foreach ($optionSet as $value => $label)
+				if (is_array($optionSet)) 
 				{
-					if ($first == 1)
+					foreach ($optionSet as $value => $label)
 					{
-						$first = 0;
-					}
-					else
-					{
-						$out .= ",";
-					}
-					$label = preg_replace("/\'/", "\\'", $label);
-					$out .= "['$label', '$value']";
+						if ($first == 1)
+						{
+							$first = 0;
+						}
+						else
+						{
+							$out .= ",";
+						}
+						$label = preg_replace("/\'/", "\\'", $label);
+						$out .= "['$label', '$value']";
+					}					
 				}
+
 				$out .= "]\n";
 			}
 			$out .= "];\n";

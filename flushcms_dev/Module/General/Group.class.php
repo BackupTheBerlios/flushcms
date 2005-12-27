@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: Group.class.php,v 1.4 2005/12/27 14:09:08 arzen Exp $ */
+/* $Id: Group.class.php,v 1.5 2005/12/27 14:26:14 arzen Exp $ */
 
 /**
  * Group class handle
@@ -175,28 +175,11 @@ class Group  extends UI
 		$form->addElement('header', null, $__Lang__['langUserGroup'].$__Lang__['langMenuUser'].$__Lang__['langGeneralList']);
 		
 		$thisDAO = new GroupDAO();
-		$form->addElement('select', 'group_type', 'Name Prefix: ', $thisDAO->getAllGroup());
+		$all_group = $thisDAO->getAllGroup();
 		
-		$select =& $form->createElement('select', 'A', 'Test Select:', array('A'=>'A', 'B'=>'B','C'=>'C','D'=>'D'));
-		$select->setSize(5);
-		$select->setMultiple(true);
-
-		$in_group =& $form->createElement('select', 'B', 'Test Select:', array('A'=>'A', 'B'=>'B','C'=>'C','D'=>'D'));
-		$in_group->setSize(5);
-		$in_group->setMultiple(true);
-
-		$group_arr[] =$in_group;
-		$button_arr[] = &HTML_QuickForm::createElement('submit', 'A', '->');
-		$button_arr[] = &HTML_QuickForm::createElement('submit', 'B', '<-');
-		$group_arr[] = &HTML_QuickForm::createElement('static', 'A','A',$button_arr);
-		$group_arr[] =$select;
-		$form->addGroup($group_arr, 'ichkABC', '', array('test', 'test22', 'test22'));
 		
-//		$checkbox[] = &HTML_QuickForm::createElement('select', 'A', null, array('A'=>'A', 'B'=>'B','C'=>'C','D'=>'D'));
-//		$checkbox[] = &HTML_QuickForm::createElement('select', 'B', null, array('A'=>'A', 'B'=>'B','C'=>'C','D'=>'D'));
-//
-//		$form->addGroup($checkbox, 'ichkABC', 'ABCD:', array('&nbsp;', '<br />'));
-        $form->addElement('multichooser', 'Bcc', 'Test Select:', array('A'=>'A', 'B'=>'B','C'=>'C','D'=>'D'));
+        $tmp = &$form->addElement('multiChooser', 'experts', 'Select '.$__Lang__['langUserGroup'].$__Lang__['langMenuUser'], array("All", "Requested"), array(), array());
+        $tmp->addOptionPicker("From Group", $all_group);
  		
 		$smarty->assign("Main", $form->toHTML());
 	}

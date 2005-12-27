@@ -522,6 +522,162 @@ if (typeof String.prototype.substrCount == "undefined") {
     }
 }
 
+/* mutil choose*/
+function MC_item(id)
+{
+	return document.getElementById(id);	
+}
+
+function addMultiChooserVal(value)
+{
+	var valuesToAdd = _getSelectedValues(MC_item(value+"FROMID"));
+	_moveValues(MC_item(value+"TOID"), valuesToAdd);
+	_addValues(MC_item(value), valuesToAdd);
+}
+
+
+
+
+function findMultiChooserVal(value,autoCompleteId)
+{
+    var select = MC_item(value+"FROMID");
+	var ln = select.options.length;
+	var match = (MC_item(autoCompleteId + "FROMID").value);
+	select.selectedIndex = -1;
+	for (i = 0; i < ln; i++)
+	{
+		if (select.options[i].text == match)
+		{
+			select.options[i].selected = true;
+		}
+	}        
+}	
+
+
+
+function multichooserPick(value)
+{
+	toUse = eval('PickerData' + value);
+
+	index = MC_item(value + 'PICKER').value;
+	index++;
+
+	MC_item(value+"FROMID").options.length = 0;
+
+	_addValuesIfNotExist(MC_item(value+"FROMID"), toUse[index], value);
+	
+}
+
+function _addValuesIfNotExist(select, values, txtName)
+{
+	for (var i in values)
+	{
+		if (!(_valExists(MC_item(txtName), values[i])))
+		{
+			select.options[select.options.length] =  new Option(values[i][0], values[i][1]);
+		}
+	}
+}
+
+function removeMultiChooserVal(value)
+{
+	var valuesToAdd = _getSelectedValues(MC_item(value+"TOID"));
+	_moveValues(MC_item(value+"FROMID"), valuesToAdd);
+	_removeValues(MC_item(value), valuesToAdd);
+}
+
+function _getSelectedValues(select)
+{
+	var selected = new Array();
+
+
+	for (i = 0; i < select.options.length; i++)
+	{
+		if (select.options[i].selected)
+		{
+			selected[selected.length] = new Array(select.options[i].text, select.options[i].value);
+			select.options[i] = null;
+			i--;
+		}
+	}
+	return selected;
+}
+
+function _moveValues(select, values)
+{
+	for (i = 0; i < values.length; i++)
+	{
+		select.options[select.options.length] =  new Option(values[i][0], values[i][1]);
+	}
+}
+
+function _valExists(txt, values)
+{
+	var existing = txt.value.split(";");
+	var found = 0;
+	for (i = 0; i < existing.length; i++)
+	{
+		if (existing[i] == values[1])
+		{
+			return true;
+		}
+	}
+
+	return false;
+
+}
+
+function _addValues(txt, values)
+{
+	var existing = txt.value.split(";");		
+
+	for (v = 0; v < values.length; v++)
+	{
+		var found = 0;
+		for (i = 0; i < existing.length; i++)
+		{
+			if (existing[i] == values[v][1])
+			{
+				found = 1;
+			}
+		}
+
+		if (found == 0)
+		{
+			txt.value = txt.value + values[v][1] + ";";
+		}
+		
+	}
+	
+}
+
+function _removeValues(txt, values)
+{
+	var existing = txt.value.split(";");		
+	var keepers = "";
+
+	for (i = 0; i < existing.length; i++)
+	{
+		var found = 0;
+		for (v = 0; v < values.length; v++)
+		{
+			if (existing[i] == values[v][1])
+			{
+				found = 1;
+			}
+		}
+		if (found == 0)
+		{
+			if (existing[i] != "")
+			{
+				keepers = keepers + existing[i] + ";";
+			}
+		}
+	}
+
+	txt.value = keepers;
+}
+
 /*start button*/
 if (!Bs_Objects) {var Bs_Objects = [];};function Bs_ButtonBar() {
 this._id;this._objectId;this.imgPath = '';this.useHelpBar;this.alignment = 'hor';this.ignoreEvents = false;this.helpBarStyle = "font-family:arial; font-size:11px; height:12px;";this._buttons = new Array;this._parentButton;this._constructor = function() {
