@@ -17,7 +17,7 @@
 // |          Bertrand Mansion <bmansion@mamasam.com>                     |
 // +----------------------------------------------------------------------+
 //
-// $Id: QuickForm.php,v 1.2 2005/12/14 01:45:55 arzen Exp $
+// $Id: QuickForm.php,v 1.3 2005/12/27 14:09:08 arzen Exp $
 
 require_once(PEAR_DIR.'PEAR.php');
 require_once(PEAR_DIR.'/HTML/Common.php');
@@ -46,6 +46,7 @@ $GLOBALS['HTML_QUICKFORM_ELEMENT_TYPES'] =
             'html'          =>array('HTML/QuickForm/html.php', 'HTML_QuickForm_html'),
             'hierselect'    =>array('HTML/QuickForm/hierselect.php', 'HTML_QuickForm_hierselect'),
             'autocomplete'  =>array('HTML/QuickForm/autocomplete.php', 'HTML_QuickForm_autocomplete'),
+            'multichooser'  =>array('HTML/QuickForm/Multichooser.php','HTML_QuickForm_Multichooser'),
             'xbutton'       =>array('HTML/QuickForm/xbutton.php','HTML_QuickForm_xbutton')
         );
 

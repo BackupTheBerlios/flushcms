@@ -14,8 +14,12 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: Multichooser.php,v 1.1 2005/12/27 13:47:55 arzen Exp $ */
-require_once(PEAR_DIR."HTML/QuickForm/element.php");
+/* $Id: Multichooser.php,v 1.2 2005/12/27 14:09:08 arzen Exp $ */
+require_once(PEAR_DIR."HTML/QuickForm/hidden.php");
+require_once PEAR_DIR.'HTML/QuickForm.php';
+require_once (PEAR_DIR.'HTML/QuickForm/element.php');
+require_once (PEAR_DIR.'HTML/QuickForm/autocomplete.php');
+
 /**
 *
 * Class HTML_QuickForm_Multichooser
@@ -57,7 +61,7 @@ class HTML_QuickForm_Multichooser extends HTML_QuickForm_element
 	function HTML_Quickform_Multichooser($elementName = "name", $elementLabel = "label", $labels = array (), $options = null, $existing = null, $attributes = null)
 	{
 
-		$commUtil = new Common_Util();
+//		$commUtil = new Common_Util();
 
 		if ($elementName == '')
 		{
@@ -117,7 +121,7 @@ class HTML_QuickForm_Multichooser extends HTML_QuickForm_element
 		$this->_persistantFreeze = true;
 		$this->_type = 'multichooser';
 
-		$this->_oldValue = $commUtil->request($elementName);
+//		$this->_oldValue = $commUtil->request($elementName);
 
 		$this->_refreshOldValue(true);
 	}
@@ -143,9 +147,9 @@ class HTML_QuickForm_Multichooser extends HTML_QuickForm_element
 	function _refreshOldValue($useOriginal = false)
 	{
 
-		$commUtil = new Common_Util();
-
-		$lastPicker = $commUtil->request($this->_multiname."PICKER");
+//		$commUtil = new Common_Util();
+//
+//		$lastPicker = $commUtil->request($this->_multiname."PICKER");
 
 		$old = $this->_oldValue;
 		if (strlen($old) < 1)
@@ -324,9 +328,9 @@ class HTML_QuickForm_Multichooser extends HTML_QuickForm_element
 			return $this->getFrozenHtml();
 		}
 
-		$commUtil = new Common_Util();
-
-		$lastPicker = $commUtil->request($this->_multiname."PICKER");
+//		$commUtil = new Common_Util();
+//
+//		$lastPicker = $commUtil->request($this->_multiname."PICKER");
 
 		$out .= "<script src='/Html/JS/multichooser.js' language='Javascript' type='text/Javascript'></script>\n";
 

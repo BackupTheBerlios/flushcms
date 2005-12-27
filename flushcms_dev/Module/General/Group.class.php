@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: Group.class.php,v 1.3 2005/12/27 13:47:55 arzen Exp $ */
+/* $Id: Group.class.php,v 1.4 2005/12/27 14:09:08 arzen Exp $ */
 
 /**
  * Group class handle
@@ -196,7 +196,7 @@ class Group  extends UI
 //		$checkbox[] = &HTML_QuickForm::createElement('select', 'B', null, array('A'=>'A', 'B'=>'B','C'=>'C','D'=>'D'));
 //
 //		$form->addGroup($checkbox, 'ichkABC', 'ABCD:', array('&nbsp;', '<br />'));
-        $tmp = $form->createElement('multiChoosersss', 'experts', 'Select '.EXPERT_TEXT, array("All", "Requested"), array(), array());
+        $form->addElement('multichooser', 'Bcc', 'Test Select:', array('A'=>'A', 'B'=>'B','C'=>'C','D'=>'D'));
  		
 		$smarty->assign("Main", $form->toHTML());
 	}
