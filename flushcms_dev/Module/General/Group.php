@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: Group.php,v 1.1 2005/12/26 10:48:38 arzen Exp $ */
+/* $Id: Group.php,v 1.2 2005/12/27 13:22:28 arzen Exp $ */
 
 if (empty($__Version__))
 {
@@ -45,6 +45,10 @@ switch ($_REQUEST['Action'])
 		
 	case 'CancelSelected':
 			$thisObj->opCancelSelected();
+		break;
+
+	case 'GroupUser':
+			$thisObj->opGroupUser();
 		break;
 
 	default:

@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: GroupDAO.class.php,v 1.1 2005/12/26 10:48:38 arzen Exp $ */
+/* $Id: GroupDAO.class.php,v 1.2 2005/12/27 13:22:28 arzen Exp $ */
 
 /**
  * User class handle
@@ -29,6 +29,27 @@ class GroupDAO extends DBApp
 	function GroupDAO()
 	{
 	}
+	/**
+	 *
+	 *
+	 * @author  John.meng (ÃÏÔ¶òû)
+	 * @since   version - 2005-12-26 21:09:28
+	 * @param   string  
+	 *
+	 */
+	function getAllGroup () 
+	{
+		$all_arr = parent::getRows(GROUPS_TABLE);
+		$group_arr = array();
+		foreach($all_arr as $key => $value)
+		{
+			$group_arr[$value['GroupsID']]=$value['GroupName'];
+		}
+		asort ($group_arr);
+		reset ($group_arr);	
+		return 	$group_arr;
+	}
+	
 
 }
 ?>

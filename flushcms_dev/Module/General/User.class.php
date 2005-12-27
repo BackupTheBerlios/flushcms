@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: User.class.php,v 1.15 2005/12/26 10:48:38 arzen Exp $ */
+/* $Id: User.class.php,v 1.16 2005/12/27 13:22:28 arzen Exp $ */
 
 /**
  * User class handle
@@ -222,7 +222,7 @@ class User extends UI
 			'new'=>array(
 				'title'=>$__Lang__['langGeneralAdd'].$__Lang__['langMenuUser'],
 				'url'=>'?Module=General&Page=User&Action=Add',
-				'imgName'=>'new_f2.png',
+				'imgName'=>'addusers.png',
 				'desc'=>$__Lang__['langGeneralAdd'].$__Lang__['langMenuUser']
 			),
 			

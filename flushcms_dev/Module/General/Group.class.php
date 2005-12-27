@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: Group.class.php,v 1.1 2005/12/26 10:48:38 arzen Exp $ */
+/* $Id: Group.class.php,v 1.2 2005/12/27 13:22:28 arzen Exp $ */
 
 /**
  * Group class handle
@@ -159,6 +159,46 @@ class Group  extends UI
 		}
 		
 	}
+	/**
+	 *
+	 *
+	 * @author  John.meng (ÃÏÔ¶òû)
+	 * @since   version - 2005-12-26 21:02:50
+	 * @param   string  
+	 *
+	 */
+	function opGroupUser () 
+	{
+		global $__Lang__,$UrlParameter,$SiteDB,$AddIPObj,$FlushPHPObj,$form,$smarty;
+
+		parent::opAdd();
+		$form->addElement('header', null, $__Lang__['langUserGroup'].$__Lang__['langMenuUser'].$__Lang__['langGeneralList']);
+		
+		$thisDAO = new GroupDAO();
+		$form->addElement('select', 'group_type', 'Name Prefix: ', $thisDAO->getAllGroup());
+		
+		$select =& $form->createElement('select', 'A', 'Test Select:', array('A'=>'A', 'B'=>'B','C'=>'C','D'=>'D'));
+		$select->setSize(5);
+		$select->setMultiple(true);
+
+		$in_group =& $form->createElement('select', 'B', 'Test Select:', array('A'=>'A', 'B'=>'B','C'=>'C','D'=>'D'));
+		$in_group->setSize(5);
+		$in_group->setMultiple(true);
+
+		$group_arr[] =$in_group;
+		$button_arr[] = &HTML_QuickForm::createElement('submit', 'A', '->');
+		$button_arr[] = &HTML_QuickForm::createElement('submit', 'B', '<-');
+		$group_arr[] = &HTML_QuickForm::createElement('static', 'A','A',$button_arr);
+		$group_arr[] =$select;
+		$form->addGroup($group_arr, 'ichkABC', '', array('test', 'test22', 'test22'));
+		
+//		$checkbox[] = &HTML_QuickForm::createElement('select', 'A', null, array('A'=>'A', 'B'=>'B','C'=>'C','D'=>'D'));
+//		$checkbox[] = &HTML_QuickForm::createElement('select', 'B', null, array('A'=>'A', 'B'=>'B','C'=>'C','D'=>'D'));
+//
+//		$form->addGroup($checkbox, 'ichkABC', 'ABCD:', array('&nbsp;', '<br />'));
+		
+		$smarty->assign("Main", $form->toHTML());
+	}
 	
 	
 	/**
@@ -231,6 +271,13 @@ class Group  extends UI
 				'url'=>'?Module=General&Page=Group',
 				'imgName'=>'publish_f2.png',
 				'desc'=>$__Lang__['langUserGroup'].$__Lang__['langGeneralList']
+			),
+
+			'group_user'=>array(
+				'title'=>$__Lang__['langUserGroup'].$__Lang__['langMenuUser'],
+				'url'=>'?Module=General&Page=Group&Action=GroupUser',
+				'imgName'=>'user.png',
+				'desc'=>$__Lang__['langUserGroup'].$__Lang__['langMenuUser']
 			)
 			
 		);
