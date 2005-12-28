@@ -568,9 +568,9 @@ function multichooserPick(value)
 	index = MC_item(value + 'PICKER').value;
 	index++;
 
-	MC_item(value+"FROMID").options.length = 0;
+	MC_item(value+"TOID").options.length = 0;
 
-	_addValuesIfNotExist(MC_item(value+"FROMID"), toUse[index], value);
+	_addValuesIfNotExist(MC_item(value+"TOID"), toUse[index], value);
 	
 }
 

@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: Group.class.php,v 1.6 2005/12/28 05:45:55 arzen Exp $ */
+/* $Id: Group.class.php,v 1.7 2005/12/28 10:22:03 arzen Exp $ */
 
 /**
  * Group class handle
@@ -181,7 +181,7 @@ class Group  extends UI
 		$userDAO = new UserDAO();
 		$from_arr =  $userDAO->getNotGroupUsers();
         $tmp = &$form->addElement('multiChooser', 'users', 'Select '.$__Lang__['langUserGroup'].$__Lang__['langMenuUser'], array("All Users", "Group Users"), $from_arr, array('bbsss'=>'test','bbs22'=>'test23'));
-        $tmp->addOptionPicker("From Group",array('?test'=>'test','?test2'=>'test2') ); //$all_group
+        $tmp->addOptionPicker("From Group",$all_group);
         
  		$form->addElement('hidden', 'Module', $_REQUEST['Module']); 
 		$form->addElement('hidden', 'Page', $_REQUEST['Page']); 
