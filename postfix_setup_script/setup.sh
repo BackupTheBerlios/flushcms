@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: setup.sh,v 1.7 2005/12/03 14:08:16 arzen Exp $
+# $Id: setup.sh,v 1.8 2005/12/28 14:41:36 arzen Exp $
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 
 # Linux Server Setup Script v2.0
@@ -10,9 +10,9 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 
 _INSTALL_APACHE="n" 
 _INSTALL_MYSQL="n" 
-_INSTALL_LIBXML2="y" 
+_INSTALL_LIBXML2="n" 
 _INSTALL_PHP="n" 
-_INSTALL_PHP5="y" 
+_INSTALL_PHP5="n" 
 _INSTALL_POSTFIX="n" 
 _INSTALL_PAM_MYSQL="n" 
 _INSTALL_CYRUSIMAP="n" 
@@ -985,11 +985,26 @@ function setSecurity()
 	groupdel adm 
 	groupdel lp 
 
-	chattr +i /etc/passwd >>$_INSTALL_LOG 2>&1
-	chattr +i /etc/shadow >>$_INSTALL_LOG 2>&1
-	chattr +i /etc/group >>$_INSTALL_LOG 2>&1
-	chattr +i /etc/gshadow >>$_INSTALL_LOG 2>&1
+#	chattr +i /etc/passwd >>$_INSTALL_LOG 2>&1
+#	chattr +i /etc/shadow >>$_INSTALL_LOG 2>&1
+#	chattr +i /etc/group >>$_INSTALL_LOG 2>&1
+#	chattr +i /etc/gshadow >>$_INSTALL_LOG 2>&1
 
+	sed -e "s/auth       sufficient   \/lib\/security\/$ISA\/pam_rootok.so/auth       sufficient   \/lib\/security\/$ISA\/pam_rootok.so debug/" -r -i.org /etc/pam.d/su >>$_INSTALL_LOG 2>&1
+	echo "auth       required     /lib/security/$ISA/pam_wheel.so group=pwroot " >>/etc/pam.d/su
+	
+	userdel pwroot
+	groupdel pwroot
+	groupadd pwroot
+	useradd -g pwroot -p passwd pwroot
+
+	userdel arzen
+	groupdel arzen
+	useradd -p passwd arzen
+
+	cp conf/ssh_banner.txt /etc/ssh
+	echo "Banner /etc/ssh/ssh_banner.txt " >>/etc/ssh/sshd_config
+	
 	cd $_SOURCE_DIR >>$_INSTALL_LOG 2>&1
 	cp conf/rc.firewall /etc/init.d/ >>$_INSTALL_LOG 2>&1
 	chmod +x /etc/init.d/rc.firewall >>$_INSTALL_LOG 2>&1
