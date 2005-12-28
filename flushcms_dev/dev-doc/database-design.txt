@@ -26,6 +26,15 @@ CreateTime
 AddIP
 
 ===============
+ugroups
+===============
+UGroupsID
+UsersID
+GroupsID
+CreateTime
+AddIP
+
+===============
 sysmenu
 ===============
 SysmenuID

@@ -14,9 +14,10 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: DBConfig.php,v 1.3 2005/12/26 10:48:38 arzen Exp $ */
+/* $Id: DBConfig.php,v 1.4 2005/12/28 05:45:55 arzen Exp $ */
 define(USERS_TABLE,'users');
 define(GROUPS_TABLE,'groups');
+define(UGROUPS_TABLE,'ugroups');
 
 define(SYSMENU_TABLE,'sysmenu');
 

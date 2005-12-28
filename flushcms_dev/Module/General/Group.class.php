@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: Group.class.php,v 1.5 2005/12/27 14:26:14 arzen Exp $ */
+/* $Id: Group.class.php,v 1.6 2005/12/28 05:45:55 arzen Exp $ */
 
 /**
  * Group class handle
@@ -22,6 +22,7 @@
  */
 
 include_once("DAO/GroupDAO.class.php");
+include_once("DAO/UserDAO.class.php");
 include_once(APP_DIR."UI.class.php");
 class Group  extends UI
 {
@@ -177,11 +178,26 @@ class Group  extends UI
 		$thisDAO = new GroupDAO();
 		$all_group = $thisDAO->getAllGroup();
 		
-		
-        $tmp = &$form->addElement('multiChooser', 'experts', 'Select '.$__Lang__['langUserGroup'].$__Lang__['langMenuUser'], array("All", "Requested"), array(), array());
-        $tmp->addOptionPicker("From Group", $all_group);
- 		
-		$smarty->assign("Main", $form->toHTML());
+		$userDAO = new UserDAO();
+		$from_arr =  $userDAO->getNotGroupUsers();
+        $tmp = &$form->addElement('multiChooser', 'users', 'Select '.$__Lang__['langUserGroup'].$__Lang__['langMenuUser'], array("All Users", "Group Users"), $from_arr, array('bbsss'=>'test','bbs22'=>'test23'));
+        $tmp->addOptionPicker("From Group",array('?test'=>'test','?test2'=>'test2') ); //$all_group
+        
+ 		$form->addElement('hidden', 'Module', $_REQUEST['Module']); 
+		$form->addElement('hidden', 'Page', $_REQUEST['Page']); 
+		$form->addElement('hidden', 'Action', $_REQUEST['Action']);
+		 
+        $form->addElement('submit', 'btnSubmit', $__Lang__['langGeneralSubmit']);
+        
+        $_ScriptCode = <<<EOT
+        
+<SCRIPT LANGUAGE="JavaScript">
+var subcat = new Array();
+</SCRIPT>
+        
+EOT;
+         		
+		$smarty->assign("Main", $_ScriptCode.$form->toHTML());
 	}
 	
 	

@@ -522,6 +522,12 @@ if (typeof String.prototype.substrCount == "undefined") {
     }
 }
 
+// jump menu
+function jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+
 /* mutil choose*/
 function MC_item(id)
 {

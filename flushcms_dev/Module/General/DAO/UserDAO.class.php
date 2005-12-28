@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: UserDAO.class.php,v 1.3 2005/12/26 10:48:38 arzen Exp $ */
+/* $Id: UserDAO.class.php,v 1.4 2005/12/28 05:45:55 arzen Exp $ */
 
 /**
  * User class handle
@@ -56,6 +56,38 @@ class UserDAO extends DBApp
 		$Sql = " SELECT * FROM ".USERS_TABLE;
 		return $SiteDB->GetAll($Sql);
 	}
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - Dec 28, 2005
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function getNotGroupUsers () 
+	{
+		global $SiteDB;
+		$Sql =" SELECT UsersID,UserName FROM ".USERS_TABLE;
+		$GSql = "SELECT UsersID FROM ".UGROUPS_TABLE;
+		if ($groupUsersArr = $SiteDB->GetAll($GSql)) 
+		{
+			$exist_users_arr = array();
+			foreach($groupUsersArr as $key=>$value)
+			{
+				$exist_users_arr[] = $value['UsersID'];
+			}
+			
+			$Sql .=" WHERE UsersID NOT IN (".implode(',',$exist_users_arr).")";
+		}
+		$users_arr = $SiteDB->GetAll($Sql);
+		$all_users_arr = array();
+		foreach($users_arr as $key=>$value)
+		{
+			$all_users_arr[$value['UsersID']] = $value['UserName'];
+		}
+		return $all_users_arr;
+	}
+	
 	
 	
 }
