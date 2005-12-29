@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: setup.sh,v 1.9 2005/12/29 05:42:14 arzen Exp $
+# $Id: setup.sh,v 1.10 2005/12/29 09:59:33 arzen Exp $
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 
 # Linux Server Setup Script v2.0
@@ -990,7 +990,7 @@ function setSecurity()
 #	chattr +i /etc/group >>$_INSTALL_LOG 2>&1
 #	chattr +i /etc/gshadow >>$_INSTALL_LOG 2>&1
 
-	sed -e "s/auth       sufficient   \/lib\/security\/$ISA\/pam_rootok.so/auth       sufficient   \/lib\/security\/$ISA\/pam_rootok.so debug/" -r -i.org /etc/pam.d/su >>$_INSTALL_LOG 2>&1
+	sed -e "s/auth       sufficient   \/lib\/security\/\$ISA\/pam_rootok.so/auth       sufficient   \/lib\/security\/\$ISA\/pam_rootok.so debug /" -r -i.org /etc/pam.d/su >>$_INSTALL_LOG 2>&1
 	echo "auth       required     /lib/security/$ISA/pam_wheel.so group=pwroot " >>/etc/pam.d/su
 	
 	userdel pwroot
@@ -1011,7 +1011,7 @@ function setSecurity()
 	touch /etc/issue.net
 
 	# ·ÀÖ¹IPÆÛÆ­ #
-	echo "order bind£¬hosts ">>/etc/host.conf
+	echo "order bind, hosts ">>/etc/host.conf
 	echo "multi off ">>/etc/host.conf
 	echo "nospoof on ">>/etc/host.conf
 
