@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: setup.sh,v 1.8 2005/12/28 14:41:36 arzen Exp $
+# $Id: setup.sh,v 1.9 2005/12/29 05:42:14 arzen Exp $
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 
 # Linux Server Setup Script v2.0
@@ -1004,7 +1004,23 @@ function setSecurity()
 
 	cp conf/ssh_banner.txt /etc/ssh
 	echo "Banner /etc/ssh/ssh_banner.txt " >>/etc/ssh/sshd_config
-	
+
+	mv /etc/issue /etc/issue.org
+	mv /etc/issue.net /etc/issue.net.org
+	touch /etc/issue
+	touch /etc/issue.net
+
+	# ·ÀÖ¹IPÆÛÆ­ #
+	echo "order bind£¬hosts ">>/etc/host.conf
+	echo "multi off ">>/etc/host.conf
+	echo "nospoof on ">>/etc/host.conf
+
+	# ·ÀÖ¹DoS¹¥»÷ #
+	echo "* hard core 0 ">>/etc/security/limits.conf
+	echo "* hard rss 5000 ">>/etc/security/limits.conf
+	echo "* hard nproc 20 ">>/etc/security/limits.conf
+	echo "session required /lib/security/pam_limits.so ">>/etc/pam.d/login
+
 	cd $_SOURCE_DIR >>$_INSTALL_LOG 2>&1
 	cp conf/rc.firewall /etc/init.d/ >>$_INSTALL_LOG 2>&1
 	chmod +x /etc/init.d/rc.firewall >>$_INSTALL_LOG 2>&1
