@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: setup.sh,v 1.10 2005/12/29 09:59:33 arzen Exp $
+# $Id: setup.sh,v 1.11 2005/12/29 14:03:54 arzen Exp $
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 
 # Linux Server Setup Script v2.0
@@ -60,7 +60,7 @@ mkdir -p /var/uninstall
 
 function checkSystem()
 {
-	echo "==> Star check your system ... ";
+	echo "==> Start check your system ... ";
 
 	OS=`uname -s`
 	if [ "$OS" != "$_OS" ]; then
@@ -104,7 +104,7 @@ function checkSystem()
 
 function removeOldSendmail()
 {
-	echo "==> Star remove old sendmail ... ";
+	echo "==> Start remove old sendmail ... ";
 	mv /usr/sbin/sendmail /usr/sbin/sendmail.OFF >>/var/uninstall/postfix_install.log 2>&1
 	mv /usr/bin/newaliases /usr/bin/newaliases.OFF >>/var/uninstall/postfix_install.log 2>&1
 	mv /usr/bin/mailq /usr/bin/mailq.OFF >>/var/uninstall/postfix_install.log 2>&1
@@ -293,7 +293,7 @@ function getSqwebmail()
 
 function getCyrusIMAP()
 {
-	echo "==> Star CyrusIMAP install ... ";
+	echo "==> Start CyrusIMAP install ... ";
 	if [ ! -f cyrus-imapd-2.1.17.tar.gz ]; then
 
 
@@ -350,7 +350,7 @@ function getCyrusIMAP()
 function getPCRE()
 {
 	echo " " >>$_INSTALL_LOG 2>&1;
-	echo "==> Star PCRE install ... " >>$_INSTALL_LOG 2>&1;
+	echo "==> Start PCRE install ... " >>$_INSTALL_LOG 2>&1;
 	echo " " >>$_INSTALL_LOG 2>&1;
 	if [ ! -f pcre-6.3.tar.gz ]; then
 
@@ -382,7 +382,7 @@ function getPCRE()
 function getMailDrop()
 {
 	echo " ";
-	echo -n $"==> Star MailDrop install ... "
+	echo -n $"==> Start MailDrop install ... "
 	echo " ";
 	userdel maildrop >>$_INSTALL_LOG 2>&1
 	groupdel maildrop >>$_INSTALL_LOG 2>&1
@@ -415,7 +415,7 @@ function getMailDrop()
 function getMailDrop163()
 {
 	echo " ";
-	echo -n $"==> Star MailDrop163 install ... "
+	echo -n $"==> Start MailDrop163 install ... "
 	echo " ";
 	userdel maildrop >>$_INSTALL_LOG 2>&1
 	groupdel maildrop >>$_INSTALL_LOG 2>&1
@@ -448,7 +448,7 @@ function getMailDrop163()
 function getCourierAuthlib()
 {
 	echo " " >>$_INSTALL_LOG 2>&1
-	echo "==> Star CourierAuthlib install ... " >>$_INSTALL_LOG 2>&1
+	echo "==> Start CourierAuthlib install ... " >>$_INSTALL_LOG 2>&1
 	echo " " >>$_INSTALL_LOG 2>&1
 	if [ ! -f courier-authlib-0.57.tar.bz2 ]; then
 
@@ -486,7 +486,7 @@ function getCourierAuthlib()
 function getCourierImap()
 {
 	echo " " >>$_INSTALL_LOG;
-	echo "==> Star CourierImap install ... " >>$_INSTALL_LOG;
+	echo "==> Start CourierImap install ... " >>$_INSTALL_LOG;
 	echo " " >>$_INSTALL_LOG;
 	if [ ! -f courier-imap-4.0.6.tar.bz2 ]; then
 
@@ -533,7 +533,7 @@ function getCourierImap()
 
 function getPostfixAdmin()
 {
-	echo "==> Star CourierImap install ... ";
+	echo "==> Start CourierImap install ... ";
 	if [ ! -f postfixadmin-2.1.0.tgz ]; then
 
 
@@ -552,7 +552,7 @@ function getPostfixAdmin()
 
 function getPostfix()
 {
-	echo "==> Star Postfix install ... ";
+	echo "==> Start Postfix install ... ";
 	userdel postfix
 	groupdel postfix
 	groupdel postdrop
@@ -594,11 +594,11 @@ function getPostfix()
 function getApacheInstall()
 {
 	echo " "
-	echo -n $"==> Star apache installl ... " 
+	echo -n $"==> Start apache installl ... " 
 	echo " "
 
 	echo " " >>$_INSTALL_LOG;
-	echo -n $"==> Star apache install ... " >>$_INSTALL_LOG;
+	echo -n $"==> Start apache install ... " >>$_INSTALL_LOG;
 	echo " " >>$_INSTALL_LOG;
 
 	if [ ! -f httpd-2.0.55.tar.gz ]; then
@@ -632,7 +632,7 @@ function uninstallApache()
 
 function getIMAPPlus()
 {
-	echo "==> Star apache install ... ";
+	echo "==> Start apache install ... ";
 	if [ ! -f imap.tar.Z ]; then
 
 		wget ftp://ftp.cac.washington.edu/mail/imap.tar.Z || return 1
@@ -654,11 +654,11 @@ function getIMAPPlus()
 function getMysqlInstall()
 {
 	echo " "
-	echo -n $"==> Star mysql install ... " 
+	echo -n $"==> Start mysql install ... " 
 	echo " "
 
 	echo " " >>$_INSTALL_LOG;
-	echo -n $"==> Star mysql install ... " >>$_INSTALL_LOG;
+	echo -n $"==> Start mysql install ... " >>$_INSTALL_LOG;
 	echo " " >>$_INSTALL_LOG;
 
 	if [ ! -f mysql-4.0.26.tar.gz ]; then
@@ -702,7 +702,7 @@ function uninstallMysql()
 
 function getPHPInstall()
 {
-	echo "==> Star php install ... ";
+	echo "==> Start php install ... ";
 	if [ ! -f php-4.4.1.tar.gz ]; then
 
 		wget http://cn.php.net/get/php-4.4.1.tar.gz/from/this/mirror || return 1
@@ -723,11 +723,11 @@ function getPHPInstall()
 function getLibxml2()
 {
 	echo " "
-	echo -n $"==> Star Libxml2 install ... " 
+	echo -n $"==> Start Libxml2 install ... " 
 	echo " "
 
 	echo " " >>$_INSTALL_LOG;
-	echo -n $"==> Star Libxml2 install ... " >>$_INSTALL_LOG;
+	echo -n $"==> Start Libxml2 install ... " >>$_INSTALL_LOG;
 	echo " " >>$_INSTALL_LOG;
 
 	if [ ! -f libxml2-2.6.22.tar.gz ]; then
@@ -758,11 +758,11 @@ function getLibxml2()
 function getPHP5Install()
 {
 	echo " "
-	echo -n $"==> Star php install ... " 
+	echo -n $"==> Start php install ... " 
 	echo " "
 
 	echo " " >>$_INSTALL_LOG;
-	echo -n $"==> Star php install ... " >>$_INSTALL_LOG;
+	echo -n $"==> Start php install ... " >>$_INSTALL_LOG;
 	echo " " >>$_INSTALL_LOG;
 
 	if [ ! -f php-5.1.0RC6.tar.gz ]; then
@@ -794,7 +794,7 @@ function getPHP5Install()
 function getPureFTPD()
 {
 	echo " " >>$_INSTALL_LOG;
-	echo -n $"==> Star PureFTPD install ... " >>$_INSTALL_LOG;
+	echo -n $"==> Start PureFTPD install ... " >>$_INSTALL_LOG;
 	echo " " >>$_INSTALL_LOG;
 	if [ ! -f pure-ftpd-1.0.20.tar.gz ]; then
 
@@ -824,7 +824,7 @@ function getPureFTPD()
 function getJabberd2()
 {
 	echo " " >>$_INSTALL_LOG;
-	echo -n $"==> Star Jabberd 2 install ... " >>$_INSTALL_LOG;
+	echo -n $"==> Start Jabberd 2 install ... " >>$_INSTALL_LOG;
 	echo " " >>$_INSTALL_LOG;
 	if [ ! -f jabberd-2.0s10.tar.gz ]; then
 
@@ -856,7 +856,7 @@ function getJabberd2()
 function getPowerDNS()
 {
 	echo " " >>$_INSTALL_LOG;
-	echo -n $"==> Star PowerDNS install ... " >>$_INSTALL_LOG;
+	echo -n $"==> Start PowerDNS install ... " >>$_INSTALL_LOG;
 	echo " " >>$_INSTALL_LOG;
 	if [ ! -f pdns-2.9.19.tar.gz ]; then
 
@@ -887,7 +887,7 @@ function getPowerDNS()
 function getLibidn()
 {
 	echo " " >>$_INSTALL_LOG;
-	echo -n $"==> Star Libidn install ... " >>$_INSTALL_LOG;
+	echo -n $"==> Start Libidn install ... " >>$_INSTALL_LOG;
 	echo " " >>$_INSTALL_LOG;
 	if [ ! -f libidn-0.5.20.tar.gz ]; then
 
@@ -918,7 +918,7 @@ function getLibidn()
 function getBoost()
 {
 	echo " " >>$_INSTALL_LOG;
-	echo -n $"==> Star Boost install ... " >>$_INSTALL_LOG;
+	echo -n $"==> Start Boost install ... " >>$_INSTALL_LOG;
 	echo " " >>$_INSTALL_LOG;
 	if [ ! -f boost_1_33_0.tar.gz ]; then
 
@@ -946,14 +946,69 @@ function getBoost()
 	return 0
 }
 
-function setSecurity()
+function setJail()
 {
 	echo " "
-	echo -n $"==> Star Security Setting ... " 
+	echo -n $"==> Start Change root install ... " 
 	echo " "
 
 	echo " " >>$_INSTALL_LOG;
-	echo -n $"==> Star Security Setting ... " >>$_INSTALL_LOG;
+	echo -n $"==> Start Jail Change root install ... " >>$_INSTALL_LOG;
+	echo " " >>$_INSTALL_LOG;
+	if [ ! -f jail_1.9a.tar.tar ]; then
+
+
+		wget http://freshmeat.net/redir/jail_cp/14192/url_tgz/projecthelper.php || return 1
+
+	fi
+
+	if [ -f jail_1.9a.tar.tar ]; then
+		sh mysleep.sh &        
+		EID=$!
+
+		if [ ! -d jail ];then
+			tar zxvf jail_1.9a.tar.tar >>$_INSTALL_LOG 2>&1 || return 1
+		fi
+
+		cd jail/src
+		make >>$_INSTALL_LOG 2>&1
+		make install >>$_INSTALL_LOG 2>&1
+		cd ../../
+		/usr/local/bin/mkjailenv /var/webroot_chroot
+		/usr/local/bin/addjailsw /var/webroot_chroot
+		/usr/local/bin/addjailsw /var/webroot_chroot -P bash
+
+		/usr/local/bin/mkjailenv /var/dbaroot_chroot
+		/usr/local/bin/addjailsw /var/dbaroot_chroot
+		/usr/local/bin/addjailsw /var/dbaroot_chroot -P bash
+
+		useradd webroot
+		useradd dbaroot
+		groupdel cust
+
+		groupadd -g 8888 cust
+		useradd -g 8888 webroot
+		useradd -g 8888 dbaroot
+
+		sed -e "s/8888::\/home\/webroot:\/bin\/bash/8888::\/var\/webroot_chroot:\/usr\/local\/bin\/jail/" -e "s/8888::\/home\/dbaroot:\/bin\/bash/8888::\/var\/dbaroot_chroot:\/usr\/local\/bin\/jail/" -r -i.org /etc/passwd
+
+		/usr/local/bin/addjailuser /var/webroot_chroot /home/webroot /bin/bash webroot
+		/usr/local/bin/addjailuser /var/dbaroot_chroot /home/dbaroot /bin/bash dbaroot
+
+
+		kill $EID >/dev/null 2>&1
+	fi
+	return 0
+}
+
+function setSecurity()
+{
+	echo " "
+	echo -n $"==> Start Security Setting ... " 
+	echo " "
+
+	echo " " >>$_INSTALL_LOG;
+	echo -n $"==> Start Security Setting ... " >>$_INSTALL_LOG;
 	echo " " >>$_INSTALL_LOG;
 	
 	sh mysleep.sh &        
