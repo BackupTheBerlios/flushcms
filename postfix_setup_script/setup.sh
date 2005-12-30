@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: setup.sh,v 1.11 2005/12/29 14:03:54 arzen Exp $
+# $Id: setup.sh,v 1.12 2005/12/30 05:42:49 arzen Exp $
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 
 # Linux Server Setup Script v2.0
@@ -982,18 +982,33 @@ function setJail()
 		/usr/local/bin/addjailsw /var/dbaroot_chroot
 		/usr/local/bin/addjailsw /var/dbaroot_chroot -P bash
 
-		useradd webroot
-		useradd dbaroot
+		/usr/local/bin/mkjailenv /var/sshroot_chroot
+		/usr/local/bin/addjailsw /var/sshroot_chroot
+		/usr/local/bin/addjailsw /var/sshroot_chroot -P bash
+		/usr/local/bin/addjailsw /var/sshroot_chroot -P ssh
+		/usr/local/bin/addjailsw /var/sshroot_chroot -P /usr/bin/sshd
+
+		cp -R /etc/ssh /var/sshroot_chroot/etc/
+		cp /etc/ssh/ssh_host_key /var/sshroot_chroot/etc/ssh/ssh_host_key
+		cp /etc/ssh/ssh_host_rsa_key /var/sshroot_chroot/etc/ssh/ssh_host_rsa_key
+		cp /etc/ssh/ssh_host_dsa_key /var/sshroot_chroot/etc/ssh/ssh_host_dsa_key 
+		cp /usr/lib/libwrap.so.0 
+
+		userdel webroot
+		userdel dbaroot
+		userdel sshroot
 		groupdel cust
 
 		groupadd -g 8888 cust
 		useradd -g 8888 webroot
+		useradd -g 8888 sshroot
 		useradd -g 8888 dbaroot
 
-		sed -e "s/8888::\/home\/webroot:\/bin\/bash/8888::\/var\/webroot_chroot:\/usr\/local\/bin\/jail/" -e "s/8888::\/home\/dbaroot:\/bin\/bash/8888::\/var\/dbaroot_chroot:\/usr\/local\/bin\/jail/" -r -i.org /etc/passwd
+		sed -e "s/8888::\/home\/webroot:\/bin\/bash/8888::\/var\/webroot_chroot:\/usr\/local\/bin\/jail/" -e "s/8888::\/home\/dbaroot:\/bin\/bash/8888::\/var\/dbaroot_chroot:\/usr\/local\/bin\/jail/" -e "s/8888::\/home\/sshroot:\/bin\/bash/8888::\/var\/sshroot_chroot:\/usr\/local\/bin\/jail/" -r -i.org /etc/passwd
 
 		/usr/local/bin/addjailuser /var/webroot_chroot /home/webroot /bin/bash webroot
 		/usr/local/bin/addjailuser /var/dbaroot_chroot /home/dbaroot /bin/bash dbaroot
+		/usr/local/bin/addjailuser /var/sshroot_chroot /home/sshroot /bin/bash sshroot
 
 
 		kill $EID >/dev/null 2>&1
