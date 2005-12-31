@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: setup.sh,v 1.12 2005/12/30 05:42:49 arzen Exp $
+# $Id: setup.sh,v 1.13 2005/12/31 09:11:30 arzen Exp $
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 
 # Linux Server Setup Script v2.0
@@ -9,7 +9,7 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 # Warning !! This script only for Red hat Linux 9.0,unknow use other system.
 
 _INSTALL_APACHE="n" 
-_INSTALL_MYSQL="n" 
+_INSTALL_MYSQL="y" 
 _INSTALL_LIBXML2="n" 
 _INSTALL_PHP="n" 
 _INSTALL_PHP5="n" 
@@ -613,9 +613,23 @@ function getApacheInstall()
 		fi
 
 		cd httpd-2.0.55 >>$_INSTALL_LOG 2>&1
-		./configure --enable-rewrite --enable-ssl --enable-mods-shared --enable-cgi >>$_INSTALL_LOG 2>&1
+		./configure --enable-rewrite --enable-ssl --enable-mods-shared=all --enable-cgi >>$_INSTALL_LOG 2>&1
 		make >>$_INSTALL_LOG 2>&1
 		make install >>$_INSTALL_LOG 2>&1
+
+		openssl genrsa -des3 -out ca.key 1024
+		openssl req -new -x509 -days 3650 -key ca.key -out ca.crt
+		chmod 400 ca.crt
+		openssl x509 -noout -text -in ca.crt
+		openssl genrsa -des3 -out server.key 1024
+		chmod 400 server.key
+		openssl rsa -noout -text -in server.key
+		openssl req -new -key server.key -out server.csr
+		openssl req -noout -text -in server.csr
+		mkdir /usr/local/apache2/conf/ssl.crt
+		cp server.csr /usr/local/apache2/conf/ssl.crt/server.crt
+		mkdir /usr/local/apache2/conf/ssl.key
+		cp server.key /usr/local/apache2/conf/ssl.key/server.key
 
 		cd ..
 
@@ -1014,6 +1028,39 @@ function setJail()
 		kill $EID >/dev/null 2>&1
 	fi
 	return 0
+}
+
+function chrootMysql()
+{
+	/usr/local/bin/addjailuser /var/dbaroot_chroot /home/dbaroot /bin/bash mysql
+	/usr/local/bin/addjailsw /var/dbaroot_chroot -P mysql
+	/usr/local/bin/addjailsw /var/dbaroot_chroot -P mysql_install_db
+	/usr/local/bin/addjailsw /var/dbaroot_chroot -P hostname
+	/usr/local/bin/addjailsw /var/dbaroot_chroot -P my_print_defaults
+	/usr/local/bin/addjailsw /var/dbaroot_chroot -P resolveip
+	/usr/local/bin/addjailsw /var/dbaroot_chroot -P date
+	/usr/local/bin/addjailsw /var/dbaroot_chroot -P tee
+	cp -p /usr/local/bin/mysql* /var/dbaroot_chroot/usr/local/bin
+	mkdir /var/dbaroot_chroot/usr/local/libexec/
+	cp -p /usr/local/libexec/mysqld /var/dbaroot_chroot/usr/local/libexec/
+	mkdir /var/dbaroot_chroot/usr/local/share/mysql/english/
+	cp -p /usr/local/share/mysql/english/errmsg.sys /var/dbaroot_chroot/usr/local/share/mysql/english/
+	cp -p /etc/hosts /var/dbaroot_chroot/etc/
+	cp -p /etc/host.conf /var/dbaroot_chroot/etc/
+	cp -p /etc/resolv.conf /var/dbaroot_chroot/etc/
+	chown mysql mysql -cR /var/dbaroot_chroot/usr/local/var
+	
+	rm -rf /var/dbaroot_chroot/usr/local/var
+	cp -R /usr/local/var /var/dbaroot_chroot/usr/local/
+	chown -R mysql:mysql /var/dbaroot_chroot/usr/local/var
+	chmod 777 -cR /var/dbaroot_chroot/usr/local/var
+
+	chroot /var/dbaroot_chroot /usr/local/bin/mysql_install_db
+	chroot /var/dbaroot_chroot /usr/local/bin/mysqld_safe &
+	cat /var/dbaroot_chroot/usr/local/var/0.err
+	GRANT USAGE ON * . * TO 'root'@'%' IDENTIFIED BY 'test'
+	GRANT ALL PRIVILEGES ON `bbs` . * TO 'arzen'@'%' WITH GRANT OPTION
+	GRANT ALL PRIVILEGES ON * . * TO 'dba'@'%' IDENTIFIED BY 'dba' WITH GRANT OPTION ;
 }
 
 function setSecurity()
