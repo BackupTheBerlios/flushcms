@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: setup.sh,v 1.13 2005/12/31 09:11:30 arzen Exp $
+# $Id: setup.sh,v 1.14 2006/01/01 06:18:53 arzen Exp $
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 
 # Linux Server Setup Script v2.0
@@ -9,12 +9,12 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 # Warning !! This script only for Red hat Linux 9.0,unknow use other system.
 
 _INSTALL_APACHE="n" 
-_INSTALL_MYSQL="y" 
+_INSTALL_MYSQL="n" 
 _INSTALL_LIBXML2="n" 
 _INSTALL_PHP="n" 
 _INSTALL_PHP5="n" 
-_INSTALL_POSTFIX="n" 
-_INSTALL_PAM_MYSQL="n" 
+_INSTALL_POSTFIX="y" 
+_INSTALL_PAM_MYSQL="y" 
 _INSTALL_CYRUSIMAP="n" 
 _INSTALL_PCRE="n" 
 _INSTALL_COURIERAUTHLIB="n" 
@@ -988,25 +988,19 @@ function setJail()
 		make >>$_INSTALL_LOG 2>&1
 		make install >>$_INSTALL_LOG 2>&1
 		cd ../../
-		/usr/local/bin/mkjailenv /var/webroot_chroot
-		/usr/local/bin/addjailsw /var/webroot_chroot
-		/usr/local/bin/addjailsw /var/webroot_chroot -P bash
+		/usr/local/bin/mkjailenv /server_chroot/webroot_chroot
+		/usr/local/bin/addjailsw /server_chroot/webroot_chroot
+		/usr/local/bin/addjailsw /server_chroot/webroot_chroot -P bash
 
-		/usr/local/bin/mkjailenv /var/dbaroot_chroot
-		/usr/local/bin/addjailsw /var/dbaroot_chroot
-		/usr/local/bin/addjailsw /var/dbaroot_chroot -P bash
+		/usr/local/bin/mkjailenv /server_chroot/dbaroot_chroot
+		/usr/local/bin/addjailsw /server_chroot/dbaroot_chroot
+		/usr/local/bin/addjailsw /server_chroot/dbaroot_chroot -P bash
 
-		/usr/local/bin/mkjailenv /var/sshroot_chroot
-		/usr/local/bin/addjailsw /var/sshroot_chroot
-		/usr/local/bin/addjailsw /var/sshroot_chroot -P bash
-		/usr/local/bin/addjailsw /var/sshroot_chroot -P ssh
-		/usr/local/bin/addjailsw /var/sshroot_chroot -P /usr/bin/sshd
-
-		cp -R /etc/ssh /var/sshroot_chroot/etc/
-		cp /etc/ssh/ssh_host_key /var/sshroot_chroot/etc/ssh/ssh_host_key
-		cp /etc/ssh/ssh_host_rsa_key /var/sshroot_chroot/etc/ssh/ssh_host_rsa_key
-		cp /etc/ssh/ssh_host_dsa_key /var/sshroot_chroot/etc/ssh/ssh_host_dsa_key 
-		cp /usr/lib/libwrap.so.0 
+		/usr/local/bin/mkjailenv /server_chroot/sshroot_chroot
+		/usr/local/bin/addjailsw /server_chroot/sshroot_chroot
+		/usr/local/bin/addjailsw /server_chroot/sshroot_chroot -P bash
+		/usr/local/bin/addjailsw /server_chroot/sshroot_chroot -P ssh
+		/usr/local/bin/addjailsw /server_chroot/sshroot_chroot -P /usr/bin/sshd
 
 		userdel webroot
 		userdel dbaroot
@@ -1018,11 +1012,14 @@ function setJail()
 		useradd -g 8888 sshroot
 		useradd -g 8888 dbaroot
 
-		sed -e "s/8888::\/home\/webroot:\/bin\/bash/8888::\/var\/webroot_chroot:\/usr\/local\/bin\/jail/" -e "s/8888::\/home\/dbaroot:\/bin\/bash/8888::\/var\/dbaroot_chroot:\/usr\/local\/bin\/jail/" -e "s/8888::\/home\/sshroot:\/bin\/bash/8888::\/var\/sshroot_chroot:\/usr\/local\/bin\/jail/" -r -i.org /etc/passwd
+		sed -e "s/8888::\/home\/webroot:\/bin\/bash/8888::\/server_chroot\/webroot_chroot:\/usr\/local\/bin\/jail/" -e "s/8888::\/home\/dbaroot:\/bin\/bash/8888::\/server_chroot\/dbaroot_chroot:\/usr\/local\/bin\/jail/" -e "s/8888::\/home\/sshroot:\/bin\/bash/8888::\/server_chroot\/sshroot_chroot:\/usr\/local\/bin\/jail/" -r -i.org /etc/passwd
 
-		/usr/local/bin/addjailuser /var/webroot_chroot /home/webroot /bin/bash webroot
-		/usr/local/bin/addjailuser /var/dbaroot_chroot /home/dbaroot /bin/bash dbaroot
-		/usr/local/bin/addjailuser /var/sshroot_chroot /home/sshroot /bin/bash sshroot
+		/usr/local/bin/addjailuser /server_chroot/webroot_chroot /home/webroot /bin/bash webroot
+		/usr/local/bin/addjailuser /server_chroot/webroot_chroot /home/webroot /bin/bash postfix
+		/usr/local/bin/addjailuser /server_chroot/webroot_chroot /home/webroot /bin/bash postdrop
+		
+		/usr/local/bin/addjailuser /server_chroot/dbaroot_chroot /home/dbaroot /bin/bash dbaroot
+		/usr/local/bin/addjailuser /server_chroot/sshroot_chroot /home/sshroot /bin/bash sshroot
 
 
 		kill $EID >/dev/null 2>&1
@@ -1032,35 +1029,93 @@ function setJail()
 
 function chrootMysql()
 {
-	/usr/local/bin/addjailuser /var/dbaroot_chroot /home/dbaroot /bin/bash mysql
-	/usr/local/bin/addjailsw /var/dbaroot_chroot -P mysql
-	/usr/local/bin/addjailsw /var/dbaroot_chroot -P mysql_install_db
-	/usr/local/bin/addjailsw /var/dbaroot_chroot -P hostname
-	/usr/local/bin/addjailsw /var/dbaroot_chroot -P my_print_defaults
-	/usr/local/bin/addjailsw /var/dbaroot_chroot -P resolveip
-	/usr/local/bin/addjailsw /var/dbaroot_chroot -P date
-	/usr/local/bin/addjailsw /var/dbaroot_chroot -P tee
-	cp -p /usr/local/bin/mysql* /var/dbaroot_chroot/usr/local/bin
-	mkdir /var/dbaroot_chroot/usr/local/libexec/
-	cp -p /usr/local/libexec/mysqld /var/dbaroot_chroot/usr/local/libexec/
-	mkdir /var/dbaroot_chroot/usr/local/share/mysql/english/
-	cp -p /usr/local/share/mysql/english/errmsg.sys /var/dbaroot_chroot/usr/local/share/mysql/english/
-	cp -p /etc/hosts /var/dbaroot_chroot/etc/
-	cp -p /etc/host.conf /var/dbaroot_chroot/etc/
-	cp -p /etc/resolv.conf /var/dbaroot_chroot/etc/
-	chown mysql mysql -cR /var/dbaroot_chroot/usr/local/var
+	/usr/local/bin/addjailuser /server_chroot/dbaroot_chroot /home/dbaroot /bin/bash mysql
+	/usr/local/bin/addjailsw /server_chroot/dbaroot_chroot -P mysql
+	/usr/local/bin/addjailsw /server_chroot/dbaroot_chroot -P mysql_install_db
+	/usr/local/bin/addjailsw /server_chroot/dbaroot_chroot -P hostname
+	/usr/local/bin/addjailsw /server_chroot/dbaroot_chroot -P my_print_defaults
+	/usr/local/bin/addjailsw /server_chroot/dbaroot_chroot -P resolveip
+	/usr/local/bin/addjailsw /server_chroot/dbaroot_chroot -P date
+	/usr/local/bin/addjailsw /server_chroot/dbaroot_chroot -P tee
+	cp -p /usr/local/bin/mysql* /server_chroot/dbaroot_chroot/usr/local/bin
+	mkdir /server_chroot/dbaroot_chroot/usr/local/libexec/
+	cp -p /usr/local/libexec/mysqld /server_chroot/dbaroot_chroot/usr/local/libexec/
+	mkdir /server_chroot/dbaroot_chroot/usr/local/share/mysql/english/
+	cp -p /usr/local/share/mysql/english/errmsg.sys /server_chroot/dbaroot_chroot/usr/local/share/mysql/english/
+	cp -p /etc/hosts /server_chroot/dbaroot_chroot/etc/
+	cp -p /etc/host.conf /server_chroot/dbaroot_chroot/etc/
+	cp -p /etc/resolv.conf /server_chroot/dbaroot_chroot/etc/
+	chown mysql mysql -cR /server_chroot/dbaroot_chroot/usr/local/var
 	
-	rm -rf /var/dbaroot_chroot/usr/local/var
-	cp -R /usr/local/var /var/dbaroot_chroot/usr/local/
-	chown -R mysql:mysql /var/dbaroot_chroot/usr/local/var
-	chmod 777 -cR /var/dbaroot_chroot/usr/local/var
+	rm -rf /server_chroot/dbaroot_chroot/usr/local/var
+	cp -R /usr/local/var /server_chroot/dbaroot_chroot/usr/local/
+	chown -R mysql:mysql /server_chroot/dbaroot_chroot/usr/local/var
+	chmod 777 -cR /server_chroot/dbaroot_chroot/usr/local/var
 
-	chroot /var/dbaroot_chroot /usr/local/bin/mysql_install_db
-	chroot /var/dbaroot_chroot /usr/local/bin/mysqld_safe &
-	cat /var/dbaroot_chroot/usr/local/var/0.err
+	chroot /server_chroot/dbaroot_chroot /usr/local/bin/mysql_install_db
+	chroot /server_chroot/dbaroot_chroot /usr/local/bin/mysqld_safe &
+	cat /server_chroot/dbaroot_chroot/usr/local/server_chroot/0.err
 	GRANT USAGE ON * . * TO 'root'@'%' IDENTIFIED BY 'test'
 	GRANT ALL PRIVILEGES ON `bbs` . * TO 'arzen'@'%' WITH GRANT OPTION
 	GRANT ALL PRIVILEGES ON * . * TO 'dba'@'%' IDENTIFIED BY 'dba' WITH GRANT OPTION ;
+}
+
+function chrootApachePhp()
+{
+	cp -Rf /usr/local/apache2 /server_chroot/webroot_chroot/usr/local/apache2
+	/usr/local/bin/addjailsw /server_chroot/webroot_chroot -P httpd
+	/usr/local/bin/addjailsw /server_chroot/webroot_chroot -P mysql
+	/usr/local/bin/addjailsw /server_chroot/webroot_chroot -P postfix
+	/usr/local/bin/addjailsw /server_chroot/webroot_chroot -P postlog
+	/usr/local/bin/addjailsw /server_chroot/webroot_chroot -P postconf
+
+	/usr/local/bin/addjailsw /server_chroot/webroot_chroot -P postqueue
+	/usr/local/bin/addjailsw /server_chroot/webroot_chroot -P uname
+	/usr/local/bin/addjailsw /server_chroot/webroot_chroot -P cmp
+
+	/usr/local/bin/addjailsw /server_chroot/webroot_chroot -P find
+	/usr/local/bin/addjailsw /server_chroot/webroot_chroot -P egrep
+	/usr/local/bin/addjailsw /server_chroot/webroot_chroot -P php
+	cp /usr/sbin/sendmail /server_chroot/webroot_chroot/usr/sbin/
+	cp /usr/sbin/postsuper /server_chroot/webroot_chroot/usr/sbin/
+	cp /usr/local/lib/lib* /server_chroot/webroot_chroot/usr/local/lib/
+	mkdir /server_chroot/webroot_chroot/usr/libexec
+	cp -Rp --reply=yes /usr/libexec/postfix /server_chroot/webroot_chroot/usr/libexec
+
+	cp /usr/lib/libmysql* /server_chroot/webroot_chroot/usr/lib/
+	cp /usr/lib/libsasl* /server_chroot/webroot_chroot/usr/lib/
+	cp -R /etc/postfix /server_chroot/webroot_chroot/etc/postfix
+	mkdir /server_chroot/webroot_chroot/var/spool/
+	cp -Rp --reply=yes /var/spool /server_chroot/webroot_chroot/var/
+	chmod 777 -cR /server_chroot/webroot_chroot/var/
+	mkdir /server_chroot/webroot_chroot/var/spool/maildrop
+	mkdir /server_chroot/webroot_chroot/var/log
+	/usr/local/bin/addjailsw /server_chroot/webroot_chroot -P postdrop
+
+	cp -p --reply=yes /usr/sbin/postqueue /server_chroot/webroot_chroot/usr/sbin/postqueue
+	cp -p --reply=yes /usr/sbin/postdrop /server_chroot/webroot_chroot/usr/sbin/postdrop
+
+	vi /server_chroot/webroot_chroot/usr/local/lib/php.ini 
+	
+	chroot /server_chroot/webroot_chroot /usr/local/apache2/bin/apachectl start
+	chroot /server_chroot/webroot_chroot /usr/sbin/postfix
+}
+
+function chrootSSHD()
+{
+	/usr/local/bin/addjailsw /server_chroot/sshroot_chroot -P ssh-keygen
+	/usr/local/bin/addjailsw /server_chroot/sshroot_chroot -P initlog
+	/usr/local/bin/addjailsw /server_chroot/sshroot_chroot -P consoletype
+	/usr/local/bin/addjailsw /server_chroot/sshroot_chroot -P pidof
+	cp -R /etc/ssh /server_chroot/sshroot_chroot/etc/
+	mkdir -p /server_chroot/sshroot_chroot/var/run
+	mkdir -p /server_chroot/sshroot_chroot/var/lock/subsys/
+	mkdir /server_chroot/sshroot_chroot/etc/init.d/
+	cp -p /etc/init.d/sshd /server_chroot/sshroot_chroot/etc/init.d/
+	mkdir /server_chroot/sshroot_chroot/etc/rc.d/
+	mkdir /server_chroot/sshroot_chroot/etc/rc.d/init.d
+	cp /etc/rc.d/init.d/functions /server_chroot/sshroot_chroot/etc/rc.d/init.d/functions
+	chroot /server_chroot/sshroot_chroot /etc/init.d/sshd start
 }
 
 function setSecurity()
@@ -1220,7 +1275,7 @@ if [ "$_TODO_METHOD" = "INSTALL"  ]; then
 
 	if [ "$_INSTALL_PAM_MYSQL" = "y" ]; then
 
-		getPamMysql
+		getPamMysql50
 	fi
 
 	if [ "$_INSTALL_POSTFIX" = "y" ]; then
