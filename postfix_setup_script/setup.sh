@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: setup.sh,v 1.14 2006/01/01 06:18:53 arzen Exp $
+# $Id: setup.sh,v 1.15 2006/01/02 15:23:27 arzen Exp $
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 
 # Linux Server Setup Script v2.0
@@ -13,8 +13,9 @@ _INSTALL_MYSQL="n"
 _INSTALL_LIBXML2="n" 
 _INSTALL_PHP="n" 
 _INSTALL_PHP5="n" 
-_INSTALL_POSTFIX="y" 
-_INSTALL_PAM_MYSQL="y" 
+_INSTALL_SSH="y" 
+_INSTALL_POSTFIX="n" 
+_INSTALL_PAM_MYSQL="n" 
 _INSTALL_CYRUSIMAP="n" 
 _INSTALL_PCRE="n" 
 _INSTALL_COURIERAUTHLIB="n" 
@@ -969,7 +970,7 @@ function setJail()
 	echo " " >>$_INSTALL_LOG;
 	echo -n $"==> Start Jail Change root install ... " >>$_INSTALL_LOG;
 	echo " " >>$_INSTALL_LOG;
-	if [ ! -f jail_1.9a.tar.tar ]; then
+	if [ ! -f jail_1.9a.tar.gz ]; then
 
 
 		wget http://freshmeat.net/redir/jail_cp/14192/url_tgz/projecthelper.php || return 1
@@ -987,6 +988,7 @@ function setJail()
 		cd jail/src
 		make >>$_INSTALL_LOG 2>&1
 		make install >>$_INSTALL_LOG 2>&1
+		cp -p /usr/local/bin/jail /usr/local/bin/mylinux
 		cd ../../
 		/usr/local/bin/mkjailenv /server_chroot/webroot_chroot
 		/usr/local/bin/addjailsw /server_chroot/webroot_chroot
@@ -1008,16 +1010,19 @@ function setJail()
 		groupdel cust
 
 		groupadd -g 8888 cust
-		useradd -g 8888 webroot
-		useradd -g 8888 sshroot
-		useradd -g 8888 dbaroot
 
-		sed -e "s/8888::\/home\/webroot:\/bin\/bash/8888::\/server_chroot\/webroot_chroot:\/usr\/local\/bin\/jail/" -e "s/8888::\/home\/dbaroot:\/bin\/bash/8888::\/server_chroot\/dbaroot_chroot:\/usr\/local\/bin\/jail/" -e "s/8888::\/home\/sshroot:\/bin\/bash/8888::\/server_chroot\/sshroot_chroot:\/usr\/local\/bin\/jail/" -r -i.org /etc/passwd
+		useradd -g 8888 webroot
+		echo linuxpasswd | passwd --stdin webroot
+
+		useradd -g 8888 sshroot
+		echo linuxpasswd | passwd --stdin sshroot
+
+		useradd -g 8888 dbaroot
+		echo linuxpasswd | passwd --stdin dbaroot
+
+		sed -e "s/8888::\/home\/webroot:\/bin\/bash/8888::\/server_chroot\/webroot_chroot:\/usr\/local\/bin\/mylinux/" -e "s/8888::\/home\/dbaroot:\/bin\/bash/8888::\/server_chroot\/dbaroot_chroot:\/usr\/local\/bin\/mylinux/" -e "s/8888::\/home\/sshroot:\/bin\/bash/8888::\/server_chroot\/sshroot_chroot:\/usr\/local\/bin\/mylinux/" -r -i.org /etc/passwd
 
 		/usr/local/bin/addjailuser /server_chroot/webroot_chroot /home/webroot /bin/bash webroot
-		/usr/local/bin/addjailuser /server_chroot/webroot_chroot /home/webroot /bin/bash postfix
-		/usr/local/bin/addjailuser /server_chroot/webroot_chroot /home/webroot /bin/bash postdrop
-		
 		/usr/local/bin/addjailuser /server_chroot/dbaroot_chroot /home/dbaroot /bin/bash dbaroot
 		/usr/local/bin/addjailuser /server_chroot/sshroot_chroot /home/sshroot /bin/bash sshroot
 
@@ -1151,11 +1156,27 @@ function setSecurity()
 	userdel operator 
 	userdel games 
 
+	userdel vcsa 
+	userdel nscd 
+	userdel nfsnobody 
+	userdel pcap 
+	userdel ntp 
+	userdel desktop 
+
 	userdel gopher 
 	userdel ftp 
+	userdel eric 
 
 	groupdel adm 
 	groupdel lp 
+	groupdel news 
+	groupdel man 
+	groupdel games 
+	groupdel dip 
+	groupdel floppy 
+	groupdel utmp 
+	groupdel slocate 
+	groupdel xfs 
 
 #	chattr +i /etc/passwd >>$_INSTALL_LOG 2>&1
 #	chattr +i /etc/shadow >>$_INSTALL_LOG 2>&1
@@ -1167,12 +1188,9 @@ function setSecurity()
 	
 	userdel pwroot
 	groupdel pwroot
-	groupadd pwroot
-	useradd -g pwroot -p passwd pwroot
-
-	userdel arzen
-	groupdel arzen
-	useradd -p passwd arzen
+	groupadd -g 9999 pwroot
+	useradd -g 9999 pwroot
+	echo linuxpasswd | passwd --stdin pwroot
 
 	cp conf/ssh_banner.txt /etc/ssh
 	echo "Banner /etc/ssh/ssh_banner.txt " >>/etc/ssh/sshd_config
@@ -1202,6 +1220,37 @@ function setSecurity()
 	
 	kill $EID >/dev/null 2>&1
 
+}
+
+function installOpenSSHchroot ()
+{
+	echo " "
+	echo -n $"==> Start Install OpenSSH 4.2p1 Chroot ... " 
+	echo " "
+
+	echo " " >>$_INSTALL_LOG;
+	echo -n $"==> Start Install OpenSSH 4.2p1 Chroot ... " >>$_INSTALL_LOG;
+	echo " " >>$_INSTALL_LOG;
+	
+	sh mysleep.sh &        
+	EID=$!
+
+	if [ ! -f openssh-4.2p1-chroot.tar.gz ] ; then
+		wget http://chrootssh.sourceforge.net/download/openssh-4.2p1-chroot.tar.gz || return 1
+	fi
+
+	if [ -f openssh-4.2p1-chroot.tar.gz ]; then
+		if [ ! -d openssh-4.2p1-chroot ]; then
+			tar xvfz openssh-4.2p1-chroot.tar.gz || return 1
+		fi
+		cd openssh-4.2p1-chroot
+		./configure --prefix=/server_chroot/sshroot_chroot/usr/local/chroot_openssh --with-privsep-path=/server_chroot/sshroot_chroot --with-privsep-user=sshroot
+		make
+		make install
+		cd ..
+	fi
+	kill $EID >/dev/null 2>&1
+	return 0
 }
 
 function uninstallPHP5()
@@ -1247,6 +1296,11 @@ if [ "$_TODO_METHOD" = "INSTALL"  ]; then
 	echo "Install Source Dir:$_SOURCE_DIR ">>$_INSTALL_LOG 2>&1
 	echo " ">>$_INSTALL_LOG 2>&1
 	checkSystem
+
+	if [ "$_INSTALL_SSH" = "y" ]; then
+
+		installOpenSSHchroot
+	fi
 
 	if [ "$_INSTALL_APACHE" = "y" ]; then
 
