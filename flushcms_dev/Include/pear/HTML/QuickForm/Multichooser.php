@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: Multichooser.php,v 1.3 2005/12/27 14:26:14 arzen Exp $ */
+/* $Id: Multichooser.php,v 1.4 2006/01/03 14:55:12 arzen Exp $ */
 require_once(PEAR_DIR."HTML/QuickForm/hidden.php");
 require_once PEAR_DIR.'HTML/QuickForm.php';
 require_once (PEAR_DIR.'HTML/QuickForm/element.php');
@@ -29,8 +29,7 @@ require_once (PEAR_DIR.'HTML/QuickForm/autocomplete.php');
 * move them to the "selected" group on right, and vice versa.  It returns all
 * items that are on the right
 */
-
-class HTML_QuickForm_Multichooser extends HTML_QuickForm_element
+class HTML_QuickForm_Multichooser extends HTML_Quickform_element
 {
 	var $_fromBox;
 	var $_inBox;
@@ -73,7 +72,6 @@ class HTML_QuickForm_Multichooser extends HTML_QuickForm_element
 
 		require_once (PEAR_DIR.'HTML/QuickForm/select.php');
 		require_once (PEAR_DIR.'HTML/QuickForm/button.php');
-        //require_once('HTML/QuickForm/password.php');
 
 		HTML_Quickform_element :: HTML_Quickform_element($elementName, $elementLabel, $attributes);
 
@@ -121,7 +119,7 @@ class HTML_QuickForm_Multichooser extends HTML_QuickForm_element
 		$this->_persistantFreeze = true;
 		$this->_type = 'multichooser';
 
-//		$this->_oldValue = $commUtil->request($elementName);
+		$this->_oldValue = $_REQUEST[$elementName];//$commUtil->request($elementName);
 
 		$this->_refreshOldValue(true);
 	}
@@ -148,8 +146,8 @@ class HTML_QuickForm_Multichooser extends HTML_QuickForm_element
 	{
 
 //		$commUtil = new Common_Util();
-//
-//		$lastPicker = $commUtil->request($this->_multiname."PICKER");
+
+		$lastPicker = $_REQUEST[$this->_multiname."PICKER"];//$commUtil->request($this->_multiname."PICKER");
 
 		$old = $this->_oldValue;
 		if (strlen($old) < 1)
@@ -329,22 +327,22 @@ class HTML_QuickForm_Multichooser extends HTML_QuickForm_element
 		}
 
 //		$commUtil = new Common_Util();
-//
-//		$lastPicker = $commUtil->request($this->_multiname."PICKER");
 
-//		$out .= "<script src='/Html/JS/multichooser.js' language='Javascript' type='text/Javascript'></script>\n";
+		$lastPicker = $_REQUEST[$this->_multiname."PICKER"];//$commUtil->request($this->_multiname."PICKER");
+
+		$out .= "<script src='/Html/JS/multichooser.js' language='Javascript' type='text/Javascript'></script>\n";
 
 		$out .= "<table>";
 
 		if ($this->_usePicker)
 		{
 			//$pickerVals = array("0"=>"Please Select...");
-			$pickerVals = $this->_pickerOptions;
+			$pickerVals = array ();
 			$optionArray = array ();
 
 			foreach ($this->_pickerOptions as $label => $options)
 			{
-//				$pickerVals[] = $label;
+				$pickerVals[] = $label;
 				$optionArray[] = $options;
 			}
 
@@ -353,33 +351,39 @@ class HTML_QuickForm_Multichooser extends HTML_QuickForm_element
 			$out .= "<tr><td colspan='4'><Br><Br>\n";
 			$out .= "<script type='text/javascript'>";
 			$out .= "var PickerData$elementName = [[]";
-			foreach ($optionArray as $optionSet)
+			foreach ($this->_pickerOptions as $labelSet =>$optionSet)
 			{
-				$out .= ",[";
+				$lableArr = explode(',',$labelSet);
+				$lableKey = $lableArr[1];
+				$out .= ",";//'".$lableKey."'
 				$first = 1;
-				if (is_array($optionSet)) 
+				foreach ($optionSet as $value => $label)
 				{
-					foreach ($optionSet as $value => $label)
+					if ($first == 1)
 					{
-						if ($first == 1)
-						{
-							$first = 0;
-						}
-						else
-						{
-							$out .= ",";
-						}
-						$label = preg_replace("/\'/", "\\'", $label);
-						$out .= "['$label', '$value']";
-					}					
+						$first = 0;
+					}
+					else
+					{
+						$out .= ",";
+					}
+					$label = preg_replace("/\'/", "\\'", $label);
+					$out .= "['$lableKey', '$value','$label']";
 				}
-
-				$out .= "]\n";
+				$out .= "\n";
 			}
 			$out .= "];\n";
 			$out .= "</script>";
 			$out .= "<b>".$this->_pickerLabel."</b>&nbsp;";
-			$picker = new HTML_QuickForm_select($elementName."PICKER", "", $pickerVals, $attributes." id='{$elementName}PICKER' onchange=\"multichooserPick('$elementName')\"");
+			$pickerValsArr = array();
+			for ($index = 0; $index < sizeof($pickerVals); $index++) 
+			{
+				$array_element = explode(',',$pickerVals[$index]);
+				$key = $array_element[1];
+				$value = $array_element[0];
+				$pickerValsArr[$key] = $value;
+			}
+			$picker = new HTML_QuickForm_select($elementName."PICKER", "", $pickerValsArr, $attributes." id='{$elementName}PICKER' onchange=\"multichooserPick('$elementName')\"");
 
 			$picker->setSize(1);
 			$picker->setSelected($lastPicker);
@@ -423,5 +427,6 @@ class HTML_QuickForm_Multichooser extends HTML_QuickForm_element
 	}
 
 }
+
 
 ?>

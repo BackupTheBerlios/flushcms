@@ -566,11 +566,19 @@ function multichooserPick(value)
 	toUse = eval('PickerData' + value);
 
 	index = MC_item(value + 'PICKER').value;
-	index++;
-
-	MC_item(value+"TOID").options.length = 0;
-
-	_addValuesIfNotExist(MC_item(value+"TOID"), toUse[index], value);
+//	index++;
+//	alert(toUse[index]);
+	MC_item(value+"TOID").options.length = 0;	
+	for (i=1; i<toUse.length; i++)
+	{
+		if(toUse[i][0] == index)
+		{
+			MC_item(value+"TOID").options[MC_item(value+"TOID").length] = new Option(toUse[i][2], toUse[i][1]);		
+		}
+	}
+	
+//	MC_item(value+"TOID").options.length = 0;
+//	_addValuesIfNotExist(MC_item(value+"TOID"), toUse[index], value);
 	
 }
 
