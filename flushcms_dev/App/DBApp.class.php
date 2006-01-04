@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: DBApp.class.php,v 1.8 2006/01/04 08:16:43 arzen Exp $ */
+/* $Id: DBApp.class.php,v 1.9 2006/01/04 10:01:15 arzen Exp $ */
 
 class DBApp
 {
@@ -128,6 +128,11 @@ class DBApp
 	function autoUpdateInsertDel ($table,$record,$whereis_field,$whereis_ids,$where_group,$where_group_id) 
 	{
 		global $SiteDB;
+		$whereis_ids_arr = array();
+		$need_del_arr = array();
+		$need_add_arr = array();
+		$old_group_arr = array();
+		
 		$whereis_ids_arr = explode(',',$whereis_ids);
 		
 		$Sql = " SELECT $whereis_field FROM ".$table." WHERE $where_group IN ($where_group_id)";
@@ -152,8 +157,11 @@ class DBApp
 		{
 			for ($index = 0; $index < sizeof($need_add_arr); $index++) 
 			{
-				$record[$whereis_field] = $need_add_arr[$index];
-				$SiteDB->AutoExecute($table,$record,'INSERT');
+				if ($need_add_arr[$index]) 
+				{
+					$record[$whereis_field] = $need_add_arr[$index];
+					$SiteDB->AutoExecute($table,$record,'INSERT');
+				}
 			}
 			
 		}
