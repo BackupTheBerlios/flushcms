@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: Multichooser.php,v 1.4 2006/01/03 14:55:12 arzen Exp $ */
+/* $Id: Multichooser.php,v 1.5 2006/01/04 05:13:13 arzen Exp $ */
 require_once(PEAR_DIR."HTML/QuickForm/hidden.php");
 require_once PEAR_DIR.'HTML/QuickForm.php';
 require_once (PEAR_DIR.'HTML/QuickForm/element.php');
@@ -357,18 +357,26 @@ class HTML_QuickForm_Multichooser extends HTML_Quickform_element
 				$lableKey = $lableArr[1];
 				$out .= ",";//'".$lableKey."'
 				$first = 1;
-				foreach ($optionSet as $value => $label)
+				if (sizeof($optionSet)) 
 				{
-					if ($first == 1)
+					foreach ($optionSet as $value => $label)
 					{
-						$first = 0;
+						if ($first == 1)
+						{
+							$first = 0;
+						}
+						else
+						{
+							$out .= ",";
+						}
+						$label = preg_replace("/\'/", "\\'", $label);
+						$out .= "['$lableKey', '$value','$label']";
 					}
-					else
-					{
-						$out .= ",";
-					}
-					$label = preg_replace("/\'/", "\\'", $label);
-					$out .= "['$lableKey', '$value','$label']";
+					
+				}
+				 else
+				{
+					$out .= "[]";
 				}
 				$out .= "\n";
 			}

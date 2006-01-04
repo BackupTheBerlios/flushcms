@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: GroupDAO.class.php,v 1.2 2005/12/27 13:22:28 arzen Exp $ */
+/* $Id: GroupDAO.class.php,v 1.3 2006/01/04 05:13:13 arzen Exp $ */
 
 /**
  * User class handle
@@ -43,12 +43,40 @@ class GroupDAO extends DBApp
 		$group_arr = array();
 		foreach($all_arr as $key => $value)
 		{
-			$group_arr[$value['GroupsID']]=$value['GroupName'];
+			$group_id = $value['GroupsID'];
+			$group_name = $value['GroupName'];
+			$group_arr[$group_name.",".$group_id]=$this->getGroupUsers($group_id);
 		}
 		asort ($group_arr);
 		reset ($group_arr);	
 		return 	$group_arr;
 	}
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - Jan 4, 2006
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function getGroupUsers ($group_id) 
+	{
+		global $SiteDB;
+		$Sql=" SELECT a.UsersID,b.UserName FROM ".UGROUPS_TABLE." AS a LEFT JOIN ".USERS_TABLE." AS b ON a.UsersID=b.UsersID WHERE a.GroupsID ='$group_id' ";
+		$all_arr = $SiteDB->GetAll($Sql);
+		$group_arr = array();
+		if (sizeof($all_arr)) 
+		{
+			foreach($all_arr as $key => $value)
+			{
+				$group_arr[$value['UsersID']]=$value['UserName'];
+			}
+			asort ($group_arr);
+			reset ($group_arr);
+		}
+		return 	$group_arr;	
+	}
+	
 	
 
 }

@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: Group.class.php,v 1.8 2006/01/03 14:55:12 arzen Exp $ */
+/* $Id: Group.class.php,v 1.9 2006/01/04 05:13:13 arzen Exp $ */
 
 /**
  * Group class handle
@@ -181,7 +181,7 @@ class Group  extends UI
 		$userDAO = new UserDAO();
 		$from_arr =  $userDAO->getNotGroupUsers();
         $tmp = &$form->addElement('multiChooser', 'users', 'Select '.$__Lang__['langUserGroup'].$__Lang__['langMenuUser'], array("All Users", "Group Users"), $from_arr, array());
-        $all_group = array("test,4"=>array('2'=>'test','3'=>'testbbs'),'test333,1'=>array('4'=>'testss33','6'=>'testbbs33'));
+//        $all_group = array("test,4"=>array('2'=>'test','3'=>'testbbs'),'test333,1'=>array('4'=>'testss33','6'=>'testbbs33'));
         $tmp->addOptionPicker("From Group",$all_group);
         
  		$form->addElement('hidden', 'Module', $_REQUEST['Module']); 
@@ -189,6 +189,11 @@ class Group  extends UI
 		$form->addElement('hidden', 'Action', $_REQUEST['Action']);
 		 
         $form->addElement('submit', 'btnSubmit', $__Lang__['langGeneralSubmit']);
+        if ($form->validate()) 
+		{
+			echo $_POST['usersPICKER'];
+			echo $_POST['users'];
+		}
              		
 		$smarty->assign("Main", $form->toHTML());
 	}
