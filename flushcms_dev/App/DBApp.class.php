@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: DBApp.class.php,v 1.6 2005/12/26 10:48:38 arzen Exp $ */
+/* $Id: DBApp.class.php,v 1.7 2006/01/04 05:48:50 arzen Exp $ */
 
 class DBApp
 {
@@ -117,6 +117,28 @@ class DBApp
 		$Sql = " SELECT * FROM ".$table." WHERE $whereis ";
 		return $SiteDB->GetAll($Sql);
 	}
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - Jan 4, 2006
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function autoUpdateInsert ($table,$record,$whereis_field,$whereis_ids) 
+	{
+		global $SiteDB;
+		$Sql = " DELETE FROM ".$table." WHERE $whereis_field IN ($whereis_ids) ";
+		$RegArr = $SiteDB->Execute($Sql);
+		$whereis_ids_arr = explode(',',$whereis_ids);
+		for ($index = 0; $index < sizeof($whereis_ids_arr); $index++) 
+		{
+			$record[$whereis_field] = $whereis_ids_arr[$index];
+			$SiteDB->AutoExecute($table,$record,'INSERT');
+		}
+		return ;
+	}
+	
 	
 	
 }
