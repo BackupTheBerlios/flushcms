@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: GroupDAO.class.php,v 1.3 2006/01/04 05:13:13 arzen Exp $ */
+/* $Id: GroupDAO.class.php,v 1.4 2006/01/04 13:49:53 arzen Exp $ */
 
 /**
  * User class handle
@@ -65,7 +65,7 @@ class GroupDAO extends DBApp
 		$Sql=" SELECT a.UsersID,b.UserName FROM ".UGROUPS_TABLE." AS a LEFT JOIN ".USERS_TABLE." AS b ON a.UsersID=b.UsersID WHERE a.GroupsID ='$group_id' ";
 		$all_arr = $SiteDB->GetAll($Sql);
 		$group_arr = array();
-		if (sizeof($all_arr)) 
+		if (sizeof($all_arr) && is_array($all_arr)) 
 		{
 			foreach($all_arr as $key => $value)
 			{

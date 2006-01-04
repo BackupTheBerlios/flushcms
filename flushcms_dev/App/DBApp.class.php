@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: DBApp.class.php,v 1.9 2006/01/04 10:01:15 arzen Exp $ */
+/* $Id: DBApp.class.php,v 1.10 2006/01/04 13:49:53 arzen Exp $ */
 
 class DBApp
 {
@@ -137,9 +137,12 @@ class DBApp
 		
 		$Sql = " SELECT $whereis_field FROM ".$table." WHERE $where_group IN ($where_group_id)";
 		$old_res_arr = $SiteDB->GetAll($Sql);
-		foreach($old_res_arr as $key => $value)
+		if (sizeof($old_res_arr) && is_array($old_res_arr)) 
 		{
-			$old_group_arr[] = $value[$whereis_field];
+			foreach($old_res_arr as $key => $value)
+			{
+				$old_group_arr[] = $value[$whereis_field];
+			}
 		}
 		$overlap_arr = array_intersect($old_group_arr,$whereis_ids_arr);
 		$need_del_arr = array_diff($old_group_arr,$overlap_arr);
