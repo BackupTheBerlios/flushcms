@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: Group.class.php,v 1.10 2006/01/04 05:48:50 arzen Exp $ */
+/* $Id: Group.class.php,v 1.11 2006/01/04 08:16:43 arzen Exp $ */
 
 /**
  * Group class handle
@@ -196,8 +196,7 @@ class Group  extends UI
 			$users_arr = explode(';',$_POST['users']);
 			array_pop($users_arr);
 			$thisDAO = &new GroupDAO();
-			$user_arr = $thisDAO->autoUpdateInsert(UGROUPS_TABLE,$record,'UsersID',implode(',',$users_arr));
-			var_dump($user_arr);
+			$user_arr = $thisDAO->autoUpdateInsertDel(UGROUPS_TABLE,$record,'UsersID',implode(',',$users_arr),'GroupsID',$_POST['usersPICKER']);
 		}
              		
 		$smarty->assign("Main", $form->toHTML());

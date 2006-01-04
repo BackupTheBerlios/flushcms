@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: DBApp.class.php,v 1.7 2006/01/04 05:48:50 arzen Exp $ */
+/* $Id: DBApp.class.php,v 1.8 2006/01/04 08:16:43 arzen Exp $ */
 
 class DBApp
 {
@@ -125,16 +125,37 @@ class DBApp
 	* @param	datatype paramname description
 	* @return   datatype description
 	*/
-	function autoUpdateInsert ($table,$record,$whereis_field,$whereis_ids) 
+	function autoUpdateInsertDel ($table,$record,$whereis_field,$whereis_ids,$where_group,$where_group_id) 
 	{
 		global $SiteDB;
-		$Sql = " DELETE FROM ".$table." WHERE $whereis_field IN ($whereis_ids) ";
-		$RegArr = $SiteDB->Execute($Sql);
 		$whereis_ids_arr = explode(',',$whereis_ids);
-		for ($index = 0; $index < sizeof($whereis_ids_arr); $index++) 
+		
+		$Sql = " SELECT $whereis_field FROM ".$table." WHERE $where_group IN ($where_group_id)";
+		$old_res_arr = $SiteDB->GetAll($Sql);
+		foreach($old_res_arr as $key => $value)
 		{
-			$record[$whereis_field] = $whereis_ids_arr[$index];
-			$SiteDB->AutoExecute($table,$record,'INSERT');
+			$old_group_arr[] = $value[$whereis_field];
+		}
+		$overlap_arr = array_intersect($old_group_arr,$whereis_ids_arr);
+		$need_del_arr = array_diff($old_group_arr,$overlap_arr);
+		$need_add_arr = array_diff($whereis_ids_arr,$overlap_arr);
+		if (sizeof($need_del_arr)) 
+		{
+			$Sql = " DELETE FROM ".$table." WHERE $whereis_field IN (".implode(',',$need_del_arr).") ";
+			$SiteDB->Execute($Sql);
+		}
+		if (sizeof($overlap_arr)) 
+		{
+			$this->opUpdate ($table,$record," $whereis_field IN (".implode($overlap_arr).") ");						
+		}
+		if (sizeof($need_add_arr)) 
+		{
+			for ($index = 0; $index < sizeof($need_add_arr); $index++) 
+			{
+				$record[$whereis_field] = $need_add_arr[$index];
+				$SiteDB->AutoExecute($table,$record,'INSERT');
+			}
+			
 		}
 		return ;
 	}
