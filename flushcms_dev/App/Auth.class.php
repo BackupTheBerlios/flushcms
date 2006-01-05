@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: Auth.class.php,v 1.3 2006/01/05 10:35:28 arzen Exp $ */
+/* $Id: Auth.class.php,v 1.4 2006/01/05 15:34:39 arzen Exp $ */
 
 class Auth 
 {
@@ -22,9 +22,9 @@ class Auth
 
 	function Auth()
 	{
-		if (empty($_COOKIE['UserName'])) 
+		if (empty($_COOKIE['UserName']) && $_SESSION['UserName']) 
 		{
-			setcookie("UserName", "", time()+3600);
+			setcookie("UserName", $_SESSION['UserName'], time()+3600);
 			
 		}
 		@session_start();
@@ -34,7 +34,7 @@ class Auth
 			$this->logout();
 		}
 
-		if ($_SESSION['ShowLogin']==true) 
+		if ($_SESSION['IsLogined']==false) 
 		{
 			$this->drawLogin();
 		}
@@ -111,9 +111,9 @@ class Auth
 		$res_row = $DBAppObj->checkExists(USERS_TABLE,$where_is);
 		if ($res_row) 
 		{
-			$_COOKIE['UserName'] = $_SESSION['UserName'] = $res_row['UserName'];
+			$_SESSION['UserName'] = $res_row['UserName'];
 			$_SESSION['UsersID'] = $res_row['UsersID'];
-			$_SESSION['ShowLogin'] = false;
+			$_SESSION['IsLogined'] = true;
 			echo "<script>window.location='".$_SERVER['PHP_SELF']."'</script>";
 		}
 		else 
@@ -133,7 +133,7 @@ class Auth
 	*/
 	function logout () 
 	{
-		$_SESSION['ShowLogin']=true;
+		$_SESSION['IsLogined']=false;
 		$_SESSION['UserName'] = "";
 		$_SESSION['UsersID'] = "";
 	}

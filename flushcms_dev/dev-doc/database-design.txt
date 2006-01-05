@@ -55,3 +55,15 @@ VarType
 UserID
 CreateTime
 AddIP
+
+===============
+site_config
+===============
+SiteConfigID
+UserID
+VersionCode
+VarName
+VarValue
+CreateTime
+AddIP
+

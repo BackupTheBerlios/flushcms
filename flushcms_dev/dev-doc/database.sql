@@ -1,8 +1,8 @@
--- MySQL dump 9.11
+-- MySQL dump 9.07
 --
 -- Host: localhost    Database: flushcms
--- ------------------------------------------------------
--- Server version	4.0.26-nt
+---------------------------------------------------------
+-- Server version	4.0.5-beta-max-nt
 
 --
 -- Current Database: flushcms
@@ -13,7 +13,7 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/ flushcms;
 USE flushcms;
 
 --
--- Table structure for table `groups`
+-- Table structure for table 'groups'
 --
 
 CREATE TABLE groups (
@@ -26,14 +26,14 @@ CREATE TABLE groups (
 ) TYPE=MyISAM COMMENT='User group';
 
 --
--- Dumping data for table `groups`
+-- Dumping data for table 'groups'
 --
 
-INSERT INTO groups VALUES (1,'Admin','Admin','2005-12-28 08:44:38','127.0.0.1');
-INSERT INTO groups VALUES (2,'user','user','2005-12-28 09:41:54','127.0.0.1');
+INSERT INTO groups VALUES (1,'admin','admin','2005-12-26 21:22:48','127.0.0.1');
+INSERT INTO groups VALUES (2,'user','user','2005-12-26 20:41:47','127.0.0.1');
 
 --
--- Table structure for table `modules`
+-- Table structure for table 'modules'
 --
 
 CREATE TABLE modules (
@@ -46,12 +46,32 @@ CREATE TABLE modules (
 ) TYPE=MyISAM COMMENT='Module install list';
 
 --
--- Dumping data for table `modules`
+-- Dumping data for table 'modules'
 --
 
 
 --
--- Table structure for table `sysmenu`
+-- Table structure for table 'site_config'
+--
+
+CREATE TABLE site_config (
+  SiteConfigID int(11) NOT NULL auto_increment,
+  UserID int(11) NOT NULL default '0',
+  VersionCode varchar(4) NOT NULL default '',
+  VarName varchar(40) NOT NULL default '',
+  VarValue varchar(255) NOT NULL default '',
+  CreateTime datetime NOT NULL default '0000-00-00 00:00:00',
+  AddIP varchar(24) NOT NULL default '',
+  PRIMARY KEY  (SiteConfigID)
+) TYPE=MyISAM COMMENT='site configure';
+
+--
+-- Dumping data for table 'site_config'
+--
+
+
+--
+-- Table structure for table 'sysmenu'
 --
 
 CREATE TABLE sysmenu (
@@ -65,18 +85,23 @@ CREATE TABLE sysmenu (
 ) TYPE=MyISAM COMMENT='System menu';
 
 --
--- Dumping data for table `sysmenu`
+-- Dumping data for table 'sysmenu'
 --
 
-INSERT INTO sysmenu VALUES (1,0,'test1','test1','2005-12-20 17:00:44','127.0.0.1');
-INSERT INTO sysmenu VALUES (2,0,'test2','test2','2005-12-20 17:01:01','127.0.0.1');
-INSERT INTO sysmenu VALUES (3,1,'test11','test11','2005-12-20 17:01:15','127.0.0.1');
-INSERT INTO sysmenu VALUES (4,2,'test111','test111','2005-12-20 17:01:26','127.0.0.1');
-INSERT INTO sysmenu VALUES (5,3,'test112','test112','2005-12-20 17:31:46','127.0.0.1');
-INSERT INTO sysmenu VALUES (6,5,'test1121','test1121','2005-12-20 17:32:07','127.0.0.1');
+INSERT INTO sysmenu VALUES (1,0,'test1','test1','2005-12-20 22:52:06','127.0.0.1');
+INSERT INTO sysmenu VALUES (2,0,'test2','test2','2005-12-20 22:52:19','127.0.0.1');
+INSERT INTO sysmenu VALUES (3,1,'test11','test11','2005-12-20 22:52:26','127.0.0.1');
+INSERT INTO sysmenu VALUES (4,3,'test111','test111','2005-12-20 22:52:36','127.0.0.1');
+INSERT INTO sysmenu VALUES (5,4,'test1111','test1111','2005-12-20 22:52:47','127.0.0.1');
+INSERT INTO sysmenu VALUES (6,2,'test21','test21','2005-12-20 22:52:59','127.0.0.1');
+INSERT INTO sysmenu VALUES (7,6,'test211','test211','2005-12-20 22:53:08','127.0.0.1');
+INSERT INTO sysmenu VALUES (8,7,'test2111','test2111','2005-12-20 22:53:18','127.0.0.1');
+INSERT INTO sysmenu VALUES (9,4,'test112','test112','2005-12-20 22:53:35','127.0.0.1');
+INSERT INTO sysmenu VALUES (10,3,'test122','test122','2005-12-20 22:53:55','127.0.0.1');
+INSERT INTO sysmenu VALUES (11,6,'test223','test223','2005-12-20 22:54:21','127.0.0.1');
 
 --
--- Table structure for table `ugroups`
+-- Table structure for table 'ugroups'
 --
 
 CREATE TABLE ugroups (
@@ -89,12 +114,13 @@ CREATE TABLE ugroups (
 ) TYPE=MyISAM COMMENT='user group';
 
 --
--- Dumping data for table `ugroups`
+-- Dumping data for table 'ugroups'
 --
 
+INSERT INTO ugroups VALUES (5,3,2,'2006-01-04 21:54:42','127.0.0.1');
 
 --
--- Table structure for table `users`
+-- Table structure for table 'users'
 --
 
 CREATE TABLE users (
@@ -107,9 +133,9 @@ CREATE TABLE users (
 ) TYPE=MyISAM COMMENT='user base info';
 
 --
--- Dumping data for table `users`
+-- Dumping data for table 'users'
 --
 
-INSERT INTO users VALUES (8,'gsafds','098f6bcd4621d373cade4e832627b4f6','2005-12-23 12:56:36','127.0.0.1');
-INSERT INTO users VALUES (9,'gasdfdsaf','098f6bcd4621d373cade4e832627b4f6','2005-12-23 12:56:44','127.0.0.1');
+INSERT INTO users VALUES (2,'admin','21232f297a57a5a743894a0e4a801fc3','2005-12-21 21:21:01','127.0.0.1');
+INSERT INTO users VALUES (3,'etysafd','098f6bcd4621d373cade4e832627b4f6','2005-12-21 21:21:18','127.0.0.1');
 

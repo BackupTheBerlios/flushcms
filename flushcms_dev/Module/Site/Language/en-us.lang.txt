@@ -1,0 +1,3 @@
+langStep = Step
+
+langNexStep = NexStep->

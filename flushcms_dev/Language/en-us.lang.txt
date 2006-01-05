@@ -12,6 +12,9 @@ langMenuUser = User
 langUserGroup = Group
 langUserAddHeader = Enter User Base Info
 
+langSite = Site
+langWizard = Wizard
+
 langGroupAddHeader = Enter Group Base Info
 
 langUserNameExist = Sorry that username is exists,please enter another username!
