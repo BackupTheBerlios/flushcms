@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: Multichooser.php,v 1.5 2006/01/04 05:13:13 arzen Exp $ */
+/* $Id: Multichooser.php,v 1.6 2006/01/05 03:04:06 arzen Exp $ */
 require_once(PEAR_DIR."HTML/QuickForm/hidden.php");
 require_once PEAR_DIR.'HTML/QuickForm.php';
 require_once (PEAR_DIR.'HTML/QuickForm/element.php');
@@ -127,7 +127,7 @@ class HTML_QuickForm_Multichooser extends HTML_Quickform_element
 	function useAutoComplete($autoArray)
 	{
 		$autoTxtName = 'autotxt';
-		$this->txt = new HTML_QuickForm_autocomplete($autoTxtName.'From', 'txt', $autoArray, "onkeyup=\"javascript:findMultiChooserVal('$this->_elementName','$autoTxtName')\" id='{$autoTxtName}FROMID' ");
+		$this->txt = new HTML_QuickForm_autocomplete($autoTxtName.'To', 'txt', $autoArray, "onkeyup=\"javascript:findMultiChooserVal('$this->_elementName','$autoTxtName')\" id='{$autoTxtName}TOID' ");
 		$this->txt->setSize(10);
 		$this->_autoComplete = true;
 	}
@@ -138,7 +138,7 @@ class HTML_QuickForm_Multichooser extends HTML_Quickform_element
 		$this->_pickerLabel = $label;
 		$this->_pickerOptions = $values;
 		$this->_usePicker = true;
-		$this->_refreshOldValue(false);
+//		$this->_refreshOldValue(false);
 
 	}
 
@@ -166,7 +166,6 @@ class HTML_QuickForm_Multichooser extends HTML_Quickform_element
 				}
 				$ctr ++;
 			}
-
 			if ($firstGroup !== "none")
 			{
 				$this->_fromOptions = $firstGroup;
@@ -330,7 +329,7 @@ class HTML_QuickForm_Multichooser extends HTML_Quickform_element
 
 		$lastPicker = $_REQUEST[$this->_multiname."PICKER"];//$commUtil->request($this->_multiname."PICKER");
 
-		$out .= "<script src='/Html/JS/multichooser.js' language='Javascript' type='text/Javascript'></script>\n";
+//		$out .= "<script src='/Html/JS/multichooser.js' language='Javascript' type='text/Javascript'></script>\n";
 
 		$out .= "<table>";
 
