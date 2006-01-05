@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: Auth.class.php,v 1.2 2006/01/05 10:00:51 arzen Exp $ */
+/* $Id: Auth.class.php,v 1.3 2006/01/05 10:35:28 arzen Exp $ */
 
 class Auth 
 {
@@ -22,6 +22,11 @@ class Auth
 
 	function Auth()
 	{
+		if (empty($_COOKIE['UserName'])) 
+		{
+			setcookie("UserName", "", time()+3600);
+			
+		}
 		@session_start();
 		
 		if ($_REQUEST['Action'] == "Logout" && $_POST['Action']!='LOGON') 
@@ -61,7 +66,9 @@ class Auth
 		$form->addRule('user_name', $__Lang__['langGeneralPleaseEnter']." ".$__Lang__['langMenuUser']." ".$__Lang__['langGeneralName'], 'required');
 		$form->addRule('user_passwd',$__Lang__['langGeneralPleaseEnter']." ".$__Lang__['langMenuUser']." ".$__Lang__['langGeneralPassword'], 'required');
 		$form->addElement('hidden', 'Action', 'LOGON'); 
-
+		
+		$form->setDefaults(array('user_name'=>$_COOKIE['UserName']));
+		
 		$form->addElement('submit', null, $__Lang__['langGeneralSubmit']);
 		$form->addElement('static', 'login_message');
 
@@ -104,7 +111,7 @@ class Auth
 		$res_row = $DBAppObj->checkExists(USERS_TABLE,$where_is);
 		if ($res_row) 
 		{
-			$_SESSION['UserName'] = $res_row['UserName'];
+			$_COOKIE['UserName'] = $_SESSION['UserName'] = $res_row['UserName'];
 			$_SESSION['UsersID'] = $res_row['UsersID'];
 			$_SESSION['ShowLogin'] = false;
 			echo "<script>window.location='".$_SERVER['PHP_SELF']."'</script>";
