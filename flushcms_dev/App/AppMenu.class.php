@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: AppMenu.class.php,v 1.7 2005/12/26 09:57:08 arzen Exp $ */
+/* $Id: AppMenu.class.php,v 1.8 2006/01/05 10:22:40 arzen Exp $ */
 
 /**
  * Load language file
@@ -76,18 +76,19 @@ class AppMenu
 		{
 			$_url = $node['url']?$node['url']:'javascript:void(0)';
 			$_title = $node['title'];
+			$_append = $node['js'];
 			$_ico = $node['ico']?"<img src='".THEMES_DIR."images/".$node['ico']."' alt='' border='0' align='absmiddle' />":"";
 			if ($level==0) 
 			{
-				$this->_menu_html .= "<td ><a class='button' href=\"$_url\"> $_ico $_title</a>";
+				$this->_menu_html .= "<td ><a class='button' href=\"$_url\" $_append > $_ico $_title</a>";
 			}else 
 			{
 				if (isset($node['sub']) && $level>=1) 
 				{
-					$this->_menu_html .= "<a class='item' href='$_url'> $_ico $_title <img class='arrow' src='".THEMES_DIR."images/arrow1.gif' width='4' height='7' alt='' /></a>";
+					$this->_menu_html .= "<a class='item' href='$_url' $_append > $_ico $_title <img class='arrow' src='".THEMES_DIR."images/arrow1.gif' width='4' height='7' alt='' /></a>";
 				}else 
 				{
-					$this->_menu_html .= "<a class='item' href='$_url'> $_ico $_title</a>";
+					$this->_menu_html .= "<a class='item' href='$_url' $_append > $_ico $_title</a>";
 				}
 			}
 			if (isset($node['sub'])) 

@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: MenuConfig.php,v 1.14 2006/01/05 10:05:47 arzen Exp $ */
+/* $Id: MenuConfig.php,v 1.15 2006/01/05 10:22:40 arzen Exp $ */
 
 $MainMenu = array(
 // home menu
@@ -27,6 +27,7 @@ $MainMenu = array(
 			"logout"=>array(
 				'title' => $__Lang__['langLoginOut'],
 				'ico' => 'exit_small.png', 
+				'js'=>" onclick=\"return confirm ( '".$__Lang__['langGeneralCancelConfirm']."');\" ",
 				'url' => '?Action=Logout'
 			
 			)
