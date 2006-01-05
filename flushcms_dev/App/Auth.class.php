@@ -14,14 +14,25 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: Auth.class.php,v 1.1 2006/01/05 05:36:55 arzen Exp $ */
+/* $Id: Auth.class.php,v 1.2 2006/01/05 10:00:51 arzen Exp $ */
 
 class Auth 
 {
+	
 
 	function Auth()
 	{
-		$this->drawLogin();
+		@session_start();
+		
+		if ($_REQUEST['Action'] == "Logout" && $_POST['Action']!='LOGON') 
+		{
+			$this->logout();
+		}
+
+		if ($_SESSION['ShowLogin']==true) 
+		{
+			$this->drawLogin();
+		}
 	}
 	
 	/**
@@ -32,7 +43,7 @@ class Auth
 	* @param	datatype paramname description
 	* @return   datatype description
 	*/
-	function drawLogin ($message_str=null) 
+	function drawLogin () 
 	{
 		global $__Lang__,$UrlParameter,$SiteDB,$AddIPObj,$FlushPHPObj,$form,$smarty;
 		
@@ -49,17 +60,15 @@ class Auth
 
 		$form->addRule('user_name', $__Lang__['langGeneralPleaseEnter']." ".$__Lang__['langMenuUser']." ".$__Lang__['langGeneralName'], 'required');
 		$form->addRule('user_passwd',$__Lang__['langGeneralPleaseEnter']." ".$__Lang__['langMenuUser']." ".$__Lang__['langGeneralPassword'], 'required');
+		$form->addElement('hidden', 'Action', 'LOGON'); 
 
 		$form->addElement('submit', null, $__Lang__['langGeneralSubmit']);
-		if ($message_str) 
-		{
-			$form->addElement('static', null,null, $message_str);
-		}
+		$form->addElement('static', 'login_message');
 
-		if ($form->validate()) 
+		if ($form->validate() && $_POST['Action']=='LOGON') 
 		{
-			$user_name="";
-			$user_password="";
+			$user_name=$_POST['user_name'];
+			$user_password=md5($_POST['user_passwd']);
 			$this->checkAuth($user_name,$user_password);
 		}
 		
@@ -89,8 +98,21 @@ class Auth
 	*/
 	function checkAuth ($user_name,$user_password) 
 	{
-		global $SiteDB;
-		
+		global $SiteDB,$FlushPHPObj,$form,$__Lang__;
+		$where_is = " UserName = '$user_name' AND Passwd = '$user_password' ";
+		$DBAppObj = $FlushPHPObj->loadApp("DBApp");
+		$res_row = $DBAppObj->checkExists(USERS_TABLE,$where_is);
+		if ($res_row) 
+		{
+			$_SESSION['UserName'] = $res_row['UserName'];
+			$_SESSION['UsersID'] = $res_row['UsersID'];
+			$_SESSION['ShowLogin'] = false;
+			echo "<script>window.location='".$_SERVER['PHP_SELF']."'</script>";
+		}
+		else 
+		{
+			$form->setDefaults(array('login_message'=>"<font color='red'> ".$__Lang__['langLoginFail']." </font>"));
+		}
 	}
 	
 	
@@ -104,7 +126,9 @@ class Auth
 	*/
 	function logout () 
 	{
-		
+		$_SESSION['ShowLogin']=true;
+		$_SESSION['UserName'] = "";
+		$_SESSION['UsersID'] = "";
 	}
 		
 }

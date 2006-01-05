@@ -54,6 +54,8 @@ langGeneralPleaseSelect = Please select
 langGeneralFileNotExist = Sorry,file not exist
 
 langLoginHeader = FlushPHP Login ...
+langLoginFail = Fail , username or password incorrect!
+langLoginOut = Login Out
 
 langMessageMsg = Message
 langMessageWarnning = Warnning

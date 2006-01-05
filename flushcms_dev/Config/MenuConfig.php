@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: MenuConfig.php,v 1.13 2006/01/05 10:00:51 arzen Exp $ */
+/* $Id: MenuConfig.php,v 1.14 2006/01/05 10:05:47 arzen Exp $ */
 
 $MainMenu = array(
 // home menu
@@ -25,7 +25,8 @@ $MainMenu = array(
 		'sub' => array(
 		
 			"logout"=>array(
-				'title' => $__Lang__['langLoginOut'], 
+				'title' => $__Lang__['langLoginOut'],
+				'ico' => 'exit_small.png', 
 				'url' => '?Action=Logout'
 			
 			)
