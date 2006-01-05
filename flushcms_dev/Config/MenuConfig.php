@@ -14,14 +14,23 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: MenuConfig.php,v 1.12 2005/12/26 10:48:38 arzen Exp $ */
+/* $Id: MenuConfig.php,v 1.13 2006/01/05 10:00:51 arzen Exp $ */
 
 $MainMenu = array(
 // home menu
 	"Home"=>array(
 		'ico' => "frontpage.png",
 		'title' => $__Lang__['langGeneralHome'], 
-		'url' => '?'
+		'url' => '',
+		'sub' => array(
+		
+			"logout"=>array(
+				'title' => $__Lang__['langLoginOut'], 
+				'url' => '?Action=Logout'
+			
+			)
+			
+		)
 	),
 // menu	
 	"Menu"=>array(
