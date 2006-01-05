@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: FlushPHP.php,v 1.14 2005/12/23 09:31:35 arzen Exp $ */
+/* $Id: FlushPHP.php,v 1.15 2006/01/05 05:36:55 arzen Exp $ */
 
 define(ROOT_DIR,dirname(__FILE__));
 define(UTIL_DIR,ROOT_DIR."/Utility/");
@@ -42,6 +42,9 @@ $smarty->compile_dir=ROOT_DIR."/templates_c";
 
 $FlushPHPObj = & new FlushPHP();
 $MessageObj = $FlushPHPObj->loadApp("Messages");
+
+$AuthObj = $FlushPHPObj->loadApp("Auth");
+$AuthObj->Auth();
 
 include_once(CONFIG_DIR."MenuConfig.php");
 

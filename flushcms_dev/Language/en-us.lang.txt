@@ -53,6 +53,8 @@ langGeneralPleaseSelect = Please select
 
 langGeneralFileNotExist = Sorry,file not exist
 
+langLoginHeader = FlushPHP Login ...
+
 langMessageMsg = Message
 langMessageWarnning = Warnning
 langMessageError = Error
