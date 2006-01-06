@@ -1,3 +1,8 @@
 langStep = Step
 
+langSiteVersion = Site Version
+
+langVersionEn-us = English
+langVersionZh-cn = Simple Chinese
+
 langNexStep = NexStep->

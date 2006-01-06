@@ -15,6 +15,7 @@ langGeneralSummary = 描述
 langGeneralOperation = 操作
 langGeneralInstall = 安装
 langGeneralUnInstall = 卸装
+langGeneralSubmit = 提交
 
 langGeneralFileNotExist = 对不起，文件不存在
 

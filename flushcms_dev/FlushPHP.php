@@ -14,7 +14,9 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: FlushPHP.php,v 1.16 2006/01/05 10:00:51 arzen Exp $ */
+/* $Id: FlushPHP.php,v 1.17 2006/01/06 05:32:11 arzen Exp $ */
+
+@session_start();
 
 define(ROOT_DIR,dirname(__FILE__));
 define(UTIL_DIR,ROOT_DIR."/Utility/");

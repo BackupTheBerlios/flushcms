@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: Language.class.php,v 1.3 2006/01/06 01:32:31 arzen Exp $ */
+/* $Id: Language.class.php,v 1.4 2006/01/06 05:32:11 arzen Exp $ */
 
 /**
  * Load language file
@@ -36,13 +36,10 @@ class Language extends Browser
 	*/
 	function initLanguage ($lang_dir = LANG_DIR)
 	{
+		$lang_code = $this->getFirstLanguage();
 		if ($_SESSION['CURRENT_LANG']) 
 		{
 			$lang_code = $_SESSION['CURRENT_LANG'];
-		}
-		 else
-		{
-			$lang_code = $this->getFirstLanguage();
 		}
 		$lang_file_name=$lang_dir.$lang_code.".lang.txt";
 		$default_lang_file_name = $lang_dir."en-us.lang.txt";

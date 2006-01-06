@@ -1,0 +1,8 @@
+langStep = 步骤
+
+langSiteVersion = 网站版本
+
+langVersionEn-us = 英文
+langVersionZh-cn = 简体中文
+
+langNexStep = 下一步->
