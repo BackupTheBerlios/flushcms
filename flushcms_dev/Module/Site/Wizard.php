@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: Wizard.php,v 1.1 2006/01/05 15:34:39 arzen Exp $ */
+/* $Id: Wizard.php,v 1.2 2006/01/06 10:29:05 arzen Exp $ */
 if (empty($__Version__))
 {
 	echo "Big error! ";
@@ -26,24 +26,16 @@ $thisObj = new Wizard();
 
 switch ($_REQUEST['Action']) 
 {
-	case 'UserList':
-			$thisObj->viewList();
-		break;
-
-	case 'Add':
-			$thisObj->opAdd();
-		break;
-
-	case 'Update':
-			$thisObj->opAdd();
+	case 'Step2':
+			$thisObj->opStep2();
 		break;
 		
-	case 'Cancel':
-			$thisObj->opCancel();
+	case 'Step3':
+			$thisObj->opStep3();
 		break;
-		
-	case 'CancelSelected':
-			$thisObj->opCancelSelected();
+
+	case 'Step4':
+			$thisObj->opStep4();
 		break;
 
 	default:
