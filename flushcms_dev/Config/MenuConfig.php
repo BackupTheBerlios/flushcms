@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: MenuConfig.php,v 1.17 2006/01/07 14:22:03 arzen Exp $ */
+/* $Id: MenuConfig.php,v 1.18 2006/01/07 14:32:58 arzen Exp $ */
 
 $MainMenu = array(
 // home menu
@@ -150,13 +150,13 @@ $MainMenu = array(
 	),
 // about menu
 	"About"=>array(
-		'ico' => "earth.gif",
+		'ico' => "aboutus.png",
 		'title' => $__Lang__['langGeneralAbout'], 
 		'url' => '',
 		'sub' => array(
 		
 			"ModuleList"=>array(
-				'ico' => 'wizard.png',
+//				'ico' => 'wizard.png',
 				'title' => $__Lang__['langGeneralAbout'], 
 				'url' => '?Module=Site&Page=Wizard'			
 			)
