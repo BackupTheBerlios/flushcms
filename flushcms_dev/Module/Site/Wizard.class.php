@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: Wizard.class.php,v 1.5 2006/01/07 09:20:08 arzen Exp $ */
+/* $Id: Wizard.class.php,v 1.6 2006/01/07 14:22:02 arzen Exp $ */
 
 include_once(APP_DIR."UI.class.php");
 include_once("DAO/WizardDAO.class.php");
@@ -174,10 +174,39 @@ class Wizard extends UI
 	function opStep3 () 
 	{
 		global $__Lang__,$UrlParameter,$SiteDB,$AddIPObj,$FlushPHPObj,$form,$smarty;
+		include_once (PEAR_DIR."HTML/Table.php");
+		include_once (MODULE_DIR."General/DAO/SystemMenuDAO.class.php");
+
 		parent::opAdd();
 		$form->addElement('header', null, $__Lang__['langSite'].$__Lang__['langWizard'].$__Lang__['langStep']." 3 ");
+
+		$sysMenuDao = new SystemMenuDAO();
+		$data_menu = $sysMenuDao->getMenuArr();
+
+		$tableAttrs = array ("class" => "grid_sub_table",'cellspacing'=>"0");
+		$table = new HTML_Table($tableAttrs);
+		$table->setAutoGrow(true);
+		$table->setAutoFill("n/a");
+		$cell_x=0;
+
+		foreach ($data_menu as $key=>$value)
+		{
+			$table->addRow(array($value, " <table><tr><td><a href='?Module=General&Page=SystemMenu&Action=Update&ID=".$key."'><img src='".THEMES_DIR."images/edit.gif' border='0'><br />".$__Lang__['langGeneralUpdate']."</a></td><td><a href='?Module=General&Page=SystemMenu&Action=Update&ID=".$key."' onclick=\"return confirm ( '".$__Lang__['langGeneralCancelConfirm']."');\"><img src='".THEMES_DIR."images/delete.gif' border='0'><br />".$__Lang__['langGeneralCancel']."</a></td></tr></table>"));
+			$cell_x++;
+		}
+		
+		$altRow = array ("class" => "grid_table_tr_alternate");
+		$table->altRowAttributes(1, null, $altRow);
+		$hrAttrs = array ("class" => "grid_sub_table_head");
+		$table->setRowAttributes(0, $hrAttrs, true);
+
+		$table->setHeaderContents(0, 0, $__Lang__['langMenu']);
+		$table->setHeaderContents(0, 1, $__Lang__['langGeneralOperation']);
+
+		$form->addElement('static', NULL, NULL,$table->toHtml()); 
 		
 		$step_nav[] = &HTML_QuickForm::createElement('submit', 'btnPre', $__Lang__['langPreStep'],"onclick=document.forms[0].Step.value='Step2' ");
+		$step_nav[] = &HTML_QuickForm::createElement('button', 'btnNew', $__Lang__['langGeneralAdd'].$__Lang__['langMenu'],"onclick=document.forms[0].Step.value='Step5' ");
 		$step_nav[] = &HTML_QuickForm::createElement('submit', 'btnNext', $__Lang__['langNexStep'],"onclick=document.forms[0].Step.value='Step4' ");
 		
 		$form->addGroup($step_nav, 'step_navigation',"    ");
