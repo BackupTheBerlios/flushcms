@@ -14,11 +14,13 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: ModuleConfig.php,v 1.2 2006/01/07 05:02:37 arzen Exp $ */
+/* $Id: ModuleConfig.php,v 1.3 2006/01/07 09:20:08 arzen Exp $ */
 define(HTML_DIR,ROOT_DIR."/HTML/");
+define(HTML_IMAGES_DIR,HTML_DIR.$_SESSION['CURRENT_LANG']."/images/");
 
 $__SITE_VAR__['SITE_NAME'] = 'SITE_NAME';
 $__SITE_VAR__['SITE_KEYWORD'] = 'SITE_KEYWORD';
 $__SITE_VAR__['SITE_COPYRIGHT'] = 'SITE_COPYRIGHT';
+$__SITE_VAR__['SITE_LOGO'] = 'SITE_LOGO';
 
 ?>

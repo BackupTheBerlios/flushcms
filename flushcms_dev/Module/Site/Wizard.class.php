@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: Wizard.class.php,v 1.4 2006/01/07 05:02:37 arzen Exp $ */
+/* $Id: Wizard.class.php,v 1.5 2006/01/07 09:20:08 arzen Exp $ */
 
 include_once(APP_DIR."UI.class.php");
 include_once("DAO/WizardDAO.class.php");
@@ -84,15 +84,24 @@ class Wizard extends UI
 	*/
 	function opStep2 () 
 	{
-		global $__Lang__,$UrlParameter,$SiteDB,$AddIPObj,$__SITE_VAR__,$form,$thisDAO,$smarty;
+		global $__Lang__,$UrlParameter,$SiteDB,$AddIPObj,$__SITE_VAR__,$form,$FlushPHPObj,$thisDAO,$smarty;
 		parent::opAdd();
 		$form->addElement('header', null, $__Lang__['langSite'].$__Lang__['langWizard'].$__Lang__['langStep']." 2 ");
 
 		$form->addElement('text', 'SiteName', $__Lang__['langSite'].$__Lang__['langGeneralName'].' : ',array('size'=>40));
 		$form->addElement('text', 'SiteKeyword', $__Lang__['langSite'].$__Lang__['langKeyword'].' : ',array('size'=>40));
 		$form->addElement('textarea', 'SiteCopyright', $__Lang__['langSite'].$__Lang__['langSiteCopyRight'].' : ',array('rows' => 8, 'cols' => 40));
-		$form->addElement('file', 'SiteLogo', $__Lang__['langSite'].$__Lang__['langSiteLogo'].' : ');
 		
+		$site_logo_group[] = &HTML_QuickForm::createElement('file', 'Pic', $__Lang__['langSite'].$__Lang__['langSiteLogo'].' : ');
+		if ($site_logo = $this->_DAO->getSiteVarValue($__SITE_VAR__['SITE_LOGO'])) 
+		{
+			$swf_image_obj = $FlushPHPObj->loadUtility("ViewImgSwf");
+			$site_logo_group[] = &HTML_QuickForm::createElement('static', '_SiteLogo',NULL,$swf_image_obj->displayIt($site_logo,NULL,NULL,NULL,HTML_IMAGES_DIR));
+			$site_logo_group[] = &HTML_QuickForm::createElement('checkbox', 'del_site_logo',NULL,$__Lang__['langGeneralCancel']);
+			$site_logo_group[] = &HTML_QuickForm::createElement('hidden', 'old_site_logo', $site_logo);
+		}					
+		$form->addGroup($site_logo_group, NULL,$__Lang__['langSite'].$__Lang__['langSiteLogo'].' : ',"    ");
+
 		$step_nav[] = &HTML_QuickForm::createElement('button', 'btnPre', $__Lang__['langPreStep'],"onclick=window.location='?Module=".$_REQUEST['Module']."&amp;Page=".$_REQUEST['Page']."&amp;Action=Step1' ");
 		$step_nav[] = &HTML_QuickForm::createElement('submit', 'btnNext', $__Lang__['langNexStep']);
 		
@@ -129,6 +138,24 @@ class Wizard extends UI
 			$record["VarName"] = $__SITE_VAR__['SITE_COPYRIGHT'];
 			$record["VarValue"] = $form->exportValue('SiteCopyright');
 			$this->_DAO->autoInsertOrUpdate (SITE_CONFIG_TABLE,$record,array('VersionCode','VarName'));
+			
+			if ($_FILES['Pic']['name'] != "") 
+			{
+				$file_upload_obj = $FlushPHPObj->loadApp("FileUploadHandle");
+				$StrPic = $file_upload_obj->uploadMedia(HTML_IMAGES_DIR);
+				
+				$record["VarName"] = $__SITE_VAR__['SITE_LOGO'];
+				$record["VarValue"] = $StrPic;
+				$this->_DAO->autoInsertOrUpdate (SITE_CONFIG_TABLE,$record,array('VersionCode','VarName'));
+			}
+			if ($_POST['del_site_logo']==1 && $old_site_logo=$_POST['old_site_logo']) 
+			{
+				unlink(HTML_IMAGES_DIR.$old_site_logo);
+				$record["VarName"] = $__SITE_VAR__['SITE_LOGO'];
+				$record["VarValue"] = '';
+				$this->_DAO->autoInsertOrUpdate (SITE_CONFIG_TABLE,$record,array('VersionCode','VarName'));
+				
+			}
 			
 			$this->_redirectURL("?Module=".$_REQUEST['Module']."&Page=".$_REQUEST['Page']."&Action=Step3");
 		}

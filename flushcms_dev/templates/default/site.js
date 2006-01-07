@@ -692,6 +692,21 @@ function _removeValues(txt, values)
 	txt.value = keepers;
 }
 
+function popOpenWindow(win, winName, param, w, h, scroll) {
+	var move = screen ? 'left=' + ((screen.width - w) >> 1) + ',top=' + ((screen.height - h) >> 1) : '';
+	var url;
+	if (param.length == 0) {
+		url = win;
+	}else{		
+		url = win+"?"+param;
+	}
+	if (winName == "")
+	{
+		winName = "newWindow" + Math.floor(Math.random() * 100000);
+	}
+	window.open(url, winName, move + ",width=" + w + ",height=" + h + ",scrollBars=" + scroll + ",resizable=yes");
+}
+
 /*start button*/
 if (!Bs_Objects) {var Bs_Objects = [];};function Bs_ButtonBar() {
 this._id;this._objectId;this.imgPath = '';this.useHelpBar;this.alignment = 'hor';this.ignoreEvents = false;this.helpBarStyle = "font-family:arial; font-size:11px; height:12px;";this._buttons = new Array;this._parentButton;this._constructor = function() {

@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: FileUploadHandle.class.php,v 1.1 2006/01/07 05:02:37 arzen Exp $ */
+/* $Id: FileUploadHandle.class.php,v 1.2 2006/01/07 09:20:08 arzen Exp $ */
 include_once(UTIL_DIR.'FileUploader.class.php');
 class FileUploadHandle
 {
@@ -44,8 +44,9 @@ class FileUploadHandle
 			$FileUploaderObj->IcoHeight=$IcoHeight;
 		}
 
-		if($HTTP_POST_FILES[$PicType]['name'] != "") 
+		if($_FILES[$PicType]['name'] != "") 
 		{
+			$PicType;
 			if($FileUploaderObj->fetchMedia($PicType)) 
 			{
 				$FileUploaderObj->setPrefix($PicType."_");
