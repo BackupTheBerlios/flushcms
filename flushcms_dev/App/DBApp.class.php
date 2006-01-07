@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: DBApp.class.php,v 1.10 2006/01/04 13:49:53 arzen Exp $ */
+/* $Id: DBApp.class.php,v 1.11 2006/01/07 05:02:37 arzen Exp $ */
 
 class DBApp
 {
@@ -170,6 +170,53 @@ class DBApp
 		}
 		return ;
 	}
+	/**
+	 * Auto option,if record exist then update old record else insert new record
+	 *
+	 * @author  John.meng (ÃÏÔ¶òû)
+	 * @since   version - 2006-1-7 10:58:59
+	 * @param   string  $table          table name
+	 * @param   array   $record         field=>value array
+	 * @param   array   $where_field    check exist condition field array
+	 *
+	 */
+	function autoInsertOrUpdate ($table,$record,$where_field) 
+	{
+		global $SiteDB;
+		$where_is ="1";
+		for ($index = 0; $index < sizeof($where_field); $index++) 
+		{
+			$field =$where_field[$index];
+			$where_is.=" AND ".$field."='".$record[$field]."' ";
+		}
+		if ($this->checkExists($table,$where_is)) 
+		{
+			$this->opUpdate ($table,$record,$where_is);
+		} 
+		else 
+		{
+			$SiteDB->AutoExecute($table,$record,'INSERT');
+		}
+	}
+	
+	/**
+	 *
+	 *
+	 * @author  John.meng (ÃÏÔ¶òû)
+	 * @since   version - 2006-1-7 11:39:48
+	 * @param   string  
+	 *
+	 */
+	function baseField () 
+	{
+		global $AddIPObj;
+		$record["UserID"] = $_SESSION['UsersID'];
+		$record["VersionCode"] = $_SESSION['CURRENT_LANG'];
+		$record["AddIP"] = $AddIPObj->getTrueIP();
+		$record["CreateTime"] = time();
+		return 	$record;
+	}
+	
 	
 	
 	

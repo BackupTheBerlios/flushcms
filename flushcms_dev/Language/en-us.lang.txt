@@ -65,4 +65,4 @@ langMessageWarnning = Warnning
 langMessageError = Error
 langMessageNotice = Notice
 
-langGeneralCopyRight= CopyRight(c) 2005 FlushPHP Group
+langGeneralCopyRight= CopyRight(c) 2005-2006 FlushPHP Group

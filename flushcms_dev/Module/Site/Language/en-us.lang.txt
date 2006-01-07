@@ -5,5 +5,9 @@ langSiteVersion = Site Version
 langVersionEn-us = English
 langVersionZh-cn = Simple Chinese
 
-langNexStep = NexStep->
-langPreStep = <-PreStep
+langKeyword = Keyword
+langSiteCopyRight = CopyRight
+langSiteLogo = Logo
+
+langNexStep = NexStep -->
+langPreStep = <-- PreStep

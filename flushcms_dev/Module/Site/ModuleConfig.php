@@ -14,6 +14,11 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: ModuleConfig.php,v 1.1 2006/01/05 15:34:39 arzen Exp $ */
+/* $Id: ModuleConfig.php,v 1.2 2006/01/07 05:02:37 arzen Exp $ */
+define(HTML_DIR,ROOT_DIR."/HTML/");
+
+$__SITE_VAR__['SITE_NAME'] = 'SITE_NAME';
+$__SITE_VAR__['SITE_KEYWORD'] = 'SITE_KEYWORD';
+$__SITE_VAR__['SITE_COPYRIGHT'] = 'SITE_COPYRIGHT';
 
 ?>
