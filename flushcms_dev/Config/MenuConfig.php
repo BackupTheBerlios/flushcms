@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: MenuConfig.php,v 1.18 2006/01/07 14:32:58 arzen Exp $ */
+/* $Id: MenuConfig.php,v 1.19 2006/01/08 05:33:34 arzen Exp $ */
 
 $MainMenu = array(
 // home menu
@@ -158,7 +158,7 @@ $MainMenu = array(
 			"ModuleList"=>array(
 //				'ico' => 'wizard.png',
 				'title' => $__Lang__['langGeneralAbout'], 
-				'url' => '?Module=Site&Page=Wizard'			
+				'url' => '?Module=General&Page=AboutUs'			
 			)
 			
 		)

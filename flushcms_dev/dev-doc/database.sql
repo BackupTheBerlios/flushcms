@@ -57,7 +57,7 @@ CREATE TABLE modules (
 CREATE TABLE site_config (
   SiteConfigID int(11) NOT NULL auto_increment,
   UserID int(11) NOT NULL default '0',
-  VersionCode varchar(4) NOT NULL default '',
+  VersionCode varchar(8) NOT NULL default '',
   VarName varchar(40) NOT NULL default '',
   VarValue varchar(255) NOT NULL default '',
   CreateTime datetime NOT NULL default '0000-00-00 00:00:00',
@@ -67,6 +67,31 @@ CREATE TABLE site_config (
 
 --
 -- Dumping data for table 'site_config'
+--
+
+INSERT INTO site_config VALUES (1,2,'en-us','SITE_NAME','FlushPHP Office','2006-01-08 12:45:48','127.0.0.1');
+INSERT INTO site_config VALUES (2,2,'en-us','SITE_KEYWORD','shop;cms;php','2006-01-08 12:45:48','127.0.0.1');
+INSERT INTO site_config VALUES (3,2,'en-us','SITE_COPYRIGHT','CopyRight(c) 2005-2006 FlushPHP Group','2006-01-08 12:45:48','127.0.0.1');
+INSERT INTO site_config VALUES (4,2,'en-us','SITE_LOGO','Pic_43bf91eae27af.gif','2006-01-07 18:03:22','127.0.0.1');
+
+--
+-- Table structure for table 'site_menu'
+--
+
+CREATE TABLE site_menu (
+  SiteMenuID int(11) NOT NULL auto_increment,
+  PID int(11) NOT NULL default '0',
+  UserID int(11) NOT NULL default '0',
+  VersionCode varchar(8) NOT NULL default '',
+  Title varchar(200) NOT NULL default '',
+  URL varchar(220) NOT NULL default '',
+  CreateTime varchar(40) NOT NULL default '',
+  AddIP varchar(24) NOT NULL default '',
+  PRIMARY KEY  (SiteMenuID)
+) TYPE=MyISAM COMMENT='site menu';
+
+--
+-- Dumping data for table 'site_menu'
 --
 
 
@@ -117,7 +142,7 @@ CREATE TABLE ugroups (
 -- Dumping data for table 'ugroups'
 --
 
-INSERT INTO ugroups VALUES (5,3,2,'2006-01-04 21:54:42','127.0.0.1');
+INSERT INTO ugroups VALUES (7,2,1,'2006-01-07 16:25:41','127.0.0.1');
 
 --
 -- Table structure for table 'users'

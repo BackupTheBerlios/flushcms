@@ -67,4 +67,5 @@ langMessageWarnning = Warnning
 langMessageError = Error
 langMessageNotice = Notice
 
+langGeneralAboutUsInfo= <b>FlushPHP Group</b> <br/><br/><b>Developer</b> :John.meng <br/><b>MSN</b> :arzen10132@hotmail.com <br/><b>YahooIM</b>: arzen1013@yahoo.com.cn <br/><b>QQ</b>: 3440895 <br/><br/> <b>Thank you for your choose this web software !</b>
 langGeneralCopyRight= CopyRight(c) 2005-2006 FlushPHP Group

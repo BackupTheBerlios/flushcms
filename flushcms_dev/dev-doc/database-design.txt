@@ -67,3 +67,15 @@ VarValue
 CreateTime
 AddIP
 
+===============
+site_menu
+===============
+SiteMenuID
+PID
+UserID
+VersionCode
+Title
+URL
+CreateTime
+AddIP
+

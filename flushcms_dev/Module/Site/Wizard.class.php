@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: Wizard.class.php,v 1.6 2006/01/07 14:22:02 arzen Exp $ */
+/* $Id: Wizard.class.php,v 1.7 2006/01/08 05:33:34 arzen Exp $ */
 
 include_once(APP_DIR."UI.class.php");
 include_once("DAO/WizardDAO.class.php");
@@ -206,7 +206,7 @@ class Wizard extends UI
 		$form->addElement('static', NULL, NULL,$table->toHtml()); 
 		
 		$step_nav[] = &HTML_QuickForm::createElement('submit', 'btnPre', $__Lang__['langPreStep'],"onclick=document.forms[0].Step.value='Step2' ");
-		$step_nav[] = &HTML_QuickForm::createElement('button', 'btnNew', $__Lang__['langGeneralAdd'].$__Lang__['langMenu'],"onclick=document.forms[0].Step.value='Step5' ");
+		$step_nav[] = &HTML_QuickForm::createElement('button', 'btnNew', $__Lang__['langGeneralAdd'].$__Lang__['langMenu'],"onclick=\"popOpenWindow('', '', '', 500, 500)\" ");
 		$step_nav[] = &HTML_QuickForm::createElement('submit', 'btnNext', $__Lang__['langNexStep'],"onclick=document.forms[0].Step.value='Step4' ");
 		
 		$form->addGroup($step_nav, 'step_navigation',"    ");
