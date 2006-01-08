@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: Auth.class.php,v 1.4 2006/01/05 15:34:39 arzen Exp $ */
+/* $Id: Auth.class.php,v 1.5 2006/01/08 07:36:21 arzen Exp $ */
 
 class Auth 
 {
@@ -24,7 +24,7 @@ class Auth
 	{
 		if (empty($_COOKIE['UserName']) && $_SESSION['UserName']) 
 		{
-			setcookie("UserName", $_SESSION['UserName'], time()+3600);
+			setcookie("UserName", $_SESSION['UserName'], time()+3600*360);
 			
 		}
 		@session_start();
