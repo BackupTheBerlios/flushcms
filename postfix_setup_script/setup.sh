@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: setup.sh,v 1.15 2006/01/02 15:23:27 arzen Exp $
+# $Id: setup.sh,v 1.16 2006/01/09 08:03:28 arzen Exp $
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 
 # Linux Server Setup Script v2.0
@@ -13,7 +13,7 @@ _INSTALL_MYSQL="n"
 _INSTALL_LIBXML2="n" 
 _INSTALL_PHP="n" 
 _INSTALL_PHP5="n" 
-_INSTALL_SSH="y" 
+_INSTALL_SSH="n" 
 _INSTALL_POSTFIX="n" 
 _INSTALL_PAM_MYSQL="n" 
 _INSTALL_CYRUSIMAP="n" 
@@ -21,6 +21,7 @@ _INSTALL_PCRE="n"
 _INSTALL_COURIERAUTHLIB="n" 
 _INSTALL_COURIERIMAP="n" 
 _INSTALL_MAILDROP="n" 
+_INSTALL_MAIL_PACKAGE2="y" 
 
 _INSTALL_LIBIDN="n" 
 _INSTALL_BOOST="n" 
@@ -462,7 +463,7 @@ function getCourierAuthlib()
 		sh mysleep.sh &        
 		EID=$!
 
-		if [ ! -f courier-authlib-0.57 ];then
+		if [ ! -d courier-authlib-0.57 ];then
 			tar jxvf courier-authlib-0.57.tar.bz2 || return 1 >>$_INSTALL_LOG 2>&1 
 		fi
 
@@ -503,7 +504,7 @@ function getCourierImap()
 		fi
 
 		cd courier-imap-4.0.6
-		#./configure --prefix=/usr/local/imap --with-redhat --disable-root-check --enable-unicode=utf-8,iso-8859-1,gb2312,gbk,gb18030 --with-trashquota --with-dirsync >>$_INSTALL_LOG 2>&1
+		./configure --prefix=/usr/local/imap --with-redhat --disable-root-check --enable-unicode=utf-8,iso-8859-1,gb2312,gbk,gb18030 --with-trashquota --with-dirsync >>$_INSTALL_LOG 2>&1
 		make install-strip >>$_INSTALL_LOG 2>&1
 		make install >>$_INSTALL_LOG 2>&1
 		make install-configure >>$_INSTALL_LOG 2>&1
@@ -580,16 +581,28 @@ function getPostfix()
 		postalias /etc/postfix/aliases
 		postmap /etc/postfix/virtual
 
-		[ -f /etc/postfix/main.cf ] && mv /etc/postfix/main.cf /etc/postfix/main.cf.arzen.orig
-		cp main.cf /etc/postfix/main.cf
-		cp virtual.mysql /etc/postfix/virtual.mysql
-		cp filter.mysql /etc/postfix/filter.mysql
 
 		postfix start
 
 	fi
 	return 0
 
+}
+
+function postfixConfig1()
+{
+	[ -f /etc/postfix/main.cf ] && mv /etc/postfix/main.cf /etc/postfix/main.cf.arzen.orig
+	cp main.cf /etc/postfix/main.cf
+	cp virtual.mysql /etc/postfix/virtual.mysql
+	cp filter.mysql /etc/postfix/filter.mysql
+}
+
+function postfixConfig2()
+{
+	[ -f /etc/postfix/main.cf ] && mv /etc/postfix/main.cf /etc/postfix/main.cf.arzen.orig
+	cp main.cf /etc/postfix/main.cf
+	cp virtual.mysql /etc/postfix/virtual.mysql
+	cp filter.mysql /etc/postfix/filter.mysql
 }
 
 function getApacheInstall()
@@ -1338,6 +1351,17 @@ if [ "$_TODO_METHOD" = "INSTALL"  ]; then
 		createMysqlDB
 		configMysqlPAM
 		getPostfix
+	fi
+
+	if [ "$_INSTALL_MAIL_PACKAGE2" = "y" ]; then
+
+		#removeOldSendmail
+		#getPostfix
+		getCourierAuthlib
+		getCourierImap
+		getMailDrop163
+		getPostfixAdmin
+
 	fi
 
 	if [ "$_INSTALL_CYRUSIMAP" = "y" ]; then
