@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: setup.sh,v 1.16 2006/01/09 08:03:28 arzen Exp $
+# $Id: setup.sh,v 1.17 2006/01/09 10:36:18 arzen Exp $
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 
 # Linux Server Setup Script v2.0
@@ -474,10 +474,10 @@ function getCourierAuthlib()
 		make install-configure >>$_INSTALL_LOG 2>&1
 		cp courier-authlib.sysvinit /etc/init.d/courier-authlib >>$_INSTALL_LOG 2>&1
 		chmod 755 /etc/init.d/courier-authlib >>$_INSTALL_LOG 2>&1
-		cd ..
 		cp authdaemonrc /usr/local/etc/authlib/ >>$_INSTALL_LOG 2>&1
 		cp authmysqlrc /usr/local/etc/authlib/ >>$_INSTALL_LOG 2>&1
 		authdaemond start >>$_INSTALL_LOG 2>&1
+		cd ..
 		
 		kill $EID >/dev/null 2>&1
 	fi
@@ -511,10 +511,10 @@ function getCourierImap()
 		cp courier-imap.sysvinit /etc/rc.d/init.d/courier-imap >>$_INSTALL_LOG 2>&1
 		chmod 755 /etc/rc.d/init.d/courier-imap >>$_INSTALL_LOG 2>&1
 		cd ..
-		cp -f courier_conf/main.cf /etc/postfix/main.cf
-		cp -f courier_conf/virtual.mysql /etc/postfix/
-		cp -f courier_conf/filter.mysql /etc/postfix/
-		mysql <courier_conf/mail.sql
+		cp -f --reply=yes courier_conf/main.cf /etc/postfix/main.cf
+		cp -f --reply=yes courier_conf/virtual.mysql /etc/postfix/
+		cp -f --reply=yes courier_conf/filter.mysql /etc/postfix/
+		mysql <courier_conf/DATABASE_MYSQL.TXT
 		sed -e "s/POP3DSTART=NO/POP3DSTART=YES/" -r -i.org /usr/local/imap/etc/pop3d
 		sed -e "s/IMAPDSTART=NO/IMAPDSTART=YES/" -r -i.org /usr/local/imap/etc/imapd
 		/etc/rc.d/init.d/courier-imap start
@@ -1358,8 +1358,8 @@ if [ "$_TODO_METHOD" = "INSTALL"  ]; then
 		#removeOldSendmail
 		#getPostfix
 		getCourierAuthlib
-		getCourierImap
 		getMailDrop163
+		getCourierImap
 		getPostfixAdmin
 
 	fi
