@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: Wizard.class.php,v 1.8 2006/01/08 07:36:21 arzen Exp $ */
+/* $Id: Wizard.class.php,v 1.9 2006/01/14 02:51:13 arzen Exp $ */
 
 include_once(APP_DIR."UI.class.php");
 include_once("DAO/WizardDAO.class.php");
@@ -175,12 +175,12 @@ class Wizard extends UI
 	{
 		global $__Lang__,$UrlParameter,$SiteDB,$AddIPObj,$FlushPHPObj,$form,$smarty;
 		include_once (PEAR_DIR."HTML/Table.php");
-		include_once (MODULE_DIR."General/DAO/SystemMenuDAO.class.php");
+		include_once (MODULE_DIR."Site/DAO/SiteMenuDAO.class.php");
 
 		parent::opAdd();
 		$form->addElement('header', null, $__Lang__['langSite'].$__Lang__['langWizard'].$__Lang__['langStep']." 3 ");
 
-		$sysMenuDao = new SystemMenuDAO();
+		$sysMenuDao = new SiteMenuDAO();
 		$data_menu = $sysMenuDao->getMenuArr();
 
 		$tableAttrs = array ("class" => "grid_sub_table",'cellspacing'=>"0");
@@ -188,10 +188,10 @@ class Wizard extends UI
 		$table->setAutoGrow(true);
 		$table->setAutoFill("n/a");
 		$cell_x=0;
-
+		$data_menu = array(NULL=>NULL)+$data_menu;
 		foreach ($data_menu as $key=>$value)
 		{
-			$table->addRow(array($value, " <table><tr><td><a href='?Module=General&Page=SystemMenu&Action=Update&ID=".$key."'><img src='".THEMES_DIR."images/edit.gif' border='0'><br />".$__Lang__['langGeneralUpdate']."</a></td><td><a href='?Module=General&Page=SystemMenu&Action=Update&ID=".$key."' onclick=\"return confirm ( '".$__Lang__['langGeneralCancelConfirm']."');\"><img src='".THEMES_DIR."images/delete.gif' border='0'><br />".$__Lang__['langGeneralCancel']."</a></td></tr></table>"));
+			$table->addRow(array($value, " <table><tr><td><a href='####' onclick=\"popOpenWindow('PopupWindow.php', '', 'Module=".$_REQUEST['Module']."&Page=SiteMenu&Action=Update&ID=".$key."' , 450, 450)\" ><img src='".THEMES_DIR."images/edit.gif' border='0'><br />".$__Lang__['langGeneralUpdate']."</a></td><td><a href='####' onclick=\"confirm ( '".$__Lang__['langGeneralCancelConfirm']."')?popOpenWindow('PopupWindow.php', '', 'Module=".$_REQUEST['Module']."&Page=SiteMenu&Action=Cancel&ID=".$key."' , 20, 20):'';\"><img src='".THEMES_DIR."images/delete.gif' border='0'><br />".$__Lang__['langGeneralCancel']."</a></td></tr></table>"));
 			$cell_x++;
 		}
 		
@@ -206,7 +206,7 @@ class Wizard extends UI
 		$form->addElement('static', NULL, NULL,$table->toHtml()); 
 		
 		$step_nav[] = &HTML_QuickForm::createElement('submit', 'btnPre', $__Lang__['langPreStep'],"onclick=document.forms[0].Step.value='Step2' ");
-		$step_nav[] = &HTML_QuickForm::createElement('button', 'btnNew', $__Lang__['langGeneralAdd'].$__Lang__['langMenu'],"onclick=\"popOpenWindow('PopupWindow.php', '', 'Module=".$_REQUEST['Module']."&Page=SiteMenu', 450, 450)\" ");
+		$step_nav[] = &HTML_QuickForm::createElement('button', 'btnNew', $__Lang__['langGeneralAdd'].$__Lang__['langMenu'],"onclick=\"popOpenWindow('PopupWindow.php', '', 'Module=".$_REQUEST['Module']."&Page=SiteMenu&Action=Add', 450, 450)\" ");
 		$step_nav[] = &HTML_QuickForm::createElement('submit', 'btnNext', $__Lang__['langNexStep'],"onclick=document.forms[0].Step.value='Step4' ");
 		
 		$form->addGroup($step_nav, 'step_navigation',"    ");
@@ -299,6 +299,7 @@ class Wizard extends UI
 	{
 		$_version_root = HTML_DIR."/".$version_code."/";
 		$_version_image = $_version_root."images/";
+		$_version_template = $_version_root."template/";
 		$_create_mod = 0755;
 		if (!file_exists($_version_root)) 
 		{
@@ -307,6 +308,10 @@ class Wizard extends UI
 		if (!file_exists($_version_image)) 
 		{
 			mkdir($_version_image,$_create_mod);
+		}
+		if (!file_exists($_version_template)) 
+		{
+			mkdir($_version_template,$_create_mod);
 		}
 		return ;
 	}

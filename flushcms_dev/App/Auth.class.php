@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: Auth.class.php,v 1.5 2006/01/08 07:36:21 arzen Exp $ */
+/* $Id: Auth.class.php,v 1.6 2006/01/14 02:51:17 arzen Exp $ */
 
 class Auth 
 {
@@ -57,9 +57,9 @@ class Auth
 		echo "<link href='".THEMES_DIR."style.css' rel='stylesheet' type='text/css'>";
 		$renderer =& $form->defaultRenderer();
 		$renderer->setFormTemplate("\n<form{attributes}>\n<table border=\"0\" class=\"log_table\" align=\"center\">\n{content}\n</table>\n</form>");
-		$renderer->setHeaderTemplate("\n\t<tr>\n\t\t<td class=\"log_table_head\" align=\"left\" valign=\"top\" colspan=\"2\"><b>{header}</b></td>\n\t</tr>");
+		$renderer->setHeaderTemplate("\n\t<tr>\n\t\t<td class=\"log_table_head\" align=\"left\" valign=\"top\" colspan=\"2\" ><b>{header}</b></td>\n\t</tr>");
 
-		$form->addElement('header', null, $__Lang__['langLoginHeader']);
+		$form->addElement('header', null, "<img src=\"".THEMES_DIR."images/logo.gif\" border=\"0\" >");
 		$form->addElement('text', 'user_name', $__Lang__['langMenuUser'].$__Lang__['langGeneralName'].' : ');
 		$form->addElement('password', 'user_passwd', $__Lang__['langMenuUser'].$__Lang__['langGeneralPassword'].' : ');
 

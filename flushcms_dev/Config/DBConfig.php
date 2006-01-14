@@ -14,12 +14,13 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: DBConfig.php,v 1.5 2006/01/07 05:02:37 arzen Exp $ */
+/* $Id: DBConfig.php,v 1.6 2006/01/14 02:51:19 arzen Exp $ */
 define(USERS_TABLE,'users');
 define(GROUPS_TABLE,'groups');
 define(UGROUPS_TABLE,'ugroups');
 
 define(SITE_CONFIG_TABLE,'site_config');
+define(SITE_MENU_TABLE,'site_menu');
 
 define(SYSMENU_TABLE,'sysmenu');
 
