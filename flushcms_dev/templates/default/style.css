@@ -318,3 +318,29 @@ a {
 	color: #333333;
 	text-decoration: none;
 }
+
+ BODY {
+	FONT-SIZE: 12px;
+}
+.info{FONT-SIZE: 14px;color:#FFFFFF;font-family:@Tahoma,width:20px}
+TABLE {
+	CURSOR: default; FONT-SIZE: 12px; MARGIN: 0px
+}
+TR {
+	HEIGHT: 20px
+}
+TR.over {
+	BACKGROUND-COLOR: #000080; COLOR: #ffffff; CURSOR: default; FONT-SIZE: 12px
+}
+TR.out {
+	BACKGROUND-COLOR: #efefef; COLOR: #000000; FONT-SIZE: 12px
+}
+DIV.rm_div {
+	BACKGROUND-COLOR: #efefef; BORDER-BOTTOM: #ffffff 1px outset; BORDER-LEFT: #ffffff 1px outset; BORDER-RIGHT: #ffffff 1px outset; BORDER-TOP: #ffffff 1px outset; DISPLAY: none; FILTER: Alpha(Opacity='95'); HEIGHT: 0px; PADDING-BOTTOM: 1px; PADDING-LEFT: 1px; PADDING-RIGHT: 1px; PADDING-TOP: 1px; POSITION: absolute; WIDTH: 0px
+}
+HR.sperator {
+	BORDER-BOTTOM: #ffffff 1px inset; BORDER-LEFT: #ffffff 1px inset; BORDER-RIGHT: #ffffff 1px inset; BORDER-TOP: #ffffff 1px inset; WIDTH: 95%
+}
+.w2kfont {
+	FONT-FAMILY: Tahoma; FONT-SIZE: 8pt
+}

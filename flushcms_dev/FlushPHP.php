@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: FlushPHP.php,v 1.17 2006/01/06 05:32:11 arzen Exp $ */
+/* $Id: FlushPHP.php,v 1.18 2006/01/14 11:33:05 arzen Exp $ */
 
 @session_start();
 
@@ -27,13 +27,13 @@ define(APP_DIR,ROOT_DIR."/App/");
 define(CONFIG_DIR,ROOT_DIR."/Config/");
 define(PEAR_DIR,INCLUDE_DIR."/pear/");
 
+$__CURRENT_LANGUAGE__="";
 include_once(ROOT_DIR."/FlushPHP.class.php");
 include_once(CONFIG_DIR."Config.php");
 include_once(CONFIG_DIR."DBConfig.php");
 include_once(INCLUDE_DIR."/smarty/Smarty.class.php");
 include(INCLUDE_DIR."/adodb/adodb.inc.php");
 define(THEMES_DIR,str_replace("\\","/",ROOT_DIR."/templates/".$Themes."/"));
-
 $__Lang__ = array();
 $smarty = new Smarty;
 
@@ -44,7 +44,6 @@ $smarty->compile_dir=ROOT_DIR."/templates_c";
 
 $FlushPHPObj = & new FlushPHP();
 $MessageObj = $FlushPHPObj->loadApp("Messages");
-
 
 include_once(CONFIG_DIR."MenuConfig.php");
 

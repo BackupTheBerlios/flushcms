@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: FlushPHP.class.php,v 1.7 2005/12/13 08:59:37 arzen Exp $ */
+/* $Id: FlushPHP.class.php,v 1.8 2006/01/14 11:33:05 arzen Exp $ */
 
 /**
  * @package	Kelnel
@@ -24,9 +24,10 @@ class FlushPHP
 
 	function FlushPHP()
 	{
-		global $__Lang__;
+		global $__Lang__,$__CURRENT_LANGUAGE__;
 		$LangObj = $this->loadApp("Language");
 		$__Lang__ = $LangObj->initLanguage();
+		$__CURRENT_LANGUAGE__ = $LangObj->getFirstLanguage();
 	}
 	
 	/**

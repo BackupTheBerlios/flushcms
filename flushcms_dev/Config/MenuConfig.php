@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: MenuConfig.php,v 1.19 2006/01/08 05:33:34 arzen Exp $ */
+/* $Id: MenuConfig.php,v 1.20 2006/01/14 11:33:05 arzen Exp $ */
 
 $MainMenu = array(
 // home menu
@@ -73,12 +73,10 @@ $MainMenu = array(
 				'url' => '',
 				'sub' => array(
 					"AddUser"=>array(
-//						'ico' =>'doc.gif',
 						'title' => $__Lang__['langGeneralAdd'].$__Lang__['langMenuUser'], 
 						'url' => '?Module=General&Page=User&Action=Add'
 					),
 					"UserList"=>array(
-//						'ico' => 'info.gif',
 						'title' =>$__Lang__['langMenuUser'].$__Lang__['langGeneralList'], 
 						'url' => '?Module=General&Page=User'
 					),
@@ -107,32 +105,6 @@ $MainMenu = array(
 			
 		)
 	),
-// module menu
-//	"Module"=>array(
-//		'ico' => "config.png",
-//		'title' => $__Lang__['langMenuModule'], 
-//		'url' => '',
-//		'sub' => array(
-//		
-//			"ModuleList"=>array(
-//				'ico' => 'package.gif',
-//				'title' => $__Lang__['langMenuModule'].$__Lang__['langGeneralList'], 
-//				'url' => '',
-//				'sub' => array(
-//					"AddModule"=>array(
-//						'title' => $__Lang__['langGeneralAdd'].$__Lang__['langMenuModule'], 
-//						'url' => '?Module=General&Page=SystemMenu&Action=Add'
-//					),
-//					"ModuleList"=>array(
-//						'title' =>$__Lang__['langMenuModule'].$__Lang__['langGeneralList'], 
-//						'url' => '?Module=General&Page=Module'
-//					),
-//				)
-//			
-//			)
-//			
-//		)
-//	),
 // site menu
 	"Site"=>array(
 		'ico' => "earth.gif",
@@ -140,10 +112,16 @@ $MainMenu = array(
 		'url' => '',
 		'sub' => array(
 		
-			"ModuleList"=>array(
+			"Wizard"=>array(
 				'ico' => 'wizard.png',
 				'title' => $__Lang__['langSite'].$__Lang__['langWizard'], 
 				'url' => '?Module=Site&Page=Wizard'			
+			),
+			
+			"Preview"=>array(
+				'ico' => 'preview.png',
+				'title' => $__Lang__['langSite'].$__Lang__['langPreview'], 
+				'url' => '?Module=Site&Page=Preview'			
 			)
 			
 		)

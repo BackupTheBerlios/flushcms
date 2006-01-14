@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: Language.class.php,v 1.4 2006/01/06 05:32:11 arzen Exp $ */
+/* $Id: Language.class.php,v 1.5 2006/01/14 11:33:05 arzen Exp $ */
 
 /**
  * Load language file
@@ -37,6 +37,7 @@ class Language extends Browser
 	function initLanguage ($lang_dir = LANG_DIR)
 	{
 		$lang_code = $this->getFirstLanguage();
+		
 		if ($_SESSION['CURRENT_LANG']) 
 		{
 			$lang_code = $_SESSION['CURRENT_LANG'];

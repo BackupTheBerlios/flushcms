@@ -14,9 +14,16 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: ModuleConfig.php,v 1.3 2006/01/07 09:20:08 arzen Exp $ */
+/* $Id: ModuleConfig.php,v 1.4 2006/01/14 11:33:05 arzen Exp $ */
+global $__CURRENT_LANGUAGE__,$FlushPHPObj;
+
 define(HTML_DIR,ROOT_DIR."/HTML/");
 define(HTML_IMAGES_DIR,HTML_DIR.$_SESSION['CURRENT_LANG']."/images/");
+define(HTML_THEMES_DIR,HTML_DIR.$__CURRENT_LANGUAGE__."/template/");
+
+$smarty_site = new Smarty;
+$smarty_site->template_dir=HTML_THEMES_DIR;
+$smarty_site->compile_dir=ROOT_DIR."/templates_c";
 
 $__SITE_VAR__['SITE_NAME'] = 'SITE_NAME';
 $__SITE_VAR__['SITE_KEYWORD'] = 'SITE_KEYWORD';

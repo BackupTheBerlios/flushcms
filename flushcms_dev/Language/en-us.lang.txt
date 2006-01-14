@@ -14,6 +14,7 @@ langUserAddHeader = Enter User Base Info
 
 langSite = Site
 langWizard = Wizard
+langPreview= Preview
 
 langGroupAddHeader = Enter Group Base Info
 
