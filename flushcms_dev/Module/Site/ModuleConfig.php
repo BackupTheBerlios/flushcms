@@ -14,12 +14,16 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: ModuleConfig.php,v 1.4 2006/01/14 11:33:05 arzen Exp $ */
-global $__CURRENT_LANGUAGE__,$FlushPHPObj;
+/* $Id: ModuleConfig.php,v 1.5 2006/01/15 07:02:57 arzen Exp $ */
+global $__CURRENT_LANGUAGE__,$FlushPHPObj,$__Lang__,$__SITE_VAR__,$__MODULE__,$__TEMPLATES__;
 
 define(HTML_DIR,ROOT_DIR."/HTML/");
 define(HTML_IMAGES_DIR,HTML_DIR.$_SESSION['CURRENT_LANG']."/images/");
 define(HTML_THEMES_DIR,HTML_DIR.$__CURRENT_LANGUAGE__."/template/");
+
+$LangObj = $FlushPHPObj->loadApp("Language");
+$__ModuleLang__ = $LangObj->initLanguage(MODULE_DIR."Site/Language/");
+$__Lang__ = $__ModuleLang__+$__Lang__;
 
 $smarty_site = new Smarty;
 $smarty_site->template_dir=HTML_THEMES_DIR;
@@ -29,5 +33,16 @@ $__SITE_VAR__['SITE_NAME'] = 'SITE_NAME';
 $__SITE_VAR__['SITE_KEYWORD'] = 'SITE_KEYWORD';
 $__SITE_VAR__['SITE_COPYRIGHT'] = 'SITE_COPYRIGHT';
 $__SITE_VAR__['SITE_LOGO'] = 'SITE_LOGO';
+
+$__MODULE__ = array(
+			'ModuleHome'=>$__Lang__['langSiteModuleHomePage'],
+			'ModuleNews'=>$__Lang__['langSiteModuleNews']
+		);
+		
+$__TEMPLATES__ = array(
+			'simple.info.index'=>$__Lang__['langSiteTemplateSimpleInfoIndex'],
+			'flash.index'=>$__Lang__['langSiteTemplateFlashIndex']
+			
+		);
 
 ?>

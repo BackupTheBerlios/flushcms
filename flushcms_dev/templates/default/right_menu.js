@@ -18,7 +18,7 @@
     HTMLstr += "<div id='E_rbpm' class='rm_div'>\n";
                         // rbpm = right button pop menu
     HTMLstr += "<table width='100%' border='0' cellspacing='0'>\n";
-    HTMLstr += "<tr><td  width='20' valign='bottom' onclick=window.event.cancelBubble=true; ><img src='../templates/default/images/v_logo.png' border='0'>";
+    HTMLstr += "<tr><td  width='20' valign='bottom' bgcolor='#FFFFFF' onclick=window.event.cancelBubble=true; ><img src='../templates/default/images/v_logo.png' border='0'>";
     HTMLstr += "</td><td width='120' style='padding: 1' valign='top'>\n";
     HTMLstr += "<table width='100%' border='0' cellspacing='0'>\n";
     HTMLstr += "<!-- Insert A Extend Menu or Item On Here For E_rbpm -->\n";

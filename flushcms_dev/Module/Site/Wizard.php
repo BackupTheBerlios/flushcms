@@ -14,12 +14,14 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: Wizard.php,v 1.2 2006/01/06 10:29:05 arzen Exp $ */
+/* $Id: Wizard.php,v 1.3 2006/01/15 07:02:57 arzen Exp $ */
 if (empty($__Version__))
 {
 	echo "Big error! ";
 	exit;
 }
+include_once("ModuleConfig.php");
+
 include_once("Wizard.class.php");
 
 $thisObj = new Wizard();

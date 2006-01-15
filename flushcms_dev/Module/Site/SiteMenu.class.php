@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: SiteMenu.class.php,v 1.2 2006/01/14 02:51:16 arzen Exp $ */
+/* $Id: SiteMenu.class.php,v 1.3 2006/01/15 07:02:57 arzen Exp $ */
 
 include_once ('DAO/SiteMenuDAO.class.php');
 include_once(APP_DIR."UI.class.php");
@@ -38,7 +38,7 @@ class SiteMenu extends UI
 	*/
 	function opAdd () 
 	{
-		global $__Lang__,$UrlParameter,$SiteDB,$AddIPObj,$FlushPHPObj,$form,$smarty;
+		global $__Lang__,$UrlParameter,$SiteDB,$AddIPObj,$FlushPHPObj,$form,$smarty,$__MODULE__,$__TEMPLATES__;
 		
 		parent::opAdd();
 		$sysMenuDao = &new SiteMenuDAO();
@@ -55,6 +55,11 @@ class SiteMenu extends UI
 		$form->addElement('select', 'PID', $__Lang__['langMenuCategory'].$__Lang__['langGeneralName'].' : ',$menu_all);
 		$form->addElement('text', 'Title', $__Lang__['langMenu'].$__Lang__['langGeneralName'].' : ');
 		$form->addElement('text', 'URL', $__Lang__['langMenu'].$__Lang__['langGeneralURL'].' : ');
+		$form->addElement('select', 'SiteModule', $__Lang__['langMenu'].$__Lang__['langSiteModule'].' : ',$__MODULE__);
+		$form->addElement('select', 'SiteTemplate', $__Lang__['langMenu'].$__Lang__['langSiteTemplate'].' : ',$__TEMPLATES__);
+		$form->addElement('checkbox', 'CopyTemplate', null, $__Lang__['langSiteCopyTemplate']);
+
+		$form->setDefaults(array("CopyTemplate"=>1));
 
 		$form->addElement('hidden', 'Module', $_REQUEST['Module']); 
 		$form->addElement('hidden', 'Page', $_REQUEST['Page']); 
@@ -70,6 +75,8 @@ class SiteMenu extends UI
 			$record["PID"] = $form->exportValue('PID');
 			$record["Title"] = $form->exportValue('Title');
 			$record["URL"] = $form->exportValue('URL');
+			$record["Module"] = $form->exportValue('SiteModule');
+			$record["Template"] = $form->exportValue('SiteTemplate');
 			$record = $record + $this->_DAO->baseField();
 			$dbAppObj = $FlushPHPObj->loadApp("DBApp");
 			if ($_POST['ID'] && $_POST['Action']=='Update') 
@@ -77,6 +84,10 @@ class SiteMenu extends UI
 				$this->_DAO->opUpdate(SITE_MENU_TABLE,$record," SiteMenuID = ".$_POST['ID']);
 				$form->setElementError('Title',$__Lang__['langGeneralOperation'].$__Lang__['langGeneralSuccess']);
 				$form->freeze();
+				if ($form->exportValue('CopyTemplate')==1) 
+				{
+					$this->_copyTemplate($record["Template"],$_POST['ID']);
+				}
 				echo "<SCRIPT LANGUAGE='JavaScript'>opener.window.location.reload();window.close();</SCRIPT>";
 				
 			} 
@@ -88,9 +99,13 @@ class SiteMenu extends UI
 				}
 				 else
 				{
-					$this->_DAO->opAdd(SITE_MENU_TABLE,$record);
+					$menu_id = $this->_DAO->opAdd(SITE_MENU_TABLE,$record);
 					$form->setElementError('Title',$__Lang__['langGeneralOperation'].$__Lang__['langGeneralSuccess']);
 					$form->freeze();
+					if ($form->exportValue('CopyTemplate')==1) 
+					{
+						$this->_copyTemplate($record["Template"],$menu_id);
+					}
 					echo "<SCRIPT LANGUAGE='JavaScript'>opener.window.location.reload();window.close();</SCRIPT>";
 				}
 			}
@@ -114,7 +129,11 @@ class SiteMenu extends UI
 		$user_data = $this->_DAO->getRowByID(SITE_MENU_TABLE,"SiteMenuID",$_REQUEST['ID']);
 		$form->setDefaults(array("PID"=>$user_data['PID'],
 							"Title"=>$user_data['Title'],
-							"URL"=>$user_data['URL']));
+							"URL"=>$user_data['URL'],
+							"SiteModule"=>$user_data['Module'],
+							"SiteTemplate"=>$user_data['Template']
+							)
+						  );
 		$form->addElement('hidden', 'ID', $user_data['SiteMenuID']); 
 		
 	}
@@ -134,6 +153,21 @@ class SiteMenu extends UI
 		{
 				echo "<SCRIPT LANGUAGE='JavaScript'>opener.window.location.reload();window.close();</SCRIPT>";
 		}
+	}
+	/**
+	 *
+	 *
+	 * @author  John.meng (√œ‘∂Ú˚)
+	 * @since   version - 2006-1-15 14:35:22
+	 * @param   string  
+	 *
+	 */
+	function _copyTemplate ($temp_name,$menu_id) 
+	{
+		
+		$source_template = MODULE_DIR."Site/TemplateResource/".$temp_name.".tpl.htm";
+		$target_template = HTML_THEMES_DIR."/Menu.".$menu_id.".tpl.htm";
+		@copy($source_template,$target_template);
 	}
 	
 }

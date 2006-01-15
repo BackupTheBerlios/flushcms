@@ -14,12 +14,13 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: SiteMenu.php,v 1.1 2006/01/08 07:36:21 arzen Exp $ */
+/* $Id: SiteMenu.php,v 1.2 2006/01/15 07:02:57 arzen Exp $ */
 if (empty($__Version__))
 {
 	echo "Big error! ";
 	exit;
 }
+include_once("ModuleConfig.php");
 
 include_once("SiteMenu.class.php");
 $thisObj = new SiteMenu();

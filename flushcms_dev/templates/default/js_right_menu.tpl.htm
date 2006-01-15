@@ -2,6 +2,24 @@
 <body oncontextmenu="window.event.returnValue=false" >
 {literal}
 <SCRIPT language=JScript>
+
+function Do_refresh() 
+{
+	window.location.reload();
+}
+
+function Do_help()
+{
+
+	var s_help='<style>body,td{font:menu;padding:2}</style>';
+{/literal}	
+	s_help+='<title>FlushPHP FrameWork</title>';
+	s_help+='<body bgcolor="#ECE9D8" >';
+	s_help+='<br>{$langGeneralAboutUsInfo}<br/><br/>{$langGeneralCopyRight} ';
+	showModalDialog("about:"+s_help+"","","dialogHeight:400px;dialogWidth:400px;help:yes;status:no")
+{literal}
+}
+
 function showLogoRightMenu ()
 {
 	var menu = new RightMenu();
@@ -20,25 +38,16 @@ function showLogoRightMenu ()
 }
 function showCopyRightRightMenu ()
 {
+{/literal}
 	var menu = new RightMenu();
 	menu.AddExtendMenu("program","start_pro","24","CopyRight<font class=w2kfont>(<u>P</u>)</font>","rbpm",null);
 	menu.AddExtendMenu("p_acc","folder","+","MyProgramAppend","program",null);
+	menu.AddItem("refresh","start_refresh","$","&nbsp;Refresh<font class=w2kfont>(<u>R</u>)</font>","rbpm",null);
+	menu.AddItem("help","start_helpsss","/","&nbsp;Help<font class=w2kfont>(<u>H</u>)</font>","rbpm",null);
 	ProvinceID_Error.innerHTML=menu.GetMenu();
-
+{literal}
 }
-//showLogoRightMenu();
-//var menu = new RightMenu();
-//menu.AddExtendMenu("program","start_pro","24","MyProgram<font class=w2kfont>(<u>P</u>)</font>","rbpm",null);
-//menu.AddExtendMenu("p_acc","folder","+","MyProgramAppend","program",null);
-//menu.AddItem("p_acc1","html","+","<font class=w2kfont>Microsoft FrontPage 2000</font>","program","51w/game/");
-//menu.AddItem("p_acc2","html","+","<font class=w2kfont>Norton AntiVirus Corporate Edition</font>","program","http://");
-//menu.AddExtendMenu("p_lgame","folder","16","小游戏","p_acc",null);
-//menu.AddItem("p_game1","folder","+","扫雷","p_lgame","51w/game/");
-//menu.AddItem("p_game2","folder","+","超级玛力","p_lgame","51w/game/");
-//menu.AddItem("p_game3","folder","+","五子棋","p_lgame","51w/game/");
-//menu.AddItem("p_game4","folder","+","俄罗斯方块","p_lgame","51w/game/");
-//document.writeln(menu.GetMenu());
-//PayWay_Error.innerHTML=menu.GetMenu();
+
 </SCRIPT>
 {/literal}
 <div id="ProvinceID_Error"></div>

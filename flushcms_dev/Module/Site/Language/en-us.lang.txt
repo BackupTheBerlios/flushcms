@@ -8,6 +8,17 @@ langVersionZh-cn = Simple Chinese
 langKeyword = Keyword
 langSiteCopyRight = CopyRight
 langSiteLogo = Logo
+langSiteModule = Module
+langSiteTemplate = Template
+langSiteCopyTemplate = Copy template to site folder
 
 langNexStep = NexStep -->
 langPreStep = <-- PreStep
+
+langSiteRefresh = Refresh
+
+langSiteModuleHomePage = HomePage
+langSiteModuleNews = News
+
+langSiteTemplateSimpleInfoIndex = Simple info home page
+langSiteTemplateFlashIndex = Flash home page

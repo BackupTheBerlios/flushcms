@@ -15,12 +15,13 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: SiteMenuDAO.class.php,v 1.1 2006/01/14 02:51:20 arzen Exp $ */
+/* $Id: SiteMenuDAO.class.php,v 1.2 2006/01/15 07:02:58 arzen Exp $ */
 
 include_once(APP_DIR."DBApp.class.php");
 class SiteMenuDAO extends DBApp
 {
 	var $_menu_arr = array();
+	var $_menu_all_arr = array();
 	
 	function SiteMenuDAO()
 	{
@@ -39,7 +40,8 @@ class SiteMenuDAO extends DBApp
 			{
 				$menu_id = $all_menu[$index]['SiteMenuID'];
 				$menu_title = $all_menu[$index]['Title'];
-				$this->_menu_arr[$menu_id]=$pre_patten.$menu_title;
+				$all_menu[$index]['Title']=$this->_menu_arr[$menu_id]=$pre_patten.$menu_title;
+				$this->_menu_all_arr[$menu_id]=$all_menu[$index];
 				$this->getAllMenu($menu_id,$this_patten);
 			}
 		}
@@ -58,5 +60,19 @@ class SiteMenuDAO extends DBApp
 		
 		return $this->_menu_arr;
 	}
+	/**
+	 *
+	 *
+	 * @author  John.meng (ÃÏÔ¶òû)
+	 * @since   version - 2006-1-15 14:00:14
+	 * @param   string  
+	 *
+	 */
+	function getMenuAllArr () 
+	{
+		$this->getAllMenu();
+		return $this->_menu_all_arr;
+	}
+	
 }
 ?>

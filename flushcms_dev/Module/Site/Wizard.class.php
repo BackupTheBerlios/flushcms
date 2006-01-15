@@ -14,14 +14,11 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: Wizard.class.php,v 1.9 2006/01/14 02:51:13 arzen Exp $ */
+/* $Id: Wizard.class.php,v 1.10 2006/01/15 07:02:57 arzen Exp $ */
 
 include_once(APP_DIR."UI.class.php");
 include_once("DAO/WizardDAO.class.php");
-global $FlushPHPObj;
-$LangObj = $FlushPHPObj->loadApp("Language");
-$__ModuleLang__ = $LangObj->initLanguage(MODULE_DIR."Site/Language/");
-$__Lang__ = $__ModuleLang__+$__Lang__;
+
 class Wizard extends UI
 {
 	var $_DAO;
@@ -173,7 +170,7 @@ class Wizard extends UI
 	*/
 	function opStep3 () 
 	{
-		global $__Lang__,$UrlParameter,$SiteDB,$AddIPObj,$FlushPHPObj,$form,$smarty;
+		global $__Lang__,$UrlParameter,$SiteDB,$AddIPObj,$FlushPHPObj,$form,$smarty,$__MODULE__,$__TEMPLATES__;
 		include_once (PEAR_DIR."HTML/Table.php");
 		include_once (MODULE_DIR."Site/DAO/SiteMenuDAO.class.php");
 
@@ -181,17 +178,17 @@ class Wizard extends UI
 		$form->addElement('header', null, $__Lang__['langSite'].$__Lang__['langWizard'].$__Lang__['langStep']." 3 ");
 
 		$sysMenuDao = new SiteMenuDAO();
-		$data_menu = $sysMenuDao->getMenuArr();
+		$data_menu = $sysMenuDao->getMenuAllArr();
 
 		$tableAttrs = array ("class" => "grid_sub_table",'cellspacing'=>"0");
 		$table = new HTML_Table($tableAttrs);
 		$table->setAutoGrow(true);
-		$table->setAutoFill("n/a");
+//		$table->setAutoFill("n/a");
 		$cell_x=0;
 		$data_menu = array(NULL=>NULL)+$data_menu;
 		foreach ($data_menu as $key=>$value)
 		{
-			$table->addRow(array($value, " <table><tr><td><a href='####' onclick=\"popOpenWindow('PopupWindow.php', '', 'Module=".$_REQUEST['Module']."&Page=SiteMenu&Action=Update&ID=".$key."' , 450, 450)\" ><img src='".THEMES_DIR."images/edit.gif' border='0'><br />".$__Lang__['langGeneralUpdate']."</a></td><td><a href='####' onclick=\"confirm ( '".$__Lang__['langGeneralCancelConfirm']."')?popOpenWindow('PopupWindow.php', '', 'Module=".$_REQUEST['Module']."&Page=SiteMenu&Action=Cancel&ID=".$key."' , 20, 20):'';\"><img src='".THEMES_DIR."images/delete.gif' border='0'><br />".$__Lang__['langGeneralCancel']."</a></td></tr></table>"));
+			$table->addRow(array($value['Title'],$__MODULE__[$value['Module']],$__TEMPLATES__[$value['Template']],$value['URL'], " <table><tr><td><a href='####' onclick=\"popOpenWindow('PopupWindow.php', '', 'Module=".$_REQUEST['Module']."&Page=SiteMenu&Action=Update&ID=".$key."' , 450, 450)\" ><img src='".THEMES_DIR."images/edit.gif' border='0'><br />".$__Lang__['langGeneralUpdate']."</a></td><td><a href='####' onclick=\"confirm ( '".$__Lang__['langGeneralCancelConfirm']."')?popOpenWindow('PopupWindow.php', '', 'Module=".$_REQUEST['Module']."&Page=SiteMenu&Action=Cancel&ID=".$key."' , 20, 20):'';\"><img src='".THEMES_DIR."images/delete.gif' border='0'><br />".$__Lang__['langGeneralCancel']."</a></td></tr></table>"));
 			$cell_x++;
 		}
 		
@@ -201,7 +198,10 @@ class Wizard extends UI
 		$table->setRowAttributes(0, $hrAttrs, true);
 
 		$table->setHeaderContents(0, 0, $__Lang__['langMenu']);
-		$table->setHeaderContents(0, 1, $__Lang__['langGeneralOperation']);
+		$table->setHeaderContents(0, 1, $__Lang__['langSiteModule']);
+		$table->setHeaderContents(0, 2, $__Lang__['langSiteTemplate']);
+		$table->setHeaderContents(0, 3, $__Lang__['langGeneralURL']);
+		$table->setHeaderContents(0, 4, $__Lang__['langGeneralOperation']);
 
 		$form->addElement('static', NULL, NULL,$table->toHtml()); 
 		
@@ -315,7 +315,7 @@ class Wizard extends UI
 		}
 		return ;
 	}
-	
+		
 	
 	
 }
