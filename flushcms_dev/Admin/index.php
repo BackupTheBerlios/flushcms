@@ -14,8 +14,8 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: index.php,v 1.2 2005/12/09 08:14:24 arzen Exp $ */
-
+/* $Id: index.php,v 1.3 2006/01/15 08:23:02 arzen Exp $ */
+define(__IS_ADMIN__,"Yes");
 include_once("../FlushPHP.php");
 
 $smarty->display("admin_index.tpl.htm");

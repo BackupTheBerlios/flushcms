@@ -14,14 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: index.php,v 1.2 2005/12/08 08:58:42 arzen Exp $ */
+/* $Id: index.php,v 1.3 2006/01/15 08:23:02 arzen Exp $ */
 
-include_once("FlushPHP.class.php");
-$FlushPHPObj = new FlushPHP();
-
-$smarty->display("admin_index.tpl.htm");
-//echo $test = $FlushPHPObj->loadUtility ("testgdsafd");
-//var_dump($__Lang__["langGeneralFileNotExist"]);
-
-//phpinfo();
+header("location:HTML/en-us/");
 ?>

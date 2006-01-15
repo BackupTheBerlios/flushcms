@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: SiteMenu.class.php,v 1.3 2006/01/15 07:02:57 arzen Exp $ */
+/* $Id: SiteMenu.class.php,v 1.4 2006/01/15 08:23:02 arzen Exp $ */
 
 include_once ('DAO/SiteMenuDAO.class.php');
 include_once(APP_DIR."UI.class.php");
@@ -169,6 +169,7 @@ class SiteMenu extends UI
 		$target_template = HTML_THEMES_DIR."/Menu.".$menu_id.".tpl.htm";
 		@copy($source_template,$target_template);
 	}
+	
 	
 }
 ?>

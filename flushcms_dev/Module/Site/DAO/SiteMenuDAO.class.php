@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: SiteMenuDAO.class.php,v 1.2 2006/01/15 07:02:58 arzen Exp $ */
+/* $Id: SiteMenuDAO.class.php,v 1.3 2006/01/15 08:23:02 arzen Exp $ */
 
 include_once(APP_DIR."DBApp.class.php");
 class SiteMenuDAO extends DBApp
@@ -73,6 +73,53 @@ class SiteMenuDAO extends DBApp
 		$this->getAllMenu();
 		return $this->_menu_all_arr;
 	}
+	/**
+	 *
+	 *
+	 * @author  John.meng (ÃÏÔ¶òû)
+	 * @since   version - 2006-1-15 15:07:39
+	 * @param   string  
+	 *
+	 */
+	function getHomeModule () 
+	{
+		global $SiteDB;
+		$Sql = " SELECT * FROM ".SITE_MENU_TABLE." WHERE VersionCode = '".$_SESSION['CURRENT_LANG']."' AND Module='ModuleHome' ";
+		return $home_menu = $SiteDB->GetRow($Sql);
+		
+	}
+	
+	/**
+	 *
+	 *
+	 * @author  John.meng (ÃÏÔ¶òû)
+	 * @since   version - 2006-1-15 15:22:10
+	 * @param   string  
+	 *
+	 */
+	function getTopMenu () 
+	{
+		global $SiteDB,$smarty,$UrlParameter;
+		$Sql = " SELECT * FROM ".SITE_MENU_TABLE." WHERE VersionCode = '".$_SESSION['CURRENT_LANG']."' AND PID='0' ";
+		$all_menu = $SiteDB->GetAll($Sql);
+		$HTML_CODE = "<TABLE><TR>";
+		for ($index = 0; $index < sizeof($all_menu); $index++) 
+		{
+			if ($all_menu[$index]['URL']) 
+			{
+				$menu_url = $all_menu[$index]['URL'];
+			} 
+			else 
+			{
+				$prefix_url=(__IS_ADMIN__ == 'Yes')?$UrlParameter:"?1";
+				$menu_url = $prefix_url."&MenuID=".$all_menu[$index]['SiteMenuID']."&PID=".$all_menu[$index]['PID'];
+			}
+			$HTML_CODE .= "<TD><A HREF=\"$menu_url\">".$all_menu[$index]['Title']."</A></TD>";
+		}
+		$HTML_CODE .= "</TR></TABLE>";
+		return $HTML_CODE;
+	}
+	
 	
 }
 ?>

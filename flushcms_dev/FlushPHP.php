@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: FlushPHP.php,v 1.18 2006/01/14 11:33:05 arzen Exp $ */
+/* $Id: FlushPHP.php,v 1.19 2006/01/15 08:23:02 arzen Exp $ */
 
 @session_start();
 
@@ -56,8 +56,11 @@ $SiteDB = & ADONewConnection($DB_Type); # eg. 'mysql' or 'oci8'
 $SiteDB->debug = false;
 @$SiteDB->Connect($DB_Host, $DB_UserName, $DB_PassWord, $DB_Name) or die($MessageObj->displayMsg($SiteDB->ErrorMsg(),"ERROR"));
 
-$AuthObj = $FlushPHPObj->loadApp("Auth");
-$AuthObj->Auth();
+if (__IS_ADMIN__ == 'Yes') 
+{
+	$AuthObj = $FlushPHPObj->loadApp("Auth");
+	$AuthObj->Auth();
+}
 
 $UrlParameter="";
 $UrlParameter = "?Module=".$_REQUEST['Module']."&Page=".$_REQUEST['Page'];

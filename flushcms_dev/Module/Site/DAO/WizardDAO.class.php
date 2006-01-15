@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: WizardDAO.class.php,v 1.1 2006/01/07 05:02:37 arzen Exp $ */
+/* $Id: WizardDAO.class.php,v 1.2 2006/01/15 08:23:02 arzen Exp $ */
 
 /**
  * User class handle
@@ -40,7 +40,7 @@ class WizardDAO extends DBApp
 	{
 		global $SiteDB;
 		
-		$Sql = " SELECT * FROM ".SITE_CONFIG_TABLE." WHERE VarName='$var_name' AND UserID='".$_SESSION['UsersID']."' AND VersionCode = '".$_SESSION['CURRENT_LANG']."' ";
+		$Sql = " SELECT * FROM ".SITE_CONFIG_TABLE." WHERE VarName='$var_name' AND VersionCode = '".$_SESSION['CURRENT_LANG']."' ";
 		$row = $SiteDB->GetRow($Sql);
 		return $row['VarValue'];
 	}

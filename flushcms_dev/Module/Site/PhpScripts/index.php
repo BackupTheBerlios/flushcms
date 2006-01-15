@@ -10,14 +10,12 @@
    | License as published by the Free Software Foundation; either         |
    | version 2.1 of the License, or (at your option) any later version.   |
    +----------------------------------------------------------------------+
-   | Author: John.meng(ÃÏÔ¶òû)  2006-1-14 14:27:23                        
+   | Author: John.meng(ÃÏÔ¶òû)  2006-1-15 16:00:53                        
    +----------------------------------------------------------------------+
  */
  
-/* $Id: Preview.php,v 1.2 2006/01/15 08:23:02 arzen Exp $ */
-
-include_once("SiteInit.php");
-
-$html_code .= $smarty->fetch("js_right_menu.tpl.htm");
-$smarty->assign("Main",$html_code);
+/* $Id: index.php,v 1.1 2006/01/15 08:23:02 arzen Exp $ */
+include_once("../../FlushPHP.php");
+include_once(MODULE_DIR."Site/SiteInit.php");
+echo $html_code;
 ?>

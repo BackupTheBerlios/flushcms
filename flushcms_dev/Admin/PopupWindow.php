@@ -14,7 +14,9 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: PopupWindow.php,v 1.1 2006/01/08 07:36:21 arzen Exp $ */
+/* $Id: PopupWindow.php,v 1.2 2006/01/15 08:23:02 arzen Exp $ */
+define(__IS_ADMIN__,"Yes");
+
 include_once("../FlushPHP.php");
 
 $smarty->display("popup_window.tpl.htm");
