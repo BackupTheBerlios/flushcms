@@ -122,7 +122,8 @@
     if(location == null)
       eval("Do_"+id+"()");
     else
-      window.open(location);
+      //window.open(location);
+      popOpenWindow(location, '', '', 500, 450,'yes');
   }
   function P_OnMouseOver(id,parent)
   {

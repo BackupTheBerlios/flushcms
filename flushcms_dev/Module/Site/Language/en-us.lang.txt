@@ -1,6 +1,7 @@
 langStep = Step
 
 langSiteVersion = Site Version
+langBaseInfo = Base Info
 
 langVersionEn-us = English
 langVersionZh-cn = Simple Chinese
