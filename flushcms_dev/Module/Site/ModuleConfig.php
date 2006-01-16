@@ -14,10 +14,11 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: ModuleConfig.php,v 1.5 2006/01/15 07:02:57 arzen Exp $ */
+/* $Id: ModuleConfig.php,v 1.6 2006/01/16 09:27:58 arzen Exp $ */
 global $__CURRENT_LANGUAGE__,$FlushPHPObj,$__Lang__,$__SITE_VAR__,$__MODULE__,$__TEMPLATES__;
 
 define(HTML_DIR,ROOT_DIR."/HTML/");
+define(CURRENT_HTML_DIR,HTML_DIR.$_SESSION['CURRENT_LANG']."/");
 define(HTML_IMAGES_DIR,HTML_DIR.$_SESSION['CURRENT_LANG']."/images/");
 define(HTML_THEMES_DIR,HTML_DIR.$__CURRENT_LANGUAGE__."/template/");
 

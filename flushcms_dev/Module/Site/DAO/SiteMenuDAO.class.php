@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: SiteMenuDAO.class.php,v 1.3 2006/01/15 08:23:02 arzen Exp $ */
+/* $Id: SiteMenuDAO.class.php,v 1.4 2006/01/16 09:27:58 arzen Exp $ */
 
 include_once(APP_DIR."DBApp.class.php");
 class SiteMenuDAO extends DBApp
@@ -102,7 +102,7 @@ class SiteMenuDAO extends DBApp
 		global $SiteDB,$smarty,$UrlParameter;
 		$Sql = " SELECT * FROM ".SITE_MENU_TABLE." WHERE VersionCode = '".$_SESSION['CURRENT_LANG']."' AND PID='0' ";
 		$all_menu = $SiteDB->GetAll($Sql);
-		$HTML_CODE = "<TABLE><TR>";
+		$HTML_CODE = "<TABLE class = \"site_menu_table\"><TR class = \"site_menu_tr\">";
 		for ($index = 0; $index < sizeof($all_menu); $index++) 
 		{
 			if ($all_menu[$index]['URL']) 
@@ -114,7 +114,7 @@ class SiteMenuDAO extends DBApp
 				$prefix_url=(__IS_ADMIN__ == 'Yes')?$UrlParameter:"?1";
 				$menu_url = $prefix_url."&MenuID=".$all_menu[$index]['SiteMenuID']."&PID=".$all_menu[$index]['PID'];
 			}
-			$HTML_CODE .= "<TD><A HREF=\"$menu_url\">".$all_menu[$index]['Title']."</A></TD>";
+			$HTML_CODE .= "<TD class = \"site_menu_td\"><A HREF=\"$menu_url\" class = \"site_menu_link\" >".$all_menu[$index]['Title']."</A></TD>";
 		}
 		$HTML_CODE .= "</TR></TABLE>";
 		return $HTML_CODE;

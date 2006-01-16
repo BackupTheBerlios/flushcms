@@ -1,4 +1,4 @@
-$Id: readme.txt,v 1.3 2005/12/13 01:16:25 arzen Exp $
+$Id: readme.txt,v 1.4 2006/01/16 09:27:58 arzen Exp $
 
 ===============
 Introduction:
@@ -24,4 +24,19 @@ DataBase Design:
 ===============
 
 	Please see database-design.txt
+
+	
+===============
+CSS Design:
+===============
+
+	site_header
+	site_middle
+	site_foot
+	
+	site_menu_table
+	site_menu_tr
+	site_menu_td
+	site_menu_link
+	
 	

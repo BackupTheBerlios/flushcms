@@ -6,24 +6,25 @@
 <META NAME="Author" CONTENT="FlushPHP">
 <META NAME="Keywords" CONTENT="{$__site_keyword__}">
 <META NAME="Description" CONTENT="{$__site_keyword__}">
+<LINK href="{$smarty.const.CURRENT_HTML_DIR}style.css" rel="stylesheet">
 </HEAD>
 
 <BODY>
 
-<TABLE id="logo" name="logo" width="100%" {$__right_menu_header__} >
+<TABLE class = "site_header" width="100%" {$__right_menu_header__} >
 <TR>
-	<TD align="center">{$__site_logo__}</TD>
+	<TD >{$__site_logo__}</TD>
 	<TD>{$__site_top_menu__}</TD>
 </TR>
 </TABLE>
 
-<TABLE align="center" width="100%" {$__right_menu_simple_home__} >
+<TABLE class = "site_middle" align="center" width="100%" {$__right_menu_simple_home__} >
 <TR>
 	<TD align="center">{$__site_main__}</TD>
 </TR>
 </TABLE>
 
-<TABLE align="center" width="100%" {$__right_menu_copyright__} >
+<TABLE class = "site_foot" align="center" width="100%" {$__right_menu_copyright__} >
 <TR>
 	<TD align="center">{$__site_copyright__}</TD>
 </TR>
