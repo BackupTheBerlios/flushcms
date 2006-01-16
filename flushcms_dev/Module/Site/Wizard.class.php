@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: Wizard.class.php,v 1.10 2006/01/15 07:02:57 arzen Exp $ */
+/* $Id: Wizard.class.php,v 1.11 2006/01/16 01:43:01 arzen Exp $ */
 
 include_once(APP_DIR."UI.class.php");
 include_once("DAO/WizardDAO.class.php");
@@ -301,6 +301,10 @@ class Wizard extends UI
 		$_version_image = $_version_root."images/";
 		$_version_template = $_version_root."template/";
 		$_create_mod = 0755;
+		if (!file_exists(HTML_DIR)) 
+		{
+			mkdir(HTML_DIR,$_create_mod);
+		}
 		if (!file_exists($_version_root)) 
 		{
 			mkdir($_version_root,$_create_mod);

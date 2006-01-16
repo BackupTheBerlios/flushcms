@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: FileUploader.class.php,v 1.1 2005/12/08 08:52:35 arzen Exp $ */
+/* $Id: FileUploader.class.php,v 1.2 2006/01/16 01:43:01 arzen Exp $ */
 
 /**
  * @package	Utility
@@ -92,24 +92,23 @@ class FileUploader
 	 **/
 	function fetchMedia($media_name, $index = null)
 	{
-		global $HTTP_POST_FILES;
-		if (!isset ($HTTP_POST_FILES[$media_name]))
+		if (!isset ($_FILES[$media_name]))
 		{
 			$this->setErrors('File not found');
 			return false;
 		}
-		elseif (is_array($HTTP_POST_FILES[$media_name]['name']) && isset ($index))
+		elseif (is_array($_FILES[$media_name]['name']) && isset ($index))
 		{
 			$index = intval($index);
-			$this->mediaName = $HTTP_POST_FILES[$media_name]['name'][$index];
-			$this->mediaType = $HTTP_POST_FILES[$media_name]['type'][$index];
-			$this->mediaSize = $HTTP_POST_FILES[$media_name]['size'][$index];
-			$this->mediaTmpName = $HTTP_POST_FILES[$media_name]['tmp_name'][$index];
-			$this->mediaError = !empty ($HTTP_POST_FILES[$media_name]['error'][$index]) ? $HTTP_POST_FILES[$media_name]['errir'][$index] : 0;
+			$this->mediaName = $_FILES[$media_name]['name'][$index];
+			$this->mediaType = $_FILES[$media_name]['type'][$index];
+			$this->mediaSize = $_FILES[$media_name]['size'][$index];
+			$this->mediaTmpName = $_FILES[$media_name]['tmp_name'][$index];
+			$this->mediaError = !empty ($_FILES[$media_name]['error'][$index]) ? $_FILES[$media_name]['errir'][$index] : 0;
 		}
 		else
 		{
-			$media_name = & $HTTP_POST_FILES[$media_name];
+			$media_name = & $_FILES[$media_name];
 			$this->mediaName = $media_name['name'];
 			$this->mediaType = $media_name['type'];
 			$this->mediaSize = $media_name['size'];
