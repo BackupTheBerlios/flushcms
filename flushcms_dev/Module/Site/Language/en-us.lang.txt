@@ -17,6 +17,8 @@ langNexStep = NexStep -->
 langPreStep = <-- PreStep
 
 langSiteRefresh = Refresh
+langUpdateTemplate = UpdateTemplate
+langPublish = Publish
 
 langSiteModuleHomePage = HomePage
 langSiteModuleNews = News

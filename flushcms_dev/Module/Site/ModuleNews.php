@@ -10,11 +10,11 @@
    | License as published by the Free Software Foundation; either         |
    | version 2.1 of the License, or (at your option) any later version.   |
    +----------------------------------------------------------------------+
-   | Author: John.meng(√œ‘∂Ú˚)  2006-1-15 17:27:17                        
+   | Author: John.meng(√œ‘∂Ú˚)  Jan 17, 2006 1:01:50 PM                        
    +----------------------------------------------------------------------+
  */
  
-/* $Id: ModuleHome.php,v 1.2 2006/01/17 05:29:33 arzen Exp $ */
+/* $Id$ */
 if (empty($__Version__))
 {
 	echo "Big error! ";

@@ -30,8 +30,8 @@ function showLogoRightMenu ()
 	menu.AddItem("m_acc1","html","+","{$langGeneralAdd}{$langMenu}","menu","PopupWindow.php?Module=Site&Page=SiteMenu&Action=Add");
 	menu.AddItem("m_acc2","html","+","{$langMenu}{$langGeneralList}","menu","PopupWindow.php?Module=Site&Page=SiteMenu");
 	
-	menu.AddItem("refresh","start_refresh","a"," Refresh ","rbpm",null);
-	menu.AddItem("help","start_helpsss","/"," Help ","rbpm",null);
+	menu.AddItem("refresh","start_refresh","a"," {$langSiteRefresh} ","rbpm",null);
+	menu.AddItem("help","start_helpsss","/"," {$langGeneralAbout} ","rbpm",null);
 	
 	Menu_DIV.innerHTML=menu.GetMenu();
 {literal}
@@ -41,8 +41,8 @@ function showCopyRightRightMenu ()
 {/literal}
 	var menu = new RightMenu();
 	menu.AddItem("CopyRight","CopyRight","+","{$langGeneralUpdate}{$langSiteCopyRight}","rbpm","PopupWindow.php?Module=Site&Page=ModuleBaseInfo");
-	menu.AddItem("refresh","start_refresh","a"," Refresh ","rbpm",null);
-	menu.AddItem("help","start_helpsss","/"," Help ","rbpm",null);
+	menu.AddItem("refresh","start_refresh","a"," {$langSiteRefresh} ","rbpm",null);
+	menu.AddItem("help","start_helpsss","/"," {$langGeneralAbout} ","rbpm",null);
 	Menu_DIV.innerHTML=menu.GetMenu();
 {literal}
 }
@@ -52,8 +52,10 @@ function showSimpleHomeRightMenu ()
 {/literal}
 	var menu = new RightMenu();
 	menu.AddItem("HomePage","HomePage","+","HomePage","rbpm","PopupWindow.php?Module=Site&Page=SiteMenu&Action=Add");
-	menu.AddItem("refresh","start_refresh","a"," Refresh ","rbpm",null);
-	menu.AddItem("help","start_helpsss","/"," Help ","rbpm",null);
+	menu.AddItem("publish","start_helpsss","b"," {$langPublish} ","rbpm",null);
+	menu.AddItem("update_template","start_helpsss","d"," {$langUpdateTemplate} ","rbpm",null);
+	menu.AddItem("refresh","start_refresh","a"," {$langSiteRefresh} ","rbpm",null);
+	menu.AddItem("help","start_helpsss","/"," {$langGeneralAbout} ","rbpm",null);
 	Menu_DIV.innerHTML=menu.GetMenu();
 {literal}
 }

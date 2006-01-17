@@ -1,0 +1,75 @@
+body {
+	margin-top:0px;
+	margin-left:0px;
+	margin-right:0px;
+}
+
+.site_header{
+	background-color: #f0c040;
+}
+td
+{
+	font-size: 14px;
+	text-decoration: none;
+}
+.site_foot
+{
+	background-color: #f0c040;
+	border-top-width: 2px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	border-top-style: dashed;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	border-top-color: #CCCCCC;
+	height: 50px;
+	vertical-align: top;
+	text-align: center;
+}
+.site_middle
+{
+	margin: 0px;
+	padding: 0px;
+}
+
+.site_home_right
+{
+	vertical-align: top;
+}
+
+.site_home_left
+{
+	background-color: #f0ead8;
+	border-right-width: 2px;
+	border-top-style: none;
+	border-right-style: dashed;
+	border-bottom-style: none;
+	border-left-style: none;
+	border-right-color: #CCCCCC;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	margin: 0px;
+	padding: 0px;
+	height: 550px;
+	width: 180px;
+	vertical-align: top;
+}
+
+.site_header_right
+{
+	vertical-align: bottom;
+}
+
+.site_menu_table
+{
+	width: 250px;
+}
+
+.site_menu_link 
+{
+	color: #000000;
+	text-decoration: none;
+}
