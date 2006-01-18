@@ -21,9 +21,13 @@ if (empty($__Version__))
 	exit;
 }
 
-include_once("ModuleConfig.php");
-include_once("ModuleQuickLink.calss.php");
 
+include_once("ModuleConfig.php");
+
+$class_path =INCLUDE_DIR. "editor/";
+include_once($class_path."class.rich.php");
+
+include_once("ModuleQuickLink.calss.php");
 $thisObj = new ModuleQuickLink();
 
 switch ($_REQUEST['Action']) 
