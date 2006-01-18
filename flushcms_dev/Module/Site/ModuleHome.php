@@ -14,12 +14,13 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: ModuleHome.php,v 1.2 2006/01/17 05:29:33 arzen Exp $ */
+/* $Id: ModuleHome.php,v 1.3 2006/01/18 05:29:29 arzen Exp $ */
 if (empty($__Version__))
 {
 	echo "Big error! ";
 	exit;
 }
 
+include_once("ModuleQuickLink.php");
 $smarty_site->assign("__site_main__","teste");
 ?>

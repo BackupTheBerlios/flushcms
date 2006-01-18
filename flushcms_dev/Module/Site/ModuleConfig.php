@@ -14,8 +14,8 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: ModuleConfig.php,v 1.6 2006/01/16 09:27:58 arzen Exp $ */
-global $__CURRENT_LANGUAGE__,$FlushPHPObj,$__Lang__,$__SITE_VAR__,$__MODULE__,$__TEMPLATES__;
+/* $Id: ModuleConfig.php,v 1.7 2006/01/18 05:29:29 arzen Exp $ */
+global $__CURRENT_LANGUAGE__,$FlushPHPObj,$__Lang__,$__SITE_VAR__,$__MODULE__,$__TEMPLATES__,$smarty_site;
 
 define(HTML_DIR,ROOT_DIR."/HTML/");
 define(CURRENT_HTML_DIR,HTML_DIR.$_SESSION['CURRENT_LANG']."/");
@@ -34,6 +34,7 @@ $__SITE_VAR__['SITE_NAME'] = 'SITE_NAME';
 $__SITE_VAR__['SITE_KEYWORD'] = 'SITE_KEYWORD';
 $__SITE_VAR__['SITE_COPYRIGHT'] = 'SITE_COPYRIGHT';
 $__SITE_VAR__['SITE_LOGO'] = 'SITE_LOGO';
+$__SITE_VAR__['SITE_QUICKLINK'] = 'SITE_QUICKLINK';
 
 $__MODULE__ = array(
 			'ModuleHome'=>$__Lang__['langSiteModuleHomePage'],

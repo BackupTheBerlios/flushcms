@@ -6,6 +6,7 @@ langBaseInfo = Base Info
 langVersionEn-us = English
 langVersionZh-cn = Simple Chinese
 
+langQuickLink = Quick Link
 langKeyword = Keyword
 langSiteCopyRight = CopyRight
 langSiteLogo = Logo
