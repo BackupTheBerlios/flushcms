@@ -18,7 +18,7 @@
 /* $Id$ */
 
 include_once (APP_DIR."UI.class.php");
-include_once ("DAO/WizardDAO.class.php");
+include_once ("DAO/ModuleNewsDAO.class.php");
 
 class ModuleNews extends UI
 {
@@ -26,6 +26,7 @@ class ModuleNews extends UI
 	var $_DAO;
 	function ModuleNews()
 	{
+		$this->_DAO = new ModuleNewsDAO();
 	}
 	/**
 	* function_description
@@ -50,8 +51,8 @@ class ModuleNews extends UI
 		$class_path =INCLUDE_DIR. "editor/";
 		$CurrentUserPathImages=HTML_IMAGES_DIR;
 		$SiteCssFile = CURRENT_HTML_DIR."style.css";
-		$Content = "";
-		$ed_4 = & new rich("", 'SiteQuickLink', $Content,
+		$Content = $_POST['Content'];
+		$ed_4 = & new rich("", 'Content', $Content,
 				 "380", "350","../../".$CurrentUserPathImages,
 				   "../../".$CurrentUserPathImages, false, false);
 		$ed_4->set_default_stylesheet($SiteCssFile);
@@ -69,23 +70,64 @@ class ModuleNews extends UI
 		
 		$form->addElement('submit', null, $__Lang__['langGeneralSubmit']);
 		
+		$form->addRule('Title', $__Lang__['langGeneralPleaseEnter']." ".$__Lang__['langModuleNewsTitle'], 'required');
+
 		$form->addElement('hidden', 'Module', $_REQUEST['Module']); 
 		$form->addElement('hidden', 'Page', $_REQUEST['Page']); 
 		$form->addElement('hidden', 'Action',$_REQUEST['Action']); 
-		$form->addElement('hidden', 'Step','Step3'); 
+		$form->addElement('hidden', 'MenuID',$_GET['MenuID']); 
 
 		if ($form->validate()) 
 		{
-			$record["VarName"] = $__SITE_VAR__['SITE_QUICKLINK'];
-			$record["VarValue"] = $_POST['Content'];
+			$record["Title"] = $_POST['Title'];
+			$record["Summary"] = $_POST['Summary'];
+			$record["Content"] = $_POST['Content'];
+			$record["Source"] = $_POST['Source'];
+			$record["Author"] = $_POST['Author'];
+			$record["SiteMenuID"] = $_POST['MenuID'];
+
 			$record = $record + $this->_DAO->baseField();
-			$this->_DAO->autoInsertOrUpdate (SITE_LARGE_CONFIG_TABLE,$record,array('VersionCode','VarName'));
+			$this->_DAO->opAdd (SITE_NEWS_TABLE,$record);
 
 			echo "<SCRIPT LANGUAGE='JavaScript'>opener.window.location.reload();window.close();</SCRIPT>";
 		}
 		$html_code = "<link rel=\"StyleSheet\" type=\"text/css\" href=\"".$class_path."rich_files/rich.css\"><script language=\"JScript.Encode\" src=\"".$class_path."rich_files/rich.js\"></script>".$form->toHTML();
 		$smarty->assign("Main", str_replace(ROOT_DIR,"../",$html_code));
 	}
+	/**
+	 *
+	 *
+	 * @author  John.meng (√œ‘∂Ú˚)
+	 * @since   version - 2006-1-19 21:40:54
+	 * @param   string  
+	 *
+	 */
+	function getNewsAll ($MenuID) 
+	{
+		global $SiteDB;
+		$Sql = " SELECT * FROM ".SITE_MENU_TABLE." WHERE SiteMenuID = '$MenuID' ";
+		return $SiteDB->GetAll($Sql);
+	}
+	
+	/**
+	 *
+	 *
+	 * @author  John.meng (√œ‘∂Ú˚)
+	 * @since   version - 2006-1-19 21:43:38
+	 * @param   string  
+	 *
+	 */
+	function displayFormat1 (&$NewsArray) 
+	{
+		$html_code = "<TABLE>";
+		for ($index = 0; $index < sizeof($NewsArray); $index++) 
+		{
+			$html_code = "<TR><TD>".$NewsArray[$index]['Title']."</TD></TR>";
+		}
+		$html_code .= "</TABLE>";
+		
+	}
+	
 	
 	/**
 	* function_description
@@ -97,12 +139,24 @@ class ModuleNews extends UI
 	*/
 	function toHtml () 
 	{
-		global $__Lang__,$smarty_site;
+		global $__Lang__,$smarty_site,$smarty;
 		include_once("DAO/SiteMenuDAO.class.php");
 		$siteMenuDAO = & new SiteMenuDAO();
-		$smarty_site->assign("__site_sub_menu__",$siteMenuDAO->getSubMenu($_GET['MenuID']));
+		if ($_GET['MenuID'] && $_GET['PID']==0) 
+		{
+			$top_pid = $_GET['MenuID'];
+		}else 
+		{
+			$top_pid = $_GET['PID'];
+		}
+		$smarty->assign("__MenuID__",$_GET['MenuID']);
+		$smarty_site->assign("__site_sub_menu__",$siteMenuDAO->getSubMenu($top_pid));
+		$smarty_site->assign("__site_main__",$this->displayFormat1());
+		
+		var_dump($this->getNewsAll ($_GET['MenuID']));
 		
 	}
+	
 	
 }
 ?>
