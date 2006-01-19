@@ -60,6 +60,19 @@ function showSimpleHomeRightMenu ()
 {literal}
 }
 
+function showNewsContentRightMenu ()
+{
+{/literal}
+	var menu = new RightMenu();
+	menu.AddItem("News","News","+","{$langSiteModuleNews}","rbpm","PopupWindow.php?Module=Site&Page=ModuleNews&Action=Add");
+	menu.AddItem("publish","start_helpsss","b"," {$langPublish} ","rbpm",null);
+	menu.AddItem("update_template","start_helpsss","d"," {$langUpdateTemplate} ","rbpm",null);
+	menu.AddItem("refresh","start_refresh","a"," {$langSiteRefresh} ","rbpm",null);
+	menu.AddItem("help","start_helpsss","/"," {$langGeneralAbout} ","rbpm",null);
+	Menu_DIV.innerHTML=menu.GetMenu();
+{literal}
+}
+
 </SCRIPT>
 {/literal}
 <div id="Menu_DIV"></div>

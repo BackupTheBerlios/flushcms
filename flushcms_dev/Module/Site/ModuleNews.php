@@ -21,5 +21,23 @@ if (empty($__Version__))
 	exit;
 }
 
-$smarty_site->assign("__site_main__","teste");
+include_once("ModuleConfig.php");
+
+$class_path =INCLUDE_DIR. "editor/";
+include_once($class_path."class.rich.php");
+
+include_once("ModuleNews.class.php");
+$thisObj = new ModuleNews();
+
+switch ($_REQUEST['Action']) 
+{
+	case 'Add':
+		$thisObj->opAdd();
+		break;
+
+	default:
+		$thisObj->toHtml();
+		break;
+}
+
 ?>

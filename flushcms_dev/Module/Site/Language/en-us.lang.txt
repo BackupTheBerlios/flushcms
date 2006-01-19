@@ -24,5 +24,11 @@ langPublish = Publish
 langSiteModuleHomePage = HomePage
 langSiteModuleNews = News
 
+langModuleNewsTitle = Title
+langModuleNewsSummary = Summary
+langModuleNewsSource = Source
+langModuleNewsAuthor = Author
+
 langSiteTemplateSimpleInfoIndex = Simple info home page
-langSiteTemplateFlashIndex = Flash home page
+langSiteTemplateFlashIndex = Flash Home Page
+langSiteTemplateGeneralNews = News Content Page

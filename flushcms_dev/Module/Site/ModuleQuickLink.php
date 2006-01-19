@@ -33,7 +33,7 @@ $thisObj = new ModuleQuickLink();
 switch ($_REQUEST['Action']) 
 {
 	case 'Add':
-			$thisObj->opAdd();
+		$thisObj->opAdd();
 		break;
 
 	default:

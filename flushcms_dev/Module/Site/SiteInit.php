@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: SiteInit.php,v 1.2 2006/01/15 10:04:05 arzen Exp $ */
+/* $Id: SiteInit.php,v 1.3 2006/01/19 05:31:38 arzen Exp $ */
 include_once("ModuleConfig.php");
 
 include_once("DAO/WizardDAO.class.php");
@@ -30,6 +30,8 @@ if (__IS_ADMIN__ == 'Yes')
 	$smarty_site->assign("__right_menu_header__",__getRightMenu("showLogoRightMenu()"));
 	$smarty_site->assign("__right_menu_copyright__",__getRightMenu("showCopyRightRightMenu()"));
 	$smarty_site->assign("__right_menu_simple_home__",__getRightMenu("showSimpleHomeRightMenu()"));
+	
+	$smarty_site->assign("__right_menu_news_content__",__getRightMenu("showNewsContentRightMenu()"));
 }
 // -------  right menu define ---- end
 

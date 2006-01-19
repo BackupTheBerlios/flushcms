@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: SiteMenuDAO.class.php,v 1.4 2006/01/16 09:27:58 arzen Exp $ */
+/* $Id: SiteMenuDAO.class.php,v 1.5 2006/01/19 05:31:38 arzen Exp $ */
 
 include_once(APP_DIR."DBApp.class.php");
 class SiteMenuDAO extends DBApp
@@ -117,6 +117,37 @@ class SiteMenuDAO extends DBApp
 			$HTML_CODE .= "<TD class = \"site_menu_td\"><A HREF=\"$menu_url\" class = \"site_menu_link\" >".$all_menu[$index]['Title']."</A></TD>";
 		}
 		$HTML_CODE .= "</TR></TABLE>";
+		return $HTML_CODE;
+	}
+	
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - Jan 19, 2006
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function getSubMenu ($PID=0) 
+	{
+		global $SiteDB,$smarty,$UrlParameter;
+		$Sql = " SELECT * FROM ".SITE_MENU_TABLE." WHERE VersionCode = '".$_SESSION['CURRENT_LANG']."' AND PID='".$PID."' ";
+		$all_menu = $SiteDB->GetAll($Sql);
+		$HTML_CODE = "<TABLE class = \"site_sub_menu_table\">";
+		for ($index = 0; $index < sizeof($all_menu); $index++) 
+		{
+			if ($all_menu[$index]['URL']) 
+			{
+				$menu_url = $all_menu[$index]['URL'];
+			} 
+			else 
+			{
+				$prefix_url=(__IS_ADMIN__ == 'Yes')?$UrlParameter:"?1";
+				$menu_url = $prefix_url."&MenuID=".$all_menu[$index]['SiteMenuID']."&PID=".$all_menu[$index]['PID'];
+			}
+			$HTML_CODE .= "<TR class = \"site_sub_menu_tr\"><TD class = \"site_sub_menu_td\"><A HREF=\"$menu_url\" class = \"site_sub_menu_link\" >".$all_menu[$index]['Title']."</A></TD></TR>";
+		}
+		$HTML_CODE .= "</TABLE>";
 		return $HTML_CODE;
 	}
 	

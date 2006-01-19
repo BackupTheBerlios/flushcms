@@ -3,6 +3,14 @@ body {
 	margin-left:0px;
 	margin-right:0px;
 }
+a:link {
+	color: #333333;
+	text-decoration: none;
+}
+a {
+	color: #333333;
+	text-decoration: none;
+}
 
 .site_header{
 	background-color: #f0c040;

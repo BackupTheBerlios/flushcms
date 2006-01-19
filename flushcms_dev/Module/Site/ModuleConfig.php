@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: ModuleConfig.php,v 1.7 2006/01/18 05:29:29 arzen Exp $ */
+/* $Id: ModuleConfig.php,v 1.8 2006/01/19 05:31:38 arzen Exp $ */
 global $__CURRENT_LANGUAGE__,$FlushPHPObj,$__Lang__,$__SITE_VAR__,$__MODULE__,$__TEMPLATES__,$smarty_site;
 
 define(HTML_DIR,ROOT_DIR."/HTML/");
@@ -43,7 +43,8 @@ $__MODULE__ = array(
 		
 $__TEMPLATES__ = array(
 			'simple.info.index'=>$__Lang__['langSiteTemplateSimpleInfoIndex'],
-			'flash.index'=>$__Lang__['langSiteTemplateFlashIndex']
+			'flash.index'=>$__Lang__['langSiteTemplateFlashIndex'],
+			'news.content'=>$__Lang__['langSiteTemplateGeneralNews']
 			
 		);
 

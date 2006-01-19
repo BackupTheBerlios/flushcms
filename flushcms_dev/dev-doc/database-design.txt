@@ -79,3 +79,17 @@ URL
 CreateTime
 AddIP
 
+===============
+site_news
+===============
+NewsID
+SiteMenuID
+VersionCode
+Title
+Summary
+Content
+Source
+Author
+CreateTime
+AddIP
+
