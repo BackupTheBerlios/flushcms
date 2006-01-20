@@ -105,7 +105,7 @@ class ModuleNews extends UI
 	function getNewsAll ($MenuID) 
 	{
 		global $SiteDB;
-		$Sql = " SELECT * FROM ".SITE_MENU_TABLE." WHERE SiteMenuID = '$MenuID' ";
+		$Sql = " SELECT * FROM ".SITE_NEWS_TABLE." WHERE SiteMenuID = '$MenuID' ORDER BY CreateTime DESC ";
 		return $SiteDB->GetAll($Sql);
 	}
 	
@@ -117,15 +117,43 @@ class ModuleNews extends UI
 	 * @param   string  
 	 *
 	 */
-	function displayFormat1 (&$NewsArray) 
+	function displayFormat1 (&$Array) 
 	{
-		$html_code = "<TABLE>";
-		for ($index = 0; $index < sizeof($NewsArray); $index++) 
+		global $__Lang__,$page_data,$all_data,$links;
+		$all_data = $Array;
+		parent::viewList();
+
+		$html_code = "<TABLE class='site_news_table'><TR><TD>";
+		foreach ($page_data as $key=>$NewsArray) 
 		{
-			$html_code = "<TR><TD>".$NewsArray[$index]['Title']."</TD></TR>";
+			$news_title = $NewsArray['Title'];
+			$news_date = $NewsArray['CreateTime'];
+			$news_summary = $NewsArray['Summary'];
+			$news_source = $NewsArray['Source'];
+			$news_author = $NewsArray['Author'];
+			
+			$source = $__Lang__['langModuleNewsSource'];
+			$author = $__Lang__['langModuleNewsAuthor'];
+			
+			$html_code .=<<<EOT
+				<h1>$news_title</h1>
+				
+				<P> <font class="site_news_date">[$news_date]</font>
+				$news_summary
+				</P>
+				
+				<P>
+				$source: <font class="site_news_date">$news_source</font>
+				$author: <font class="site_news_date">$news_author</font>
+				</P>			
+
+				<hr noshade size="1" color="#000000">        
+			
+EOT;
+
 		}
-		$html_code .= "</TABLE>";
-		
+		$html_code .= "</TD></TR><TR><TD align='center'>".$links['all']."</TD></TR></TABLE>";
+		return $html_code;
 	}
 	
 	
@@ -151,9 +179,9 @@ class ModuleNews extends UI
 		}
 		$smarty->assign("__MenuID__",$_GET['MenuID']);
 		$smarty_site->assign("__site_sub_menu__",$siteMenuDAO->getSubMenu($top_pid));
-		$smarty_site->assign("__site_main__",$this->displayFormat1());
+		$smarty_site->assign("__site_main__",$this->displayFormat1($this->getNewsAll ($_GET['MenuID'])));
 		
-		var_dump($this->getNewsAll ($_GET['MenuID']));
+//		var_dump($this->getNewsAll ($_GET['MenuID']));
 		
 	}
 	

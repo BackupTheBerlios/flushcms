@@ -81,3 +81,12 @@ td
 	color: #000000;
 	text-decoration: none;
 }
+
+.site_news_date {
+	font-size: 14px;
+	font-style: italic;
+	color: #9b410e;
+}
+.site_news_table {
+
+}
