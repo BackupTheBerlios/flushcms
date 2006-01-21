@@ -15,12 +15,6 @@
  */
  
 /* $Id$ */
-if (empty($__Version__))
-{
-	echo "Big error! ";
-	exit;
-}
-
 
 include_once("ModuleConfig.php");
 
@@ -34,6 +28,10 @@ switch ($_REQUEST['Action'])
 {
 	case 'Add':
 		$thisObj->opAdd();
+		break;
+
+	case 'LeftTop':
+		$thisObj->opLeftTop();
 		break;
 
 	default:

@@ -7,6 +7,7 @@ langVersionEn-us = English
 langVersionZh-cn = Simple Chinese
 
 langQuickLink = Quick Link
+langLeftTop = Left Top
 langKeyword = Keyword
 langSiteCopyRight = CopyRight
 langSiteLogo = Logo
@@ -23,6 +24,7 @@ langPublish = Publish
 
 langSiteModuleHomePage = HomePage
 langSiteModuleNews = News
+langSiteModuleSingleContent = Single Content
 
 langModuleNewsTitle = Title
 langModuleNewsSummary = Summary
@@ -32,3 +34,5 @@ langModuleNewsAuthor = Author
 langSiteTemplateSimpleInfoIndex = Simple info home page
 langSiteTemplateFlashIndex = Flash Home Page
 langSiteTemplateGeneralNews = News Content Page
+langSiteTemplateSingleContent = Single Content Page
+

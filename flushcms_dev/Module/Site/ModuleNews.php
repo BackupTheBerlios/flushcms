@@ -35,6 +35,10 @@ switch ($_REQUEST['Action'])
 		$thisObj->opAdd();
 		break;
 
+	case 'Detail':
+		$thisObj->opDetail();
+		break;
+
 	default:
 		$thisObj->toHtml();
 		break;

@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: ModuleHome.php,v 1.3 2006/01/18 05:29:29 arzen Exp $ */
+/* $Id: ModuleHome.php,v 1.4 2006/01/21 08:58:07 arzen Exp $ */
 if (empty($__Version__))
 {
 	echo "Big error! ";
@@ -22,5 +22,7 @@ if (empty($__Version__))
 }
 
 include_once("ModuleQuickLink.php");
-$smarty_site->assign("__site_main__","teste");
+include_once("ModuleNews.class.php");
+$ModuleNewsObj= & new ModuleNews();
+$smarty_site->assign("__site_main__",$ModuleNewsObj->getTopNews (5));
 ?>

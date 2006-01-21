@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: ModuleConfig.php,v 1.8 2006/01/19 05:31:38 arzen Exp $ */
+/* $Id: ModuleConfig.php,v 1.9 2006/01/21 08:58:07 arzen Exp $ */
 global $__CURRENT_LANGUAGE__,$FlushPHPObj,$__Lang__,$__SITE_VAR__,$__MODULE__,$__TEMPLATES__,$smarty_site;
 
 define(HTML_DIR,ROOT_DIR."/HTML/");
@@ -35,16 +35,19 @@ $__SITE_VAR__['SITE_KEYWORD'] = 'SITE_KEYWORD';
 $__SITE_VAR__['SITE_COPYRIGHT'] = 'SITE_COPYRIGHT';
 $__SITE_VAR__['SITE_LOGO'] = 'SITE_LOGO';
 $__SITE_VAR__['SITE_QUICKLINK'] = 'SITE_QUICKLINK';
-
+$__SITE_VAR__['SITE_LEFT_TOP'] = 'SITE_LEFT_TOP';
+$smarty_site->assign("langGeneralCharset",$__Lang__["langGeneralCharset"]);
 $__MODULE__ = array(
 			'ModuleHome'=>$__Lang__['langSiteModuleHomePage'],
-			'ModuleNews'=>$__Lang__['langSiteModuleNews']
+			'ModuleNews'=>$__Lang__['langSiteModuleNews'],
+			'ModuleSingleContent'=>$__Lang__['langSiteModuleSingleContent']
 		);
 		
 $__TEMPLATES__ = array(
 			'simple.info.index'=>$__Lang__['langSiteTemplateSimpleInfoIndex'],
-			'flash.index'=>$__Lang__['langSiteTemplateFlashIndex'],
-			'news.content'=>$__Lang__['langSiteTemplateGeneralNews']
+//			'flash.index'=>$__Lang__['langSiteTemplateFlashIndex'],
+			'news.content'=>$__Lang__['langSiteTemplateGeneralNews'],
+			'single.content'=>$__Lang__['langSiteTemplateSingleContent']
 			
 		);
 

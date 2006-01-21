@@ -26,7 +26,19 @@ class ModuleNews extends UI
 	var $_DAO;
 	function ModuleNews()
 	{
+		global $smarty,$smarty_site;
 		$this->_DAO = new ModuleNewsDAO();
+		include_once("DAO/SiteMenuDAO.class.php");
+		$siteMenuDAO = & new SiteMenuDAO();
+		if ($_GET['MenuID'] && $_GET['PID']==0) 
+		{
+			$top_pid = $_GET['MenuID'];
+		}else 
+		{
+			$top_pid = $_GET['PID'];
+		}
+		$smarty->assign("__MenuID__",$_GET['MenuID']);
+		$smarty_site->assign("__site_sub_menu__",$siteMenuDAO->getSubMenu($top_pid));
 	}
 	/**
 	* function_description
@@ -98,14 +110,56 @@ class ModuleNews extends UI
 	 *
 	 *
 	 * @author  John.meng (ÃÏÔ¶òû)
+	 * @since   version - 2006-1-21 11:35:43
+	 * @param   string  
+	 *
+	 */
+	function opDetail () 
+	{
+		global $smarty,$smarty_site,$__Lang__;
+		$row = $this->_DAO->getRowByID(SITE_NEWS_TABLE,"NewsID",$_GET['NewsID']);
+		$news_title=$row["Title"];
+		$news_date = $row['CreateTime'];
+		$news_content=$row["Content"];
+		$news_source = $row['Source'];
+		$news_author = $row['Author'];
+		$source = $__Lang__['langModuleNewsSource'];
+		$author = $__Lang__['langModuleNewsAuthor'];
+		$html_code =<<<EOT
+		<TABLE class='site_news_table'>
+		<TR>
+			<TD align="center"><p><h1>$news_title</h1><br/>
+			$source: <font class="site_news_date">$news_source</font>
+			$author: <font class="site_news_date">$news_author</font> 
+			($news_date)</p>
+			<hr noshade size="1" color="#000000">
+			</TD>
+		</TR>
+		<TR>
+			<TD>$news_content</TD>
+		</TR>
+		</TABLE>		
+EOT;
+		include_once("ModuleQuickLink.php");
+		$smarty_site->assign("__site_main__",$html_code);
+	}
+	
+	/**
+	 *
+	 *
+	 * @author  John.meng (ÃÏÔ¶òû)
 	 * @since   version - 2006-1-19 21:40:54
 	 * @param   string  
 	 *
 	 */
-	function getNewsAll ($MenuID) 
+	function getNewsAll ($MenuID=null) 
 	{
 		global $SiteDB;
-		$Sql = " SELECT * FROM ".SITE_NEWS_TABLE." WHERE SiteMenuID = '$MenuID' ORDER BY CreateTime DESC ";
+		if ($MenuID) 
+		{
+			$where_is = " WHERE a.SiteMenuID = '$MenuID' ";
+		}
+		$Sql = " SELECT a.*,b.PID FROM ".SITE_NEWS_TABLE." AS a LEFT JOIN ".SITE_MENU_TABLE." AS b ON a.SiteMenuID=b.SiteMenuID $where_is ORDER BY a.CreateTime DESC ";
 		return $SiteDB->GetAll($Sql);
 	}
 	
@@ -117,43 +171,66 @@ class ModuleNews extends UI
 	 * @param   string  
 	 *
 	 */
-	function displayFormat1 (&$Array) 
+	function displayFormat1 (&$Array,$display_nav=true) 
 	{
-		global $__Lang__,$page_data,$all_data,$links;
+		global $__Lang__,$page_data,$all_data,$links,$UrlParameter;
 		$all_data = $Array;
 		parent::viewList();
 
-		$html_code = "<TABLE class='site_news_table'><TR><TD>";
-		foreach ($page_data as $key=>$NewsArray) 
+		if (is_array($page_data) && sizeof($page_data)) 
 		{
-			$news_title = $NewsArray['Title'];
-			$news_date = $NewsArray['CreateTime'];
-			$news_summary = $NewsArray['Summary'];
-			$news_source = $NewsArray['Source'];
-			$news_author = $NewsArray['Author'];
-			
-			$source = $__Lang__['langModuleNewsSource'];
-			$author = $__Lang__['langModuleNewsAuthor'];
-			
-			$html_code .=<<<EOT
-				<h1>$news_title</h1>
+			$html_code = "<TABLE class='site_news_table'><TR><TD>";
+			foreach ($page_data as $key=>$NewsArray) 
+			{
+				$news_title = $NewsArray['Title'];
+				$news_date = $NewsArray['CreateTime'];
+				$news_summary = $NewsArray['Summary'];
+				$news_source = $NewsArray['Source'];
+				$news_author = $NewsArray['Author'];
+				$prefix_url=(__IS_ADMIN__ == 'Yes')?$UrlParameter:"?";
+				$news_url = $prefix_url."&MenuID=".$NewsArray['SiteMenuID']."&PID=".$NewsArray['PID']."&NewsID=".$NewsArray['NewsID']."&Action=Detail";
+				$source = $__Lang__['langModuleNewsSource'];
+				$author = $__Lang__['langModuleNewsAuthor'];
 				
-				<P> <font class="site_news_date">[$news_date]</font>
-				$news_summary
-				</P>
+				$html_code .=<<<EOT
+					<a href="$news_url"><h1>$news_title</h1></a>
+					
+					<P> <font class="site_news_date">[$news_date]</font>
+					$news_summary
+					</P>
+					
+					<P>
+					$source: <font class="site_news_date">$news_source</font>
+					$author: <font class="site_news_date">$news_author</font>
+					</P>			
+	
+					<hr noshade size="1" color="#000000">        
 				
-				<P>
-				$source: <font class="site_news_date">$news_source</font>
-				$author: <font class="site_news_date">$news_author</font>
-				</P>			
-
-				<hr noshade size="1" color="#000000">        
-			
 EOT;
-
+	
+			}
+			$html_code .= "</TD></TR>" ;
+			if ($display_nav) 
+			{
+				$html_code .= "<TR><TD align='center'>".$links['all']."</TD></TR>";
+			}
+			$html_code .= "</TABLE>";			
 		}
-		$html_code .= "</TD></TR><TR><TD align='center'>".$links['all']."</TD></TR></TABLE>";
+
 		return $html_code;
+	}
+	
+	/**
+	 *
+	 *
+	 * @author  John.meng (ÃÏÔ¶òû)
+	 * @since   version - 2006-1-21 16:06:46
+	 * @param   string  
+	 *
+	 */
+	function &getTopNews ($Num) 
+	{
+		return $this->displayFormat1(array_slice ($this->getNewsAll (), 0, $Num),false);
 	}
 	
 	
@@ -168,21 +245,9 @@ EOT;
 	function toHtml () 
 	{
 		global $__Lang__,$smarty_site,$smarty;
-		include_once("DAO/SiteMenuDAO.class.php");
-		$siteMenuDAO = & new SiteMenuDAO();
-		if ($_GET['MenuID'] && $_GET['PID']==0) 
-		{
-			$top_pid = $_GET['MenuID'];
-		}else 
-		{
-			$top_pid = $_GET['PID'];
-		}
-		$smarty->assign("__MenuID__",$_GET['MenuID']);
-		$smarty_site->assign("__site_sub_menu__",$siteMenuDAO->getSubMenu($top_pid));
+		include_once("ModuleQuickLink.php");
+		
 		$smarty_site->assign("__site_main__",$this->displayFormat1($this->getNewsAll ($_GET['MenuID'])));
-		
-//		var_dump($this->getNewsAll ($_GET['MenuID']));
-		
 	}
 	
 	
