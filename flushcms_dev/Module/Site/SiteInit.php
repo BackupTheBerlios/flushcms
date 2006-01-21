@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: SiteInit.php,v 1.4 2006/01/21 08:58:07 arzen Exp $ */
+/* $Id: SiteInit.php,v 1.5 2006/01/21 09:16:48 arzen Exp $ */
 include_once("ModuleConfig.php");
 
 include_once("DAO/WizardDAO.class.php");
@@ -36,6 +36,30 @@ if (__IS_ADMIN__ == 'Yes')
 }
 // -------  right menu define ---- end
 
+/**
+ *
+ *
+ * @author  John.meng (√œ‘∂Ú˚)
+ * @since   version - 2006-1-21 17:05:26
+ * @param   string  
+ *
+ */
+function siteVersion () 
+{
+	global $__Lang__;
+	$en=$__Lang__['langSiteVersionEN'];
+	$cn=$__Lang__['langSiteVersionCN'];
+	$html_code=<<<EOT
+	<TABLE>
+	<TR>
+		<TD> <a href="../en-us/?Ver=en-us" >$en</a> | </TD>
+		<TD> <a href="../zh-cn/?Ver=zh-cn" >$cn</a> </TD>
+	</TR>
+	</TABLE>
+EOT;
+	return $html_code;
+}
+
 $wizardDAO = & new WizardDAO();
 $siteMenuDAO = & new SiteMenuDAO();
 $__site_title__ = $wizardDAO->getSiteVarValue($__SITE_VAR__['SITE_NAME']);
@@ -55,6 +79,7 @@ $smarty_site->assign("__site_copyright__",$__site_copyright__);
 $smarty_site->assign("__site_keyword__",$__site_keyword__);
 $smarty_site->assign("__site_logo__",$__site_logo__);
 $smarty_site->assign("__site_top_menu__",$__site_top_menu__);
+$smarty_site->assign("__site_version__",siteVersion());
 
 if ($menu_id = $_GET['MenuID']) 
 {

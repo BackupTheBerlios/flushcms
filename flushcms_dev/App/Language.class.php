@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: Language.class.php,v 1.6 2006/01/15 07:02:57 arzen Exp $ */
+/* $Id: Language.class.php,v 1.7 2006/01/21 09:16:48 arzen Exp $ */
 
 /**
  * Load language file
@@ -40,6 +40,10 @@ class Language extends Browser
 		if ($_SESSION['CURRENT_LANG']) 
 		{
 			$lang_code = $_SESSION['CURRENT_LANG'];
+		}
+		else if ($_GET["Ver"]) 
+		{
+			$lang_code = $_GET["Ver"];
 		}
 		else 
 		{

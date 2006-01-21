@@ -188,7 +188,7 @@ EOT;
 				$news_source = $NewsArray['Source'];
 				$news_author = $NewsArray['Author'];
 				$prefix_url=(__IS_ADMIN__ == 'Yes')?$UrlParameter:"?";
-				$news_url = $prefix_url."&MenuID=".$NewsArray['SiteMenuID']."&PID=".$NewsArray['PID']."&NewsID=".$NewsArray['NewsID']."&Action=Detail";
+				$news_url = $prefix_url."&Ver=".$NewsArray['VersionCode']."&MenuID=".$NewsArray['SiteMenuID']."&PID=".$NewsArray['PID']."&NewsID=".$NewsArray['NewsID']."&Action=Detail";
 				$source = $__Lang__['langModuleNewsSource'];
 				$author = $__Lang__['langModuleNewsAuthor'];
 				

@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: SiteMenuDAO.class.php,v 1.5 2006/01/19 05:31:38 arzen Exp $ */
+/* $Id: SiteMenuDAO.class.php,v 1.6 2006/01/21 09:16:48 arzen Exp $ */
 
 include_once(APP_DIR."DBApp.class.php");
 class SiteMenuDAO extends DBApp
@@ -111,8 +111,8 @@ class SiteMenuDAO extends DBApp
 			} 
 			else 
 			{
-				$prefix_url=(__IS_ADMIN__ == 'Yes')?$UrlParameter:"?1";
-				$menu_url = $prefix_url."&MenuID=".$all_menu[$index]['SiteMenuID']."&PID=".$all_menu[$index]['PID'];
+				$prefix_url=(__IS_ADMIN__ == 'Yes')?$UrlParameter:"?";
+				$menu_url = $prefix_url."&Ver=".$all_menu[$index]['VersionCode']."&MenuID=".$all_menu[$index]['SiteMenuID']."&PID=".$all_menu[$index]['PID'];
 			}
 			$HTML_CODE .= "<TD class = \"site_menu_td\"><A HREF=\"$menu_url\" class = \"site_menu_link\" >".$all_menu[$index]['Title']."</A></TD>";
 		}
@@ -142,8 +142,8 @@ class SiteMenuDAO extends DBApp
 			} 
 			else 
 			{
-				$prefix_url=(__IS_ADMIN__ == 'Yes')?$UrlParameter:"?1";
-				$menu_url = $prefix_url."&MenuID=".$all_menu[$index]['SiteMenuID']."&PID=".$all_menu[$index]['PID'];
+				$prefix_url=(__IS_ADMIN__ == 'Yes')?$UrlParameter:"?";
+				$menu_url = $prefix_url."&Ver=".$all_menu[$index]['VersionCode']."&MenuID=".$all_menu[$index]['SiteMenuID']."&PID=".$all_menu[$index]['PID'];
 			}
 			$HTML_CODE .= "<TR class = \"site_sub_menu_tr\"><TD class = \"site_sub_menu_td\"><A HREF=\"$menu_url\" class = \"site_sub_menu_link\" >".$all_menu[$index]['Title']."</A></TD></TR>";
 		}
