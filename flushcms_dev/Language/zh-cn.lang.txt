@@ -1,27 +1,71 @@
 langGeneralCharset = gb2312
 langGeneralSystemName = FlushPHP FrameWork
 
+langMenu = 菜单
 langMenuGeneral = 常规
 langMenuModule = 模块
+langMenuHeader = Enter Menu Info
+langMenuCategory = 分类
 
 langMenuUser = 用户
 
-langGeneralLogout = Logout
+langUserGroup = 组
+langUserAddHeader = Enter User Base Info
 
+langSite = 网站
+langWizard = 向导
+langPreview= 预览
+
+langGroupAddHeader = Enter Group Base Info
+
+langUserNameExist = Sorry that username is exists,please enter another username!
+
+langPaginationPrev = << 上一页
+langPaginationNext = 下一页 >>
+
+langGeneralDescrition = 描述
+langGeneralNone = 无
+langGeneralURL = URL
+langGeneralSystem = 系统
+langGeneralLogout = 退出
+langGeneralHome = 首页
+langGeneralFile = 文件
+langGeneralAbout = 关于
+langGeneralPosition = 位置
+langGeneralCreateTime = 创建时间
+langGeneralAddIP = 创建的IP
+langGeneralName = 名称
+langGeneralPassword = 密码
+langGeneralConfirm = 确认
 langGeneralList = 列表
+langGeneralConfigure = 配置
+langGeneralAdd = 新建
+langGeneralSubmit = 提交
+langGeneralUpdate = 更新
+langGeneralCancel = 取消
+langGeneralSelect = 所选
+langGeneralRecord = 语录
 langGeneralAuthor = 作者
 langGeneralStatus = 状态
 langGeneralSummary = 描述
 langGeneralOperation = 操作
 langGeneralInstall = 安装
 langGeneralUnInstall = 卸装
+langGeneralSuccess = 成功
 langGeneralSubmit = 提交
+langGeneralCancelConfirm = 您真的要取消?
+langGeneralPleaseEnter = 请输入
+langGeneralPleaseSelect = 请选择
 
 langGeneralFileNotExist = 对不起，文件不存在
 
+langLoginHeader = FlushPHP 登录 ...
+langLoginFail = 失败 , 用户名或密码错误!
+langLoginOut = 退出
 langMessageMsg = 消息
 langMessageWarnning = 敬告
 langMessageError = 错误
 langMessageNotice = 提示
 
-langGeneralCopyRight= CopyRight(c) 2005 FlushPHP Group
+langGeneralAboutUsInfo= <b>FlushPHP 团队</b> <br/><br/><b>开发成员</b> :John.meng <br/><b>MSN</b> :arzen10132@hotmail.com <br/><b>YahooIM</b>: arzen1013@yahoo.com.cn <br/><b>QQ</b>: 3440895 <br/><br/> <b>感谢您使用本软件 !</b>
+langGeneralCopyRight= CopyRight(c) 2005-2006 FlushPHP 团队

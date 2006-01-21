@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: SiteInit.php,v 1.5 2006/01/21 09:16:48 arzen Exp $ */
+/* $Id: SiteInit.php,v 1.6 2006/01/21 09:43:33 arzen Exp $ */
 include_once("ModuleConfig.php");
 
 include_once("DAO/WizardDAO.class.php");
@@ -47,8 +47,8 @@ if (__IS_ADMIN__ == 'Yes')
 function siteVersion () 
 {
 	global $__Lang__;
-	$en=$__Lang__['langSiteVersionEN'];
-	$cn=$__Lang__['langSiteVersionCN'];
+	$en=$__Lang__['langVersionEn-us'];
+	$cn=$__Lang__['langVersionZh-cn'];
 	$html_code=<<<EOT
 	<TABLE>
 	<TR>

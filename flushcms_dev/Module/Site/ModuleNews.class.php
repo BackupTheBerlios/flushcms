@@ -157,9 +157,9 @@ EOT;
 		global $SiteDB;
 		if ($MenuID) 
 		{
-			$where_is = " WHERE a.SiteMenuID = '$MenuID' ";
+			$where_is = "  AND a.SiteMenuID = '$MenuID'  ";
 		}
-		$Sql = " SELECT a.*,b.PID FROM ".SITE_NEWS_TABLE." AS a LEFT JOIN ".SITE_MENU_TABLE." AS b ON a.SiteMenuID=b.SiteMenuID $where_is ORDER BY a.CreateTime DESC ";
+		$Sql = " SELECT a.*,b.PID FROM ".SITE_NEWS_TABLE." AS a LEFT JOIN ".SITE_MENU_TABLE." AS b ON a.SiteMenuID=b.SiteMenuID WHERE VersionCode = '".$_SESSION['CURRENT_LANG']."' $where_is ORDER BY a.CreateTime DESC ";
 		return $SiteDB->GetAll($Sql);
 	}
 	
@@ -230,7 +230,12 @@ EOT;
 	 */
 	function &getTopNews ($Num) 
 	{
-		return $this->displayFormat1(array_slice ($this->getNewsAll (), 0, $Num),false);
+		$all_news = $this->getNewsAll ();
+		if(is_array($all_news))
+		{
+			$use_news = array_slice ($this->getNewsAll (), 0, $Num);
+		}
+		return $this->displayFormat1($use_news,false);
 	}
 	
 	

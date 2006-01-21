@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: SiteMenuDAO.class.php,v 1.6 2006/01/21 09:16:48 arzen Exp $ */
+/* $Id: SiteMenuDAO.class.php,v 1.7 2006/01/21 09:43:33 arzen Exp $ */
 
 include_once(APP_DIR."DBApp.class.php");
 class SiteMenuDAO extends DBApp
@@ -30,7 +30,7 @@ class SiteMenuDAO extends DBApp
 	function getAllMenu($pid=0,$pre_patten="--")
 	{
 		global $SiteDB;
-		$Sql = " SELECT * FROM ".SITE_MENU_TABLE." WHERE PID = '$pid' ";
+		$Sql = " SELECT * FROM ".SITE_MENU_TABLE." WHERE PID = '$pid' AND VersionCode = '".$_SESSION['CURRENT_LANG']."' ";
 		$all_menu = $SiteDB->GetAll($Sql);
 		$patten=$pre_patten;
 		$this_patten = $patten.$pre_patten;

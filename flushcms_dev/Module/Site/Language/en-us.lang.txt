@@ -36,5 +36,3 @@ langSiteTemplateFlashIndex = Flash Home Page
 langSiteTemplateGeneralNews = News Content Page
 langSiteTemplateSingleContent = Single Content Page
 
-langSiteVersionEN = English
-langSiteVersionCN = Chinese

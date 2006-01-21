@@ -1,8 +1,35 @@
 langStep = 步骤
 
 langSiteVersion = 网站版本
+langBaseInfo = 基本信息
 
 langVersionEn-us = 英文
 langVersionZh-cn = 简体中文
 
+langQuickLink = 友情链接
+langLeftTop = 首页左上区
+langKeyword = 关键字
+langSiteCopyRight = 版权信息
+langSiteLogo = Logo
+langSiteModule = 模块
+langSiteTemplate = 模板
+langSiteCopyTemplate = Copy template to site folder
 langNexStep = 下一步->
+langPreStep = <-- 上一步
+langSiteRefresh = 刷新
+langUpdateTemplate = 更新模板
+langPublish = 发布
+
+langSiteModuleHomePage = 首页
+langSiteModuleNews = 新闻
+langSiteModuleSingleContent = 单信息
+
+langModuleNewsTitle = 主题
+langModuleNewsSummary = 摘要
+langModuleNewsSource = 来源
+langModuleNewsAuthor = 作者
+
+langSiteTemplateSimpleInfoIndex = 简单信息型首页
+langSiteTemplateFlashIndex = Flash型首页
+langSiteTemplateGeneralNews = 新闻内页
+langSiteTemplateSingleContent = 单信息内页
