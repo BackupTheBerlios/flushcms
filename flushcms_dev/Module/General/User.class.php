@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: User.class.php,v 1.16 2005/12/27 13:22:28 arzen Exp $ */
+/* $Id: User.class.php,v 1.17 2006/01/22 02:42:24 arzen Exp $ */
 
 /**
  * User class handle
@@ -58,7 +58,7 @@ class User extends UI
 		$form->addElement('hidden', 'Page', $_REQUEST['Page']); 
 		$form->addElement('hidden', 'Action', $_REQUEST['Action']); 
 		
-		$form->addElement('submit', null, $__Lang__['langGeneralSubmit']);
+		$form->addElement('submit', 'btnSubmit', $__Lang__['langGeneralSubmit']);
 		
 		$form->addRule('user_name', 'Please enter a username.', 'required');
 		$form->addRule('user_passwd', 'Please enter a password.', 'required');
@@ -94,6 +94,8 @@ class User extends UI
 					$form->freeze();
 				}
 			}
+			$form->removeElement('btnSubmit');
+			
 		}
 		
 		$smarty->assign("Main", $form->toHTML());
