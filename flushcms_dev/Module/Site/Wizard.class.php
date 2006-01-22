@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: Wizard.class.php,v 1.11 2006/01/16 01:43:01 arzen Exp $ */
+/* $Id: Wizard.class.php,v 1.12 2006/01/22 02:36:45 arzen Exp $ */
 
 include_once(APP_DIR."UI.class.php");
 include_once("DAO/WizardDAO.class.php");
@@ -207,7 +207,7 @@ class Wizard extends UI
 		
 		$step_nav[] = &HTML_QuickForm::createElement('submit', 'btnPre', $__Lang__['langPreStep'],"onclick=document.forms[0].Step.value='Step2' ");
 		$step_nav[] = &HTML_QuickForm::createElement('button', 'btnNew', $__Lang__['langGeneralAdd'].$__Lang__['langMenu'],"onclick=\"popOpenWindow('PopupWindow.php', '', 'Module=".$_REQUEST['Module']."&Page=SiteMenu&Action=Add', 450, 450)\" ");
-		$step_nav[] = &HTML_QuickForm::createElement('submit', 'btnNext', $__Lang__['langNexStep'],"onclick=document.forms[0].Step.value='Step4' ");
+		$step_nav[] = &HTML_QuickForm::createElement('button', 'btnNext', $__Lang__['langFinish'],"onclick=\"window.location='?Module=Site&Page=Preview'\" ");
 		
 		$form->addGroup($step_nav, 'step_navigation',"    ");
 		
@@ -231,48 +231,6 @@ class Wizard extends UI
 
 		$smarty->assign("Main", $form->toHTML());
 	}
-	
-	/**
-	* function_description
-	*
-	* @author	John.meng
-	* @since    version - Jan 6, 2006
-	* @param	datatype paramname description
-	* @return   datatype description
-	*/
-	function opStep4 () 
-	{
-		global $__Lang__,$UrlParameter,$SiteDB,$AddIPObj,$FlushPHPObj,$form,$smarty;
-		parent::opAdd();
-		$form->addElement('header', null, $__Lang__['langSite'].$__Lang__['langWizard'].$__Lang__['langStep']." 3 ");
-		
-		$step_nav[] = &HTML_QuickForm::createElement('submit', 'btnPre', $__Lang__['langPreStep'],"onclick=document.forms[0].Step.value='Step3' ");
-		$step_nav[] = &HTML_QuickForm::createElement('submit', 'btnNext', $__Lang__['langNexStep'],"onclick=document.forms[0].Step.value='Step5' ");
-		
-		$form->addGroup($step_nav, 'step_navigation',"    ");
-		
-		$form->addElement('hidden', 'Module', $_REQUEST['Module']); 
-		$form->addElement('hidden', 'Page', $_REQUEST['Page']); 
-		$form->addElement('hidden', 'Action',$_REQUEST['Action']); 
-		$form->addElement('hidden', 'Step'); 
-		
-		if ($form->validate()) 
-		{
-			if ($_POST['Step'] == 'Step3') 
-			{
-				$this->_redirectURL("?Module=".$_REQUEST['Module']."&Page=".$_REQUEST['Page']."&Action=Step3");
-			}
-			 else
-			{
-				$this->_redirectURL("?Module=".$_REQUEST['Module']."&Page=".$_REQUEST['Page']."&Action=Step5");
-				
-			}
-		}
-
-		$smarty->assign("Main", $form->toHTML());
-		
-	}
-	
 	
 	/**
 	* function_description

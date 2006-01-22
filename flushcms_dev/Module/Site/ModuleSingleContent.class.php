@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: ModuleSingleContent.class.php,v 1.1 2006/01/21 08:58:07 arzen Exp $ */
+/* $Id: ModuleSingleContent.class.php,v 1.2 2006/01/22 02:36:45 arzen Exp $ */
 include_once (APP_DIR."UI.class.php");
 include_once ("DAO/ModuleSingleContentDAO.class.php");
 
@@ -72,7 +72,7 @@ class ModuleSingleContent extends UI
 		$editors=$ed_4->draw();
 		$smarty->assign("class_path_editor",$class_path);
 
-		$form->addElement('header', null, $__Lang__['langGeneralUpdate']." ".$__Lang__['langBaseInfo']);
+		$form->addElement('header', null, $__Lang__['langGeneralUpdate']." ".$__Lang__['langSiteModuleSingleContent']);
 		
 		$form->addElement('static', 'Content', NULL,$editors);
 	

@@ -16,6 +16,7 @@ langSiteTemplate = 模板
 langSiteCopyTemplate = Copy template to site folder
 langNexStep = 下一步->
 langPreStep = <-- 上一步
+langFinish = 完成
 langSiteRefresh = 刷新
 langUpdateTemplate = 更新模板
 langPublish = 发布

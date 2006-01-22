@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: FlushPHP.php,v 1.19 2006/01/15 08:23:02 arzen Exp $ */
+/* $Id: FlushPHP.php,v 1.20 2006/01/22 02:36:45 arzen Exp $ */
 
 @session_start();
 
@@ -62,21 +62,32 @@ if (__IS_ADMIN__ == 'Yes')
 	$AuthObj->Auth();
 }
 
-$UrlParameter="";
-$UrlParameter = "?Module=".$_REQUEST['Module']."&Page=".$_REQUEST['Page'];
 $navigator_str = "";
 if ($_REQUEST['Module']) 
 {
-	$navigator_str .= ">>".$_REQUEST['Module'];
+	$_REQUEST['Module']=$_REQUEST['Module'];
+}else 
+{
+	$_REQUEST['Module']="Site";
 }
+$navigator_str .= ">>".$_REQUEST['Module'];
+
 if ($_REQUEST['Page']) 
 {
-	$navigator_str .= ">>".$_REQUEST['Page'];
+	$_REQUEST['Page']=$_REQUEST['Page'];
+}else 
+{
+	$_REQUEST['Page']="Wizard";
 }
+$navigator_str .= ">>".$_REQUEST['Page'];
+
 if ($_REQUEST['Action']) 
 {
 	$navigator_str .= ">>".$_REQUEST['Action'];
 }
+$UrlParameter="";
+$UrlParameter = "?Module=".$_REQUEST['Module']."&Page=".$_REQUEST['Page'];
+
 $smarty->assign("navigator_str",$navigator_str);
 $FlushPHPObj->loadModule($_REQUEST['Module'],$_REQUEST['Page']);
 

@@ -1,24 +1,24 @@
 langGeneralCharset = gb2312
-langGeneralSystemName = FlushPHP FrameWork
+langGeneralSystemName = FlushPHP 框架
 
 langMenu = 菜单
 langMenuGeneral = 常规
 langMenuModule = 模块
-langMenuHeader = Enter Menu Info
+langMenuHeader = 输入菜单信息
 langMenuCategory = 分类
 
 langMenuUser = 用户
 
 langUserGroup = 组
-langUserAddHeader = Enter User Base Info
+langUserAddHeader = 请输入用户基本信息
 
 langSite = 网站
 langWizard = 向导
 langPreview= 预览
 
-langGroupAddHeader = Enter Group Base Info
+langGroupAddHeader = 请输入组基本信息
 
-langUserNameExist = Sorry that username is exists,please enter another username!
+langUserNameExist = 对不起，此用户已存在，请选择另一个用户名 !
 
 langPaginationPrev = << 上一页
 langPaginationNext = 下一页 >>
@@ -67,5 +67,5 @@ langMessageWarnning = 敬告
 langMessageError = 错误
 langMessageNotice = 提示
 
-langGeneralAboutUsInfo= <b>FlushPHP 团队</b> <br/><br/><b>开发成员</b> :John.meng <br/><b>MSN</b> :arzen10132@hotmail.com <br/><b>YahooIM</b>: arzen1013@yahoo.com.cn <br/><b>QQ</b>: 3440895 <br/><br/> <b>感谢您使用本软件 !</b>
+langGeneralAboutUsInfo= <b>FlushPHP 团队</b> <br/><br/><b>开发成员</b> :孟远螓 <br/><b>MSN</b> :arzen10132@hotmail.com <br/><b>YahooIM</b>: arzen1013@yahoo.com.cn <br/><b>QQ</b>: 3440895 <br/><br/> <b>感谢您使用本软件 !</b>
 langGeneralCopyRight= CopyRight(c) 2005-2006 FlushPHP 团队

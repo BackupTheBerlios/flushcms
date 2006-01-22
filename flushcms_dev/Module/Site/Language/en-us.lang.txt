@@ -17,6 +17,7 @@ langSiteCopyTemplate = Copy template to site folder
 
 langNexStep = NexStep -->
 langPreStep = <-- PreStep
+langFinish = Finish
 
 langSiteRefresh = Refresh
 langUpdateTemplate = UpdateTemplate

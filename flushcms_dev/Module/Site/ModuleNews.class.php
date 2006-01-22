@@ -56,7 +56,7 @@ class ModuleNews extends UI
 		$form = new HTML_QuickForm('firstForm','post','','_self' ,"onsubmit='save_in_textarea_all();'");
 
 		$renderer =& $form->defaultRenderer();
-		$renderer->setFormTemplate("\n<form{attributes}>\n<table border=\"0\" class=\"new_table\">\n{content}\n</table>\n</form>");
+		$renderer->setFormTemplate("\n<form{attributes}>\n<table border=\"0\" class=\"new_table\" width='100%'>\n{content}\n</table>\n</form>");
 		$renderer->setHeaderTemplate("\n\t<tr>\n\t\t<td class=\"grid_table_head\" align=\"left\" valign=\"top\" colspan=\"2\"><b>{header}</b></td>\n\t</tr>");
 
 		
@@ -72,7 +72,7 @@ class ModuleNews extends UI
 		$editors=$ed_4->draw();
 		$smarty->assign("class_path_editor",$class_path);
 
-		$form->addElement('header', null, $__Lang__['langGeneralUpdate']." ".$__Lang__['langBaseInfo']);
+		$form->addElement('header', null, $__Lang__['langGeneralAdd']." ".$__Lang__['langSiteModuleNews']);
 		
 		$form->addElement('text', 'Title', $__Lang__['langModuleNewsTitle'].' : ',array('size'=>40));
 		$form->addElement('textarea', 'Summary', $__Lang__['langModuleNewsSummary'].' : ',array('rows' => 5, 'cols' => 40));
@@ -159,7 +159,7 @@ EOT;
 		{
 			$where_is = "  AND a.SiteMenuID = '$MenuID'  ";
 		}
-		$Sql = " SELECT a.*,b.PID FROM ".SITE_NEWS_TABLE." AS a LEFT JOIN ".SITE_MENU_TABLE." AS b ON a.SiteMenuID=b.SiteMenuID WHERE VersionCode = '".$_SESSION['CURRENT_LANG']."' $where_is ORDER BY a.CreateTime DESC ";
+		$Sql = " SELECT a.*,b.PID FROM ".SITE_NEWS_TABLE." AS a LEFT JOIN ".SITE_MENU_TABLE." AS b ON a.SiteMenuID=b.SiteMenuID WHERE a.VersionCode = '".$_SESSION['CURRENT_LANG']."' $where_is ORDER BY a.CreateTime DESC ";
 		return $SiteDB->GetAll($Sql);
 	}
 	

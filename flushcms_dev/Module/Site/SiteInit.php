@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: SiteInit.php,v 1.6 2006/01/21 09:43:33 arzen Exp $ */
+/* $Id: SiteInit.php,v 1.7 2006/01/22 02:36:45 arzen Exp $ */
 include_once("ModuleConfig.php");
 
 include_once("DAO/WizardDAO.class.php");
@@ -46,14 +46,24 @@ if (__IS_ADMIN__ == 'Yes')
  */
 function siteVersion () 
 {
-	global $__Lang__;
+	global $__Lang__,$UrlParameter;
 	$en=$__Lang__['langVersionEn-us'];
 	$cn=$__Lang__['langVersionZh-cn'];
+	if (__IS_ADMIN__ == 'Yes') 
+	{
+		$en_url="$UrlParameter&Ver=en-us";
+		$cn_url="$UrlParameter&Ver=zh-cn";
+	} 
+	else 
+	{
+		$en_url="../en-us/?Ver=en-us";
+		$cn_url="../zh-cn/?Ver=zh-cn";
+	}
 	$html_code=<<<EOT
 	<TABLE>
 	<TR>
-		<TD> <a href="../en-us/?Ver=en-us" >$en</a> | </TD>
-		<TD> <a href="../zh-cn/?Ver=zh-cn" >$cn</a> </TD>
+		<TD> <a href="$en_url" >$en</a> | </TD>
+		<TD> <a href="$cn_url" >$cn</a> </TD>
 	</TR>
 	</TABLE>
 EOT;

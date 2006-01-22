@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: Wizard.php,v 1.3 2006/01/15 07:02:57 arzen Exp $ */
+/* $Id: Wizard.php,v 1.4 2006/01/22 02:36:45 arzen Exp $ */
 if (empty($__Version__))
 {
 	echo "Big error! ";
@@ -34,10 +34,6 @@ switch ($_REQUEST['Action'])
 		
 	case 'Step3':
 			$thisObj->opStep3();
-		break;
-
-	case 'Step4':
-			$thisObj->opStep4();
 		break;
 
 	default:
