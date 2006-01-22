@@ -1,0 +1,55 @@
+			
+			FlushCMS
+
+Thank you for downloading FlushCMS,This INSTALL will guide through the basics of installation and operation of
+FlushCMS. Please ensure you read this and the accompanying documentation fully before proceeding with the 
+installation.
+
+===============
+1. Installing FlushCMS
+===============
+ .Get FlushCMS from http://flushcms.518ic.com
+ .tar xvfz flushcms.tar.gz
+ .cp flushcms /usr/local/apache2/htdoc/flushcms (copy flushcms file to your publich html directory)
+ .Import data file Sql/flushcms.mysql.sql to your mysql database
+ .Edit Config/Config.php
+
+	$DB_Host = "localhost";//change your database host
+	$DB_UserName = "root";//change your database user name
+	$DB_PassWord = "test1234";//change your database user password
+	$DB_Name = "flushcms";//change your database name
+ .Login as administrator http://your.flushcms.com/Admin
+	user name:admin
+	pass word:admin
+
+===============
+2. Getting help with FlushCMS
+===============
+ .Go to http://flushcms.518ic.com
+ .Check the FAQ section
+
+===============
+3. FlushCMS Userguide
+===============
+ .Go to http://flushcms.518ic.com
+ .Check the Document section
+
+
+===============
+4. Community Forums
+===============
+ .Go to http://developer.berlios.de/forum/?group_id=5444
+
+
+===============
+5. Reporting Bugs
+===============
+ .Go to http://developer.berlios.de/bugs/?group_id=5444
+
+
+===============
+6. Thank you
+===============
+ .Thank you for your choose this web software
+ .Thank you http://berlios.de
+ .Thank you http://sf.net

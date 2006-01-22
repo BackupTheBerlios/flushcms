@@ -1,6 +1,3 @@
-$Id: readme.txt,v 1.2 2005/12/01 23:20:03 arzen Exp $
+$Id: readme.txt,v 1.3 2006/01/22 08:14:52 arzen Exp $
 
-===============
-Developer
-===============
-	Please see dev-doc/readme.txt
+Please see doc/readme.txt

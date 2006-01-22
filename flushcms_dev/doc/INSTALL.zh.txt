@@ -1,0 +1,54 @@
+			
+			FlushCMS
+
+感谢您下载　FlushCMS,本文将介绍如何安装使用　FlushCMS　系统，请确保在使用之前阅读本安装文档。
+
+===============
+1. FlushCMS安装
+===============
+ .获取　FlushCMS 从 http://flushcms.518ic.com
+ .tar xvfz flushcms.tar.gz　（解压）
+ .cp flushcms /usr/local/apache2/htdoc/flushcms (把flushcms复制到您的web目录下)
+ .将数据文件 Sql/flushcms.mysql.sql 导入到您的数据库
+ .编辑 Config/Config.php
+
+	$DB_Host = "localhost";//修改成您的数据库主机
+	$DB_UserName = "root";//修改成您的数据库用户名
+	$DB_PassWord = "test1234";//修改成您的数据库用户密码
+	$DB_Name = "flushcms";//修改成您的数据库名
+
+ .以管理员身份登录 http://您放置本系统的域名/Admin
+	用户名:admin
+	密码:admin
+
+===============
+2. 如何取得FlushCMS帮助
+===============
+ .请登录 http://flushcms.518ic.com
+ .到　FAQ　版块查阅
+
+===============
+3. FlushCMS 手册
+===============
+ .请登录 http://flushcms.518ic.com
+ .到　使用手册 版块查阅
+
+
+===============
+4. 论坛交流
+===============
+ .请登录 http://developer.berlios.de/forum/?group_id=5444
+
+
+===============
+5. 报告 Bugs
+===============
+ .请登录 http://developer.berlios.de/bugs/?group_id=5444
+
+
+===============
+6. 鸣谢
+===============
+ .感谢您选择本web软件
+ .感谢 http://berlios.de
+ .感谢 http://sf.net
