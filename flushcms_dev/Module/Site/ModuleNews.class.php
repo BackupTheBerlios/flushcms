@@ -59,11 +59,25 @@ class ModuleNews extends UI
 		$renderer->setFormTemplate("\n<form{attributes}>\n<table border=\"0\" class=\"new_table\" width='100%'>\n{content}\n</table>\n</form>");
 		$renderer->setHeaderTemplate("\n\t<tr>\n\t\t<td class=\"grid_table_head\" align=\"left\" valign=\"top\" colspan=\"2\"><b>{header}</b></td>\n\t</tr>");
 
-		
+		$Content = $_POST['Content'];
+		if ($_REQUEST['Action']=='Update') 
+		{
+			$this_data = $this->_DAO->getRowByID(SITE_NEWS_TABLE,"NewsID",$_REQUEST['ID']);
+			$form->setDefaults(array(
+								"Title"=>$this_data['Title'],
+								"Summary"=>$this_data['Summary'],
+								"Source"=>$this_data['Source'],
+								"Author"=>$this_data['Author']
+								)
+							   );
+			$Content = $this_data['Content'];
+			$form->addElement('hidden', 'ID', $this_data['NewsID']); 
+		}
+
 		$class_path =INCLUDE_DIR. "editor/";
 		$CurrentUserPathImages=HTML_IMAGES_DIR;
 		$SiteCssFile = CURRENT_HTML_DIR."style.css";
-		$Content = $_POST['Content'];
+		
 		$ed_4 = & new rich("", 'Content', $Content,
 				 "380", "350","../../".$CurrentUserPathImages,
 				   "../../".$CurrentUserPathImages, false, false);
@@ -99,8 +113,15 @@ class ModuleNews extends UI
 			$record["SiteMenuID"] = $_POST['MenuID'];
 
 			$record = $record + $this->_DAO->baseField();
-			$this->_DAO->opAdd (SITE_NEWS_TABLE,$record);
-
+			if ($_POST['ID'] && $_POST['Action']=='Update') 
+			{
+				$this->_DAO->opUpdate(SITE_NEWS_TABLE,$record," NewsID = ".$_POST['ID']);
+			}
+			else 
+			{
+				$this->_DAO->opAdd (SITE_NEWS_TABLE,$record);
+			} 
+			
 			echo "<SCRIPT LANGUAGE='JavaScript'>opener.window.location.reload();window.close();</SCRIPT>";
 		}
 		$html_code = "<link rel=\"StyleSheet\" type=\"text/css\" href=\"".$class_path."rich_files/rich.css\"><script language=\"JScript.Encode\" src=\"".$class_path."rich_files/rich.js\"></script>".$form->toHTML();
@@ -142,6 +163,67 @@ class ModuleNews extends UI
 EOT;
 		include_once("ModuleQuickLink.php");
 		$smarty_site->assign("__site_main__",$html_code);
+	}
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - Dec 20, 2005
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function opUpdate () 
+	{
+		global $__Lang__, $FlushPHPObj,$form, $smarty;
+		
+		$this_data = $thisDao->getRowByID(SITE_NEWS_TABLE,"NewsID",$_REQUEST['ID']);
+		$form->setDefaults(array(
+							"user_name"=>$this_data['UserName']
+							)
+						   );
+		$form->addElement('hidden', 'ID', $this_data['NewsID']); 
+		
+	}
+	/**
+	* Cancel operation
+	*
+	* @author	John.meng
+	* @since    version - Dec 21, 2005
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function opCancel () 
+	{
+		global $__Lang__, $MessageObj,$smarty;
+		if ($delNum = $this->_DAO->delRowsByID(SITE_NEWS_TABLE,"NewsID",$_REQUEST['ID'])) 
+		{
+			$smarty->assign("Main",$MessageObj->displayMsg($__Lang__['langGeneralCancel']." <font color='red' > <b> $delNum </b> </font> ".$__Lang__['langGeneralRecord'],"MSG"));
+		}
+	}
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - Dec 23, 2005
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function opCancelSelected () 
+	{
+		global $__Lang__, $MessageObj,$smarty;
+		
+		if (is_array($_POST['CheckID'])) 
+		{
+			$check_ids = implode(",",$_POST['CheckID']);
+			if ($delNum = $this->_DAO->delRowsByID(SITE_NEWS_TABLE,"NewsID",$check_ids)) 
+			{
+				$smarty->assign("Main",$MessageObj->displayMsg($__Lang__['langGeneralCancel']." <font color='red' > <b> $delNum </b> </font> ".$__Lang__['langGeneralRecord'],"MSG"));
+			}
+		}else 
+		{
+			$smarty->assign("Main",$MessageObj->displayMsg($__Lang__['langGeneralCancel']." <font color='red' > <b> $delNum </b> </font> ".$__Lang__['langGeneralRecord'],"NOTICE"));
+		}
+		
 	}
 	
 	/**
@@ -238,6 +320,44 @@ EOT;
 		return $this->displayFormat1($use_news,false);
 	}
 	
+	/**
+	* View list
+	*
+	* @author	John.meng
+	* @since    version 1.0 - Dec 13, 2005
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function viewList () 
+	{
+		global $__Lang__,$UrlParameter,$FlushPHPObj,$table,$page_data,$all_data,$links,$form, $smarty;
+
+		$all_data = $this->_DAO->getMenuIDNews($_GET['MenuID']);
+
+		parent::viewList();
+		$table->setHeaderContents(0, 0,NULL);
+		$table->setHeaderContents(0, 1, $__Lang__['langModuleNewsTitle']);
+		$table->setHeaderContents(0, 2, $__Lang__['langGeneralCreateTime']);
+		$table->setHeaderContents(0, 3, $__Lang__['langGeneralOperation']);
+
+		foreach($page_data as $key=>$data )
+		{
+			$user_id = $data['NewsID'];
+			$table->addRow(array("<INPUT TYPE=\"checkbox\" NAME=\"CheckID[]\" value=\"$user_id\">",$data['Title'],$data['CreateTime'],$this->_actionBars($user_id)));
+		}
+		
+		$altRow = array ("class" => "grid_table_tr_alternate");
+		$table->altRowAttributes(1, null, $altRow);
+		
+		$form->addElement('static', 'fieldsAssoc','',$table->toHtml());
+		$form->addElement('submit', NULL,$__Lang__['langGeneralCancel'].$__Lang__['langGeneralSelect']);
+		$form->addElement('hidden', 'Module', $_REQUEST['Module']); 
+		$form->addElement('hidden', 'Page', $_REQUEST['Page']); 
+		$form->addElement('hidden', 'Action', 'CancelSelected'); 
+		$html_grib = $form->toHtml();          
+		$smarty->assign("Main", $html_grib.$links['all']);
+		
+	}
 	
 	/**
 	* function_description
@@ -255,6 +375,33 @@ EOT;
 		$smarty_site->assign("__site_main__",$this->displayFormat1($this->getNewsAll ($_GET['MenuID'])));
 	}
 	
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - Dec 26, 2005
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function &_actionBars ($id) 
+	{
+		global $__Lang__,$MenuObj;
+		
+		$action_data = array(
+			'update'=>array(
+				'title'=>$__Lang__['langGeneralUpdate'],
+				'url'=>"?Module=Site&Page=ModuleNews&Action=Update&MenuID=".$_GET['MenuID']."&ID=".$id,
+				'imgName'=>'edit.gif'
+			),
+			'del'=>array(
+				'title'=>$__Lang__['langGeneralCancel'],
+				'url'=>'?Module=Site&Page=ModuleNews&Action=Cancel&ID='.$id,
+				'js'=>" onclick=\"return confirm ( '".$__Lang__['langGeneralCancelConfirm']."');\" ",
+				'imgName'=>'delete.gif'
+			)
+		);
+		return $MenuObj->_actionBars(&$action_data);
+	}
 	
 }
 ?>

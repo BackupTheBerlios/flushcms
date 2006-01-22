@@ -38,6 +38,22 @@ switch ($_REQUEST['Action'])
 	case 'Detail':
 		$thisObj->opDetail();
 		break;
+		
+	case 'Update':
+			$thisObj->opAdd();
+		break;
+		
+	case 'Cancel':
+			$thisObj->opCancel();
+		break;
+		
+	case 'CancelSelected':
+			$thisObj->opCancelSelected();
+		break;
+
+	case 'ViewList':
+		$thisObj->viewList();
+		break;
 
 	default:
 		$thisObj->toHtml();

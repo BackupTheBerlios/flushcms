@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: ModuleNewsDAO.class.php,v 1.1 2006/01/19 13:51:51 arzen Exp $ */
+/* $Id: ModuleNewsDAO.class.php,v 1.2 2006/01/22 05:59:52 arzen Exp $ */
 
 include_once(APP_DIR."DBApp.class.php");
 
@@ -25,6 +25,19 @@ class ModuleNewsDAO extends DBApp
 	function ModuleNewsDAO()
 	{
 	}
+	/**
+	 *
+	 *
+	 * @author  John.meng (ÃÏÔ¶òû)
+	 * @since   version - 2006-1-22 13:25:05
+	 * @param   string  
+	 *
+	 */
+	function getMenuIDNews ($MenuID) 
+	{
+		return $this->getRows (SITE_NEWS_TABLE," SiteMenuID= '$MenuID' ORDER BY CreateTime DESC ");
+	}
+	
 	
 }
 ?>
