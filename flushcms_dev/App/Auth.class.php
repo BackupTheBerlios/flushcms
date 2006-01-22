@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: Auth.class.php,v 1.6 2006/01/14 02:51:17 arzen Exp $ */
+/* $Id: Auth.class.php,v 1.7 2006/01/22 06:41:15 arzen Exp $ */
 
 class Auth 
 {
@@ -54,12 +54,16 @@ class Auth
 		
 		include_once (PEAR_DIR.'HTML/QuickForm.php');
 		$form = new HTML_QuickForm('firstForm');
-		echo "<link href='".THEMES_DIR."style.css' rel='stylesheet' type='text/css'>";
+		
+		$replace_str = "../";
+		$html_code = str_replace(ROOT_DIR,$replace_str,THEMES_DIR);
+		
+		echo "<link href='".$html_code."style.css' rel='stylesheet' type='text/css'>";
 		$renderer =& $form->defaultRenderer();
 		$renderer->setFormTemplate("\n<form{attributes}>\n<table border=\"0\" class=\"log_table\" align=\"center\">\n{content}\n</table>\n</form>");
 		$renderer->setHeaderTemplate("\n\t<tr>\n\t\t<td class=\"log_table_head\" align=\"left\" valign=\"top\" colspan=\"2\" ><b>{header}</b></td>\n\t</tr>");
 
-		$form->addElement('header', null, "<img src=\"".THEMES_DIR."images/logo.gif\" border=\"0\" >");
+		$form->addElement('header', null, "<img src=\"".$html_code."images/logo.gif\" border=\"0\" >");
 		$form->addElement('text', 'user_name', $__Lang__['langMenuUser'].$__Lang__['langGeneralName'].' : ');
 		$form->addElement('password', 'user_passwd', $__Lang__['langMenuUser'].$__Lang__['langGeneralPassword'].' : ');
 

@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: SiteInit.php,v 1.7 2006/01/22 02:36:45 arzen Exp $ */
+/* $Id: SiteInit.php,v 1.8 2006/01/22 06:41:15 arzen Exp $ */
 include_once("ModuleConfig.php");
 
 include_once("DAO/WizardDAO.class.php");
@@ -104,5 +104,6 @@ else if($row = $siteMenuDAO->getHomeModule())
 }
 include_once($site_module_scripte.".php");
 $html_code = $smarty_site->fetch($site_module_template);
-
+$replace_str = __IS_ADMIN__ == 'Yes'?"../HTML/".$_SESSION['CURRENT_LANG']."/":"";
+$html_code = str_replace(CURRENT_HTML_DIR,$replace_str,$html_code);
 ?>

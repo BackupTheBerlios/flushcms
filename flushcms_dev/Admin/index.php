@@ -14,10 +14,13 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: index.php,v 1.3 2006/01/15 08:23:02 arzen Exp $ */
+/* $Id: index.php,v 1.4 2006/01/22 06:41:15 arzen Exp $ */
 define(__IS_ADMIN__,"Yes");
 include_once("../FlushPHP.php");
 
-$smarty->display("admin_index.tpl.htm");
+$html_code = $smarty->fetch("admin_index.tpl.htm");
+$replace_str = "../";
+$html_code = str_replace(ROOT_DIR,$replace_str,$html_code);
 
+echo $html_code;
 ?>
