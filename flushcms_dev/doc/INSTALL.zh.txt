@@ -7,7 +7,7 @@
 1. FlushCMS安装
 ===============
  .获取　FlushCMS 从 http://flushcms.518ic.com
- .tar xvfz flushcms.tar.gz　（解压）
+ .tar -xvf flushcms.x.x.x.xxx.tar.gz　（解压）
  .cp flushcms /usr/local/apache2/htdoc/flushcms (把flushcms复制到您的web目录下)
  .将数据文件 Sql/flushcms.mysql.sql 导入到您的数据库
  .编辑 Config/Config.php

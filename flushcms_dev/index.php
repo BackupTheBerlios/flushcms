@@ -14,7 +14,10 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: index.php,v 1.3 2006/01/15 08:23:02 arzen Exp $ */
+/* $Id: index.php,v 1.4 2006/01/22 09:26:07 arzen Exp $ */
+$language_string = $_SERVER["HTTP_ACCEPT_LANGUAGE"];
+$language_arr = explode(",",$language_string);
+$this_language = $language_arr[0];
 
-header("location:HTML/en-us/");
+header("location:HTML/".$this_language."/?Ver=".$this_language."");
 ?>

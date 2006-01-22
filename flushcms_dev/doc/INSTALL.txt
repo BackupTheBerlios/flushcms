@@ -9,7 +9,7 @@ installation.
 1. Installing FlushCMS
 ===============
  .Get FlushCMS from http://flushcms.518ic.com
- .tar xvfz flushcms.tar.gz
+ .tar -xvf flushcms.x.x.x.xxx.tar.gz
  .cp flushcms /usr/local/apache2/htdoc/flushcms (copy flushcms file to your publich html directory)
  .Import data file Sql/flushcms.mysql.sql to your mysql database
  .Edit Config/Config.php

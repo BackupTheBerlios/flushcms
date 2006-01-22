@@ -1,0 +1,13 @@
+User-agent: *
+Disallow: /Admin/
+Disallow: /Class/
+Disallow: /Config/
+Disallow: /Utility/
+Disallow: /Sql/
+Disallow: /Log/
+Disallow: /Include/
+Disallow: /doc/
+Disallow: /Language/
+Disallow: /Module/
+Disallow: /templates/
+Disallow: /templates_c/
