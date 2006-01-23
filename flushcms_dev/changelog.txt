@@ -1,0 +1,9 @@
+$Id: changelog.txt,v 1.1 2006/01/23 13:34:30 arzen Exp $
+
+CHANGES
+=======
+
+---------------------------------------------------------------
+2006/1/22 21:05:11
+   * Admin/PopupWindow.php :
+   fix popup css bug

@@ -1,0 +1,14 @@
+$Id: release.txt,v 1.1 2006/01/23 13:34:30 arzen Exp $
+
+2006/01/22
+
+FlushCMS 1.0.0.pre Released
+
+This release is FlushCMS first preview version.Use this version you can
+quicky and easy create professional web site.Current version include 
+quicklink/news/simeple content Modules;
+
+FlushCMS 1.0.0.pre 发布
+
+这个发行版本是 FlushCMS　首个发行版本。使用此版本，你可以快速、简单地建立专业的web网站。
+当前版本包括:快速链接/新闻/单信息模块。
