@@ -127,8 +127,15 @@ class ModuleQuickLink extends UI
 
 		if ($form->validate()) 
 		{
+			if (get_magic_quotes_gpc()) 
+			{
+				$record["VarValue"] = stripslashes($_POST['SiteQuickLink']);
+			}
+			 else
+			{
+				$record["VarValue"] = $_POST['SiteQuickLink'];
+			}
 			$record["VarName"] = $__SITE_VAR__['SITE_LEFT_TOP'];
-			$record["VarValue"] = $_POST['SiteQuickLink'];
 			$record = $record + $this->_DAO->baseField();
 			$this->_DAO->autoInsertOrUpdate (SITE_LARGE_CONFIG_TABLE,$record,array('VersionCode','VarName'));
 

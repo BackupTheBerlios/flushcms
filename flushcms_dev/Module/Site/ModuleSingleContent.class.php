@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: ModuleSingleContent.class.php,v 1.2 2006/01/22 02:36:45 arzen Exp $ */
+/* $Id: ModuleSingleContent.class.php,v 1.3 2006/01/23 05:04:24 arzen Exp $ */
 include_once (APP_DIR."UI.class.php");
 include_once ("DAO/ModuleSingleContentDAO.class.php");
 
@@ -87,7 +87,14 @@ class ModuleSingleContent extends UI
 
 		if ($form->validate()) 
 		{
-			$record["Content"] = $_POST['Content'];
+			if (get_magic_quotes_gpc()) 
+			{
+				$record["Content"] = stripslashes($_POST['Content']);
+			}
+			 else
+			{
+				$record["Content"] = $_POST['Content'];
+			}
 			$record["SiteMenuID"] = $_POST['MenuID'];
 
 			$record = $record + $this->_DAO->baseField();

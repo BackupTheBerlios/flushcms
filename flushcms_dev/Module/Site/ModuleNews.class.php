@@ -105,9 +105,16 @@ class ModuleNews extends UI
 
 		if ($form->validate()) 
 		{
+			if (get_magic_quotes_gpc()) 
+			{
+				$record["Content"] = stripslashes($_POST['Content']);
+			}
+			 else
+			{
+				$record["Content"] = $_POST['Content'];
+			}
 			$record["Title"] = $_POST['Title'];
 			$record["Summary"] = $_POST['Summary'];
-			$record["Content"] = $_POST['Content'];
 			$record["Source"] = $_POST['Source'];
 			$record["Author"] = $_POST['Author'];
 			$record["SiteMenuID"] = $_POST['MenuID'];
