@@ -20,6 +20,14 @@ function Do_help()
 {literal}
 }
 
+function Do_publish()
+{
+
+{/literal}
+window.location="?{$__URL_QUERY_STRING__}&Pub=YES";	
+{literal}
+}
+
 function showLogoRightMenu ()
 {
 {/literal}
@@ -53,7 +61,7 @@ function showSimpleHomeRightMenu ()
 	var menu = new RightMenu();
 	menu.AddItem("quickLink","quickLink","+","{$langQuickLink}","rbpm","PopupWindow.php?Module=Site&Page=ModuleQuickLink&Action=Add");
 	menu.AddItem("leftTop","leftTop","+","{$langLeftTop}","rbpm","PopupWindow.php?Module=Site&Page=ModuleQuickLink&Action=LeftTop");
-//	menu.AddItem("publish","start_helpsss","b"," {$langPublish} ","rbpm",null);
+	menu.AddItem("publish","start_helpsss","b"," {$langPublish} ","rbpm",null);
 //	menu.AddItem("update_template","start_helpsss","d"," {$langUpdateTemplate} ","rbpm",null);
 	menu.AddItem("refresh","start_refresh","a"," {$langSiteRefresh} ","rbpm",null);
 	menu.AddItem("help","start_helpsss","/"," {$langGeneralAbout} ","rbpm",null);
@@ -70,7 +78,7 @@ function showNewsContentRightMenu ()
 	menu.AddItem("m_acc1","html","+","{$langGeneralAdd}{$langSiteModuleNews}","menu","PopupWindow.php?Module=Site&Page=ModuleNews&Action=Add&MenuID={$__MenuID__}");
 	menu.AddItem("m_acc2","html","+","{$langSiteModuleNews}{$langGeneralList}","menu","PopupWindow.php?Module=Site&Page=ModuleNews&Action=ViewList&MenuID={$__MenuID__}");
 
-//	menu.AddItem("publish","start_helpsss","b"," {$langPublish} ","rbpm",null);
+	menu.AddItem("publish","start_helpsss","b"," {$langPublish} ","rbpm",null);
 //	menu.AddItem("update_template","start_helpsss","d"," {$langUpdateTemplate} ","rbpm",null);
 	menu.AddItem("refresh","start_refresh","a"," {$langSiteRefresh} ","rbpm",null);
 	menu.AddItem("help","start_helpsss","/"," {$langGeneralAbout} ","rbpm",null);

@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: SiteInit.php,v 1.8 2006/01/22 06:41:15 arzen Exp $ */
+/* $Id: SiteInit.php,v 1.9 2006/01/24 14:38:08 arzen Exp $ */
 include_once("ModuleConfig.php");
 
 include_once("DAO/WizardDAO.class.php");
@@ -90,7 +90,6 @@ $smarty_site->assign("__site_keyword__",$__site_keyword__);
 $smarty_site->assign("__site_logo__",$__site_logo__);
 $smarty_site->assign("__site_top_menu__",$__site_top_menu__);
 $smarty_site->assign("__site_version__",siteVersion());
-
 if ($menu_id = $_GET['MenuID']) 
 {
 	$row = $siteMenuDAO->getRowByID (SITE_MENU_TABLE,"SiteMenuID",$menu_id);
@@ -104,6 +103,18 @@ else if($row = $siteMenuDAO->getHomeModule())
 }
 include_once($site_module_scripte.".php");
 $html_code = $smarty_site->fetch($site_module_template);
-$replace_str = __IS_ADMIN__ == 'Yes'?"../HTML/".$_SESSION['CURRENT_LANG']."/":"";
+$replace_str = ( __IS_ADMIN__ == 'Yes')?"../HTML/".$_SESSION['CURRENT_LANG']."/":"";
 $html_code = str_replace(CURRENT_HTML_DIR,$replace_str,$html_code);
+
+if ($_GET['Pub']=="YES" && $__this_publish_file_name ) 
+{
+	$patten=array("../HTML/".$_SESSION['CURRENT_LANG']."/","onmousedown","Module=Site&Page=Preview&");
+	$replace=array("","tag","");
+	$html_code_pub = str_replace($patten,$replace,$html_code);
+	
+	$pub_file_name=CURRENT_HTML_DIR."/".$__this_publish_file_name;
+	
+	$PublishObj = $FlushPHPObj->loadApp("Publish");
+	$PublishObj->writeFileText($pub_file_name,$html_code_pub);
+}
 ?>

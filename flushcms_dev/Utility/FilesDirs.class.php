@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: FilesDirs.class.php,v 1.1 2005/12/12 05:57:34 arzen Exp $ */
+/* $Id: FilesDirs.class.php,v 1.2 2006/01/24 14:38:08 arzen Exp $ */
 /**
  * Program exec spend time
  * @package	Utility
@@ -71,6 +71,5 @@ class FilesDirs
 		}
 		return $this->dir_array;
 	}
-	
 }
 ?>

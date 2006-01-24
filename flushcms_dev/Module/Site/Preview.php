@@ -14,10 +14,10 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: Preview.php,v 1.2 2006/01/15 08:23:02 arzen Exp $ */
+/* $Id: Preview.php,v 1.3 2006/01/24 14:38:08 arzen Exp $ */
 
 include_once("SiteInit.php");
-
+$smarty->assign("__URL_QUERY_STRING__",$_SERVER["QUERY_STRING"]);
 $html_code .= $smarty->fetch("js_right_menu.tpl.htm");
 $smarty->assign("Main",$html_code);
 ?>

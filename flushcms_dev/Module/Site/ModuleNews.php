@@ -37,6 +37,11 @@ switch ($_REQUEST['Action'])
 
 	case 'Detail':
 		$thisObj->opDetail();
+		if (!file_exists(CURRENT_HTML_DIR."/news")) 
+		{
+			mkdir(CURRENT_HTML_DIR."/news",0755);
+		}
+		$__this_publish_file_name="/news/news".$_GET['NewsID'].".htm";
 		break;
 		
 	case 'Update':

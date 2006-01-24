@@ -14,7 +14,7 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: FlushPHP.php,v 1.20 2006/01/22 02:36:45 arzen Exp $ */
+/* $Id: FlushPHP.php,v 1.21 2006/01/24 14:38:08 arzen Exp $ */
 
 @session_start();
 
@@ -86,7 +86,7 @@ if ($_REQUEST['Action'])
 	$navigator_str .= ">>".$_REQUEST['Action'];
 }
 $UrlParameter="";
-$UrlParameter = "?Module=".$_REQUEST['Module']."&Page=".$_REQUEST['Page'];
+$UrlParameter = "index.php?Module=".$_REQUEST['Module']."&Page=".$_REQUEST['Page'];
 
 $smarty->assign("navigator_str",$navigator_str);
 $FlushPHPObj->loadModule($_REQUEST['Module'],$_REQUEST['Page']);
