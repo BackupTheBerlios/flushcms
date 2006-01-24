@@ -14,13 +14,13 @@
    +----------------------------------------------------------------------+
  */
  
-/* $Id: ModuleConfig.php,v 1.9 2006/01/21 08:58:07 arzen Exp $ */
+/* $Id: ModuleConfig.php,v 1.10 2006/01/24 01:05:54 arzen Exp $ */
 global $__CURRENT_LANGUAGE__,$FlushPHPObj,$__Lang__,$__SITE_VAR__,$__MODULE__,$__TEMPLATES__,$smarty_site;
 
 define(HTML_DIR,ROOT_DIR."/HTML/");
 define(CURRENT_HTML_DIR,HTML_DIR.$_SESSION['CURRENT_LANG']."/");
 define(HTML_IMAGES_DIR,HTML_DIR.$_SESSION['CURRENT_LANG']."/images/");
-define(HTML_THEMES_DIR,HTML_DIR.$__CURRENT_LANGUAGE__."/template/");
+define(HTML_THEMES_DIR,HTML_DIR.$_SESSION['CURRENT_LANG']."/template/");
 
 $LangObj = $FlushPHPObj->loadApp("Language");
 $__ModuleLang__ = $LangObj->initLanguage(MODULE_DIR."Site/Language/");
