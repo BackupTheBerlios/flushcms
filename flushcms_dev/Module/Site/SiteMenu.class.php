@@ -15,7 +15,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: SiteMenu.class.php,v 1.4 2006/01/15 08:23:02 arzen Exp $ */
+/* $Id: SiteMenu.class.php,v 1.5 2006/01/24 04:32:21 arzen Exp $ */
 
 include_once ('DAO/SiteMenuDAO.class.php');
 include_once(APP_DIR."UI.class.php");
@@ -95,7 +95,7 @@ class SiteMenu extends UI
 			{
 				if ($dbAppObj->checkExists(SITE_MENU_TABLE," Title='".$record["Title"]."' ")) 
 				{
-					$form->setElementError('Title',$__Lang__['langUserNameExist']);
+					$form->setElementError('Title',$__Lang__['langSameRecordExist']);
 				}
 				 else
 				{

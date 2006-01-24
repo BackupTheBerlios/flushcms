@@ -19,6 +19,7 @@ langPreview= 预览
 langGroupAddHeader = 请输入组基本信息
 
 langUserNameExist = 对不起，此用户已存在，请选择另一个用户名 !
+langSameRecordExist = 对不起，此同名记录已存在，请选择另一个名称 !
 
 langPaginationPrev = << 上一页
 langPaginationNext = 下一页 >>
@@ -44,7 +45,7 @@ langGeneralSubmit = 提交
 langGeneralUpdate = 更新
 langGeneralCancel = 取消
 langGeneralSelect = 所选
-langGeneralRecord = 语录
+langGeneralRecord = 记录
 langGeneralAuthor = 作者
 langGeneralStatus = 状态
 langGeneralSummary = 描述

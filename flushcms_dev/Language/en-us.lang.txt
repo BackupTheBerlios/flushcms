@@ -19,6 +19,7 @@ langPreview= Preview
 langGroupAddHeader = Enter Group Base Info
 
 langUserNameExist = Sorry that username is exists,please enter another username!
+langSameRecordExist = Sorry,the same record exists,please enter another name!
 
 langPaginationPrev = << Prev
 langPaginationNext = Next >>
