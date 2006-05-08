@@ -48,3 +48,12 @@ void CMyDatabase::delTypeName(CString TypeName)
 	CString SqlString = _T(" DELETE FROM types WHERE Name='")+TypeName+_T("'");
 	this->m_nDatabase->ExecuteSQL(SqlString);
 }
+
+CRecordset * CMyDatabase::getTableRecordset(CString TableName, CString Whereis)
+{
+	CString SqlString = _T("SELECT * FROM ")+TableName+Whereis;
+	CRecordset *record;
+	record= new CRecordset(this->m_nDatabase);
+	record->Open(CRecordset::dynaset,SqlString);
+	return record;
+}

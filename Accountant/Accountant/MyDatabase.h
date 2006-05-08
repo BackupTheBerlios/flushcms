@@ -18,6 +18,8 @@ public:
 	void addTypeName(CString TypeName);
 public:
 	void delTypeName(CString TypeName);
+public:
+	CRecordset * getTableRecordset(CString TableName, CString Whereis);
 };
 
 

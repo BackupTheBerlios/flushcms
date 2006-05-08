@@ -318,6 +318,14 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="Data"
+			>
+			<File
+				RelativePath=".\data.mdb"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\ReadMe.txt"
 			>

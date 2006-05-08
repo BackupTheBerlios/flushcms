@@ -12,6 +12,8 @@
 #define IDI_ICON2                       131
 #define IDR_MENU1                       135
 #define IDC_TYPE_NAME                   1000
+#define IDC_COMBO1                      1002
+#define IDC_P_TYPE                      1002
 #define ID_ID_32776                     32776
 #define ID_Menu                         32777
 #define ID_MFCLOC_D                     32778
@@ -24,7 +26,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        137
 #define _APS_NEXT_COMMAND_VALUE         32781
-#define _APS_NEXT_CONTROL_VALUE         1001
+#define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

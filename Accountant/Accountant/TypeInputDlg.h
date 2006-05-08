@@ -1,4 +1,5 @@
 #pragma once
+#include "afxwin.h"
 
 
 // CTypeInputDlg ¶Ô»°¿ò
@@ -26,4 +27,12 @@ protected:
 	virtual void OnOK();
 public:
 	bool m_nClickButton;
+public:
+	virtual BOOL OnInitDialog();
+public:
+	CComboBox m_nPTypeCtl;
+public:
+	CString m_nPTypeVal;
+public:
+	CEdit m_nTypeNameCtl;
 };
