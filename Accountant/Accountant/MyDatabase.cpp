@@ -37,9 +37,21 @@ CRecordset * CMyDatabase::getTableRecordset(CString TableName)
 	return record;
 }
 
-void CMyDatabase::addTypeName(CString TypeName)
+void CMyDatabase::addTypeName(CString TypeName,CString PTypeName)
 {
-	CString SqlString = _T(" INSERT INTO types (Name) VALUES ('")+TypeName+_T("')");
+	CString SqlString2 = _T("SELECT * FROM types WHERE Name='")+PTypeName+_T("' ");
+	CRecordset *record;
+	record= new CRecordset(this->m_nDatabase);
+	record->Open(CRecordset::dynaset,SqlString2);
+	CString tempStr=0;
+	record->MoveFirst();
+	if (!record->IsEOF())
+	{
+		record->GetFieldValue(_T("CID"),tempStr);
+	}
+
+	CString SqlString;
+	SqlString.Format(_T("INSERT INTO types (Name,PID) VALUES('%s',%s)"),TypeName,tempStr);
 	this->m_nDatabase->ExecuteSQL(SqlString);
 }
 

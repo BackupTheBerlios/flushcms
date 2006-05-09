@@ -1,5 +1,6 @@
 #pragma once
 #include "afxwin.h"
+#include "mydatabase.h"
 
 
 // CTypeInputDlg ¶Ô»°¿ò
@@ -35,4 +36,6 @@ public:
 	CString m_nPTypeVal;
 public:
 	CEdit m_nTypeNameCtl;
+public:
+	CMyDatabase *dlgDatabase;
 };

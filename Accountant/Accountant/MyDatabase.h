@@ -15,7 +15,7 @@ public:
 public:
 	CRecordset * getTableRecordset(CString TableName);
 public:
-	void addTypeName(CString TypeName);
+	void addTypeName(CString TypeName,CString PTypeName);
 public:
 	void delTypeName(CString TypeName);
 public:
