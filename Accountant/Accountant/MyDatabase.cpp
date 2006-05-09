@@ -43,10 +43,10 @@ void CMyDatabase::addTypeName(CString TypeName,CString PTypeName)
 	CRecordset *record;
 	record= new CRecordset(this->m_nDatabase);
 	record->Open(CRecordset::dynaset,SqlString2);
-	CString tempStr=0;
-	record->MoveFirst();
+	CString tempStr=_T("0");
 	if (!record->IsEOF())
 	{
+		record->MoveFirst();
 		record->GetFieldValue(_T("CID"),tempStr);
 	}
 
@@ -57,7 +57,8 @@ void CMyDatabase::addTypeName(CString TypeName,CString PTypeName)
 
 void CMyDatabase::delTypeName(CString TypeName)
 {
-	CString SqlString = _T(" DELETE FROM types WHERE Name='")+TypeName+_T("'");
+	CString SqlString;
+	SqlString.Format(_T(" DELETE FROM types WHERE Name='%s' "),TypeName);
 	this->m_nDatabase->ExecuteSQL(SqlString);
 }
 
