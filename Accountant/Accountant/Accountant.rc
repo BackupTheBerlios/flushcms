@@ -76,15 +76,6 @@ BEGIN
 END
 #endif    // APSTUDIO_INVOKED
 
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Icon
-//
-
-// Icon with lowest ID value placed first to ensure application icon
-// remains consistent on all systems.
-IDI_ICON2               ICON                    "res\\START065.ICO"
 #endif    // 非特定语言(系统默认值) resources
 /////////////////////////////////////////////////////////////////////////////
 
@@ -181,7 +172,6 @@ END
 // remains consistent on all systems.
 IDR_MAINFRAME           ICON                    "res\\Accountant.ico"
 IDR_AccountantTYPE      ICON                    "res\\AccountantDoc.ico"
-IDI_ICON1               ICON                    "res\\composite.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -416,6 +406,16 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
 #endif //_WIN32
 
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON1               ICON                    "res\\folder1.ico"
+IDI_ICON2               ICON                    "res\\page.ico"
+
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -442,8 +442,8 @@ BEGIN
     "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
     "LANGUAGE 4, 2\r\n"
     "#pragma code_page(936)\r\n"
-    "#include ""res\\Accountant.rc2""  // ·? Microsoft Visual C++ ±à?-μ?×ê?′\r\n"
-    "#include ""afxres.rc""         // ±ê×?×é?t\r\n"
+    "#include ""res\\Accountant.rc2""  // ?¤? Microsoft Visual C++ ?à¨¤?-|ì??á¨o???\r\n"
+    "#include ""afxres.rc""         // ?à¨o?á??á¨|?t\r\n"
     "#endif\r\n"
     "\0"
 END

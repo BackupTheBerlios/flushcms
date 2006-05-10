@@ -306,19 +306,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\composite.ico"
+				RelativePath=".\res\folder1.gif"
 				>
 			</File>
 			<File
-				RelativePath="C:\CRadio\skins\Default\mylibrary.ico"
+				RelativePath=".\res\folder1.ico"
 				>
 			</File>
 			<File
-				RelativePath="C:\CRadio\skins\Default\recently.ico"
-				>
-			</File>
-			<File
-				RelativePath=".\res\START065.ICO"
+				RelativePath=".\res\page.ico"
 				>
 			</File>
 			<File
