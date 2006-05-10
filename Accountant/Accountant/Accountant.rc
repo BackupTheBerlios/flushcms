@@ -33,8 +33,6 @@ BEGIN
         MENUITEM "新增分类(&A)",                    ID_ID_32776
         MENUITEM SEPARATOR
         MENUITEM "删除分类(&D)",                    ID_ID_DEL_TYPE
-        MENUITEM SEPARATOR
-        MENUITEM "刷新窗口",                        ID_ID_32780
     END
 END
 
@@ -467,8 +465,8 @@ END
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
 LANGUAGE 4, 2
 #pragma code_page(936)
-#include "res\Accountant.rc2"  // ?¤? Microsoft Visual C++ ?à¨¤?-|ì??á¨o???
-#include "afxres.rc"         // ?à¨o?á??á¨|?t
+#include "res\Accountant.rc2"  // ??è? Microsoft Visual C++ ?¨¤?§?è?-|¨???¨￠?§o???
+#include "afxres.rc"         // ?¨¤?§o?¨￠??¨￠?§|?t
 #endif
 
 /////////////////////////////////////////////////////////////////////////////

@@ -327,6 +327,7 @@
 			>
 			<File
 				RelativePath=".\data.mdb"
+				SubType="Designer"
 				>
 			</File>
 		</Filter>
