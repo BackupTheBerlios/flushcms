@@ -19,11 +19,13 @@ IMPLEMENT_DYNCREATE(CAccountantView, CListView)
 BEGIN_MESSAGE_MAP(CAccountantView, CListView)
 	ON_WM_STYLECHANGED()
 	ON_NOTIFY_REFLECT(NM_RCLICK, &CAccountantView::OnNMRclick)
+	ON_COMMAND(ID_ID2_32781, &CAccountantView::OnAddPerson)
 END_MESSAGE_MAP()
 
 // CAccountantView 构造/析构
 
 CAccountantView::CAccountantView()
+: m_nPID(0)
 {
 	// TODO: 在此处添加构造代码
 
@@ -109,4 +111,12 @@ void CAccountantView::OnNMRclick(NMHDR *pNMHDR, LRESULT *pResult)
 
 	dispMenu->TrackPopupMenu(TPM_LEFTALIGN |TPM_RIGHTBUTTON,point.x,point.y, this);
 
+}
+
+void CAccountantView::OnAddPerson()
+{
+	//新增联系人
+	CString str;
+	str.Format(_T("新增联系人%d"),m_nPID);
+	MessageBox(str);
 }

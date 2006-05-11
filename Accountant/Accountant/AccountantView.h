@@ -43,6 +43,10 @@ public:
 	CListCtrl *m_nList;
 public:
 	afx_msg void OnNMRclick(NMHDR *pNMHDR, LRESULT *pResult);
+public:
+	afx_msg void OnAddPerson();
+public:
+	int m_nPID;
 };
 
 #ifndef _DEBUG  // AccountantView.cpp 中的调试版本
