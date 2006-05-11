@@ -11,6 +11,7 @@
 #define IDR_MENU1                       135
 #define IDI_ICON1                       145
 #define IDI_ICON2                       146
+#define IDI_ICON3                       147
 #define IDC_TYPE_NAME                   1000
 #define IDC_COMBO1                      1002
 #define IDC_P_TYPE                      1002
@@ -19,13 +20,15 @@
 #define ID_MFCLOC_D                     32778
 #define ID_ID_DEL_TYPE                  32779
 #define ID_ID_32780                     32780
+#define ID_ID2_32781                    32781
+#define ID_ID2_32782                    32782
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        147
-#define _APS_NEXT_COMMAND_VALUE         32781
+#define _APS_NEXT_RESOURCE_VALUE        148
+#define _APS_NEXT_COMMAND_VALUE         32783
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

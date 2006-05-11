@@ -18,6 +18,7 @@ IMPLEMENT_DYNCREATE(CAccountantView, CListView)
 
 BEGIN_MESSAGE_MAP(CAccountantView, CListView)
 	ON_WM_STYLECHANGED()
+	ON_NOTIFY_REFLECT(NM_RCLICK, &CAccountantView::OnNMRclick)
 END_MESSAGE_MAP()
 
 // CAccountantView 构造/析构
@@ -47,6 +48,20 @@ void CAccountantView::OnInitialUpdate()
 
 	// TODO: 调用 GetListCtrl() 直接访问 ListView 的列表控件，
 	//  从而可以用项填充 ListView。
+	m_nList = & GetListCtrl();
+
+	long        lStyleOld;
+	lStyleOld = GetWindowLong(m_hWnd, GWL_STYLE);
+	lStyleOld |= LVS_REPORT   ;
+	SetWindowLong(m_nList->m_hWnd,GWL_STYLE,lStyleOld );
+
+	m_nList->SetExtendedStyle(m_nList->GetExtendedStyle()|LVS_EX_TRACKSELECT|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_GRIDLINES|LVS_EX_MULTIWORKAREAS|LVS_EX_ONECLICKACTIVATE   );
+
+	m_nList->InsertColumn(0,_T("姓名"),LVCFMT_LEFT,120);
+	m_nList->InsertColumn(1,_T("性别"),LVCFMT_LEFT,40);
+	m_nList->InsertColumn(2,_T("电话"),LVCFMT_LEFT,120);
+	m_nList->InsertColumn(3,_T("地址"),LVCFMT_LEFT,250);
+
 }
 
 
@@ -76,4 +91,22 @@ void CAccountantView::OnStyleChanged(int nStyleType, LPSTYLESTRUCT lpStyleStruct
 {
 	//TODO: 添加代码以响应用户对窗口视图样式的更改	
 	CListView::OnStyleChanged(nStyleType,lpStyleStruct);	
+}
+
+void CAccountantView::OnNMRclick(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	//响应右键事件
+	*pResult = 0;
+
+	CMenu *myMenu,*dispMenu;
+	CPoint point;
+	GetCursorPos(&point);
+
+	myMenu = new CMenu();
+	dispMenu = new CMenu();
+	myMenu->LoadMenu(IDR_MENU1);
+	dispMenu = myMenu->GetSubMenu(1);
+
+	dispMenu->TrackPopupMenu(TPM_LEFTALIGN |TPM_RIGHTBUTTON,point.x,point.y, this);
+
 }

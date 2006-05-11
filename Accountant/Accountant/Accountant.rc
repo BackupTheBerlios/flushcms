@@ -34,6 +34,12 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "删除分类(&D)",                    ID_ID_DEL_TYPE
     END
+    POPUP "id2"
+    BEGIN
+        MENUITEM "新增联系人",                       ID_ID2_32781
+        MENUITEM SEPARATOR
+        MENUITEM "删除联系人",                       ID_ID2_32782
+    END
 END
 
 
@@ -413,6 +419,7 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 // remains consistent on all systems.
 IDI_ICON1               ICON                    "res\\folder1.ico"
 IDI_ICON2               ICON                    "res\\page.ico"
+IDI_ICON3               ICON                    "res\\folder_open.ico"
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -440,8 +447,8 @@ BEGIN
     "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
     "LANGUAGE 4, 2\r\n"
     "#pragma code_page(936)\r\n"
-    "#include ""res\\Accountant.rc2""  // ?¤? Microsoft Visual C++ ?à¨¤?-|ì??á¨o???\r\n"
-    "#include ""afxres.rc""         // ?à¨o?á??á¨|?t\r\n"
+    "#include ""res\\Accountant.rc2""  // ??è? Microsoft Visual C++ ?¨¤?§?è?-|¨???¨￠?§o???\r\n"
+    "#include ""afxres.rc""         // ?¨¤?§o?¨￠??¨￠?§|?t\r\n"
     "#endif\r\n"
     "\0"
 END

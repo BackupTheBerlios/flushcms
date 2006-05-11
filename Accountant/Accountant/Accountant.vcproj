@@ -314,6 +314,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\folder_open.ico"
+				>
+			</File>
+			<File
 				RelativePath=".\res\page.ico"
 				>
 			</File>

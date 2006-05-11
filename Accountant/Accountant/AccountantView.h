@@ -3,6 +3,7 @@
 
 
 #pragma once
+#include "afxcmn.h"
 
 
 class CAccountantView : public CListView
@@ -38,6 +39,10 @@ protected:
 protected:
 	afx_msg void OnStyleChanged(int nStyleType, LPSTYLESTRUCT lpStyleStruct);
 	DECLARE_MESSAGE_MAP()
+public:
+	CListCtrl *m_nList;
+public:
+	afx_msg void OnNMRclick(NMHDR *pNMHDR, LRESULT *pResult);
 };
 
 #ifndef _DEBUG  // AccountantView.cpp 中的调试版本
