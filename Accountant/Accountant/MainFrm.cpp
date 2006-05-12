@@ -35,6 +35,7 @@ static UINT indicators[] =
 // CMainFrame 构造/析构
 
 CMainFrame::CMainFrame()
+: m_nPID(0)
 {
 	// TODO: 在此添加成员初始化代码
 }
@@ -136,7 +137,7 @@ void CMainFrame::OnUpdateViewStyles(CCmdUI* pCmdUI)
 
 	// TODO: 自定义或扩展此代码以处理“视图”菜单中的选项
 
-	CAccountantView* pView = GetRightPane(); 
+	CAccountantView* pView = GetRightPane();
 
 	// 如果右窗格尚未创建或者不是视图，
 	// 则在范围内禁用命令
@@ -236,4 +237,5 @@ void CMainFrame::OnViewStyle(UINT nCommandID)
 			pView->ModifyStyle(LVS_TYPEMASK, dwStyle);
 	}
 }
+
 

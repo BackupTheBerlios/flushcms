@@ -58,6 +58,8 @@ public:
 	afx_msg void OnNMClick(NMHDR *pNMHDR, LRESULT *pResult);
 public:
 	afx_msg void OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult);
+public:
+	int m_nPID;
 };
 
 #ifndef _DEBUG  // LeftView.cpp 中的调试版本

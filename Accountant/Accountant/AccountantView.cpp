@@ -4,6 +4,9 @@
 #include "stdafx.h"
 #include "Accountant.h"
 
+#include "MainFrm.h"
+#include "LeftView.h"
+
 #include "AccountantDoc.h"
 #include "AccountantView.h"
 
@@ -51,6 +54,10 @@ void CAccountantView::OnInitialUpdate()
 	// TODO: 调用 GetListCtrl() 直接访问 ListView 的列表控件，
 	//  从而可以用项填充 ListView。
 	m_nList = & GetListCtrl();
+
+	//CMainFrame* MainFrame=(CMainFrame*)::AfxGetMainWnd();
+	//CLeftView* postView=(CLeftView*)MainFrame->m_wndSplitter.GetPane(0,0);
+
 
 	long        lStyleOld;
 	lStyleOld = GetWindowLong(m_hWnd, GWL_STYLE);
@@ -116,7 +123,17 @@ void CAccountantView::OnNMRclick(NMHDR *pNMHDR, LRESULT *pResult)
 void CAccountantView::OnAddPerson()
 {
 	//新增联系人
+	
+	//取得左窗口的点击内容
+	CAccountantDoc *mainDoc= GetDocument();
+	m_nPID = mainDoc->m_nPID;
+
 	CString str;
-	str.Format(_T("新增联系人%d"),m_nPID);
+	str = _T("当前选择的是:")+mainDoc->m_nCurrentItem;
 	MessageBox(str);
+}
+
+void CAccountantView::OnDraw(CDC* /*pDC*/)
+{
+
 }

@@ -14,7 +14,7 @@ protected: // 仅从序列化创建
 	DECLARE_DYNCREATE(CMainFrame)
 
 // 属性
-protected:
+public:
 	CSplitterWnd m_wndSplitter;
 public:
 
@@ -45,6 +45,8 @@ protected:
 	afx_msg void OnUpdateViewStyles(CCmdUI* pCmdUI);
 	afx_msg void OnViewStyle(UINT nCommandID);
 	DECLARE_MESSAGE_MAP()
+public:
+	int m_nPID;
 };
 
 

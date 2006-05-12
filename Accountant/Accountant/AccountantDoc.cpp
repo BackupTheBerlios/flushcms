@@ -22,6 +22,8 @@ END_MESSAGE_MAP()
 // CAccountantDoc 构造/析构
 
 CAccountantDoc::CAccountantDoc()
+: m_nPID(0)
+, m_nCurrentItem(_T(""))
 {
 	// TODO: 在此添加一次性构造代码
 

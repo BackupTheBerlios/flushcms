@@ -47,6 +47,8 @@ public:
 	afx_msg void OnAddPerson();
 public:
 	int m_nPID;
+protected:
+	virtual void OnDraw(CDC* /*pDC*/);
 };
 
 #ifndef _DEBUG  // AccountantView.cpp 中的调试版本
