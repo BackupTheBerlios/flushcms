@@ -1,0 +1,127 @@
+PNavMenuPanel.php
+
+__construct();
+getDisplayMode();
+setDisplayMode();
+addParsedObject();
+getItems();
+getHorizontalCSS();
+setHorizontalCSS();
+buildItem();
+buildItemJSData();
+buildJSData();
+buildJSInit();
+
+renderBody(); protected
+
+
+---------------------------------
+PNavMenuPanel.spec
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component>
+	<property name="DisplayMode" get="getDisplayMode" set="setDisplayMode" type="(Horizontal,Vertical)" default="Horizontal" />
+</component>
+
+
+
+
+---------------------------------
+PNavMenuItem.php
+
+private $parent_id='';
+private $text='';
+private $linkurl = '';
+private $target = '' ;
+
+getParentID();
+setParentID();
+getText();
+setText();
+getLinkUrl();
+setLinkUrl();
+getTarget();
+setTarget();
+
+
+
+---------------------------------
+PNavMenuItem.spec
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component>
+	<property name="Text" get="getText" set="setText" type="string" />
+	<property name="LinkUrl" get="getLinkUrl" set="setLinkUrl" type="string" />
+	<property name="Target" get="getTarget" set="setTarget" type="string" />
+	
+</component>
+
+
+
+
+
+---------------------------------
+PNavMenuItemContainer.php
+
+
+---------------------------------
+PNavMenuItemContainer.spec
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component>
+	<property name="DataSource" get="getDataSource" set="setDataSource" type="object" />
+	<event name="OnSelectionChanged" />
+</component>
+
+
+
+---------------------------------
+<com:PNavMenuPanel>  
+
+       <com:PNavMenuLinkContainer>
+
+              <com:PNavMenuLink Page="Page1" />
+
+       </com:PNavMenuLinkContainer>
+
+       <com:PNavMenuLinkContainer>
+
+              <com:PNavMenuLink Page="Page2" />
+
+              <com:PNavMenuLinkContainer>
+
+                     <com:PNavMenuLink Page="Page2_1" />
+
+                     <com:PNavMenuLink Page="Page2_2" />
+
+                     <com:PNavMenuLinkContainer>
+
+                           <com:PNavMenuLink Page="Page2_2_1" />
+
+                           <com:PNavMenuLink Page="Page2_2_2" />
+
+                     </com:PNavMenuLinkContainer>
+
+                     <com:PNavMenuLink Page="Page2_3" />
+
+              </com:PNavMenuLinkContainer>
+
+       </com:PNavMenuLinkContainer>
+
+       <com:PNavMenuLinkContainer>
+
+              <com:PNavMenuLink Page="Page3" />
+
+              <com:PNavMenuLinkContainer>
+
+                     <com:PNavMenuLink Page="Page3_1" />
+
+              </com:PNavMenuLinkContainer>
+
+       </com:PNavMenuLinkContainer>
+
+</com:PNavMenuPanel>
+

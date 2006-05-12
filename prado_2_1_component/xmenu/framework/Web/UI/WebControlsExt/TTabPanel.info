@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+
+<component name="TTabPanel" type="custom"> 
+   <version>0.72</version> 
+   <date>2004-12-13</date> 
+   <author>Vegard Hanssen</author> 
+   <description>A component to create tabbed panels</description>
+   <prado_version>2.0rc</prado_version> 
+   <platform>All</platform> 
+</component>
