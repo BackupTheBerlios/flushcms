@@ -70,3 +70,42 @@ CRecordset * CMyDatabase::getTableRecordset(CString TableName, CString Whereis)
 	record->Open(CRecordset::dynaset,SqlString);
 	return record;
 }
+
+void CMyDatabase::doActionQuery(CString str)
+{
+	this->m_nDatabase->ExecuteSQL(str);
+}
+
+int CMyDatabase::getTypesID(CString TypesName)
+{
+	CString SqlString2 = _T("SELECT * FROM types WHERE Name='")+TypesName+_T("' ");
+	CRecordset *record;
+	record= new CRecordset(this->m_nDatabase);
+	record->Open(CRecordset::dynaset,SqlString2);
+	CString tempStr=_T("0");
+	int PID=0;
+	if (!record->IsEOF())
+	{
+		record->MoveFirst();
+		record->GetFieldValue(_T("CID"),tempStr);
+	}
+	PID	= _ttoi(tempStr) ;
+	return PID;
+}
+
+int CMyDatabase::getProvinceid(CString provinceName)
+{
+	CString SqlString2 = _T("SELECT * FROM Province WHERE Province='")+provinceName+_T("' ");
+	CRecordset *record;
+	record= new CRecordset(this->m_nDatabase);
+	record->Open(CRecordset::dynaset,SqlString2);
+	CString tempStr=_T("0");
+	int PID=0;
+	if (!record->IsEOF())
+	{
+		record->MoveFirst();
+		record->GetFieldValue(_T("ProvinceID"),tempStr);
+	}
+	PID	= _ttoi(tempStr) ;
+	return PID;
+}

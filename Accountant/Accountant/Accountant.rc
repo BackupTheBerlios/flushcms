@@ -147,6 +147,37 @@ BEGIN
     DEFPUSHBUTTON   "确定",IDOK,178,7,50,16,WS_GROUP
 END
 
+IDD_PERSON_DIALOG DIALOGEX 0, 0, 315, 220
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "联系人信息"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_USERNAME,36,14,86,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_SEX,145,14,48,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_PID,228,14,73,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "",IDC_BIRTHDAY,"SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,38,38,68,15
+    COMBOBOX        IDC_PEOVINCE,146,38,48,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_CITY,225,38,76,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_TEL,53,63,102,14,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        IDC_PHONE,198,63,103,14,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        IDC_ADDR,51,106,250,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "确定",IDOK,63,192,50,14
+    PUSHBUTTON      "取消",IDCANCEL,161,190,50,14
+    LTEXT           "所属分类",IDC_STATIC,195,17,33,8
+    LTEXT           "姓名",IDC_STATIC,16,17,17,8
+    LTEXT           "性别",IDC_STATIC,126,17,17,8
+    LTEXT           "生日",IDC_STATIC,16,41,17,8
+    LTEXT           "电话号码",IDC_STATIC,159,64,33,8
+    LTEXT           "手机号码",IDC_STATIC,16,65,33,8
+    LTEXT           "详细地址",IDC_STATIC,15,108,33,8
+    LTEXT           "省份",IDC_STATIC,125,41,17,8
+    LTEXT           "城市",IDC_STATIC,200,41,17,8
+    LTEXT           "所在公司",IDC_STATIC,15,88,33,8
+    EDITTEXT        IDC_COMPANY,50,83,251,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_MENO,51,127,250,48,ES_MULTILINE | ES_AUTOHSCROLL
+    LTEXT           "备注",IDC_STATIC,15,129,17,8
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -162,6 +193,14 @@ BEGIN
         RIGHTMARGIN, 228
         TOPMARGIN, 7
         BOTTOMMARGIN, 48
+    END
+
+    IDD_PERSON_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 308
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 213
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -268,6 +307,25 @@ BEGIN
     BEGIN
         VALUE "Translation", 0x804, 936
     END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_PERSON_DIALOG DLGINIT
+BEGIN
+    IDC_SEX, 0x403, 5, 0
+0xa3b1, 0xdcc3, "\000" 
+    IDC_SEX, 0x403, 3, 0
+0xd0c4, "\000" 
+    IDC_SEX, 0x403, 3, 0
+0xaec5, "\000" 
+    IDC_CITY, 0x403, 7, 0
+0x6464, 0x6364, 0x6363, "\000" 
+    0
 END
 
 
@@ -472,8 +530,8 @@ END
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
 LANGUAGE 4, 2
 #pragma code_page(936)
-#include "res\Accountant.rc2"  // ??è? Microsoft Visual C++ ?¨¤?§?è?-|¨???¨￠?§o???
-#include "afxres.rc"         // ?¨¤?§o?¨￠??¨￠?§|?t
+#include "res\Accountant.rc2"  // ??¨¨? Microsoft Visual C++ ??§?è??ì?¨¨?-|?§????§?é??ìo???
+#include "afxres.rc"         // ??§?è??ìo??§?é???§?é??ì|?t
 #endif
 
 /////////////////////////////////////////////////////////////////////////////

@@ -38,10 +38,12 @@ CMainFrame::CMainFrame()
 : m_nPID(0)
 {
 	// TODO: 在此添加成员初始化代码
+	theApp.mydata = new CMyDatabase();
 }
 
 CMainFrame::~CMainFrame()
 {
+	theApp.mydata->m_nDatabase->Close();
 }
 
 

@@ -7,6 +7,7 @@
 #endif
 
 #include "resource.h"       // Ö÷·ûºÅ
+#include "mydatabase.h"
 
 
 // CAccountantApp:
@@ -26,6 +27,8 @@ public:
 // ÊµÏÖ
 	afx_msg void OnAppAbout();
 	DECLARE_MESSAGE_MAP()
+public:
+	CMyDatabase *mydata;
 };
 
 extern CAccountantApp theApp;

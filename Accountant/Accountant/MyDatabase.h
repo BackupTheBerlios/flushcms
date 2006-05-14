@@ -20,6 +20,12 @@ public:
 	void delTypeName(CString TypeName);
 public:
 	CRecordset * getTableRecordset(CString TableName, CString Whereis);
+public:
+	void doActionQuery(CString str);
+public:
+	int getTypesID(CString TypesName);
+public:
+	int getProvinceid(CString provinceName);
 };
 
 

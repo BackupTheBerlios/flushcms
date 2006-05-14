@@ -4,6 +4,7 @@
 
 #pragma once
 #include "afxcmn.h"
+#include "mydatabase.h"
 
 
 class CAccountantView : public CListView
@@ -49,6 +50,16 @@ public:
 	int m_nPID;
 protected:
 	virtual void OnDraw(CDC* /*pDC*/);
+public:
+	CMyDatabase *m_nDataBase;
+protected:
+	virtual void OnUpdate(CView* /*pSender*/, LPARAM /*lHint*/, CObject* /*pHint*/);
+public:
+	void drawList(void);
+public:
+	afx_msg void OnLvnItemActivate(NMHDR *pNMHDR, LRESULT *pResult);
+public:
+	afx_msg void OnDelSelectPerson();
 };
 
 #ifndef _DEBUG  // AccountantView.cpp 中的调试版本

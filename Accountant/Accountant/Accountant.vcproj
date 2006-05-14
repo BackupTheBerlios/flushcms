@@ -218,6 +218,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\PersonInput.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -269,6 +273,10 @@
 			</File>
 			<File
 				RelativePath=".\MyDatabase.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PersonInput.h"
 				>
 			</File>
 			<File
