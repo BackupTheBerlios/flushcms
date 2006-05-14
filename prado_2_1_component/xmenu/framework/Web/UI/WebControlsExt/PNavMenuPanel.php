@@ -211,14 +211,15 @@ class PNavMenuPanel extends TWebControl  implements IActiveControl
 	{
 		if ($ContainerCollection->length()>0) 
 		{
+			$z=0;
 			foreach($ContainerCollection as $menuItemContainer)
 			{
-				$content.="<div><ul>父层 $level 开始</br>";
+				$content.="<div><ul>父层 $z _ $level 开始</br>";
 				$y=0;
 				foreach($menuItemContainer->getMenuItems() as $menuItems)
 				{
 					$text=$menuItems->getText();
-					$content.="<li>子层$y 内容是=> $text <br/>";
+					$content.="<li>子层 $z _ $y 内容是=> $text <br/>";
 					
 					//递归子菜单包含容器
 					if ($menuItems->getSubMenuItemContainer()->length()>0) 
@@ -230,6 +231,7 @@ class PNavMenuPanel extends TWebControl  implements IActiveControl
 					$y++;
 				}
 				$content.="父层结束<=<br/></div>";
+				$z++;
 			}
 			
 		}
