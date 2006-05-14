@@ -27,6 +27,7 @@ BEGIN_MESSAGE_MAP(CAccountantView, CListView)
 	ON_COMMAND(ID_ID2_32781, &CAccountantView::OnAddPerson)
 	ON_NOTIFY_REFLECT(LVN_ITEMACTIVATE, &CAccountantView::OnLvnItemActivate)
 	ON_COMMAND(ID_ID2_32782, &CAccountantView::OnDelSelectPerson)
+	ON_WM_KEYDOWN()
 END_MESSAGE_MAP()
 
 // CAccountantView 构造/析构
@@ -254,4 +255,32 @@ void CAccountantView::OnDelSelectPerson()
 	// 重绘列表
 	drawList();
 
+}
+
+void CAccountantView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	// 处理键盘按下delete键的响应
+	if (nChar==VK_DELETE)
+	{
+		int nCount = m_nList->GetItemCount();
+		BOOL fCheck = false;
+		for (int i=0;i < nCount;i++)
+		{
+			if (m_nList->GetCheck(i))
+			{
+				fCheck = true;
+				break;
+			}
+		}
+		if (!fCheck)
+		{
+			MessageBox(_T("请选择你要删除的联系人"));
+		}
+		else
+		{
+			OnDelSelectPerson();
+		}
+	}
+
+	CListView::OnKeyDown(nChar, nRepCnt, nFlags);
 }

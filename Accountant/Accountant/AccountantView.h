@@ -60,6 +60,8 @@ public:
 	afx_msg void OnLvnItemActivate(NMHDR *pNMHDR, LRESULT *pResult);
 public:
 	afx_msg void OnDelSelectPerson();
+public:
+	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 };
 
 #ifndef _DEBUG  // AccountantView.cpp 中的调试版本
