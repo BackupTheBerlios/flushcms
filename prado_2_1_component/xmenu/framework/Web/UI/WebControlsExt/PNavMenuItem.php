@@ -15,6 +15,7 @@
  * @package System.Web.UI.WebControlsExt
  */
  
+require_once(dirname(__FILE__).'/PNavMenuItemContainer.php');
 /**
  * TControl class
  *
@@ -41,6 +42,8 @@ class PNavMenuItem extends TWebControl
 	private $linkurl = '';
 	private $target = '' ;
 	
+	protected $subMenuItemContainer;
+	
 	/**
 	* Constructor.
 	*/
@@ -50,6 +53,7 @@ class PNavMenuItem extends TWebControl
 		$this->linkurl = $linkurl;
 		$this->target = $target;
 		parent::__construct();
+		$this->subMenuItemContainer = new TCollection();
 	}
 	/**
 	 * @return mixed the index of the data item
@@ -155,9 +159,23 @@ class PNavMenuItem extends TWebControl
 	{
 		$this->target=$value;
 	}
-	
-	
-
+	/**
+	 * This method overrides the parent implementation to handle TListItem.
+	 * @param TComponent|string the newly parsed object
+	 * @param TComponent the template owner
+	 */
+	public function addParsedObject($object,$context)
+	{
+		if($object instanceof PNavMenuItemContainer)
+			$this->subMenuItemContainer->add($object);
+	}
+	/**
+	 * @return ArrayObject list of TListItem components
+	 */
+	public function getSubMenuItemContainer()
+	{
+		return $this->subMenuItemContainer;
+	}
 	
 }
 ?>

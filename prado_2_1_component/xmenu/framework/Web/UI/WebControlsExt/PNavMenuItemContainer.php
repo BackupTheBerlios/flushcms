@@ -15,6 +15,7 @@
  * @package System.Web.UI.WebControlsExt
  */
 
+require_once(dirname(__FILE__).'/PNavMenuItem.php');
 /**
  * TControl class
  *
@@ -37,91 +38,75 @@
 
 class PNavMenuItemContainer extends TWebControl
 {
-	/**
-	 * whether the item is selected
-	 * @var mixed
-	 */
-	private $selected=false;
 	
 	/**
-	 * value of the text to be displayed for this item
-	 * @var mixed
+	 * list of TListItem controls
 	 */
-	private $text='';
+	protected $menuItems;
 	
-	/**
-	 * The value of the listitem (if different from the text)
-	 * @var string
-	 */
-	private $value=null;
-	
-	
-	public function __construct($text='', $value=null)
+	public function __construct()
 	{
-		$this->text = $text;
-		$this->value = $value;
 		parent::__construct();
+		$this->menuItems = new TCollection();
 	}
 	
 	/**
-	 * @return mixed the index of the data item
-	 */
-	public function isSelected()
-	{
-		return $this->selected;
-	}
-
-	/**
-	 * Sets whether the item is selected.
-	 * @param mixed the data item index
-	 */
-	public function setSelected($value)
-	{
-		$this->selected=$value;
-	}
-
-	/**
-	 * @return mixed the value of the data item
-	 */
-	public function getText()
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - May 11, 2006
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function getText () 
 	{
 		$text = $this->text;
 		if(empty($text))
 			$text = $this->renderBody();
 		return $text;
+		
 	}
-
 	/**
-	 * Sets the value of the data item
-	 * @param mixed the value of the data item
-	 */
-	public function setText($value)
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - May 11, 2006
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function setText ($value) 
 	{
 		$this->text=$value;
+		
+	}
+	/**
+	 * Determines whether the control can add the object as a body.
+	 * Only TTableCell or its descendant can be added as body.
+	 * @param mixed the object to be added
+	 * @return boolean
+	 */
+	public function allowBody($object)
+	{
+		return (($object instanceof PNavMenuItem) || ($object instanceof PNavMenuItemContainer));
+	}
+	
+	/**
+	 * This method overrides the parent implementation to handle TListItem.
+	 * @param TComponent|string the newly parsed object
+	 * @param TComponent the template owner
+	 */
+	public function addParsedObject($object,$context)
+	{
+		if(($object instanceof PNavMenuItem) || ($object instanceof PNavMenuItemContainer))
+			$this->menuItems->add($object);
+	}
+	/**
+	 * @return ArrayObject list of TListItem components
+	 */
+	public function getMenuItems()
+	{
+		return $this->menuItems;
 	}
 
-	/**
-	 * @return string the item value 
-	 */
-	public function getValue()
-	{
-		$value = $this->value;
-		if(is_null($value))
-		{
-			$value = $this->renderBody();
-			if(empty($value))
-				$value = $this->getText();
-		}
-		return $value;
-	}
-
-	/**
-	 * Sets the item value
-	 * @param string the item value
-	 */
-	public function setValue($value)
-	{
-		$this->value=$value;
-	}
 }
 ?>
