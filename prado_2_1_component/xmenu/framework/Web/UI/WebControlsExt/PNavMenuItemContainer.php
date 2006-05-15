@@ -43,6 +43,8 @@ class PNavMenuItemContainer extends TWebControl
 	 * list of TListItem controls
 	 */
 	protected $menuItems;
+	private $text='';
+	private $linkurl = '';
 	
 	public function __construct()
 	{
@@ -78,6 +80,34 @@ class PNavMenuItemContainer extends TWebControl
 	{
 		$this->text=$value;
 		
+	}
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - May 11, 2006
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function getLinkUrl () 
+	{
+		$linkurl = $this->linkurl;
+		if(empty($linkurl))
+			$linkurl = $this->renderBody();
+		return $linkurl;
+		
+	}
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - May 11, 2006
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function setLinkUrl ($value) 
+	{
+		$this->linkurl=$value;
 	}
 	/**
 	 * Determines whether the control can add the object as a body.

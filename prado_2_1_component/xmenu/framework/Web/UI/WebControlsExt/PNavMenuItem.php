@@ -37,42 +37,20 @@ require_once(dirname(__FILE__).'/PNavMenuItemContainer.php');
 
 class PNavMenuItem extends TWebControl
 {
-	private $parent_id='';
 	private $text='';
 	private $linkurl = '';
-	private $target = '' ;
 	
 	protected $subMenuItemContainer;
 	
 	/**
 	* Constructor.
 	*/
-	function __construct($text='',$linkurl=null,$target=null)
+	function __construct($text='',$linkurl=null)
 	{
 		$this->text = $text;
 		$this->linkurl = $linkurl;
-		$this->target = $target;
 		parent::__construct();
 		$this->subMenuItemContainer = new TCollection();
-	}
-	/**
-	 * @return mixed the index of the data item
-	 */
-	public function getParentID()
-	{
-		$parent_id = $this->parent_id;
-		if(empty($parent_id))
-			$parent_id = $this->renderBody();
-		return $parent_id;
-	}
-
-	/**
-	 * Sets whether the item is selected.
-	 * @param mixed the data item index
-	 */
-	public function setParentID($value)
-	{
-		$this->parent_id=$value;
 	}
 	/**
 	* function_description
@@ -131,39 +109,6 @@ class PNavMenuItem extends TWebControl
 	{
 		$this->linkurl=$value;
 	}
-	/**
-	* function_description
-	*
-	* @author	John.meng
-	* @since    version - May 11, 2006
-	* @param	datatype paramname description
-	* @return   datatype description
-	*/
-	function getTarget () 
-	{
-		$target = $this->target;
-		if(empty($target))
-			$target = $this->renderBody();
-		return $target;
-		
-	}
-	/**
-	* function_description
-	*
-	* @author	John.meng
-	* @since    version - May 11, 2006
-	* @param	datatype paramname description
-	* @return   datatype description
-	*/
-	function setTarget ($value) 
-	{
-		$this->target=$value;
-	}
-	/**
-	 * This method overrides the parent implementation to handle TListItem.
-	 * @param TComponent|string the newly parsed object
-	 * @param TComponent the template owner
-	 */
 	public function addParsedObject($object,$context)
 	{
 		if($object instanceof PNavMenuItemContainer)
