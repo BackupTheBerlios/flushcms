@@ -8,6 +8,8 @@
 #include "LeftView.h"
 #include "AccountBookView.h"
 
+#include "SplashScreen.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -46,6 +48,12 @@ CMainFrame::~CMainFrame()
 
 int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
+	CSplashScreen *splash = new CSplashScreen(this);
+	splash->Create(CSplashScreen::IDD,this);
+	splash->ShowWindow(SW_SHOW);
+	splash->UpdateWindow();
+	Sleep(3000);
+
 	if (CFrameWnd::OnCreate(lpCreateStruct) == -1)
 		return -1;
 	
@@ -70,6 +78,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	EnableDocking(CBRS_ALIGN_ANY);
 	DockControlBar(&m_wndToolBar);
 
+	splash->DestroyWindow();
 	return 0;
 }
 

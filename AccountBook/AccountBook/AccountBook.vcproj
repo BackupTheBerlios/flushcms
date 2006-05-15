@@ -214,6 +214,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SplashScreen.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -264,6 +268,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SplashScreen.h"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.h"
 				>
 			</File>
@@ -273,6 +281,10 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+			<File
+				RelativePath=".\res\account_image.bmp"
+				>
+			</File>
 			<File
 				RelativePath=".\res\AccountBook.ico"
 				>
@@ -298,6 +310,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\freedom.bmp"
+				>
+			</File>
+			<File
 				RelativePath=".\res\page.ico"
 				>
 			</File>
@@ -312,5 +328,9 @@
 		</File>
 	</Files>
 	<Globals>
+		<Global
+			Name="RESOURCE_FILE"
+			Value="AccountBook.rc"
+		/>
 	</Globals>
 </VisualStudioProject>
