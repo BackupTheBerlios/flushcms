@@ -229,14 +229,13 @@ class PNavMenuPanel extends TWebControl
 				$y=0;
 				foreach($menuItemContainer->getMenuItems() as $menuItems)
 				{
-					if ($level==0) 
+					if($level==0)
 					{
-						$append=$sub_append=$z."_".$y;
+						$sub_append=$z."_".$y;
 					}
 					else
 					{
-						$sub_append=$append."_".$y;
-						$append=substr($sub_append,0,(sizeof($sub_append)-3));
+						 $sub_append=	$append."_".$y;
 					}
 					
 					$text=$menuItems->getText();
@@ -248,6 +247,15 @@ class PNavMenuPanel extends TWebControl
 					//recursion invoke
 					if ($menuItems->getSubMenuItemContainer()->length()>0) 
 					{
+						if($level==0)
+						{
+							$append=$z."_".$y;
+						}
+						else if($level>0 )
+						{
+							$append.="_".$y;
+						}
+
 						$content.="this.icon_abs{$sub_append} = \"0\" \n ";
 						$level++;
 						$content.=$this->parsedContainer ($menuItems->getSubMenuItemContainer(),$level,$append);
