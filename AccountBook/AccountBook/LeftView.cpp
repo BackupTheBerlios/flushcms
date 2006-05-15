@@ -93,7 +93,18 @@ void CLeftView::DrawTreeList(void)
 	HTREEITEM hParentItem,hSubItem;
 
 	m_nTreeList->SetImageList(imageList,TVSIL_NORMAL);
-	hParentItem = m_nTreeList->InsertItem(_T("基本设置"),1,1);
-	hSubItem = m_nTreeList->InsertItem(_T("代码设置"),hParentItem,TVI_LAST);
+
+	hParentItem = m_nTreeList->InsertItem(_T("会计初始化"),1,1);
+	hSubItem = m_nTreeList->InsertItem(_T("会计大类别"),hParentItem,TVI_LAST);
 	m_nTreeList->SetItemImage(hSubItem,2,2);
+	hSubItem = m_nTreeList->InsertItem(_T("会计中类别"),hParentItem,TVI_LAST);
+	m_nTreeList->SetItemImage(hSubItem,2,2);
+	hSubItem = m_nTreeList->InsertItem(_T("会计科目"),hParentItem,TVI_LAST);
+	m_nTreeList->SetItemImage(hSubItem,2,2);
+
+	hParentItem = m_nTreeList->InsertItem(_T("财务系统"),1,1);
+	hSubItem = m_nTreeList->InsertItem(_T("凭证输入"),hParentItem,TVI_LAST);
+	m_nTreeList->SetItemImage(hSubItem,2,2);
+
+
 }
