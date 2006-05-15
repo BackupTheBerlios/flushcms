@@ -210,7 +210,7 @@ class PNavMenuPanel extends TWebControl
 					$append=$z;
 					$ContainerAppend=$append;
 					
-					$ContainerText=$menuItemContainer->getText()."¸¸²ã{$z}";
+					$ContainerText=$menuItemContainer->getText();
 					$ContainerUrl=$menuItemContainer->getLinkUrl();
 					
 					$content.=" <!-------- menu {$ContainerAppend} start -------------> \n ";
@@ -224,21 +224,24 @@ class PNavMenuPanel extends TWebControl
 						$content.=" this.icon_abs{$ContainerAppend} = 0 \n";
 					}
 				}
-				else
-				{
-					$append.="_".$z;
-					$ContainerAppend=$append;
-					
-				}
 				
 				
 				$y=0;
 				foreach($menuItemContainer->getMenuItems() as $menuItems)
 				{
-					$sub_append .= $append."_".$y;
-					$text=$menuItems->getText()."×Ó²ã$y";
+					if ($level==0) 
+					{
+						$append=$sub_append=$z."_".$y;
+					}
+					else
+					{
+						$sub_append=$append."_".$y;
+						$append=substr($sub_append,0,(sizeof($sub_append)-3));
+					}
+					
+					$text=$menuItems->getText();
 					$link_url=$menuItems->getLinkUrl();
-					$content.="this.item{$sub_append} = \"{$text}\" \n ";
+					$content.="this.item{$sub_append} = \"{$text}==={$append}\" \n ";
 					$content.="this.icon_rel{$sub_append} = \"0\" \n ";
 					$content.="this.url{$sub_append} = \"{$link_url}\" \n ";
 					
@@ -251,6 +254,7 @@ class PNavMenuPanel extends TWebControl
 					}
 					$y++;
 				}
+				$content.=" <!-------- menu  end -------------> \n \n ";
 				$level=0;
 				$z++;
 			}
