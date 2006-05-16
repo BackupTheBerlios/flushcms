@@ -29,6 +29,8 @@ public:
 	DECLARE_MESSAGE_MAP()
 public:
 	CMyDatabase *mydata;
+public:
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };
 
 extern CAccountantApp theApp;

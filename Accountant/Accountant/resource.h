@@ -15,6 +15,7 @@
 #define IDD_PERSON_DIALOG               148
 #define IDD_DIALOG1                     150
 #define IDI_ICON4                       152
+#define IDI_LOGO                        152
 #define IDC_TYPE_NAME                   1000
 #define IDC_COMBO1                      1002
 #define IDC_P_TYPE                      1002

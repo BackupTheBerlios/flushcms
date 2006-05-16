@@ -11,6 +11,7 @@
 #include "AccountantView.h"
 
 #include "PersonInput.h"
+#include "SearchWord.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -349,6 +350,51 @@ void CAccountantView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		else
 		{
 			OnDelSelectPerson();
+		}
+	}
+	else if(nChar=='F' && GetKeyState(VK_CONTROL)&0x80)
+	{
+		CSearchWord *searchDlg = new CSearchWord();
+
+		searchDlg->DoModal();
+		if (searchDlg->m_nIsSubmit == true)
+		{
+			//²éÕÒ½á¹û
+			m_nList->DeleteAllItems();
+			CRecordset *m_pSet;
+			CString whereIs,typeName;
+			if (searchDlg->m_nSearchWord)
+			{
+				whereIs.Format(_T(" WHERE Name LIKE '%%%s%%' "),searchDlg->m_nSearchWord);
+			}
+			else
+			{
+				whereIs=_T("");
+			}
+
+			m_pSet = m_nDataBase->getTableRecordset(_T("person"),whereIs);
+			if (!m_pSet->IsEOF())
+			{
+				m_pSet->MoveFirst();
+				int x=0;
+				while (!m_pSet->IsEOF())
+				{
+					m_pSet->GetFieldValue(_T("Name"),typeName);
+					m_nList->InsertItem(x,typeName);
+					m_pSet->GetFieldValue(_T("Sex"),typeName);
+					m_nList->SetItemText(x,1,typeName);
+					m_pSet->GetFieldValue(_T("Phone"),typeName);
+					m_nList->SetItemText(x,2,typeName);
+					m_pSet->GetFieldValue(_T("Mobile"),typeName);
+					m_nList->SetItemText(x,3,typeName);
+					m_pSet->GetFieldValue(_T("Addr"),typeName);
+					m_nList->SetItemText(x,4,typeName);
+					x++;
+					m_pSet->MoveNext();
+				}
+			}
+
+
 		}
 	}
 

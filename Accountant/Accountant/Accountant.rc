@@ -231,8 +231,9 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDR_MAINFRAME           ICON                    "res\\Accountant.ico"
+IDR_MAINFRAME           ICON                    "res\\140.ICO"
 IDR_AccountantTYPE      ICON                    "res\\AccountantDoc.ico"
+IDI_LOGO                ICON                    "res\\140.ICO"
 
 /////////////////////////////////////////////////////////////////////////////
 //

@@ -144,3 +144,14 @@ void CAccountantApp::OnAppAbout()
 
 // CAccountantApp 消息处理程序
 
+
+BOOL CAccountantApp::PreTranslateMessage(MSG* pMsg)
+{
+	// TODO: 在此添加专用代码和/或调用基类
+	//if (pMsg->message == WM_KEYDOWN && pMsg->wParam=='F' && GetKeyState(VK_CONTROL)&0x80)
+	//{
+	//	AfxMessageBox(_T("查找"));
+	//}
+
+	return CWinApp::PreTranslateMessage(pMsg);
+}
