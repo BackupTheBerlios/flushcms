@@ -24,6 +24,7 @@ CPersonInput::CPersonInput(CWnd* pParent /*=NULL*/)
 	, m_nIsSubmit(false)
 	, m_nCompany(_T(""))
 	, m_nMeno(_T(""))
+	, m_nUpdateMode(false)
 {
 
 }
@@ -54,6 +55,7 @@ void CPersonInput::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CITY, m_nCityCtrl);
 	DDX_Text(pDX, IDC_COMPANY, m_nCompany);
 	DDX_Text(pDX, IDC_MENO, m_nMeno);
+	DDX_Control(pDX, IDOK, m_nSubmitButtonCtrl);
 }
 
 
@@ -108,6 +110,12 @@ BOOL CPersonInput::OnInitDialog()
 	//初始化上级分类菜单
 	m_nIsSubmit=false;
 
+	if (m_nUpdateMode == true)
+	{
+		m_nSubmitButtonCtrl.SetWindowText(_T("修改"));
+		m_nUserNameCtrl.SetReadOnly();
+	}
+
 	CMyDatabase *dlgDatabase;
 	dlgDatabase = theApp.mydata;
 	CRecordset *m_pSet;
@@ -161,7 +169,7 @@ BOOL CPersonInput::OnInitDialog()
 		m_nCityCtrl.SelectString(0,_T("深圳"));
 
 	}
-
+	
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE

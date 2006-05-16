@@ -68,4 +68,8 @@ public:
 	CString m_nCompany;
 public:
 	CString m_nMeno;
+public:
+	CButton m_nSubmitButtonCtrl;
+public:
+	bool m_nUpdateMode;
 };
