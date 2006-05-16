@@ -13,6 +13,8 @@
 #define IDI_ICON2                       146
 #define IDI_ICON3                       147
 #define IDD_PERSON_DIALOG               148
+#define IDD_DIALOG1                     150
+#define IDI_ICON4                       152
 #define IDC_TYPE_NAME                   1000
 #define IDC_COMBO1                      1002
 #define IDC_P_TYPE                      1002
@@ -28,6 +30,7 @@
 #define IDC_ADDR2                       1011
 #define IDC_MENO                        1011
 #define IDC_COMPANY                     1012
+#define IDC_SEARCH_WORD                 1014
 #define ID_ID_32776                     32776
 #define ID_Menu                         32777
 #define ID_MFCLOC_D                     32778
@@ -40,9 +43,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        150
+#define _APS_NEXT_RESOURCE_VALUE        153
 #define _APS_NEXT_COMMAND_VALUE         32783
-#define _APS_NEXT_CONTROL_VALUE         1014
+#define _APS_NEXT_CONTROL_VALUE         1015
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

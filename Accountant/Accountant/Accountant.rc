@@ -167,8 +167,8 @@ BEGIN
     LTEXT           "姓名",IDC_STATIC,16,17,17,8
     LTEXT           "性别",IDC_STATIC,126,17,17,8
     LTEXT           "生日",IDC_STATIC,16,41,17,8
-    LTEXT           "电话号码",IDC_STATIC,159,64,33,8
-    LTEXT           "手机号码",IDC_STATIC,16,65,33,8
+    LTEXT           "电话号码",IDC_STATIC,16,65,33,8
+    LTEXT           "手机号码",IDC_STATIC,159,66,33,8
     LTEXT           "详细地址",IDC_STATIC,15,108,33,8
     LTEXT           "省份",IDC_STATIC,125,41,17,8
     LTEXT           "城市",IDC_STATIC,200,41,17,8
@@ -176,6 +176,17 @@ BEGIN
     EDITTEXT        IDC_COMPANY,50,83,251,14,ES_AUTOHSCROLL
     EDITTEXT        IDC_MENO,51,127,250,48,ES_MULTILINE | ES_AUTOHSCROLL
     LTEXT           "备注",IDC_STATIC,15,129,17,8
+END
+
+IDD_DIALOG1 DIALOGEX 0, 0, 177, 50
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "查找"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_SEARCH_WORD,55,7,88,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "确定",IDOK,25,29,50,14
+    PUSHBUTTON      "取消",IDCANCEL,97,29,50,14
+    LTEXT           "查找",IDC_STATIC,27,10,17,8
 END
 
 
@@ -201,6 +212,13 @@ BEGIN
         RIGHTMARGIN, 308
         TOPMARGIN, 7
         BOTTOMMARGIN, 213
+    END
+
+    IDD_DIALOG1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 170
+        BOTTOMMARGIN, 43
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -530,8 +548,8 @@ END
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
 LANGUAGE 4, 2
 #pragma code_page(936)
-#include "res\Accountant.rc2"  // ??¨¨? Microsoft Visual C++ ??§?è??ì?¨¨?-|?§????§?é??ìo???
-#include "afxres.rc"         // ??§?è??ìo??§?é???§?é??ì|?t
+#include "res\Accountant.rc2"  // ???§?§? Microsoft Visual C++ ???ì?¨¨??¨???§?§?-|??ì?????ì?¨|??¨?o???
+#include "afxres.rc"         // ???ì?¨¨??¨?o???ì?¨|????ì?¨|??¨?|?t
 #endif
 
 /////////////////////////////////////////////////////////////////////////////

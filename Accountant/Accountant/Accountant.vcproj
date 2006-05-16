@@ -222,6 +222,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SearchWord.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -281,6 +285,10 @@
 			</File>
 			<File
 				RelativePath=".\Resource.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SearchWord.h"
 				>
 			</File>
 			<File
