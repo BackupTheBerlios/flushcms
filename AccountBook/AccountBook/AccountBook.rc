@@ -28,7 +28,7 @@ LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDR_MAINFRAME           ICON                    "res\\AccountBook.ico"
+IDR_MAINFRAME           ICON                    "res\\1.ico"
 IDR_AccountBookTYPE     ICON                    "res\\AccountBookDoc.ico"
 
 /////////////////////////////////////////////////////////////////////////////
@@ -394,8 +394,8 @@ BEGIN
     "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
     "LANGUAGE 4, 2\r\n"
     "#pragma code_page(936)\r\n"
-    "#include ""res\\AccountBook.rc2""  // ¡¤? Microsoft Visual C++ ¡À¨¤?-¦Ì?¡Á¨º?¡ä\r\n"
-    "#include ""afxres.rc""         // ¡À¨º¡Á?¡Á¨¦?t\r\n"
+    "#include ""res\\AccountBook.rc2""  // ?¡è? Microsoft Visual C++ ?¨¤¡§¡è?-|¨¬??¨¢¡§o???\r\n"
+    "#include ""afxres.rc""         // ?¨¤¡§o?¨¢??¨¢¡§|?t\r\n"
     "#endif\r\n"
     "\0"
 END
