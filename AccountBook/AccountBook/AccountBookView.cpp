@@ -47,6 +47,21 @@ void CAccountBookView::OnInitialUpdate()
 
 	// TODO: 调用 GetListCtrl() 直接访问 ListView 的列表控件，
 	//  从而可以用项填充 ListView。
+	m_nList = & GetListCtrl();
+
+	//设置列表风格
+	long        lStyleOld;
+	lStyleOld = GetWindowLong(m_hWnd, GWL_STYLE);
+	lStyleOld |= LVS_REPORT   ;
+	SetWindowLong(m_nList->m_hWnd,GWL_STYLE,lStyleOld );
+	m_nList->SetExtendedStyle(LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_GRIDLINES|LVS_EX_TWOCLICKACTIVATE   );
+
+	m_nList->InsertColumn(0,_T("姓名"),LVCFMT_LEFT,120);
+	m_nList->InsertColumn(1,_T("性别"),LVCFMT_LEFT,40);
+	m_nList->InsertColumn(2,_T("电话"),LVCFMT_LEFT,120);
+	m_nList->InsertColumn(3,_T("手机号码"),LVCFMT_LEFT,120);
+	m_nList->InsertColumn(4,_T("地址"),LVCFMT_LEFT,250);
+
 }
 
 

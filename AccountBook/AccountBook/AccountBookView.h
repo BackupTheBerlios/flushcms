@@ -3,6 +3,7 @@
 
 
 #pragma once
+#include "afxcmn.h"
 
 
 class CAccountBookView : public CListView
@@ -38,6 +39,8 @@ protected:
 protected:
 	afx_msg void OnStyleChanged(int nStyleType, LPSTYLESTRUCT lpStyleStruct);
 	DECLARE_MESSAGE_MAP()
+public:
+	CListCtrl *m_nList;
 };
 
 #ifndef _DEBUG  // AccountBookView.cpp 中的调试版本

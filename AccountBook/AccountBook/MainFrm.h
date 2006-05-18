@@ -14,7 +14,7 @@ protected: // 仅从序列化创建
 	DECLARE_DYNCREATE(CMainFrame)
 
 // 属性
-protected:
+public:
 	CSplitterWnd m_wndSplitter;
 public:
 

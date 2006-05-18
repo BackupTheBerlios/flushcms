@@ -43,6 +43,8 @@ public:
 	CTreeCtrl *m_nTreeList;
 public:
 	void DrawTreeList(void);
+public:
+	afx_msg void OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult);
 };
 
 #ifndef _DEBUG  // LeftView.cpp 中的调试版本

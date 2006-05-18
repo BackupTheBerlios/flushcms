@@ -17,6 +17,7 @@
 IMPLEMENT_DYNCREATE(CLeftView, CTreeView)
 
 BEGIN_MESSAGE_MAP(CLeftView, CTreeView)
+	ON_NOTIFY_REFLECT(TVN_SELCHANGED, &CLeftView::OnTvnSelchanged)
 END_MESSAGE_MAP()
 
 
@@ -94,17 +95,34 @@ void CLeftView::DrawTreeList(void)
 
 	m_nTreeList->SetImageList(imageList,TVSIL_NORMAL);
 
-	hParentItem = m_nTreeList->InsertItem(_T("会计初始化"),1,1);
-	hSubItem = m_nTreeList->InsertItem(_T("会计大类别"),hParentItem,TVI_LAST);
-	m_nTreeList->SetItemImage(hSubItem,2,2);
-	hSubItem = m_nTreeList->InsertItem(_T("会计中类别"),hParentItem,TVI_LAST);
-	m_nTreeList->SetItemImage(hSubItem,2,2);
-	hSubItem = m_nTreeList->InsertItem(_T("会计科目"),hParentItem,TVI_LAST);
-	m_nTreeList->SetItemImage(hSubItem,2,2);
-
 	hParentItem = m_nTreeList->InsertItem(_T("财务系统"),1,1);
+	hSubItem = m_nTreeList->InsertItem(_T("科目设置"),hParentItem,TVI_LAST);
+	m_nTreeList->SetItemImage(hSubItem,2,2);
 	hSubItem = m_nTreeList->InsertItem(_T("凭证输入"),hParentItem,TVI_LAST);
 	m_nTreeList->SetItemImage(hSubItem,2,2);
 
 
+}
+
+void CLeftView::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMTREEVIEW pNMTreeView = reinterpret_cast<LPNMTREEVIEW>(pNMHDR);
+	// 选择子菜单时处理
+	*pResult = 0;
+	HTREEITEM hItem = m_nTreeList->GetSelectedItem();
+	HTREEITEM hParent = m_nTreeList->GetParentItem(hItem);
+	if (hItem != NULL && hParent !=NULL )
+	{
+
+		CString selectText = m_nTreeList->GetItemText(hItem);
+		if (selectText==_T("科目设置"))
+		{
+			MessageBox(selectText);
+		} 
+		else if(selectText==_T("凭证输入"))
+		{
+			MessageBox(selectText);
+
+		}
+	}
 }
