@@ -32,6 +32,7 @@ void CSearchWord::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CSearchWord, CDialog)
 	ON_BN_CLICKED(IDOK, &CSearchWord::OnBnClickedOk)
+	ON_WM_NCHITTEST()
 END_MESSAGE_MAP()
 
 
@@ -42,6 +43,12 @@ BOOL CSearchWord::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO:  在此添加额外的初始化
+	//CRect rcDialog;
+	//GetClientRect(rcDialog);
+
+
+	//m_nRgn.CreateEllipticRgn(0,0,rcDialog.Width(),rcDialog.Height());
+	//SetWindowRgn((HRGN)m_nRgn,TRUE);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
@@ -61,4 +68,11 @@ void CSearchWord::OnBnClickedOk()
 	m_nIsSubmit=true;
 
 	OnOK();
+}
+
+LRESULT CSearchWord::OnNcHitTest(CPoint point)
+{
+	//鼠标点击任何地方都可移动窗口
+	LRESULT nHitTest = CDialog::OnNcHitTest(point);
+	return (nHitTest == HTCLIENT)?HTCAPTION:nHitTest;
 }

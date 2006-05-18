@@ -29,4 +29,8 @@ public:
 	CEdit m_nSearchWordCtrl;
 public:
 	afx_msg void OnBnClickedOk();
+public:
+	CRgn m_nRgn;
+public:
+	afx_msg LRESULT OnNcHitTest(CPoint point);
 };
