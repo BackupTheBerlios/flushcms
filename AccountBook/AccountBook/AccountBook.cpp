@@ -83,6 +83,7 @@ BOOL CAccountBookApp::InitInstance()
 
 
 
+
 	// 分析标准外壳命令、DDE、打开文件操作的命令行
 	CCommandLineInfo cmdInfo;
 	ParseCommandLine(cmdInfo);
@@ -98,6 +99,7 @@ BOOL CAccountBookApp::InitInstance()
 	m_pMainWnd->UpdateWindow();
 	// 仅当具有后缀时才调用 DragAcceptFiles
 	//  在 SDI 应用程序中，这应在 ProcessShellCommand  之后发生
+
 	return TRUE;
 }
 
@@ -143,3 +145,8 @@ void CAccountBookApp::OnAppAbout()
 
 // CAccountBookApp 消息处理程序
 
+
+void CAccountBookApp::DisplayFormView(void)
+{
+	
+}

@@ -41,6 +41,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	CListCtrl *m_nList;
+public:
 };
 
 #ifndef _DEBUG  // AccountBookView.cpp 中的调试版本

@@ -26,6 +26,8 @@ public:
 // й╣ож
 	afx_msg void OnAppAbout();
 	DECLARE_MESSAGE_MAP()
+public:
+	void DisplayFormView(void);
 };
 
 extern CAccountBookApp theApp;

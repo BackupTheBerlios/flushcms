@@ -91,15 +91,36 @@ void CLeftView::DrawTreeList(void)
 	imageList->Add(AfxGetApp()->LoadIcon(IDI_FOLDER_OPEN));
 	imageList->Add(AfxGetApp()->LoadIcon(IDI_PAGE));
 
-	HTREEITEM hParentItem,hSubItem;
+	HTREEITEM rootItem,hParentItem,hSubItem;
 
 	m_nTreeList->SetImageList(imageList,TVSIL_NORMAL);
 
-	hParentItem = m_nTreeList->InsertItem(_T("财务系统"),1,1);
-	hSubItem = m_nTreeList->InsertItem(_T("科目设置"),hParentItem,TVI_LAST);
-	m_nTreeList->SetItemImage(hSubItem,2,2);
-	hSubItem = m_nTreeList->InsertItem(_T("凭证输入"),hParentItem,TVI_LAST);
-	m_nTreeList->SetItemImage(hSubItem,2,2);
+	CString main_item[3]={_T("财务管理"),_T("客户管理"),_T("员工管理")};
+	CString sub_item[3][2]={
+		{_T("科目设置"),_T("凭证输入")},
+		{_T("客户分类"),_T("客户列表")},
+		{_T("部门设置"),_T("员工列表")}
+	};
+
+	for (int i=0;i<3;i++)
+	{
+		if (i==0)
+		{
+			hParentItem= rootItem = m_nTreeList->InsertItem(main_item[i],0,1);
+		}
+		else
+		{
+			hParentItem = m_nTreeList->InsertItem(main_item[i],0,1);
+		}
+		for (int j=0;j<2;j++)
+		{
+			hSubItem = m_nTreeList->InsertItem(sub_item[i][j],hParentItem,TVI_LAST);
+			m_nTreeList->SetItemImage(hSubItem,2,2);
+		}
+	}
+	m_nTreeList->Expand(rootItem,TVE_EXPAND);
+	m_nTreeList->SetBkColor(RGB(247,247,255));
+	m_nTreeList->SetTextColor(RGB(0,0,255));
 
 
 }
@@ -108,21 +129,28 @@ void CLeftView::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMTREEVIEW pNMTreeView = reinterpret_cast<LPNMTREEVIEW>(pNMHDR);
 	// 选择子菜单时处理
-	*pResult = 0;
+	UpdateData(true);
+	CString node_name=m_nTreeList->GetItemText(pNMTreeView->itemNew.hItem);
+
 	HTREEITEM hItem = m_nTreeList->GetSelectedItem();
 	HTREEITEM hParent = m_nTreeList->GetParentItem(hItem);
+	m_nTreeList->Expand(hParent,TVE_EXPAND);
 	if (hItem != NULL && hParent !=NULL )
 	{
 
-		CString selectText = m_nTreeList->GetItemText(hItem);
-		if (selectText==_T("科目设置"))
+		if (node_name==_T("科目设置"))
 		{
-			MessageBox(selectText);
+			AfxGetApp()->m_pMainWnd->SendMessage(WM_COMMAND, ID_32771);
+			//MessageBox(selectText);
 		} 
-		else if(selectText==_T("凭证输入"))
+		else if(node_name==_T("凭证输入"))
 		{
-			MessageBox(selectText);
+			AfxGetApp()->m_pMainWnd->SendMessage(WM_COMMAND, ID_32772);
+			//MessageBox(selectText);
 
 		}
 	}
+
+	UpdateData(false);
+	*pResult = 0;
 }

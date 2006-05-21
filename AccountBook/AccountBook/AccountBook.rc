@@ -69,6 +69,60 @@ LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 235, 55
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于 AccountBook"
+FONT 9, "宋体", 0, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "AccountBook 1.0 版",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2006",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "确定",IDOK,178,7,50,16,WS_GROUP
+END
+
+ID_DIALOG_SPLASH DIALOGEX 0, 0, 245, 78
+STYLE DS_SETFONT | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_SYSMENU
+EXSTYLE WS_EX_TRANSPARENT
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         137,IDC_SPLASH_PICTRUE,"Static",SS_BITMAP,3,3,238,58
+    LTEXT           "正在加载程序，请稍候....",IDC_STATIC,64,65,92,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    ID_DIALOG_SPLASH, DIALOG
+    BEGIN
+        LEFTMARGIN, 3
+        RIGHTMARGIN, 241
+        VERTGUIDE, 241
+        TOPMARGIN, 3
+        BOTTOMMARGIN, 74
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // Icon
 //
 
@@ -140,6 +194,8 @@ BEGIN
     BEGIN
         MENUITEM "工具栏(&T)",                     ID_VIEW_TOOLBAR
         MENUITEM "状态栏(&S)",                     ID_VIEW_STATUS_BAR
+        MENUITEM "视图",                          ID_32771
+        MENUITEM "列表",                          ID_32772
     END
     POPUP "帮助(&H)"
     BEGIN
@@ -168,32 +224,6 @@ BEGIN
     VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
     VK_F6,          ID_NEXT_PANE,           VIRTKEY 
     VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
-END
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Dialog
-//
-
-IDD_ABOUTBOX DIALOGEX 0, 0, 235, 55
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "关于 AccountBook"
-FONT 9, "宋体", 0, 0, 0x1
-BEGIN
-    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
-    LTEXT           "AccountBook 1.0 版",IDC_STATIC,40,10,119,8,SS_NOPREFIX
-    LTEXT           "Copyright (C) 2006",IDC_STATIC,40,25,119,8
-    DEFPUSHBUTTON   "确定",IDOK,178,7,50,16,WS_GROUP
-END
-
-ID_DIALOG_SPLASH DIALOGEX 0, 0, 245, 78
-STYLE DS_SETFONT | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_SYSMENU
-EXSTYLE WS_EX_TRANSPARENT
-FONT 8, "MS Shell Dlg", 400, 0, 0x1
-BEGIN
-    CONTROL         137,IDC_SPLASH_PICTRUE,"Static",SS_BITMAP,3,3,238,58
-    LTEXT           "正在加载程序，请稍候....",IDC_STATIC,64,65,92,8
 END
 
 
@@ -234,34 +264,6 @@ BEGIN
         VALUE "Translation", 0x804, 936
     END
 END
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// DESIGNINFO
-//
-
-#ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
-BEGIN
-    IDD_ABOUTBOX, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 228
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 48
-    END
-
-    ID_DIALOG_SPLASH, DIALOG
-    BEGIN
-        LEFTMARGIN, 3
-        RIGHTMARGIN, 241
-        VERTGUIDE, 241
-        TOPMARGIN, 3
-        BOTTOMMARGIN, 74
-    END
-END
-#endif    // APSTUDIO_INVOKED
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -465,8 +467,8 @@ END
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
 LANGUAGE 4, 2
 #pragma code_page(936)
-#include "res\AccountBook.rc2"  // ?¤? Microsoft Visual C++ ?à¨¤?-|ì??á¨o???
-#include "afxres.rc"         // ?à¨o?á??á¨|?t
+#include "res\AccountBook.rc2"  // ??è? Microsoft Visual C++ ?¨¤?§?è?-|¨???¨￠?§o???
+#include "afxres.rc"         // ?¨¤?§o?¨￠??¨￠?§|?t
 #endif
 
 /////////////////////////////////////////////////////////////////////////////

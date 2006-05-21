@@ -36,7 +36,6 @@ BOOL CAccountBookView::PreCreateWindow(CREATESTRUCT& cs)
 {
 	// TODO: 在此处通过修改
 	//  CREATESTRUCT cs 来修改窗口类或样式
-
 	return CListView::PreCreateWindow(cs);
 }
 
@@ -92,3 +91,4 @@ void CAccountBookView::OnStyleChanged(int nStyleType, LPSTYLESTRUCT lpStyleStruc
 	//TODO: 添加代码以响应用户对窗口视图样式的更改	
 	CListView::OnStyleChanged(nStyleType,lpStyleStruct);	
 }
+

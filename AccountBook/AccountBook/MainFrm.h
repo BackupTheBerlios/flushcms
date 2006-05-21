@@ -45,6 +45,22 @@ protected:
 	afx_msg void OnUpdateViewStyles(CCmdUI* pCmdUI);
 	afx_msg void OnViewStyle(UINT nCommandID);
 	DECLARE_MESSAGE_MAP()
+public:
+	bool ReplaceView(int row, int col, CRuntimeClass *pViewClass, SIZE size);
+public:
+	bool m_bFormView;
+public:
+	void OnFormView(void);
+public:
+	void OnListView(void);
+public:
+	void OnUpdateFormView(CCmdUI *pCmdUI);
+public:
+	void OnUpdateListView(CCmdUI *pCmdUI);
+public:
+	afx_msg void OnFormDisplay();
+public:
+	afx_msg void OnListDisplay();
 };
 
 

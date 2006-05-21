@@ -25,6 +25,8 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CREATE()
 	ON_UPDATE_COMMAND_UI_RANGE(AFX_ID_VIEW_MINIMUM, AFX_ID_VIEW_MAXIMUM, &CMainFrame::OnUpdateViewStyles)
 	ON_COMMAND_RANGE(AFX_ID_VIEW_MINIMUM, AFX_ID_VIEW_MAXIMUM, &CMainFrame::OnViewStyle)
+	ON_COMMAND(ID_32771, &CMainFrame::OnFormDisplay)
+	ON_COMMAND(ID_32772, &CMainFrame::OnListDisplay)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -39,6 +41,7 @@ static UINT indicators[] =
 // CMainFrame 构造/析构
 
 CMainFrame::CMainFrame()
+: m_bFormView(false)
 {
 	// TODO: 在此添加成员初始化代码
 }
@@ -98,6 +101,7 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT /*lpcs*/,
 		return FALSE;
 	}
 
+	m_bFormView = true;
 	return TRUE;
 }
 
@@ -246,3 +250,73 @@ void CMainFrame::OnViewStyle(UINT nCommandID)
 	}
 }
 
+
+bool CMainFrame::ReplaceView(int row, int col, CRuntimeClass *pViewClass, SIZE size)
+{
+	CCreateContext context;
+	BOOL bSetActive;
+
+	if ((this->m_wndSplitter.GetPane(row, col)->IsKindOf(pViewClass)) == TRUE)
+		return FALSE;
+
+	//获取文档对象的指针，以便在创建新视图的过程中能够使用它
+	CDocument *pDoc = ((CView*)m_wndSplitter.GetPane(row, col))->GetDocument();
+
+	CView *pActiveView = this->GetActiveView();
+	if (pActiveView == NULL || pActiveView == m_wndSplitter.GetPane(row, col))
+		bSetActive = TRUE;
+	else
+		bSetActive = FALSE;
+
+	pDoc->m_bAutoDelete = FALSE; //设置标志，这样当视图销毁时不会删除文档
+	((CView*)m_wndSplitter.GetPane(row, col))->DestroyWindow(); //删除存在的视图
+	pDoc->m_bAutoDelete = TRUE; //设回默认的标志
+
+
+	//创建新视图
+	context.m_pNewViewClass = pViewClass;
+	context.m_pCurrentDoc = pDoc;
+	context.m_pNewDocTemplate = NULL;
+	context.m_pLastView = NULL;
+	context.m_pCurrentFrame = NULL;
+	m_wndSplitter.CreateView(row, col, pViewClass, size, &context);
+
+
+	CView *pNewView = (CView*)m_wndSplitter.GetPane(row, col);
+
+	if (bSetActive == TRUE)
+		this->SetActiveView(pNewView);
+
+	m_wndSplitter.RecalcLayout(); //重新计算位置
+	//m_wndSplitter.GetPane(row,col)->SendMessage(WM_PAINT);
+	m_wndSplitter.GetPane(row,col)->SendMessage(WM_PAINT);
+	pDoc->SendInitialUpdate();
+
+	return TRUE;
+}
+
+void CMainFrame::OnFormView(void)
+{
+	ReplaceView(0, 1, RUNTIME_CLASS(CAccountType), CSize(100, 100));
+	m_bFormView = true;
+}
+
+void CMainFrame::OnListView(void)
+{
+	ReplaceView(0, 1, RUNTIME_CLASS(CAccountBookView), CSize(100, 100));
+	m_bFormView = false;
+}
+
+void CMainFrame::OnFormDisplay()
+{
+	// TODO: 在此添加命令处理程序代码
+	ReplaceView(0, 1, RUNTIME_CLASS(CAccountType), CSize(100, 100));
+	m_bFormView = true;
+}
+
+void CMainFrame::OnListDisplay()
+{
+	// TODO: 在此添加命令处理程序代码
+	ReplaceView(0, 1, RUNTIME_CLASS(CAccountBookView), CSize(100, 100));
+	m_bFormView = false;
+}
