@@ -206,7 +206,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\AccountType.cpp"
+				RelativePath=".\AccountSort.cpp"
 				>
 			</File>
 			<File
@@ -260,7 +260,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\AccountType.h"
+				RelativePath=".\AccountSort.h"
 				>
 			</File>
 			<File
@@ -331,6 +331,10 @@
 			</File>
 			<File
 				RelativePath=".\res\Toolbar.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\toolbar1.bmp"
 				>
 			</File>
 		</Filter>

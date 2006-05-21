@@ -8,8 +8,6 @@
 #include "LeftView.h"
 #include "AccountBookView.h"
 
-#include "AccountType.h"
-
 #include "SplashScreen.h"
 
 #ifdef _DEBUG
@@ -25,8 +23,6 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CREATE()
 	ON_UPDATE_COMMAND_UI_RANGE(AFX_ID_VIEW_MINIMUM, AFX_ID_VIEW_MAXIMUM, &CMainFrame::OnUpdateViewStyles)
 	ON_COMMAND_RANGE(AFX_ID_VIEW_MINIMUM, AFX_ID_VIEW_MAXIMUM, &CMainFrame::OnViewStyle)
-	ON_COMMAND(ID_32771, &CMainFrame::OnFormDisplay)
-	ON_COMMAND(ID_32772, &CMainFrame::OnListDisplay)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -295,28 +291,5 @@ bool CMainFrame::ReplaceView(int row, int col, CRuntimeClass *pViewClass, SIZE s
 	return TRUE;
 }
 
-void CMainFrame::OnFormView(void)
-{
-	ReplaceView(0, 1, RUNTIME_CLASS(CAccountType), CSize(100, 100));
-	m_bFormView = true;
-}
 
-void CMainFrame::OnListView(void)
-{
-	ReplaceView(0, 1, RUNTIME_CLASS(CAccountBookView), CSize(100, 100));
-	m_bFormView = false;
-}
 
-void CMainFrame::OnFormDisplay()
-{
-	// TODO: 在此添加命令处理程序代码
-	ReplaceView(0, 1, RUNTIME_CLASS(CAccountType), CSize(100, 100));
-	m_bFormView = true;
-}
-
-void CMainFrame::OnListDisplay()
-{
-	// TODO: 在此添加命令处理程序代码
-	ReplaceView(0, 1, RUNTIME_CLASS(CAccountBookView), CSize(100, 100));
-	m_bFormView = false;
-}

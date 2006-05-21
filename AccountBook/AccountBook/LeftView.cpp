@@ -7,6 +7,8 @@
 #include "AccountBookDoc.h"
 #include "LeftView.h"
 
+#include "AccountSort.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -140,12 +142,14 @@ void CLeftView::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 
 		if (node_name==_T("科目设置"))
 		{
-			AfxGetApp()->m_pMainWnd->SendMessage(WM_COMMAND, ID_32771);
+			CAccountSort *typeDlg = new CAccountSort();
+			typeDlg->DoModal();
+			//AfxGetApp()->m_pMainWnd->SendMessage(WM_COMMAND, ID_32771);
 			//MessageBox(selectText);
 		} 
 		else if(node_name==_T("凭证输入"))
 		{
-			AfxGetApp()->m_pMainWnd->SendMessage(WM_COMMAND, ID_32772);
+			//AfxGetApp()->m_pMainWnd->SendMessage(WM_COMMAND, ID_32772);
 			//MessageBox(selectText);
 
 		}

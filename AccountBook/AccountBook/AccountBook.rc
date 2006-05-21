@@ -26,13 +26,15 @@ LANGUAGE LANG_NEUTRAL, SUBLANG_SYS_DEFAULT
 // Dialog
 //
 
-IDD_ACCOUNT_TYPE DIALOGEX 0, 0, 402, 206
-STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+IDD_ACCOUNT_TYPE DIALOGEX 0, 0, 360, 207
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "会计科目设置"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "确定",IDOK,119,183,50,14
-    PUSHBUTTON      "取消",IDCANCEL,217,185,50,14
-    CONTROL         "",IDC_TYPE_LIST,"SysListView32",LVS_REPORT | LVS_EDITLABELS | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,7,388,159
+    PUSHBUTTON      "取消",IDCANCEL,217,186,50,14
+    CONTROL         "",IDC_TYPE_LIST,"SysListView32",LVS_REPORT | LVS_EDITLABELS | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,35,346,131
 END
 
 
@@ -47,9 +49,9 @@ BEGIN
     IDD_ACCOUNT_TYPE, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 395
+        RIGHTMARGIN, 353
         TOPMARGIN, 7
-        BOTTOMMARGIN, 199
+        BOTTOMMARGIN, 200
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -138,6 +140,7 @@ IDR_AccountBookTYPE     ICON                    "res\\AccountBookDoc.ico"
 
 IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
 IDB_BITMAP1             BITMAP                  "res\\freedom.bmp"
+IDR_ACCOUNT_TYPE_TOOLBAR BITMAP                  "res\\toolbar1.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -161,6 +164,12 @@ BEGIN
     BUTTON      ID_VIEW_LIST
     BUTTON      ID_VIEW_DETAILS
     BUTTON      ID_APP_ABOUT
+END
+
+IDR_ACCOUNT_TYPE_TOOLBAR TOOLBAR  16, 15
+BEGIN
+    BUTTON      ID_BUTTON32773
+    BUTTON      ID_BUTTON32774
 END
 
 
@@ -194,8 +203,6 @@ BEGIN
     BEGIN
         MENUITEM "工具栏(&T)",                     ID_VIEW_TOOLBAR
         MENUITEM "状态栏(&S)",                     ID_VIEW_STATUS_BAR
-        MENUITEM "视图",                          ID_32771
-        MENUITEM "列表",                          ID_32772
     END
     POPUP "帮助(&H)"
     BEGIN
@@ -390,6 +397,11 @@ BEGIN
     ID_VIEW_DETAILS         "显示窗口中每一项的相关详细信息。\n详细信息"
     ID_VIEW_LINEUP          "以网格方式排列图标。"
     ID_VIEW_BYNAME          "按字母顺序对图标排序。"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_BUTTON32774          "DDDDDDDD"
 END
 
 #endif    // 中文(中华人民共和国) resources
