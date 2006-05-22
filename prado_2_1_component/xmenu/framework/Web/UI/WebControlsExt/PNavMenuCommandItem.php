@@ -34,47 +34,8 @@
  * @package System.Web.UI.WebControlsExt
  */
 
-class PNavMenuCommandItem extends TWebControl implements IPostBackEventHandler 
+class PNavMenuCommandItem extends PNavMenuLabelItem implements IPostBackEventHandler 
 {
-	private $text='';
-	private $itemID='';
-	/**
-	* Constructor.
-	*/
-	function __construct($text='')
-	{
-		$this->text = $text;
-		parent::__construct();
-	}
-	/**
-	* function_description
-	*
-	* @author	John.meng
-	* @since    version - May 11, 2006
-	* @param	datatype paramname description
-	* @return   datatype description
-	*/
-	function getText () 
-	{
-		$text = $this->text;
-		if(empty($text))
-			$text = $this->renderBody();
-		return $text;
-		
-	}
-	/**
-	* function_description
-	*
-	* @author	John.meng
-	* @since    version - May 11, 2006
-	* @param	datatype paramname description
-	* @return   datatype description
-	*/
-	function setText ($value) 
-	{
-		$this->text=$value;
-		
-	}
 	/**
 	 * @return boolean whether the text should be HTML encoded before rendering
 	 */
@@ -125,38 +86,6 @@ class PNavMenuCommandItem extends TWebControl implements IPostBackEventHandler
 		$this->setViewState('CommandParameter',$value,'');
 	}
 	/**
-	 * @return boolean whether postback event trigger by this button will cause input validation
-	 */
-	public function causesValidation()
-	{
-		return $this->getViewState('CausesValidation',true);
-	}
-
-	/**
-	 * Sets the value indicating whether postback event trigger by this button will cause input validation.
-	 * @param string the text caption to be set
-	 */
-	public function setCausesValidation($value)
-	{
-		$this->setViewState('CausesValidation',$value,true);
-	}
-
-	/**
-	 * @return string the group of validators which the button causes validation upon postback
-	 */
-	public function getValidationGroup()
-	{
-		return $this->getViewState('ValidationGroup','');
-	}
-
-	/**
-	 * @param string the group of validators which the button causes validation upon postback
-	 */
-	public function setValidationGroup($value)
-	{
-		$this->setViewState('ValidationGroup',$value,'');
-	}
-	/**
 	 * Raises postback event.
 	 * The implementation of this function should raise appropriate event(s) (e.g. OnClick, OnCommand)
 	 * indicating the component is responsible for the postback event.
@@ -196,31 +125,6 @@ class PNavMenuCommandItem extends TWebControl implements IPostBackEventHandler
 		$this->raiseEvent('OnCommand',$this,$param);
 		$this->raiseBubbleEvent($this,$param);
 	}
-	
-//	public function addParsedObject($object,$context)
-//	{
-//		if( ($object instanceof PNavMenuPageItem) || ($object instanceof PNavMenuCommandItem) )
-//			$this->menuItems->add($object);
-//	}
-	/**
-	* function_description
-	*
-	* @author	John.meng
-	* @since    version - May 19, 2006
-	* @param	datatype paramname description
-	* @return   datatype description
-	*/
-//	function getItemID () 
-//	{
-//		return $this->ClientID;
-//	}
-//	
-//	protected function renderBody()
-//	{
-//		$text=$this->isEncodeText()?pradoEncodeData($this->getText()):$this->getText();
-//		$text.=$this->getID();
-//		return strlen($text)?$text:parent::renderBody();
-//	}
 	
 	
 	

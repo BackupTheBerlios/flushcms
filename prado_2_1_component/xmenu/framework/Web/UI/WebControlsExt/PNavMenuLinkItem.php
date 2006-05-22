@@ -30,13 +30,12 @@
  * - <b>OnEvents</b> Events comment write here.
  *
  * @author John.meng <john.meng@achievo.com>
- * @version v1.0, last update on May 19, 2006 9:23:31 AM
+ * @version v1.0, last update on May 19, 2006 9:41:20 AM
  * @package System.Web.UI.WebControlsExt
  */
 
-class PNavMenuPageItem extends PNavMenuLabelItem
+class PNavMenuLinkItem extends PNavMenuLabelItem
 {
-
 	/**
 	* function_description
 	*
@@ -45,9 +44,9 @@ class PNavMenuPageItem extends PNavMenuLabelItem
 	* @param	datatype paramname description
 	* @return   datatype description
 	*/
-	function getPages () 
+	function getLinkUrl () 
 	{
-		return $this->getViewState('Pages','');
+		return $this->getViewState('LinkUrl','');
 	}
 	/**
 	* function_description
@@ -57,38 +56,10 @@ class PNavMenuPageItem extends PNavMenuLabelItem
 	* @param	datatype paramname description
 	* @return   datatype description
 	*/
-	function setPages ($value) 
+	function setLinkUrl ($value) 
 	{
-		$this->setViewState('Pages',$value,'');
+		$this->setViewState('LinkUrl',$value,'');
 	}
-	/**
-	* function_description
-	*
-	* @author	John.meng
-	* @since    version - May 19, 2006
-	* @param	datatype paramname description
-	* @return   datatype description
-	*/
-	function getModules () 
-	{
-		return $this->getViewState('Modules','');
-	}
-	/**
-	* function_description
-	*
-	* @author	John.meng
-	* @since    version - May 19, 2006
-	* @param	datatype paramname description
-	* @return   datatype description
-	*/
-	function setModules ($value) 
-	{
-		$this->setViewState('Modules',$value,'');
-	}
-	
-
-	
-
 	
 }
 ?>

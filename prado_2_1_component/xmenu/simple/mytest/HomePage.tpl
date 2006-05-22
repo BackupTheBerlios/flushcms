@@ -9,73 +9,69 @@
 </HEAD>
 
 <BODY>
+<!--
+<com:PNavMenuPanel DisplayMode="Vertical" ItemWidth="130">
+    <com:PNavMenuPageItem Text="Item_1" Pages="NewPage" Modules="User">
+           <com:PNavMenuLinkItem Text="Item_1_1" LinkUrl="http://www.google.com" />
+           <com:PNavMenuPageItem Text="Item_1_2" Pages="NewPage" Modules="User" />
+    </com:PNavMenuPageItem>
+    <com:PNavMenuLinkItem Text="Item_2" LinkUrl="http://www.google.com" />
+    <com:PNavMenuLabelItem Text="Item_3">
+       <com:PNavMenuCommandItem Text="Item_3_1" OnCommand="buttonClicked" CommandName="command_name" 
+              CommandParameter="command_value" OnClick="clickMe" />
+       <com:PActiveNavMenuCommandItem Text="Item_3_2" OnCommand="buttonClicked" CommandName="command_name" 
+              CommandParameter="command_value" OnClick="clickMe" />
+    </com:PNavMenuLabelItem>
+    <com:PNavMenuLinkItem Text="Item_4" LinkUrl="http://www.yahoo.com" />
+</com:PNavMenuPanel>
+-->
 
-     <com:PNavMenuPanel DisplayMode="Vertical" ItemWidth="130">
-	     
-	     <com:PNavMenuItemContainer Text="Menu0" LinkUrl="http://www.google.com" >
-		     <com:PNavMenuItem Text="Menu0_0" LinkUrl="http://www.google.com" />
-		     
-			     <com:PNavMenuItem Text="Menu0_1" LinkUrl="http://www.google.com" Target="_blank">
-			     
-				     <com:PNavMenuItemContainer >
-					     <com:PNavMenuItem Text="Menu0_1_0" LinkUrl="http://www.google.com" Target="_blank"/>
-					     
-					     	<com:PNavMenuItem Text="Menu0_1_1" LinkUrl="http://www.google.com" Target="_blank">
-							     <com:PNavMenuItemContainer >
-								     <com:PNavMenuItem Text="Menu0_1_1_0" LinkUrl="http://www.google.com" Target="_blank"/>
-								     
-									     	<com:PNavMenuItem Text="Menu0_1_1_1" LinkUrl="http://www.google.com" Target="_blank">
-											     <com:PNavMenuItemContainer >
-												     <com:PNavMenuItem Text="Menu0_1_1_1_0" LinkUrl="http://www.google.com" Target="_blank"/>
-												     <com:PNavMenuItem Text="Menu0_1_1_1_1" LinkUrl="http://www.google.com" ParentID="0_1" Target="_blank" />
-											    </com:PNavMenuItemContainer>
-										    </com:PNavMenuItem>
-										    
-								     <com:PNavMenuItem Text="Menu0_1_1_2" LinkUrl="http://www.google.com" ParentID="0_1" Target="_blank" />
-							    </com:PNavMenuItemContainer>
-						    </com:PNavMenuItem>
-						    
-					     <com:PNavMenuItem Text="Menu0_1_2" LinkUrl="http://www.google.com" ParentID="0_1" Target="_blank" >
-						     <com:PNavMenuItemContainer >
-							     <com:PNavMenuItem Text="Menu0_1_2_0" LinkUrl="http://www.google.com" Target="_blank"/>
-							     <com:PNavMenuItem Text="Menu0_1_2_1" LinkUrl="http://www.google.com" ParentID="0_1" Target="_blank" />
-						    </com:PNavMenuItemContainer>
-					     </com:PNavMenuItem>
-					     
-				    </com:PNavMenuItemContainer>
-				    
-				 </com:PNavMenuItem>
-				 
-		     <com:PNavMenuItem Text="Menu0_2" LinkUrl="http://www.google.com" ParentID="0_1" Target="_blank" />
-		     
-	    </com:PNavMenuItemContainer>
- 
- 	     <com:PNavMenuItemContainer Text="Menu1" >
-		     <com:PNavMenuItem Text="Menu1_0" LinkUrl="http://www.google.com" Target="_blank"/>
-		     	<com:PNavMenuItem Text="Menu1_1" LinkUrl="http://www.google.com" Target="_blank">
-				     <com:PNavMenuItemContainer >
-					     <com:PNavMenuItem Text="Menu1_1_0" LinkUrl="http://www.google.com" Target="_blank"/>
-					     <com:PNavMenuItem Text="Menu1_1_1" LinkUrl="http://www.google.com" ParentID="0_1" Target="_blank" />
-				    </com:PNavMenuItemContainer>
-			    </com:PNavMenuItem>
-		     <com:PNavMenuItem Text="Menu1_2" LinkUrl="http://www.google.com" Target="_blank"/>
-		     <com:PNavMenuItem Text="Menu1_3" LinkUrl="http://www.google.com" ParentID="0_1" Target="_blank" />
-	    </com:PNavMenuItemContainer>
 
- 	     <com:PNavMenuItemContainer  Text="Menu2" >
-		     <com:PNavMenuItem Text="Menu2_0" LinkUrl="http://www.google.com" Target="_blank"/>
-		     <com:PNavMenuItem Text="Menu2_1" LinkUrl="http://www.google.com" Target="_blank"/>
-		     <com:PNavMenuItem Text="Menu2_2" LinkUrl="http://www.google.com" ParentID="0_1" Target="_blank" />
-	    </com:PNavMenuItemContainer>
-      
-     </com:PNavMenuPanel>
- 
-	<br/>
- 	<br/>
- 	<br/>
- 	<br/>
+<com:TForm>
+<com:PNavMenuPanel DisplayMode="Vertical" ItemWidth="130">
 
-  
-  
+    <com:PNavMenuLabelItem Text="Item_0">
+    	<com:PNavMenuPageItem Text="Item_0_0" Pages="NewPage" Modules="User" />
+    	<com:PNavMenuPageItem Text="Item_0_1" Pages="NewPage0_1" Modules="User0_1" >
+    		<com:PNavMenuPageItem Text="Item_0_1_0" Pages="NewPage" Modules="User" />
+    	</com:PNavMenuPageItem>
+    </com:PNavMenuLabelItem>
+    
+    <com:PNavMenuPageItem Text="Item_1" Pages="NewPage" Modules="User" />
+    <com:PNavMenuPageItem Text="Item_2" Pages="NewPage" Modules="User" >
+    
+    	<com:PNavMenuPageItem Text="Item_2_0" Pages="NewPage" Modules="User" />
+    	<com:PNavMenuPageItem Text="Item_2_1" Pages="NewPage" Modules="User" />
+    	<com:PActiveNavMenuCommandItem Text="Item_2_2" OnClick="buttonClicked" > 
+    		<com:PNavMenuPageItem Text="Item_2_2_0" Pages="NewPage" Modules="User" />
+    		<com:PNavMenuPageItem Text="Item_2_2_1" Pages="NewPage" Modules="User" >
+    			<com:PNavMenuPageItem Text="Item_2_2_1_0" Pages="NewPage" Modules="User" >
+    			
+    				<com:PNavMenuLinkItem Text="Item_2_2_1_0_0" LinkUrl="http://www.yahoo.com" >
+    					<com:PNavMenuLabelItem Text="Item_2_2_1_0_0_0"/>
+    				</com:PNavMenuLinkItem>
+    				
+    			</com:PNavMenuPageItem>
+    			
+    		</com:PNavMenuPageItem>
+    	</com:PActiveNavMenuCommandItem>   
+    	
+     </com:PNavMenuPageItem>
+    <com:PNavMenuPageItem Text="Item_3" Pages="NewPage" Modules="User" />
+
+    	<com:PNavMenuCommandItem Text="Item_4" OnClick="buttonClicked" /> 
+    	   
+    	<com:PActiveNavMenuCommandItem Text="Item_5" OnClick="buttonClicked" />    
+              
+    	<com:PActiveNavMenuCommandItem Text="Item_6" OnClick="buttonClicked" />    
+              
+    
+</com:PNavMenuPanel>
+
+
+
+
+</com:TForm> 
+
 </BODY>
 </HTML>

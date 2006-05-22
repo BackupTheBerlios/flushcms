@@ -15,9 +15,6 @@
  * @package System.Web.UI.WebControlsExt
  */
  
-//require_once(dirname(__FILE__).'/PNavMenuItem.php');
-//require_once(dirname(__FILE__).'/PNavMenuPageItem.php');
-//require_once(dirname(__FILE__).'/PNavMenuCommandItem.php');
 /**
  * TControl class
  *
@@ -42,7 +39,6 @@ class PNavMenuPanel extends TWebControl
 	/**
 	 * list of TListItem controls
 	 */
-	protected $menuItems;
 	private $ComponentID="";
 	private $MenuLayoutString="";
 	private $SubMenuSpacing="";
@@ -55,7 +51,6 @@ class PNavMenuPanel extends TWebControl
 		$this->SubMenuContent="";
 		parent::__construct();
 		$this->setTagName('div');
-//		$this->menuItems = new TBodyCollection($this);
 	}
 	/**
 	* function_description
@@ -136,22 +131,161 @@ class PNavMenuPanel extends TWebControl
 		$this->setViewState('ItemWidth',$value,'');
 	}
 	/**
-	 * This method overrides the parent implementation to handle TListItem.
-	 * @param TComponent|string the newly parsed object
-	 * @param TComponent the template owner
-	 */
-//	public function addParsedObject($object,$context)
-//	{
-//		if( ($object instanceof PNavMenuPageItem) )//|| ($object instanceof PNavMenuCommandItem)
-//			$this->menuItems->add($object);
-//	}
-	/**
-	 * @return ArrayObject list of TListItem components
-	 */
-	public function getMenuItems()
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - May 22, 2006
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function getMainMenuBgColor () 
 	{
-		return $this->menuItems;
+		return $this->getViewState('MainMenuBgColor','');
 	}
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - May 22, 2006
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function setMainMenuBgColor ($value) 
+	{
+		$this->setViewState('Target',$value,'');
+		
+	}
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - May 22, 2006
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function getSubMenuBgColor () 
+	{
+		return $this->getViewState('SubMenuBgColor','');
+		
+	}
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - May 22, 2006
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function setSubMenuBgColor ($value) 
+	{
+		$this->setViewState('SubMenuBgColor',$value,'');
+		
+	}
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - May 22, 2006
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function getRolloverColor () 
+	{
+		return $this->getViewState('RolloverColor','');
+		
+	}
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - May 22, 2006
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function setRolloverColor ($value) 
+	{
+		$this->setViewState('RolloverColor',$value,'');
+		
+	}
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - May 22, 2006
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function getPreImage () 
+	{
+		return $this->getViewState('PreImage','');
+		
+	}
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - May 22, 2006
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function setPreImage ($value) 
+	{
+		$this->setViewState('PreImage',$value,'');
+		
+	}
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - May 22, 2006
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function getTextSize () 
+	{
+		return $this->getViewState('TextSize','');
+		
+	}
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - May 22, 2006
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function setTextSize ($value) 
+	{
+		$this->setViewState('TextSize',$value,'');
+		
+	}
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - May 22, 2006
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function getTextColor () 
+	{
+		return $this->getViewState('TextColor','');
+		
+	}
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - May 22, 2006
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function setTextColor ($value) 
+	{
+		$this->setViewState('TextColor',$value,'');
+		
+	}
+	
 	/**
 	* function_description
 	*
@@ -162,81 +296,6 @@ class PNavMenuPanel extends TWebControl
 	*/
 	function renderBody () 
 	{
-//		$menu_items=$this->getMenuItems();
-//	 	$body=$this->getBodies();
-//		foreach ($menu_items as $item)
-//		{
-//			if ($item instanceof PNavMenuPageItem) 
-//			{
-//	 			$id = $item->getID();
-//			 	$text = $item->getText();
-//			 	$content.="<br/>{$text}{$id}<br/>";
-//			}
-//		}
-	 	$body=$this->getBodies();
-	 	$content = $this->parsedBodies ($body);
-//	 	foreach ($body as $item) 
-//	 	{
-//	 		if ($item instanceof PNavMenuPageItem) 
-//	 		{
-//	 			$id = $item->getID();
-//			 	$text = $item->getText();
-//			 	$content.="<br/>{$text}{$id}<br/>";
-//			 	$body2=$item->getBodies();
-//			 	foreach ($body2 as $item2)
-//			 	{
-//			 		if ($item2 instanceof PNavMenuPageItem) 
-//			 		{
-//			 			$id = $item2->getID();
-//					 	$text = $item2->getText();
-//					 	$content.="<br/>{$text}{$id}<br/>";
-//					 	$body3=$item2->getBodies();
-//					 	foreach ($body3 as $item3)
-//					 	{
-//					 		if ($item3 instanceof PNavMenuPageItem) 
-//					 		{
-//					 			$id = $item3->getID();
-//							 	$text = $item3->getText();
-//							 	$content.="<br/>{$text}{$id}<br/>";
-//							 	$body4=$item3->getBodies();
-//							 	var_dump(sizeof($body4->getArray()));
-//					 				
-//					 		}	
-//					 		
-//						}
-//			 			
-//			 		}
-//			 	}
-//	 		}
-//	 		
-//	 	}
-//		$this->parsedItems ($this->getMenuItems());
-//		$content.=$this->SubMenuContent;
-//		foreach($this->getMenuItems() as $menuItems)
-//		{
-//			$text = $menuItems->getText();
-//			$page = $menuItems->getPages();
-//			$module = $menuItems->getModules();
-//			$content.=$text." page=>{$page} module=>{$module}<br/> ";
-//			// first recursion
-//			if ($menuItems->getMenuItems ()->length()>0) 
-//			{
-//				foreach($menuItems->getMenuItems () as $sub1MenuItems)
-//				{
-//					$text2 = $sub1MenuItems->getText();
-//					$page2 = $sub1MenuItems->getPages();
-//					$module2 = $sub1MenuItems->getModules();
-//					$content.="&nbsp;&nbsp;&nbsp;&nbsp; {$text2} page=>{$page2} module=>{$module2}<br/> ";
-//				}
-//			}
-//		}
-		
-//		$js_patch=$this->Application->getResourceLocator()->getJsPath().'/';
-//		$ComponentUniqueID=$this->getUniqueID();
-//		$patten=array("C_PActiveNavMenuPanel","C_PNavMenuPanel");
-//		$replace=array("","");
-//		$panelID=$this->ComponentID= (str_replace($patten,$replace,$ComponentUniqueID)-1);
-//
 //		if ($this->getDisplayMode ()=="Vertical") 
 //		{
 //			$this->MenuLayoutString="";
@@ -247,13 +306,12 @@ class PNavMenuPanel extends TWebControl
 //			$this->MenuLayoutString=" this.is_horizontal_main = true ";
 //			$this->SubMenuSpacing="-100,24";
 //		}
-//		if ($this->ComponentID<1) 
-//		{
-//			$content.=$this->buildHeadJavascript ();		
-//		}
-//		$content.=$this->buildCSS();	
-//		$content.=$this->buildJavascriptData();	
-//		$content.="\n <script language=\"JavaScript\">create_menu({$panelID})</script> \n";		
+//		$this->ComponentID=0;
+//		$content = $this->buildHeadJavascript ();
+//		$content .= $this->buildCSS ();
+//		$content .= $this->buildJavascriptData ();
+//		$content .="<script language=\"JavaScript\">create_menu($this->ComponentID)</script>";
+		$content = $this->parsedBodies($this->getBodies());
 
 		return $content;		
 	}
@@ -265,35 +323,85 @@ class PNavMenuPanel extends TWebControl
 	* @param	datatype paramname description
 	* @return   datatype description
 	*/
-	function parsedBodies ($bodies) 
+	function parsedBodies ($bodies,$level=0,$append="") 
 	{
-//	 	$this_bodies=$bodies->getBodies();
+		if (empty($content)) 
+		{
+			$content="";
+		}
+		
+		$x=0;
 	 	foreach ($bodies as $bodies_object)
 	 	{
-	 		if ($bodies_object instanceof PNavMenuPageItem) 
-	 		{
-			 	$content.=$this->renderPageItem($bodies_object);
-			 	$sub_bodies=$bodies_object->getBodies();
-			 	if (sizeof($sub_bodies->getArray())>0) 
-			 	{
-			 		$content.=$this->parsedBodies($sub_bodies);
-			 	}
-	 		}
-	 		elseif ($bodies_object instanceof PNavMenuCommandItem) 
-	 		{
-			 	$content.=$this->renderCommandItem($bodies_object);
-			 	$sub_bodies=$bodies_object->getBodies();
-			 	if (sizeof($sub_bodies->getArray())>0) 
-			 	{
-			 		$content.=$this->parsedBodies($sub_bodies);
-			 	}
+	 		if ( 
+	 		
+	 		($bodies_object instanceof PNavMenuPageItem) || 
+	 		($bodies_object instanceof PActiveNavMenuCommandItem) ||
+	 		($bodies_object instanceof PNavMenuCommandItem) ||
+	 		($bodies_object instanceof PNavMenuLinkItem) ||
+	 		($bodies_object instanceof PNavMenuLabelItem) 
 	 				
-	 		}	
+	 		  ) 
+			{
+				if ($level>0 && $append!="" )
+				{
+					$sub_append="{$append}_{$x}";
+				}
+				else
+				{
+					$sub_append = "{$x}";
+				}
+				
+				
+		 		if ($bodies_object instanceof PNavMenuPageItem) 
+		 		{
+				 	$content.=$this->renderPageItem($bodies_object,$sub_append);
+		 		}
+		 		elseif ($bodies_object instanceof PActiveNavMenuCommandItem) 
+		 		{
+				 	$content.=$this->renderActiveCommandItem($bodies_object,$sub_append);
+		 				
+		 		}	
+		 		elseif ($bodies_object instanceof PNavMenuCommandItem) 
+		 		{
+				 	$content.=$this->renderCommandItem($bodies_object,$sub_append);
+		 				
+		 		}
+		 		elseif ($bodies_object instanceof PNavMenuLinkItem) 
+		 		{
+				 	$content.=$this->renderLinkItem($bodies_object,$sub_append);
+		 				
+		 		}
+		 		elseif ($bodies_object instanceof PNavMenuLabelItem) 
+		 		{
+				 	$content.=$this->renderLabelItem($bodies_object,$sub_append);
+		 				
+		 		}
+				
+				$sub_bodies=$bodies_object->getBodies();
+			 	if (sizeof($sub_bodies->getArray())>0) 
+			 	{
+		 			if ($level>0 && $append!="") 
+					{
+						$send_append="{$append}_{$x}";
+					}
+					else
+					{
+						$send_append="{$x}";
+					}
+			 		$level++;
+			 		$content.=$this->parsedBodies($sub_bodies,$level,$send_append);
+			 	}
+				$x++;
+				
+			}
 	 		
 		}
+		$x=$level=0;
 		return 	$content;	
 	}
 	
+
 	/**
 	* function_description
 	*
@@ -302,146 +410,132 @@ class PNavMenuPanel extends TWebControl
 	* @param	datatype paramname description
 	* @return   datatype description
 	*/
-	function parsedItems ($ItemsCollection,$level=0,$append="") 
+	function renderPageItem ($menuItem,$append) 
 	{
-		foreach($ItemsCollection as $menuItems)
-		{
-			if( $menuItems instanceof PNavMenuPageItem )
-			{
-				$this->SubMenuContent.=$this->renderPageItem ($menuItems);
-			}
-			else if ( $menuItems instanceof PNavMenuCommandItem )
-			{
-				$this->SubMenuContent.=$this->renderCommandItem ($menuItems);
-			}
-			if ($menuItems->getMenuItems ()->length()>0) 
-			{
-				$append.="_|_|";
-				$level++;
-				$this->parsedItems ($menuItems->getMenuItems (),$level,$append);
-			}
-		}
+		$id = $menuItem->getID();
+	 	$text = $menuItem->getText();
+	 	$pages = $menuItem->getPages();
+	 	$modules = $menuItem->getModules(); 
+//		if(strstr($append,"_")==FALSE)
+//		{
+//			$content=" //<!-------- menu {$append} start -------------> \n ";
+//			$content.=" this.menu_xy{$append} = \"".$this->SubMenuSpacing."\" \n ";
+//			$content.=" this.menu_width{$append} = ".$this->getItemWidth()." \n ";
+//			$content.=" this.item{$append} = \"{$text}\" \n ";
+//			$content.=" this.icon_rel{$append} = 0 \n";
+//		
+//		}
+//		else
+//		{
+//			$content="this.item{$append} = \"{$text}\" \n ";
+//			$content.="this.icon_rel{$append} = \"0\" \n ";
+//		}
+		$content="<br/> PageItem<===>{$append}<a href=\"###Page={$pages}&Module={$modules}\">{$text}</a>{$id} <br/>\n ";
+		return $content;
+	}
+
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - May 19, 2006
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function renderCommandItem ($menuItem,$append) 
+	{
+//		$text = $menuItem->getText();
+//		$id = $menuItem->getID();
+//		if(strstr($append,"_")==FALSE)
+//		{
+//			$content=" //<!-------- menu {$append} start -------------> \n ";
+//			$content.=" this.menu_xy{$append} = \"".$this->SubMenuSpacing."\" \n ";
+//			$content.=" this.menu_width{$append} = ".$this->getItemWidth()." \n ";
+//			$content.=" this.item{$append} = \"{$text}\" \n ";
+//			$content.=" this.icon_rel{$append} = 0 \n";
+//		
+//		}
+//		else
+//		{
+//			$content="this.item{$append} = \"{$text}\" \n ";
+//			$content.="this.icon_rel{$append} = \"0\" \n ";
+//		}
+		$page=$menuItem->getPage();
+		$postBack=$page->getPostBackClientEvent($menuItem,'');
+		$text = $menuItem->getText();
+		$id = $menuItem->getID();
+		$content="<br/> CommandItem<===>{$append}<a id=\"{$id}\" href=\"javascript:{$postBack}\">{$text}</a> <br/>\n ";
+		return $content;
+	}
+	/**
+	* function_description
+	*
+	* @author	John.meng
+	* @since    version - May 22, 2006
+	* @param	datatype paramname description
+	* @return   datatype description
+	*/
+	function renderActiveCommandItem ($menuItem,$append) 
+	{
+//		$text = $menuItem->getText();
+//		$id = $menuItem->getID();
+//		if(strstr($append,"_")==FALSE)
+//		{
+//			$content=" //<!-------- menu {$append} start -------------> \n ";
+//			$content.=" this.menu_xy{$append} = \"".$this->SubMenuSpacing."\" \n ";
+//			$content.=" this.menu_width{$append} = ".$this->getItemWidth()." \n ";
+//			$content.=" this.item{$append} = \"{$text}\" \n ";
+//			$content.=" this.icon_rel{$append} = 0 \n";
+//		
+//		}
+//		else
+//		{
+//			$content="this.item{$append} = \"{$text}\" \n ";
+//			$content.="this.icon_rel{$append} = \"0\" \n ";
+//		}
+		$page=$menuItem->getPage();
+		$postBack=$page->getPostBackClientEvent($menuItem,'');
+		$id = $menuItem->getID();
+		$text = $menuItem->getText();
+		$textdd = $menuItem->render();
+		$content="<br/> ActiveCommandItem<===>{$append}<a id=\"{$id}\" href=\"javascript:{$postBack}\">{$text}</a>{$textdd} <br/>\n ";
+		return $content;
 		
 	}
 	/**
 	* function_description
 	*
 	* @author	John.meng
-	* @since    version - May 19, 2006
+	* @since    version - May 22, 2006
 	* @param	datatype paramname description
 	* @return   datatype description
 	*/
-	function renderPageItem ($menuItem) 
+	function renderLinkItem ($menuItem,$append) 
 	{
 		$id = $menuItem->getID();
 	 	$text = $menuItem->getText();
-	 	$content="<br/>PageItem<===>{$text}{$id}<br/>";
+	 	$linkurl = $menuItem->getLinkUrl();
+		$content="<br/> LinkItem<===>{$append}<a id=\"{$id}\" href=\"{$linkurl}\">{$text}</a><br/>\n ";
 		return $content;
+		
 	}
-
 	/**
 	* function_description
 	*
 	* @author	John.meng
-	* @since    version - May 19, 2006
+	* @since    version - May 22, 2006
 	* @param	datatype paramname description
 	* @return   datatype description
 	*/
-	function renderCommandItem ($menuItem) 
+	function renderLabelItem ($menuItem,$append) 
 	{
-		$page=$menuItem->getPage();
-		$postBack=$page->getPostBackClientEvent($menuItem,'');//$menuItem->getID();
-		$text = $menuItem->getText();
-		$content="<br/> CommandItem<===><a href=\"javascript:{$postBack}\">{$text}</a> <br/> ";
+		$id = $menuItem->getID();
+	 	$text = $menuItem->getText();
+		$content="<br/> LabelItem<===>{$append}   {$text}  {$id}<br/>\n ";
 		return $content;
+		
 	}
 	
-	
-	/**
-	* function_description
-	*
-	* @author	John.meng
-	* @since    version - 2006-5-14
-	* @param	datatype paramname description
-	* @return   datatype description
-	*/
-	function parsedContainer ($ContainerCollection,$level=0,$append="") 
-	{
-		if (empty($content)) 
-		{
-			$content="";
-		}
-		if ($ContainerCollection->length()>0) 
-		{
-			$z=0;
-			foreach($ContainerCollection as $menuItems)
-			{
-				if ($level==0) 
-				{
-					$append=$z;
-					$ContainerAppend=$append;
-					
-					$ContainerText=$menuItems->getText();
-					$ContainerUrl=$menuItems->getLinkUrl();
-					
-					$content.=" <!-------- menu {$ContainerAppend} start -------------> \n ";
-					$content.=" this.menu_xy{$ContainerAppend} = \"".$this->SubMenuSpacing."\" \n ";
-					$content.=" this.menu_width{$ContainerAppend} = ".$this->getItemWidth()." \n ";
-					$content.=" this.item{$ContainerAppend} = \"{$ContainerText}\" \n ";
-					$content.=" this.icon_rel{$ContainerAppend} = 0 \n";
-					$content.="this.url{$ContainerAppend} = \"{$ContainerUrl}\" \n ";
-					if ($this->getDisplayMode ()=="Vertical") 
-					{
-						$content.=" this.icon_abs{$ContainerAppend} = 0 \n";
-					}
-				}
-				
-				
-				$y=0;
-				foreach($menuItems->getMenuItems() as $menuItems)
-				{
-					if($level==0)
-					{
-						$sub_append=$z."_".$y;
-					}
-					else
-					{
-						 $sub_append=	$append."_".$y;
-					}
-					
-					$text=$menuItems->getText();
-					$link_url=$menuItems->getLinkUrl();
-					$content.="this.item{$sub_append} = \"{$text}($level)[$append]\" \n ";
-					$content.="this.icon_rel{$sub_append} = \"0\" \n ";
-					$content.="this.url{$sub_append} = \"{$link_url}\" \n ";
-					
-					//recursion invoke
-					if ($menuItems->getSubMenuItemContainer()->length()>0) 
-					{
-						if($level==0)
-						{
-							$append=$z."_".$y;
-						}
-						else if($level>0 )
-						{
-							$append.="_".$y;
-						}
-						$content.="this.icon_abs{$sub_append} = \"0\" \n ";
-						$level++;
-						$content.=$this->parsedContainer ($menuItems->getSubMenuItemContainer(),$level,$append);
-						$append=$append;
-						$level--;
-					}
-					$y++;
-				}
-				$z++;
-			}
-			
-		}
-
-		return $content;
-
-	}
 	/**
 	* function_description
 	*
@@ -462,8 +556,8 @@ class PNavMenuPanel extends TWebControl
 	//Copyright & Base Path Settings
 
 	cdd__notice='DHTML Web Menu, (c) 2004 OpenCube Inc., All Rights Reserved, Visit - www.opencube.com'
-	cdd__codebase='{$js_patch}sample_script/'		//location of script files
-	cdd__database='{$js_patch}sample4_data/'	//location of data - settings files
+	cdd__codebase='{$js_patch}sample_script/'		//{$js_patch}sample_script/location of script files
+	cdd__database='{$js_patch}sample4_data/'	//{$js_patch}sample4_data/location of data - settings files
 
 
 	//global settings (applies to all menus)
@@ -500,7 +594,7 @@ EOT;
 	function buildJavascriptData () 
 	{
 		$js_patch=$this->Application->getResourceLocator()->getJsPath().'/';
-		$item_data = $this->parsedContainer ($this-> getMenuItemContainer());
+		$item_data = $this->parsedBodies ($this->getBodies());
 		$panelID = $this->ComponentID;
 		$layout = $this->MenuLayoutString;
 		$item_width = $this->getItemWidth ();

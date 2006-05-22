@@ -30,65 +30,45 @@
  * - <b>OnEvents</b> Events comment write here.
  *
  * @author John.meng <john.meng@achievo.com>
- * @version v1.0, last update on May 19, 2006 9:23:31 AM
+ * @version v1.0, last update on May 19, 2006 9:45:00 AM
  * @package System.Web.UI.WebControlsExt
  */
 
-class PNavMenuPageItem extends PNavMenuLabelItem
+class PNavMenuLabelItem extends TWebControl
 {
-
 	/**
-	* function_description
-	*
-	* @author	John.meng
-	* @since    version - May 19, 2006
-	* @param	datatype paramname description
-	* @return   datatype description
+	* Constructor.
 	*/
-	function getPages () 
+	function __construct()
 	{
-		return $this->getViewState('Pages','');
+		parent::__construct();
+		
 	}
 	/**
 	* function_description
 	*
 	* @author	John.meng
-	* @since    version - May 19, 2006
+	* @since    version - May 11, 2006
 	* @param	datatype paramname description
 	* @return   datatype description
 	*/
-	function setPages ($value) 
+	function getText () 
 	{
-		$this->setViewState('Pages',$value,'');
+		return $this->getViewState('Text','');
 	}
 	/**
 	* function_description
 	*
 	* @author	John.meng
-	* @since    version - May 19, 2006
+	* @since    version - May 11, 2006
 	* @param	datatype paramname description
 	* @return   datatype description
 	*/
-	function getModules () 
+	function setText ($value) 
 	{
-		return $this->getViewState('Modules','');
-	}
-	/**
-	* function_description
-	*
-	* @author	John.meng
-	* @since    version - May 19, 2006
-	* @param	datatype paramname description
-	* @return   datatype description
-	*/
-	function setModules ($value) 
-	{
-		$this->setViewState('Modules',$value,'');
+		$this->setViewState('Text',$value,'');
 	}
 	
-
-	
-
 	
 }
 ?>

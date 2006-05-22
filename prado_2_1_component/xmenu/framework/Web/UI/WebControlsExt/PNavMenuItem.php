@@ -15,7 +15,6 @@
  * @package System.Web.UI.WebControlsExt
  */
  
-require_once(dirname(__FILE__).'/PNavMenuItemContainer.php');
 /**
  * TControl class
  *
@@ -35,92 +34,8 @@ require_once(dirname(__FILE__).'/PNavMenuItemContainer.php');
  * @package System.Web.UI.WebControlsExt
  */
 
-class PNavMenuItem extends TWebControl
+class PNavMenuItem extends TWebControl 
 {
-	private $text='';
-	private $linkurl = '';
-	
-	protected $subMenuItemContainer;
-	
-	/**
-	* Constructor.
-	*/
-	function __construct($text='',$linkurl=null)
-	{
-		$this->text = $text;
-		$this->linkurl = $linkurl;
-		parent::__construct();
-		$this->subMenuItemContainer = new TCollection();
-	}
-	/**
-	* function_description
-	*
-	* @author	John.meng
-	* @since    version - May 11, 2006
-	* @param	datatype paramname description
-	* @return   datatype description
-	*/
-	function getText () 
-	{
-		$text = $this->text;
-		if(empty($text))
-			$text = $this->renderBody();
-		return $text;
-		
-	}
-	/**
-	* function_description
-	*
-	* @author	John.meng
-	* @since    version - May 11, 2006
-	* @param	datatype paramname description
-	* @return   datatype description
-	*/
-	function setText ($value) 
-	{
-		$this->text=$value;
-		
-	}
-	/**
-	* function_description
-	*
-	* @author	John.meng
-	* @since    version - May 11, 2006
-	* @param	datatype paramname description
-	* @return   datatype description
-	*/
-	function getLinkUrl () 
-	{
-		$linkurl = $this->linkurl;
-		if(empty($linkurl))
-			$linkurl = $this->renderBody();
-		return $linkurl;
-		
-	}
-	/**
-	* function_description
-	*
-	* @author	John.meng
-	* @since    version - May 11, 2006
-	* @param	datatype paramname description
-	* @return   datatype description
-	*/
-	function setLinkUrl ($value) 
-	{
-		$this->linkurl=$value;
-	}
-	public function addParsedObject($object,$context)
-	{
-		if($object instanceof PNavMenuItemContainer)
-			$this->subMenuItemContainer->add($object);
-	}
-	/**
-	 * @return ArrayObject list of TListItem components
-	 */
-	public function getSubMenuItemContainer()
-	{
-		return $this->subMenuItemContainer;
-	}
 	
 }
 ?>

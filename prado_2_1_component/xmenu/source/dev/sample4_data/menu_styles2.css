@@ -1,0 +1,195 @@
+/**********************************************************************************************
+
+	Main Menu Style Settings
+
+***********************************************************************************************/
+
+
+/*---------------------------------------------------------
+Main Menu Group Settings - (Applies to the main container)
+----------------------------------------------------------*/
+.cdd1_main_menu{
+
+	
+	background-color:#eeeeee;
+	
+	cursor:hand;
+	cursor:pointer;
+
+	color:#333333;
+	font-family:Arial;
+	font-size:13px;
+
+	border-style:solid;
+	border-color:#666666;
+	
+
+
+
+}/*---------------------------------------------------------
+Main Menu Item Settings
+----------------------------------------------------------*/
+.cdd1_main_items{
+
+
+	background-color:#ebe7b2;
+	cursor:hand;
+
+	border-style:solid;
+	border-color:#9a9a9a;
+
+
+
+
+}/*---------------------------------------------------------
+Main Menu Item Rollover Settings
+----------------------------------------------------------*/
+.cdd1_main_items_rollover{
+
+
+
+	/*background-color:#ebe7b2;*/
+	cursor:hand;
+
+	text-decoration:underline;
+
+	border-style:dashed;
+	border-color:#aaaaaa;
+
+
+
+
+
+}/**********************************************************************************************
+
+	Sub Menu Style Settings
+
+***********************************************************************************************/
+
+
+/*---------------------------------------------------------
+Sub Menu Group Settings - (Applies to all sub containers)
+----------------------------------------------------------*/
+.cdd1_sub_menu{
+
+	
+	background-color:#eeeeee;
+	cursor:hand;
+
+	color:#333333;
+	font-family:Arial;
+	font-size:12px;
+
+	border-style:solid;
+	border-color:#333333;
+
+
+	filter:progid:DXImageTransform.Microsoft.Fade(duration=.4);
+
+
+
+
+
+}/*---------------------------------------------------------
+Sub Menu Item Settings
+----------------------------------------------------------*/
+.cdd1_sub_items{
+	
+
+	/*background-color:#cccccc;*/
+	cursor:hand;
+
+	border-style:solid;
+	border-color:#999999;
+
+
+
+
+}/*---------------------------------------------------------
+Sub Menu Item Rollover Settings
+----------------------------------------------------------*/
+.cdd1_sub_items_rollover{
+
+	
+	/*background-color:#ebe7b2;*/
+	cursor:hand;
+
+	color:#222222;
+	text-decoration:underline;
+
+
+	border-style:dashed;
+	border-color:#ff0000;
+	
+
+
+
+}/**********************************************************************************************
+
+	Divider Style Settings
+
+***********************************************************************************************/
+
+
+
+/*---------------------------------------------------------
+Vertical Dividers
+----------------------------------------------------------*/
+.cdd1_dividers_vertical{
+
+
+
+	background-color:#333333;
+
+
+
+
+
+}/*---------------------------------------------------------
+Horizontal Dividers
+----------------------------------------------------------*/
+.cdd1_dividers_horizontal{
+
+
+
+	background-color:#cccccc;
+
+
+
+
+	
+}/**********************************************************************************************
+
+	Optional Specific Settings
+
+	Specifically define settings for any item or menu group
+	by using the following syntax with the items index.
+
+***********************************************************************************************/	
+
+
+
+
+/*
+
+#cdd_item1_0
+{
+	CSS settings here for first main menu item	
+	
+}
+
+
+
+#cdd_item1_menu
+{
+
+	CSS settings here for main menu group
+	
+}
+
+*/
+
+
+
+
+
