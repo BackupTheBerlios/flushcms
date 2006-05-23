@@ -14,11 +14,12 @@
 #define ID_DIALOG_SPLASH                134
 #define IDB_BITMAP1                     137
 #define IDD_ACCOUNT_TYPE                138
-#define IDR_TOOLBAR1                    139
 #define IDR_ACCOUNT_TYPE_TOOLBAR        139
 #define IDC_SPLASH_PICTRUE              1001
 #define IDC_LIST1                       1002
 #define IDC_TYPE_LIST                   1002
+#define IDC_BUTTON1                     1003
+#define IDC_DBGRID1                     1005
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_BUTTON32773                  32773
@@ -28,9 +29,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        141
+#define _APS_NEXT_RESOURCE_VALUE        142
 #define _APS_NEXT_COMMAND_VALUE         32775
-#define _APS_NEXT_CONTROL_VALUE         1003
+#define _APS_NEXT_CONTROL_VALUE         1006
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

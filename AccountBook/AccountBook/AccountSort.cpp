@@ -40,8 +40,8 @@ BOOL CAccountSort::OnInitDialog()
 	//m_nToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_TOP
 	//	| CBRS_GRIPPER | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC 
 	//	);
-	HWND hDlg=GetSafeHwnd();
-	CWnd *wDlg = GetWindow(GW_CHILD);
+	//HWND hDlg=GetSafeHwnd();
+	//CWnd *wDlg = GetWindow(GW_CHILD);
 	//HINSTANCE hInstance=AfxGetInstanceHandle();
 
 
@@ -72,34 +72,36 @@ BOOL CAccountSort::OnInitDialog()
 	//	| CBRS_GRIPPER | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC);
 	//m_nToolBar.LoadToolBar(IDR_ACCOUNT_TYPE_TOOLBAR);
 	//m_nToolBar.LoadBitmapW(IDR_ACCOUNT_TYPE_TOOLBAR);
-	CBitmap bitmap;
-	CImageList imageList;
-	TBBUTTON m_button[13];
-	bitmap.LoadBitmap(IDR_ACCOUNT_TYPE_TOOLBAR);
-	imageList.Create(16,16,ILC_COLORDDB|ILC_MASK,13,1);
-	imageList.Add(&bitmap,RGB(255,0,255));
+	//CBitmap bitmap;
+	//CImageList imageList;
+	//TBBUTTON m_button[13];
+	//bitmap.LoadBitmap(IDR_ACCOUNT_TYPE_TOOLBAR);
+	//imageList.Create(16,16,ILC_COLORDDB|ILC_MASK,13,1);
+	//imageList.Add(&bitmap,RGB(255,0,255));
 
-	RECT rect;
-	rect.top=0;
-	rect.left=0;
-	rect.right=20;
-	rect.bottom=20;
-	m_nToolBar.Create(WS_CHILD|WS_VISIBLE|CCS_TOP|TBSTYLE_TOOLTIPS|CCS_ADJUSTABLE,rect,this,0);	
-	m_nToolBar.SendMessage(TB_SETIMAGELIST,0,(LPARAM)imageList.m_hImageList);
-	imageList.Detach();
-	bitmap.Detach();
+	//RECT rect;
+	//rect.top=0;
+	//rect.left=0;
+	//rect.right=20;
+	//rect.bottom=20;
+	//m_nToolBar.Create(WS_CHILD|WS_VISIBLE|CCS_TOP|TBSTYLE_TOOLTIPS|CCS_ADJUSTABLE ,rect,this,0);	
+	//m_nToolBar.SendMessage(TB_SETIMAGELIST,0,(LPARAM)imageList.m_hImageList);
+	//imageList.Detach();
+	//bitmap.Detach();
 
-	int buttonbitmap=m_nToolBar.AddBitmap(2,IDR_ACCOUNT_TYPE_TOOLBAR);
-	int ncount=0;
-	for(ncount=0;ncount<2;ncount++)
-	{
-		m_button[ncount].iBitmap=buttonbitmap+ncount;
-		m_button[ncount].idCommand=ncount;
-		m_button[ncount].fsState=TBSTATE_ENABLED;
-		m_button[ncount].fsStyle=TBSTYLE_BUTTON;
-		m_button[ncount].dwData=0;
-	}
-	m_nToolBar.AddButtons(ncount,m_button);
+	//int buttonbitmap=m_nToolBar.AddBitmap(3,IDR_ACCOUNT_TYPE_TOOLBAR);
+	//int ncount=0;
+	//for(ncount=0;ncount<3;ncount++)
+	//{
+	//	m_button[ncount].iBitmap=buttonbitmap+ncount;
+	//	m_button[ncount].idCommand=ncount;
+	//	m_button[ncount].fsState=TBSTATE_ENABLED;
+	//	m_button[ncount].fsStyle=TBSTYLE_BUTTON;
+	//	m_button[ncount].dwData=0;
+	//}
+	//m_nToolBar.AddButtons(ncount,m_button);
+
+
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
