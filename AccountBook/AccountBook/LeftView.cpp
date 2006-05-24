@@ -97,14 +97,22 @@ void CLeftView::DrawTreeList(void)
 
 	m_nTreeList->SetImageList(imageList,TVSIL_NORMAL);
 
-	CString main_item[3]={_T("财务管理"),_T("客户管理"),_T("员工管理")};
-	CString sub_item[3][2]={
+	CString main_item[5]={
+		_T("财务管理"),
+		_T("客户管理"),
+		_T("供应商管理"),
+		_T("商品管理"),
+		_T("员工管理")
+	};
+	CString sub_item[5][2]={
 		{_T("科目设置"),_T("凭证输入")},
 		{_T("客户分类"),_T("客户列表")},
+		{_T("供应商分类"),_T("供应商列表")},
+		{_T("商品分类"),_T("商品列表")},
 		{_T("部门设置"),_T("员工列表")}
 	};
 
-	for (int i=0;i<3;i++)
+	for (int i=0;i<5;i++)
 	{
 		if (i==0)
 		{

@@ -18,8 +18,8 @@
 #define IDC_SPLASH_PICTRUE              1001
 #define IDC_LIST1                       1002
 #define IDC_TYPE_LIST                   1002
+#define IDC_ACCOUNT_TYPE_LIST           1002
 #define IDC_BUTTON1                     1003
-#define IDC_DBGRID1                     1005
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_BUTTON32773                  32773
