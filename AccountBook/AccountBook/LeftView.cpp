@@ -8,6 +8,7 @@
 #include "LeftView.h"
 
 #include "AccountSort.h"
+#include "VoucherInput.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -157,6 +158,8 @@ void CLeftView::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 		} 
 		else if(node_name==_T("Æ¾Ö¤ÊäÈë"))
 		{
+			CVoucherInput *voucherDlg = new CVoucherInput();
+			voucherDlg->DoModal();
 			//AfxGetApp()->m_pMainWnd->SendMessage(WM_COMMAND, ID_32772);
 			//MessageBox(selectText);
 

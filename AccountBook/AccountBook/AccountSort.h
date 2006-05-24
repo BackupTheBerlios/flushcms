@@ -1,5 +1,6 @@
 #pragma once
 #include "afxext.h"
+#include "afxcmn.h"
 
 
 // CAccountSort ¶Ô»°¿ò
@@ -23,4 +24,6 @@ public:
 	virtual BOOL OnInitDialog();
 public:
 	CToolBarCtrl m_nToolBar;
+public:
+	CListCtrl m_nAccountTypeList;
 };

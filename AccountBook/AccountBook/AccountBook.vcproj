@@ -5,10 +5,6 @@
 	Name="AccountBook"
 	ProjectGUID="{9B04DDB6-A839-422A-9F2F-785F3BB43A93}"
 	RootNamespace="AccountBook"
-	SccProjectName="SAK"
-	SccAuxPath="SAK"
-	SccLocalPath="SAK"
-	SccProvider="SAK"
 	Keyword="MFCProj"
 	>
 	<Platforms>
@@ -241,6 +237,10 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath=".\VoucherInput.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Í·ÎÄ¼þ"
@@ -264,6 +264,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CommonHeader.h"
+				>
+			</File>
+			<File
 				RelativePath=".\LeftView.h"
 				>
 			</File>
@@ -281,6 +285,10 @@
 			</File>
 			<File
 				RelativePath=".\stdafx.h"
+				>
+			</File>
+			<File
+				RelativePath=".\VoucherInput.h"
 				>
 			</File>
 		</Filter>

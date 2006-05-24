@@ -5,6 +5,8 @@
 #include "AccountBook.h"
 #include "AccountSort.h"
 
+#include "CommonHeader.h"
+
 
 // CAccountSort 对话框
 
@@ -23,6 +25,7 @@ CAccountSort::~CAccountSort()
 void CAccountSort::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_ACCOUNT_TYPE_LIST, m_nAccountTypeList);
 }
 
 
@@ -35,6 +38,11 @@ END_MESSAGE_MAP()
 BOOL CAccountSort::OnInitDialog()
 {
 	CDialog::OnInitDialog();
+
+	for (int i=0;i<ACCOUNT_TYPE_LEN;i++)
+	{
+		m_nAccountTypeList.InsertColumn(i,accountTypeLabel[i].title,LVCFMT_LEFT,accountTypeLabel[i].len);
+	}
 
 	// TODO:  在此添加额外的初始化
 	//m_nToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_TOP
