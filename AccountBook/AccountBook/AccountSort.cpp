@@ -43,7 +43,7 @@ BOOL CAccountSort::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-	m_nAccountTypeList.SetExtendedStyle(LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_GRIDLINES|LVS_EX_TWOCLICKACTIVATE);
+	m_nAccountTypeList.SetExtendedStyle(LVS_EX_FULLROWSELECT|LVS_EX_CHECKBOXES|LVS_EX_HEADERDRAGDROP|LVS_EX_GRIDLINES|LVS_EX_TWOCLICKACTIVATE);
 	for (int i=0;i<ACCOUNT_TYPE_LEN;i++)
 	{
 		m_nAccountTypeList.InsertColumn(i,accountTypeLabel[i].title,LVCFMT_LEFT,accountTypeLabel[i].len);
@@ -223,17 +223,20 @@ void CAccountSort::OnBnClickedButton2()
 {
 	// 删除所选的联系人
 	int nCount = m_nAccountTypeList.GetItemCount();
-	CString delItem,delString;
-	for (int i=0;i < nCount;i++)
+	CString delItem,delString,str;
+	str.Format(_T("确认删除所选? "));
+	if (AfxMessageBox(str,MB_YESNO)==IDYES)
 	{
-		if (m_nAccountTypeList.GetCheck(i))
+		for (int i=0;i < nCount;i++)
 		{
-			delItem=m_nAccountTypeList.GetItemText(i,0);
-			MessageBox(delItem);
-			//delString.Format(_T(" DELETE FROM AccountType WHERE NumberID=%s "),delItem);
-			//theApp.m_nDatabase->doActionQuery(delString);
+			if (m_nAccountTypeList.GetCheck(i))
+			{
+				delItem=m_nAccountTypeList.GetItemText(i,0);
+				delString.Format(_T(" DELETE FROM AccountType WHERE NumberID=%s "),delItem);
+				theApp.m_nDatabase->doActionQuery(delString);
+			}
 		}
+		// 重绘列表
+		DrawList();
 	}
-	// 重绘列表
-	DrawList();
 }

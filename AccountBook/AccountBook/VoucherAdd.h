@@ -1,4 +1,6 @@
 #pragma once
+#include "afxwin.h"
+#include "afxdtctl.h"
 
 
 // CVoucherAdd 对话框
@@ -18,4 +20,24 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 
 	DECLARE_MESSAGE_MAP()
+public:
+	CString m_nAccountTypeID;
+public:
+	CComboBox m_nAccountTypeIDCtrl;
+public:
+	COleDateTime m_nCreateDate;
+public:
+	CDateTimeCtrl m_nCreateDateCtrl;
+public:
+	int m_iAmount;
+public:
+	CString m_nDebit;
+public:
+	CComboBox m_nDebitCtrl;
+public:
+	CString m_nMoney;
+public:
+	CString m_nMemo;
+public:
+	virtual BOOL OnInitDialog();
 };
