@@ -15,7 +15,9 @@ CAccountAdd::CAccountAdd(CWnd* pParent /*=NULL*/)
 	, m_nNumberID(_T(""))
 	, m_nTitle(_T(""))
 	, m_nOrderID(_T(""))
-	, m_nDisplay(FALSE)
+	, m_bIsSubmint(false)
+	, m_nDisplay(_T(""))
+	, m_bUpdateModel(false)
 {
 
 }
@@ -32,7 +34,8 @@ void CAccountAdd::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT2, m_nTitle);
 	DDX_Control(pDX, IDC_EDIT2, m_nTitleCtrl);
 	DDX_Text(pDX, IDC_EDIT3, m_nOrderID);
-	DDX_Check(pDX, IDC_CHECK1, m_nDisplay);
+	DDX_CBString(pDX, IDC_COMBO1, m_nDisplay);
+	DDX_Control(pDX, IDC_COMBO1, m_nDisplayCtrl);
 }
 
 
@@ -60,5 +63,26 @@ void CAccountAdd::OnBnClickedOk()
 		m_nTitleCtrl.SetFocus();
 		return;
 	}
+	m_bIsSubmint=true;
 	OnOK();
+}
+
+BOOL CAccountAdd::OnInitDialog()
+{
+	CDialog::OnInitDialog();
+
+	// TODO:  在此添加额外的初始化
+	m_nDisplayCtrl.InsertString(0,_T("是"));
+	m_nDisplayCtrl.InsertString(1,_T("否"));
+	if (m_bUpdateModel)
+	{
+		m_nDisplayCtrl.SelectString(0,m_nDisplay);
+	} 
+	else
+	{
+		m_nDisplayCtrl.SelectString(0,_T("是"));
+	}
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// 异常: OCX 属性页应返回 FALSE
 }

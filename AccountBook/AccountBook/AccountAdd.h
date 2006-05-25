@@ -30,7 +30,15 @@ public:
 public:
 	CString m_nOrderID;
 public:
-	BOOL m_nDisplay;
-public:
 	afx_msg void OnBnClickedOk();
+public:
+	bool m_bIsSubmint;
+public:
+	CString m_nDisplay;
+public:
+	CComboBox m_nDisplayCtrl;
+public:
+	virtual BOOL OnInitDialog();
+public:
+	bool m_bUpdateModel;
 };

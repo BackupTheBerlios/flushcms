@@ -14,10 +14,10 @@ typedef struct ListHeaderLabel
 
 ListLabel accountTypeLabel[ACCOUNT_TYPE_LEN]=
 {
-	_T("代码"),80,
-	_T("科目"),120,
-	_T("显示"),40,
-	_T("排序"),40
+	_T("代码"),100,
+	_T("科目"),180,
+	_T("显示"),60,
+	_T("排序"),60
 };
 
 #endif

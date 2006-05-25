@@ -23,4 +23,6 @@ public:
 	virtual BOOL OnInitDialog();
 public:
 	CListCtrl m_nList;
+public:
+	afx_msg void OnBnClickedButton1();
 };

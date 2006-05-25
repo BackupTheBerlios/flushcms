@@ -32,6 +32,8 @@ void CAccountSort::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CAccountSort, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON1, &CAccountSort::OnBnClickedButton1)
+	ON_NOTIFY(LVN_ITEMACTIVATE, IDC_ACCOUNT_TYPE_LIST, &CAccountSort::OnLvnItemActivateAccountTypeList)
+	ON_BN_CLICKED(IDC_BUTTON2, &CAccountSort::OnBnClickedButton2)
 END_MESSAGE_MAP()
 
 
@@ -41,11 +43,12 @@ BOOL CAccountSort::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
+	m_nAccountTypeList.SetExtendedStyle(LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_GRIDLINES|LVS_EX_TWOCLICKACTIVATE);
 	for (int i=0;i<ACCOUNT_TYPE_LEN;i++)
 	{
 		m_nAccountTypeList.InsertColumn(i,accountTypeLabel[i].title,LVCFMT_LEFT,accountTypeLabel[i].len);
 	}
-
+	DrawList();
 	// TODO:  在此添加额外的初始化
 	//m_nToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_TOP
 	//	| CBRS_GRIPPER | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC 
@@ -122,4 +125,115 @@ void CAccountSort::OnBnClickedButton1()
 	//添加科目
 	CAccountAdd *addDlg = new CAccountAdd();
 	addDlg->DoModal();
+	if (addDlg->m_bIsSubmint)
+	{
+		 CString sql;
+		 sql.Format(_T(" INSERT INTO AccountType (NumberID,Title,Display,OrderID) VALUES (%s,'%s','%s',%s) "),addDlg->m_nNumberID,addDlg->m_nTitle,addDlg->m_nDisplay,addDlg->m_nOrderID );
+		 theApp.m_nDatabase->doActionQuery(sql);
+		 DrawList();
+	}
+}
+
+void CAccountSort::DrawList(void)
+{
+	CRecordset *m_pSet;
+	CString tmpStr,filedName[4]={
+		_T("NumberID"),
+		_T("Title"),
+		_T("Display"),
+		_T("OrderID")
+	};
+
+	m_pSet=theApp.m_nDatabase->getTableRecordset(_T("AccountType"),_T(" ORDER BY OrderID "));
+
+	if (!m_pSet->IsEOF())
+	{
+		m_nAccountTypeList.DeleteAllItems();
+		m_pSet->MoveFirst();
+		int x=0;
+		while (!m_pSet->IsEOF())
+		{
+			m_pSet->GetFieldValue(_T("NumberID"),tmpStr);
+			m_nAccountTypeList.InsertItem(x,tmpStr);
+			for (int i=1;i<ACCOUNT_TYPE_LEN;i++)
+			{
+				m_pSet->GetFieldValue(filedName[i],tmpStr);
+				m_nAccountTypeList.SetItemText(x,i,tmpStr);
+
+			}
+			x++;
+			m_pSet->MoveNext();
+		}
+	}
+	m_pSet->Close();
+
+}
+
+void CAccountSort::OnLvnItemActivateAccountTypeList(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMITEMACTIVATE pNMIA = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	// 修改科目
+	*pResult = 0;
+	pNMIA->iItem;
+	CString selectItem = m_nAccountTypeList.GetItemText(pNMIA->iItem,1);
+	
+	CRecordset *m_pSet;
+	CString sql,tmpStr,currentID;
+
+	CAccountAdd *addDlg = new CAccountAdd();
+
+	sql.Format(_T(" WHERE Title = '%s' "),selectItem);
+	m_pSet = theApp.m_nDatabase->getTableRecordset(_T("AccountType"),sql);
+	if (!m_pSet->IsEOF())
+	{
+		m_pSet->MoveFirst();
+
+		m_pSet->GetFieldValue(_T("NumberID"),tmpStr);
+		addDlg->m_nNumberID=tmpStr;
+
+		m_pSet->GetFieldValue(_T("Title"),tmpStr);
+		addDlg->m_nTitle=tmpStr;
+
+		m_pSet->GetFieldValue(_T("Display"),tmpStr);
+		addDlg->m_nDisplay=tmpStr;
+
+		m_pSet->GetFieldValue(_T("OrderID"),tmpStr);
+		addDlg->m_nOrderID=tmpStr;
+
+		m_pSet->GetFieldValue(_T("AccountTypeID"),currentID);
+
+	}
+	m_pSet->Close();
+	addDlg->m_bUpdateModel=true;
+	addDlg->DoModal();
+
+	if (addDlg->m_bIsSubmint)
+	{
+		sql.Format(_T(" UPDATE AccountType SET NumberID=%s,Title='%s',Display='%s',OrderID=%s WHERE AccountTypeID=%s "),addDlg->m_nNumberID,addDlg->m_nTitle,addDlg->m_nDisplay,addDlg->m_nOrderID,currentID);
+		theApp.m_nDatabase->doActionQuery(sql);
+	}
+	DrawList();
+
+
+
+
+}
+
+void CAccountSort::OnBnClickedButton2()
+{
+	// 删除所选的联系人
+	int nCount = m_nAccountTypeList.GetItemCount();
+	CString delItem,delString;
+	for (int i=0;i < nCount;i++)
+	{
+		if (m_nAccountTypeList.GetCheck(i))
+		{
+			delItem=m_nAccountTypeList.GetItemText(i,0);
+			MessageBox(delItem);
+			//delString.Format(_T(" DELETE FROM AccountType WHERE NumberID=%s "),delItem);
+			//theApp.m_nDatabase->doActionQuery(delString);
+		}
+	}
+	// 重绘列表
+	DrawList();
 }

@@ -42,6 +42,7 @@ void CCustomerType::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CCustomerType, CDialog)
+	ON_BN_CLICKED(IDC_BUTTON1, &CCustomerType::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -57,4 +58,9 @@ BOOL CCustomerType::OnInitDialog()
 	}
 
 	return TRUE;  // return TRUE unless you set the focus to a control
+}
+
+void CCustomerType::OnBnClickedButton1()
+{
+	// TODO: 在此添加控件通知处理程序代码
 }
