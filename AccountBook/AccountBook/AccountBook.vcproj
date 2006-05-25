@@ -190,6 +190,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\AccountAdd.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\AccountBook.cpp"
 				>
 			</File>
@@ -203,6 +207,10 @@
 			</File>
 			<File
 				RelativePath=".\AccountSort.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CustomerType.cpp"
 				>
 			</File>
 			<File
@@ -238,6 +246,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\VoucherAdd.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\VoucherInput.cpp"
 				>
 			</File>
@@ -247,6 +259,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\AccountAdd.h"
+				>
+			</File>
 			<File
 				RelativePath=".\AccountBook.h"
 				>
@@ -268,6 +284,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CustomerType.h"
+				>
+			</File>
+			<File
 				RelativePath=".\LeftView.h"
 				>
 			</File>
@@ -285,6 +305,10 @@
 			</File>
 			<File
 				RelativePath=".\stdafx.h"
+				>
+			</File>
+			<File
+				RelativePath=".\VoucherAdd.h"
 				>
 			</File>
 			<File

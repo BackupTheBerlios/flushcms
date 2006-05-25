@@ -6,6 +6,7 @@
 #include "AccountSort.h"
 
 #include "CommonHeader.h"
+#include "AccountAdd.h"
 
 
 // CAccountSort 对话框
@@ -30,6 +31,7 @@ void CAccountSort::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CAccountSort, CDialog)
+	ON_BN_CLICKED(IDC_BUTTON1, &CAccountSort::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -113,4 +115,11 @@ BOOL CAccountSort::OnInitDialog()
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
+}
+
+void CAccountSort::OnBnClickedButton1()
+{
+	//添加科目
+	CAccountAdd *addDlg = new CAccountAdd();
+	addDlg->DoModal();
 }

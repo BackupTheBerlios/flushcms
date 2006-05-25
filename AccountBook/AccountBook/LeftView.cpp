@@ -9,6 +9,7 @@
 
 #include "AccountSort.h"
 #include "VoucherInput.h"
+#include "CustomerType.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -164,6 +165,13 @@ void CLeftView::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 			//MessageBox(selectText);
 
 		}
+		else if(node_name==_T("客户分类"))
+		{
+			CCustomerType *custmerTypeDlg = new CCustomerType();
+			custmerTypeDlg->DoModal();
+
+		}
+
 	}
 
 	UpdateData(false);

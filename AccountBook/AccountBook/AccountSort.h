@@ -26,4 +26,6 @@ public:
 	CToolBarCtrl m_nToolBar;
 public:
 	CListCtrl m_nAccountTypeList;
+public:
+	afx_msg void OnBnClickedButton1();
 };
