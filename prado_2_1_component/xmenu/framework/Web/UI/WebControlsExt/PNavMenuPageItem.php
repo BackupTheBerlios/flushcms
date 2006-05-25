@@ -16,74 +16,72 @@
  */
 
 /**
- * TControl class
+ * PNavMenuPageItem class
  *
- * TControl comment write here.
+ * PNavMenuPageItem node of PNavMenuPanel .
  *
- * Namespace: System.Web.UI.WebControls
+ * Namespace: System.Web.UI.WebControlsExt
  *
  * Properties
  * - <b>Text</b>, string, kept in viewstate
+ * - <b>Target</b>, string, kept in viewstate
+ * - <b>PageName</b>, string, kept in viewstate
+ * - <b>ModuleName</b>, string, kept in viewstate
  *   <br />Returns result.
  *
- * Events
- * - <b>OnEvents</b> Events comment write here.
  *
  * @author John.meng <john.meng@achievo.com>
  * @version v1.0, last update on May 19, 2006 9:23:31 AM
  * @package System.Web.UI.WebControlsExt
  */
 
-class PNavMenuPageItem extends PNavMenuLabelItem
+class PNavMenuPageItem extends PNavMenuItem
 {
 
-	/**
-	* function_description
-	*
-	* @author	John.meng
-	* @since    version - May 19, 2006
-	* @param	datatype paramname description
-	* @return   datatype description
-	*/
-	function getPages () 
+    /**
+     * @return string the link Target
+     */
+	function getTarget () 
 	{
-		return $this->getViewState('Pages','');
+		return $this->getViewState('Target','_self');
+		
+	}
+    /**
+     * @param string the link target
+     */
+	function setTarget ($value) 
+	{
+		$this->setViewState('Target',$value,'');
 	}
 	/**
-	* function_description
-	*
-	* @author	John.meng
-	* @since    version - May 19, 2006
-	* @param	datatype paramname description
-	* @return   datatype description
-	*/
-	function setPages ($value) 
+	 * @return string the pages of the link
+	 */ 
+	function getPageName () 
 	{
-		$this->setViewState('Pages',$value,'');
+		return $this->getViewState('PageName','');
 	}
 	/**
-	* function_description
-	*
-	* @author	John.meng
-	* @since    version - May 19, 2006
-	* @param	datatype paramname description
-	* @return   datatype description
-	*/
-	function getModules () 
+	 * Sets the pages of the link.
+	 * @param string the pages to be set
+	 */ 
+	function setPageName ($value) 
 	{
-		return $this->getViewState('Modules','');
+		$this->setViewState('PageName',$value,'');
 	}
 	/**
-	* function_description
-	*
-	* @author	John.meng
-	* @since    version - May 19, 2006
-	* @param	datatype paramname description
-	* @return   datatype description
-	*/
-	function setModules ($value) 
+	 * @return string the modules of the link
+	 */ 
+	function getModuleName () 
 	{
-		$this->setViewState('Modules',$value,'');
+		return $this->getViewState('ModuleName','');
+	}
+	/**
+	 * Sets the modules of the link.
+	 * @param string the modules to be set
+	 */ 
+	function setModuleName ($value) 
+	{
+		$this->setViewState('ModuleName',$value,'');
 	}
 	
 

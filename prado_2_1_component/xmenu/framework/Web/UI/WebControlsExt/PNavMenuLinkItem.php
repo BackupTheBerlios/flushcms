@@ -16,46 +16,53 @@
  */
 
 /**
- * TControl class
+ * PNavMenuLinkItem class
  *
- * TControl comment write here.
+ * PNavMenuLinkItem node of PNavMenuPanel .
  *
- * Namespace: System.Web.UI.WebControls
+ * Namespace: System.Web.UI.WebControlsExt
  *
  * Properties
  * - <b>Text</b>, string, kept in viewstate
+ * - <b>Target</b>, string, kept in viewstate
+ * - <b>LinkUrl</b>, string, kept in viewstate
  *   <br />Returns result.
  *
  * Events
- * - <b>OnEvents</b> Events comment write here.
- *
+
  * @author John.meng <john.meng@achievo.com>
  * @version v1.0, last update on May 19, 2006 9:41:20 AM
  * @package System.Web.UI.WebControlsExt
  */
 
-class PNavMenuLinkItem extends PNavMenuLabelItem
+class PNavMenuLinkItem extends PNavMenuItem
 {
+    /**
+     * @return string the link Target
+     */
+	function getTarget () 
+	{
+		return $this->getViewState('Target','_self');
+		
+	}
+    /**
+     * @param string the link target
+     */
+	function setTarget ($value) 
+	{
+		$this->setViewState('Target',$value,'');
+	}
 	/**
-	* function_description
-	*
-	* @author	John.meng
-	* @since    version - May 19, 2006
-	* @param	datatype paramname description
-	* @return   datatype description
-	*/
+	 * @return string the url of the button
+	 */ 
 	function getLinkUrl () 
 	{
 		return $this->getViewState('LinkUrl','');
 	}
 	/**
-	* function_description
-	*
-	* @author	John.meng
-	* @since    version - May 19, 2006
-	* @param	datatype paramname description
-	* @return   datatype description
-	*/
+	 * Sets the url caption of the button.
+	 * @param string the url caption to be set
+	 */ 
 	function setLinkUrl ($value) 
 	{
 		$this->setViewState('LinkUrl',$value,'');

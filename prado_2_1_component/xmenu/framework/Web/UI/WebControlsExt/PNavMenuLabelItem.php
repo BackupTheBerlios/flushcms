@@ -16,9 +16,9 @@
  */
 
 /**
- * TControl class
+ * PNavMenuLabelItem class
  *
- * TControl comment write here.
+ * PNavMenuLabelItem node of PNavMenuPanel.
  *
  * Namespace: System.Web.UI.WebControls
  *
@@ -34,7 +34,7 @@
  * @package System.Web.UI.WebControlsExt
  */
 
-class PNavMenuLabelItem extends TWebControl
+class PNavMenuLabelItem extends PNavMenuItem
 {
 	/**
 	* Constructor.
@@ -44,31 +44,6 @@ class PNavMenuLabelItem extends TWebControl
 		parent::__construct();
 		
 	}
-	/**
-	* function_description
-	*
-	* @author	John.meng
-	* @since    version - May 11, 2006
-	* @param	datatype paramname description
-	* @return   datatype description
-	*/
-	function getText () 
-	{
-		return $this->getViewState('Text','');
-	}
-	/**
-	* function_description
-	*
-	* @author	John.meng
-	* @since    version - May 11, 2006
-	* @param	datatype paramname description
-	* @return   datatype description
-	*/
-	function setText ($value) 
-	{
-		$this->setViewState('Text',$value,'');
-	}
-	
 	
 }
 ?>

@@ -2,5 +2,5 @@
 
 <component>
 	<property name="Text" get="getText" set="setText" type="string" />
-	<property name="LinkUrl" get="getLinkUrl" set="setLinkUrl" type="string" />
+
 </component>

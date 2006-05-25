@@ -16,9 +16,9 @@
  */
  
 /**
- * TControl class
+ * PNavMenuItem class
  *
- * TControl comment write here.
+ * PNavMenuItem abstract class .
  *
  * Namespace: System.Web.UI.WebControls
  *
@@ -27,7 +27,6 @@
  *   <br />Returns result.
  *
  * Events
- * - <b>OnEvents</b> Events comment write here.
  *
  * @author John.meng <john.meng@achievo.com>
  * @version v1.0, last update on May 11, 2006 11:17:51 AM
@@ -36,6 +35,28 @@
 
 class PNavMenuItem extends TWebControl 
 {
-	
+	/**
+	* Constructor.
+	*/
+	function __construct()
+	{
+		parent::__construct();
+		
+	}	
+	/**
+	 * @return string the text caption of the button
+	 */ 
+	function getText () 
+	{
+		return $this->getViewState('Text','');
+	}
+	/**
+	 * Sets the text caption of the button.
+	 * @param string the text caption to be set
+	 */ 
+	function setText ($value) 
+	{
+		$this->setViewState('Text',$value,'');
+	}
 }
 ?>

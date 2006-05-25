@@ -16,25 +16,28 @@
  */
 
 /**
- * TControl class
+ * PNavMenuCommandItem class
  *
- * TControl comment write here.
+ * PNavMenuCommandItem node of PNavMenuPanel.
  *
  * Namespace: System.Web.UI.WebControls
  *
  * Properties
  * - <b>Text</b>, string, kept in viewstate
+ * - <b>CommandName</b>, string, kept in viewstate
+ * - <b>CommandParameter</b>, string, kept in viewstate
  *   <br />Returns result.
  *
  * Events
- * - <b>OnEvents</b> Events comment write here.
+ * - <b>OnClick</b> respond OnClick envent.
+ * - <b>onCommand</b> respond onCommand envent.
  *
  * @author John.meng <john.meng@achievo.com>
  * @version v1.0, last update on May 19, 2006 9:52:39 AM
  * @package System.Web.UI.WebControlsExt
  */
 
-class PNavMenuCommandItem extends PNavMenuLabelItem implements IPostBackEventHandler 
+class PNavMenuCommandItem extends PNavMenuItem implements IPostBackEventHandler 
 {
 	/**
 	 * @return boolean whether the text should be HTML encoded before rendering

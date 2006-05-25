@@ -16,9 +16,9 @@
  */
 
 /**
- * TControl class
+ * PActiveNavMenuCommandItem class
  *
- * TControl comment write here.
+ * PActiveNavMenuCommandItem comment write here.
  *
  * Namespace: System.Web.UI.WebControls
  *
