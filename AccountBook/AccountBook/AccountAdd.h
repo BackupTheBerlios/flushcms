@@ -1,4 +1,5 @@
 #pragma once
+#include "afxwin.h"
 
 
 // CAccountAdd 对话框
@@ -18,4 +19,18 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 
 	DECLARE_MESSAGE_MAP()
+public:
+	CString m_nNumberID;
+public:
+	CEdit m_nNumberIDCtrl;
+public:
+	CString m_nTitle;
+public:
+	CEdit m_nTitleCtrl;
+public:
+	CString m_nOrderID;
+public:
+	BOOL m_nDisplay;
+public:
+	afx_msg void OnBnClickedOk();
 };

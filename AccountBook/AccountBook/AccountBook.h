@@ -7,6 +7,7 @@
 #endif
 
 #include "resource.h"       // Ö÷·ûºÅ
+#include "MyDatabase.h"
 
 
 // CAccountBookApp:
@@ -28,6 +29,8 @@ public:
 	DECLARE_MESSAGE_MAP()
 public:
 	void DisplayFormView(void);
+public:
+	CMyDatabase *m_nDatabase;
 };
 
 extern CAccountBookApp theApp;

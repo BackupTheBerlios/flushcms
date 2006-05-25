@@ -222,6 +222,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\MyDatabase.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\SplashScreen.cpp"
 				>
 			</File>
@@ -293,6 +297,10 @@
 			</File>
 			<File
 				RelativePath=".\MainFrm.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MyDatabase.h"
 				>
 			</File>
 			<File

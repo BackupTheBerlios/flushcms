@@ -40,10 +40,12 @@ CMainFrame::CMainFrame()
 : m_bFormView(false)
 {
 	// TODO: 在此添加成员初始化代码
+
 }
 
 CMainFrame::~CMainFrame()
 {
+	theApp.m_nDatabase->m_nDatabase->Close();
 }
 
 
