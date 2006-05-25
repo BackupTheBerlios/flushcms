@@ -90,12 +90,12 @@ void CPersonInput::OnBnClickedOk()
 		m_nTelCtrl.SetFocus();
 		return;
 	}
-	if (m_nAddr=="")
-	{
-		MessageBox(_T("请输入详细地址"),_T("请检查您的输入！"));
-		m_nAddrCtrl.SetFocus();
-		return;
-	}
+	//if (m_nAddr=="")
+	//{
+	//	MessageBox(_T("请输入详细地址"),_T("请检查您的输入！"));
+	//	m_nAddrCtrl.SetFocus();
+	//	return;
+	//}
 	UpdateData(false);
 	m_nIsSubmit=true;
 
@@ -149,11 +149,25 @@ BOOL CPersonInput::OnInitDialog()
 			m_pSet->MoveNext();
 			y++;
 		}
+		if (m_nProvince)
+		{
+			m_nProvinceCtrl.SelectString(0,m_nProvince);
+		}
+		else
 		m_nProvinceCtrl.SelectString(0,_T("广东省"));
 	}
 
 	//装入广东城市记录
-	m_pSet = dlgDatabase->getTableRecordset(_T("City"),_T(" WHERE ProvinceID = 5 "));
+	CString citySql;
+	if (m_nProvince)
+	{
+		citySql.Format(_T(" LEFT JOIN Province ON City.ProvinceID=Province.ProvinceID  WHERE Province.Province = '%s' "),m_nProvince);
+	} 
+	else
+	{
+		citySql.Format(_T(" WHERE ProvinceID = 5 ") );
+	}
+	m_pSet = dlgDatabase->getTableRecordset(_T("City"),citySql);
 	m_nCityCtrl.ResetContent();
 	if (!m_pSet->IsEOF())
 	{
@@ -166,7 +180,14 @@ BOOL CPersonInput::OnInitDialog()
 			m_pSet->MoveNext();
 			y++;
 		}
-		m_nCityCtrl.SelectString(0,_T("深圳"));
+		if (m_nCity)
+		{
+			m_nCityCtrl.SelectString(0,m_nCity);
+		} 
+		else
+		{
+			m_nCityCtrl.SelectString(0,_T("深圳"));
+		}
 
 	}
 	

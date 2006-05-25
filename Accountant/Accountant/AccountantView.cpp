@@ -79,7 +79,9 @@ void CAccountantView::OnInitialUpdate()
 	m_nList->InsertColumn(1,_T("性别"),LVCFMT_LEFT,40);
 	m_nList->InsertColumn(2,_T("电话"),LVCFMT_LEFT,120);
 	m_nList->InsertColumn(3,_T("手机号码"),LVCFMT_LEFT,120);
-	m_nList->InsertColumn(4,_T("地址"),LVCFMT_LEFT,250);
+	m_nList->InsertColumn(4,_T("省份"),LVCFMT_LEFT,80);
+	m_nList->InsertColumn(5,_T("城市"),LVCFMT_LEFT,80);
+	m_nList->InsertColumn(6,_T("地址"),LVCFMT_LEFT,250);
 
 
 }
@@ -221,8 +223,12 @@ void CAccountantView::drawList(void)
 				m_nList->SetItemText(x,2,typeName);
 				m_pSet->GetFieldValue(_T("Mobile"),typeName);
 				m_nList->SetItemText(x,3,typeName);
-				m_pSet->GetFieldValue(_T("Addr"),typeName);
+				m_pSet->GetFieldValue(_T("Province"),typeName);
 				m_nList->SetItemText(x,4,typeName);
+				m_pSet->GetFieldValue(_T("City"),typeName);
+				m_nList->SetItemText(x,5,typeName);
+				m_pSet->GetFieldValue(_T("Addr"),typeName);
+				m_nList->SetItemText(x,6,typeName);
 				x++;
 				m_pSet->MoveNext();
 			}
@@ -387,8 +393,12 @@ void CAccountantView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 					m_nList->SetItemText(x,2,typeName);
 					m_pSet->GetFieldValue(_T("Mobile"),typeName);
 					m_nList->SetItemText(x,3,typeName);
-					m_pSet->GetFieldValue(_T("Addr"),typeName);
+					m_pSet->GetFieldValue(_T("Province"),typeName);
 					m_nList->SetItemText(x,4,typeName);
+					m_pSet->GetFieldValue(_T("City"),typeName);
+					m_nList->SetItemText(x,5,typeName);
+					m_pSet->GetFieldValue(_T("Addr"),typeName);
+					m_nList->SetItemText(x,6,typeName);
 					x++;
 					m_pSet->MoveNext();
 				}
