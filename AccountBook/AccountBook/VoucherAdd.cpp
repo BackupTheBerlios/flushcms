@@ -18,6 +18,8 @@ CVoucherAdd::CVoucherAdd(CWnd* pParent /*=NULL*/)
 	, m_nDebit(_T(""))
 	, m_nMoney(_T(""))
 	, m_nMemo(_T(""))
+	, m_bIsSubmit(false)
+	, m_bUpdateModel(false)
 {
 
 }
@@ -38,10 +40,12 @@ void CVoucherAdd::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COMBO2, m_nDebitCtrl);
 	DDX_Text(pDX, IDC_EDIT2, m_nMoney);
 	DDX_Text(pDX, IDC_EDIT3, m_nMemo);
+	DDX_Control(pDX, IDC_EDIT2, m_nMoneyCtrl);
 }
 
 
 BEGIN_MESSAGE_MAP(CVoucherAdd, CDialog)
+	ON_BN_CLICKED(IDOK, &CVoucherAdd::OnBnClickedOk)
 END_MESSAGE_MAP()
 
 
@@ -74,9 +78,24 @@ BOOL CVoucherAdd::OnInitDialog()
 			m_pSet->MoveNext();
 			i++;
 		}
+		m_nAccountTypeIDCtrl.SetCurSel(0);
 	}
 	m_pSet->Close();
 	UpdateData(false);
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 异常: OCX 属性页应返回 FALSE
+}
+
+void CVoucherAdd::OnBnClickedOk()
+{
+	// 点击确定事件处理
+	UpdateData(true);
+	if (m_nMoney=="")
+	{
+		MessageBox(_T("请输入金额"),_T("请检查您的输入！"));
+		m_nMoneyCtrl.SetFocus();
+		return;
+	}
+	m_bIsSubmit=true;
+	OnOK();
 }

@@ -106,12 +106,12 @@ void CLeftView::DrawTreeList(void)
 		_T("商品管理"),
 		_T("员工管理")
 	};
-	CString sub_item[5][2]={
-		{_T("科目设置"),_T("凭证输入")},
-		{_T("客户分类"),_T("客户列表")},
-		{_T("供应商分类"),_T("供应商列表")},
-		{_T("商品分类"),_T("商品列表")},
-		{_T("部门设置"),_T("员工列表")}
+	CString sub_item[5][3]={
+		{_T("科目设置"),_T("凭证输入"),_T("报表")},
+		{_T("客户分类"),_T("客户列表"),_T("")},
+		{_T("供应商分类"),_T("供应商列表"),_T("")},
+		{_T("商品分类"),_T("商品列表"),_T("")},
+		{_T("部门设置"),_T("员工列表"),_T("")}
 	};
 
 	for (int i=0;i<5;i++)
@@ -124,10 +124,13 @@ void CLeftView::DrawTreeList(void)
 		{
 			hParentItem = m_nTreeList->InsertItem(main_item[i],0,1);
 		}
-		for (int j=0;j<2;j++)
+		for (int j=0;j<3;j++)
 		{
-			hSubItem = m_nTreeList->InsertItem(sub_item[i][j],hParentItem,TVI_LAST);
-			m_nTreeList->SetItemImage(hSubItem,2,2);
+			if (sub_item[i][j]!=_T(""))
+			{
+				hSubItem = m_nTreeList->InsertItem(sub_item[i][j],hParentItem,TVI_LAST);
+				m_nTreeList->SetItemImage(hSubItem,2,2);
+			}
 		}
 	}
 	m_nTreeList->Expand(rootItem,TVE_EXPAND);

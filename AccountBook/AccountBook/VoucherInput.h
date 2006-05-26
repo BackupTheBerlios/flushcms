@@ -25,4 +25,18 @@ public:
 	CListCtrl m_nVoucherList;
 public:
 	afx_msg void OnBnClickedButton1();
+public:
+	void DrawList(void);
+public:
+	afx_msg void OnBnClickedButton2();
+public:
+	afx_msg void OnLvnItemActivateList1(NMHDR *pNMHDR, LRESULT *pResult);
+public:
+	COleDateTime m_nSelectDate;
+public:
+//	afx_msg void OnNMThemeChangedDatetimepicker1(NMHDR *pNMHDR, LRESULT *pResult);
+public:
+	afx_msg void OnDtnDatetimechangeDatetimepicker1(NMHDR *pNMHDR, LRESULT *pResult);
+public:
+	bool m_bDateChange;
 };

@@ -40,4 +40,12 @@ public:
 	CString m_nMemo;
 public:
 	virtual BOOL OnInitDialog();
+public:
+	afx_msg void OnBnClickedOk();
+public:
+	bool m_bIsSubmit;
+public:
+	bool m_bUpdateModel;
+public:
+	CEdit m_nMoneyCtrl;
 };

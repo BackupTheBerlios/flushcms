@@ -145,10 +145,10 @@ void CAccountSort::DrawList(void)
 	};
 
 	m_pSet=theApp.m_nDatabase->getTableRecordset(_T("AccountType"),_T(" ORDER BY OrderID "));
+	m_nAccountTypeList.DeleteAllItems();
 
 	if (!m_pSet->IsEOF())
 	{
-		m_nAccountTypeList.DeleteAllItems();
 		m_pSet->MoveFirst();
 		int x=0;
 		while (!m_pSet->IsEOF())
@@ -221,7 +221,7 @@ void CAccountSort::OnLvnItemActivateAccountTypeList(NMHDR *pNMHDR, LRESULT *pRes
 
 void CAccountSort::OnBnClickedButton2()
 {
-	// 删除所选的联系人
+	// 删除所选
 	int nCount = m_nAccountTypeList.GetItemCount();
 	CString delItem,delString,str;
 	str.Format(_T("确认删除所选? "));
