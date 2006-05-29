@@ -61,6 +61,8 @@ public:
 	afx_msg void OnFormDisplay();
 public:
 	afx_msg void OnListDisplay();
+public:
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 };
 
 

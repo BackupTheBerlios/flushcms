@@ -23,10 +23,12 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CREATE()
 	ON_UPDATE_COMMAND_UI_RANGE(AFX_ID_VIEW_MINIMUM, AFX_ID_VIEW_MAXIMUM, &CMainFrame::OnUpdateViewStyles)
 	ON_COMMAND_RANGE(AFX_ID_VIEW_MINIMUM, AFX_ID_VIEW_MAXIMUM, &CMainFrame::OnViewStyle)
+	ON_WM_TIMER()
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
 {
+	ID_SEPARATOR,           // 状态行指示器
 	ID_SEPARATOR,           // 状态行指示器
 	ID_INDICATOR_CAPS,
 	ID_INDICATOR_NUM,
@@ -45,6 +47,7 @@ CMainFrame::CMainFrame()
 
 CMainFrame::~CMainFrame()
 {
+	KillTimer(1);
 	theApp.m_nDatabase->m_nDatabase->Close();
 }
 
@@ -80,6 +83,10 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndToolBar.EnableDocking(CBRS_ALIGN_ANY);
 	EnableDocking(CBRS_ALIGN_ANY);
 	DockControlBar(&m_wndToolBar);
+	
+	m_wndStatusBar.SetPaneInfo(1,ID_SEPARATOR,SBPS_NORMAL,90);
+
+	SetTimer(1,100,NULL);
 
 	splash->DestroyWindow();
 	return 0;
@@ -295,3 +302,19 @@ bool CMainFrame::ReplaceView(int row, int col, CRuntimeClass *pViewClass, SIZE s
 
 
 
+
+void CMainFrame::OnTimer(UINT_PTR nIDEvent)
+{
+	// 定时处理
+	switch(nIDEvent)
+	{
+		case 1:
+			CTime theTime = CTime::GetCurrentTime();
+			CString timeStr;
+			timeStr.Format(_T("当前时间%d:%d:%d"),theTime.GetHour(),theTime.GetMinute(),theTime.GetSecond());
+			m_wndStatusBar.SetPaneText(1,timeStr,true);
+			break;
+	}
+
+	CFrameWnd::OnTimer(nIDEvent);
+}
