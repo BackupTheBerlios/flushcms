@@ -1,5 +1,6 @@
 #pragma once
 #include "afxcmn.h"
+#include "HHideListCtrl.h"
 
 
 // CVoucherInput ¶Ô»°¿ò
@@ -22,7 +23,7 @@ protected:
 public:
 	virtual BOOL OnInitDialog();
 public:
-	CListCtrl m_nVoucherList;
+	HHideListCtrl m_nVoucherList;
 public:
 	afx_msg void OnBnClickedButton1();
 public:

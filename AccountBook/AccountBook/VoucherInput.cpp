@@ -16,8 +16,8 @@ typedef struct ListHeaderLabel
 
 ListLabel voucherHeaderLabel[VOUCHER_LEN]=
 {
-	_T("ID"),40,
 	_T("日期"),120,
+	_T("ID"),20,
 	_T("凭证序号"),80,
 	_T("科目"),120,
 	_T("借贷"),40,
@@ -70,6 +70,8 @@ BOOL CVoucherInput::OnInitDialog()
 	{
 		m_nVoucherList.InsertColumn(i,voucherHeaderLabel[i].title,LVCFMT_LEFT,voucherHeaderLabel[i].len);
 	}
+	m_nVoucherList.SetColumnHide(1, TRUE);
+
 	DrawList();
 
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -102,8 +104,8 @@ void CVoucherInput::DrawList(void)
 	COleDateTime sourceDate;
 	COleCurrency sourceMoney;
 	CString sql,tmpStr,filedName[VOUCHER_LEN]={
-		_T("VoucherID"),
 		_T("CreateDate"),
+		_T("VoucherID"),
 		_T("Amount"),
 		_T("AccountTypeID"),
 		_T("Debit"),
@@ -129,17 +131,15 @@ void CVoucherInput::DrawList(void)
 		int x=0;
 		while (!m_pSet->IsEOF())
 		{
-			m_pSet->GetFieldValue(_T("VoucherID"),tmpStr);
+			m_pSet->GetFieldValue(_T("CreateDate"),tmpStr);
+			sourceDate.ParseDateTime(tmpStr);
+			tmpStr = sourceDate.Format(_T("%Y-%m-%d"));
+
 			m_nVoucherList.InsertItem(x,tmpStr);
 			for (int i=1;i<VOUCHER_LEN;i++)
 			{
 				m_pSet->GetFieldValue(filedName[i],tmpStr);
-				if (i==1)
-				{
-					sourceDate.ParseDateTime(tmpStr);
-					tmpStr = sourceDate.Format(_T("%Y-%m-%d"));
-				}
-				else if (i==5)
+				if (i==5)
 				{
 					sourceMoney.ParseCurrency(tmpStr);
 					tmpStr = sourceMoney.Format(0, MAKELCID(MAKELANGID(LANG_CHINESE,
@@ -167,7 +167,7 @@ void CVoucherInput::OnBnClickedButton2()
 		{
 			if (m_nVoucherList.GetCheck(i))
 			{
-				delItem=m_nVoucherList.GetItemText(i,0);
+				delItem=m_nVoucherList.GetItemText(i,1);
 				delString.Format(_T(" DELETE FROM Voucher WHERE VoucherID=%s "),delItem);
 				theApp.m_nDatabase->doActionQuery(delString);
 			}
@@ -183,7 +183,7 @@ void CVoucherInput::OnLvnItemActivateList1(NMHDR *pNMHDR, LRESULT *pResult)
 	// 修改科目
 	*pResult = 0;
 	pNMIA->iItem;
-	CString selectItem = m_nVoucherList.GetItemText(pNMIA->iItem,0);
+	CString selectItem = m_nVoucherList.GetItemText(pNMIA->iItem,1);
 
 	CRecordset *m_pSet;
 	CString sql,dlgDate,tmpStr,currentID;

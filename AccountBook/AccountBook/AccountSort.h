@@ -1,6 +1,7 @@
 #pragma once
 #include "afxext.h"
 #include "afxcmn.h"
+#include "HHideListCtrl.h"
 
 
 // CAccountSort ¶Ô»°¿ò
@@ -25,7 +26,7 @@ public:
 public:
 	CToolBarCtrl m_nToolBar;
 public:
-	CListCtrl m_nAccountTypeList;
+	HHideListCtrl m_nAccountTypeList;
 public:
 	afx_msg void OnBnClickedButton1();
 public:

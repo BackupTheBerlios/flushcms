@@ -214,6 +214,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\HHideHeaderCtrl.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\HHideListCtrl.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\LeftView.cpp"
 				>
 			</File>
@@ -289,6 +297,14 @@
 			</File>
 			<File
 				RelativePath=".\CustomerType.h"
+				>
+			</File>
+			<File
+				RelativePath=".\HHideHeaderCtrl.h"
+				>
+			</File>
+			<File
+				RelativePath=".\HHideListCtrl.h"
 				>
 			</File>
 			<File

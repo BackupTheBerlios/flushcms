@@ -84,7 +84,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	EnableDocking(CBRS_ALIGN_ANY);
 	DockControlBar(&m_wndToolBar);
 	
-	m_wndStatusBar.SetPaneInfo(1,ID_SEPARATOR,SBPS_NORMAL,90);
+	m_wndStatusBar.SetPaneInfo(1,ID_SEPARATOR,SBPS_NORMAL,100);
 
 	SetTimer(1,100,NULL);
 

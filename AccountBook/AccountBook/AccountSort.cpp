@@ -48,6 +48,8 @@ BOOL CAccountSort::OnInitDialog()
 	{
 		m_nAccountTypeList.InsertColumn(i,accountTypeLabel[i].title,LVCFMT_LEFT,accountTypeLabel[i].len);
 	}
+	m_nAccountTypeList.SetColumnHide(1, TRUE);
+
 	DrawList();
 	// TODO:  在此添加额外的初始化
 	//m_nToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_TOP
@@ -137,8 +139,9 @@ void CAccountSort::OnBnClickedButton1()
 void CAccountSort::DrawList(void)
 {
 	CRecordset *m_pSet;
-	CString tmpStr,filedName[4]={
+	CString tmpStr,filedName[ACCOUNT_TYPE_LEN]={
 		_T("NumberID"),
+		_T("AccountTypeID"),
 		_T("Title"),
 		_T("Display"),
 		_T("OrderID")
@@ -182,7 +185,7 @@ void CAccountSort::OnLvnItemActivateAccountTypeList(NMHDR *pNMHDR, LRESULT *pRes
 
 	CAccountAdd *addDlg = new CAccountAdd();
 
-	sql.Format(_T(" WHERE Title = '%s' "),selectItem);
+	sql.Format(_T(" WHERE AccountTypeID = %s "),selectItem);
 	m_pSet = theApp.m_nDatabase->getTableRecordset(_T("AccountType"),sql);
 	if (!m_pSet->IsEOF())
 	{
@@ -231,8 +234,8 @@ void CAccountSort::OnBnClickedButton2()
 		{
 			if (m_nAccountTypeList.GetCheck(i))
 			{
-				delItem=m_nAccountTypeList.GetItemText(i,0);
-				delString.Format(_T(" DELETE FROM AccountType WHERE NumberID=%s "),delItem);
+				delItem=m_nAccountTypeList.GetItemText(i,1);
+				delString.Format(_T(" DELETE FROM AccountType WHERE AccountTypeID=%s "),delItem);
 				theApp.m_nDatabase->doActionQuery(delString);
 			}
 		}
