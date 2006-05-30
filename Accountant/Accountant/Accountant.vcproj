@@ -5,10 +5,6 @@
 	Name="Accountant"
 	ProjectGUID="{E7CFE6D6-1812-493A-A472-5FD3D886EDC9}"
 	RootNamespace="Accountant"
-	SccProjectName="SAK"
-	SccAuxPath="SAK"
-	SccLocalPath="SAK"
-	SccProvider="SAK"
 	Keyword="MFCProj"
 	>
 	<Platforms>

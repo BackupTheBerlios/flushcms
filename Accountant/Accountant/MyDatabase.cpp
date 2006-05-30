@@ -90,6 +90,7 @@ int CMyDatabase::getTypesID(CString TypesName)
 		record->GetFieldValue(_T("CID"),tempStr);
 	}
 	PID	= _ttoi(tempStr) ;
+	record->Close();
 	return PID;
 }
 
@@ -107,5 +108,6 @@ int CMyDatabase::getProvinceid(CString provinceName)
 		record->GetFieldValue(_T("ProvinceID"),tempStr);
 	}
 	PID	= _ttoi(tempStr) ;
+	record->Close();
 	return PID;
 }

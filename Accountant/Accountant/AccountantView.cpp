@@ -233,6 +233,7 @@ void CAccountantView::drawList(void)
 				m_pSet->MoveNext();
 			}
 		}
+		m_pSet->Close();
 	}
 }
 
@@ -297,6 +298,7 @@ void CAccountantView::OnLvnItemActivate(NMHDR *pNMHDR, LRESULT *pResult)
 
 
 	}
+	m_pSet->Close();
 
 	personDlg->m_nUpdateMode=true;
 	personDlg->DoModal();
@@ -403,6 +405,7 @@ void CAccountantView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 					m_pSet->MoveNext();
 				}
 			}
+			m_pSet->Close();
 
 
 		}
