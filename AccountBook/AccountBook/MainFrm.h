@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include "CustSplitterWnd.h"
+
 class CAccountBookView;
 
 class CMainFrame : public CFrameWnd
@@ -15,7 +17,7 @@ protected: // 仅从序列化创建
 
 // 属性
 public:
-	CSplitterWnd m_wndSplitter;
+	CCustSplitterWnd m_wndSplitter;
 public:
 
 // 操作

@@ -10,6 +10,8 @@
 #include "AccountSort.h"
 #include "VoucherInput.h"
 #include "CustomerType.h"
+#include "MainFrm.h"
+#include "AccountTypes.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -152,11 +154,13 @@ void CLeftView::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 	m_nTreeList->Expand(hParent,TVE_EXPAND);
 	if (hItem != NULL && hParent !=NULL )
 	{
+		CMainFrame *pMainFrame = (CMainFrame*)AfxGetMainWnd();
 
 		if (node_name==_T("¿ÆÄ¿ÉèÖÃ"))
 		{
-			CAccountSort *typeDlg = new CAccountSort();
-			typeDlg->DoModal();
+			//CAccountSort *typeDlg = new CAccountSort();
+			pMainFrame->m_wndSplitter.ReplaceView(0,1,RUNTIME_CLASS(CAccountTypes),CSize(100,100));
+			//typeDlg->DoModal();
 			//AfxGetApp()->m_pMainWnd->SendMessage(WM_COMMAND, ID_32771);
 			//MessageBox(selectText);
 		} 

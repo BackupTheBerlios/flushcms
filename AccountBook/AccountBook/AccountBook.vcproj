@@ -210,7 +210,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\AccountTypes.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\CustomerType.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CustSplitterWnd.cpp"
 				>
 			</File>
 			<File
@@ -292,11 +300,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\AccountTypes.h"
+				>
+			</File>
+			<File
 				RelativePath=".\CommonHeader.h"
 				>
 			</File>
 			<File
 				RelativePath=".\CustomerType.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CustSplitterWnd.h"
 				>
 			</File>
 			<File
