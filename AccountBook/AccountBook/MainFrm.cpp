@@ -7,7 +7,7 @@
 #include "MainFrm.h"
 #include "LeftView.h"
 #include "AccountBookView.h"
-
+#include "MainView.h"
 
 #include "SplashScreen.h"
 
@@ -101,7 +101,7 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT /*lpcs*/,
 		return FALSE;
 
 	if (!m_wndSplitter.CreateView(0, 0, RUNTIME_CLASS(CLeftView), CSize(160, 100), pContext) ||
-		!m_wndSplitter.CreateView(0, 1, RUNTIME_CLASS(CAccountBookView), CSize(100, 100), pContext))//CAccountBookView
+		!m_wndSplitter.CreateView(0, 1, RUNTIME_CLASS(CMainView), CSize(100, 100), pContext))//CAccountBookView
 	{
 		m_wndSplitter.DestroyWindow();
 		return FALSE;

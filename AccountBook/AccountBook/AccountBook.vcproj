@@ -242,6 +242,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\MainView.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\MyDatabase.cpp"
 				>
 			</File>
@@ -345,6 +349,10 @@
 			</File>
 			<File
 				RelativePath=".\MainFrm.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MainView.h"
 				>
 			</File>
 			<File
