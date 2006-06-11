@@ -12,7 +12,7 @@ IMPLEMENT_DYNAMIC(CReportYearSelect, CDialog)
 
 CReportYearSelect::CReportYearSelect(CWnd* pParent /*=NULL*/)
 	: CDialog(CReportYearSelect::IDD, pParent)
-	, m_bIsMonth(false)
+	, m_bIsMonth(0)
 	, m_bIsSubmint(false)
 	, m_nYearSelect(COleDateTime::GetCurrentTime())
 {
@@ -43,11 +43,11 @@ BOOL CReportYearSelect::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO:  在此添加额外的初始化
-	if (m_bIsMonth)
+	if (m_bIsMonth==2)
 	{
 		m_nYearSelectCtrl.SetFormat(_T("yyyy-MM"));
 	} 
-	else
+	else if(m_bIsMonth==1)
 	{
 		m_nYearSelectCtrl.SetFormat(_T("yyyy"));
 	}

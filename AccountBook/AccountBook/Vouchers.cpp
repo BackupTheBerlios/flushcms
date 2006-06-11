@@ -292,19 +292,36 @@ void CVouchers::OnDtnDatetimechangeDatetimepicker1(NMHDR *pNMHDR, LRESULT *pResu
 void CVouchers::OnBnClickedRepVoucherDetail()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	m_nReport.put_filename(_T("report\\voucher.rep"));
-	m_nReport.put_Title(m_nCurrentCompanyName);
+	CReportYearSelect *dlg = new CReportYearSelect();
+	dlg->DoModal();
+	if (dlg->m_bIsSubmint)
+	{
+		m_nReport.put_filename(_T("report\\voucher.rep"));
+		m_nReport.put_Title(m_nCurrentCompanyName);
 
-	COleVariant company_name = new COleVariant((CString)m_nCurrentCompanyName);
-	m_nReport.SetParamValue(_T("COMPANYNAME"),company_name);
-	m_nReport.put_Preview(true);
-	m_nReport.Execute();
+		COleVariant company_name = new COleVariant((CString)m_nCurrentCompanyName);
+		m_nReport.SetParamValue(_T("COMPANYNAME"),company_name);
+		
+		int c_id = _ttoi(m_nCompanyID);
+		COleVariant company_id = new COleVariant((short) c_id);
+		m_nReport.SetParamValue(_T("COMPANYID"),company_id);
+
+		CString year_month = dlg->m_nYearSelect.Format(_T("%Y-%m-%d"));
+		COleVariant set_year = new COleVariant((CString)year_month);
+		m_nReport.SetParamValue(_T("YEARMONTHDAY"),set_year);
+
+		m_nReport.put_Preview(true);
+		m_nReport.Execute();
+	}
+
 }
 
 void CVouchers::OnBnClickedReportYear()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	CReportYearSelect *dlg = new CReportYearSelect();
+	dlg->m_bIsMonth=1;
+	UpdateData(FALSE);
 	dlg->DoModal();
 	if (dlg->m_bIsSubmint)
 	{
@@ -331,7 +348,28 @@ void CVouchers::OnBnClickedReportMonth()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	CReportYearSelect *dlg = new CReportYearSelect();
-	dlg->m_bIsMonth=TRUE;
+	dlg->m_bIsMonth=2;
 	UpdateData(FALSE);
 	dlg->DoModal();
+	if (dlg->m_bIsSubmint)
+	{
+		m_nReport.put_filename(_T("report\\VoucherMonth.rep"));
+		m_nReport.put_Title(m_nCurrentCompanyName);
+
+		COleVariant company_name = new COleVariant((CString)m_nCurrentCompanyName);
+		m_nReport.SetParamValue(_T("COMPANYNAME"),company_name);
+
+		int c_id = _ttoi(m_nCompanyID);
+		COleVariant company_id = new COleVariant((short) c_id);
+		m_nReport.SetParamValue(_T("COMPANYID"),company_id);
+
+		CString year_month = dlg->m_nYearSelect.Format(_T("%Y-%m"));
+		COleVariant set_year = new COleVariant((CString)year_month);
+		m_nReport.SetParamValue(_T("YEARMONTH"),set_year);
+
+
+		m_nReport.put_Preview(true);
+		m_nReport.Execute();
+
+	}
 }

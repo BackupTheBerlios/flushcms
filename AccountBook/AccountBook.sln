@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AccountBook", "AccountBook\AccountBook.vcproj", "{9B04DDB6-A839-422A-9F2F-785F3BB43A93}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AccountBookSetup", "AccountBookSetup\AccountBookSetup.vdproj", "{37E30B8E-C0E5-430A-98D4-BE408248787B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -13,6 +15,10 @@ Global
 		{9B04DDB6-A839-422A-9F2F-785F3BB43A93}.Debug|Win32.Build.0 = Debug|Win32
 		{9B04DDB6-A839-422A-9F2F-785F3BB43A93}.Release|Win32.ActiveCfg = Release|Win32
 		{9B04DDB6-A839-422A-9F2F-785F3BB43A93}.Release|Win32.Build.0 = Release|Win32
+		{37E30B8E-C0E5-430A-98D4-BE408248787B}.Debug|Win32.ActiveCfg = Debug
+		{37E30B8E-C0E5-430A-98D4-BE408248787B}.Debug|Win32.Build.0 = Debug
+		{37E30B8E-C0E5-430A-98D4-BE408248787B}.Release|Win32.ActiveCfg = Release
+		{37E30B8E-C0E5-430A-98D4-BE408248787B}.Release|Win32.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

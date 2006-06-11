@@ -8,7 +8,10 @@ object TRpReport
     item
       Alias = 'ACCOUNT'
       DatabaseAlias = 'ACCOUNTBOOK'
-      SQL = 'select * from Voucher where Year(CreateDate) = :REPORT_YEAR'
+      SQL = 
+        'select * from Voucher where CompanyID = :COMPANYID and  format(C' +
+        'reateDate,"yyyy-mm-dd")=:YEARMONTHDAY ORDER BY format(CreateDate' +
+        ',"yyyy-mm-dd") '
     end>
   DatabaseInfo = <
     item
@@ -29,7 +32,7 @@ object TRpReport
     item
       Name = 'COMPANYNAME'
       AllowNulls = False
-      Value = 'FDSAFDSAF'
+      Value = 'XXXXX'
       Description = ''
       Hint = ''
       Search = ''
@@ -37,14 +40,23 @@ object TRpReport
       Validation = ''
     end
     item
-      Name = 'REPORT_YEAR'
+      Name = 'YEARMONTHDAY'
       AllowNulls = False
-      Value = 2006
-      ParamType = rpParamInteger
+      Value = '2006-06-10'
       Datasets.Strings = (
         'ACCOUNT')
-      SearchDataset = 'ACCOUNT'
-      SearchParam = 'REPORT_YEAR'
+      Description = ''
+      Hint = ''
+      Search = ''
+      ErrorMessage = ''
+      Validation = ''
+    end
+    item
+      Name = 'COMPANYID'
+      AllowNulls = False
+      Value = '3'
+      Datasets.Strings = (
+        'ACCOUNT')
       Description = ''
       Hint = ''
       Search = ''
@@ -62,7 +74,13 @@ object TRpReport
         Section = TRpSection1
       end
       item
+        Section = TRpSection3
+      end
+      item
         Section = TRpSection0
+      end
+      item
+        Section = TRpSection4
       end
       item
         Section = TRpSection2
@@ -71,7 +89,7 @@ object TRpReport
   end
   object TRpSection0: TRpSection
     Width = 10772
-    Height = 390
+    Height = 300
     SubReport = TRpSubReport0
     ChangeBool = False
     PageRepeat = False
@@ -80,25 +98,22 @@ object TRpReport
     SectionType = rpsecdetail
     Components = <
       item
-        Component = TRpExpression0
-      end
-      item
-        Component = TRpExpression1
-      end
-      item
-        Component = TRpExpression2
-      end
-      item
-        Component = TRpExpression3
-      end
-      item
-        Component = TRpExpression4
-      end
-      item
         Component = TRpExpression5
       end
       item
         Component = TRpExpression6
+      end
+      item
+        Component = TRpExpression7
+      end
+      item
+        Component = TRpExpression8
+      end
+      item
+        Component = TRpExpression9
+      end
+      item
+        Component = TRpExpression10
       end>
     ExternalTable = 'REPMAN_REPORTS'
     ExternalField = 'REPORT'
@@ -116,170 +131,9 @@ object TRpReport
     BackExpression = ''
     Stream = {0000000000000000}
   end
-  object TRpExpression0: TRpExpression
-    Width = 1605
-    Height = 240
-    PosX = 2190
-    PosY = 0
-    Type1Font = poHelvetica
-    FontSize = 12
-    AutoExpand = False
-    AutoContract = False
-    ExportPosition = 0
-    ExportSize = 1
-    ExportDoNewLine = False
-    PrintCondition = ''
-    DoBeforePrint = ''
-    DoAfterPrint = ''
-    WFontName = 'Arial'
-    LFontName = 'Helvetica'
-    Expression = 'ACCOUNT.VoucherID'
-    DisplayFormat = ''
-    ExportDisplayFormat = ''
-    AgIniValue = '0'
-    ExportExpression = ''
-  end
-  object TRpExpression1: TRpExpression
-    Width = 2415
-    Height = 225
-    PosX = 0
-    PosY = 0
-    Type1Font = poHelvetica
-    FontSize = 12
-    AutoExpand = False
-    AutoContract = False
-    ExportPosition = 0
-    ExportSize = 1
-    ExportDoNewLine = False
-    PrintCondition = ''
-    DoBeforePrint = ''
-    DoAfterPrint = ''
-    WFontName = 'Arial'
-    LFontName = 'Helvetica'
-    Expression = 'ACCOUNT.AccountTypeID'
-    DisplayFormat = ''
-    ExportDisplayFormat = ''
-    AgIniValue = '0'
-    ExportExpression = ''
-  end
-  object TRpExpression2: TRpExpression
-    Width = 1725
-    Height = 240
-    PosX = 7710
-    PosY = 0
-    Type1Font = poHelvetica
-    FontSize = 12
-    AutoExpand = False
-    AutoContract = False
-    ExportPosition = 0
-    ExportSize = 1
-    ExportDoNewLine = False
-    PrintCondition = ''
-    DoBeforePrint = ''
-    DoAfterPrint = ''
-    WFontName = 'Arial'
-    LFontName = 'Helvetica'
-    Expression = 'ACCOUNT.CreateDate'
-    DisplayFormat = ''
-    ExportDisplayFormat = ''
-    AgIniValue = '0'
-    ExportExpression = ''
-  end
-  object TRpExpression3: TRpExpression
-    Width = 1140
-    Height = 225
-    PosX = 5295
-    PosY = 0
-    Type1Font = poHelvetica
-    FontSize = 12
-    AutoExpand = False
-    AutoContract = False
-    ExportPosition = 0
-    ExportSize = 1
-    ExportDoNewLine = False
-    PrintCondition = ''
-    DoBeforePrint = ''
-    DoAfterPrint = ''
-    WFontName = 'Arial'
-    LFontName = 'Helvetica'
-    Expression = 'ACCOUNT.Amount'
-    DisplayFormat = ''
-    ExportDisplayFormat = ''
-    AgIniValue = '0'
-    ExportExpression = ''
-  end
-  object TRpExpression4: TRpExpression
-    Width = 1500
-    Height = 225
-    PosX = 3795
-    PosY = 0
-    Type1Font = poHelvetica
-    FontSize = 12
-    AutoExpand = False
-    AutoContract = False
-    ExportPosition = 0
-    ExportSize = 1
-    ExportDoNewLine = False
-    PrintCondition = ''
-    DoBeforePrint = ''
-    DoAfterPrint = ''
-    WFontName = 'Arial'
-    LFontName = 'Helvetica'
-    Expression = 'ACCOUNT.Debit'
-    DisplayFormat = ''
-    ExportDisplayFormat = ''
-    AgIniValue = '0'
-    ExportExpression = ''
-  end
-  object TRpExpression5: TRpExpression
-    Width = 1035
-    Height = 225
-    PosX = 6555
-    PosY = 0
-    Type1Font = poHelvetica
-    FontSize = 12
-    AutoExpand = False
-    AutoContract = False
-    ExportPosition = 0
-    ExportSize = 1
-    ExportDoNewLine = False
-    PrintCondition = ''
-    DoBeforePrint = ''
-    DoAfterPrint = ''
-    WFontName = 'Arial'
-    LFontName = 'Helvetica'
-    Expression = 'ACCOUNT.Moneys'
-    DisplayFormat = ''
-    ExportDisplayFormat = ''
-    AgIniValue = '0'
-    ExportExpression = ''
-  end
-  object TRpExpression6: TRpExpression
-    Width = 1215
-    Height = 240
-    PosX = 9435
-    PosY = 0
-    Type1Font = poHelvetica
-    FontSize = 12
-    AutoExpand = False
-    AutoContract = False
-    ExportPosition = 0
-    ExportSize = 1
-    ExportDoNewLine = False
-    PrintCondition = ''
-    DoBeforePrint = ''
-    DoAfterPrint = ''
-    WFontName = 'Arial'
-    LFontName = 'Helvetica'
-    Expression = 'ACCOUNT.Memo'
-    DisplayFormat = ''
-    ExportDisplayFormat = ''
-    AgIniValue = '0'
-    ExportExpression = ''
-  end
   object TRpSection1: TRpSection
     Width = 10772
-    Height = 975
+    Height = 1200
     SubReport = TRpSubReport0
     ChangeBool = False
     PageRepeat = False
@@ -288,10 +142,13 @@ object TRpReport
     SectionType = rpsecpheader
     Components = <
       item
-        Component = TRpShape1
+        Component = TRpShape0
       end
       item
-        Component = TRpExpression9
+        Component = TRpExpression1
+      end
+      item
+        Component = TRpExpression0
       end>
     ExternalTable = 'REPMAN_REPORTS'
     ExternalField = 'REPORT'
@@ -320,16 +177,118 @@ object TRpReport
     SectionType = rpsecpfooter
     Components = <
       item
-        Component = TRpShape0
+        Component = TRpLabel6
       end
       item
-        Component = TRpExpression7
+        Component = TRpExpression2
       end
       item
-        Component = TRpExpression8
+        Component = TRpLabel7
+      end
+      item
+        Component = TRpExpression3
+      end
+      item
+        Component = TRpExpression4
+      end
+      item
+        Component = TRpShape1
+      end
+      item
+        Component = TRpLabel8
+      end>
+    ExternalTable = 'REPMAN_REPORTS'
+    ExternalField = 'REPORT'
+    ExternalSearchField = 'REPORT_NAME'
+    StreamFormat = rpStreamText
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+    ChangeExpression = ''
+    BeginPageExpression = ''
+    ChangeExpression = ''
+    SkipExpreV = ''
+    SkipExpreH = ''
+    SkipToPageExpre = ''
+    BackExpression = ''
+    Stream = {0000000000000000}
+  end
+  object TRpSection3: TRpSection
+    Width = 10772
+    Height = 420
+    SubReport = TRpSubReport0
+    GroupName = 'DAY'
+    ChangeBool = False
+    PageRepeat = False
+    SkipPage = False
+    AlignBottom = False
+    SectionType = rpsecgheader
+    Components = <
+      item
+        Component = TRpLabel0
       end
       item
         Component = TRpLabel1
+      end
+      item
+        Component = TRpLabel2
+      end
+      item
+        Component = TRpLabel3
+      end
+      item
+        Component = TRpLabel4
+      end
+      item
+        Component = TRpLabel5
+      end>
+    ExternalTable = 'REPMAN_REPORTS'
+    ExternalField = 'REPORT'
+    ExternalSearchField = 'REPORT_NAME'
+    StreamFormat = rpStreamText
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+    ChangeExpression = ''
+    BeginPageExpression = ''
+    ChangeExpression = ''
+    SkipExpreV = ''
+    SkipExpreH = ''
+    SkipToPageExpre = ''
+    BackExpression = ''
+    Stream = {0000000000000000}
+  end
+  object TRpSection4: TRpSection
+    Width = 10772
+    Height = 1080
+    SubReport = TRpSubReport0
+    GroupName = 'DAY'
+    ChangeBool = False
+    PageRepeat = False
+    SkipPage = False
+    AlignBottom = False
+    SectionType = rpsecgfooter
+    Components = <
+      item
+        Component = TRpShape2
+      end
+      item
+        Component = TRpLabel9
+      end
+      item
+        Component = TRpLabel10
+      end
+      item
+        Component = TRpLabel11
+      end
+      item
+        Component = TRpExpression11
+      end
+      item
+        Component = TRpExpression12
+      end
+      item
+        Component = TRpExpression13
       end>
     ExternalTable = 'REPMAN_REPORTS'
     ExternalField = 'REPORT'
@@ -349,33 +308,25 @@ object TRpReport
   end
   object TRpShape0: TRpShape
     Width = 10755
-    Height = 105
-    PosX = 0
-    PosY = 120
-    BrushColor = 255
-    PenWidth = 0
-    PrintCondition = ''
-    DoBeforePrint = ''
-    DoAfterPrint = ''
-  end
-  object TRpShape1: TRpShape
-    Width = 10755
     Height = 120
     PosX = 0
-    PosY = 690
-    BrushColor = 16744448
+    PosY = 1035
+    Shape = rpsHorzLine
     PenWidth = 0
     PrintCondition = ''
     DoBeforePrint = ''
     DoAfterPrint = ''
   end
-  object TRpExpression7: TRpExpression
-    Width = 1050
-    Height = 264
-    PosX = 8970
-    PosY = 225
+  object TRpExpression1: TRpExpression
+    Width = 9195
+    Height = 1035
+    PosX = 0
+    PosY = 0
     Type1Font = poHelvetica
-    FontSize = 12
+    FontSize = 36
+    FontStyle = 1
+    FontColor = 8404992
+    Alignment = 4
     AutoExpand = False
     AutoContract = False
     ExportPosition = 0
@@ -386,19 +337,207 @@ object TRpReport
     DoAfterPrint = ''
     WFontName = 'Arial'
     LFontName = 'Helvetica'
-    Expression = 'M.PAGE'
+    Expression = 'M.COMPANYNAME'
     DisplayFormat = ''
     ExportDisplayFormat = ''
     AgIniValue = '0'
     ExportExpression = ''
   end
-  object TRpExpression8: TRpExpression
-    Width = 1050
-    Height = 264
-    PosX = 6435
+  object TRpExpression0: TRpExpression
+    Width = 1560
+    Height = 465
+    PosX = 9195
+    PosY = 570
+    Type1Font = poHelvetica
+    FontSize = 20
+    FontStyle = 2
+    FontColor = 255
+    AutoExpand = False
+    AutoContract = False
+    ExportPosition = 0
+    ExportSize = 1
+    ExportDoNewLine = False
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+    WFontName = 'Arial'
+    LFontName = 'Helvetica'
+    Expression = 'M.YEARMONTHDAY'
+    DisplayFormat = ''
+    ExportDisplayFormat = ''
+    AgIniValue = '0'
+    ExportExpression = ''
+  end
+  object TRpLabel0: TRpLabel
+    Width = 1035
+    Height = 345
+    PosX = 3225
+    PosY = 0
+    Type1Font = poHelvetica
+    FontSize = 11
+    FontStyle = 1
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+    WFontName = 'Arial'
+    LFontName = 'Helvetica'
+    WideText = #20973#35777#31185#30446
+  end
+  object TRpLabel1: TRpLabel
+    Width = 690
+    Height = 345
+    PosX = 4854
+    PosY = 0
+    Type1Font = poHelvetica
+    FontSize = 11
+    FontStyle = 1
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+    WFontName = 'Arial'
+    LFontName = 'Helvetica'
+    WideText = #20511'/'#36151
+  end
+  object TRpLabel2: TRpLabel
+    Width = 930
+    Height = 345
+    PosX = 6090
+    PosY = 0
+    Type1Font = poHelvetica
+    FontSize = 11
+    FontStyle = 1
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+    WFontName = 'Arial'
+    LFontName = 'Helvetica'
+    WideText = #37329#39069'('#20803')'
+  end
+  object TRpLabel3: TRpLabel
+    Width = 1035
+    Height = 345
+    PosX = 7590
+    PosY = 0
+    Type1Font = poHelvetica
+    FontSize = 11
+    FontStyle = 1
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+    WFontName = 'Arial'
+    LFontName = 'Helvetica'
+    WideText = #25551#36848
+  end
+  object TRpLabel4: TRpLabel
+    Width = 570
+    Height = 345
+    PosX = 0
+    PosY = 0
+    Type1Font = poHelvetica
+    FontSize = 11
+    FontStyle = 1
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+    WFontName = 'Arial'
+    LFontName = 'Helvetica'
+    WideText = #26085#26399
+  end
+  object TRpLabel5: TRpLabel
+    Width = 1035
+    Height = 345
+    PosX = 1605
+    PosY = 0
+    Type1Font = poHelvetica
+    FontSize = 11
+    FontStyle = 1
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+    WFontName = 'Arial'
+    LFontName = 'Helvetica'
+    WideText = #20973#35777#24207#21495
+  end
+  object TRpLabel6: TRpLabel
+    Width = 345
+    Height = 345
+    PosX = 8745
     PosY = 225
     Type1Font = poHelvetica
-    FontSize = 12
+    FontSize = 11
+    FontStyle = 1
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+    WFontName = 'Arial'
+    LFontName = 'Helvetica'
+    WideText = #31532
+  end
+  object TRpExpression2: TRpExpression
+    Width = 690
+    Height = 240
+    PosX = 9090
+    PosY = 225
+    Type1Font = poHelvetica
+    Alignment = 4
+    AutoExpand = False
+    AutoContract = False
+    ExportPosition = 0
+    ExportSize = 1
+    ExportDoNewLine = False
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+    WFontName = 'Arial'
+    LFontName = 'Helvetica'
+    Expression = 'M.PAGENUM'
+    DisplayFormat = ''
+    ExportDisplayFormat = ''
+    AgIniValue = '0'
+    ExportExpression = ''
+  end
+  object TRpLabel7: TRpLabel
+    Width = 120
+    Height = 240
+    PosX = 9780
+    PosY = 225
+    Type1Font = poHelvetica
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+    WFontName = 'Arial'
+    LFontName = 'Helvetica'
+    WideText = '/'
+  end
+  object TRpExpression3: TRpExpression
+    Width = 450
+    Height = 240
+    PosX = 9885
+    PosY = 225
+    Type1Font = poHelvetica
+    Alignment = 4
+    AutoExpand = False
+    AutoContract = False
+    ExportPosition = 0
+    ExportSize = 1
+    ExportDoNewLine = False
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+    WFontName = 'Arial'
+    LFontName = 'Helvetica'
+    Expression = 'PAGECOUNT'
+    DisplayFormat = ''
+    ExportDisplayFormat = ''
+    AgIniValue = '0'
+    ExportExpression = ''
+  end
+  object TRpExpression4: TRpExpression
+    Width = 1050
+    Height = 264
+    PosX = 6900
+    PosY = 225
+    Type1Font = poHelvetica
     AutoExpand = False
     AutoContract = False
     ExportPosition = 0
@@ -415,13 +554,25 @@ object TRpReport
     AgIniValue = '0'
     ExportExpression = ''
   end
-  object TRpLabel1: TRpLabel
-    Width = 450
-    Height = 240
-    PosX = 10125
+  object TRpShape1: TRpShape
+    Width = 10755
+    Height = 120
+    PosX = 0
+    PosY = 0
+    Shape = rpsHorzLine
+    PenWidth = 0
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+  end
+  object TRpLabel8: TRpLabel
+    Width = 465
+    Height = 345
+    PosX = 10350
     PosY = 225
     Type1Font = poHelvetica
-    FontSize = 12
+    FontSize = 11
+    FontStyle = 1
     PrintCondition = ''
     DoBeforePrint = ''
     DoAfterPrint = ''
@@ -429,15 +580,12 @@ object TRpReport
     LFontName = 'Helvetica'
     WideText = #39029
   end
-  object TRpExpression9: TRpExpression
-    Width = 2805
-    Height = 510
-    PosX = 2880
-    PosY = 120
+  object TRpExpression5: TRpExpression
+    Width = 1050
+    Height = 264
+    PosX = 0
+    PosY = 0
     Type1Font = poHelvetica
-    FontSize = 14
-    FontColor = 255
-    BackColor = 32896
     AutoExpand = False
     AutoContract = False
     ExportPosition = 0
@@ -448,7 +596,246 @@ object TRpReport
     DoAfterPrint = ''
     WFontName = 'Arial'
     LFontName = 'Helvetica'
-    Expression = 'M.COMPANYNAME'
+    Expression = 'ACCOUNT.CreateDate'
+    DisplayFormat = ''
+    ExportDisplayFormat = ''
+    AgIniValue = '0'
+    ExportExpression = ''
+  end
+  object TRpExpression6: TRpExpression
+    Width = 1050
+    Height = 264
+    PosX = 1605
+    PosY = 0
+    Type1Font = poHelvetica
+    AutoExpand = False
+    AutoContract = False
+    ExportPosition = 0
+    ExportSize = 1
+    ExportDoNewLine = False
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+    WFontName = 'Arial'
+    LFontName = 'Helvetica'
+    Expression = 'ACCOUNT.Amount'
+    DisplayFormat = ''
+    ExportDisplayFormat = ''
+    AgIniValue = '0'
+    ExportExpression = ''
+  end
+  object TRpExpression7: TRpExpression
+    Width = 1260
+    Height = 225
+    PosX = 3225
+    PosY = 0
+    Type1Font = poHelvetica
+    AutoExpand = False
+    AutoContract = False
+    ExportPosition = 0
+    ExportSize = 1
+    ExportDoNewLine = False
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+    WFontName = 'Arial'
+    LFontName = 'Helvetica'
+    Expression = 'ACCOUNT.AccountTypeID'
+    DisplayFormat = ''
+    ExportDisplayFormat = ''
+    AgIniValue = '0'
+    ExportExpression = ''
+  end
+  object TRpExpression8: TRpExpression
+    Width = 690
+    Height = 225
+    PosX = 4950
+    PosY = 0
+    Type1Font = poHelvetica
+    AutoExpand = False
+    AutoContract = False
+    ExportPosition = 0
+    ExportSize = 1
+    ExportDoNewLine = False
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+    WFontName = 'Arial'
+    LFontName = 'Helvetica'
+    Expression = 'ACCOUNT.Debit'
+    DisplayFormat = ''
+    ExportDisplayFormat = ''
+    AgIniValue = '0'
+    ExportExpression = ''
+  end
+  object TRpExpression9: TRpExpression
+    Width = 1005
+    Height = 225
+    PosX = 6090
+    PosY = 0
+    Type1Font = poHelvetica
+    Alignment = 2
+    AutoExpand = False
+    AutoContract = False
+    ExportPosition = 0
+    ExportSize = 1
+    ExportDoNewLine = False
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+    WFontName = 'Arial'
+    LFontName = 'Helvetica'
+    Expression = 'ACCOUNT.Moneys'
+    DisplayFormat = ''
+    ExportDisplayFormat = ''
+    AgIniValue = '0'
+    ExportExpression = ''
+  end
+  object TRpExpression10: TRpExpression
+    Width = 3075
+    Height = 255
+    PosX = 7590
+    PosY = 0
+    Type1Font = poHelvetica
+    WordWrap = True
+    AutoExpand = False
+    AutoContract = False
+    ExportPosition = 0
+    ExportSize = 1
+    ExportDoNewLine = False
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+    WFontName = 'Arial'
+    LFontName = 'Helvetica'
+    Expression = 'ACCOUNT.Memo'
+    DisplayFormat = ''
+    ExportDisplayFormat = ''
+    AgIniValue = '0'
+    ExportExpression = ''
+  end
+  object TRpShape2: TRpShape
+    Width = 10755
+    Height = 120
+    PosX = 0
+    PosY = 345
+    PenStyle = 2
+    Shape = rpsHorzLine
+    PenWidth = 0
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+  end
+  object TRpLabel9: TRpLabel
+    Width = 585
+    Height = 345
+    PosX = 5640
+    PosY = 570
+    Type1Font = poHelvetica
+    FontStyle = 1
+    FontColor = 8421376
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+    WFontName = 'Arial'
+    LFontName = 'Helvetica'
+    WideText = #23567#32467':'
+  end
+  object TRpLabel10: TRpLabel
+    Width = 915
+    Height = 345
+    PosX = 0
+    PosY = 570
+    Type1Font = poHelvetica
+    FontStyle = 1
+    FontColor = 8421376
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+    WFontName = 'Arial'
+    LFontName = 'Helvetica'
+    WideText = #20511#37329#39069':'
+  end
+  object TRpLabel11: TRpLabel
+    Width = 930
+    Height = 345
+    PosX = 3330
+    PosY = 570
+    Type1Font = poHelvetica
+    FontStyle = 1
+    FontColor = 8421376
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+    WFontName = 'Arial'
+    LFontName = 'Helvetica'
+    WideText = #36151#37329#39069':'
+  end
+  object TRpExpression11: TRpExpression
+    Width = 915
+    Height = 345
+    PosX = 6210
+    PosY = 570
+    Type1Font = poHelvetica
+    FontColor = 255
+    Alignment = 2
+    AutoExpand = False
+    AutoContract = False
+    ExportPosition = 0
+    ExportSize = 1
+    ExportDoNewLine = False
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+    WFontName = 'Arial'
+    LFontName = 'Helvetica'
+    Expression = 'ACCOUNT.Moneys'
+    DisplayFormat = ''
+    ExportDisplayFormat = ''
+    AgIniValue = '0'
+    ExportExpression = ''
+  end
+  object TRpExpression12: TRpExpression
+    Width = 930
+    Height = 345
+    PosX = 4260
+    PosY = 570
+    Type1Font = poHelvetica
+    FontColor = 255
+    AutoExpand = False
+    AutoContract = False
+    ExportPosition = 0
+    ExportSize = 1
+    ExportDoNewLine = False
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+    WFontName = 'Arial'
+    LFontName = 'Helvetica'
+    Expression = 'IIF(ACCOUNT.Debit=='#39#36151#39',ACCOUNT.Moneys,0)'
+    DisplayFormat = ''
+    ExportDisplayFormat = ''
+    AgIniValue = '0'
+    ExportExpression = ''
+  end
+  object TRpExpression13: TRpExpression
+    Width = 930
+    Height = 345
+    PosX = 915
+    PosY = 570
+    Type1Font = poHelvetica
+    FontColor = 255
+    AutoExpand = False
+    AutoContract = False
+    ExportPosition = 0
+    ExportSize = 1
+    ExportDoNewLine = False
+    PrintCondition = ''
+    DoBeforePrint = ''
+    DoAfterPrint = ''
+    WFontName = 'Arial'
+    LFontName = 'Helvetica'
+    Expression = 'IIF(ACCOUNT.Debit=='#39#20511#39',ACCOUNT.Moneys,0)'
     DisplayFormat = ''
     ExportDisplayFormat = ''
     AgIniValue = '0'

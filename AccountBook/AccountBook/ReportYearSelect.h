@@ -24,7 +24,7 @@ public:
 public:
 	virtual BOOL OnInitDialog();
 public:
-	bool m_bIsMonth;
+	int m_bIsMonth;
 public:
 	afx_msg void OnBnClickedOk();
 public:
