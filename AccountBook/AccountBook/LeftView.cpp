@@ -8,10 +8,11 @@
 #include "LeftView.h"
 
 #include "AccountSort.h"
-#include "VoucherInput.h"
 #include "CustomerType.h"
 #include "MainFrm.h"
 #include "AccountTypes.h"
+#include "Vouchers.h"
+#include "CompanyList.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -101,22 +102,22 @@ void CLeftView::DrawTreeList(void)
 
 	m_nTreeList->SetImageList(imageList,TVSIL_NORMAL);
 
-	CString main_item[5]={
-		_T("财务管理"),
-		_T("客户管理"),
-		_T("供应商管理"),
-		_T("商品管理"),
-		_T("员工管理")
+	CString main_item[1]={
+		_T("财务管理")//,
+		//_T("客户管理"),
+		//_T("供应商管理"),
+		//_T("商品管理"),
+		//_T("员工管理")
 	};
-	CString sub_item[5][3]={
-		{_T("科目设置"),_T("凭证输入"),_T("报表")},
-		{_T("客户分类"),_T("客户列表"),_T("")},
-		{_T("供应商分类"),_T("供应商列表"),_T("")},
-		{_T("商品分类"),_T("商品列表"),_T("")},
-		{_T("部门设置"),_T("员工列表"),_T("")}
+	CString sub_item[1][3]={
+		{_T("科目设置"),_T("凭证输入"),_T("客户列表")}//,
+		//{_T("客户分类"),_T("客户列表"),_T("")},
+		//{_T("供应商分类"),_T("供应商列表"),_T("")},
+		//{_T("商品分类"),_T("商品列表"),_T("")},
+		//{_T("部门设置"),_T("员工列表"),_T("")}
 	};
 
-	for (int i=0;i<5;i++)
+	for (int i=0;i<1;i++)
 	{
 		if (i==0)
 		{
@@ -166,16 +167,16 @@ void CLeftView::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 		} 
 		else if(node_name==_T("凭证输入"))
 		{
-			CVoucherInput *voucherDlg = new CVoucherInput();
-			voucherDlg->DoModal();
+			pMainFrame->m_wndSplitter.ReplaceView(0,1,RUNTIME_CLASS(CVouchers),CSize(100,100));
+			//CVoucherInput *voucherDlg = new CVoucherInput();
+			//voucherDlg->DoModal();
 			//AfxGetApp()->m_pMainWnd->SendMessage(WM_COMMAND, ID_32772);
 			//MessageBox(selectText);
 
 		}
-		else if(node_name==_T("客户分类"))
+		else if(node_name==_T("客户列表"))
 		{
-			CCustomerType *custmerTypeDlg = new CCustomerType();
-			custmerTypeDlg->DoModal();
+			pMainFrame->m_wndSplitter.ReplaceView(0,1,RUNTIME_CLASS(CCompanyList),CSize(100,100));
 
 		}
 

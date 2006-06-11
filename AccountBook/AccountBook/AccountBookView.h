@@ -42,6 +42,8 @@ protected:
 public:
 	CListCtrl *m_nList;
 public:
+protected:
+	virtual void OnDraw(CDC* /*pDC*/);
 };
 
 #ifndef _DEBUG  // AccountBookView.cpp 中的调试版本

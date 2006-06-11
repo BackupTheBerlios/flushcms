@@ -20,6 +20,9 @@
 #define IDD_CUSTOMER_TYPE               144
 #define IDD_DIALOG1                     145
 #define IDD_VOUCHER_ADD                 145
+#define IDD_COMPANY_LIST                147
+#define IDD_COMPANY_ADD                 148
+#define IDD_REP_SELECT_YEAR             149
 #define IDC_SPLASH_PICTRUE              1001
 #define IDC_LIST1                       1002
 #define IDC_TYPE_LIST                   1002
@@ -27,14 +30,23 @@
 #define IDC_BUTTON1                     1003
 #define IDC_BUTTON2                     1004
 #define IDC_BUTTON3                     1005
+#define IDC_REP_VOUCHER_DETAIL          1005
+#define IDC_BUTTON_CURRENT              1005
 #define IDC_DATETIMEPICKER1             1006
 #define IDC_EDIT1                       1007
 #define IDC_EDIT2                       1008
 #define IDC_CHECK1                      1009
+#define IDC_EDIT4                       1009
 #define IDC_EDIT3                       1010
 #define IDC_DISPLAY_LIST                1010
 #define IDC_COMBO1                      1011
 #define IDC_COMBO2                      1012
+#define IDC_REPORTMANX1                 1013
+#define IDC_BUTTON_ADD                  1015
+#define IDC_BUTTON_DEL                  1016
+#define IDC_REPORT_YEAR                 1017
+#define IDC_REPORT_MONTH                1018
+#define IDC_CURRENT_COMPANY             1019
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_BUTTON32773                  32773
@@ -44,9 +56,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        146
+#define _APS_NEXT_RESOURCE_VALUE        150
 #define _APS_NEXT_COMMAND_VALUE         32775
-#define _APS_NEXT_CONTROL_VALUE         1013
+#define _APS_NEXT_CONTROL_VALUE         1020
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

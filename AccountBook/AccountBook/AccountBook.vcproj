@@ -206,11 +206,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\AccountSort.cpp"
+				RelativePath=".\AccountTypes.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\AccountTypes.cpp"
+				RelativePath=".\CompanyAdd.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\CompanyList.cpp"
 				>
 			</File>
 			<File
@@ -242,6 +246,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\reportmanx1.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ReportYearSelect.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\SplashScreen.cpp"
 				>
 			</File>
@@ -270,7 +282,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\VoucherInput.cpp"
+				RelativePath=".\Vouchers.cpp"
 				>
 			</File>
 		</Filter>
@@ -296,15 +308,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\AccountSort.h"
-				>
-			</File>
-			<File
 				RelativePath=".\AccountTypes.h"
 				>
 			</File>
 			<File
 				RelativePath=".\CommonHeader.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CompanyAdd.h"
+				>
+			</File>
+			<File
+				RelativePath=".\CompanyList.h"
 				>
 			</File>
 			<File
@@ -336,6 +352,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\reportmanx1.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ReportYearSelect.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Resource.h"
 				>
 			</File>
@@ -352,7 +376,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\VoucherInput.h"
+				RelativePath=".\Vouchers.h"
 				>
 			</File>
 		</Filter>
@@ -419,6 +443,10 @@
 		<Global
 			Name="RESOURCE_FILE"
 			Value="AccountBook.rc"
+		/>
+		<Global
+			Name="{DC30E149-4129-450F-BDFE-BD9E6F31147E}"
+			Value="CReportmanx1"
 		/>
 	</Globals>
 </VisualStudioProject>

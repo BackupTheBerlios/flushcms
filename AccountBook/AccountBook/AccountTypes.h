@@ -31,6 +31,16 @@ public:
 	HHideListCtrl m_nAccountTypeList;
 protected:
 	virtual void OnDraw(CDC* /*pDC*/);
+public:
+	afx_msg void OnBnClickedButton1();
+public:
+	void DrawList(void);
+public:
+	afx_msg void OnLvnItemActivateAccountTypeList(NMHDR *pNMHDR, LRESULT *pResult);
+public:
+	afx_msg void OnBnClickedButton2();
+
+
 };
 
 
