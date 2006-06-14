@@ -90,6 +90,9 @@ void CVouchers::OnInitialUpdate()
 
 	// TODO: 在此添加专用代码和/或调用基类
 
+	CLanguage::TranslateDialog(this->m_hWnd, MAKEINTRESOURCE(IDD_VOUCHKER));
+
+
 	m_nVoucherList.SetExtendedStyle(LVS_EX_FULLROWSELECT|LVS_EX_CHECKBOXES|LVS_EX_HEADERDRAGDROP|LVS_EX_GRIDLINES|LVS_EX_TWOCLICKACTIVATE);
 	for (int i=0;i<VOUCHER_LEN;i++)
 	{
@@ -118,6 +121,9 @@ void CVouchers::OnInitialUpdate()
 	m_pSet->Close();
 
 	DrawList();
+
+	//GetParentFrame()->RecalcLayout();
+	//ResizeParentToFit();
 
 }
 

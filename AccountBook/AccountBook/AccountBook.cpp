@@ -7,7 +7,6 @@
 
 #include "AccountBookDoc.h"
 #include "LeftView.h"
-#include "Language.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

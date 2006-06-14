@@ -53,6 +53,22 @@
 #define IDC_STATIC_ABOUT4               1023
 #define IDC_STATIC_ABOUT5               1024
 #define IDC_STATIC_ONLOAD               1025
+#define IDC_STATIC_VOUCHER_ADD1         1026
+#define IDC_STATIC_VOUCHER_ADD2         1027
+#define IDC_STATIC_VOUCHER_ADD3         1028
+#define IDC_STATIC_VOUCHER_ADD4         1029
+#define IDC_STATIC_VOUCHER_ADD5         1030
+#define IDC_STATIC_VOUCHER_ADD6         1031
+#define IDC_STATIC_VOUCHER_ADD7         1032
+#define IDC_STATIC_VOUCHER_ADD8         1033
+#define IDC_STATIC_ACCOUNT_TYPE_ADD1    1034
+#define IDC_STATIC_ACCOUNT_TYPE_ADD2    1035
+#define IDC_STATIC_ACCOUNT_TYPE_ADD3    1036
+#define IDC_STATIC_ACCOUNT_TYPE_ADD4    1037
+#define IDC_STATIC_COMPANY_ADD1         1038
+#define IDC_STATIC_COMPANY_ADD2         1039
+#define IDC_STATIC_COMPANY_ADD3         1040
+#define IDC_STATIC_COMPANY_LIST1        1041
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_BUTTON32773                  32773
@@ -73,7 +89,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        153
 #define _APS_NEXT_COMMAND_VALUE         32778
-#define _APS_NEXT_CONTROL_VALUE         1026
+#define _APS_NEXT_CONTROL_VALUE         1042
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

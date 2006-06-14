@@ -92,6 +92,7 @@ void CCompanyList::OnBnClickedButtonAdd()
 void CCompanyList::OnInitialUpdate()
 {
 	CFormView::OnInitialUpdate();
+	CLanguage::TranslateDialog(this->m_hWnd, MAKEINTRESOURCE(IDD_COMPANY_LIST));
 
 	// TODO: 在此添加专用代码和/或调用基类
 	// 初始化

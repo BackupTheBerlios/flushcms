@@ -1,0 +1,73 @@
+[Language]
+Language=1033
+Description=English Version.
+FontName=Tahoma
+FontSize=8
+[134]
+1025=Loading data, plase wait ....
+[String]
+57000=字符串开始
+57344=AccountBook
+57345=Done
+57400=Account Menage
+57401=Category Setting
+57402=Voucher Input
+57403=Customer List
+58000=字符串结束
+[128]
+|0=File(&F)
+57665=Quit(&X)
+|1=Tools(&T)
+|1|0=Language
+32777=Default
+|2=Hlep(&H)
+57664=About AccountBook(&A)...
+[100]
+0=About AccountBook
+1020=AccountBook 1.0 Version
+1024=Copyright (C) 2006
+1=OK
+1022=Developer:John.meng QQ:3440895
+1021=Email:arzen1013@gmail.com
+1023=MSN:arzen10132@hotmail.com
+[138]
+1003=New Category
+1004=Delete Category
+[142]
+1003=New Voucher
+1004=Delete Voucher
+1005=Day Report
+1017=Year Report
+1018=Month Report
+[147]
+1015=New
+1016=Delete
+1041=Current Customer
+1005=Set to Current
+[143]
+0=New Category
+1=OK
+2=Cancel
+1034=Category Code
+1035=Category Name
+1036=Display Order
+1037=Display
+[145]
+0=New Voucher
+1=OK
+2=Cancel
+1026=所属Category
+1027=Voucher Date
+1028=The
+1029=Voucher
+1030=借贷类型
+1031=Money
+1032=Dollar
+1033=Memo
+[148]
+0=New Company
+1=OK
+2=Cancel
+1038=Company Name
+1039=Company Phone
+1040=Company Address

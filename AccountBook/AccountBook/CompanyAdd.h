@@ -37,4 +37,6 @@ public:
 	bool m_bUpdateModel;
 public:
 	afx_msg void OnBnClickedOk();
+public:
+	virtual BOOL OnInitDialog();
 };

@@ -10,7 +10,6 @@
 #include "MainView.h"
 
 #include "SplashScreen.h"
-#include "Language.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -122,7 +121,7 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT /*lpcs*/,
 	if (!m_wndSplitter.CreateStatic(this, 1, 2))
 		return FALSE;
 
-	if (!m_wndSplitter.CreateView(0, 0, RUNTIME_CLASS(CLeftView), CSize(160, 100), pContext) ||
+	if (!m_wndSplitter.CreateView(0, 0, RUNTIME_CLASS(CLeftView), CSize(170, 100), pContext) ||
 		!m_wndSplitter.CreateView(0, 1, RUNTIME_CLASS(CMainView), CSize(100, 100), pContext))//CAccountBookView
 	{
 		m_wndSplitter.DestroyWindow();
@@ -374,6 +373,12 @@ void CMainFrame::OnViewLanguage(UINT uLang)
 
 	// 设置主窗口上的文本
 	SendMessage(WM_MENUSELECT, uLang);
+	//更新左右视图
+	CView *pLeftView = (CView *)m_wndSplitter.GetPane(0,0);
+	pLeftView->OnInitialUpdate();
+	CView *pRightView = (CView *)m_wndSplitter.GetPane(0,1);
+	pRightView->OnInitialUpdate();
+
 #endif // _MAKELANG
 }
 

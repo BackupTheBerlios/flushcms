@@ -58,3 +58,14 @@ void CCompanyAdd::OnBnClickedOk()
 
 	OnOK();
 }
+
+BOOL CCompanyAdd::OnInitDialog()
+{
+	CDialog::OnInitDialog();
+	CLanguage::TranslateDialog(this->m_hWnd, MAKEINTRESOURCE(IDD_COMPANY_ADD));
+
+	// TODO:  在此添加额外的初始化
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// 异常: OCX 属性页应返回 FALSE
+}

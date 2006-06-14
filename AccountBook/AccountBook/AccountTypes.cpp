@@ -76,6 +76,8 @@ void CAccountTypes::OnInitialUpdate()
 {
 	CFormView::OnInitialUpdate();
 
+	CLanguage::TranslateDialog(this->m_hWnd, MAKEINTRESOURCE(IDD_ACCOUNT_TYPE));
+
 	// ≥ı ºªØ
 	m_nAccountTypeList.SetExtendedStyle(LVS_EX_FULLROWSELECT|LVS_EX_CHECKBOXES|LVS_EX_HEADERDRAGDROP|LVS_EX_GRIDLINES|LVS_EX_TWOCLICKACTIVATE);
 	for (int i=0;i<ACCOUNT_TYPES_LEN;i++)

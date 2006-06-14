@@ -41,4 +41,6 @@ public:
 	virtual BOOL OnInitDialog();
 public:
 	bool m_bUpdateModel;
+public:
+	afx_msg void OnStnClickedStaticAccountTypeAdd3();
 };

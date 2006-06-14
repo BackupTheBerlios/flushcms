@@ -55,6 +55,8 @@ BOOL CVoucherAdd::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
+	CLanguage::TranslateDialog(this->m_hWnd, MAKEINTRESOURCE(IDD_VOUCHER_ADD));
+
 	// TODO:  在此添加额外的初始化
 	m_nDebitCtrl.InsertString(0,_T("借"));
 	m_nDebitCtrl.InsertString(1,_T("贷"));

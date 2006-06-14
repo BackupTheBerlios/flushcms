@@ -71,6 +71,7 @@ BOOL CAccountAdd::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
+	CLanguage::TranslateDialog(this->m_hWnd, MAKEINTRESOURCE(IDD_ADD_ACCOUNT_TYPE));
 	// TODO:  在此添加额外的初始化
 	m_nDisplayCtrl.InsertString(0,_T("是"));
 	m_nDisplayCtrl.InsertString(1,_T("否"));
