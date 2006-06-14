@@ -234,6 +234,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Language.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\LeftView.cpp"
 				>
 			</File>
@@ -341,6 +345,10 @@
 			</File>
 			<File
 				RelativePath=".\HHideListCtrl.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Language.h"
 				>
 			</File>
 			<File

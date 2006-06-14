@@ -65,6 +65,13 @@ public:
 	afx_msg void OnListDisplay();
 public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	void OnViewLanguage(UINT uLang);
+public:
+	afx_msg void OnUpdateViewDefault(CCmdUI *pCmdUI);
+public:
+	virtual void GetMessageString(UINT nID, CString& rMessage) const;
+protected:
+	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
 };
 
 

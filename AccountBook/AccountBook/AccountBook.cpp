@@ -7,9 +7,12 @@
 
 #include "AccountBookDoc.h"
 #include "LeftView.h"
+#include "Language.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
+#undef THIS_FILE
+static char THIS_FILE[] = __FILE__;
 #endif
 
 
@@ -35,12 +38,15 @@ CAccountBookApp::CAccountBookApp()
 // 唯一的一个 CAccountBookApp 对象
 
 CAccountBookApp theApp;
+HINSTANCE g_hInst = NULL;
 
 
 // CAccountBookApp 初始化
 
 BOOL CAccountBookApp::InitInstance()
 {
+	g_hInst = m_hInstance;
+	CLanguage::Initialize();
 	// 如果一个运行在 Windows XP 上的应用程序清单指定要
 	// 使用 ComCtl32.dll 版本 6 或更高版本来启用可视化方式，
 	//则需要 InitCommonControlsEx()。否则，将无法创建窗口。
@@ -121,6 +127,8 @@ protected:
 // 实现
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	virtual BOOL OnInitDialog();
 };
 
 CAboutDlg::CAboutDlg() : CDialog(CAboutDlg::IDD)
@@ -149,4 +157,13 @@ void CAccountBookApp::OnAppAbout()
 void CAccountBookApp::DisplayFormView(void)
 {
 	
+}
+
+BOOL CAboutDlg::OnInitDialog()
+{
+	CDialog::OnInitDialog();
+
+	CLanguage::TranslateDialog(this->m_hWnd, MAKEINTRESOURCE(IDD_ABOUTBOX));
+
+	return TRUE;  // return TRUE unless you set the focus to a control
 }

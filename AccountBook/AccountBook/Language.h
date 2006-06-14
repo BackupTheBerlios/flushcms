@@ -21,6 +21,9 @@
 #define _TLang(n, t)			CLanguage::TranslateText(TEXT(#n), t)
 #define _LangEx(n, a)			CLanguage::TranslateTextEx(TEXT(#n), TEXT(a))	// 多行文本或字符串组
 #define _TLangEx(n, t)			CLanguage::TranslateTextEx(TEXT(#n), t)
+//#define LNG_Ready					_Lang(0, "Ready.")
+//#define LNG_Test					_Lang(1, "This is test text ...")
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 

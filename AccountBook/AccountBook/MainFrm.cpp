@@ -10,9 +10,12 @@
 #include "MainView.h"
 
 #include "SplashScreen.h"
+#include "Language.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
+#undef THIS_FILE
+static char THIS_FILE[] = __FILE__;
 #endif
 
 
@@ -25,6 +28,9 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_UPDATE_COMMAND_UI_RANGE(AFX_ID_VIEW_MINIMUM, AFX_ID_VIEW_MAXIMUM, &CMainFrame::OnUpdateViewStyles)
 	ON_COMMAND_RANGE(AFX_ID_VIEW_MINIMUM, AFX_ID_VIEW_MAXIMUM, &CMainFrame::OnViewStyle)
 	ON_WM_TIMER()
+	ON_UPDATE_COMMAND_UI_RANGE(IDM_View_Default, IDM_View_Default + 49, &CMainFrame::OnUpdateViewDefault)
+
+	//ON_UPDATE_COMMAND_UI(IDM_View_Default, &CMainFrame::OnUpdateViewDefault)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -55,8 +61,13 @@ CMainFrame::~CMainFrame()
 
 int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
+
 	CSplashScreen *splash = new CSplashScreen(this);
+
 	splash->Create(CSplashScreen::IDD,this);
+
+	CLanguage::TranslateDialog(splash->m_hWnd, MAKEINTRESOURCE(ID_DIALOG_SPLASH));
+
 	splash->ShowWindow(SW_SHOW);
 	splash->UpdateWindow();
 	Sleep(3000);
@@ -90,6 +101,17 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	SetTimer(1,100,NULL);
 
 	splash->DestroyWindow();
+
+#ifdef _MAKELANG
+	OnViewLanguage(IDM_View_Default);
+#else
+	// 列出语言文件
+	if (CLanguage::List(GetSubMenu(GetSubMenu(this->GetMenu()->m_hMenu, 1), 0)) != IDM_View_Default)
+	{
+		CLanguage::TranslateMenu(this->GetMenu()->m_hMenu, MAKEINTRESOURCE(IDR_MAINFRAME));
+	}
+#endif
+
 	return 0;
 }
 
@@ -321,4 +343,98 @@ void CMainFrame::OnTimer(UINT_PTR nIDEvent)
 	}
 
 	CFrameWnd::OnTimer(nIDEvent);
+}
+
+void CMainFrame::OnViewLanguage(UINT uLang)
+{
+#ifdef _MAKELANG
+	// 保存常规字符串
+	//LNG_Ready; LNG_Test;
+
+	// 保存资源字符串
+	for (INT i = IDS_STRING_START; i <= IDS_STRING_END; i++)
+	{
+		CLanguage::TranslateString(i);
+	}
+
+	// 保存菜单
+	CLanguage::TranslateMenu(this->GetMenu()->m_hMenu, MAKEINTRESOURCE(IDR_MAINFRAME));
+
+	// 保存对话框字符串
+	PostMessage(WM_COMMAND, ID_APP_ABOUT);
+
+#else // _MAKELANG
+
+	// 设置语言
+	CLanguage::Set(this->GetMenu()->m_hMenu, uLang);
+
+	// 翻译菜单
+	CLanguage::TranslateMenu(this->GetMenu()->m_hMenu, MAKEINTRESOURCE(IDR_MAINFRAME));
+	this->DrawMenuBar();
+
+	// 设置主窗口上的文本
+	SendMessage(WM_MENUSELECT, uLang);
+#endif // _MAKELANG
+}
+
+void CMainFrame::OnUpdateViewDefault(CCmdUI *pCmdUI)
+{
+	// TODO: Add your command update UI handler code here
+	pCmdUI->Enable();
+	
+}
+
+void CMainFrame::GetMessageString(UINT nID, CString& rMessage) const
+{
+	// 获取语言信息
+	if (nID > IDM_View_Default && nID < IDM_View_Default + 50)
+	{
+		CLanguage::GetDescription(this->GetMenu()->m_hMenu, nID);
+		if (CLanguage::m_tzText[0] == 0)
+		{
+			// 没有语言信息，也可以显示一点别的，如“切换到该语言”什么的
+			CLanguage::TranslateString(AFX_IDS_IDLEMESSAGE);
+		}
+	}
+	else
+	{
+		// 获取菜单项提示
+		CLanguage::TranslateString(nID);
+	}
+
+	// load appropriate string	
+	LPTSTR lpsz = rMessage.GetBuffer(255);
+	if (CLanguage::m_tzText[0])
+	{
+		// first newline terminates actual string
+		lstrcpyn(lpsz, CLanguage::m_tzText, 255);
+		lpsz = _tcschr(lpsz, '\n');
+		if (lpsz != NULL)
+			*lpsz = '\0';
+	}
+	else
+	{
+		// not found
+		TRACE1("Warning: no message line prompt for ID 0x%04X.\n", nID);
+	}
+	rMessage.ReleaseBuffer();
+
+	//return CFrameWnd::GetMessageString(nID, rMessage);
+}
+
+BOOL CMainFrame::OnCommand(WPARAM wParam, LPARAM lParam)
+{
+	// TODO: Add your specialized code here and/or call the base class
+	UINT uCmd = LOWORD(wParam);
+	if ((uCmd >= IDM_View_Default) && (uCmd <= IDM_View_Default + 49))
+	{
+		// 改变语言
+		if (((MF_CHECKED & GetMenuState(this->GetMenu()->m_hMenu, uCmd, MF_BYCOMMAND)) != MF_CHECKED))
+		{
+			OnViewLanguage(uCmd);
+		}
+		return 0;
+	}
+
+	return CFrameWnd::OnCommand(wParam, lParam);
 }

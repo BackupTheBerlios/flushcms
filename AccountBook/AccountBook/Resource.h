@@ -47,18 +47,33 @@
 #define IDC_REPORT_YEAR                 1017
 #define IDC_REPORT_MONTH                1018
 #define IDC_CURRENT_COMPANY             1019
+#define IDC_STATIC_ABOUT1               1020
+#define IDC_STATIC_ABOUT2               1021
+#define IDC_STATIC_ABOUT3               1022
+#define IDC_STATIC_ABOUT4               1023
+#define IDC_STATIC_ABOUT5               1024
+#define IDC_STATIC_ONLOAD               1025
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_BUTTON32773                  32773
 #define ID_BUTTON32774                  32774
+#define ID_32775                        32775
+#define ID_32776                        32776
+#define IDM_View_Default                32777
+#define IDS_STRING_START                57000
+#define IDS_LEFT_VIEW_ACCOUT            57400
+#define IDS_LEFT_VIEW_ACCOUT_SUB1       57401
+#define IDS_LEFT_VIEW_ACCOUT_SUB2       57402
+#define IDS_LEFT_VIEW_ACCOUT_SUB3       57403
+#define IDS_STRING_END                  58000
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        152
-#define _APS_NEXT_COMMAND_VALUE         32775
-#define _APS_NEXT_CONTROL_VALUE         1020
+#define _APS_NEXT_RESOURCE_VALUE        153
+#define _APS_NEXT_COMMAND_VALUE         32778
+#define _APS_NEXT_CONTROL_VALUE         1026
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

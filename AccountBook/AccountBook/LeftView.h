@@ -41,6 +41,8 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	CTreeCtrl *m_nTreeList;
+	CString main_item_data1,main_item_data1_sub1,main_item_data1_sub2,main_item_data1_sub3;
+
 public:
 	void DrawTreeList(void);
 public:

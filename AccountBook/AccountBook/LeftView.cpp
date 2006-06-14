@@ -13,6 +13,7 @@
 #include "AccountTypes.h"
 #include "Vouchers.h"
 #include "CompanyList.h"
+#include "Language.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -52,8 +53,10 @@ void CLeftView::OnInitialUpdate()
 
 	// TODO: 调用 GetTreeCtrl() 直接访问 TreeView 的树控件，
 	//  从而可以用项填充 TreeView。
+
 	m_nTreeList = &GetTreeCtrl();
 	this->DrawTreeList();
+
 }
 
 
@@ -101,16 +104,19 @@ void CLeftView::DrawTreeList(void)
 	HTREEITEM rootItem,hParentItem,hSubItem;
 
 	m_nTreeList->SetImageList(imageList,TVSIL_NORMAL);
-
+	main_item_data1 = CLanguage::TranslateString(IDS_LEFT_VIEW_ACCOUT);
+	main_item_data1_sub1=CLanguage::TranslateString(IDS_LEFT_VIEW_ACCOUT_SUB1);
+	main_item_data1_sub2=CLanguage::TranslateString(IDS_LEFT_VIEW_ACCOUT_SUB2);
+	main_item_data1_sub3=CLanguage::TranslateString(IDS_LEFT_VIEW_ACCOUT_SUB3);
 	CString main_item[1]={
-		_T("财务管理")//,
+		main_item_data1//,
 		//_T("客户管理"),
 		//_T("供应商管理"),
 		//_T("商品管理"),
 		//_T("员工管理")
 	};
 	CString sub_item[1][3]={
-		{_T("科目设置"),_T("凭证输入"),_T("客户列表")}//,
+		{main_item_data1_sub1,main_item_data1_sub2,main_item_data1_sub3}//,
 		//{_T("客户分类"),_T("客户列表"),_T("")},
 		//{_T("供应商分类"),_T("供应商列表"),_T("")},
 		//{_T("商品分类"),_T("商品列表"),_T("")},
@@ -139,7 +145,7 @@ void CLeftView::DrawTreeList(void)
 	m_nTreeList->Expand(rootItem,TVE_EXPAND);
 	m_nTreeList->SetBkColor(RGB(247,247,255));
 	m_nTreeList->SetTextColor(RGB(0,0,255));
-
+	CString tempstr;
 
 }
 
@@ -157,7 +163,7 @@ void CLeftView::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 	{
 		CMainFrame *pMainFrame = (CMainFrame*)AfxGetMainWnd();
 
-		if (node_name==_T("科目设置"))
+		if (node_name==main_item_data1_sub1)
 		{
 			//CAccountSort *typeDlg = new CAccountSort();
 			pMainFrame->m_wndSplitter.ReplaceView(0,1,RUNTIME_CLASS(CAccountTypes),CSize(100,100));
@@ -165,7 +171,7 @@ void CLeftView::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 			//AfxGetApp()->m_pMainWnd->SendMessage(WM_COMMAND, ID_32771);
 			//MessageBox(selectText);
 		} 
-		else if(node_name==_T("凭证输入"))
+		else if(node_name==main_item_data1_sub2)
 		{
 			pMainFrame->m_wndSplitter.ReplaceView(0,1,RUNTIME_CLASS(CVouchers),CSize(100,100));
 			//CVoucherInput *voucherDlg = new CVoucherInput();
@@ -174,7 +180,7 @@ void CLeftView::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 			//MessageBox(selectText);
 
 		}
-		else if(node_name==_T("客户列表"))
+		else if(node_name==main_item_data1_sub3)
 		{
 			pMainFrame->m_wndSplitter.ReplaceView(0,1,RUNTIME_CLASS(CCompanyList),CSize(100,100));
 
