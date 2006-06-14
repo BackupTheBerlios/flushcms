@@ -14,18 +14,7 @@ typedef struct ListHeaderLabel
 	int len;
 
 }ListLabel;
-
-ListLabel voucherHeaderLabel[VOUCHER_LEN]=
-{
-	_T("日期"),120,
-	_T("ID"),20,
-	_T("凭证序号"),80,
-	_T("科目"),120,
-	_T("借贷"),40,
-	_T("金额"),80,
-	_T("描述"),120
-};
-
+CString voucher_list_header1,voucher_list_header2,voucher_list_header3,voucher_list_header4,voucher_list_header5,voucher_list_header6;
 // CVouchers
 
 IMPLEMENT_DYNCREATE(CVouchers, CFormView)
@@ -89,6 +78,23 @@ void CVouchers::OnInitialUpdate()
 	CFormView::OnInitialUpdate();
 
 	// TODO: 在此添加专用代码和/或调用基类
+	voucher_list_header1 = CLanguage::TranslateString(IDS_VOUCHER_LIST_HEADER1);
+	voucher_list_header2 = CLanguage::TranslateString(IDS_VOUCHER_LIST_HEADER2);
+	voucher_list_header3 = CLanguage::TranslateString(IDS_VOUCHER_LIST_HEADER3);
+	voucher_list_header4 = CLanguage::TranslateString(IDS_VOUCHER_LIST_HEADER4);
+	voucher_list_header5 = CLanguage::TranslateString(IDS_VOUCHER_LIST_HEADER5);
+	voucher_list_header6 = CLanguage::TranslateString(IDS_VOUCHER_LIST_HEADER6);
+	ListLabel voucherHeaderLabel[VOUCHER_LEN]=
+	{
+		voucher_list_header1,120,
+		_T("ID"),20,
+		voucher_list_header2,80,
+		voucher_list_header3,120,
+		voucher_list_header4,40,
+		voucher_list_header5,80,
+		voucher_list_header6,120
+	};
+
 
 	CLanguage::TranslateDialog(this->m_hWnd, MAKEINTRESOURCE(IDD_VOUCHKER));
 

@@ -42,6 +42,8 @@ BOOL CReportYearSelect::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
+	CLanguage::TranslateDialog(this->m_hWnd, MAKEINTRESOURCE(IDD_REP_SELECT_YEAR));
+
 	// TODO:  在此添加额外的初始化
 	if (m_bIsMonth==2)
 	{

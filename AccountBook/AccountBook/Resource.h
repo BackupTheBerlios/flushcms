@@ -81,6 +81,13 @@
 #define IDS_LEFT_VIEW_ACCOUT_SUB1       57401
 #define IDS_LEFT_VIEW_ACCOUT_SUB2       57402
 #define IDS_LEFT_VIEW_ACCOUT_SUB3       57403
+#define IDS_VOUCHER_LIST_HEADER1        57404
+#define IDS_VOUCHER_LIST_HEADER2        57405
+#define IDS_VOUCHER_LIST_HEADER3        57406
+#define IDS_VOUCHER_LIST_HEADER4        57407
+#define IDS_VOUCHER_LIST_HEADER5        57408
+#define IDS_STRING57409                 57409
+#define IDS_VOUCHER_LIST_HEADER6        57409
 #define IDS_STRING_END                  58000
 
 // Next default values for new objects
