@@ -86,9 +86,15 @@
 #define IDS_VOUCHER_LIST_HEADER3        57406
 #define IDS_VOUCHER_LIST_HEADER4        57407
 #define IDS_VOUCHER_LIST_HEADER5        57408
-#define IDS_STRING57409                 57409
 #define IDS_VOUCHER_LIST_HEADER6        57409
-#define IDS_STRING_END                  58000
+#define IDS_ACCOUNT_TYPE_HEAD1          57410
+#define IDS_ACCOUNT_TYPE_HEAD2          57411
+#define IDS_ACCOUNT_TYPE_HEAD3          57412
+#define IDS_COMPANY_HEAD1               57413
+#define IDS_COMPANY_HEAD2               57414
+#define IDS_STRING57415                 57415
+#define IDS_COMPANY_HEAD3               57415
+#define IDS_STRING_END                  59142
 
 // Next default values for new objects
 // 

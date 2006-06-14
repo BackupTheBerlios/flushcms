@@ -15,15 +15,7 @@ typedef struct ListHeaderLabels
 	int len;
 
 }ListLabels;
-
-ListLabels accountTypeLabels[ACCOUNT_TYPES_LEN]=
-{
-	_T("代码"),100,
-	_T("ID"),20,
-	_T("科目"),180,
-	_T("显示"),60,
-	_T("排序"),60
-};
+CString account_type_head1,account_type_head2,account_type_head3,account_type_head4;
 
 // CAccountTypes
 
@@ -75,8 +67,21 @@ void CAccountTypes::Dump(CDumpContext& dc) const
 void CAccountTypes::OnInitialUpdate()
 {
 	CFormView::OnInitialUpdate();
-
 	CLanguage::TranslateDialog(this->m_hWnd, MAKEINTRESOURCE(IDD_ACCOUNT_TYPE));
+
+	account_type_head1 = CLanguage::TranslateString(IDS_ACCOUNT_TYPE_HEAD1);
+	account_type_head2 = CLanguage::TranslateString(IDS_ACCOUNT_TYPE_HEAD2);
+	account_type_head3 = CLanguage::TranslateString(IDS_ACCOUNT_TYPE_HEAD3);
+	account_type_head4 = CLanguage::TranslateString(ID_INDICATOR_REC);
+	ListLabels accountTypeLabels[ACCOUNT_TYPES_LEN]=
+	{
+		account_type_head1,100,
+		_T("ID"),20,
+		account_type_head2,180,
+		account_type_head3,60,
+		account_type_head4,60
+	};
+
 
 	// 初始化
 	m_nAccountTypeList.SetExtendedStyle(LVS_EX_FULLROWSELECT|LVS_EX_CHECKBOXES|LVS_EX_HEADERDRAGDROP|LVS_EX_GRIDLINES|LVS_EX_TWOCLICKACTIVATE);

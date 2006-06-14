@@ -14,14 +14,7 @@ typedef struct CompanyHeaderLabel
 	int len;
 
 }ListLabel;
-
-ListLabel accountTypeLabel[ACCOUNT_TYPES_LEN]=
-{
-	_T("公司名称"),200,
-	_T("ID"),20,
-	_T("电话"),120,
-	_T("地址"),200,
-};
+CString company_head1,company_head2,company_head3;
 
 // CCompanyList
 
@@ -92,7 +85,20 @@ void CCompanyList::OnBnClickedButtonAdd()
 void CCompanyList::OnInitialUpdate()
 {
 	CFormView::OnInitialUpdate();
+	
+	
 	CLanguage::TranslateDialog(this->m_hWnd, MAKEINTRESOURCE(IDD_COMPANY_LIST));
+
+	company_head1 = CLanguage::TranslateString(IDS_COMPANY_HEAD1);
+	company_head2 = CLanguage::TranslateString(IDS_COMPANY_HEAD2);
+	company_head3 = CLanguage::TranslateString(IDS_COMPANY_HEAD3);
+	ListLabel accountTypeLabel[ACCOUNT_TYPES_LEN]=
+	{
+		company_head1,200,
+		_T("ID"),20,
+		company_head2,120,
+		company_head3,200,
+	};
 
 	// TODO: 在此添加专用代码和/或调用基类
 	// 初始化

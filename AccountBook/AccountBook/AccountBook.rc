@@ -469,17 +469,13 @@ BEGIN
     ID_INDICATOR_NUM        "NUM"
     ID_INDICATOR_SCRL       "SCRL"
     ID_INDICATOR_OVR        "OVR"
-    ID_INDICATOR_REC        "REC"
+    ID_INDICATOR_REC        "排序"
+    IDS_STRING_END          "字符串结束"
 END
 
 STRINGTABLE 
 BEGIN
     IDS_STRING_START        "字符串开始"
-END
-
-STRINGTABLE 
-BEGIN
-    IDS_STRING_END          "字符串结束"
 END
 
 STRINGTABLE 
@@ -498,6 +494,12 @@ STRINGTABLE
 BEGIN
     IDS_VOUCHER_LIST_HEADER5 "金额"
     IDS_VOUCHER_LIST_HEADER6 "描述"
+    IDS_ACCOUNT_TYPE_HEAD1  "代码"
+    IDS_ACCOUNT_TYPE_HEAD2  "科目"
+    IDS_ACCOUNT_TYPE_HEAD3  "显示"
+    IDS_COMPANY_HEAD1       "公司名称"
+    IDS_COMPANY_HEAD2       "电话"
+    IDS_COMPANY_HEAD3       "地址"
 END
 
 #endif    // 中文(中华人民共和国) resources
