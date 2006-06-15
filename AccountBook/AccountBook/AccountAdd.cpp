@@ -50,16 +50,19 @@ void CAccountAdd::OnBnClickedOk()
 {
 	// 点击确定事件处理
 	UpdateData(true);
+	CString please_input,shuldbe_fill;
+	please_input = CLanguage::TranslateString(IDS_CHECK_YOUR_INPUT);
+	shuldbe_fill = CLanguage::TranslateString(IDS_CHECK_PLEASE_INPUT);
 
 	if (m_nNumberID=="")
 	{
-		MessageBox(_T("请输入科目代码"),_T("请检查您的输入！"));
+		MessageBox(shuldbe_fill+CLanguage::TranslateString(IDS_CATEGORY_CODE),please_input);
 		m_nNumberIDCtrl.SetFocus();
 		return;
 	}
 	if (m_nTitle=="")
 	{
-		MessageBox(_T("请输入科目名称"),_T("请检查您的输入！"));
+		MessageBox(shuldbe_fill+CLanguage::TranslateString(IDS_CATEGORY_NAME),please_input);
 		m_nTitleCtrl.SetFocus();
 		return;
 	}
@@ -73,15 +76,18 @@ BOOL CAccountAdd::OnInitDialog()
 
 	CLanguage::TranslateDialog(this->m_hWnd, MAKEINTRESOURCE(IDD_ADD_ACCOUNT_TYPE));
 	// TODO:  在此添加额外的初始化
-	m_nDisplayCtrl.InsertString(0,_T("是"));
-	m_nDisplayCtrl.InsertString(1,_T("否"));
+	CString str_yes,str_no;
+	str_yes=CLanguage::TranslateString(IDS_STR_YES);
+	str_no=CLanguage::TranslateString(IDS_STR_NO);
+	m_nDisplayCtrl.InsertString(0,str_yes);
+	m_nDisplayCtrl.InsertString(1,str_no);
 	if (m_bUpdateModel)
 	{
 		m_nDisplayCtrl.SelectString(0,m_nDisplay);
 	} 
 	else
 	{
-		m_nDisplayCtrl.SelectString(0,_T("是"));
+		m_nDisplayCtrl.SelectString(0,str_yes);
 	}
 
 	return TRUE;  // return TRUE unless you set the focus to a control

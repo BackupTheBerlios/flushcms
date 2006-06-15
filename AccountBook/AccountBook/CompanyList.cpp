@@ -160,9 +160,8 @@ void CCompanyList::OnBnClickedButtonDel()
 	// TODO: 在此添加控件通知处理程序代码
 	// 删除所选
 	int nCount = m_nCompanyList.GetItemCount();
-	CString delItem,delString,str;
-	str.Format(_T("确认删除所选? "));
-	if (AfxMessageBox(str,MB_YESNO)==IDYES)
+	CString delItem,delString;
+	if (AfxMessageBox(CLanguage::TranslateString(IDS_CONFIRM_DELETE),MB_YESNO)==IDYES)
 	{
 		for (int i=0;i < nCount;i++)
 		{

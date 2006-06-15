@@ -48,9 +48,13 @@ void CCompanyAdd::OnBnClickedOk()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	UpdateData(true);
+	CString please_input,shuldbe_fill;
+	please_input = CLanguage::TranslateString(IDS_CHECK_YOUR_INPUT);
+	shuldbe_fill = CLanguage::TranslateString(IDS_CHECK_PLEASE_INPUT);
+
 	if (m_nCompanyName=="")
 	{
-		MessageBox(_T("请输入公司名称"),_T("请检查您的输入！"));
+		MessageBox(shuldbe_fill+CLanguage::TranslateString(IDS_COMPANY_HEAD1),please_input);
 		m_nCompanyNameCtrl.SetFocus();
 		return;
 	}

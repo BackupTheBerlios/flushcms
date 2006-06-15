@@ -198,7 +198,7 @@ void CAccountTypes::OnBnClickedButton2()
 	// 删除所选
 	int nCount = m_nAccountTypeList.GetItemCount();
 	CString delItem,delString,str;
-	str.Format(_T("确认删除所选? "));
+	str=CLanguage::TranslateString(IDS_CONFIRM_DELETE);
 	if (AfxMessageBox(str,MB_YESNO)==IDYES)
 	{
 		for (int i=0;i < nCount;i++)

@@ -214,9 +214,9 @@ void CVouchers::OnBnClickedButton2()
 {
 	// 删除凭证
 	int nCount = m_nVoucherList.GetItemCount();
-	CString delItem,delString,str;
-	str.Format(_T("确认删除所选? "));
-	if (AfxMessageBox(str,MB_YESNO)==IDYES)
+	CString delItem,delString,strDel;
+	strDel=CLanguage::TranslateString(IDS_CONFIRM_DELETE);
+	if (AfxMessageBox(strDel,MB_YESNO)==IDYES)
 	{
 		for (int i=0;i < nCount;i++)
 		{

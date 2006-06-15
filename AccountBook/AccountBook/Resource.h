@@ -94,6 +94,18 @@
 #define IDS_COMPANY_HEAD2               57414
 #define IDS_STRING57415                 57415
 #define IDS_COMPANY_HEAD3               57415
+#define IDS_CURRENT_TIME                57416
+#define IDS_CONFIRM_DELETE              57417
+#define IDS_STR_YES                     57418
+#define IDS_STR_NO                      57419
+#define IDS_CHECK_YOUR_INPUT            57420
+#define IDS_CHECK_PLEASE_INPUT          57421
+#define IDS_CATEGORY_NAME               57422
+#define IDS_CATEGORY_CODE               57423
+#define IDS_STR_MONEY                   57424
+#define IDS_STRING_DEBIT                57425
+#define IDS_STR_D                       57426
+#define IDS_STRING_BORROW               57426
 #define IDS_STRING_END                  59142
 
 // Next default values for new objects

@@ -336,8 +336,8 @@ void CMainFrame::OnTimer(UINT_PTR nIDEvent)
 		case 1:
 			CTime theTime = CTime::GetCurrentTime();
 			CString timeStr;
-			timeStr.Format(_T("当前时间%d:%d:%d"),theTime.GetHour(),theTime.GetMinute(),theTime.GetSecond());
-			m_wndStatusBar.SetPaneText(1,timeStr,true);
+			timeStr.Format(_T("%d:%d:%d"),theTime.GetHour(),theTime.GetMinute(),theTime.GetSecond());
+			m_wndStatusBar.SetPaneText(1,CLanguage::TranslateString(IDS_CURRENT_TIME)+timeStr,true);
 			break;
 	}
 

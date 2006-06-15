@@ -58,9 +58,9 @@ BOOL CVoucherAdd::OnInitDialog()
 	CLanguage::TranslateDialog(this->m_hWnd, MAKEINTRESOURCE(IDD_VOUCHER_ADD));
 
 	// TODO:  在此添加额外的初始化
-	m_nDebitCtrl.InsertString(0,_T("借"));
-	m_nDebitCtrl.InsertString(1,_T("贷"));
-	m_nDebitCtrl.SelectString(0,_T("借"));
+	m_nDebitCtrl.InsertString(0,CLanguage::TranslateString(IDS_STRING_DEBIT));
+	m_nDebitCtrl.InsertString(1,CLanguage::TranslateString(IDS_STRING_BORROW));
+	m_nDebitCtrl.SelectString(0,CLanguage::TranslateString(IDS_STRING_DEBIT));
 	if (m_iAmount==0)
 	{
 		m_iAmount=1;
@@ -92,9 +92,12 @@ void CVoucherAdd::OnBnClickedOk()
 {
 	// 点击确定事件处理
 	UpdateData(true);
+	CString please_input,shuldbe_fill;
+	please_input = CLanguage::TranslateString(IDS_CHECK_YOUR_INPUT);
+	shuldbe_fill = CLanguage::TranslateString(IDS_CHECK_PLEASE_INPUT);
 	if (m_nMoney=="")
 	{
-		MessageBox(_T("请输入金额"),_T("请检查您的输入！"));
+		MessageBox(shuldbe_fill+CLanguage::TranslateString(IDS_STR_MONEY),please_input);
 		m_nMoneyCtrl.SetFocus();
 		return;
 	}
