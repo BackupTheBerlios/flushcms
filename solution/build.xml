@@ -46,6 +46,19 @@
         
     </target>
 
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: local.deploy                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="local.deploy">
+    	<mkdir dir="${local.dir.deploy}/${app.name}"/>
+    	<exec dir="${local.dir.deploy}/${app.name}" executable="symfony.bat" >
+    	  <arg line="new solution"/>
+    	</exec>
+		<copy todir="${local.dir.deploy}">
+			<fileset dir="${local.dir.dev}">
+			</fileset>
+		</copy>
+    </target>
 
 
 

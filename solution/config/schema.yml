@@ -1,0 +1,21 @@
+my_solution:
+  so_users:
+    _attributes: { phpName: Users }
+    id:
+    user_name:   varchar(60)
+    user_pwd:	varchar(50)
+    addrees:	varchar(150)
+    phone:	varchar(80)
+    email:	varchar(80)
+    role:	varchar(50)
+    add_ip:	varchar(24)
+    created_at:
+  so_solution:
+    _attributes: { phpName: Solution }
+    id:
+    question:   varchar(250)
+    category:	varchar(10)
+    solution:	longvarchar
+    add_ip:	varchar(24)
+    created_at:
+    
