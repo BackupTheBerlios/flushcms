@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!-- ======================================================================
+     2006-8-2 上午07:35:44
+
+     Solution
+     description
+
+     John.meng
+     ====================================================================== -->
+<project name="Solution" default="default">
+    <description>
+            Solution Dev Build File
+    </description>
+	<property file="build.properties" />
+	<property file="cvs.properties" />
+
+    <!-- =================================
+          target: default
+         ================================= -->
+    <target name="default" description="--> description">
+
+    </target>
+
+
+    <!-- =================================
+          target: office.cvs.checkout
+         ================================= -->
+    <target name="office.cvs.checkout" description="--> description">
+    	<cvspass cvsroot=":${cvs.env.protocol}:${cvs.env.username}@${cvs.env.host}:${cvs.env.repository}" password="${cvs.env.password}"/>
+		<cvs cvsroot=":${cvs.env.protocol}:${cvs.env.username}@${cvs.env.host}:${cvs.env.repository}"
+			package="${cvs.env.module}"
+			dest="${office.dir.dev}"
+			/>
+    </target>
+
+
+
+
+
+</project>
