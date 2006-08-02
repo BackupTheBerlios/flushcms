@@ -32,6 +32,20 @@
 			dest="${office.dir.dev}"
 			/>
     </target>
+	
+	<!-- ================================= 
+          target: local.cvs.checkout              
+         ================================= -->
+    <target name="local.cvs.checkout" description="--> description">
+    	
+    	<cvspass cvsroot=":${cvs.env.protocol}:${cvs.env.username}@${cvs.env.host}:${cvs.env.repository}" password="${cvs.env.password}"/>
+		<cvs cvsroot=":${cvs.env.protocol}:${cvs.env.username}@${cvs.env.host}:${cvs.env.repository}"
+			package="${cvs.env.module}"
+			dest="${local.dir.dev}"
+			/>
+        
+    </target>
+
 
 
 
