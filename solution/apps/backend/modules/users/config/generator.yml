@@ -1,0 +1,15 @@
+generator:
+  class:              sfPropelAdminGenerator
+  param:
+    model_class:      Users
+    theme:            default
+    list:
+      max_per_page:   5
+      title:          List of Users Test
+      object_actions:
+        _edit:        -
+        _delete:      -
+    edit:
+      title:          List of Users Test cc
+      fields:
+         addrees:      { type: admin_input_upload_tag }

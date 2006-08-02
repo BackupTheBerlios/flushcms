@@ -1,0 +1,5 @@
+all:
+  my_solution:
+    class:          sfPropelDatabase
+    param:
+      dsn:          mysql://root:test1234@localhost/my_solution
