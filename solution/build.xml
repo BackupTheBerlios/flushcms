@@ -56,12 +56,177 @@
     	</exec>
 		<copy todir="${local.dir.deploy}">
 			<fileset dir="${local.dir.dev}">
+				<filter token="DB_USER" value="${db.user}" />
 			</fileset>
 		</copy>
     </target>
 
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: office.deploy                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="office.deploy">
+    	<mkdir dir="${office.dir.deploy}/${app.name}"/>
+    	<exec dir="${office.dir.deploy}/${app.name}" executable="symfony.bat" >
+    	  <arg line="new solution"/>
+    	</exec>
+		<antcall target="copy.cvs.files">
+			<param name="dir.deploy" value="${office.dir.deploy}"/>
+			<param name="dir.dev" value="${office.dir.dev}"/>
+			<param name="db.host" value="${office.db.host}"/>
+			<param name="db.user" value="${office.db.user}"/>
+			<param name="db.password" value="${office.db.password}"/>
+			<param name="db.databasename" value="${office.db.name}"/>
+			<param name="output.dir" value="${office.dir.deploy}/${app.name}"/>
+			<param name="appname" value="${app.name}"/>
+		</antcall>
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: copy.cvs.files                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="copy.cvs.files">
+		<copy todir="${dir.deploy}" overwrite="true" >
+			<fileset dir="${dir.dev}">
+			</fileset>
+			<filterset>
+				<filter token="DB_HOST" value="${db.host}" />
+				<filter token="DB_USERNAME" value="${db.user}" />
+				<filter token="DB_PASSWORD" value="${db.password}" />
+				<filter token="DB_DATABASE" value="${db.databasename}" />
+				<filter token="OUTPUT_DIR" value="${output.dir}" />
+				<filter token="APPNAME" value="${appname}" />
+			</filterset>
+		</copy>
+    </target>
 
 
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: build.db.xml                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="build.db.xml">
+    	<exec dir="${dir.deploy}/${app.name}" executable="symfony.bat" >
+    	  <arg line="propel-convert-yml-schema"/>
+    	</exec>         
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: build.db                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="build.db">
+    	<exec dir="${dir.deploy}/${app.name}" executable="symfony.bat" >
+    	  <arg line="propel-build-db"/>
+    	</exec>         
+    </target>
+
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: build.db.sql                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="build.db.sql">
+    	<exec dir="${dir.deploy}/${app.name}" executable="symfony.bat" >
+    	  <arg line="propel-build-sql"/>
+    	</exec>         
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: build.insert.sql                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="build.insert.sql">
+    	<exec dir="${dir.deploy}/${app.name}" executable="symfony.bat" >
+    	  <arg line="propel-insert-sql"/>
+    	</exec>         
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: build.model                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="build.model">
+    	<exec dir="${dir.deploy}/${app.name}" executable="symfony.bat" >
+    	  <arg line="propel-build-model"/>
+    	</exec>         
+    </target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: build.frontend                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="build.frontend">
+    	<exec dir="${dir.deploy}/${app.name}" executable="symfony.bat" >
+    	  <arg line="app frontend"/>
+    	</exec>         
+    </target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: build.backend                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="build.backend">
+    	<exec dir="${dir.deploy}/${app.name}" executable="symfony.bat" >
+    	  <arg line="app backend"/>
+    	</exec>         
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: clean.cache                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="clean.cache">
+    	<exec dir="${dir.deploy}/${app.name}" executable="symfony.bat" >
+    	  <arg line="cc"/>
+    	</exec>         
+    </target>
+
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: office.build.init                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="office.build.init">
+		  <antcall target="build.db.xml">
+		    <param name="dir.deploy" value="${office.dir.deploy}"/>
+		  </antcall>
+	  	  <antcall target="build.db">
+	  	    <param name="dir.deploy" value="${office.dir.deploy}"/>
+	  	  </antcall>
+	  	  <antcall target="build.db.sql">
+	  	    <param name="dir.deploy" value="${office.dir.deploy}"/>
+	  	  </antcall>
+	  	  <antcall target="build.insert.sql">
+	  	    <param name="dir.deploy" value="${office.dir.deploy}"/>
+	  	  </antcall>
+	  	  <antcall target="build.model">
+	  	    <param name="dir.deploy" value="${office.dir.deploy}"/>
+	  	  </antcall>
+	  	  <antcall target="build.frontend">
+	  	    <param name="dir.deploy" value="${office.dir.deploy}"/>
+	  	  </antcall>
+	  	  <antcall target="build.backend">
+	  	    <param name="dir.deploy" value="${office.dir.deploy}"/>
+	  	  </antcall>
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: office.build.db.reset                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="office.build.db.reset">
+	  	  <antcall target="build.db.xml">
+	  	    <param name="dir.deploy" value="${office.dir.deploy}"/>
+	  	  </antcall>
+		  <antcall target="build.db">
+		    <param name="dir.deploy" value="${office.dir.deploy}"/>
+		  </antcall>
+		  <antcall target="build.db.sql">
+		    <param name="dir.deploy" value="${office.dir.deploy}"/>
+		  </antcall>
+		  <antcall target="build.insert.sql">
+		    <param name="dir.deploy" value="${office.dir.deploy}"/>
+		  </antcall>
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: office.cache.clean                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="office.cache.clean">
+	  	  <antcall target="clean.cache">
+	  	    <param name="dir.deploy" value="${office.dir.deploy}"/>
+	  	  </antcall>
+    </target>
 
 
 </project>

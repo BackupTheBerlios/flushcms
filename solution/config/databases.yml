@@ -1,5 +1,5 @@
 all:
-  my_solution:
+  @DB_DATABASE@:
     class:          sfPropelDatabase
     param:
-      dsn:          mysql://root:test1234@localhost/my_solution
+      dsn:          mysql://@DB_USERNAME@:@DB_PASSWORD@@@DB_HOST@/@DB_DATABASE@
