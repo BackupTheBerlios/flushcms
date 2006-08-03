@@ -228,5 +228,12 @@
 	  	  </antcall>
     </target>
 
-
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: office.clean.dist                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="office.clean.dist">
+    	<deltree dir="${office.dir.deploy}"/>
+    </target>
+	
+	
 </project>
