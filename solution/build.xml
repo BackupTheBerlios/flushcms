@@ -200,6 +200,33 @@
 	  	    <param name="dir.deploy" value="${office.dir.deploy}"/>
 	  	  </antcall>
     </target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: local.build.init                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="local.build.init">
+		  <antcall target="build.db.xml">
+		    <param name="dir.deploy" value="${local.dir.deploy}"/>
+		  </antcall>
+	  	  <antcall target="build.db">
+	  	    <param name="dir.deploy" value="${local.dir.deploy}"/>
+	  	  </antcall>
+	  	  <antcall target="build.db.sql">
+	  	    <param name="dir.deploy" value="${local.dir.deploy}"/>
+	  	  </antcall>
+	  	  <antcall target="build.insert.sql">
+	  	    <param name="dir.deploy" value="${local.dir.deploy}"/>
+	  	  </antcall>
+	  	  <antcall target="build.model">
+	  	    <param name="dir.deploy" value="${local.dir.deploy}"/>
+	  	  </antcall>
+	  	  <antcall target="build.frontend">
+	  	    <param name="dir.deploy" value="${local.dir.deploy}"/>
+	  	  </antcall>
+	  	  <antcall target="build.backend">
+	  	    <param name="dir.deploy" value="${local.dir.deploy}"/>
+	  	  </antcall>
+    </target>
 	
 	<!-- - - - - - - - - - - - - - - - - - 
           target: office.build.db.reset                      
@@ -218,6 +245,24 @@
 		    <param name="dir.deploy" value="${office.dir.deploy}"/>
 		  </antcall>
     </target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: local.build.db.reset                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="local.build.db.reset">
+	  	  <antcall target="build.db.xml">
+	  	    <param name="dir.deploy" value="${local.dir.deploy}"/>
+	  	  </antcall>
+		  <antcall target="build.db">
+		    <param name="dir.deploy" value="${local.dir.deploy}"/>
+		  </antcall>
+		  <antcall target="build.db.sql">
+		    <param name="dir.deploy" value="${local.dir.deploy}"/>
+		  </antcall>
+		  <antcall target="build.insert.sql">
+		    <param name="dir.deploy" value="${local.dir.deploy}"/>
+		  </antcall>
+    </target>
 	
 	<!-- - - - - - - - - - - - - - - - - - 
           target: office.cache.clean                      
@@ -225,6 +270,15 @@
     <target name="office.cache.clean">
 	  	  <antcall target="clean.cache">
 	  	    <param name="dir.deploy" value="${office.dir.deploy}"/>
+	  	  </antcall>
+    </target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: local.cache.clean                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="local.cache.clean">
+	  	  <antcall target="clean.cache">
+	  	    <param name="dir.deploy" value="${local.dir.deploy}"/>
 	  	  </antcall>
     </target>
 
