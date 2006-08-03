@@ -54,11 +54,16 @@
     	<exec dir="${local.dir.deploy}/${app.name}" executable="symfony.bat" >
     	  <arg line="new solution"/>
     	</exec>
-		<copy todir="${local.dir.deploy}">
-			<fileset dir="${local.dir.dev}">
-				<filter token="DB_USER" value="${db.user}" />
-			</fileset>
-		</copy>
+		<antcall target="copy.cvs.files">
+			<param name="dir.deploy" value="${local.dir.deploy}"/>
+			<param name="dir.dev" value="${local.dir.dev}"/>
+			<param name="db.host" value="${local.db.host}"/>
+			<param name="db.user" value="${local.db.user}"/>
+			<param name="db.password" value="${local.db.password}"/>
+			<param name="db.databasename" value="${local.db.name}"/>
+			<param name="output.dir" value="${local.dir.deploy}/${app.name}"/>
+			<param name="appname" value="${app.name}"/>
+		</antcall>
     </target>
 
 	<!-- - - - - - - - - - - - - - - - - - 
@@ -288,6 +293,13 @@
     <target name="office.clean.dist">
     	<deltree dir="${office.dir.deploy}"/>
     </target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: local.clean.dist                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="local.clean.dist">
+    	<deltree dir="${local.dir.deploy}"/>
+    </target>
 	
 	<!-- - - - - - - - - - - - - - - - - - 
           target: office.build.module.users                      
@@ -298,6 +310,15 @@
     	</exec>         
     </target>
 
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: local.build.module.users                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="local.build.module.users">
+    	<exec dir="${local.dir.deploy}/${app.name}" executable="symfony.bat" >
+    	  <arg line="propel-init-admin backend users Users"/>
+    	</exec>         
+    </target>
+	
 	
 	
 </project>

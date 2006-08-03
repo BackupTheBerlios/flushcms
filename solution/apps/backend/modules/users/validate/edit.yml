@@ -2,7 +2,7 @@ methods:
   post:           
     - "users{user_name}"             
     - "users{user_pwd}"             
-    - "users{addrees}" 
+    - "users{photo}" 
 fillin:
   activate:       on
 
@@ -15,13 +15,11 @@ names:
     required:     Yes
     required_msg: The name field cannot be left blank      
 
-  users{addrees}:
-    required:         Yes
-    required_msg:     Please upload an image file
-    validators:       ageValidator
+  users{photo}:
+    validators:       imageValidator
     file:             true
     
-ageValidator:
+imageValidator:
   class:          sfFileValidator
   param:
     mime_types:
