@@ -235,5 +235,15 @@
     	<deltree dir="${office.dir.deploy}"/>
     </target>
 	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: office.build.module.users                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="office.build.module.users">
+    	<exec dir="${office.dir.deploy}/${app.name}" executable="symfony.bat" >
+    	  <arg line="propel-init-admin backend users Users"/>
+    	</exec>         
+    </target>
+
+	
 	
 </project>
