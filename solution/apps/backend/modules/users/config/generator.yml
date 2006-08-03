@@ -10,4 +10,7 @@ generator:
         _edit:        -
         _delete:      -
     edit:
-      title:          Edit users
+      title:          编辑用户信息
+      fields:
+          photo: { type: admin_input_upload_tag }
+          gender:  { type: select_tag, params: include_blank=true }       
