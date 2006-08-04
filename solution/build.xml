@@ -309,6 +309,15 @@
     	  <arg line="propel-init-admin backend users Users"/>
     	</exec>         
     </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: office.sync.module.users                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="office.sync.module.users">
+    	  <copy todir="${office.dir.cvsdev}/apps/backend/modules/users" overwrite="true" >
+    	    <fileset dir="${office.dir.deploy}/${app.name}/apps/backend/modules/users"/>
+    	  </copy>
+    </target>
 
 	<!-- - - - - - - - - - - - - - - - - - 
           target: local.build.module.users                      

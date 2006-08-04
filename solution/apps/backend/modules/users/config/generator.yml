@@ -3,14 +3,26 @@ generator:
   param:
     model_class:      Users
     theme:            default
+    fields:
+      user_name: { name: 用户名 }
+      gender: { name: 性别 }
+      pwd1: { name: 密码 }
+      pwd2: { name: 确认密码 }
+      role: { name: 权限 }
+      phone: { name: 电话 }
+      email: { name: 电子邮箱 }
+      photo: { name: 照片 }
+      addrees: { name: 详细地址 }
     list:
       max_per_page:   5
-      title:          List of Users Test
+      title:          用户列表
       object_actions:
         _edit:        -
         _delete:      -
     edit:
-      title:          编辑用户信息
+      title:          编辑用户%%user_name%%信息
+      display:
+         "必填信息":      [user_name, gender, _pwd1, _pwd2, role ]
+         "附加信息":      [phone, email, photo, addrees ]
       fields:
           photo: { type: admin_input_upload_tag }
-          gender:  { type: select_tag, params: include_blank=true }       

@@ -1,15 +1,12 @@
 methods:
   post:           
     - "users{user_name}"             
-    - "users{user_pwd}"             
 fillin:
   activate:       on
 
 names:
   users{user_name}:
     required:     Yes
-    required_msg: The name field cannot be left blank
+    required_msg: 请输入用户名
 
-  users{user_pwd}:
-    required:     Yes
-    required_msg: The name field cannot be left blank      
+    
