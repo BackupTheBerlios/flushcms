@@ -314,7 +314,7 @@
           target: office.sync.module.users                      
          - - - - - - - - - - - - - - - - - -->
     <target name="office.sync.module.users">
-    	  <copy todir="${office.dir.cvsdev}/apps/backend/modules/users" overwrite="true" >
+    	  <copy todir="${office.dir.cvsdev}/apps/backend/modules/users" >
     	    <fileset dir="${office.dir.deploy}/${app.name}/apps/backend/modules/users"/>
     	  </copy>
     </target>

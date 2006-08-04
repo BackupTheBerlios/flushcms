@@ -16,6 +16,7 @@ generator:
     list:
       max_per_page:   5
       title:          用户列表
+      display: [=user_name, gender, phone, addrees ]
       object_actions:
         _edit:        -
         _delete:      -

@@ -1,6 +1,10 @@
 methods:
   post:           
     - "users{user_name}"             
+    - "users{photo}"             
+    - "users{email}"             
+    - "users{pwd1}"             
+    - "users{pwd2}"             
 fillin:
   activate:       on
 
@@ -8,5 +12,44 @@ names:
   users{user_name}:
     required:     Yes
     required_msg: 请输入用户名
-
     
+  users{pwd1}:
+    required:     No
+    group:        password_group
+    
+  users{pwd2}:
+    required:     No
+    group:        password_group
+    validators:   passwordValidator
+
+  users{photo}:
+    required:     No
+    validators:   imageValidator
+    file:             true
+
+  users{email}:
+    required:     No
+    validators:   emailValidator
+       
+emailValidator:
+  class:          sfRegexValidator
+  param:
+    match:        Yes
+    match_error:  "您输入的电子邮箱格式不正确 (如: name@domain.com).请再输入一次."
+    pattern:      /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/i  
+
+imageValidator:
+  class:              sfFileValidator
+  param:
+    mime_types:       
+      - 'image/jpeg'
+      - 'image/png'
+    mime_types_error: 只允许上传图片
+    max_size:         512000
+    max_size_error:   文件大小应小于 512Kb
+
+passwordValidator:
+   class:         sfCompareValidator
+   param:
+     check:       password1
+     compare_error: 密码不匹配.    
