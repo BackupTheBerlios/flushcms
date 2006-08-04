@@ -65,6 +65,23 @@
 			<param name="appname" value="${app.name}"/>
 		</antcall>
     </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: local.cvs.sync                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="local.cvs.sync">
+		<antcall target="copy.cvs.files">
+			<param name="dir.deploy" value="${local.dir.deploy}"/>
+			<param name="dir.dev" value="${local.dir.dev}"/>
+			<param name="db.host" value="${local.db.host}"/>
+			<param name="db.user" value="${local.db.user}"/>
+			<param name="db.password" value="${local.db.password}"/>
+			<param name="db.databasename" value="${local.db.name}"/>
+			<param name="output.dir" value="${local.dir.deploy}/${app.name}"/>
+			<param name="appname" value="${app.name}"/>
+		</antcall>
+   </target>
+
 
 	<!-- - - - - - - - - - - - - - - - - - 
           target: office.deploy                      
@@ -316,6 +333,15 @@
     <target name="office.sync.module.users">
     	  <copy todir="${office.dir.cvsdev}/apps/backend/modules/users" >
     	    <fileset dir="${office.dir.deploy}/${app.name}/apps/backend/modules/users"/>
+    	  </copy>
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: local.sync.module.users                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="local.sync.module.users">
+    	  <copy todir="${local.dir.cvsdev}/apps/backend/modules/users" >
+    	    <fileset dir="${local.dir.deploy}/${app.name}/apps/backend/modules/users"/>
     	  </copy>
     </target>
 
