@@ -6,17 +6,11 @@
  * @package    solution
  * @subpackage users
  * @author     Your name here
- * @version    SVN: $Id: actions.class.php,v 1.2 2006/08/04 23:25:37 arzen Exp $
+ * @version    SVN: $Id: actions.class.php,v 1.3 2006/08/05 01:50:02 arzen Exp $
  */
 class usersActions extends autousersActions
 {
 
-  public function executeEdit()
-  {
-
-    // Finish off the edit screen in the usual way
-    parent::executeEdit();
-  }
   
   protected function updateUsersFromRequest()
   {
@@ -31,6 +25,10 @@ class usersActions extends autousersActions
     {
       $this->users->setGender($user_gender);
     }
+    
+
+	$fileName = $this->getRequest()->getFileName("users[photo]");
+	$this->getRequest()->moveFile("users[photo]", sfConfig::get('sf_upload_dir').'/'.$fileName);
  
     parent::updateUsersFromRequest();
   }

@@ -6,6 +6,8 @@ generator:
     fields:
       user_name: { name: 用户名 }
       gender: { name: 性别 }
+      gender_list: { name: 性别 }
+      user_pwd: { name: 密码 }
       pwd1: { name: 密码 }
       pwd2: { name: 确认密码 }
       role: { name: 权限 }
@@ -16,7 +18,7 @@ generator:
     list:
       max_per_page:   5
       title:          用户列表
-      display: [=user_name, gender, phone, addrees ]
+      display: [user_name, user_pwd, _gender_list, phone, addrees ]
       object_actions:
         _edit:        -
         _delete:      -

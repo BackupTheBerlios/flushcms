@@ -82,6 +82,22 @@
 		</antcall>
    </target>
 
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: office.cvs.sync                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="office.cvs.sync">
+		<antcall target="copy.cvs.files">
+			<param name="dir.deploy" value="${office.dir.deploy}"/>
+			<param name="dir.dev" value="${office.dir.dev}"/>
+			<param name="db.host" value="${office.db.host}"/>
+			<param name="db.user" value="${office.db.user}"/>
+			<param name="db.password" value="${office.db.password}"/>
+			<param name="db.databasename" value="${office.db.name}"/>
+			<param name="output.dir" value="${office.dir.deploy}/${app.name}"/>
+			<param name="appname" value="${app.name}"/>
+		</antcall>
+   </target>
+	
 
 	<!-- - - - - - - - - - - - - - - - - - 
           target: office.deploy                      
