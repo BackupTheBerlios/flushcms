@@ -1,0 +1,1 @@
+<?php echo link_to($users->getUserName(), 'users/show?id='.$users->getId()) ?>

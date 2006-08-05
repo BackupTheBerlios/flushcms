@@ -6,11 +6,17 @@
  * @package    solution
  * @subpackage users
  * @author     Your name here
- * @version    SVN: $Id: actions.class.php,v 1.3 2006/08/05 01:50:02 arzen Exp $
+ * @version    SVN: $Id: actions.class.php,v 1.4 2006/08/05 05:40:06 arzen Exp $
  */
 class usersActions extends autousersActions
 {
 
+	public function executeShow ()
+	{
+		$this->users = UsersPeer::retrieveByPk($this->getRequestParameter('id'));
+	 
+    	$this->forward404Unless($this->users);
+	}
   
   protected function updateUsersFromRequest()
   {
@@ -25,10 +31,12 @@ class usersActions extends autousersActions
     {
       $this->users->setGender($user_gender);
     }
-    
-
-	$fileName = $this->getRequest()->getFileName("users[photo]");
-	$this->getRequest()->moveFile("users[photo]", sfConfig::get('sf_upload_dir').'/'.$fileName);
+    if (!$this->getRequest()->getError("users{photo}"))
+    {
+		$fileName = $this->getRequest()->getFileName("users[photo]");
+		$this->getRequest()->moveFile("users[photo]", sfConfig::get('sf_upload_dir_name').'/'.$fileName);
+		$this->users->setPhoto($fileName);
+    }
  
     parent::updateUsersFromRequest();
   }

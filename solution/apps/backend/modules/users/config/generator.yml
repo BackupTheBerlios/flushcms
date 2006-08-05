@@ -5,6 +5,7 @@ generator:
     theme:            default
     fields:
       user_name: { name: 用户名 }
+      user_title: { name: 用户名 }
       gender: { name: 性别 }
       gender_list: { name: 性别 }
       user_pwd: { name: 密码 }
@@ -18,7 +19,7 @@ generator:
     list:
       max_per_page:   5
       title:          用户列表
-      display: [user_name, user_pwd, _gender_list, phone, addrees ]
+      display: [_user_title, user_pwd, _gender_list, phone, addrees ]
       object_actions:
         _edit:        -
         _delete:      -
@@ -28,4 +29,4 @@ generator:
          "必填信息":      [user_name, _gender, _pwd1, _pwd2, role ]
          "附加信息":      [phone, email, photo, addrees ]
       fields:
-          photo: { type: admin_input_upload_tag }
+          photo: { type: admin_input_upload_tag, params: include_text=点击查看 include_link=./ include_remove=true }
