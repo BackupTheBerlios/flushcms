@@ -11,7 +11,7 @@ generator:
       user_pwd: { name: 密码 }
       pwd1: { name: 密码 }
       pwd2: { name: 确认密码 }
-      role: { name: 权限 }
+      role_id: { name: 权限 }
       phone: { name: 电话 }
       email: { name: 电子邮箱 }
       photo: { name: 照片 }
@@ -26,7 +26,7 @@ generator:
     edit:
       title:          编辑用户%%user_name%%信息
       display:
-         "必填信息":      [user_name, _gender, _pwd1, _pwd2, role ]
+         "必填信息":      [user_name, _gender, _pwd1, _pwd2, role_id ]
          "附加信息":      [phone, email, photo, addrees ]
       fields:
           photo: { type: admin_input_upload_tag, params: include_text=点击查看 include_link=./ include_remove=true }

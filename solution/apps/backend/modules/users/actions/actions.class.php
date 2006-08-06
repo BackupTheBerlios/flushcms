@@ -6,7 +6,7 @@
  * @package    solution
  * @subpackage users
  * @author     Your name here
- * @version    SVN: $Id: actions.class.php,v 1.4 2006/08/05 05:40:06 arzen Exp $
+ * @version    SVN: $Id: actions.class.php,v 1.5 2006/08/06 07:37:12 arzen Exp $
  */
 class usersActions extends autousersActions
 {
@@ -31,13 +31,13 @@ class usersActions extends autousersActions
     {
       $this->users->setGender($user_gender);
     }
-    if (!$this->getRequest()->getError("users{photo}"))
+    if (!$this->getRequest()->getError("users{photo}") && $fileName = $this->getRequest()->getFileName("users[photo]"))
     {
-		$fileName = $this->getRequest()->getFileName("users[photo]");
 		$this->getRequest()->moveFile("users[photo]", sfConfig::get('sf_upload_dir_name').'/'.$fileName);
 		$this->users->setPhoto($fileName);
     }
- 
+	$ip = $_SERVER['REMOTE_ADDR'];
+	$this->users->setAddIp($ip); 
     parent::updateUsersFromRequest();
   }
 

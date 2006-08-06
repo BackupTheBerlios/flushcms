@@ -9,15 +9,31 @@ my_solution:
     phone:	varchar(80)
     email:	varchar(80)
     photo:	varchar(80)
-    role:	varchar(50)
+    role_id:	{ type: integer, size: 8 }
+    active: { type: tinyint, size: 2, defaultValue: 1 }
     add_ip:	varchar(24)
     created_at:
-  so_solution:
-    _attributes: { phpName: Solution }
+  so_role:
+    _attributes: { phpName: Role }
+    id:
+    role_name:   varchar(60)
+    role_lable:	varchar(50)
+    active: { type: tinyint, size: 2, defaultValue: 1 }
+    add_ip:	varchar(24)
+    created_at:
+  so_question_category:
+    _attributes: { phpName: QuestionCategory }
+    id:
+    category_name:   varchar(60)
+    active: { type: tinyint, size: 2, defaultValue: 1 }
+    add_ip:	varchar(24)
+    created_at:
+  so_question:
+    _attributes: { phpName: Question }
     id:
     question:   varchar(250)
     category:	varchar(10)
-    solution:	longvarchar
+    active: { type: tinyint, size: 2, defaultValue: 1 }
     add_ip:	varchar(24)
     created_at:
  

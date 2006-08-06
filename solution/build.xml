@@ -284,6 +284,7 @@
 		  </antcall>
     </target>
 
+	
 	<!-- - - - - - - - - - - - - - - - - - 
           target: local.build.db.reset                      
          - - - - - - - - - - - - - - - - - -->
@@ -298,6 +299,9 @@
 		    <param name="dir.deploy" value="${local.dir.deploy}"/>
 		  </antcall>
 		  <antcall target="build.insert.sql">
+		    <param name="dir.deploy" value="${local.dir.deploy}"/>
+		  </antcall>
+		  <antcall target="build.model">
 		    <param name="dir.deploy" value="${local.dir.deploy}"/>
 		  </antcall>
     </target>
@@ -367,6 +371,15 @@
     <target name="local.build.module.users">
     	<exec dir="${local.dir.deploy}/${app.name}" executable="symfony.bat" >
     	  <arg line="propel-init-admin backend users Users"/>
+    	</exec>         
+    	<exec dir="${local.dir.deploy}/${app.name}" executable="symfony.bat" >
+        	<arg line="propel-init-admin backend role Role"/>
+    	</exec>         
+    	<exec dir="${local.dir.deploy}/${app.name}" executable="symfony.bat" >
+            <arg line="propel-init-admin backend question Question"/>
+    	</exec>         
+    	<exec dir="${local.dir.deploy}/${app.name}" executable="symfony.bat" >
+            <arg line="propel-init-admin backend questioncategory QuestionCategory"/>
     	</exec>         
     </target>
 	
