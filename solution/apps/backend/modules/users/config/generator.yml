@@ -26,7 +26,9 @@ generator:
     edit:
       title:          编辑用户%%user_name%%信息
       display:
-         "必填信息":      [user_name, _gender, _pwd1, _pwd2, role_id ]
+         "必填信息":      [user_name, _gender, _pwd1, _pwd2, _role_id ]
          "附加信息":      [phone, email, photo, addrees ]
       fields:
           photo: { type: admin_input_upload_tag, params: include_text=点击查看 include_link=./ include_remove=true }
+          addrees: { params: size=45 }
+          

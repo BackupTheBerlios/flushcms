@@ -6,7 +6,7 @@
  * @package    solution
  * @subpackage users
  * @author     Your name here
- * @version    SVN: $Id: actions.class.php,v 1.5 2006/08/06 07:37:12 arzen Exp $
+ * @version    SVN: $Id: actions.class.php,v 1.6 2006/08/06 23:16:56 arzen Exp $
  */
 class usersActions extends autousersActions
 {
@@ -14,6 +14,10 @@ class usersActions extends autousersActions
 	public function executeShow ()
 	{
 		$this->users = UsersPeer::retrieveByPk($this->getRequestParameter('id'));
+
+		$c = new Criteria();
+		$c->add(RolePeer::ID, $this->users->getRoleId());
+		$this->roles = RolePeer::doSelect($c);
 	 
     	$this->forward404Unless($this->users);
 	}
@@ -23,6 +27,7 @@ class usersActions extends autousersActions
     $user_password = $this->getRequestParameter('password1');
     $user_password2 = $this->getRequestParameter('password2');
     $user_gender = $this->getRequestParameter('gender');
+    $user_roleid = $this->getRequestParameter('role_id');
     if ($user_password && ($user_password==$user_password2))
     {
       $this->users->setUserPwd($user_password);
@@ -36,6 +41,10 @@ class usersActions extends autousersActions
 		$this->getRequest()->moveFile("users[photo]", sfConfig::get('sf_upload_dir_name').'/'.$fileName);
 		$this->users->setPhoto($fileName);
     }
+    if ($user_roleid) 
+    {
+		$this->users->setRoleId($user_roleid);
+	}
 	$ip = $_SERVER['REMOTE_ADDR'];
 	$this->users->setAddIp($ip); 
     parent::updateUsersFromRequest();

@@ -1,5 +1,6 @@
 <?php 
 	$user_gender = $users->getGender();
+	$user_gender?$user_gender=$user_gender:$user_gender='M';
 	echo radiobutton_tag('gender', 'M', ($user_gender=='M')?true:false);
 ?>
 <?=__("ÄÐ")?>

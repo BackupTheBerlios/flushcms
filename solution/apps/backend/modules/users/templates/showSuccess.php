@@ -25,7 +25,7 @@ array('%%user_name%%' => $users->getUserName())) ?></h1>
 <div class="form-row">
   <label for="users_user_name"><?php echo __('х╗оч:') ?></label>  
   <div class="content">
-  <?=$users->getRoleId();?> &nbsp;   
+  <?PHP echo $roles[0]->getRoleLable(); ?> &nbsp; 
   </div>
 </div>
 
