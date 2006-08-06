@@ -360,8 +360,12 @@
           target: local.sync.module.users                      
          - - - - - - - - - - - - - - - - - -->
     <target name="local.sync.module.users">
-    	  <copy todir="${local.dir.cvsdev}/apps/backend/modules/users" >
-    	    <fileset dir="${local.dir.deploy}/${app.name}/apps/backend/modules/users"/>
+    	  <copy todir="${local.dir.cvsdev}" >
+    	    <fileset dir="${local.dir.deploy}/${app.name}">
+    	      <include name="apps/backend/modules/**"/>
+      	      <include name="apps/backend/templates/**"/>
+        	  <include name="config/schema.yml"/>
+    	    </fileset>
     	  </copy>
     </target>
 
