@@ -123,7 +123,7 @@
           target: copy.cvs.files                      
          - - - - - - - - - - - - - - - - - -->
     <target name="copy.cvs.files">
-		<copy todir="${dir.deploy}" overwrite="true" >
+		<copy todir="${dir.deploy}" >
 			<fileset dir="${dir.dev}">
 			</fileset>
 			<filterset>
@@ -282,6 +282,9 @@
 		  <antcall target="build.insert.sql">
 		    <param name="dir.deploy" value="${office.dir.deploy}"/>
 		  </antcall>
+		  <antcall target="build.model">
+		    <param name="dir.deploy" value="${office.dir.deploy}"/>
+		  </antcall>
     </target>
 
 	
@@ -339,54 +342,116 @@
     </target>
 	
 	<!-- - - - - - - - - - - - - - - - - - 
-          target: office.build.module.users                      
+          target: office.build.modules                      
          - - - - - - - - - - - - - - - - - -->
-    <target name="office.build.module.users">
-    	<exec dir="${office.dir.deploy}/${app.name}" executable="symfony.bat" >
-    	  <arg line="propel-init-admin backend users Users"/>
-    	</exec>         
+    <target name="office.build.modules">
+		  <antcall target="build.modules">
+		    <param name="dir.deploy" value="${office.dir.deploy}/${app.name}"/>
+		  </antcall>
     </target>
 	
 	<!-- - - - - - - - - - - - - - - - - - 
-          target: office.sync.module.users                      
+          target: office.sync.modules                      
          - - - - - - - - - - - - - - - - - -->
-    <target name="office.sync.module.users">
-    	  <copy todir="${office.dir.cvsdev}/apps/backend/modules/users" >
-    	    <fileset dir="${office.dir.deploy}/${app.name}/apps/backend/modules/users"/>
-    	  </copy>
+    <target name="office.sync.modules">
+		  <antcall target="sync.application">
+		    <param name="dir.cvsdev" value="${office.dir.cvsdev}"/>
+		    <param name="dir.deploy" value="${office.dir.deploy}"/>
+		  </antcall>
     </target>
 	
 	<!-- - - - - - - - - - - - - - - - - - 
-          target: local.sync.module.users                      
+          target: local.sync.modules                      
          - - - - - - - - - - - - - - - - - -->
-    <target name="local.sync.module.users">
-    	  <copy todir="${local.dir.cvsdev}" >
-    	    <fileset dir="${local.dir.deploy}/${app.name}">
-    	      <include name="apps/backend/modules/**"/>
-      	      <include name="apps/backend/templates/**"/>
-        	  <include name="config/schema.yml"/>
-    	    </fileset>
-    	  </copy>
+    <target name="local.sync.modules">
+		  <antcall target="sync.application">
+		    <param name="dir.cvsdev" value="${local.dir.cvsdev}"/>
+		    <param name="dir.deploy" value="${local.dir.deploy}"/>
+		  </antcall>
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: sync.application                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="sync.application">
+  	  <copy todir="${dir.cvsdev}" >
+  	    <fileset dir="${dir.deploy}/${app.name}">
+  	      <include name="apps/backend/modules/**"/>
+    	  <include name="apps/backend/templates/**"/>
+      	  <include name="config/schema.yml"/>
+   	      <include name="apps/backend/config/routing.yml"/>
+     	  <include name="apps/backend/config/app.yml"/>
+  	    </fileset>
+  	  </copy>
     </target>
 
+
 	<!-- - - - - - - - - - - - - - - - - - 
-          target: local.build.module.users                      
+          target: local.build.modules                      
          - - - - - - - - - - - - - - - - - -->
-    <target name="local.build.module.users">
-    	<exec dir="${local.dir.deploy}/${app.name}" executable="symfony.bat" >
+    <target name="local.build.modules">
+		  <antcall target="build.modules">
+		    <param name="dir.deploy" value="${local.dir.deploy}/${app.name}"/>
+		  </antcall>
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: build.modules                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="build.modules">
+    	<exec dir="${dir.deploy}" executable="symfony.bat" >
     	  <arg line="propel-init-admin backend users Users"/>
     	</exec>         
-    	<exec dir="${local.dir.deploy}/${app.name}" executable="symfony.bat" >
+    	<exec dir="${dir.deploy}" executable="symfony.bat" >
         	<arg line="propel-init-admin backend role Role"/>
     	</exec>         
-    	<exec dir="${local.dir.deploy}/${app.name}" executable="symfony.bat" >
+    	<exec dir="${dir.deploy}" executable="symfony.bat" >
             <arg line="propel-init-admin backend question Question"/>
     	</exec>         
-    	<exec dir="${local.dir.deploy}/${app.name}" executable="symfony.bat" >
+    	<exec dir="${dir.deploy}" executable="symfony.bat" >
             <arg line="propel-init-admin backend questioncategory QuestionCategory"/>
     	</exec>         
     </target>
 	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: office.install.plugin                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="office.install.plugin">
+		  <antcall target="sys.install.plugin">
+		    <param name="dir.deploy" value="${office.dir.deploy}/${app.name}"/>
+		  </antcall>
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: local.install.plugin                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="local.install.plugin">
+		  <antcall target="sys.install.plugin">
+		    <param name="dir.deploy" value="${local.dir.deploy}/${app.name}"/>
+		  </antcall>
+    </target>
+
+
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: sys.install.plugin                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="sys.install.plugin">
+    	<exec dir="${dir.deploy}" executable="symfony.bat" >
+            <arg line="plugin-install global symfony/sfShoppingCart"/>
+    	</exec>         
+    	<exec dir="${dir.deploy}" executable="symfony.bat" >
+            <arg line="plugin-install global symfony/sfBreadCrumb"/>
+    	</exec>         
+    	<exec dir="${dir.deploy}" executable="symfony.bat" >
+            <arg line="plugin-install global symfony/sfThumbnail"/>
+    	</exec>         
+    	<exec dir="${dir.deploy}" executable="symfony.bat" >
+            <arg line="plugin-install global symfony/sfJpGraph"/>
+    	</exec>         
+            
+    </target>
+
 	
 	
 </project>

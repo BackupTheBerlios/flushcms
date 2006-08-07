@@ -1,0 +1,8 @@
+# default values
+all:
+  .settings:
+    categories:
+      'Manage User'   : '@users'
+      'Manage Role'   : '@role'
+      'Manage Category'    : '@questioncategory'
+      'Manage Question' : '@question'
