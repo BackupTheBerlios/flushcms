@@ -1,6 +1,7 @@
 <?php
 
 $c = new Criteria();
+$c->add(RolePeer::ACTIVE, array('active'=>1));
 $roles = RolePeer::doSelect($c);
 $roles_array = array();
 for ($index = 0; $index < sizeof($roles); $index++) 

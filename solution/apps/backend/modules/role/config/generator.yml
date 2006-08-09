@@ -7,14 +7,15 @@ generator:
       role_name: { name: 权限代码 }
       role_lable: { name: 权限名称 }
       active: { name: 激活 }
+      active_list: { name: 激活 }
     list:
       max_per_page:   5
       title:          权限列表
-      display: [=role_name, role_lable, active ]
+      display: [=role_name, role_lable, _active_list ]
       object_actions:
         _edit:        -
         _delete:      -
     edit:
       title:          编辑权限%%role_name%%信息
-      display:     [role_name, role_lable, active ]
+      display:     [role_name, role_lable, _active ]
     

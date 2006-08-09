@@ -1,0 +1,15 @@
+methods:
+  post:           
+    - "role{role_name}"             
+    - "role{role_lable}"             
+fillin:
+  activate:       on
+
+names:
+  role{role_name}:
+    required:     Yes
+    required_msg: 请输入权限代码
+    
+  role{role_lable}:
+    required:     Yes
+    required_msg: 请输入权限名称
