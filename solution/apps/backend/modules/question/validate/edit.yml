@@ -1,0 +1,10 @@
+methods:
+  post:           
+    - "question{question}"             
+fillin:
+  activate:       on
+
+names:
+  question{question}:
+    required:     Yes
+    required_msg: «Î ‰»Î±ÍÃ‚

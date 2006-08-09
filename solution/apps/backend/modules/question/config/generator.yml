@@ -3,3 +3,22 @@ generator:
   param:
     model_class:      Question
     theme:            default
+    fields:
+      question: { name: 标题 }
+      category: { name: 所属分类 }
+      question_category: { name: 所属分类 }
+      active: { name: 激活 }
+      active_list: { name: 激活 }
+    list:
+      display: [=question, category, _active_list ]
+      max_per_page:   5
+      title:          问题列表
+      object_actions:
+        _edit:        -
+        _delete:      -
+    edit:
+      title:          编辑问题%%question%%
+      display:     [question, _question_category, _active ]
+      fields:
+          question: { type: textarea_tag, params: size=45 }
+    
