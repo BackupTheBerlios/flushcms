@@ -3,3 +3,14 @@ generator:
   param:
     model_class:      Solution
     theme:            default
+    fields:
+      question: { name: 问题 }
+      solution: { name: 解决方案 }
+      active: { name: 激活 }
+      active_list: { name: 激活 }
+    edit:
+      title:          编辑解决方案%%solution%%
+      display:     [_question, solution, _active ]
+      fields:
+          solution: { type: textarea_tag, params: size=45 }
+      
