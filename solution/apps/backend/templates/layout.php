@@ -11,9 +11,7 @@
 
 </head>
 <body>
-<div id="sidebar">
   <?php echo include_partial('global/site_menu') ?>
-</div>
 
 <?php echo $sf_data->getRaw('sf_content') ?>
 

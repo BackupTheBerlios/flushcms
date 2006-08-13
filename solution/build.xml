@@ -357,6 +357,7 @@
 		  <antcall target="sync.application">
 		    <param name="dir.cvsdev" value="${office.dir.cvsdev}"/>
 		    <param name="dir.deploy" value="${office.dir.deploy}"/>
+		    <param name="dir.pear" value="${office.dir.pear}"/>
 		  </antcall>
     </target>
 	
@@ -367,6 +368,7 @@
 		  <antcall target="sync.application">
 		    <param name="dir.cvsdev" value="${local.dir.cvsdev}"/>
 		    <param name="dir.deploy" value="${local.dir.deploy}"/>
+		    <param name="dir.pear" value="${local.dir.pear}"/>
 		  </antcall>
     </target>
 	
@@ -381,8 +383,14 @@
       	  <include name="config/schema.yml"/>
    	      <include name="apps/backend/config/routing.yml"/>
      	  <include name="apps/backend/config/app.yml"/>
+       	  <include name="web/sfdojo/**"/>
   	    </fileset>
   	  </copy>
+	  <copy todir="${dir.cvsdev}" >
+	    <fileset dir="${dir.pear}">
+	      <include name="plugins/sfDojo/**"/>
+	    </fileset>
+	  </copy>
     </target>
 
 
@@ -438,18 +446,24 @@
          - - - - - - - - - - - - - - - - - -->
     <target name="sys.install.plugin">
     	<exec dir="${dir.deploy}" executable="symfony.bat" >
-            <arg line="plugin-install global symfony/sfShoppingCart"/>
+            <arg line="plugin-install global pear.symfony-project.com/sfShoppingCart"/>
     	</exec>         
     	<exec dir="${dir.deploy}" executable="symfony.bat" >
-            <arg line="plugin-install global symfony/sfBreadCrumb"/>
+            <arg line="plugin-install global pear.symfony-project.com/sfBreadCrumb"/>
     	</exec>         
     	<exec dir="${dir.deploy}" executable="symfony.bat" >
-            <arg line="plugin-install global symfony/sfThumbnail"/>
+            <arg line="plugin-install global pear.symfony-project.com/sfThumbnail"/>
     	</exec>         
     	<exec dir="${dir.deploy}" executable="symfony.bat" >
-            <arg line="plugin-install global symfony/sfJpGraph"/>
+            <arg line="plugin-install global pear.symfony-project.com/sfJpGraph"/>
     	</exec>         
-            
+    	<exec dir="${dir.deploy}" executable="symfony.bat" >
+            <arg line="plugin-install global pear.symfony-project.com/sfEzpdo"/>
+    	</exec>         
+    	<exec dir="${dir.deploy}" executable="symfony.bat" >
+            <arg line="plugin-install global pear.symfony-project.com/sfSwfChart"/>
+    	</exec>         
+             
     </target>
 
 	
