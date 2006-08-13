@@ -31,8 +31,16 @@ my_solution:
   so_question:
     _attributes: { phpName: Question }
     id:
-    question:   varchar(250)
+    question:   longvarchar
     category:	varchar(10)
+    active: { type: tinyint, size: 2, defaultValue: 1 }
+    add_ip:	varchar(24)
+    created_at:
+  so_solution:
+    _attributes: { phpName: Solution }
+    id:
+    question_id:   { type: int, size: 11, defaultValue: 1 }
+    solution:	longvarchar
     active: { type: tinyint, size: 2, defaultValue: 1 }
     add_ip:	varchar(24)
     created_at:
