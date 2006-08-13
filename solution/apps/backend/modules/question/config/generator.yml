@@ -16,6 +16,7 @@ generator:
       object_actions:
         _edit:        -
         _delete:      -
+        addsolution:   { name: 发表解决方案, action: addSolution, icon: backend/addcomment.png }
     edit:
       title:          编辑问题%%question%%
       display:     [question, _question_category, _active ]

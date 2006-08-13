@@ -383,6 +383,7 @@
       	  <include name="config/schema.yml"/>
    	      <include name="apps/backend/config/routing.yml"/>
      	  <include name="apps/backend/config/app.yml"/>
+       	  <include name="apps/backend/config/settings.yml"/>
        	  <include name="web/sfdojo/**"/>
   	    </fileset>
   	  </copy>

@@ -6,12 +6,15 @@
 <?php echo include_metas() ?>
 
 <?php echo include_title() ?>
-
+<?php use_helper('I18N') ?>
 <link rel="shortcut icon" href="/favicon.ico" />
 
 </head>
 <body>
-  <?php echo include_partial('global/site_menu') ?>
+  <?php
+   if($sf_user->isAuthenticated())
+   include_partial('global/site_menu'); 
+   ?>
 
 <?php echo $sf_data->getRaw('sf_content') ?>
 
