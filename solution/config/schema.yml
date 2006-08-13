@@ -39,7 +39,7 @@ my_solution:
   so_solution:
     _attributes: { phpName: Solution }
     id:
-    question_id:   { type: int, size: 11, defaultValue: 1 }
+    question_id:   { type: INTEGER, size: 11, defaultValue: 1 }
     solution:	longvarchar
     active: { type: tinyint, size: 2, defaultValue: 1 }
     add_ip:	varchar(24)

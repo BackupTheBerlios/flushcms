@@ -420,6 +420,9 @@
     	<exec dir="${dir.deploy}" executable="symfony.bat" >
             <arg line="propel-init-admin backend questioncategory QuestionCategory"/>
     	</exec>         
+    	<exec dir="${dir.deploy}" executable="symfony.bat" >
+            <arg line="propel-init-admin backend solution Solution"/>
+    	</exec>         
     </target>
 	
 	<!-- - - - - - - - - - - - - - - - - - 

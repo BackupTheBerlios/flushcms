@@ -6,7 +6,7 @@
  * @package    solution
  * @subpackage question
  * @author     Your name here
- * @version    SVN: $Id: actions.class.php,v 1.2 2006/08/09 16:03:56 arzen Exp $
+ * @version    SVN: $Id: actions.class.php,v 1.3 2006/08/13 14:41:36 arzen Exp $
  */
 class questionActions extends autoquestionActions
 {
@@ -26,6 +26,13 @@ class questionActions extends autoquestionActions
 	$ip = $_SERVER['REMOTE_ADDR'];
 	$this->question->setAddIp($ip); 
     parent::updateQuestionFromRequest();
+  }
+  
+  public function executeAddSolution ()
+  {
+    $id = $this->getRequestParameter('id');
+    $this->forward404Unless($id);
+    return $this->redirect("solution/create?qid={$id}");//?qid={$id}
   }
 
 }

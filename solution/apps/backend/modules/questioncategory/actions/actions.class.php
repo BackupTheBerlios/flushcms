@@ -6,7 +6,7 @@
  * @package    solution
  * @subpackage questioncategory
  * @author     Your name here
- * @version    SVN: $Id: actions.class.php,v 1.2 2006/08/09 15:26:04 arzen Exp $
+ * @version    SVN: $Id: actions.class.php,v 1.3 2006/08/13 14:41:36 arzen Exp $
  */
 class questioncategoryActions extends autoquestioncategoryActions
 {
