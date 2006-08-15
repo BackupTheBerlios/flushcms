@@ -32,7 +32,7 @@ my_solution:
     _attributes: { phpName: Question }
     id:
     question:   longvarchar
-    category:	varchar(10)
+    category:	{ type: INTEGER, size: 11, defaultValue: 1 }
     active: { type: tinyint, size: 2, defaultValue: 1 }
     add_ip:	varchar(24)
     created_at:
@@ -41,6 +41,25 @@ my_solution:
     id:
     question_id:   { type: INTEGER, size: 11, defaultValue: 1 }
     solution:	longvarchar
+    active: { type: tinyint, size: 2, defaultValue: 1 }
+    add_ip:	varchar(24)
+    created_at:
+  so_finance_category:
+    _attributes: { phpName: FinanceCategory }
+    id:
+    category_name:   varchar(60)
+    active: { type: tinyint, size: 2, defaultValue: 1 }
+    add_ip:	varchar(24)
+    created_at:
+  so_finance:
+    _attributes: { phpName: Finance }
+    id:
+    category:  { type: INTEGER, size: 11, defaultValue: 1 }
+    create_date: DATE
+    amount: { type: tinyint, size: 4, defaultValue: 1 }
+    debit: { type: tinyint, size: 2, defaultValue: 1 }
+    money:  { type: DECIMAL, size: 10, scale: 2 }
+    memo: longvarchar
     active: { type: tinyint, size: 2, defaultValue: 1 }
     add_ip:	varchar(24)
     created_at:

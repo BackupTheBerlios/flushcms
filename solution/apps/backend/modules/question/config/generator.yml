@@ -16,6 +16,7 @@ generator:
       display: [_question_title, _question_category_list, _solution_count, _active_list ]
       max_per_page:   5
       title:          问题列表
+      sort: [created_at, desc]
       object_actions:
         _edit:        -
         _delete:      -

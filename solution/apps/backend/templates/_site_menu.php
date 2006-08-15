@@ -11,6 +11,7 @@ else
 $menu = new sfDojoApplicationMenu();
 $menu->setMainItem(__("管理员"),"submenu1");
 $menu->setMainItem(__("解决方案"),"submenu2");
+$menu->setMainItem(__("财务"),"submenu3");
 
 $menu->setSubItem(__("用户管理"),"submenu1","submenu1_1",false,"MenuItem2");
 $menu->setSubItem(__("添加用户"),"submenu1_1","",false,"MenuItem2",'users/create');
@@ -36,6 +37,14 @@ $menu->setSubItem(__("问题列表"),"submenu2_2","",false,"MenuItem2",'question');
 //$menu->setSubItem(__("解决方案"),"submenu2","submenu2_3",false,"MenuItem2");
 //$menu->setSubItem(__("添加解决方案"),"submenu2_3","",false,"MenuItem2",'solution/create');
 //$menu->setSubItem(__("解决方案列表"),"submenu2_3","",false,"MenuItem2",'solution');
+
+$menu->setSubItem(__("凭证分类"),"submenu3","submenu3_1",false,"MenuItem2");
+$menu->setSubItem(__("添加凭证分类"),"submenu3_1","",false,"MenuItem2",'financecategory/create');
+$menu->setSubItem(__("凭证分类列表"),"submenu3_1","",false,"MenuItem2",'financecategory');
+
+$menu->setSubItem(__("凭证"),"submenu3","submenu3_2",false,"MenuItem2");
+$menu->setSubItem(__("添加凭证"),"submenu3_2","",false,"MenuItem2",'finance/create');
+$menu->setSubItem(__("凭证列表"),"submenu3_2","",false,"MenuItem2",'finance');
 
 
 echo $menu->renderMenu();

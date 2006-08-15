@@ -423,6 +423,12 @@
     	<exec dir="${dir.deploy}" executable="symfony.bat" >
             <arg line="propel-init-admin backend solution Solution"/>
     	</exec>         
+    	<exec dir="${dir.deploy}" executable="symfony.bat" >
+            <arg line="propel-init-admin backend financecategory FinanceCategory"/>
+    	</exec>         
+    	<exec dir="${dir.deploy}" executable="symfony.bat" >
+            <arg line="propel-init-admin backend finance Finance"/>
+    	</exec>         
     </target>
 	
 	<!-- - - - - - - - - - - - - - - - - - 
