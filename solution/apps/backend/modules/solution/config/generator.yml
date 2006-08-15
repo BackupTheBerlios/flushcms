@@ -13,4 +13,6 @@ generator:
       display:     [_question, solution, _active ]
       fields:
           solution: { type: textarea_tag, params: size=45 }
+      actions:
+        _save:        -
       

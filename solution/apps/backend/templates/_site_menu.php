@@ -33,9 +33,9 @@ $menu->setSubItem(__("问题"),"submenu2","submenu2_2",false,"MenuItem2");
 $menu->setSubItem(__("添加问题"),"submenu2_2","",false,"MenuItem2",'question/create');
 $menu->setSubItem(__("问题列表"),"submenu2_2","",false,"MenuItem2",'question');
 
-$menu->setSubItem(__("解决方案"),"submenu2","submenu2_3",false,"MenuItem2");
-$menu->setSubItem(__("添加解决方案"),"submenu2_3","",false,"MenuItem2",'solution/create');
-$menu->setSubItem(__("解决方案列表"),"submenu2_3","",false,"MenuItem2",'solution');
+//$menu->setSubItem(__("解决方案"),"submenu2","submenu2_3",false,"MenuItem2");
+//$menu->setSubItem(__("添加解决方案"),"submenu2_3","",false,"MenuItem2",'solution/create');
+//$menu->setSubItem(__("解决方案列表"),"submenu2_3","",false,"MenuItem2",'solution');
 
 
 echo $menu->renderMenu();
