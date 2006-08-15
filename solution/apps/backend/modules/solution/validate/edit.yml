@@ -1,0 +1,11 @@
+methods:
+  post:           
+    - "solution{solution}"             
+fillin:
+  activate:       on
+
+names:
+  solution{solution}:
+    required:     Yes
+    required_msg: ÇëÊäÈëÄÚÈİ
+     
