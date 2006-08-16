@@ -1,0 +1,15 @@
+methods:
+  post:           
+    - "finance{create_date}"             
+    - "finance{money}"             
+fillin:
+  activate:       on
+
+names:
+  finance{create_date}:
+    required:     Yes
+    required_msg: 请选择凭证录入日期
+  finance{money}:
+    required:     Yes
+    required_msg: 请选择金额
+    

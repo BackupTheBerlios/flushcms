@@ -3,3 +3,33 @@ generator:
   param:
     model_class:      Finance
     theme:            default
+    fields:
+      category: { name: 所属分类 }
+      finance_category_list: { name: 所属分类 }
+      finance_category: { name: 所属分类 }
+      create_date: { name: 凭证日期, params: date_format='yyyy-MM-dd' }
+      amount: { name: 凭证编号 }
+      debit: { name: 借贷 }
+      debit_list: { name: 借/贷 }
+      money: { name: 金额 }
+      memo: { name: 备注 }
+      active: { name: 激活 }
+      active_list: { name: 激活 }
+    list:
+      display: [_debit_list, money, amount, create_date, _active_list ]
+      max_per_page:   5
+      title:          凭证列表
+      sort: [created_at, desc]
+      fields:
+         create_date: { params: date_format='yyyy-MM-dd' }
+      object_actions:
+        _edit:        -
+        _delete:      -
+    edit:
+      title:          编辑凭证
+      display:     [_finance_category, create_date, _debit, money, amount, _active ]
+      fields:
+         money: { params: size=12 }
+         amount: { params: value=1 size=2 }
+         create_date: { params: date_format='yyyy-MM-dd' }
+    

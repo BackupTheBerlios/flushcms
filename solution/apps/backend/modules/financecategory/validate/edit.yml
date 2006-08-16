@@ -1,0 +1,10 @@
+methods:
+  post:           
+    - "finance_category{category_name}"             
+fillin:
+  activate:       on
+
+names:
+  finance_category{category_name}:
+    required:     Yes
+    required_msg: 请输入分类名称
