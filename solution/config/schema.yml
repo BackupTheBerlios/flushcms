@@ -32,14 +32,14 @@ my_solution:
     _attributes: { phpName: Question }
     id:
     question:   longvarchar
-    category:	{ type: INTEGER, size: 11, defaultValue: 1 }
+    category:	{ type: INTEGER, size: 5, defaultValue: 1 }
     active: { type: tinyint, size: 2, defaultValue: 1 }
     add_ip:	varchar(24)
     created_at:
   so_solution:
     _attributes: { phpName: Solution }
     id:
-    question_id:   { type: INTEGER, size: 11, defaultValue: 1 }
+    question_id:   { type: INTEGER, size: 5, defaultValue: 1 }
     solution:	longvarchar
     active: { type: tinyint, size: 2, defaultValue: 1 }
     add_ip:	varchar(24)
@@ -54,11 +54,76 @@ my_solution:
   so_finance:
     _attributes: { phpName: Finance }
     id:
-    category:  { type: INTEGER, size: 11, defaultValue: 1 }
+    category:  { type: INTEGER, size: 5, defaultValue: 1 }
     create_date: DATE
     amount: { type: tinyint, size: 4, defaultValue: 1 }
     debit: { type: tinyint, size: 2, defaultValue: 1 }
     money:  { type: DECIMAL, size: 10, scale: 2 }
+    memo: longvarchar
+    active: { type: tinyint, size: 2, defaultValue: 1 }
+    add_ip:	varchar(24)
+    created_at:
+  so_contact_category:
+    _attributes: { phpName: ContactCategory }
+    id:
+    category_name:   varchar(60)
+    active: { type: tinyint, size: 2, defaultValue: 1 }
+    add_ip:	varchar(24)
+    created_at:
+  so_contact:
+    _attributes: { phpName: Contact }
+    id:
+    category:  { type: INTEGER, size: 5, defaultValue: 1 }
+    company_id:  { type: INTEGER, size: 5, defaultValue: 1 }
+    name: varchar(50)
+    gender: varchar(2)
+    birthday: DATE
+    addrees:	varchar(150)
+    office_phone:	varchar(80)
+    phone:	varchar(80)
+    fax:	varchar(80)
+    mobile:	varchar(80)
+    email:	varchar(80)
+    photo:	varchar(60)
+    homepage:	varchar(90)
+    active: { type: tinyint, size: 2, defaultValue: 1 }
+    add_ip:	varchar(24)
+    created_at:
+  so_company:
+    _attributes: { phpName: Company }
+    id:
+    name: varchar(50)
+    addrees:	varchar(150)
+    phone:	varchar(80)
+    fax:	varchar(80)
+    email:	varchar(80)
+    photo:	varchar(60)
+    homepage:	varchar(90)
+    employee: { type: INTEGER, size: 5 }
+    bankroll: { type: DECIMAL, size: 10, scale: 2 }
+    link_man: varchar(50)
+    incorporator: varchar(50)
+    industry: varchar(50)
+    products: longvarchar
+    memo: longvarchar
+    active: { type: tinyint, size: 2, defaultValue: 1 }
+    add_ip:	varchar(24)
+    created_at:
+  so_product_category:
+    _attributes: { phpName: ProductCategory }
+    id:
+    category_name:   varchar(60)
+    active: { type: tinyint, size: 2, defaultValue: 1 }
+    add_ip:	varchar(24)
+    created_at:
+  so_product:
+    _attributes: { phpName: Product }
+    id:
+    category:  { type: INTEGER, size: 5, defaultValue: 1 }
+    company_id:  { type: INTEGER, size: 5, defaultValue: 1 }
+    name: varchar(60)
+    price:  { type: DECIMAL, size: 10, scale: 2 }
+    photo:	varchar(60)
     memo: longvarchar
     active: { type: tinyint, size: 2, defaultValue: 1 }
     add_ip:	varchar(24)
