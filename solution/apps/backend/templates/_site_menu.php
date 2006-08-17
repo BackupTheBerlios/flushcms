@@ -12,6 +12,7 @@ $menu = new sfDojoApplicationMenu();
 $menu->setMainItem(__("管理员"),"submenu1");
 $menu->setMainItem(__("解决方案"),"submenu2");
 $menu->setMainItem(__("财务"),"submenu3");
+$menu->setMainItem(__("公司事务"),"submenu4");
 
 $menu->setSubItem(__("用户管理"),"submenu1","submenu1_1",false,"MenuItem2");
 $menu->setSubItem(__("添加用户"),"submenu1_1","",false,"MenuItem2",'users/create');
@@ -45,6 +46,27 @@ $menu->setSubItem(__("凭证分类列表"),"submenu3_1","",false,"MenuItem2",'financec
 $menu->setSubItem(__("凭证"),"submenu3","submenu3_2",false,"MenuItem2");
 $menu->setSubItem(__("添加凭证"),"submenu3_2","",false,"MenuItem2",'finance/create');
 $menu->setSubItem(__("凭证列表"),"submenu3_2","",false,"MenuItem2",'finance');
+
+$menu->setSubItem(__("联系人分类"),"submenu4","submenu4_1",false,"MenuItem2");
+$menu->setSubItem(__("添加联系人分类"),"submenu4_1","",false,"MenuItem2",'contactcategory/create');
+$menu->setSubItem(__("联系人分类列表"),"submenu4_1","",false,"MenuItem2",'contactcategory');
+
+$menu->setSubItem(__("联系人"),"submenu4","submenu4_2",false,"MenuItem2");
+$menu->setSubItem(__("添加联系人"),"submenu4_2","",false,"MenuItem2",'contact/create');
+$menu->setSubItem(__("联系人列表"),"submenu4_2","",false,"MenuItem2",'contact');
+
+$menu->setSubItem(__("产品分类"),"submenu4","submenu4_3",false,"MenuItem2");
+$menu->setSubItem(__("添加产品分类"),"submenu4_3","",false,"MenuItem2",'productcategory/create');
+$menu->setSubItem(__("产品分类列表"),"submenu4_3","",false,"MenuItem2",'productcategory');
+
+$menu->setSubItem(__("产品"),"submenu4","submenu4_4",false,"MenuItem2");
+$menu->setSubItem(__("添加产品"),"submenu4_4","",false,"MenuItem2",'product/create');
+$menu->setSubItem(__("产品列表"),"submenu4_4","",false,"MenuItem2",'product');
+
+$menu->setSubItem(__("企业名录"),"submenu4","submenu4_5",false,"MenuItem2");
+$menu->setSubItem(__("添加企业"),"submenu4_5","",false,"MenuItem2",'company/create');
+$menu->setSubItem(__("企业名录列表"),"submenu4_5","",false,"MenuItem2",'company');
+
 
 
 echo $menu->renderMenu();
