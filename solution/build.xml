@@ -384,14 +384,18 @@
    	      <include name="apps/backend/config/routing.yml"/>
      	  <include name="apps/backend/config/app.yml"/>
        	  <include name="apps/backend/config/settings.yml"/>
-  	    	<!--<include name="web/sfdojo/**"/>-->
+  	      <include name="web/css/**"/>
+    	  <include name="web/images/**"/>
+    	  <include name="web/js/**"/>
   	    </fileset>
   	  </copy>
-    	<!--<copy todir="${dir.cvsdev}" >
+    	<copy todir="${dir.cvsdev}" >
 	    <fileset dir="${dir.pear}">
-	      <include name="plugins/sfDojo/**"/>
+	      <include name="plugins/sfDropDownMenu/**"/>
+	      <include name="plugins/sfLoginForm/**"/>
+	      <include name="plugins/sfShowHideMenu/**"/>
 	    </fileset>
-	  </copy>-->
+	  </copy>
     </target>
 
 

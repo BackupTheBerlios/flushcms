@@ -1,15 +1,14 @@
-<h2>Authentication</h2>
- 
-<?php if ($sf_request->hasErrors()): ?>
-  Identification failed - please try again
-<?php endif ?>
- 
-<?php echo form_tag('security/login') ?>
-  <label for="login">login:</label>
-  <?php echo input_tag('login', $sf_params->get('login')) ?>
- 
-  <label for="password">password:</label>
-  <?php echo input_password_tag('password') ?>
- 
-  <?php echo submit_tag('submit', 'class=default') ?>
-</form>
+<br/>
+<br/>
+<?php
+if ($sf_request->hasErrors())
+{ 
+  $error_mesg = "输入的用户名与密码不符，请重新输入";
+}
+else
+{
+	$error_mesg = ""; 
+} 
+$login_form = new sfLoginForm();
+$login_form->renderLoginForm($sf_params->get('login'),$error_mesg);
+?>
