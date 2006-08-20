@@ -21,11 +21,12 @@
  *     )
  * );
  * $dropdown_menu->setMenuArray($menu_array);
+ * $dropdown_menu->renderMenu();
  * $dropdown_menu->renderFootJs () ; 
  *
  * @package    symfony.runtime.plugin
  * @author     John.meng <arzen1013@gmail.com>
- * @version    SVN: $Id: sfDropDownMenu.class.php,v 1.2 2006/08/20 06:15:10 arzen Exp $
+ * @version    SVN: $Id: sfDropDownMenu.class.php,v 1.3 2006/08/20 10:00:20 arzen Exp $
  */
 require_once(sfConfig::get('sf_symfony_lib_dir').'/helper/JavascriptHelper.php');
 class sfDropDownMenu

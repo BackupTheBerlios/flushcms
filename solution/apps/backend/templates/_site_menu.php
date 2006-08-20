@@ -110,4 +110,24 @@ $click_menu->setMenuSection(__("退出系统"),__("退出系统"),'security/logout');
 
 $click_menu->renderMenu();
 
+$tree_menu = new sfTreeMenu();
+$menu_array=array(
+    1 => array(
+        'title' => '管理员', 
+        'url' => '',
+        'sub' => array(
+                    11 => array('title' => '添加用户', 'url' => 'users/create'),
+                    12 => array('title' => '用户列表', 'url' => 'users')
+        )
+    ),
+    2 => array(
+        'title' => '退出系统', 
+        'url' => 'security/logout'
+    )
+);
+
+$tree_menu->setMenuArray($menu_array);
+$tree_menu->renderMenu();
+
+
 ?>
