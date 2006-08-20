@@ -25,18 +25,19 @@
  *
  * @package    symfony.runtime.plugin
  * @author     John.meng <arzen1013@gmail.com>
- * @version    SVN: $Id: sfDropDownMenu.class.php,v 1.1 2006/08/20 05:27:51 arzen Exp $
+ * @version    SVN: $Id: sfDropDownMenu.class.php,v 1.2 2006/08/20 06:15:10 arzen Exp $
  */
 require_once(sfConfig::get('sf_symfony_lib_dir').'/helper/JavascriptHelper.php');
 class sfDropDownMenu
 {
 
 	private $menu_array;
+	private $display_mode="vertical";
 	
 	function renderMenu()
 	{
 	
-		echo stylesheet_tag('sfDropDownMenu/vertical.css');
+		echo $this->display_mode=="vertical"?stylesheet_tag('sfDropDownMenu/vertical.css'):stylesheet_tag('sfDropDownMenu/horizontal.css');
 		echo javascript_include_tag('sfDropDownMenu/ie5.js');
 		echo javascript_include_tag('sfDropDownMenu/XulMenu.js');
 		$image_arrow1 = image_path('sfDropDownMenu/arrow1.gif');
@@ -64,11 +65,19 @@ EOD;
 	{
 		$image_arrow1 = image_path('sfDropDownMenu/arrow1.gif');
 		$image_arrow2 = image_path('sfDropDownMenu/arrow2.gif');
+		
+		if ($this->display_mode=="horizontal") 
+		{
+			$display_mode_html = "";
+		} 
+		else 
+		{
+			$display_mode_html = "\n menu1.type = \"vertical\";\n menu1.position.level1.left = 2;\n";
+		}
 		$parse_menu_js = <<<EOD
 		
     var menu1 = new XulMenu("menu1");
-    menu1.type = "vertical";
-    menu1.position.level1.left = 2;
+    {$display_mode_html}
     menu1.arrow1 = "{$image_arrow1}";
     menu1.arrow2 = "{$image_arrow2}";
     menu1.init();
@@ -83,10 +92,24 @@ EOD;
 		$this->menu_array = $menu_array;
 	}
 	
+	function setDisplayMode ($value) 
+	{
+		$this->display_mode = strtolower($value);
+	}
+	
 	function parseMenuArray ($menu_array,$level = 0) 
 	{
 		$html_code ="";
-		$image_arrow1 = image_path('sfDropDownMenu/arrow1.gif');
+		if ($this->display_mode=="horizontal" && $level==0) 
+		{
+			$td_space = "</td><td>";
+			$image_arrow1 = "";
+		} 
+		else 
+		{
+			$td_space = "";
+			$image_arrow1 = "<img class=\"arrow\" src=\"".image_path('sfDropDownMenu/arrow1.gif')."\" width=\"4\" height=\"7\" />";
+		}
 		
 		$class_name = $level>0?"item":"button";
 		if (is_array($menu_array)) 
@@ -98,14 +121,14 @@ EOD;
 				if (is_array($value['sub'])) 
 				{
 					$html_code .= <<<EOD
-                    <a class="{$class_name}" href="javascript:void(0)">{$title}<img class="arrow" src="{$image_arrow1}" width="4" height="7" alt="" /></a>
+                    <a class="{$class_name}" href="javascript:void(0)">{$title}{$image_arrow1}</a>
                     <div class="section">
 EOD;
 					$level++;
 					$html_code .=$this->parseMenuArray($value['sub'],$level);
 					$level=0;
 					
-					$html_code .="</div>";
+					$html_code .="</div>".$td_space;
 				} 
 				else 
 				{

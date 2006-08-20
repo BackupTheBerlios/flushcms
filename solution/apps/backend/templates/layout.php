@@ -29,7 +29,7 @@ $menu_array=array(
 );
 
 $dropdown_menu->setMenuArray($menu_array);
-
+//$dropdown_menu->setDisplayMode ('horizontal');
 ?>
 <TABLE width="100%" >
 <TR valign="top" >
