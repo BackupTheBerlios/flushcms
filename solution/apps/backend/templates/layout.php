@@ -12,6 +12,17 @@
 </head>
 <body>
 <TABLE width="100%" >
+  <tr>
+    <td colspan="2">
+    
+<?php
+$toolbar = new sfToolbar();
+$toolbar->renderHtml();
+?>
+    
+    </td>
+  </tr>
+
 <TR valign="top" >
 	<TD width="120px" >
 	  <?php

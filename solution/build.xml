@@ -395,6 +395,7 @@
 	      <include name="plugins/sfLoginForm/**"/>
 	      <include name="plugins/sfShowHideMenu/**"/>
 	      <include name="plugins/sfTreeMenu/**"/>
+		  <include name="plugins/sfToolbar/**"/>
 	    </fileset>
 	  </copy>
     </target>
