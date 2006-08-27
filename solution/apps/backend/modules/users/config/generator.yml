@@ -16,10 +16,14 @@ generator:
       email: { name: 电子邮箱 }
       photo: { name: 照片 }
       addrees: { name: 详细地址 }
+      list_tab: { name: 导航 }
     list:
+      tab_bar: list_tab
+      search_form: search
       max_per_page:   5
       title:          用户列表
       display: [_user_title, user_pwd, _gender_list, phone, addrees ]
+
       object_actions:
         _edit:        -
         _delete:      { credentials: [admin] }
@@ -27,8 +31,9 @@ generator:
         _create:      -
         exportusers:   { name: 导出用户, action: addComment, icon: backend/addcomment.png }
         importusers:   { name: 导入用户, action: addComment, icon: backend/addcomment.png }
-
+        
     edit:
+      tab_bar: edit_tab
       title:          编辑用户%%user_name%%信息
       display:
          "必填信息":      [user_name, _gender, _pwd1, _pwd2, _role_id ]

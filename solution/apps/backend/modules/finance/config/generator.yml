@@ -16,6 +16,7 @@ generator:
       active: { name: 激活 }
       active_list: { name: 激活 }
     list:
+      tab_bar: list_tab
       display: [_debit_list, money, amount, create_date, _active_list ]
       max_per_page:   5
       title:          凭证列表
@@ -26,6 +27,7 @@ generator:
         _edit:        -
         _delete:      -
     edit:
+      tab_bar: edit_tab
       title:          编辑凭证
       display:     [_finance_category, create_date, _debit, money, amount, _active ]
       fields:

@@ -9,6 +9,7 @@ generator:
       active: { name: 激活 }
       active_list: { name: 激活 }
     edit:
+      tab_bar: edit_tab
       title:          编辑解决方案%%solution%%
       display:     [_question, solution, _active ]
       fields:

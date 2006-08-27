@@ -9,6 +9,7 @@ generator:
       active: { name: 激活 }
       active_list: { name: 激活 }
     list:
+      tab_bar: list_tab
       max_per_page:   5
       title:          权限列表
       display: [=role_name, role_lable, _active_list ]
@@ -16,6 +17,7 @@ generator:
         _edit:        -
         _delete:      -
     edit:
+      tab_bar: edit_tab
       title:          编辑权限%%role_name%%信息
       display:     [role_name, role_lable, _active ]
     

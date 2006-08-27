@@ -358,6 +358,7 @@
 		    <param name="dir.cvsdev" value="${office.dir.cvsdev}"/>
 		    <param name="dir.deploy" value="${office.dir.deploy}"/>
 		    <param name="dir.pear" value="${office.dir.pear}"/>
+		    <param name="dir.pear.data" value="${office.dir.pear.data}"/>
 		  </antcall>
     </target>
 	
@@ -369,6 +370,7 @@
 		    <param name="dir.cvsdev" value="${local.dir.cvsdev}"/>
 		    <param name="dir.deploy" value="${local.dir.deploy}"/>
 		    <param name="dir.pear" value="${local.dir.pear}"/>
+		    <param name="dir.pear.data" value="${local.dir.pear.data}"/>
 		  </antcall>
     </target>
 	
@@ -396,8 +398,16 @@
 	      <include name="plugins/sfShowHideMenu/**"/>
 	      <include name="plugins/sfTreeMenu/**"/>
 		  <include name="plugins/sfToolbar/**"/>
+		  <include name="plugins/sfTab/**"/>
 	    </fileset>
 	  </copy>
+    	
+      <copy todir="${dir.cvsdev}" >
+	    <fileset dir="${dir.pear.data}">
+	      <include name="generator/sfPropelAdmin/default/template/templates/**"/>
+	    </fileset>
+	  </copy>
+
     </target>
 
 
