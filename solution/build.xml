@@ -438,6 +438,7 @@
 	      <include name="plugins/sfTreeMenu/**"/>
 		  <include name="plugins/sfToolbar/**"/>
 		  <include name="plugins/sfTab/**"/>
+		  <include name="helper/Object*"/>
 	    </fileset>
 	  </copy>
     	

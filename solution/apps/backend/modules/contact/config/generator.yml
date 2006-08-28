@@ -3,3 +3,15 @@ generator:
   param:
     model_class:      Contact
     theme:            default
+    fields:
+      name: { name: 名称 }
+      active: { name: 激活 }
+    list:
+      tab_bar: list_tab
+    edit:
+      tab_bar: edit_tab
+      title:          编辑联系人%%name%%
+      display:     [name, active ]
+      fields:
+          active: { type: radiobutton_tag, params: text='是,否' }
+    
