@@ -16,7 +16,7 @@ require_once(sfConfig::get('sf_symfony_lib_dir').'/helper/FormHelper.php');
  * @package    symfony
  * @subpackage helper
  * @author     Fabien Potencier <fabien.potencier@symfony-project.com>
- * @version    SVN: $Id: ObjectHelper.php,v 1.1 2006/08/28 15:32:17 arzen Exp $
+ * @version    SVN: $Id: ObjectHelper.php,v 1.2 2006/08/28 23:27:32 arzen Exp $
  */
 
 /**
@@ -258,12 +258,17 @@ function object_checkbox_tag($object, $method, $options = array(), $default_valu
 function object_radiobutton_tag($object, $method, $options = array(), $default_value = null)
 {
   $options = _parse_attributes($options);
-  var_dump($options);
-
+  $text_options= explode(":",$options['text_options']);
+  $value_options= explode(":",$options['value_options']);
+  $radiobuttons_html="";
+  $radionbutton_name = _convert_method_to_name($method, $options);
+  unset ($options['text_options'],$options['value_options']);
   $value = _get_object_value($object, $method, $default_value);
-  $value = in_array($value, array(true, 1, 'on', 'true', 't', 'yes', 'y'), true);
-
-  return radiobutton_tag(_convert_method_to_name($method, $options), 1, $value, $options);
+  foreach($text_options as $key=>$text)
+  {
+  	$radiobuttons_html.=radiobutton_tag($radionbutton_name, $value_options[$key], ($value_options[$key]==$value)?true:false , $options).$text;
+  }
+  return $radiobuttons_html;
 }
 
 function _convert_method_to_name ($method, &$options)

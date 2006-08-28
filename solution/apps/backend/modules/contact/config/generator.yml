@@ -13,5 +13,5 @@ generator:
       title:          编辑联系人%%name%%
       display:     [name, active ]
       fields:
-          active: { type: radiobutton_tag, params: text='是,否' }
+          active: { type: radiobutton_tag, params: text_options=是:否 value_options=y:n  }
     
