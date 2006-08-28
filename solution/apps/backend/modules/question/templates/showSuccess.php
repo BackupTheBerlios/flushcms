@@ -1,6 +1,8 @@
 <?php use_helpers('I18N', 'Date','Text') ?>
 <div id="sf_admin_container">
 
+<?php include_partial('question/list_tab') ?>
+
 <h1><?php echo __('问题%%question%%详细信息', 
 array('%%question%%' => $question->getQuestion())) ?></h1>
 

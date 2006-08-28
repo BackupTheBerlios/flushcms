@@ -386,6 +386,7 @@
    	      <include name="apps/backend/config/routing.yml"/>
      	  <include name="apps/backend/config/app.yml"/>
        	  <include name="apps/backend/config/settings.yml"/>
+          <include name="apps/backend/config/security.yml"/>
   	      <include name="web/css/**"/>
     	  <include name="web/images/**"/>
     	  <include name="web/js/**"/>

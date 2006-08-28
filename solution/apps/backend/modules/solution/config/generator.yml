@@ -13,7 +13,7 @@ generator:
       title:          编辑解决方案%%solution%%
       display:     [_question, solution, _active ]
       fields:
-          solution: { type: textarea_tag, params: rich=true tinymce_options=width:330 tinymce_options=height:250 size=60 }
+          solution: { type: textarea_tag, params: rich=true tinymce_options=width:100% tinymce_options=height:350 size=120 }
       actions:
         _save:        -
       
