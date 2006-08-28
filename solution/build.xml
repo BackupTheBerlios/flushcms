@@ -310,6 +310,44 @@
     </target>
 	
 	<!-- - - - - - - - - - - - - - - - - - 
+          target: local.build.sql.file                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="local.build.sql.file">
+		  <antcall target="build.db.sql">
+		    <param name="dir.deploy" value="${local.dir.deploy}"/>
+		  </antcall>
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: office.build.sql.file                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="office.build.sql.file">
+		  <antcall target="build.db.sql">
+		    <param name="dir.deploy" value="${office.dir.deploy}"/>
+		  </antcall>
+    </target>
+
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: local.build.database.model                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="local.build.database.model">
+		  <antcall target="build.model">
+		    <param name="dir.deploy" value="${local.dir.deploy}"/>
+		  </antcall>
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: office.build.database.model                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="office.build.database.model">
+		  <antcall target="build.model">
+		    <param name="dir.deploy" value="${office.dir.deploy}"/>
+		  </antcall>
+    </target>
+
+
+	<!-- - - - - - - - - - - - - - - - - - 
           target: office.cache.clean                      
          - - - - - - - - - - - - - - - - - -->
     <target name="office.cache.clean">

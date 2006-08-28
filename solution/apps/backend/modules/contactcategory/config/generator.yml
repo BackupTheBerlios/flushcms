@@ -3,3 +3,20 @@ generator:
   param:
     model_class:      ContactCategory
     theme:            default
+    fields:
+      category_name: { name: 分类名称 }
+      active: { name: 激活 }
+      active_list: { name: 激活 }
+    list:
+      tab_bar: list_tab
+      display: [=category_name, _active_list ]
+      max_per_page:   5
+      title:          联系人分类列表
+      object_actions:
+        _edit:        -
+        _delete:      -
+    edit:
+      tab_bar: edit_tab
+      title:          编辑联系人%%category_name%%分类
+      display:     [category_name, _active ]
+    

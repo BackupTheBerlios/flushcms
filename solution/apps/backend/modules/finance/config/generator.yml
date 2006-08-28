@@ -29,7 +29,7 @@ generator:
     edit:
       tab_bar: edit_tab
       title:          �༭ƾ֤
-      display:     [_finance_category, create_date, _debit, money, amount, _active ]
+      display:     [_finance_category, create_date, _debit, money, memo, amount, _active ]
       fields:
          money: { params: size=12 }
          amount: { params: value=1 size=2 }
