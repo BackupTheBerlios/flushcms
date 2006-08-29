@@ -1,0 +1,59 @@
+CREATE TABLE artist (
+  artistid int(11) unsigned NOT NULL auto_increment,
+  artistcode varchar(64) NOT NULL default '',
+
+  artistname varchar(255) NOT NULL default '',
+  artistname_eng varchar(255) NOT NULL default '',
+
+  gender enum('m','f','g','o') NOT NULL default 'm',
+  lang enum('chi','jp','kr','eng','others') NOT NULL default 'chi',
+
+  initial varchar(4) NOT NULL default '',
+
+  image varchar(255) not null,
+  image_status enum ('new','live','deleted') not null default 'new',
+
+  imageurl text NOT NULL,
+  imagex int(5) unsigned NOT NULL default 0,
+  imagey int(5) unsigned NOT NULL default 0,
+  thumburl text NOT NULL,
+  thumbx int(5) unsigned NOT NULL default 0,
+  thumby int(5) unsigned NOT NULL default 0,
+
+  create_time datetime not null,
+  last_updated datetime not null,
+ 
+  status enum('new','live','deleted') not null default 'new',
+
+  popularity int(5) unsigned NOT NULL default 0,
+
+  PRIMARY KEY (artistid),
+  UNIQUE (artistcode),
+  KEY (artistname(8)),
+  KEY (lang),
+  KEY (gender),
+  KEY (initial),
+  KEY (popularity),
+
+  KEY (image_status),
+  KEY (status)
+) TYPE=MyISAM;
+
+
+CREATE TABLE profile_items (
+  itemid int(11) unsigned NOT NULL auto_increment,
+  artistid int(11) unsigned NOT NULL,
+
+  ordr int(4) unsigned not null default 0,
+  item_name varchar(255) NOT NULL default '',
+  item_value varchar(255) NOT NULL default '',
+
+  create_time datetime not null,
+  last_updated datetime not null,
+
+  PRIMARY KEY (itemid),
+  KEY (artistid),
+  KEY (ordr)
+);
+
+
