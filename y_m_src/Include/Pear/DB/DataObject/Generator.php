@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: Generator.php,v 1.1 2006/08/29 15:30:24 arzen Exp $
+ * @version    CVS: $Id: Generator.php,v 1.2 2006/08/29 23:33:24 arzen Exp $
  * @link       http://pear.php.net/package/DB_DataObject
  */
  
@@ -1235,7 +1235,38 @@ class DB_DataObject_Generator extends DB_DataObject
 		$strToReturn .= ucfirst($strName);
 		return $strToReturn;
 	}
+	
+	function FirstCharacter($strString) 
+	{
+		if (strlen($strString) > 0)
+			return substr($strString, 0 , 1);
+		else
+			return null;
+	}
+		
+	function UnderscoreFromCamelCase($strName) 
+	{
+		if (strlen($strName) == 0)
+			return '';
+
+		$strToReturn = $this->FirstCharacter($strName);
+
+		for ($intIndex = 1; $intIndex < strlen($strName); $intIndex++) {
+			$strChar = substr($strName, $intIndex, 1);
+			if (strtoupper($strChar) == $strChar)
+				$strToReturn .= '_' . $strChar;
+			else
+				$strToReturn .= $strChar;
+		}
+		
+		return strtolower($strToReturn);
+	}
     
+	function JavaCaseFromUnderscore($strName) 
+	{
+		$strToReturn = $this->CamelCaseFromUnderscore($strName);
+		return strtolower(substr($strToReturn, 0, 1)) . substr($strToReturn, 1);
+	}
      
     
     
