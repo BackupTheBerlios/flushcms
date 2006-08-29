@@ -5,7 +5,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: Init.php,v 1.2 2006/08/29 15:30:24 arzen Exp $
+ * @version    CVS: $Id: Init.php,v 1.3 2006/08/29 23:23:44 arzen Exp $
  */
 $ConfigDir = "Config/";
 $IncludeDir = "Include/";
@@ -33,5 +33,15 @@ $opts = array(
     'class_prefix'    => 'Dao'
 );
 $template = new Template_PHPLIB($Template);
+$template->setFile(array(
+     "Page" => "page.html",
+     "Header" => "header.html",
+     "Foot" => "foot.html"
+ ));
+$template->setVar(array (
+	"Title" => "Yahoo Music",
+	"BgColor" => "#cccccc",
+));
+
 
 ?>

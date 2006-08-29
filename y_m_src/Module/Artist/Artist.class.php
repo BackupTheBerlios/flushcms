@@ -5,7 +5,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: Artist.class.php,v 1.1 2006/08/29 10:19:11 arzen Exp $
+ * @version    CVS: $Id: Artist.class.php,v 1.2 2006/08/29 23:23:44 arzen Exp $
  */
 
 class Artist
@@ -35,12 +35,7 @@ class Artist
 		global $template;
 		
 		$template->setFile(array (
-			"main" => "main.html"
-		));
-
-		$template->setVar(array (
-			"TITLE" => "Yahoo Music",
-			"BGCOLOR" => "#cccccc",
+			"Main" => "main.html"
 		));
 
 		$template->setBlock("main", "mainlist", "ar");
@@ -56,7 +51,8 @@ class Artist
 			$template->parse("ar", "mainlist", TRUE);
 		}
 
-		$template->pparse("out", array ("main"));
+		$template->parse("OUT", array("Header","Foot","Main","Page"));
+		$template->p("OUT");
 	}
 
 }
