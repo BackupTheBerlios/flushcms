@@ -23,8 +23,8 @@ class DaoArtist extends DB_DataObject
     public $thumburl;                        // blob(65535)  not_null blob
     public $thumbx;                          // int(5)  not_null unsigned
     public $thumby;                          // int(5)  not_null unsigned
-    public $create_time;                     // datetime(19)  not_null binary
-    public $last_updated;                    // datetime(19)  not_null binary
+    public $create_time;                     // datetime(19)  not_null
+    public $last_updated;                    // datetime(19)  not_null
     public $status;                          // string(7)  not_null multiple_key enum
     public $popularity;                      // int(5)  not_null multiple_key unsigned
 
@@ -455,6 +455,63 @@ class DaoArtist extends DB_DataObject
     }
 
 
+    function table()
+    {
+         return array(
+             'artistid' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+             'artistcode' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+             'artistname' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+             'artistname_eng' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+             'gender' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+             'lang' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+             'initial' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+             'image' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+             'image_status' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+             'imageurl' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_BLOB + DB_DATAOBJECT_NOTNULL,
+             'imagex' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+             'imagey' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+             'thumburl' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_BLOB + DB_DATAOBJECT_NOTNULL,
+             'thumbx' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+             'thumby' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+             'create_time' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
+             'last_updated' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
+             'status' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+             'popularity' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+         );
+    }
+
+    function keys()
+    {
+         return array('artistid');
+    }
+
+    function sequenceKey() // keyname, use native, native name
+    {
+         return array('artistid', true, false);
+    }
+
+    function defaults() // column default values 
+    {
+         return array(
+             'artistcode' => '',
+             'artistname' => '',
+             'artistname_eng' => '',
+             'gender' => 'm',
+             'lang' => 'chi',
+             'initial' => '',
+             'image' => '',
+             'image_status' => 'new',
+             'imageurl' => '',
+             'imagex' => 0,
+             'imagey' => 0,
+             'thumburl' => '',
+             'thumbx' => 0,
+             'thumby' => 0,
+             'status' => 'new',
+             'popularity' => 0,
+         );
+    }
+
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
@@ -465,12 +522,12 @@ class DaoArtist extends DB_DataObject
 
     function validateArtistcode()
     {
-        return empty($this->artistcode)?false:true;
+        return true;
     }
 
     function validateArtistname()
     {
-        return empty($this->artistname)?false:true;
+        return true;
     }
 
     function validateArtistname_eng()
