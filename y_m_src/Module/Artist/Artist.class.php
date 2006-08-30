@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: Artist.class.php,v 1.3 2006/08/30 10:58:36 arzen Exp $
+ * @version    CVS: $Id: Artist.class.php,v 1.4 2006/08/30 23:12:32 arzen Exp $
  */
 
 class Artist extends Actions
@@ -152,6 +152,7 @@ class Artist extends Actions
 	{
 		global $template;
 
+		require_once 'Pager/Pager.php';
 		$template->setFile(array (
 			"Main" => "artist_list.html"
 		));
@@ -163,24 +164,50 @@ class Artist extends Actions
 
 		$artist->orderBy('artistid desc');
 		$artist->find();
-
-		$i = 0;
+		
 		while ($artist->fetch())
 		{
+			$myData[] = $artist->toArray();
+		}
+
+		$params = array(
+		    'itemData' => $myData,
+		    'perPage' => 2,
+		    'delta' => 5,             // for 'Jumping'-style a lower number is better
+		    'append' => true,
+		    'separator' => ' | ',
+		    'clearIfVoid' => false,
+		    'urlVar' => 'entrant',
+		    'useSessions' => true,
+		    'closeSession' => true,
+		    //'mode'  => 'Sliding',    //try switching modes
+		    'mode'  => 'Jumping',
+		
+		);
+		$pager = & Pager::factory($params);
+		$page_data = $pager->getPageData();
+		$links = $pager->getLinks();
+		
+		$selectBox = $pager->getPerPageSelectBox();
+		$i = 0;
+		foreach($page_data as $data)
+		{
 			(($i % 2) == 0) ? $list_td_class = "admin_row_0" : $list_td_class = "admin_row_1";
-
-			$template->setVar(array (
-			"ARTISTID" => $artist->getArtistid(), "ARTISTCODE" => $artist->getArtistcode(), "ARTISTNAME" => $artist->getArtistname(), "ARTISTNAME_ENG" => $artist->getArtistnameEng(), "GENDER" => $artist->getGender(), "LANG" => $artist->getLang(), "INITIAL" => $artist->getInitial()));
-
+			
 			$template->setVar(array (
 				"ListTdClass" => $list_td_class
 			));
 
+			$template->setVar(array (
+			"ARTISTID" => $data['artistid'], "ARTISTCODE" =>$data['artistcode'], "ARTISTNAME" => $data['artistname'], 
+			"ARTISTNAME_ENG" => $data['artistname_eng'], "GENDER" => $data['gender'], "LANG" => $data['lang'], 
+			"INITIAL" => $data['initial']));
+
 			$template->parse("list_block", "main_list", TRUE);
-			$i++;
 		}
+		
 		$template->setVar(array (
-			"ToltalNum" => $ToltalNum
+			"ToltalNum" => $links['all']//$ToltalNum
 		));
 
 		$template->parse("OUT", array (
