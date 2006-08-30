@@ -8,13 +8,13 @@ class DaoProfileItems extends DB_DataObject
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'profile_items';                   // table name
-    public $Itemid;                          // int(11)  not_null primary_key unsigned auto_increment
-    public $Artistid;                        // int(11)  not_null multiple_key unsigned
-    public $Ordr;                            // int(4)  not_null multiple_key unsigned
-    public $ItemName;                       // string(255)  not_null
-    public $ItemValue;                      // string(255)  not_null
-    public $CreateTime;                     // datetime(19)  not_null
-    public $LastUpdated;                    // datetime(19)  not_null
+    public $itemid;                          // int(11)  not_null primary_key unsigned auto_increment
+    public $artistid;                        // int(11)  not_null multiple_key unsigned
+    public $ordr;                            // int(4)  not_null multiple_key unsigned
+    public $item_name;                       // string(255)  not_null
+    public $item_value;                      // string(255)  not_null
+    public $create_time;                     // datetime(19)  not_null binary
+    public $last_updated;                    // datetime(19)  not_null binary
 
     /* Static get */
     function staticGet($k,$v=NULL) 
@@ -31,7 +31,7 @@ class DaoProfileItems extends DB_DataObject
     */
     function getItemid() 
     {
-        return $this->Itemid;
+        return $this->itemid;
     }
 
    /**
@@ -42,7 +42,7 @@ class DaoProfileItems extends DB_DataObject
     */
     function getArtistid() 
     {
-        return $this->Artistid;
+        return $this->artistid;
     }
 
    /**
@@ -53,7 +53,7 @@ class DaoProfileItems extends DB_DataObject
     */
     function getOrdr() 
     {
-        return $this->Ordr;
+        return $this->ordr;
     }
 
    /**
@@ -64,7 +64,7 @@ class DaoProfileItems extends DB_DataObject
     */
     function getItemName() 
     {
-        return $this->ItemName;
+        return $this->item_name;
     }
 
    /**
@@ -75,7 +75,7 @@ class DaoProfileItems extends DB_DataObject
     */
     function getItemValue() 
     {
-        return $this->ItemValue;
+        return $this->item_value;
     }
 
    /**
@@ -86,7 +86,7 @@ class DaoProfileItems extends DB_DataObject
     */
     function getCreateTime() 
     {
-        return $this->CreateTime;
+        return $this->create_time;
     }
 
    /**
@@ -97,7 +97,7 @@ class DaoProfileItems extends DB_DataObject
     */
     function getLastUpdated() 
     {
-        return $this->LastUpdated;
+        return $this->last_updated;
     }
 
 
@@ -109,7 +109,7 @@ class DaoProfileItems extends DB_DataObject
     */
      function setItemid($value) 
     {
-        $this->Itemid = $value;
+        $this->itemid = $value;
     }
 
    /**
@@ -120,7 +120,7 @@ class DaoProfileItems extends DB_DataObject
     */
      function setArtistid($value) 
     {
-        $this->Artistid = $value;
+        $this->artistid = $value;
     }
 
    /**
@@ -131,7 +131,7 @@ class DaoProfileItems extends DB_DataObject
     */
      function setOrdr($value) 
     {
-        $this->Ordr = $value;
+        $this->ordr = $value;
     }
 
    /**
@@ -142,7 +142,7 @@ class DaoProfileItems extends DB_DataObject
     */
      function setItemName($value) 
     {
-        $this->ItemName = $value;
+        $this->item_name = $value;
     }
 
    /**
@@ -153,7 +153,7 @@ class DaoProfileItems extends DB_DataObject
     */
      function setItemValue($value) 
     {
-        $this->ItemValue = $value;
+        $this->item_value = $value;
     }
 
    /**
@@ -164,7 +164,7 @@ class DaoProfileItems extends DB_DataObject
     */
      function setCreateTime($value) 
     {
-        $this->CreateTime = $value;
+        $this->create_time = $value;
     }
 
    /**
@@ -175,10 +175,45 @@ class DaoProfileItems extends DB_DataObject
     */
      function setLastUpdated($value) 
     {
-        $this->LastUpdated = $value;
+        $this->last_updated = $value;
     }
 
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+    function validateItemid()
+    {
+        return true;
+    }
+
+    function validateArtistid()
+    {
+        return true;
+    }
+
+    function validateOrdr()
+    {
+        return true;
+    }
+
+    function validateItem_name()
+    {
+        return true;
+    }
+
+    function validateItem_value()
+    {
+        return true;
+    }
+
+    function validateCreate_time()
+    {
+        return true;
+    }
+
+    function validateLast_updated()
+    {
+        return true;
+    }
 }

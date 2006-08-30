@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: Generator.php,v 1.2 2006/08/29 23:33:24 arzen Exp $
+ * @version    CVS: $Id: Generator.php,v 1.3 2006/08/30 10:58:36 arzen Exp $
  * @link       http://pear.php.net/package/DB_DataObject
  */
  
@@ -596,6 +596,52 @@ class DB_DataObject_Generator extends DB_DataObject
         }
         //echo $out;
     }
+    /*
+     * building the template files
+     * for each of the tables output a file!
+     */
+    function generateTemplates()
+    {
+        //echo "Generating Class files:        \n";
+        $options = &PEAR::getStaticProperty('DB_DataObject','options');
+        $base = $options['template_location'];
+        if (strpos($base,'%s') !== false) {
+            $base = dirname($base);
+        } 
+        
+        
+        if (!file_exists($base)) {
+            require_once 'System.php';
+            System::mkdir(array('-p',$base));
+        }
+
+        foreach($this->tables as $this->table) {
+            $this->table = trim($this->table);
+            $i = '';
+            
+            if (strpos($options['template_location'],'%s') !== false) {
+                $outfilename   = sprintf($options['template_location'], preg_replace('/[^A-Z0-9]/i','_',$this->table));
+            } else { 
+                $outfilename = "{$base}/".preg_replace('/[^A-Z0-9]/i','_',$this->table)."";//.php
+            }
+            $oldcontents = '';
+            if (file_exists($outfilename)) {
+                // file_get_contents???
+                $oldcontents = implode('',file($outfilename));
+            }
+            $out = $this->_generateListTemplate($oldcontents,$this->table);
+            $edit_out = $this->_generateEditTemplate($oldcontents,$this->table);
+            $this->debug( "writing $this->classname\n");
+            $fh = fopen($outfilename."_list.html", "w");
+            fputs($fh,$out);
+            fclose($fh);
+            
+            $fh = fopen($outfilename."_edit.html", "w");
+            fputs($fh,$edit_out);
+            fclose($fh);
+        }
+        //echo $out;
+    }
 
     /**
      * class being extended (can be overridden by [DB_DataObject_Generator] extends=xxxx
@@ -685,7 +731,7 @@ class DB_DataObject_Generator extends DB_DataObject
             if ($padding < 2) $padding =2;
             $p =  str_repeat(' ',$padding) ;
            
-            $body .="    {$var} \${$this->CamelCaseFromUnderscore($t->name)};  {$p}// {$t->type}({$t->len})  {$t->flags}\n";
+            $body .="    {$var} \${$t->name};  {$p}// {$t->type}({$t->len})  {$t->flags}\n";
              
             // can not do set as PEAR::DB table info doesnt support it.
             //if (substr($t->Type,0,3) == "set")
@@ -756,7 +802,7 @@ class DB_DataObject_Generator extends DB_DataObject
                 if (preg_match('/\s+function\s+' . $validate_fname . '\s*\(/i', $input)) {
                     continue;
                 }
-                $body .= "\n    function {$validate_fname}()\n    {\n        return false;\n    }\n";
+                $body .= "\n    function {$validate_fname}()\n    {\n        return true;\n    }\n";
             }
         }
 
@@ -797,6 +843,161 @@ class DB_DataObject_Generator extends DB_DataObject
         return preg_replace(
             '/(\n|\r\n)\s*###START_AUTOCODE(\n|\r\n).*(\n|\r\n)\s*###END_AUTOCODE(\n|\r\n)/s',
             $body,$input);
+    }
+    
+    function _generateEditTemplate ($input = '',$outfilename='') 
+	{
+        $options = &PEAR::getStaticProperty('DB_DataObject','options');
+        $body="";
+        $defs = $this->_definitions[$this->table];
+        
+        $id_field_name = strtoupper($defs[0]->name);
+        
+        $body .=<<<EOD
+        
+<div id="admin_container">
+<h1>Edit info</h1>
+<div id="admin_header">
+</div>
+<div id="admin_content">
+
+<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{$outfilename}.php">
+<input type="hidden" name="ID" id="ID" value="{{$id_field_name}}" />
+<input type="hidden" name="act" value="{DoAction}" />
+<fieldset id="fieldset_________" class="">
+<h2>General info</h2>
+EOD;
+
+        foreach($defs as $t) {
+            if (!strlen(trim($t->name))) {
+                continue;
+            }
+            $upper_name=strtoupper($t->name);
+            if ($fields=$options["{$outfilename}_except_fields"]) 
+			{
+				if (!in_array($t->name,explode(",",$fields))) 
+				{
+		        		$body .=<<<EOD
+<div class="form-row">
+  <label >{$this->CamelCaseFromUnderscore($t->name)}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{{$upper_name}_ERROR_MSG}</div>
+  <input type="text" name="{$t->name}" id="{$t->name}" value="{{$upper_name}}" size="20" />    </div>
+</div>
+
+EOD;
+				}
+			}
+			else
+			{
+		        $body .=<<<EOD
+<div class="form-row">
+  <label >{$this->CamelCaseFromUnderscore($t->name)}:</label>  <div class="content">
+  <input type="text" name="{$t->name}" id="{$t->name}" value="{{$upper_name}}" size="20" />    </div>
+</div>
+
+EOD;
+			}
+        }
+        $body .=<<<EOD
+</fieldset>
+<ul class="admin_actions">
+  <li><input class="admin_action_list" value="list" type="button" onclick="document.location.href='{$outfilename}.php';" /></li>
+  <li><input type="submit" name="save" value="save" class="admin_action_save" /></li>
+
+</ul>
+</form>
+
+<ul class="admin_actions">
+      <li class="float-left"></li>
+</ul>
+</div>
+
+<div id="admin_footer">
+</div>
+</div>
+
+EOD;
+        
+		return $body;		
+	}
+    /**
+     * The table class geneation part - single file.
+     *
+     * @access  private
+     * @return  none
+     */
+    function _generateListTemplate($input = '',$outfilename='')
+    {
+        $options = &PEAR::getStaticProperty('DB_DataObject','options');
+        $body="";
+        $defs = $this->_definitions[$this->table];
+        
+        $body .=<<<EOD
+        
+<div id="admin_container">
+<h1>Listing</h1>
+<div id="admin_header">
+</div>
+<div id="admin_bar">
+</div>
+        
+<ul class="admin_actions">
+          <li><input class="admin_action_create" value="create" type="button" onclick="document.location.href='{$outfilename}.php?act=Add';" /></li>
+</ul>
+
+<table cellspacing="0" class="admin_list">      
+EOD;
+		$table_th ="\n<thead>\n<tr>";
+		$table_td ="\n<tr class=\"{ListTdClass}\">";
+		$i=1;
+        foreach($defs as $t) {
+            if (!strlen(trim($t->name))) {
+                continue;
+            }
+            if ($fields=$options["{$outfilename}_fields_list"]) 
+			{
+				if (in_array($t->name,explode(",",$fields))) 
+				{
+		            $table_th .= "<th>&nbsp;".$this->CamelCaseFromUnderscore($t->name)."</th>";
+		            $table_td .= "<td>&nbsp;{".strtoupper($t->name)."}</td>";
+				}
+			}
+			else
+			{
+	            $table_th .= "<th>&nbsp;".$this->CamelCaseFromUnderscore($t->name)."</th>";
+	            $table_td .= "<td>&nbsp;{".strtoupper($t->name)."}</td>";
+			}
+          $i++;   
+        }
+        $table_th .= "<th>Action</th>";
+        $id_field_name = strtoupper($defs[0]->name);
+        
+        $table_td .=<<<EOD
+<td>
+<ul class="admin_td_actions">
+  <li><a href="{$outfilename}.php?act=Update&ID={{$id_field_name}}"><img alt="edit" title="edit" src="{ImagesDir}/edit_icon.png" /></a></li>
+  <li><a onclick="if (confirm('Are you sure?')) { f = document.createElement('form'); document.body.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;" href="{$outfilename}.php?act=Del&ID={{$id_field_name}}"><img alt="delete" title="delete" src="{ImagesDir}/delete_icon.png" /></a></li>
+</ul>
+
+</td>
+         
+EOD;
+		$table_th .="</tr>\n</thead>\n<tbody>\n<!-- BEGIN main_list -->";
+		$table_td .="</tr>\n<!-- END main_list -->\n</tbody>\n";
+		$body .= $table_th.$table_td;
+        $body .=<<<EOD
+<tfoot>
+<tr><th colspan="{$i}">
+<div class="float-right">
+</div>
+{ToltalNum} result</th></tr>
+</tfoot>
+
+</table>
+
+EOD;
+        
+		return $body;
     }
 
     /**
@@ -976,7 +1177,7 @@ class DB_DataObject_Generator extends DB_DataObject
                                                        : '    ';//public 
             $getters .= "function $methodName() \n";
             $getters .= "    {\n";
-            $getters .= "        return \$this->{$filed_name};\n";
+            $getters .= "        return \$this->{$t->name};\n";
             $getters .= "    }\n\n";
         }
    
@@ -1030,7 +1231,7 @@ class DB_DataObject_Generator extends DB_DataObject
                                                        : '    ';//public
             $setters .= "function $methodName(\$value) \n";
             $setters .= "    {\n";
-            $setters .= "        \$this->{$filed_name} = \$value;\n";
+            $setters .= "        \$this->{$t->name} = \$value;\n";
             $setters .= "    }\n\n";
         }
         

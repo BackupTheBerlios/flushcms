@@ -5,16 +5,18 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: Init.php,v 1.3 2006/08/29 23:23:44 arzen Exp $
+ * @version    CVS: $Id: Init.php,v 1.4 2006/08/30 10:58:36 arzen Exp $
  */
 $ConfigDir = "Config/";
 $IncludeDir = "Include/";
 $Template = "Template/";
 $ModuleDir = "Module/";
+$ClassDir = "Class/";
 
-ini_set('include_path', ".;".$IncludeDir."Pear");
+ini_set('include_path', ".;./".$IncludeDir."Pear");
 
 include_once($ConfigDir."Config.php");
+include_once($ClassDir."Actions.class.php");
 include_once("PEAR.php");
 include_once("DB.php");
 include_once("DB/DataObject.php");
@@ -38,10 +40,16 @@ $template->setFile(array(
      "Header" => "header.html",
      "Foot" => "foot.html"
  ));
+ 
+$template->setBlock("Header", "header");
+ 
 $template->setVar(array (
 	"Title" => "Yahoo Music",
-	"BgColor" => "#cccccc",
+	"BgColor" => "#FFFFFF",
+	"ImagesDir" => $Template."images/",
+	"TemplateDir" => $Template,
 ));
+
 
 
 ?>

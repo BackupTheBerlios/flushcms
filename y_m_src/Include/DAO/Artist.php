@@ -8,25 +8,25 @@ class DaoArtist extends DB_DataObject
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'artist';                          // table name
-    public $Artistid;                        // int(11)  not_null primary_key unsigned auto_increment
-    public $Artistcode;                      // string(64)  not_null unique_key
-    public $Artistname;                      // string(255)  not_null multiple_key
-    public $ArtistnameEng;                  // string(255)  not_null
-    public $Gender;                          // string(1)  not_null multiple_key enum
-    public $Lang;                            // string(6)  not_null multiple_key enum
-    public $Initial;                         // string(4)  not_null multiple_key
-    public $Image;                           // string(255)  not_null
-    public $ImageStatus;                    // string(7)  not_null multiple_key enum
-    public $Imageurl;                        // blob(65535)  not_null blob
-    public $Imagex;                          // int(5)  not_null unsigned
-    public $Imagey;                          // int(5)  not_null unsigned
-    public $Thumburl;                        // blob(65535)  not_null blob
-    public $Thumbx;                          // int(5)  not_null unsigned
-    public $Thumby;                          // int(5)  not_null unsigned
-    public $CreateTime;                     // datetime(19)  not_null
-    public $LastUpdated;                    // datetime(19)  not_null
-    public $Status;                          // string(7)  not_null multiple_key enum
-    public $Popularity;                      // int(5)  not_null multiple_key unsigned
+    public $artistid;                        // int(11)  not_null primary_key unsigned auto_increment
+    public $artistcode;                      // string(64)  not_null unique_key
+    public $artistname;                      // string(255)  not_null multiple_key
+    public $artistname_eng;                  // string(255)  not_null
+    public $gender;                          // string(1)  not_null multiple_key enum
+    public $lang;                            // string(6)  not_null multiple_key enum
+    public $initial;                         // string(4)  not_null multiple_key
+    public $image;                           // string(255)  not_null
+    public $image_status;                    // string(7)  not_null multiple_key enum
+    public $imageurl;                        // blob(65535)  not_null blob
+    public $imagex;                          // int(5)  not_null unsigned
+    public $imagey;                          // int(5)  not_null unsigned
+    public $thumburl;                        // blob(65535)  not_null blob
+    public $thumbx;                          // int(5)  not_null unsigned
+    public $thumby;                          // int(5)  not_null unsigned
+    public $create_time;                     // datetime(19)  not_null binary
+    public $last_updated;                    // datetime(19)  not_null binary
+    public $status;                          // string(7)  not_null multiple_key enum
+    public $popularity;                      // int(5)  not_null multiple_key unsigned
 
     /* Static get */
     function staticGet($k,$v=NULL) 
@@ -43,7 +43,7 @@ class DaoArtist extends DB_DataObject
     */
     function getArtistid() 
     {
-        return $this->Artistid;
+        return $this->artistid;
     }
 
    /**
@@ -54,7 +54,7 @@ class DaoArtist extends DB_DataObject
     */
     function getArtistcode() 
     {
-        return $this->Artistcode;
+        return $this->artistcode;
     }
 
    /**
@@ -65,7 +65,7 @@ class DaoArtist extends DB_DataObject
     */
     function getArtistname() 
     {
-        return $this->Artistname;
+        return $this->artistname;
     }
 
    /**
@@ -76,7 +76,7 @@ class DaoArtist extends DB_DataObject
     */
     function getArtistnameEng() 
     {
-        return $this->ArtistnameEng;
+        return $this->artistname_eng;
     }
 
    /**
@@ -87,7 +87,7 @@ class DaoArtist extends DB_DataObject
     */
     function getGender() 
     {
-        return $this->Gender;
+        return $this->gender;
     }
 
    /**
@@ -98,7 +98,7 @@ class DaoArtist extends DB_DataObject
     */
     function getLang() 
     {
-        return $this->Lang;
+        return $this->lang;
     }
 
    /**
@@ -109,7 +109,7 @@ class DaoArtist extends DB_DataObject
     */
     function getInitial() 
     {
-        return $this->Initial;
+        return $this->initial;
     }
 
    /**
@@ -120,7 +120,7 @@ class DaoArtist extends DB_DataObject
     */
     function getImage() 
     {
-        return $this->Image;
+        return $this->image;
     }
 
    /**
@@ -131,7 +131,7 @@ class DaoArtist extends DB_DataObject
     */
     function getImageStatus() 
     {
-        return $this->ImageStatus;
+        return $this->image_status;
     }
 
    /**
@@ -142,7 +142,7 @@ class DaoArtist extends DB_DataObject
     */
     function getImageurl() 
     {
-        return $this->Imageurl;
+        return $this->imageurl;
     }
 
    /**
@@ -153,7 +153,7 @@ class DaoArtist extends DB_DataObject
     */
     function getImagex() 
     {
-        return $this->Imagex;
+        return $this->imagex;
     }
 
    /**
@@ -164,7 +164,7 @@ class DaoArtist extends DB_DataObject
     */
     function getImagey() 
     {
-        return $this->Imagey;
+        return $this->imagey;
     }
 
    /**
@@ -175,7 +175,7 @@ class DaoArtist extends DB_DataObject
     */
     function getThumburl() 
     {
-        return $this->Thumburl;
+        return $this->thumburl;
     }
 
    /**
@@ -186,7 +186,7 @@ class DaoArtist extends DB_DataObject
     */
     function getThumbx() 
     {
-        return $this->Thumbx;
+        return $this->thumbx;
     }
 
    /**
@@ -197,7 +197,7 @@ class DaoArtist extends DB_DataObject
     */
     function getThumby() 
     {
-        return $this->Thumby;
+        return $this->thumby;
     }
 
    /**
@@ -208,7 +208,7 @@ class DaoArtist extends DB_DataObject
     */
     function getCreateTime() 
     {
-        return $this->CreateTime;
+        return $this->create_time;
     }
 
    /**
@@ -219,7 +219,7 @@ class DaoArtist extends DB_DataObject
     */
     function getLastUpdated() 
     {
-        return $this->LastUpdated;
+        return $this->last_updated;
     }
 
    /**
@@ -230,7 +230,7 @@ class DaoArtist extends DB_DataObject
     */
     function getStatus() 
     {
-        return $this->Status;
+        return $this->status;
     }
 
    /**
@@ -241,7 +241,7 @@ class DaoArtist extends DB_DataObject
     */
     function getPopularity() 
     {
-        return $this->Popularity;
+        return $this->popularity;
     }
 
 
@@ -253,7 +253,7 @@ class DaoArtist extends DB_DataObject
     */
      function setArtistid($value) 
     {
-        $this->Artistid = $value;
+        $this->artistid = $value;
     }
 
    /**
@@ -264,7 +264,7 @@ class DaoArtist extends DB_DataObject
     */
      function setArtistcode($value) 
     {
-        $this->Artistcode = $value;
+        $this->artistcode = $value;
     }
 
    /**
@@ -275,7 +275,7 @@ class DaoArtist extends DB_DataObject
     */
      function setArtistname($value) 
     {
-        $this->Artistname = $value;
+        $this->artistname = $value;
     }
 
    /**
@@ -286,7 +286,7 @@ class DaoArtist extends DB_DataObject
     */
      function setArtistnameEng($value) 
     {
-        $this->ArtistnameEng = $value;
+        $this->artistname_eng = $value;
     }
 
    /**
@@ -297,7 +297,7 @@ class DaoArtist extends DB_DataObject
     */
      function setGender($value) 
     {
-        $this->Gender = $value;
+        $this->gender = $value;
     }
 
    /**
@@ -308,7 +308,7 @@ class DaoArtist extends DB_DataObject
     */
      function setLang($value) 
     {
-        $this->Lang = $value;
+        $this->lang = $value;
     }
 
    /**
@@ -319,7 +319,7 @@ class DaoArtist extends DB_DataObject
     */
      function setInitial($value) 
     {
-        $this->Initial = $value;
+        $this->initial = $value;
     }
 
    /**
@@ -330,7 +330,7 @@ class DaoArtist extends DB_DataObject
     */
      function setImage($value) 
     {
-        $this->Image = $value;
+        $this->image = $value;
     }
 
    /**
@@ -341,7 +341,7 @@ class DaoArtist extends DB_DataObject
     */
      function setImageStatus($value) 
     {
-        $this->ImageStatus = $value;
+        $this->image_status = $value;
     }
 
    /**
@@ -352,7 +352,7 @@ class DaoArtist extends DB_DataObject
     */
      function setImageurl($value) 
     {
-        $this->Imageurl = $value;
+        $this->imageurl = $value;
     }
 
    /**
@@ -363,7 +363,7 @@ class DaoArtist extends DB_DataObject
     */
      function setImagex($value) 
     {
-        $this->Imagex = $value;
+        $this->imagex = $value;
     }
 
    /**
@@ -374,7 +374,7 @@ class DaoArtist extends DB_DataObject
     */
      function setImagey($value) 
     {
-        $this->Imagey = $value;
+        $this->imagey = $value;
     }
 
    /**
@@ -385,7 +385,7 @@ class DaoArtist extends DB_DataObject
     */
      function setThumburl($value) 
     {
-        $this->Thumburl = $value;
+        $this->thumburl = $value;
     }
 
    /**
@@ -396,7 +396,7 @@ class DaoArtist extends DB_DataObject
     */
      function setThumbx($value) 
     {
-        $this->Thumbx = $value;
+        $this->thumbx = $value;
     }
 
    /**
@@ -407,7 +407,7 @@ class DaoArtist extends DB_DataObject
     */
      function setThumby($value) 
     {
-        $this->Thumby = $value;
+        $this->thumby = $value;
     }
 
    /**
@@ -418,7 +418,7 @@ class DaoArtist extends DB_DataObject
     */
      function setCreateTime($value) 
     {
-        $this->CreateTime = $value;
+        $this->create_time = $value;
     }
 
    /**
@@ -429,7 +429,7 @@ class DaoArtist extends DB_DataObject
     */
      function setLastUpdated($value) 
     {
-        $this->LastUpdated = $value;
+        $this->last_updated = $value;
     }
 
    /**
@@ -440,7 +440,7 @@ class DaoArtist extends DB_DataObject
     */
      function setStatus($value) 
     {
-        $this->Status = $value;
+        $this->status = $value;
     }
 
    /**
@@ -451,10 +451,105 @@ class DaoArtist extends DB_DataObject
     */
      function setPopularity($value) 
     {
-        $this->Popularity = $value;
+        $this->popularity = $value;
     }
 
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+    function validateArtistid()
+    {
+        return true;
+    }
+
+    function validateArtistcode()
+    {
+        return empty($this->artistcode)?false:true;
+    }
+
+    function validateArtistname()
+    {
+        return empty($this->artistname)?false:true;
+    }
+
+    function validateArtistname_eng()
+    {
+        return true;
+    }
+
+    function validateGender()
+    {
+        return true;
+    }
+
+    function validateLang()
+    {
+        return true;
+    }
+
+    function validateInitial()
+    {
+        return true;
+    }
+
+    function validateImage()
+    {
+        return true;
+    }
+
+    function validateImage_status()
+    {
+        return true;
+    }
+
+    function validateImageurl()
+    {
+        return true;
+    }
+
+    function validateImagex()
+    {
+        return true;
+    }
+
+    function validateImagey()
+    {
+        return true;
+    }
+
+    function validateThumburl()
+    {
+        return true;
+    }
+
+    function validateThumbx()
+    {
+        return true;
+    }
+
+    function validateThumby()
+    {
+        return true;
+    }
+
+    function validateCreate_time()
+    {
+        return true;
+    }
+
+    function validateLast_updated()
+    {
+        return true;
+    }
+
+    function validateStatus()
+    {
+        return true;
+    }
+
+    function validatePopularity()
+    {
+        return true;
+    }
 }
