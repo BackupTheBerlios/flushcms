@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: Artist.class.php,v 1.5 2006/08/31 10:48:34 arzen Exp $
+ * @version    CVS: $Id: Artist.class.php,v 1.6 2006/08/31 11:31:04 arzen Exp $
  */
 
 class Artist extends Actions
@@ -49,7 +49,6 @@ class Artist extends Actions
 		$artist->setImage($_POST['image']);
 
 		$artist->setCreateTime(time());
-		$artist->insert();
 
 		$val = $artist->validate();
 		if ($val === TRUE)
