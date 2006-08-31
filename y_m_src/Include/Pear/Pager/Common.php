@@ -33,7 +33,7 @@
  * @author     Richard Heyes <richard@phpguru.org>
  * @copyright  2003-2006 Lorenzo Alberton, Richard Heyes
  * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version    CVS: $Id: Common.php,v 1.1 2006/08/30 23:12:32 arzen Exp $
+ * @version    CVS: $Id: Common.php,v 1.2 2006/08/31 10:48:34 arzen Exp $
  * @link       http://pear.php.net/package/Pager
  */
 
@@ -1408,7 +1408,7 @@ class Pager_Common
         $this->_perPage = max($this->_perPage, 1); //avoid possible user errors
 
         if ($this->_useSessions && !isset($_SESSION)) {
-            session_start();
+            //session_start();
         }
         if (!empty($_REQUEST[$this->_sessionVar])) {
             $this->_perPage = max(1, (int)$_REQUEST[$this->_sessionVar]);
@@ -1422,7 +1422,7 @@ class Pager_Common
         }
 
         if ($this->_closeSession) {
-            session_write_close();
+//            session_write_close();
         }
 
         $this->_spacesBefore = str_repeat('&nbsp;', $this->_spacesBeforeSeparator);

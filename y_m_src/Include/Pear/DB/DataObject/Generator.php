@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: Generator.php,v 1.3 2006/08/30 10:58:36 arzen Exp $
+ * @version    CVS: $Id: Generator.php,v 1.4 2006/08/31 10:48:34 arzen Exp $
  * @link       http://pear.php.net/package/DB_DataObject
  */
  
@@ -793,16 +793,31 @@ class DB_DataObject_Generator extends DB_DataObject
         // stubs..
         
         if (!empty($options['generator_add_validate_stubs'])) {
+            
             foreach($defs as $t) {
                 if (!strlen(trim($t->name))) {
                     continue;
                 }
+                $match=array();
+                if (!preg_match('/' . $t->name . ':([^,]*)/i', $options['generator_add_validate_stubs'],$match)) {
+                    continue;
+                }
+                $validate_conditon=$match[1];
                 $validate_fname = 'validate' . ucfirst(strtolower($t->name));
                 // dont re-add it..
                 if (preg_match('/\s+function\s+' . $validate_fname . '\s*\(/i', $input)) {
                     continue;
                 }
-                $body .= "\n    function {$validate_fname}()\n    {\n        return true;\n    }\n";
+                switch ($validate_conditon) {
+					case 'empty':
+						$validate_str = "empty(\$this->{$t->name})?false:true;";
+						break;
+				
+					default:
+						$validate_str = " return true;";
+						break;
+				}
+                $body .= "\n    function {$validate_fname}()\n    {\n        {$validate_str}\n    }\n";
             }
         }
 
@@ -948,7 +963,7 @@ EOD;
 <table cellspacing="0" class="admin_list">      
 EOD;
 		$table_th ="\n<thead>\n<tr>";
-		$table_td ="\n<tr class=\"{ListTdClass}\">";
+		$table_td ="\n<tr class=\"{LIST_TD_CLASS}\">";
 		$i=1;
         foreach($defs as $t) {
             if (!strlen(trim($t->name))) {
@@ -989,8 +1004,9 @@ EOD;
 <tfoot>
 <tr><th colspan="{$i}">
 <div class="float-right">
+{PAGINATION}
 </div>
-{ToltalNum} result</th></tr>
+{TOLTAL_NUM} result </th></tr>
 </tfoot>
 
 </table>

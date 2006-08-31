@@ -23,8 +23,8 @@ class DaoArtist extends DB_DataObject
     public $thumburl;                        // blob(65535)  not_null blob
     public $thumbx;                          // int(5)  not_null unsigned
     public $thumby;                          // int(5)  not_null unsigned
-    public $create_time;                     // datetime(19)  not_null
-    public $last_updated;                    // datetime(19)  not_null
+    public $create_time;                     // datetime(19)  not_null binary
+    public $last_updated;                    // datetime(19)  not_null binary
     public $status;                          // string(7)  not_null multiple_key enum
     public $popularity;                      // int(5)  not_null multiple_key unsigned
 
@@ -515,98 +515,4 @@ class DaoArtist extends DB_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    function validateArtistid()
-    {
-        return true;
-    }
-
-    function validateArtistcode()
-    {
-        return true;
-    }
-
-    function validateArtistname()
-    {
-        return true;
-    }
-
-    function validateArtistname_eng()
-    {
-        return true;
-    }
-
-    function validateGender()
-    {
-        return true;
-    }
-
-    function validateLang()
-    {
-        return true;
-    }
-
-    function validateInitial()
-    {
-        return true;
-    }
-
-    function validateImage()
-    {
-        return true;
-    }
-
-    function validateImage_status()
-    {
-        return true;
-    }
-
-    function validateImageurl()
-    {
-        return true;
-    }
-
-    function validateImagex()
-    {
-        return true;
-    }
-
-    function validateImagey()
-    {
-        return true;
-    }
-
-    function validateThumburl()
-    {
-        return true;
-    }
-
-    function validateThumbx()
-    {
-        return true;
-    }
-
-    function validateThumby()
-    {
-        return true;
-    }
-
-    function validateCreate_time()
-    {
-        return true;
-    }
-
-    function validateLast_updated()
-    {
-        return true;
-    }
-
-    function validateStatus()
-    {
-        return true;
-    }
-
-    function validatePopularity()
-    {
-        return true;
-    }
 }

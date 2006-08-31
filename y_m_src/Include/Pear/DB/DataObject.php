@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: DataObject.php,v 1.1 2006/08/29 15:30:24 arzen Exp $
+ * @version    CVS: $Id: DataObject.php,v 1.2 2006/08/31 10:48:34 arzen Exp $
  * @link       http://pear.php.net/package/DB_DataObject
  */
   
@@ -1020,7 +1020,7 @@ class DB_DataObject extends DB_DataObject_Overload
         
         if ($leftq || $useNative) {
             $table = ($quoteIdentifiers ? $DB->quoteIdentifier($this->__table)    : $this->__table);
-            
+
             $r = $this->_query("INSERT INTO {$table} ($leftq) VALUES ($rightq) ");
  
             

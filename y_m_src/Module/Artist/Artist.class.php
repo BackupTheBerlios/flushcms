@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: Artist.class.php,v 1.4 2006/08/30 23:12:32 arzen Exp $
+ * @version    CVS: $Id: Artist.class.php,v 1.5 2006/08/31 10:48:34 arzen Exp $
  */
 
 class Artist extends Actions
@@ -49,6 +49,7 @@ class Artist extends Actions
 		$artist->setImage($_POST['image']);
 
 		$artist->setCreateTime(time());
+		$artist->insert();
 
 		$val = $artist->validate();
 		if ($val === TRUE)
@@ -142,8 +143,9 @@ class Artist extends Actions
 	function delOne()
 	{
 		$artist = DB_DataObject :: factory('artist');
-		$artist->setArtistid($artist->escape($_GET['ID']));
-		$artist->delete();
+		$artist->get($artist->escape($_GET['ID']));
+		$artist->setStatus('deleted');
+		$artist->update();
 
 		$this->forward('artist.php');
 	}
@@ -172,7 +174,7 @@ class Artist extends Actions
 
 		$params = array(
 		    'itemData' => $myData,
-		    'perPage' => 2,
+		    'perPage' => 5,
 		    'delta' => 5,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
 		    'separator' => ' | ',
@@ -195,19 +197,24 @@ class Artist extends Actions
 			(($i % 2) == 0) ? $list_td_class = "admin_row_0" : $list_td_class = "admin_row_1";
 			
 			$template->setVar(array (
-				"ListTdClass" => $list_td_class
+				"LIST_TD_CLASS" => $list_td_class
 			));
 
 			$template->setVar(array (
 			"ARTISTID" => $data['artistid'], "ARTISTCODE" =>$data['artistcode'], "ARTISTNAME" => $data['artistname'], 
 			"ARTISTNAME_ENG" => $data['artistname_eng'], "GENDER" => $data['gender'], "LANG" => $data['lang'], 
-			"INITIAL" => $data['initial']));
+			"INITIAL" => $data['initial'],"STATUS" => $data['status']
+			));
 
 			$template->parse("list_block", "main_list", TRUE);
+			$i++;
 		}
 		
 		$template->setVar(array (
-			"ToltalNum" => $links['all']//$ToltalNum
+			"TOLTAL_NUM" => $ToltalNum
+		));
+		$template->setVar(array (
+			"PAGINATION" => $links['all']
 		));
 
 		$template->parse("OUT", array (
