@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: Generator.php,v 1.5 2006/08/31 11:31:04 arzen Exp $
+ * @version    CVS: $Id: Generator.php,v 1.6 2006/08/31 15:35:17 arzen Exp $
  * @link       http://pear.php.net/package/DB_DataObject
  */
  
@@ -799,9 +799,9 @@ class DB_DataObject_Generator extends DB_DataObject
                     continue;
                 }
                 $match=array();
-//                if (!preg_match('/' . $t->name . ':([^,]*)/i', $options['generator_add_validate_stubs'],$match)) {
-//                    continue;
-//                }
+                if (!preg_match('/' . $t->name . ':([^,]*)/i', $options['generator_add_validate_stubs'],$match)) {
+                    continue;
+                }
                 $validate_conditon=$match[1];
                 $validate_fname = 'validate' . ucfirst(strtolower($t->name));
                 // dont re-add it..
