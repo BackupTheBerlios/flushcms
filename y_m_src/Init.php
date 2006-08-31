@@ -5,7 +5,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: Init.php,v 1.4 2006/08/30 10:58:36 arzen Exp $
+ * @version    CVS: $Id: Init.php,v 1.5 2006/08/31 15:27:10 arzen Exp $
  */
 $ConfigDir = "Config/";
 $IncludeDir = "Include/";
@@ -44,7 +44,7 @@ $template->setFile(array(
 $template->setBlock("Header", "header");
  
 $template->setVar(array (
-	"Title" => "Yahoo Music",
+	"Title" => "Music",
 	"BgColor" => "#FFFFFF",
 	"ImagesDir" => $Template."images/",
 	"TemplateDir" => $Template,
