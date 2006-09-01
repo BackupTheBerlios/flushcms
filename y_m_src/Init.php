@@ -5,23 +5,36 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: Init.php,v 1.5 2006/08/31 15:27:10 arzen Exp $
+ * @version    CVS: $Id: Init.php,v 1.6 2006/09/01 10:48:12 arzen Exp $
  */
-$ConfigDir = "Config/";
-$IncludeDir = "Include/";
+$RootDir = dirname(__FILE__)."/"; 
+$ConfigDir = $RootDir."Config/";
+$IncludeDir = $RootDir."Include/";
 $Template = "Template/";
-$ModuleDir = "Module/";
-$ClassDir = "Class/";
+$ModuleDir = $RootDir."Module/";
+$ClassDir = $RootDir."Class/";
 
-ini_set('include_path', ".;./".$IncludeDir."Pear");
+if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') 
+{
+    $separator = ";";
+} 
+else 
+{
+    $separator = ":";
+}
+
+ini_set('include_path', ".{$separator}".$IncludeDir."Pear");
 
 include_once($ConfigDir."Config.php");
+include_once($ConfigDir."Common.php");
 include_once($ClassDir."Actions.class.php");
+include_once($ClassDir."FormObject.php");
 include_once("PEAR.php");
 include_once("DB.php");
 include_once("DB/DataObject.php");
 include_once("HTML/Template/PHPLIB.php");
 
+$UploadDir = $RootDir.$Upload_Dir;
 $dsn = "{$DB_Type}://{$DB_UserName}:{$DB_PassWord}@{$DB_Host}/{$DB_Name}";
 $conn =& DB::connect ($dsn);
 if (DB::isError ($conn))
@@ -44,12 +57,9 @@ $template->setFile(array(
 $template->setBlock("Header", "header");
  
 $template->setVar(array (
-	"Title" => "Music",
-	"BgColor" => "#FFFFFF",
+	"Title" => $Site_Title,
 	"ImagesDir" => $Template."images/",
 	"TemplateDir" => $Template,
 ));
-
-
 
 ?>

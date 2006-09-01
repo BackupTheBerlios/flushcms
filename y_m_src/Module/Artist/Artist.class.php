@@ -6,20 +6,26 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: Artist.class.php,v 1.6 2006/08/31 11:31:04 arzen Exp $
+ * @version    CVS: $Id: Artist.class.php,v 1.7 2006/09/01 10:48:12 arzen Exp $
  */
 
 class Artist extends Actions
 {
 	function displayAddForm()
 	{
-		global $template;
+		global $template,$GenderOption,$LangOption;
 
 		$template->setFile(array (
 			"Main" => "artist_edit.html"
 		));
 		$template->setBlock("Main", "edit_block");
+		
+		array_shift($GenderOption);
+		array_shift($LangOption);
 		$template->setVar(array (
+			"GENDER_OPTION" => radioTag ('gender',$GenderOption,$_REQUEST['gender']),
+			"LANG_OPTION" => radioTag ('lang',$LangOption,$_REQUEST['lang']),
+			"IMAGES_FILE" => fileTag ('image'),
 			"DoAction" => "AddSubmit"
 		));
 
@@ -37,7 +43,7 @@ class Artist extends Actions
 
 	function addSubmit()
 	{
-		global $template;
+		global $template,$UploadDir;
 		$artist = DB_DataObject :: factory('artist');
 
 		$artist->setArtistcode($_POST['artistcode']);
@@ -46,7 +52,31 @@ class Artist extends Actions
 		$artist->setGender($_POST['gender']);
 		$artist->setLang($_POST['lang']);
 		$artist->setInitial($_POST['initial']);
-		$artist->setImage($_POST['image']);
+		if($_FILES['image']['name'])
+		{
+			require_once 'HTTP/Upload.php';
+			$upload = new http_upload();
+			$file = $upload->getFiles('image');
+			if (PEAR::isError($file)) 
+			{
+				die ($file->getMessage());
+			}
+			if ($file->isValid()) 
+			{
+				$file->setName('uniq');
+				$dest_name = $file->moveTo($UploadDir);
+				if (PEAR::isError($dest_name)) {
+					die ($dest_name->getMessage());
+				}
+				$real = $file->getProp('real');
+				$artist->setImage($dest_name);
+			} 
+			elseif ($file->isError()) 
+			{
+				echo $file->errorMsg() . "\n";
+			}			
+		}
+		
 
 		$artist->setCreateTime(time());
 
@@ -91,7 +121,7 @@ class Artist extends Actions
 
 	function displayUpdateForm()
 	{
-		global $template;
+		global $template,$GenderOption,$LangOption;
 		$template->setFile(array (
 			"Main" => "artist_edit.html"
 		));
@@ -105,6 +135,14 @@ class Artist extends Actions
 
 		$template->setVar(array (
 		"ARTISTID" => $artist->getArtistid(), "ARTISTCODE" => $artist->getArtistcode(), "ARTISTNAME" => $artist->getArtistname(), "ARTISTNAME_ENG" => $artist->getArtistnameEng(), "GENDER" => $artist->getGender(), "LANG" => $artist->getLang(), "INITIAL" => $artist->getInitial()));
+		
+		array_shift($GenderOption);
+		array_shift($LangOption);
+		$template->setVar(array (
+			"GENDER_OPTION" => radioTag ('gender',$GenderOption,$artist->getGender()),
+			"LANG_OPTION" => radioTag ('lang',$LangOption,$artist->getLang()),
+			"IMAGES_FILE" => fileTag ('image',$artist->getImage())
+		));
 
 		$template->parse("OUT", array (
 			"Main"
@@ -120,6 +158,7 @@ class Artist extends Actions
 
 	function updateSubmit()
 	{
+		global $UploadDir;
 		$artist = DB_DataObject :: factory('artist');
 
 		$artist->get($artist->escape($_POST['ID']));
@@ -131,12 +170,68 @@ class Artist extends Actions
 		$artist->setGender($_POST['gender']);
 		$artist->setLang($_POST['lang']);
 		$artist->setInitial($_POST['initial']);
+		
+		if ($_POST['image_del']=='Y') 
+		{
+			unlink($UploadDir.$_POST['image_old']);
+			$artist->setImage("");
+		}
+		
+		if($_FILES['image']['name'])
+		{
+			require_once 'HTTP/Upload.php';
+			$upload = new http_upload();
+			$file = $upload->getFiles('image');
+			if (PEAR::isError($file)) 
+			{
+				die ($file->getMessage());
+			}
+			if ($file->isValid()) 
+			{
+				$file->setName('uniq');
+				$dest_name = $file->moveTo($UploadDir);
+				if (PEAR::isError($dest_name)) {
+					die ($dest_name->getMessage());
+				}
+				$real = $file->getProp('real');
+				$artist->setImage($dest_name);
+			} 
+			elseif ($file->isError()) 
+			{
+				echo $file->errorMsg() . "\n";
+			}			
+		}
 
 		$artist->setLastUpdated(time());
 		$artist->update($original);
 
 		$this->forward('artist.php');
 
+	}
+	
+	function updateSelected () 
+	{
+		if (is_array($_POST['SelectID'])) 
+		{
+			$selected_id = implode(",",$_POST['SelectID']);
+			$status = $_POST['todo'];
+			
+			$artist = DB_DataObject :: factory('artist');
+//			DB_DataObject::debugLevel(2);
+			$artist->whereAdd(" artistid IN (".$artist->escape($selected_id).") ");
+			$artist->find();
+			while ($artist->fetch())
+			{
+				$artist->setStatus($artist->escape($status));
+				$artist->update();
+			}
+			
+
+			
+		}
+		
+		$this->forward('artist.php');
+		
 	}
 
 	function delOne()
@@ -148,10 +243,10 @@ class Artist extends Actions
 
 		$this->forward('artist.php');
 	}
-
+	
 	function displayList()
 	{
-		global $template;
+		global $template,$LangOption,$GenderOption,$StatusOption;
 
 		require_once 'Pager/Pager.php';
 		$template->setFile(array (
@@ -161,20 +256,43 @@ class Artist extends Actions
 		$template->setBlock("Main", "main_list", "list_block");
 
 		$artist = DB_DataObject :: factory('artist');
-		$ToltalNum = $artist->count();
 
 		$artist->orderBy('artistid desc');
+		
+		if ($status=$_REQUEST['status']) 
+		{
+			$artist->setStatus($status);
+		}
+		
+		if ($lang=$_REQUEST['lang']) 
+		{
+			$artist->setLang($lang);
+		}
+		
+		if ($gender=$_REQUEST['gender']) 
+		{
+			$artist->setGender($gender);
+		}
+		
+		if ($q=$_REQUEST['q']) 
+		{
+			$artist->whereAdd(" ( (artistcode LIKE '%{$q}%'  ) OR (artistname LIKE '%{$q}%' ) ) ");
+		}
+		
 		$artist->find();
 		
+		$i=0;
 		while ($artist->fetch())
 		{
 			$myData[] = $artist->toArray();
+			$i++;
 		}
-
+		$ToltalNum =$i;
+		
 		$params = array(
 		    'itemData' => $myData,
-		    'perPage' => 5,
-		    'delta' => 5,             // for 'Jumping'-style a lower number is better
+		    'perPage' => PER_PAGE_NUM,
+		    'delta' => DISPLAY_PAGE_NUM,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
 		    'separator' => ' | ',
 		    'clearIfVoid' => false,
@@ -198,10 +316,12 @@ class Artist extends Actions
 			$template->setVar(array (
 				"LIST_TD_CLASS" => $list_td_class
 			));
-
+			
+			$gender = $GenderOption[$data['gender']];
+			$lang = $LangOption[$data['lang']];
 			$template->setVar(array (
 			"ARTISTID" => $data['artistid'], "ARTISTCODE" =>$data['artistcode'], "ARTISTNAME" => $data['artistname'], 
-			"ARTISTNAME_ENG" => $data['artistname_eng'], "GENDER" => $data['gender'], "LANG" => $data['lang'], 
+			"ARTISTNAME_ENG" => $data['artistname_eng'], "GENDER" => $gender, "LANG" => $lang, 
 			"INITIAL" => $data['initial'],"STATUS" => $data['status']
 			));
 
@@ -210,9 +330,11 @@ class Artist extends Actions
 		}
 		
 		$template->setVar(array (
-			"TOLTAL_NUM" => $ToltalNum
-		));
-		$template->setVar(array (
+			"KEYWORD_TEXT" => textTag ('q',$_REQUEST['q']),
+			"GENDER_OPTION" => selectTag ('gender',$GenderOption,$_REQUEST['gender']),
+			"LANG_OPTION" => selectTag ('lang',$LangOption,$_REQUEST['lang']),
+			"STATUS_OPTION" => selectTag ('status',$StatusOption,$_REQUEST['status']),
+			"TOLTAL_NUM" => $ToltalNum,
 			"PAGINATION" => $links['all']
 		));
 

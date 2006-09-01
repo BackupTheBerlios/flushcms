@@ -5,7 +5,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: artist.php,v 1.1 2006/08/30 10:58:36 arzen Exp $
+ * @version    CVS: $Id: artist.php,v 1.2 2006/09/01 10:48:12 arzen Exp $
  */
 include_once("Init.php");
 
@@ -32,6 +32,10 @@ switch ($act) {
 		
 	case 'UpdateSubmit':
 		$ArtistObj->updateSubmit();
+		break;
+
+	case 'UpdateSelected':
+		$ArtistObj->updateSelected();
 		break;
 
 	default:

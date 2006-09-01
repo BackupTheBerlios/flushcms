@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: Actions.class.php,v 1.1 2006/08/30 10:58:36 arzen Exp $
+ * @version    CVS: $Id: Actions.class.php,v 1.2 2006/09/01 10:48:12 arzen Exp $
  */
 
 class Actions
@@ -14,8 +14,9 @@ class Actions
 
 	function forward ($filename="",$action="") 
 	{
-		$action?$url="{$filename}?act={$action}":$url="{$filename}?act={$action}";
-		echo "<script LANGUAGE=\"JavaScript\">document.location.href='{$url}'</script>";
+		$action?$url="{$filename}?act={$action}":$url="{$filename}";
+		header("location:{$url}");
+//		echo "<script LANGUAGE=\"JavaScript\">window.location.href='{$url}'</script>";
 	}
 }
 ?>
