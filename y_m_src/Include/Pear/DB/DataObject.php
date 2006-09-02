@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: DataObject.php,v 1.3 2006/08/31 15:35:17 arzen Exp $
+ * @version    CVS: $Id: DataObject.php,v 1.4 2006/09/02 10:33:30 arzen Exp $
  * @link       http://pear.php.net/package/DB_DataObject
  */
   
@@ -649,7 +649,23 @@ class DB_DataObject extends DB_DataObject_Overload
         }
         $this->_query['order_by'] .= " , {$order}";
     }
-
+    
+    /**
+	 * @author John.meng
+	 * @param object swap data object
+	 */
+    function swapWith ($item_object) 
+	{
+	    if ($item_object) 
+		{
+		    $rank = $this->getOrdr();
+		    $this->setOrdr($item_object->getOrdr());
+		    $this->update();
+		    $item_object->setOrdr($rank);
+		    $item_object->update();
+		}
+	}
+	
     /**
      * Adds a group by condition
      *

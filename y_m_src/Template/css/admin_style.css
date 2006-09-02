@@ -96,7 +96,7 @@ label.required
   padding: 5px 20px 5px 25px;
   font-size: 11px;
   color: #fff;
-  background: #73B65A url(/sf/images/admin/ok.png) no-repeat 5px 2px;
+  background: #73B65A url(../images/admin/ok.png) no-repeat 5px 2px;
 }
 
 .form-row
@@ -123,7 +123,7 @@ label.required
   padding: 5px 20px 5px 25px;
   font-size: 11px;
   color: #fff;
-  background: #f33 url(/sf/images/admin/error.png) no-repeat 5px 2px;
+  background: #f33 url(../images/admin/error.png) no-repeat 5px 2px;
 }
 
 .form-errors ul
@@ -135,7 +135,7 @@ label.required
 .form-errors li
 {
   padding: 5px 20px;
-  background: url(/sf/images/admin/error.png) no-repeat 0 2px;
+  background: url(../images/admin/error.png) no-repeat 0 2px;
 }
 
 .form-error
@@ -216,49 +216,49 @@ ul.admin_actions input
 
 .admin_action_create
 {
-  background: url(/sf/images/admin/add.png) no-repeat 3px 2px;
+  background: url(../images/admin/add.png) no-repeat 3px 2px;
   border-right: 4px solid #73B65A !important;
 }
 
 .admin_action_save
 {
-  background: url(/sf/images/admin/save.png) no-repeat 3px 2px;
+  background: url(../images/admin/save.png) no-repeat 3px 2px;
   border-right: 4px solid #73B65A !important;
 }
 
 .admin_action_save_and_add
 {
-  background: url(/sf/images/admin/save.png) no-repeat 3px 2px;
+  background: url(../images/admin/save.png) no-repeat 3px 2px;
   border-right: 4px solid #73B65A !important;
 }
 
 .admin_action_delete
 {
-  background: url(/sf/images/admin/delete.png) no-repeat 3px 2px;
+  background: url(../images/admin/delete.png) no-repeat 3px 2px;
   border-right: 4px solid #E75C58 !important;
 }
 
 .admin_action_cancel
 {
-  background: url(/sf/images/admin/cancel.png) no-repeat 3px 2px;
+  background: url(../images/admin/cancel.png) no-repeat 3px 2px;
   border-right: 4px solid #E75C58 !important;
 }
 
 .admin_action_filter
 {
-  background: url(/sf/images/admin/filter.png) no-repeat 3px 2px;
+  background: url(../images/admin/filter.png) no-repeat 3px 2px;
   border-right: 4px solid #66f !important;
 }
 
 .admin_action_reset_filter
 {
-  background: url(/sf/images/admin/cancel.png) no-repeat 3px 2px;
+  background: url(../images/admin/cancel.png) no-repeat 3px 2px;
   border-right: 4px solid #E75C58 !important;
 }
 
 .admin_action_list
 {
-  background: url(/sf/images/admin/list.png) no-repeat 3px 2px;
+  background: url(../images/admin/list.png) no-repeat 3px 2px;
   border-right: 4px solid #66f !important;
 }
 

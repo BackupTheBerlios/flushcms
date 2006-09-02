@@ -1,0 +1,111 @@
+ 
+<div id="admin_container">
+<h1>Edit info</h1>
+<div id="admin_header">
+</div>
+<div id="admin_content">
+
+<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="gallery_photo.php">
+	<input type="hidden" name="ID" id="ID" value="{GAL_PHOTOID}" />
+	<input type="hidden" name="artistid" id="artistid" value="{ARTISTID}" />
+	<input type="hidden" name="act" value="{DoAction}" />
+	<fieldset id="fieldset_________" class="">
+		<h2>General info</h2>
+		<div class="form-row">
+		  <label >Event Id:</label>  
+		  <div class="content">
+			  {EVENTS_DROP_DOWN_STR}
+			  <a href="gallery_event.php?artistid={ARTISTID}">Create Event</a>
+		  </div>
+		</div>		
+		<div class="form-row">
+		  <label>Image:</label>  
+		  <div class="content">
+		  	<input type="text" name="image" id="image" value="{IMAGE}" size="20" />    
+		  </div>
+		</div>
+		<div class="form-row">
+		  <label>Caption:</label>  
+		  <div class="content">
+		  	<input type="text" name="caption" id="caption" value="{CAPTION}" size="20" />    
+		  </div>
+		</div>
+		<!-- internal use only
+		<div class="form-row">
+		  <label >ImageStatus:</label>  
+		  <div class="content">
+		  	<input type="text" name="image_status" id="image_status" value="{IMAGE_STATUS}" size="20" />    
+		  </div>
+		</div>
+		<div class="form-row">
+		  <label >Imageurl:</label>  
+		  <div class="content">
+		  	<input type="text" name="imageurl" id="imageurl" value="{IMAGEURL}" size="20" />    	
+		  </div>
+		</div>
+		<div class="form-row">
+		  <label >Imagex:</label>  
+		  <div class="content">
+		  	<input type="text" name="imagex" id="imagex" value="{IMAGEX}" size="20" />    
+		  </div>
+		</div>
+		<div class="form-row">
+		  <label >Imagey:</label>  
+		  <div class="content">
+		  	<input type="text" name="imagey" id="imagey" value="{IMAGEY}" size="20" />    
+		  </div>
+		</div>
+		<div class="form-row">
+		  <label >Thumburl:</label>  
+		  <div class="content">
+		  	<input type="text" name="thumburl" id="thumburl" value="{THUMBURL}" size="20" />    
+		  </div>
+		</div>
+		<div class="form-row">
+		  <label >Thumbx:</label>  
+		  <div class="content">
+		  	<input type="text" name="thumbx" id="thumbx" value="{THUMBX}" size="20" />    
+		  </div>
+		</div>
+		<div class="form-row">
+		  <label >Thumby:</label>  <div class="content">
+		  	<input type="text" name="thumby" id="thumby" value="{THUMBY}" size="20" />    
+		  </div>
+		</div>
+		<div class="form-row">
+		  <label >CreateTime:</label>  
+		  <div class="content">
+		  	<input type="text" name="create_time" id="create_time" value="{CREATE_TIME}" size="20" />    
+		  </div>
+		</div>
+		<div class="form-row">
+		  <label >LastUpdated:</label>  
+		  <div class="content">
+		  	<input type="text" name="last_updated" id="last_updated" value="{LAST_UPDATED}" size="20" />    
+		  </div>
+		</div>
+		 -->		
+		<div class="form-row">
+		  <label >Status:</label>  
+		  <div class="content">
+		  {STATUS_DROP_DOWN_STR}
+		  <!-- <input type="text" name="status" id="status" value="{STATUS}" size="20" /> -->
+
+		  </div>
+		</div>
+	</fieldset>
+	
+	<ul class="admin_actions">
+	  <li><input class="admin_action_list" value="list" type="button" onclick="document.location.href='gallery_photo.php?artistid={ARTISTID}';" /></li>
+	  <li><input type="submit" name="save" value="save" class="admin_action_save" /></li>	
+	</ul>
+</form>
+
+<ul class="admin_actions">
+      <li class="float-left"></li>
+</ul>
+</div>
+
+<div id="admin_footer">
+</div>
+</div>

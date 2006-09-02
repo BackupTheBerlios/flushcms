@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: Artist.class.php,v 1.7 2006/09/01 10:48:12 arzen Exp $
+ * @version    CVS: $Id: Artist.class.php,v 1.8 2006/09/02 10:33:30 arzen Exp $
  */
 
 class Artist extends Actions
@@ -43,7 +43,7 @@ class Artist extends Actions
 
 	function addSubmit()
 	{
-		global $template,$UploadDir;
+		global $template,$UploadDir,$GenderOption,$LangOption;
 		$artist = DB_DataObject :: factory('artist');
 
 		$artist->setArtistcode($_POST['artistcode']);
@@ -78,7 +78,7 @@ class Artist extends Actions
 		}
 		
 
-		$artist->setCreateTime(time());
+		$artist->setCreateTime(DB_DataObject_Cast::dateTime());
 
 		$val = $artist->validate();
 		if ($val === TRUE)
@@ -92,7 +92,12 @@ class Artist extends Actions
 				"Main" => "artist_edit.html"
 			));
 			$template->setBlock("Main", "edit_block");
+			array_shift($GenderOption);
+			array_shift($LangOption);
 			$template->setVar(array (
+				"GENDER_OPTION" => radioTag ('gender',$GenderOption,$_REQUEST['gender']),
+				"LANG_OPTION" => radioTag ('lang',$LangOption,$_REQUEST['lang']),
+				"IMAGES_FILE" => fileTag ('image'),
 				"DoAction" => "AddSubmit"
 			));
 			foreach ($val as $k => $v)
@@ -100,7 +105,7 @@ class Artist extends Actions
 				if ($v == false)
 				{
 					$template->setVar(array (
-						strtoupper($k)."_ERROR_MSG" => " Please check here "
+						strtoupper($k)."_ERROR_MSG" => " &darr; Please fill up here &darr; "
 					));
 
 				}
@@ -139,6 +144,9 @@ class Artist extends Actions
 		array_shift($GenderOption);
 		array_shift($LangOption);
 		$template->setVar(array (
+			"PROFILE_ITEMS_LINK" => navButtonTag ('profile_items_link',"Profile Items Listing","profile_items.php?artistid=".$_GET['ID'],"admin_action_save_and_add"),
+			"GALLERY_EVENT_LINK" => navButtonTag ('gal_event',"Galley Event","gallery_event.php?artistid=".$_GET['ID'],"admin_action_save_and_add"),
+			"GALLERY_PHOTO_LINK" => navButtonTag ('gallery_photo',"Galley Photo","gallery_photo.php?artistid=".$_GET['ID'],"admin_action_save_and_add"),
 			"GENDER_OPTION" => radioTag ('gender',$GenderOption,$artist->getGender()),
 			"LANG_OPTION" => radioTag ('lang',$LangOption,$artist->getLang()),
 			"IMAGES_FILE" => fileTag ('image',$artist->getImage())
@@ -175,6 +183,7 @@ class Artist extends Actions
 		{
 			unlink($UploadDir.$_POST['image_old']);
 			$artist->setImage("");
+			$artist->setImageStatus('deleted');
 		}
 		
 		if($_FILES['image']['name'])
@@ -195,6 +204,7 @@ class Artist extends Actions
 				}
 				$real = $file->getProp('real');
 				$artist->setImage($dest_name);
+				$artist->setImageStatus('new');
 			} 
 			elseif ($file->isError()) 
 			{
@@ -202,7 +212,7 @@ class Artist extends Actions
 			}			
 		}
 
-		$artist->setLastUpdated(time());
+		$artist->setLastUpdated(DB_DataObject_Cast::dateTime());
 		$artist->update($original);
 
 		$this->forward('artist.php');

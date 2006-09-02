@@ -5,7 +5,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: Init.php,v 1.6 2006/09/01 10:48:12 arzen Exp $
+ * @version    CVS: $Id: Init.php,v 1.7 2006/09/02 10:33:30 arzen Exp $
  */
 $RootDir = dirname(__FILE__)."/"; 
 $ConfigDir = $RootDir."Config/";
@@ -32,6 +32,7 @@ include_once($ClassDir."FormObject.php");
 include_once("PEAR.php");
 include_once("DB.php");
 include_once("DB/DataObject.php");
+include_once("DB/DataObject/Cast.php");
 include_once("HTML/Template/PHPLIB.php");
 
 $UploadDir = $RootDir.$Upload_Dir;
