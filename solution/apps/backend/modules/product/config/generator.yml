@@ -3,3 +3,33 @@ generator:
   param:
     model_class:      Product
     theme:            default
+    fields:
+      name: { name: 名称 }
+      category: { name: 分类 }
+      product_category_list: { name: 分类 }
+      price: { name: 价格 }
+      company_list: { name: 公司 }
+      company_id: { name: 公司 }
+      memo: { name: 备注 }
+      photo: { name: 图片 }
+      active: { name: 激活 }
+      active_list: { name: 激活 }
+    list:
+      tab_bar: list_tab
+      max_per_page:   5
+      title:          产品列表
+      display: [_product_category_list, name, _company_list, price, _active_list ]
+      sort: [created_at, desc]
+      object_actions:
+        _edit:        -
+        _delete:      -
+    edit:
+      tab_bar: edit_tab
+      title:          编辑产品%%name%%
+      display: [category, name, price, memo, photo, company_id, active ]     
+      fields:
+          active: { type: radiobutton_tag, params: text_options=是:否 value_options=y:n  }
+          category: { type: select_tag, params: selected=selected text_method=getCategoryName related_class=ProductCategory include_custom=无  }
+          company_id: { type: select_tag, params: multiple=true  selected=selected text_method=getName related_class=Company size=10  }
+          photo: { type: admin_input_upload_tag, params: include_text=点击查看 include_link=./ include_remove=true }
+    

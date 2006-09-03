@@ -8,6 +8,7 @@ generator:
       active: { name: 激活 }
     list:
       tab_bar: list_tab
+      display: [=category_name, _active_list ]
       max_per_page:   5
       title:          产品分类列表
       object_actions:

@@ -3,3 +3,15 @@ generator:
   param:
     model_class:      Company
     theme:            default
+    list:
+      tab_bar: list_tab
+      max_per_page:   5
+      title:          企业列表
+      sort: [created_at, desc]
+      object_actions:
+        _edit:        -
+        _delete:      -
+    edit:
+      tab_bar: edit_tab
+      title:          编辑企业%%name%%
+    
