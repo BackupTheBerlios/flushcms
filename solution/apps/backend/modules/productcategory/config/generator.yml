@@ -3,3 +3,20 @@ generator:
   param:
     model_class:      ProductCategory
     theme:            default
+    fields:
+      category_name: { name: 分类名称 }
+      active: { name: 激活 }
+    list:
+      tab_bar: list_tab
+      max_per_page:   5
+      title:          产品分类列表
+      object_actions:
+        _edit:        -
+        _delete:      -
+    edit:
+      tab_bar: edit_tab
+      title:          编辑产品%%category_name%%分类
+      display:     [category_name, active ]
+      fields:
+          active: { type: radiobutton_tag, params: text_options=是:否 value_options=1:2 value=1  }
+    
