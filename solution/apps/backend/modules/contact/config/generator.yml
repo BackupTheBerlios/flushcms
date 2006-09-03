@@ -8,10 +8,25 @@ generator:
       active: { name: 激活 }
     list:
       tab_bar: list_tab
+      display: [category, name, gender, birthday, phone ]
+      params:         %%=category%% (sent by %%name%% on %%birthday%% about %%phone%%)
+      max_per_page:   5
+      title:          联系人列表
+      sort: [created_at, desc]
+      fields:
+         birthday: { params: date_format='yyyy-MM-dd' }
+      object_actions:
+        _edit:        -
+        _delete:      -
     edit:
       tab_bar: edit_tab
       title:          编辑联系人%%name%%
-      display:     [name, active ]
+      display:     
+          "基本信息": [category, name, gender, office_phone, phone, fax ]
+          "联系信息": [birthday, email, photo, homepage, active]
       fields:
           active: { type: radiobutton_tag, params: text_options=是:否 value_options=y:n  }
+          gender: { type: radiobutton_tag, params: text_options=男:女 value_options=m:f  }
+          category: { type: select_tag, params: selected=selected text_method=getCategoryName related_class=ContactCategory include_custom=无  }
+          photo: { type: admin_input_upload_tag, params: include_text=点击查看 include_link=./ include_remove=true }
     

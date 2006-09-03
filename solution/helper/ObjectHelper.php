@@ -16,7 +16,7 @@ require_once(sfConfig::get('sf_symfony_lib_dir').'/helper/FormHelper.php');
  * @package    symfony
  * @subpackage helper
  * @author     Fabien Potencier <fabien.potencier@symfony-project.com>
- * @version    SVN: $Id: ObjectHelper.php,v 1.2 2006/08/28 23:27:32 arzen Exp $
+ * @version    SVN: $Id: ObjectHelper.php,v 1.3 2006/09/03 08:15:45 arzen Exp $
  */
 
 /**
@@ -115,7 +115,7 @@ function object_select_tag($object, $method, $options = array(), $default_value 
   }
   unset($options['related_class']);
 
-  $select_options = _get_values_for_object_select_tag($object, $related_class);
+  $select_options = _get_values_for_object_select_tag($object, $related_class,$options['text_method']);
 
   if (isset($options['include_custom']))
   {
@@ -134,12 +134,13 @@ function object_select_tag($object, $method, $options = array(), $default_value 
   }
 
   $value = _get_object_value($object, $method, $default_value);
+  
   $option_tags = options_for_select($select_options, $value, $options);
 
   return select_tag(_convert_method_to_name($method, $options), $option_tags, $options);
 }
 
-function _get_values_for_object_select_tag($object, $class)
+function _get_values_for_object_select_tag($object, $class,$text_method="")
 {
   // FIXME: drop Propel dependency
 
@@ -162,7 +163,7 @@ function _get_values_for_object_select_tag($object, $class)
         break;
       }
     }
-
+	$methodToCall = $text_method?$text_method:$methodToCall;
     // construct select option list
     foreach ($objects as $tmp_object)
     {

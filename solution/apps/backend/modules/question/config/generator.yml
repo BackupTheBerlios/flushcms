@@ -25,7 +25,7 @@ generator:
     edit:
       tab_bar: edit_tab
       title:          ±‡º≠Œ Ã‚%%question%%
-      display:     [question, _question_category, _active ]
+      display:     [_question_category, question, _active ]
       fields:
-          question: { type: textarea_tag, params: rich=true tinymce_options=width:100% tinymce_options=height:350 size=120 }
+          question: { type: textarea_tag, params: rich=true tinymce_options=width:100% tinymce_options=height:350 size=80 }
     
