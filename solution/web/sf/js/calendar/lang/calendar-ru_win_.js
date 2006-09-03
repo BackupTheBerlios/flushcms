@@ -11,14 +11,14 @@
 
 // full day names
 Calendar._DN = new Array
-("воскресенье",
- "понедельник",
- "вторник",
- "среда",
- "четверг",
- "пятница",
- "суббота",
- "воскресенье");
+("воскресень?",
+ "понедельни?",
+ "вторни?",
+ "сред?",
+ "четвер?",
+ "??тниц?",
+ "суббот?",
+ "воскресень?");
 
 // Please note that the following array of short day names (and the same goes
 // for short month names, _SMN) isn't absolutely necessary.  We give it here
@@ -34,48 +34,48 @@ Calendar._DN = new Array
 
 // short day names
 Calendar._SDN = new Array
-("вск",
- "пон",
- "втр",
- "срд",
- "чет",
- "пят",
- "суб",
- "вск");
+("вс?",
+ "по?",
+ "вт?",
+ "ср?",
+ "че?",
+ "???",
+ "су?",
+ "вс?");
 
 // full month names
 Calendar._MN = new Array
-("январь",
- "февраль",
+("?нвар?",
+ "феврал?",
  "март",
  "апрель",
- "май",
+ "ма?",
  "июнь",
  "июль",
  "август",
- "сентябрь",
- "октябрь",
- "ноябрь",
- "декабрь");
+ "сент?бр?",
+ "ок??бр?",
+ "но?бр?",
+ "декабр?");
 
 // short month names
 Calendar._SMN = new Array
-("янв",
- "фев",
- "мар",
- "апр",
- "май",
- "июн",
- "июл",
- "авг",
- "сен",
- "окт",
- "ноя",
- "дек");
+("?нв",
+ "фе?",
+ "ма?",
+ "ап?",
+ "ма?",
+ "ию?",
+ "ию?",
+ "ав?",
+ "се?",
+ "ок?",
+ "но?",
+ "де?");
 
 // tooltips
 Calendar._TT = {};
-Calendar._TT["INFO"] = "О календаре...";
+Calendar._TT["INFO"] = "? календар?...";
 
 Calendar._TT["ABOUT"] =
 "DHTML Date/Time Selector\n" +
@@ -83,41 +83,41 @@ Calendar._TT["ABOUT"] =
 "For latest version visit: http://www.dynarch.com/projects/calendar/\n" +
 "Distributed under GNU LGPL.  See http://gnu.org/licenses/lgpl.html for details." +
 "\n\n" +
-"Как выбрать дату:\n" +
-"- При помощи кнопок \xab, \xbb можно выбрать год\n" +
-"- При помощи кнопок " + String.fromCharCode(0x2039) + ", " + String.fromCharCode(0x203a) + " можно выбрать месяц\n" +
-"- Подержите эти кнопки нажатыми, чтобы появилось меню быстрого выбора.";
+"Ка? выбрат? дату:\n" +
+"- Пр? помощи кнопок \xab, \xbb можн? выбрат? год\n" +
+"- Пр? помощи кнопок " + String.fromCharCode(0x2039) + ", " + String.fromCharCode(0x203a) + " можн? выбрат? ме??ц\n" +
+"- Подержит? эт? кнопки нажатыми, чтоб? по?вилось меню быстрого выбора.";
 Calendar._TT["ABOUT_TIME"] = "\n\n" +
-"Как выбрать время:\n" +
-"- При клике на часах или минутах они увеличиваются\n" +
-"- при клике с нажатой клавишей Shift они уменьшаются\n" +
-"- если нажать и двигать мышкой влево/вправо, они будут меняться быстрее.";
+"Ка? выбрат? врем?:\n" +
+"- Пр? клик? на часа? ил? минута? он? увеличиваютс?\n" +
+"- пр? клик? ? нажато? клавишей Shift он? уменьшаютс?\n" +
+"- если нажать ? двигат? мышкой влев?/вправо, он? буду? ме??ть?? быстре?.";
 
-Calendar._TT["PREV_YEAR"] = "На год назад (удерживать для меню)";
-Calendar._TT["PREV_MONTH"] = "На месяц назад (удерживать для меню)";
-Calendar._TT["GO_TODAY"] = "Сегодня";
-Calendar._TT["NEXT_MONTH"] = "На месяц вперед (удерживать для меню)";
-Calendar._TT["NEXT_YEAR"] = "На год вперед (удерживать для меню)";
+Calendar._TT["PREV_YEAR"] = "На го? наза? (удерживать дл? меню)";
+Calendar._TT["PREV_MONTH"] = "На ме??? наза? (удерживать дл? меню)";
+Calendar._TT["GO_TODAY"] = "Сегодн?";
+Calendar._TT["NEXT_MONTH"] = "На ме??? вперед (удерживать дл? меню)";
+Calendar._TT["NEXT_YEAR"] = "На го? вперед (удерживать дл? меню)";
 Calendar._TT["SEL_DATE"] = "Выберите дату";
 Calendar._TT["DRAG_TO_MOVE"] = "Перетаскивайте мышкой";
-Calendar._TT["PART_TODAY"] = " (сегодня)";
+Calendar._TT["PART_TODAY"] = " (сегодн?)";
 
 // the following is to inform that "%s" is to be the first day of week
 // %s will be replaced with the day name.
-Calendar._TT["DAY_FIRST"] = "Первый день недели будет %s";
+Calendar._TT["DAY_FIRST"] = "Первый день недели буде? %s";
 
 // This may be locale-dependent.  It specifies the week-end days, as an array
 // of comma-separated numbers.  The numbers are from 0 to 6: 0 means Sunday, 1
 // means Monday, etc.
 Calendar._TT["WEEKEND"] = "0,6";
 
-Calendar._TT["CLOSE"] = "Закрыть";
-Calendar._TT["TODAY"] = "Сегодня";
-Calendar._TT["TIME_PART"] = "(Shift-)клик или нажать и двигать";
+Calendar._TT["CLOSE"] = "Закрыт?";
+Calendar._TT["TODAY"] = "Сегодн?";
+Calendar._TT["TIME_PART"] = "(Shift-)клик ил? нажать ? двигат?";
 
 // date formats
 Calendar._TT["DEF_DATE_FORMAT"] = "%Y-%m-%d";
 Calendar._TT["TT_DATE_FORMAT"] = "%e %b, %a";
 
-Calendar._TT["WK"] = "нед";
-Calendar._TT["TIME"] = "Время:";
+Calendar._TT["WK"] = "не?";
+Calendar._TT["TIME"] = "Врем?:";

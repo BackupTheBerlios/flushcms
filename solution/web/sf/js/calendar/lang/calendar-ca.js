@@ -47,7 +47,7 @@ Calendar._SDN = new Array
 Calendar._MN = new Array
 ("Gener",
  "Febrer",
- "Març",
+ "Mar?",
  "Abril",
  "Maig",
  "Juny",
@@ -83,15 +83,15 @@ Calendar._TT["ABOUT"] =
 "For latest version visit: http://www.dynarch.com/projects/calendar/\n" +
 "Distributed under GNU LGPL.  See http://gnu.org/licenses/lgpl.html for details." +
 "\n\n" +
-"Sel.lecció de Dates:\n" +
+"Sel.lecci? de Dates:\n" +
 "- Fes servir els botons \xab, \xbb per sel.leccionar l'any\n" +
 "- Fes servir els botons " + String.fromCharCode(0x2039) + ", " + String.fromCharCode(0x203a) + " per se.lecciconar el mes\n" +
-"- Manté el ratolí apretat en qualsevol dels anteriors per sel.lecció ràpida.";
+"- Mant? el ratol? apretat en qualsevol dels anteriors per sel.lecci? ràpida.";
 Calendar._TT["ABOUT_TIME"] = "\n\n" +
 "Time selection:\n" +
 "- claca en qualsevol de les parts de la hora per augmentar-les\n" +
 "- o Shift-click per decrementar-la\n" +
-"- or click and arrastra per sel.lecció ràpida.";
+"- or click and arrastra per sel.lecci? ràpida.";
 
 Calendar._TT["PREV_YEAR"] = "Any anterior (Mantenir per menu)";
 Calendar._TT["PREV_MONTH"] = "Mes anterior (Mantenir per menu)";

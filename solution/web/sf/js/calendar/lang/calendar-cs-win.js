@@ -7,10 +7,10 @@
 */
 
 // ** I18N
-Calendar._DN  = new Array('Nedìle','Pondìlí','Úterı','Støeda','Ètvrtek','Pátek','Sobota','Nedìle');
-Calendar._SDN = new Array('Ne','Po','Út','St','Èt','Pá','So','Ne');
-Calendar._MN  = new Array('Leden','Únor','Bøezen','Duben','Kvìten','Èerven','Èervenec','Srpen','Záøí','Øíjen','Listopad','Prosinec');
-Calendar._SMN = new Array('Led','Úno','Bøe','Dub','Kvì','Èrv','Èvc','Srp','Záø','Øíj','Lis','Pro');
+Calendar._DN  = new Array('Nedìle','Pondìl?','Úter?','Støeda','Ètvrtek','Pátek','Sobota','Nedìle');
+Calendar._SDN = new Array('Ne','Po','Út','St','Èt','P?','So','Ne');
+Calendar._MN  = new Array('Leden','Únor','Bøezen','Duben','Kvìten','Èerven','Èervenec','Srpen','Záø?','Øíjen','Listopad','Prosinec');
+Calendar._SMN = new Array('Led','Úno','Bøe','Dub','Kv?','Èrv','Èvc','Srp','Záø','Øíj','Lis','Pro');
 
 // First day of the week. "0" means display Sunday first, "1" means display
 // Monday first, etc.
@@ -18,24 +18,24 @@ Calendar._FD = 0;
 
 // tooltips
 Calendar._TT = {};
-Calendar._TT["INFO"] = "O komponentì kalendáø";
+Calendar._TT["INFO"] = "O komponent? kalendáø";
 Calendar._TT["TOGGLE"] = "Zmìna prvního dne v tıdnu";
-Calendar._TT["PREV_YEAR"] = "Pøedchozí rok (pøidr pro menu)";
-Calendar._TT["PREV_MONTH"] = "Pøedchozí mìsíc (pøidr pro menu)";
-Calendar._TT["GO_TODAY"] = "Dnešní datum";
-Calendar._TT["NEXT_MONTH"] = "Další mìsíc (pøidr pro menu)";
-Calendar._TT["NEXT_YEAR"] = "Další rok (pøidr pro menu)";
+Calendar._TT["PREV_YEAR"] = "Pøedchoz? rok (pøidr? pro menu)";
+Calendar._TT["PREV_MONTH"] = "Pøedchoz? mìsíc (pøidr? pro menu)";
+Calendar._TT["GO_TODAY"] = "Dnešn? datum";
+Calendar._TT["NEXT_MONTH"] = "Další mìsíc (pøidr? pro menu)";
+Calendar._TT["NEXT_YEAR"] = "Další rok (pøidr? pro menu)";
 Calendar._TT["SEL_DATE"] = "Vyber datum";
-Calendar._TT["DRAG_TO_MOVE"] = "Chy a táhni, pro pøesun";
+Calendar._TT["DRAG_TO_MOVE"] = "Chy? a táhni, pro pøesun";
 Calendar._TT["PART_TODAY"] = " (dnes)";
-Calendar._TT["MON_FIRST"] = "Uka jako první Pondìlí";
-//Calendar._TT["SUN_FIRST"] = "Uka jako první Nedìli";
+Calendar._TT["MON_FIRST"] = "Uka? jako prvn? Pondìl?";
+//Calendar._TT["SUN_FIRST"] = "Uka? jako prvn? Nedìli";
 
 Calendar._TT["ABOUT"] =
 "DHTML Kalendáø\n" +
 "(c) dynarch.com 2002-2005 / Autor: Mihai Bazon\n" + // don't translate this this ;-)
-"Aktuální verzi najdete na: http://www.dynarch.com/projects/calendar/\n" +
-"Distribuováno pod licencí GNU LGPL.  Viz. http://gnu.org/licenses/lgpl.html" +
+"Aktuáln? verzi najdete na: http://www.dynarch.com/projects/calendar/\n" +
+"Distribuováno pod licenc? GNU LGPL.  Viz. http://gnu.org/licenses/lgpl.html" +
 "\n\n" +
 "Vıbìr datumu:\n" +
 "- Pouijte \xab, \xbb tlaèítka k vıbìru roku\n" +
@@ -44,13 +44,13 @@ Calendar._TT["ABOUT"] =
 
 Calendar._TT["ABOUT_TIME"] = "\n\n" +
 "Vıbìr èasu:\n" +
-"- Kliknìte na jakoukoliv z èástí vıbìru èasu pro zvıšení.\n" +
+"- Kliknìte na jakoukoliv z èást? vıbìru èasu pro zvıšen?.\n" +
 "- nebo Shift-click pro sníení\n" +
 "- nebo kliknìte a táhnìte pro rychlejší vıbìr.";
 
 // the following is to inform that "%s" is to be the first day of week
 // %s will be replaced with the day name.
-Calendar._TT["DAY_FIRST"] = "Zobraz %s první";
+Calendar._TT["DAY_FIRST"] = "Zobraz %s prvn?";
 
 // This may be locale-dependent.  It specifies the week-end days, as an array
 // of comma-separated numbers.  The numbers are from 0 to 6: 0 means Sunday, 1

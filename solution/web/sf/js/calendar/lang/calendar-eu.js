@@ -1,4 +1,4 @@
-ï»¿// ** I18N
+ï»?// ** I18N
 
 // Calendar EU (basque) language
 // Author: Xabier Bayon <admin@gaztesarea.net>

@@ -104,7 +104,7 @@ Calendar._TT["PART_TODAY"] = " (ðodien)";
 
 // the following is to inform that "%s" is to be the first day of week
 // %s will be replaced with the day name.
-Calendar._TT["DAY_FIRST"] = "Attçlot %s kâ pirmo";
+Calendar._TT["DAY_FIRST"] = "Attçlot %s k? pirmo";
 
 // This may be locale-dependent.  It specifies the week-end days, as an array
 // of comma-separated numbers.  The numbers are from 0 to 6: 0 means Sunday, 1

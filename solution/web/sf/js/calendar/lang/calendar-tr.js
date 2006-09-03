@@ -15,7 +15,7 @@
 Calendar._DN = new Array
 ("Pazar",
  "Pazartesi",
- "Salý",
+ "Sal?",
  "Çarþamba",
  "Perþembe",
  "Cuma",
@@ -37,12 +37,12 @@ Calendar._MN = new Array
 
 // tooltips
 Calendar._TT = {};
-Calendar._TT["TOGGLE"] = "Haftanýn ilk gününü kaydýr";
-Calendar._TT["PREV_YEAR"] = "Önceki Yýl (Menü için basýlý tutunuz)";
-Calendar._TT["PREV_MONTH"] = "Önceki Ay (Menü için basýlý tutunuz)";
+Calendar._TT["TOGGLE"] = "Haftanýn ilk günün? kaydýr";
+Calendar._TT["PREV_YEAR"] = "Önceki Yýl (Men? için basýl? tutunuz)";
+Calendar._TT["PREV_MONTH"] = "Önceki Ay (Men? için basýl? tutunuz)";
 Calendar._TT["GO_TODAY"] = "Bugün'e git";
-Calendar._TT["NEXT_MONTH"] = "Sonraki Ay (Menü için basýlý tutunuz)";
-Calendar._TT["NEXT_YEAR"] = "Sonraki Yýl (Menü için basýlý tutunuz)";
+Calendar._TT["NEXT_MONTH"] = "Sonraki Ay (Men? için basýl? tutunuz)";
+Calendar._TT["NEXT_YEAR"] = "Sonraki Yýl (Men? için basýl? tutunuz)";
 Calendar._TT["SEL_DATE"] = "Tarih seçiniz";
 Calendar._TT["DRAG_TO_MOVE"] = "Taþýmak için sürükleyiniz";
 Calendar._TT["PART_TODAY"] = " (bugün)";

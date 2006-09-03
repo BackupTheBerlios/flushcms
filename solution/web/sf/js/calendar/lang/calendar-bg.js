@@ -12,14 +12,14 @@
 
 // full day names
 Calendar._DN = new Array
-("Неделя",
+("Неде??",
  "Понеделник",
- "Вторник",
- "Сряда",
- "Четвъртък",
- "Петък",
+ "Вторни?",
+ "Ср?да",
+ "Четвъртъ?",
+ "Петъ?",
  "Събота",
- "Неделя");
+ "Неде??");
 
 // Please note that the following array of short day names (and the same goes
 // for short month names, _SMN) isn't absolutely necessary.  We give it here
@@ -35,48 +35,48 @@ Calendar._DN = new Array
 
 // short day names
 Calendar._SDN = new Array
-("Нед",
- "Пон",
- "Вто",
- "Сря",
- "Чет",
- "Пет",
- "Съб",
- "Нед");
+("Не?",
+ "По?",
+ "Вт?",
+ "Ср?",
+ "Че?",
+ "Пе?",
+ "Съ?",
+ "Не?");
 
 // full month names
 Calendar._MN = new Array
 ("Януари",
  "Февруари",
  "Март",
- "Април",
- "Май",
- "Юни",
- "Юли",
+ "Апри?",
+ "Ма?",
+ "Юн?",
+ "Юл?",
  "Август",
- "Септември",
+ "Септемвр?",
  "Октомври",
- "Ноември",
+ "Ноемвр?",
  "Декември");
 
 // short month names
 Calendar._SMN = new Array
-("Яну",
- "Фев",
- "Мар",
- "Апр",
- "Май",
- "Юни",
- "Юли",
- "Авг",
- "Сеп",
- "Окт",
- "Ное",
- "Дек");
+("Ян?",
+ "Фе?",
+ "Ма?",
+ "Ап?",
+ "Ма?",
+ "Юн?",
+ "Юл?",
+ "Ав?",
+ "Се?",
+ "Ок?",
+ "Но?",
+ "Де?");
 
 // tooltips
 Calendar._TT = {};
-Calendar._TT["INFO"] = "Информация за календара";
+Calendar._TT["INFO"] = "Информац?? за календар?";
 
 Calendar._TT["ABOUT"] =
 "DHTML Date/Time Selector\n" +
@@ -95,30 +95,30 @@ Calendar._TT["ABOUT_TIME"] = "\n\n" +
 "- or click and drag for faster selection.";
 
 Calendar._TT["PREV_YEAR"] = "Предна година (задръжте за меню)";
-Calendar._TT["PREV_MONTH"] = "Преден месец (задръжте за меню)";
+Calendar._TT["PREV_MONTH"] = "Преден месе? (задръжте за меню)";
 Calendar._TT["GO_TODAY"] = "Изберете днес";
-Calendar._TT["NEXT_MONTH"] = "Следващ месец (задръжте за меню)";
+Calendar._TT["NEXT_MONTH"] = "Следва? месе? (задръжте за меню)";
 Calendar._TT["NEXT_YEAR"] = "Следваща година (задръжте за меню)";
 Calendar._TT["SEL_DATE"] = "Изберете дата";
-Calendar._TT["DRAG_TO_MOVE"] = "Преместване";
+Calendar._TT["DRAG_TO_MOVE"] = "Преместван?";
 Calendar._TT["PART_TODAY"] = " (днес)";
 
 // the following is to inform that "%s" is to be the first day of week
 // %s will be replaced with the day name.
-Calendar._TT["DAY_FIRST"] = "%s като първи ден";
+Calendar._TT["DAY_FIRST"] = "%s като първ? де?";
 
 // This may be locale-dependent.  It specifies the week-end days, as an array
 // of comma-separated numbers.  The numbers are from 0 to 6: 0 means Sunday, 1
 // means Monday, etc.
 Calendar._TT["WEEKEND"] = "0,6";
 
-Calendar._TT["CLOSE"] = "Затворете";
+Calendar._TT["CLOSE"] = "Затворет?";
 Calendar._TT["TODAY"] = "Днес";
-Calendar._TT["TIME_PART"] = "(Shift-)Click или drag за да промените стойността";
+Calendar._TT["TIME_PART"] = "(Shift-)Click ил? drag за да променит? стойността";
 
 // date formats
 Calendar._TT["DEF_DATE_FORMAT"] = "%Y-%m-%d";
 Calendar._TT["TT_DATE_FORMAT"] = "%A - %e %B %Y";
 
 Calendar._TT["WK"] = "Седм";
-Calendar._TT["TIME"] = "Час:";
+Calendar._TT["TIME"] = "Ча?:";

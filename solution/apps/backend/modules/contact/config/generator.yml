@@ -5,10 +5,20 @@ generator:
     theme:            default
     fields:
       name: { name: 名称 }
+      category: { name: 分类 }
+      contact_category_list: { name: 分类 }
+      gender: { name: 性别 }
+      gender_list: { name: 性别 }
+      birthday: { name: 生日 }
+      phone: { name: 电话 }
+      office_phone: { name: 公司电话 }
+      fax: { name: 传真 }
+      photo: { name: 图片 }
+      homepage: { name: 主页 }
       active: { name: 激活 }
     list:
       tab_bar: list_tab
-      display: [category, name, gender, birthday, phone ]
+      display: [_contact_category_list, name, _gender_list, birthday, phone ]
       params:         %%=category%% (sent by %%name%% on %%birthday%% about %%phone%%)
       max_per_page:   5
       title:          联系人列表

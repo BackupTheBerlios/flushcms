@@ -39,7 +39,7 @@ Calendar._SDN = new Array
 ("Dom",
  "Lun",
  "Mar",
- "Mié",
+ "Mi?",
  "Jue",
  "Vie",
  "Sáb",
@@ -99,11 +99,11 @@ Calendar._TT["ABOUT_TIME"] = "\n\n" +
 "- o pulse las mayúsculas mientras hace clic para decrementarla\n" +
 "- o haga clic y arrastre el ratón para una selección más rápida.";
 
-Calendar._TT["PREV_YEAR"] = "Año anterior (mantener para menú)";
-Calendar._TT["PREV_MONTH"] = "Mes anterior (mantener para menú)";
+Calendar._TT["PREV_YEAR"] = "Año anterior (mantener para men?)";
+Calendar._TT["PREV_MONTH"] = "Mes anterior (mantener para men?)";
 Calendar._TT["GO_TODAY"] = "Ir a hoy";
-Calendar._TT["NEXT_MONTH"] = "Mes siguiente (mantener para menú)";
-Calendar._TT["NEXT_YEAR"] = "Año siguiente (mantener para menú)";
+Calendar._TT["NEXT_MONTH"] = "Mes siguiente (mantener para men?)";
+Calendar._TT["NEXT_YEAR"] = "Año siguiente (mantener para men?)";
 Calendar._TT["SEL_DATE"] = "Seleccionar fecha";
 Calendar._TT["DRAG_TO_MOVE"] = "Arrastrar para mover";
 Calendar._TT["PART_TODAY"] = " (hoy)";

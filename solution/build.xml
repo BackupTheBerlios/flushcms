@@ -428,6 +428,7 @@
   	      <include name="web/css/**"/>
     	  <include name="web/images/**"/>
     	  <include name="web/js/**"/>
+      	  <include name="web/sf/**"/>
   	    </fileset>
   	  </copy>
     	<copy todir="${dir.cvsdev}" >

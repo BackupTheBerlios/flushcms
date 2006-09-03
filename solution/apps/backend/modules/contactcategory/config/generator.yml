@@ -20,5 +20,5 @@ generator:
       title:          编辑联系人%%category_name%%分类
       display:     [category_name, active ]
       fields:
-          active: { type: radiobutton_tag, params: text_options=是:否 value_options=1:2  }
+          active: { type: radiobutton_tag, params: text_options=是:否 value_options=1:2 value=1  }
     

@@ -5,6 +5,7 @@ a img,:link img,:visited img { border: none; }
 a:link, a:visited
 {
   text-decoration: none;
+  font-size: 14px;
 }
 
 a:hover
@@ -15,10 +16,8 @@ a:hover
 body, td
 {
   margin: 0;
-  padding: 20px;
   font-family: Arial, sans-serif;
-  font-size: 11px;
-  background-color: #fff;
+  font-size: 14px;
 }
 
 p
@@ -34,10 +33,6 @@ p
   width: 250px;
 }
 
-#sf_admin_content
-{
-  margin-right: 270px;
-}
 
 h1
 {
@@ -45,7 +40,7 @@ h1
   padding: 3px;
   padding-left: 5px;
   color: #555;
-  font-size: 16px;
+  font-size: 14px;
   border: 1px solid #ddd;
   border-left: 4px solid #66f;
   background-color: #ffc;
@@ -56,14 +51,14 @@ fieldset h2
   padding: 3px;
   color: #333;
   background-color: #ccf;
-  font-size: 11px;
+  font-size: 14px;
 }
 
 input, textarea, select
 {
   padding: 3px;
   font-family: Arial, sans-serif;
-  font-size: 11px;
+  font-size: 14px;
   border: 1px solid #ddd;
   vertical-align:middle;
 }
@@ -94,7 +89,7 @@ label.required
 .save-ok h2
 {
   padding: 5px 20px 5px 25px;
-  font-size: 11px;
+  font-size: 14px;
   color: #fff;
   background: #73B65A url(/sf/images/sf_admin/ok.png) no-repeat 5px 2px;
 }
@@ -104,6 +99,7 @@ label.required
   clear: both;
   padding: 10px;
   border-bottom: 1px solid #ddd;
+  font-size: 14px;
 }
 
 .form-row .content
@@ -121,7 +117,7 @@ label.required
 .form-errors h2
 {
   padding: 5px 20px 5px 25px;
-  font-size: 11px;
+  font-size: 14px;
   color: #fff;
   background: #f33 url(/sf/images/sf_admin/error.png) no-repeat 5px 2px;
 }
@@ -205,7 +201,7 @@ ul.sf_admin_actions input
 {
   padding: 3px 3px 3px 20px;
   color: #333;
-  font-size: 11px;
+  font-size: 14px;
   font-family: Arial, sans-serif;
   border: 0px;
   border-right: 4px solid #999;
@@ -281,6 +277,7 @@ ul.sf_admin_actions input
   padding: 2px;
   background-color: #ccf;
   text-align: left;
+  font-size: 14px;
 }
 
 .sf_admin_list th a
@@ -302,12 +299,13 @@ ul.sf_admin_actions input
 
 .sf_admin_row_0 td
 {
-  
+  font-size: 14px;
 }
 
 .sf_admin_row_1 td
 {
   background-color: #eef;
+  font-size: 14px;
 }
 
 .sf_admin_edit_help
