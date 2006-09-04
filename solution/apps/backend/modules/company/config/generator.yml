@@ -3,10 +3,27 @@ generator:
   param:
     model_class:      Company
     theme:            default
+    fields:
+      name: { name: 名称 }
+      addrees: { name: 地址 }
+      phone: { name: 电话 }
+      fax: { name: 传真 }
+      photo: { name: 图片 }
+      homepage: { name: 主页 }
+      employee: { name: 雇员人数 }
+      bankroll: { name: 注册资金 }
+      link_man: { name: 联系人 }
+      incorporator: { name: 法人代表 }
+      industry: { name: 所属行业 }
+      products: { name: 主要产品 }
+      memo: { name: 备注 }
+      active: { name: 激活 }
     list:
       tab_bar: list_tab
       max_per_page:   5
       title:          企业列表
+      display: [name, phone, fax, link_man, incorporator, addrees ]
+      max_per_page:   5
       sort: [created_at, desc]
       object_actions:
         _edit:        -
@@ -14,4 +31,11 @@ generator:
     edit:
       tab_bar: edit_tab
       title:          编辑企业%%name%%
+      display:     
+          "基本信息": [name, phone, fax, link_man, incorporator, addrees ]
+          "其它信息": [employee, bankroll, industry, products, memo, homepage, photo, active]
+      fields:
+          active: { type: radiobutton_tag, params: text_options=是:否 value_options=1:2 default_value=1  }
+          photo: { type: admin_input_upload_tag, params: include_text=点击查看 include_link=./ include_remove=true }
+          
     

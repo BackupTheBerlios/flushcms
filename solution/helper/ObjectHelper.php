@@ -16,7 +16,7 @@ require_once(sfConfig::get('sf_symfony_lib_dir').'/helper/FormHelper.php');
  * @package    symfony
  * @subpackage helper
  * @author     Fabien Potencier <fabien.potencier@symfony-project.com>
- * @version    SVN: $Id: ObjectHelper.php,v 1.3 2006/09/03 08:15:45 arzen Exp $
+ * @version    SVN: $Id: ObjectHelper.php,v 1.4 2006/09/04 05:13:00 arzen Exp $
  */
 
 /**
@@ -265,6 +265,10 @@ function object_radiobutton_tag($object, $method, $options = array(), $default_v
   $radionbutton_name = _convert_method_to_name($method, $options);
   unset ($options['text_options'],$options['value_options']);
   $value = _get_object_value($object, $method, $default_value);
+  if ($value=="") 
+  {
+		$value = $options['default_value'];
+  }
   foreach($text_options as $key=>$text)
   {
   	$radiobuttons_html.=radiobutton_tag($radionbutton_name, $value_options[$key], ($value_options[$key]==$value)?true:false , $options).$text;
