@@ -28,7 +28,7 @@ generator:
       title:          编辑产品%%name%%
       display: [category, name, price, memo, photo, company_id, active ]     
       fields:
-          active: { type: radiobutton_tag, params: text_options=是:否 value_options=y:n  }
+          active: { type: radiobutton_tag, params: text_options=是:否 value_options=1:2 default_value=1  }
           category: { type: select_tag, params: selected=selected text_method=getCategoryName related_class=ProductCategory include_custom=无  }
           company_id: { type: select_tag, params: multiple=true  selected=selected text_method=getName related_class=Company size=10  }
           photo: { type: admin_input_upload_tag, params: include_text=点击查看 include_link=./ include_remove=true }

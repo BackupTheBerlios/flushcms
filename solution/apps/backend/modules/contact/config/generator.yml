@@ -35,7 +35,7 @@ generator:
           "基本信息": [category, name, gender, office_phone, phone, fax ]
           "联系信息": [birthday, email, photo, homepage, active]
       fields:
-          active: { type: radiobutton_tag, params: text_options=是:否 value_options=y:n  }
+          active: { type: radiobutton_tag, params: text_options=是:否 value_options=1:2 default_value=1  }
           gender: { type: radiobutton_tag, params: text_options=男:女 value_options=m:f  }
           category: { type: select_tag, params: selected=selected text_method=getCategoryName related_class=ContactCategory include_custom=无  }
           photo: { type: admin_input_upload_tag, params: include_text=点击查看 include_link=./ include_remove=true }
