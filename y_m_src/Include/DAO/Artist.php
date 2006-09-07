@@ -524,4 +524,11 @@ class DaoArtist extends DB_DataObject
     {
         return empty($this->artistname)?false:true;
     }
+    
+    function validateInitial()
+    {
+        return (strlen($this->initial)>4)?false:true;
+    }
+    
+    
 }

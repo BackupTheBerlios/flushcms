@@ -5,12 +5,12 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: Init.php,v 1.7 2006/09/02 10:33:30 arzen Exp $
+ * @version    CVS: $Id: Init.php,v 1.8 2006/09/07 05:29:26 arzen Exp $
  */
 $RootDir = dirname(__FILE__)."/"; 
 $ConfigDir = $RootDir."Config/";
 $IncludeDir = $RootDir."Include/";
-$Template = "Template/";
+$TemplateDir = "Template/";
 $ModuleDir = $RootDir."Module/";
 $ClassDir = $RootDir."Class/";
 
@@ -48,7 +48,7 @@ $opts = array(
     'class_location'  => $IncludeDir.'DAO/',
     'class_prefix'    => 'Dao'
 );
-$template = new Template_PHPLIB($Template);
+$template = new Template_PHPLIB($TemplateDir);
 $template->setFile(array(
      "Page" => "page.html",
      "Header" => "header.html",
@@ -59,8 +59,8 @@ $template->setBlock("Header", "header");
  
 $template->setVar(array (
 	"Title" => $Site_Title,
-	"ImagesDir" => $Template."images/",
-	"TemplateDir" => $Template,
+	"ImagesDir" => $TemplateDir."images/",
+	"TemplateDir" => $TemplateDir,
 ));
 
 ?>

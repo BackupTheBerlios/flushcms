@@ -89,6 +89,7 @@ label.required
 {
   margin-bottom: 10px;
   border: 1px solid #73B65A;
+  background-color: green;
 }
 
 .save-ok h2
@@ -135,7 +136,6 @@ label.required
 .form-errors li
 {
   padding: 5px 20px;
-  background: url(../images/admin/error.png) no-repeat 0 2px;
 }
 
 .form-error
@@ -207,7 +207,7 @@ ul.admin_actions input
   color: #333;
   font-size: 11px;
   font-family: Arial, sans-serif;
-  border: 0px;
+  border: 1px solid #ffc;
   border-right: 4px solid #999;
   background-color: #ffc;
   cursor: hand;
@@ -216,49 +216,41 @@ ul.admin_actions input
 
 .admin_action_create
 {
-  background: url(../images/admin/add.png) no-repeat 3px 2px;
   border-right: 4px solid #73B65A !important;
 }
 
 .admin_action_save
 {
-  background: url(../images/admin/save.png) no-repeat 3px 2px;
   border-right: 4px solid #73B65A !important;
 }
 
 .admin_action_save_and_add
 {
-  background: url(../images/admin/save.png) no-repeat 3px 2px;
   border-right: 4px solid #73B65A !important;
 }
 
 .admin_action_delete
 {
-  background: url(../images/admin/delete.png) no-repeat 3px 2px;
   border-right: 4px solid #E75C58 !important;
 }
 
 .admin_action_cancel
 {
-  background: url(../images/admin/cancel.png) no-repeat 3px 2px;
   border-right: 4px solid #E75C58 !important;
 }
 
 .admin_action_filter
 {
-  background: url(../images/admin/filter.png) no-repeat 3px 2px;
   border-right: 4px solid #66f !important;
 }
 
 .admin_action_reset_filter
 {
-  background: url(../images/admin/cancel.png) no-repeat 3px 2px;
   border-right: 4px solid #E75C58 !important;
 }
 
 .admin_action_list
 {
-  background: url(../images/admin/list.png) no-repeat 3px 2px;
   border-right: 4px solid #66f !important;
 }
 

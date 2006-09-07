@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: Generator.php,v 1.7 2006/09/02 10:33:30 arzen Exp $
+ * @version    CVS: $Id: Generator.php,v 1.8 2006/09/07 05:29:26 arzen Exp $
  * @link       http://pear.php.net/package/DB_DataObject
  */
  
@@ -1017,18 +1017,21 @@ EOD;
             $field_upper_name=strtoupper($t->name);
             $field_camel_case_name=$this->CamelCaseFromUnderscore($t->name);
         	$post_code .= <<<EOD
-		\${$outfilename}->set{$field_camel_case_name}(\$_POST['{$field_name}']);\n
+		\${$outfilename}->set{$field_camel_case_name}(stripslashes(trim(\$_POST['{$field_name}'])));\n
 EOD;
         	$update_code .= <<<EOD
 "{$field_upper_name}" => \${$outfilename}->get{$field_camel_case_name}(),
 EOD;
+        	$post_update_code .= <<<EOD
+"{$field_upper_name}" => \$_POST['{$field_name}'],
+EOD;
+
         	$list_code .= <<<EOD
 "{$field_upper_name}" => \$data['{$field_name}'],
 EOD;
-			
         }
         
-        $body .=<<<EOD      
+        $body .= <<<EOD
 <?php
 
 /**
@@ -1096,11 +1099,16 @@ class {$camel_case_name} extends Actions
 				if (\$v == false)
 				{
 					\$template->setVar(array (
-						strtoupper(\$k)."_ERROR_MSG" => " Please check here "
+						strtoupper(\$k)."_ERROR_MSG" => " &darr; Please check here &darr; "
 					));
 
 				}
 			}
+			\$template->setVar(
+				array (
+				{$post_update_code}
+				)
+			 );
 			\$template->parse("OUT", array (
 				"Main"
 			));
@@ -1129,6 +1137,14 @@ class {$camel_case_name} extends Actions
 		\${$outfilename} = DB_DataObject :: factory('{$camel_case_name}');
 		\${$outfilename}->get(\${$outfilename}->escape(\$_GET['ID']));
 
+		if (\$_GET['view_status']=="ok") 
+		{
+			\$template->setVar(array (
+				"SUCCESS_CLASS" => "save-ok",
+				"SUCCESS_MSG" => "<h2>Your modifications have been saved</h2>"
+			));
+		}
+
 		\$template->setVar(array ({$update_code}));
 		
 		\$template->parse("OUT", array (
@@ -1145,6 +1161,7 @@ class {$camel_case_name} extends Actions
 
 	function updateSubmit()
 	{
+		global \$template;
 		\${$outfilename} = DB_DataObject :: factory('{$camel_case_name}');
 
 		\${$outfilename}->get(\${$outfilename}->escape(\$_POST['ID']));
@@ -1153,10 +1170,48 @@ class {$camel_case_name} extends Actions
 {$post_code}
 				
 		\${$outfilename}->setLastUpdated(DB_DataObject_Cast::dateTime());
-		\${$outfilename}->update(\$original);
+		
+		\$val = \${$outfilename}->validate();
+		if (\$val === TRUE)
+		{
+			\${$outfilename}->update(\$original);
+			\$this->forward('{$outfilename}.php',"act=Update&ID={\$_POST['ID']}&view_status=ok");
+		}
+		else
+		{
+			\$template->setFile(array (
+				"Main" => "{$outfilename}_edit.html"
+			));
+			\$template->setBlock("Main", "edit_block");
+			\$template->setVar(array (
+				"DoAction" => "UpdateSubmit"
+			));
+			foreach (\$val as \$k => \$v)
+			{
+				if (\$v == false)
+				{
+					\$template->setVar(array (
+						strtoupper(\$k)."_ERROR_MSG" => " &darr; Please check here &darr; "
+					));
 
-		\$this->forward('{$outfilename}.php');
+				}
+			}
+			\$template->setVar(
+				array (
+				{$post_update_code}
+				)
+			 );
+			\$template->parse("OUT", array (
+				"Main"
+			));
+			\$template->parse("OUT", array (
+				"Header",
+				"Foot",
+				"Page"
+			));
+			\$template->p("OUT");
 
+		}
 	}
 	
 	function delOne()
@@ -1206,6 +1261,8 @@ class {$camel_case_name} extends Actions
 		    'closeSession' => true,
 		    //'mode'  => 'Sliding',    //try switching modes
 		    'mode'  => 'Jumping',
+		    'extraVars' => array(
+		    ),
 		
 		);
 		\$pager = & Pager::factory(\$params);
@@ -1246,7 +1303,7 @@ class {$camel_case_name} extends Actions
 	}
 	
 }
-?>
+?>	
 EOD;
 		return $body;		
 	}
@@ -1266,6 +1323,9 @@ EOD;
 <div id="admin_header">
 </div>
 <div id="admin_content">
+  <div class="{SUCCESS_CLASS}">
+	{SUCCESS_MSG}
+  </div>
 
 <form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{$outfilename}.php">
 <input type="hidden" name="ID" id="ID" value="{{$id_field_name}}" />
@@ -1364,18 +1424,18 @@ EOD;
 			{
 				if (in_array($t->name,explode(",",$fields))) 
 				{
-		            $table_th .= "<th>&nbsp;".$this->CamelCaseFromUnderscore($t->name)."</th>";
-		            $table_td .= "<td>&nbsp;{".strtoupper($t->name)."}</td>";
+		            $table_th .= "<th>&nbsp;".$this->CamelCaseFromUnderscore($t->name)."</th>\n";
+		            $table_td .= "<td>&nbsp;{".strtoupper($t->name)."}</td>\n";
 				}
 			}
 			else
 			{
-	            $table_th .= "<th>&nbsp;".$this->CamelCaseFromUnderscore($t->name)."</th>";
-	            $table_td .= "<td>&nbsp;{".strtoupper($t->name)."}</td>";
+	            $table_th .= "<th>&nbsp;".$this->CamelCaseFromUnderscore($t->name)."</th>\n";
+	            $table_td .= "<td>&nbsp;{".strtoupper($t->name)."}</td>\n";
 			}
           $i++;   
         }
-        $table_th .= "<th>Action</th>";
+        $table_th .= "<th>Action</th>\n";
         $id_field_name = strtoupper($defs[0]->name);
         
         $table_td .=<<<EOD

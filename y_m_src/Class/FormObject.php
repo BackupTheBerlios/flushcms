@@ -5,7 +5,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: FormObject.php,v 1.1 2006/09/02 10:33:30 arzen Exp $
+ * @version    CVS: $Id: FormObject.php,v 1.2 2006/09/07 05:29:26 arzen Exp $
  */
 
 /**
@@ -64,18 +64,23 @@ function selectTag ($name,$options,$selected="",$extend="")
  * @author John.meng
  *
  */
-function fileTag ($name,$oldfile="") 
+function fileTag ($name,$oldfile="", $delete=true) 
 {
 	global $Upload_Dir;
-	$html_code="<INPUT TYPE=\"file\" NAME=\"{$name}\"> &nbsp;\n";
+	
 	if ($oldfile) 
 	{
-		$html_code.="<INPUT TYPE=\"checkbox\" NAME=\"{$name}_del\" value=\"Y\">Delete &nbsp;\n" .
-				"<INPUT TYPE=\"hidden\" NAME=\"{$name}_old\" value=\"{$oldfile}\"> &nbsp;\n" .
-				"<IMG SRC=\"{$Upload_Dir}{$oldfile}\" WIDTH=\"80\" BORDER=\"0\" > &nbsp;\n";
-		
+		$html_code="<a target='_blank' href={$Upload_Dir}{$oldfile}><IMG SRC=\"{$Upload_Dir}{$oldfile}\" WIDTH=\"80\" BORDER=\"0\" ></a> &nbsp;";
+		if ($delete) {
+			$html_code .= "<INPUT TYPE=\"checkbox\" NAME=\"{$name}_del\" value=\"Y\">Delete".
+				"<INPUT TYPE=\"hidden\" NAME=\"{$name}_old\" value=\"{$oldfile}\">" ;
+		}
+		$html_code .= "<br/>";
 	}
+	
+	$html_code .="<INPUT TYPE=\"file\" NAME=\"{$name}\" > &nbsp;\n";
 	return $html_code;
+	
 }
 
 function navButtonTag ($name,$title="",$url="",$css="admin_action_list") 
@@ -84,6 +89,5 @@ function navButtonTag ($name,$title="",$url="",$css="admin_action_list")
 	return $html_code;
 	
 }
-
 
 ?>
