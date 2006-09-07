@@ -22,6 +22,15 @@ $click_menu->setMenuSection(__("公司事务"),__("产品列表"),'product');
 $click_menu->setMenuSection(__("公司事务"),__("添加企业"),'company/create');
 $click_menu->setMenuSection(__("公司事务"),__("企业名录列表"),'company');
 
+$click_menu->setMenuSection(__("工程项目"),__("添加工程"),'project/create');
+$click_menu->setMenuSection(__("工程项目"),__("工程列表"),'project');
+$click_menu->setMenuSection(__("工程项目"),__("添加工程任务"),'projecttask/create');
+$click_menu->setMenuSection(__("工程项目"),__("工程任务列表"),'projecttask');
+$click_menu->setMenuSection(__("工程项目"),__("添加工程文档"),'projectdocument/create');
+$click_menu->setMenuSection(__("工程项目"),__("工程文档列表"),'projectdocument');
+$click_menu->setMenuSection(__("工程项目"),__("添加文档附件"),'projectdocumentattach/create');
+$click_menu->setMenuSection(__("工程项目"),__("文档附件列表"),'projectdocumentattach');
+
 $click_menu->setMenuSection(__("系统管理"),__("添加用户"),'users/create');
 $click_menu->setMenuSection(__("系统管理"),__("用户列表"),'users');
 $click_menu->setMenuSection(__("系统管理"),__("添加权限"),'role/create');

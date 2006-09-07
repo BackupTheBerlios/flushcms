@@ -1,0 +1,26 @@
+generator:
+  class:              sfPropelAdminGenerator
+  param:
+    model_class:      Project
+    theme:            default
+    fields:
+      name: { name: 名称 }
+      company_id: { name: 公司 }
+      memo: { name: 备注 }
+      status: { name: 状态 }
+      active: { name: 激活 }
+    list:
+      max_per_page:   5
+      title:          工程项目列表
+      display: [=name, company_id, status, active ]
+      sort: [created_at, desc]
+      object_actions:
+        _edit:        -
+        _delete:      -
+    edit:
+      title:          编辑工程项目%%name%%
+      display: [company_id, name, status, memo, active ]     
+      fields:
+          active: { type: radiobutton_tag, params: text_options=是:否 value_options=Y:N default_value=Y  }
+          company_id: { type: select_tag, params: multiple=true  selected=selected text_method=getName related_class=Company size=10  }
+    

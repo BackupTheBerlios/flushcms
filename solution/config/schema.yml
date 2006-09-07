@@ -10,7 +10,7 @@ my_solution:
     email:	varchar(80)
     photo:	varchar(80)
     role_id:	{ type: integer, size: 8 }
-    active: { type: tinyint, size: 2, defaultValue: 1 }
+    active: varchar(2)
     add_ip:	varchar(24)
     created_at:
   so_role:
@@ -18,14 +18,14 @@ my_solution:
     id:
     role_name:   varchar(60)
     role_lable:	varchar(50)
-    active: { type: tinyint, size: 2, defaultValue: 1 }
+    active: varchar(2)
     add_ip:	varchar(24)
     created_at:
   so_question_category:
     _attributes: { phpName: QuestionCategory }
     id:
     category_name:   varchar(60)
-    active: { type: tinyint, size: 2, defaultValue: 1 }
+    active: varchar(2)
     add_ip:	varchar(24)
     created_at:
   so_question:
@@ -33,7 +33,7 @@ my_solution:
     id:
     question:   longvarchar
     category:	{ type: INTEGER, size: 5, defaultValue: 1 }
-    active: { type: tinyint, size: 2, defaultValue: 1 }
+    active: varchar(2)
     add_ip:	varchar(24)
     created_at:
   so_solution:
@@ -41,14 +41,14 @@ my_solution:
     id:
     question_id:   { type: INTEGER, size: 5, defaultValue: 1 }
     solution:	longvarchar
-    active: { type: tinyint, size: 2, defaultValue: 1 }
+    active: varchar(2)
     add_ip:	varchar(24)
     created_at:
   so_finance_category:
     _attributes: { phpName: FinanceCategory }
     id:
     category_name:   varchar(60)
-    active: { type: tinyint, size: 2, defaultValue: 1 }
+    active: varchar(2)
     add_ip:	varchar(24)
     created_at:
   so_finance:
@@ -60,14 +60,14 @@ my_solution:
     debit: { type: tinyint, size: 2, defaultValue: 1 }
     money:  { type: DECIMAL, size: 10, scale: 2 }
     memo: longvarchar
-    active: { type: tinyint, size: 2, defaultValue: 1 }
+    active: varchar(2)
     add_ip:	varchar(24)
     created_at:
   so_contact_category:
     _attributes: { phpName: ContactCategory }
     id:
     category_name:   varchar(60)
-    active: { type: tinyint, size: 2, defaultValue: 1 }
+    active: varchar(2)
     add_ip:	varchar(24)
     created_at:
   so_contact:
@@ -86,7 +86,7 @@ my_solution:
     email:	varchar(80)
     photo:	varchar(60)
     homepage:	varchar(90)
-    active: { type: tinyint, size: 2, defaultValue: 1 }
+    active: varchar(2)
     add_ip:	varchar(24)
     created_at:
   so_company:
@@ -106,14 +106,14 @@ my_solution:
     industry: varchar(50)
     products: longvarchar
     memo: longvarchar
-    active: { type: tinyint, size: 2, defaultValue: 1 }
+    active: varchar(2)
     add_ip:	varchar(24)
     created_at:
   so_product_category:
     _attributes: { phpName: ProductCategory }
     id:
     category_name:   varchar(60)
-    active: { type: tinyint, size: 2, defaultValue: 1 }
+    active: varchar(2)
     add_ip:	varchar(24)
     created_at:
   so_product:
@@ -125,7 +125,51 @@ my_solution:
     price:  { type: DECIMAL, size: 10, scale: 2 }
     photo:	varchar(60)
     memo: longvarchar
-    active: { type: tinyint, size: 2, defaultValue: 1 }
+    active: varchar(2)
     add_ip:	varchar(24)
     created_at:
- 
+    updated_at:
+  so_project:
+    _attributes: { phpName: Project }
+    id:
+    company_id:  { type: INTEGER, size: 5, defaultValue: 1 }
+    name: varchar(60)
+    status:  varchar(10) 
+    memo: longvarchar
+    active: varchar(2)
+    add_ip:	varchar(24)
+    created_at:
+    updated_at:
+  so_project_task:
+    _attributes: { phpName: ProjectTask }
+    id:
+    project_id:  { type: INTEGER, size: 5, defaultValue: 1 }
+    name: varchar(60)
+    status:  varchar(10)
+    start_date: DATE
+    end_date: DATE
+    memo: longvarchar
+    active: varchar(2)
+    add_ip:	varchar(24)
+    created_at:
+    updated_at:
+  so_project_document:
+    _attributes: { phpName: ProjectDocument }
+    id:
+    project_id:  { type: INTEGER, size: 5, defaultValue: 1 }
+    title: varchar(60)
+    content: longvarchar
+    active: varchar(2)
+    add_ip:	varchar(24)
+    created_at:
+    updated_at:
+  so_project_attach:
+    _attributes: { phpName: ProjectDocumentAttach }
+    id:
+    type: varchar(10)
+    pid:  { type: INTEGER, size: 5, defaultValue: 1 }
+    filename: varchar(60)
+    add_ip:	varchar(24)
+    created_at:
+    updated_at:
+     

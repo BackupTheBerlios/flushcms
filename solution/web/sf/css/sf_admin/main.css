@@ -105,6 +105,7 @@ label.required
 .form-row .content
 {
   padding-left: 9em;
+  font-size: 14px;
 }
 
 .form-errors

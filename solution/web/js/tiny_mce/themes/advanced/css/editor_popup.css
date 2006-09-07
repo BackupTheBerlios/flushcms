@@ -3,7 +3,7 @@
 body {
 	background-color: #F0F0EE;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 11px;
+	font-size: 14px;
 	scrollbar-3dlight-color: #F0F0EE;
 	scrollbar-arrow-color: #676662;
 	scrollbar-base-color: #F0F0EE;
@@ -17,7 +17,7 @@ body {
 
 td {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 11px;
+	font-size: 14px;
 }
 
 input {
@@ -27,7 +27,7 @@ input {
 
 td, input, select, textarea {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 10px;
+	font-size: 14px;
 }
 
 input, select, textarea {
@@ -62,7 +62,7 @@ html>body #insert, html>body #cancel {
 }
 
 .title {
-	font-size: 12px;
+	font-size: 14px;
 	font-weight: bold;
 	color: #2B6FB6;
 }
@@ -79,7 +79,7 @@ td.charmap, td.charmapOver {
 	border-style: solid;
 	border-width: 1px;
 	text-align: center;
-	font-size: 12px;
+	font-size: 14px;
 }
 
 td.charmapOver {
@@ -195,7 +195,7 @@ input.checkbox {
 .tabs a {
 	text-decoration: none;
 	font-family: Verdana, Arial;
-	font-size: 10px;
+	font-size: 14px;
 }
 
 .tabs a:link, .tabs a:visited, .tabs a:hover {
@@ -234,7 +234,7 @@ input.checkbox {
 fieldset {
 	border: 1px solid #919B9C;
 	font-family: Verdana, Arial;
-	font-size: 10px;
+	font-size: 14px;
 	padding: 0;
 	margin: 0;
 	padding: 4px;
