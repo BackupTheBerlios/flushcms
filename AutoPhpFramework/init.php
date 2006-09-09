@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.2 2006/09/09 00:25:46 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.3 2006/09/09 02:12:05 arzen Exp $
  */
 
 $RootDir = dirname(__FILE__)."/"; 
@@ -40,6 +40,7 @@ $opts = array(
 	'database'=>$dsn,
     'class_location'  => $IncludeDir.'DAO/',
     'class_prefix'    => 'Dao',
+    'extends_location'=>'',
 	'template_location'=>$RootDir.'/template/',
 	'actions_location'=>$RootDir,
 	'modules_location'=>$RootDir.'module/Footage/',
