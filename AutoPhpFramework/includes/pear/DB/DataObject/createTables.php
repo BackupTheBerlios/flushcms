@@ -15,7 +15,7 @@
 // | Author:  Alan Knowles <alan@akbkhome.com>
 // +----------------------------------------------------------------------+
 //
-// $Id: createTables.php,v 1.1 2006/09/08 23:31:16 arzen Exp $
+// $Id: createTables.php,v 1.2 2006/09/09 00:25:46 arzen Exp $
 //
 
 // since this version doesnt use overload, 
@@ -36,19 +36,20 @@ if (!@$_SERVER['argv'][1]) {
     PEAR::raiseError("\nERROR: createTable.php usage:\n\nC:\php\pear\DB\DataObjects\createTable.php example.ini\n\n", null, PEAR_ERROR_DIE);
     exit;
 }
-*/
 $config = parse_ini_file($IniFile, true); //$_SERVER['argv'][1]
 foreach($config as $class=>$values) {
     $options = &PEAR::getStaticProperty($class,'options');
     $options = $values;
 }
+*/
 
-
-$options = &PEAR::getStaticProperty('DB_DataObject','options');
+$options = $opts;//&PEAR::getStaticProperty('DB_DataObject','options');
 if (empty($options)) {
     PEAR::raiseError("\nERROR: could not read ini file\n\n", null, PEAR_ERROR_DIE);
     exit;
 }
+
+
 set_time_limit(0);
 
 // use debug level from file if set..

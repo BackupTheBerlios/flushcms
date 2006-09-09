@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: Generator.php,v 1.1 2006/09/08 23:31:16 arzen Exp $
+ * @version    CVS: $Id: Generator.php,v 1.2 2006/09/09 00:25:46 arzen Exp $
  * @link       http://pear.php.net/package/DB_DataObject
  */
  
@@ -575,13 +575,13 @@ class DB_DataObject_Generator extends DB_DataObject
 
         foreach($this->tables as $this->table) {
             $this->table = trim($this->table);
-            $this->classname = $class_prefix.preg_replace('/[^A-Z0-9]/i','_',ucfirst($this->table));
+            $this->classname = $class_prefix.preg_replace('/[^A-Z0-9]/i','_',$this->CamelCaseFromUnderscore($this->table));
             $i = '';
             
             if (strpos($options['class_location'],'%s') !== false) {
-                $outfilename   = sprintf($options['class_location'], preg_replace('/[^A-Z0-9]/i','_',ucfirst($this->table)));
+                $outfilename   = sprintf($options['class_location'], preg_replace('/[^A-Z0-9]/i','_',$this->CamelCaseFromUnderscore($this->table)));
             } else { 
-                $outfilename = "{$base}/".preg_replace('/[^A-Z0-9]/i','_',ucfirst($this->table)).".php";
+                $outfilename = "{$base}/".preg_replace('/[^A-Z0-9]/i','_',$this->CamelCaseFromUnderscore($this->table)).".php";
             }
             $oldcontents = '';
             if (file_exists($outfilename)) {
@@ -633,7 +633,7 @@ class DB_DataObject_Generator extends DB_DataObject
         $foot = "";
         $head = "<?php\n/**\n * Table Definition for {$this->table}\n */\n";
         // requires
-        $head .= "require_once '{$this->_extendsFile}';\n\n";
+//        $head .= "require_once '{$this->_extendsFile}';\n\n";
         // add dummy class header in...
         // class
         $head .= "class {$this->classname} extends {$this->_extends} \n{";
@@ -708,7 +708,7 @@ class DB_DataObject_Generator extends DB_DataObject
         // simple creation tools ! (static stuff!)
         $body .= "\n";
         $body .= "    /* Static get */\n";
-        $body .= "    function staticGet(\$k,\$v=NULL) { return DB_DataObject::staticGet('{$this->classname}',\$k,\$v); }\n";
+        $body .= "    function staticGet(\$k,\$v=NULL) \n\t{\n\t\treturn DB_DataObject::staticGet('{$this->classname}',\$k,\$v);\n\t}\n";
         
         // generate getter and setter methods
         $body .= $this->_generateGetters($input);
@@ -751,12 +751,26 @@ class DB_DataObject_Generator extends DB_DataObject
                 if (!strlen(trim($t->name))) {
                     continue;
                 }
+                $match=array();
+                if (!preg_match('/' . $t->name . ':([^,]*)/i', $options['generator_add_validate_stubs'],$match)) {
+                    continue;
+                }
+                $validate_conditon=$match[1];
                 $validate_fname = 'validate' . ucfirst(strtolower($t->name));
                 // dont re-add it..
                 if (preg_match('/\s+function\s+' . $validate_fname . '\s*\(/i', $input)) {
                     continue;
                 }
-                $body .= "\n    function {$validate_fname}()\n    {\n        return false;\n    }\n";
+                switch ($validate_conditon) {
+					case 'empty':
+						$validate_str = "return empty(\$this->{$t->name})?false:true;";
+						break;
+				
+					default:
+						$validate_str = " return true;";
+						break;
+				}
+                $body .= "\n    function {$validate_fname}()\n    {\n        {$validate_str}\n    }\n";
             }
         }
 
