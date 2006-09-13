@@ -7,23 +7,14 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.3 2006/09/09 02:12:05 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.4 2006/09/13 05:08:33 arzen Exp $
  */
 
-$RootDir = dirname(__FILE__)."/"; 
-$ConfigDir = $RootDir."config/";
-$IncludeDir = $RootDir."includes/";
+$RootDir = APF_ROOT_DIR.DIRECTORY_SEPARATOR; 
+$ConfigDir = $RootDir."config".DIRECTORY_SEPARATOR;
+$IncludeDir = $RootDir."includes".DIRECTORY_SEPARATOR;
 
-if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') 
-{
-    $separator = ";";
-} 
-else 
-{
-    $separator = ":";
-}
-
-ini_set('include_path', ".{$separator}".$IncludeDir."pear");
+ini_set('include_path', ".".PATH_SEPARATOR.$IncludeDir."pear");
 
 include_once($ConfigDir."Config.php");
 include_once("PEAR.php");
