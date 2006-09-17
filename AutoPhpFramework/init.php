@@ -7,14 +7,14 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.6 2006/09/17 23:20:04 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.7 2006/09/17 23:42:45 arzen Exp $
  */
 
 $RootDir = APF_ROOT_DIR.DIRECTORY_SEPARATOR; 
 $ConfigDir = $RootDir."config".DIRECTORY_SEPARATOR;
 $IncludeDir = $RootDir."includes".DIRECTORY_SEPARATOR;
 $ControllerDir = $RootDir."controller".DIRECTORY_SEPARATOR;
-$TemplateDir = $RootDir."web/template/outlook/";
+$TemplateDir = $RootDir."web/template/default/";
 
 ini_set('include_path', ".".PATH_SEPARATOR.$IncludeDir."pear");
 
@@ -57,13 +57,13 @@ $controller = new Controller();
 
 $template = new Template_PHPLIB($TemplateDir);
 $template->setFile(array(
-     "Page" => "page.html",
+     "Page" => "laout.html",
  ));
  
 $template->setBlock("Page", "page");
  
 $template->setVar(array (
-	"TEMPLATEDIR" => "template/outlook/",
+	"TEMPLATEDIR" => "template/default/",
 ));
 
 ?>
