@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: Controller.class.php,v 1.3 2006/09/18 05:22:44 arzen Exp $
+ * @version    CVS: $Id: Controller.class.php,v 1.4 2006/09/18 13:44:57 arzen Exp $
  */
 
 class Controller
@@ -50,13 +50,13 @@ class Controller
 		
 //		printf("module %s/ page %s/ action %s/ ",$module_name,$page_name,$action_name);
 		
-//		$template->parse("OUT", array (
-//			"TAB",
-//			"FOOT",
-//			"LAOUT",
-//			
-//		));
-//		$template->p("OUT");
+		$template->parse("OUT", array (
+			"TAB",
+			"FOOT",
+			"MAIN",
+			"LAOUT",
+		));
+		$template->p("OUT");
 
 	}
 	

@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: ApfUsers.class.php,v 1.1 2006/09/18 05:22:44 arzen Exp $
+ * @version    CVS: $Id: ApfUsers.class.php,v 1.2 2006/09/18 13:44:57 arzen Exp $
  */
 
 class ApfUsers 
@@ -223,14 +223,6 @@ class ApfUsers
 		));
 
 		$template->setBlock("MAIN", "main_list", "list_block");
-
-		$template->parse("OUT", array (
-			"TAB",
-			"FOOT",
-			"MAIN",
-			"LAOUT",
-		));
-		$template->p("OUT");
 
 	}
 	
