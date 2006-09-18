@@ -6,37 +6,29 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: ApfUsers.class.php,v 1.2 2006/09/18 13:44:57 arzen Exp $
+ * @version    CVS: $Id: ApfUsers.class.php,v 1.3 2006/09/18 14:41:33 arzen Exp $
  */
 
 class ApfUsers 
 {
-	function displayAddForm()
+	function executeCreate()
 	{
-		global $template;
+		global $template,$WebBaseDir;
 
 		$template->setFile(array (
-			"Main" => "apf_users_edit.html"
+			"MAIN" => "apf_users_edit.html"
 		));
-		$template->setBlock("Main", "add_block");
+		$template->setBlock("MAIN", "add_block");
 		
 		$template->setVar(array (
-			"DoAction" => "AddSubmit"
+			"WEBDIR" => $WebBaseDir,
+			"DOACTION" => "AddSubmit"
 		));
 
-		$template->parse("OUT", array (
-			"Main"
-		));
-		$template->parse("OUT", array (
-			"Header",
-			"Foot",
-			"Page"
-		));
-		$template->p("OUT");
 
 	}
 	
-	function addSubmit()
+	function executeAddSubmit()
 	{
 		global $template;
 		$apf_users = DB_DataObject :: factory('ApfUsers');
@@ -51,11 +43,9 @@ class ApfUsers
 		$apf_users->setPhoto(stripslashes(trim($_POST['photo'])));
 		$apf_users->setActive(stripslashes(trim($_POST['active'])));
 		$apf_users->setAddIp(stripslashes(trim($_POST['add_ip'])));
-		$apf_users->setCreatedAt(stripslashes(trim($_POST['created_at'])));
-		$apf_users->setUpdateAt(stripslashes(trim($_POST['update_at'])));
 
 		
-		$apf_users->setCreateTime(DB_DataObject_Cast::dateTime());
+		$apf_users->setCreatedAt(DB_DataObject_Cast::dateTime());
 
 		$val = $apf_users->validate();
 		if ($val === TRUE)
@@ -216,13 +206,17 @@ class ApfUsers
 	
 	function executeList()
 	{
-		global $template;
+		global $template,$WebBaseDir;
 
 		$template->setFile(array (
 			"MAIN" => "apf_users_list.html"
 		));
 
 		$template->setBlock("MAIN", "main_list", "list_block");
+		
+		$template->setVar(array (
+			"WEBDIR" => $WebBaseDir,
+		));
 
 	}
 	

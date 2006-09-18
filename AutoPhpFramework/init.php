@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.8 2006/09/18 05:22:44 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.9 2006/09/18 14:41:33 arzen Exp $
  */
 
 $RootDir = APF_ROOT_DIR.DIRECTORY_SEPARATOR; 
@@ -18,6 +18,7 @@ $ModuleDir = $RootDir."module".DIRECTORY_SEPARATOR;
 $ControllerDir = $RootDir."controller".DIRECTORY_SEPARATOR;
 $TemplateDir = $RootDir."web/template/default/";
 $WebTemplateDir = "template/default/";
+$WebBaseDir = getenv("SCRIPT_NAME");
 
 ini_set('include_path', ".".PATH_SEPARATOR.$IncludeDir."pear");
 
@@ -26,6 +27,7 @@ include_once($ConfigDir."db_config.php");
 include_once("PEAR.php");
 include_once("DB.php");
 include_once("DB/DataObject.php");
+include_once("DB/DataObject/Cast.php");
 include_once($ControllerDir."Controller.class.php");
 include_once("HTML/Template/PHPLIB.php");
 
@@ -71,7 +73,7 @@ $template->setBlock("TAB", "tab");
  
 $template->setVar(array (
 	"TEMPLATEDIR" => dirname(getenv("SCRIPT_NAME"))."/".$WebTemplateDir,
-	"WEBBASEDIR" => getenv("SCRIPT_NAME"),
+	"WEBBASEDIR" => $WebBaseDir,
 ));
 
 ?>
