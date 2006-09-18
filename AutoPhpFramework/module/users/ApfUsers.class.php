@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: ApfUsers.class.php,v 1.3 2006/09/18 14:41:33 arzen Exp $
+ * @version    CVS: $Id: ApfUsers.class.php,v 1.4 2006/09/18 15:12:48 arzen Exp $
  */
 
 class ApfUsers 
@@ -30,10 +30,14 @@ class ApfUsers
 	
 	function executeAddSubmit()
 	{
+		$this->handleFormData();
+	}
+	
+	function handleFormData ($edit_submit=false) 
+	{
 		global $template;
 		$apf_users = DB_DataObject :: factory('ApfUsers');
 
-		$apf_users->setId(stripslashes(trim($_POST['id'])));
 		$apf_users->setUserName(stripslashes(trim($_POST['user_name'])));
 		$apf_users->setUserPwd(stripslashes(trim($_POST['user_pwd'])));
 		$apf_users->setGender(stripslashes(trim($_POST['gender'])));
@@ -43,15 +47,11 @@ class ApfUsers
 		$apf_users->setPhoto(stripslashes(trim($_POST['photo'])));
 		$apf_users->setActive(stripslashes(trim($_POST['active'])));
 		$apf_users->setAddIp(stripslashes(trim($_POST['add_ip'])));
-
 		
-		$apf_users->setCreatedAt(DB_DataObject_Cast::dateTime());
-
 		$val = $apf_users->validate();
 		if ($val === TRUE)
 		{
 			$apf_users->insert();
-			$this->forward('apf_users.php');
 		}
 		else
 		{
@@ -77,21 +77,12 @@ class ApfUsers
 				"ID" => $_POST['id'],"USER_NAME" => $_POST['user_name'],"USER_PWD" => $_POST['user_pwd'],"GENDER" => $_POST['gender'],"ADDREES" => $_POST['addrees'],"PHONE" => $_POST['phone'],"EMAIL" => $_POST['email'],"PHOTO" => $_POST['photo'],"ACTIVE" => $_POST['active'],"ADD_IP" => $_POST['add_ip'],"CREATED_AT" => $_POST['created_at'],"UPDATE_AT" => $_POST['update_at'],
 				)
 			 );
-			$template->parse("OUT", array (
-				"Main"
-			));
-			$template->parse("OUT", array (
-				"Header",
-				"Foot",
-				"Page"
-			));
-			$template->p("OUT");
 
 		}
-
+		
 	}
 	
-	function displayUpdateForm()
+	function executeUpdateForm()
 	{
 		global $template;
 		$template->setFile(array (
