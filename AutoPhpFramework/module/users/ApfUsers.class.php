@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: ApfUsers.class.php,v 1.4 2006/09/18 15:12:48 arzen Exp $
+ * @version    CVS: $Id: ApfUsers.class.php,v 1.5 2006/09/18 23:40:53 arzen Exp $
  */
 
 class ApfUsers 
@@ -22,20 +22,20 @@ class ApfUsers
 		
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
-			"DOACTION" => "AddSubmit"
+			"DOACTION" => "Addsubmit"
 		));
 
 
 	}
 	
-	function executeAddSubmit()
+	function executeAddsubmit()
 	{
 		$this->handleFormData();
 	}
 	
 	function handleFormData ($edit_submit=false) 
 	{
-		global $template;
+		global $template,$WebBaseDir;
 		$apf_users = DB_DataObject :: factory('ApfUsers');
 
 		$apf_users->setUserName(stripslashes(trim($_POST['user_name'])));
@@ -56,11 +56,12 @@ class ApfUsers
 		else
 		{
 			$template->setFile(array (
-				"Main" => "apf_users_edit.html"
+				"MAIN" => "apf_users_edit.html"
 			));
-			$template->setBlock("Main", "edit_block");
+			$template->setBlock("MAIN", "edit_block");
 			$template->setVar(array (
-				"DoAction" => "AddSubmit"
+				"WEBDIR" => $WebBaseDir,
+				"DOACTION" => "Addsubmit"
 			));
 			foreach ($val as $k => $v)
 			{
@@ -199,11 +200,67 @@ class ApfUsers
 	{
 		global $template,$WebBaseDir;
 
+		require_once 'Pager/Pager.php';
 		$template->setFile(array (
 			"MAIN" => "apf_users_list.html"
 		));
 
 		$template->setBlock("MAIN", "main_list", "list_block");
+
+		$apf_users = DB_DataObject :: factory('ApfUsers');
+
+		$apf_users->orderBy('id desc');
+		
+		$apf_users->find();
+		
+		$i=0;
+		while ($apf_users->fetch())
+		{
+			$myData[] = $apf_users->toArray();
+			$i++;
+		}
+		$ToltalNum =$i;
+		
+		$params = array(
+		    'itemData' => $myData,
+		    'perPage' => 10,
+		    'delta' => 8,             // for 'Jumping'-style a lower number is better
+		    'append' => true,
+		    'separator' => ' | ',
+		    'clearIfVoid' => false,
+		    'urlVar' => 'entrant',
+		    'useSessions' => true,
+		    'closeSession' => true,
+		    //'mode'  => 'Sliding',    //try switching modes
+		    'mode'  => 'Jumping',
+		    'extraVars' => array(
+		    ),
+		
+		);
+		$pager = & Pager::factory($params);
+		$page_data = $pager->getPageData();
+		$links = $pager->getLinks();
+		
+		$selectBox = $pager->getPerPageSelectBox();
+		$i = 0;
+		foreach($page_data as $data)
+		{
+			(($i % 2) == 0) ? $list_td_class = "admin_row_0" : $list_td_class = "admin_row_1";
+			
+			$template->setVar(array (
+				"LIST_TD_CLASS" => $list_td_class
+			));
+			
+			$template->setVar(array ("ID" => $data['id'],"USER_NAME" => $data['user_name'],"USER_PWD" => $data['user_pwd']));
+
+			$template->parse("list_block", "main_list", TRUE);
+			$i++;
+		}
+		
+		$template->setVar(array (
+			"TOLTAL_NUM" => $ToltalNum,
+			"PAGINATION" => $links['all']
+		));
 		
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
