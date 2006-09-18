@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: Controller.class.php,v 1.2 2006/09/17 23:20:04 arzen Exp $
+ * @version    CVS: $Id: Controller.class.php,v 1.3 2006/09/18 05:22:44 arzen Exp $
  */
 
 class Controller
@@ -24,7 +24,7 @@ class Controller
 	
 	function dispatch () 
 	{
-		global $template,$DefaultModule,$DefaultPage;
+		global $ModuleDir,$ClassDir,$template,$DefaultModule,$DefaultPage;
 		$this->path_info = ltrim(getenv("PATH_INFO"), "/");
 		
 		$this->setDefualtModule($DefaultModule);
@@ -33,12 +33,30 @@ class Controller
 		$module_name = $this->getModuleName()?$this->getModuleName():$this->getDefualtModule();
 		$page_name = $this->getPageName()?$this->getPageName():$this->getDefualtPage();
 		$action_name = $this->getActionName()?$this->getActionName():$this->default_action;
+		
+		include_once($ClassDir."StringHelper.class.php");
+		$page_class_name = StringHelper::CamelCaseFromUnderscore($page_name);
+		$include_file = $ModuleDir.$module_name.DIRECTORY_SEPARATOR.$page_class_name.".class.php";
+		
+		if (file_exists($include_file)) 
+		{
+			include_once($include_file);
+			
+			$TempObj = new $page_class_name;
+			$Action = "execute".ucfirst($action_name);
+			$TempObj->$Action();
+			
+		}
+		
 //		printf("module %s/ page %s/ action %s/ ",$module_name,$page_name,$action_name);
 		
-		$template->parse("OUT", array (
-			"Page",
-		));
-		$template->p("OUT");
+//		$template->parse("OUT", array (
+//			"TAB",
+//			"FOOT",
+//			"LAOUT",
+//			
+//		));
+//		$template->p("OUT");
 
 	}
 	

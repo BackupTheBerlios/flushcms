@@ -7,18 +7,22 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.7 2006/09/17 23:42:45 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.8 2006/09/18 05:22:44 arzen Exp $
  */
 
 $RootDir = APF_ROOT_DIR.DIRECTORY_SEPARATOR; 
 $ConfigDir = $RootDir."config".DIRECTORY_SEPARATOR;
 $IncludeDir = $RootDir."includes".DIRECTORY_SEPARATOR;
+$ClassDir = $RootDir."class".DIRECTORY_SEPARATOR;
+$ModuleDir = $RootDir."module".DIRECTORY_SEPARATOR;
 $ControllerDir = $RootDir."controller".DIRECTORY_SEPARATOR;
 $TemplateDir = $RootDir."web/template/default/";
+$WebTemplateDir = "template/default/";
 
 ini_set('include_path', ".".PATH_SEPARATOR.$IncludeDir."pear");
 
-include_once($ConfigDir."Config.php");
+include_once($ConfigDir."config.php");
+include_once($ConfigDir."db_config.php");
 include_once("PEAR.php");
 include_once("DB.php");
 include_once("DB/DataObject.php");
@@ -36,9 +40,9 @@ $opts = array(
     'class_location'  => $RootDir.'/dao/',
     'class_prefix'    => 'Dao',
     'extends_location'=>'',
-	'template_location'=>$RootDir.'/template/',
+	'template_location'=>$TemplateDir,
 	'actions_location'=>$RootDir,
-	'modules_location'=>$RootDir.'/module/artist/',
+	'modules_location'=>$RootDir.'/module/users/',
 	'modules_name_location'=>'artist',
 	'require_prefix'=>'dataobjects/',
 	'class_prefix'=>'Dao',
@@ -49,7 +53,7 @@ $opts = array(
 	'artist_except_fields'=>'artistid,create_time,last_updated,imageurl,imagex,imagey,thumburl,thumbx,thumby,status,popularity,image_status',
 	
 	'generator_add_validate_stubs'=>'video_url:empty,video_length:empty',
-	'generator_include_regex'=>'/artist/',
+	'generator_include_regex'=>'/'.$users_table.'/',
 	'generator_no_ini'=>'1',
 );
 
@@ -57,13 +61,17 @@ $controller = new Controller();
 
 $template = new Template_PHPLIB($TemplateDir);
 $template->setFile(array(
-     "Page" => "laout.html",
+     "LAOUT" => "laout.html",
+     "TAB" => "tab.html",
+     "FOOT" => "foot.html",
  ));
  
-$template->setBlock("Page", "page");
+$template->setBlock("LAOUT", "laout");
+$template->setBlock("TAB", "tab");
  
 $template->setVar(array (
-	"TEMPLATEDIR" => "template/default/",
+	"TEMPLATEDIR" => dirname(getenv("SCRIPT_NAME"))."/".$WebTemplateDir,
+	"WEBBASEDIR" => getenv("SCRIPT_NAME"),
 ));
 
 ?>

@@ -1,0 +1,78 @@
+        
+<div id="admin_container">
+<h1>Edit info</h1>
+<div id="admin_header">
+</div>
+<div id="admin_content">
+  <div class="{SUCCESS_CLASS}">
+	{SUCCESS_MSG}
+  </div>
+
+<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="apf_users.php">
+<input type="hidden" name="ID" id="ID" value="{ID}" />
+<input type="hidden" name="act" value="{DoAction}" />
+<fieldset id="fieldset_________" class="">
+<h2>General info</h2><div class="form-row">
+  <label >Id:</label>  <div class="content">
+  <input type="text" name="id" id="id" value="{ID}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >UserName:</label>  <div class="content">
+  <input type="text" name="user_name" id="user_name" value="{USER_NAME}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >UserPwd:</label>  <div class="content">
+  <input type="text" name="user_pwd" id="user_pwd" value="{USER_PWD}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >Gender:</label>  <div class="content">
+  <input type="text" name="gender" id="gender" value="{GENDER}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >Addrees:</label>  <div class="content">
+  <input type="text" name="addrees" id="addrees" value="{ADDREES}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >Phone:</label>  <div class="content">
+  <input type="text" name="phone" id="phone" value="{PHONE}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >Email:</label>  <div class="content">
+  <input type="text" name="email" id="email" value="{EMAIL}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >Photo:</label>  <div class="content">
+  <input type="text" name="photo" id="photo" value="{PHOTO}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >Active:</label>  <div class="content">
+  <input type="text" name="active" id="active" value="{ACTIVE}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >AddIp:</label>  <div class="content">
+  <input type="text" name="add_ip" id="add_ip" value="{ADD_IP}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >CreatedAt:</label>  <div class="content">
+  <input type="text" name="created_at" id="created_at" value="{CREATED_AT}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >UpdateAt:</label>  <div class="content">
+  <input type="text" name="update_at" id="update_at" value="{UPDATE_AT}" size="20" />    </div>
+</div>
+</fieldset>
+<ul class="admin_actions">
+  <li><input class="admin_action_list" value="List" type="button" onclick="document.location.href='apf_users.php';" /></li>
+  <li><input type="submit" name="save" value="Save" class="admin_action_save" /></li>
+
+</ul>
+</form>
+
+<ul class="admin_actions">
+      <li class="float-left"></li>
+</ul>
+</div>
+
+<div id="admin_footer">
+</div>
+</div>

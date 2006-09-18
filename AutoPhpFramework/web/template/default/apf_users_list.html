@@ -1,0 +1,62 @@
+        
+<div id="admin_container">
+<h1>Listing</h1>
+<div id="admin_header">
+</div>
+<div id="admin_bar">
+</div>
+        
+<ul class="admin_actions">
+          <li><input class="admin_action_create" value="Create" type="button" onclick="document.location.href='apf_users.php?act=Add';" /></li>
+</ul>
+
+<table cellspacing="0" class="admin_list">      
+<thead>
+<tr><th>&nbsp;Id</th>
+<th>&nbsp;UserName</th>
+<th>&nbsp;UserPwd</th>
+<th>&nbsp;Gender</th>
+<th>&nbsp;Addrees</th>
+<th>&nbsp;Phone</th>
+<th>&nbsp;Email</th>
+<th>&nbsp;Photo</th>
+<th>&nbsp;Active</th>
+<th>&nbsp;AddIp</th>
+<th>&nbsp;CreatedAt</th>
+<th>&nbsp;UpdateAt</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<!-- BEGIN main_list -->
+<tr class="{LIST_TD_CLASS}"><td>&nbsp;{ID}</td>
+<td>&nbsp;{USER_NAME}</td>
+<td>&nbsp;{USER_PWD}</td>
+<td>&nbsp;{GENDER}</td>
+<td>&nbsp;{ADDREES}</td>
+<td>&nbsp;{PHONE}</td>
+<td>&nbsp;{EMAIL}</td>
+<td>&nbsp;{PHOTO}</td>
+<td>&nbsp;{ACTIVE}</td>
+<td>&nbsp;{ADD_IP}</td>
+<td>&nbsp;{CREATED_AT}</td>
+<td>&nbsp;{UPDATE_AT}</td>
+<td>
+<ul class="admin_td_actions">
+  <li><a href="apf_users.php?act=Update&ID={ID}"><img alt="edit" title="edit" src="{ImagesDir}/edit_icon.png" /></a></li>
+  <li><a onclick="if (confirm('Are you sure?')) { f = document.createElement('form'); document.body.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;" href="apf_users.php?act=Del&ID={ID}"><img alt="delete" title="delete" src="{ImagesDir}/delete_icon.png" /></a></li>
+</ul>
+
+</td>
+         </tr>
+<!-- END main_list -->
+</tbody>
+<tfoot>
+<tr><th colspan="13">
+<div class="float-right">
+{PAGINATION}
+</div>
+{TOLTAL_NUM} result </th></tr>
+</tfoot>
+
+</table>
