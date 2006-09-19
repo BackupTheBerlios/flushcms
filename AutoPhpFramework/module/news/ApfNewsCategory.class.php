@@ -6,10 +6,10 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.2 2006/09/19 23:30:36 arzen Exp $
+ * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.3 2006/09/19 23:41:17 arzen Exp $
  */
 
-class ApfNewsCategory extends Actions
+class ApfNewsCategory  extends Actions
 {
 	function executeCreate()
 	{
@@ -82,8 +82,6 @@ class ApfNewsCategory extends Actions
 		$apf_news_category->setCategoryName(stripslashes(trim($_POST['category_name'])));
 		$apf_news_category->setActive(stripslashes(trim($_POST['active'])));
 		$apf_news_category->setAddIp(stripslashes(trim($_POST['add_ip'])));
-		$apf_news_category->setCreatedAt(stripslashes(trim($_POST['created_at'])));
-		$apf_news_category->setUpdateAt(stripslashes(trim($_POST['update_at'])));
 
 				
 		$val = $apf_news_category->validate();
@@ -138,7 +136,7 @@ class ApfNewsCategory extends Actions
 		$apf_news_category->get($apf_news_category->escape($controller->getID()));
 		$apf_news_category->setActive('deleted');
 		$apf_news_category->update();
-
+		$this->forward("news/apf_news_category/");
 	}
 	
 	function executeList()

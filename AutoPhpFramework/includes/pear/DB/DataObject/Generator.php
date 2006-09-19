@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: Generator.php,v 1.5 2006/09/19 14:03:16 arzen Exp $
+ * @version    CVS: $Id: Generator.php,v 1.6 2006/09/19 23:41:17 arzen Exp $
  * @link       http://pear.php.net/package/DB_DataObject
  */
  
@@ -952,7 +952,7 @@ EOD;
  * @version    CVS: \$Id\$
  */
 
-class {$camel_case_name}
+class {$camel_case_name}  extends Actions
 {
 	function executeCreate()
 	{
@@ -1031,11 +1031,13 @@ class {$camel_case_name}
 			{
 				\${$outfilename}->setUpdateAt(DB_DataObject_Cast::dateTime());
 				\${$outfilename}->update();
+				\$this->forward("{$module_name}/{$outfilename}/update/".\$_POST['ID']);
 			}
 			else 
 			{
 				\${$outfilename}->setCreatedAt(DB_DataObject_Cast::dateTime());
 				\${$outfilename}->insert();
+				\$this->forward("{$module_name}/{$outfilename}/");
 			}
 		}
 		else
@@ -1074,7 +1076,7 @@ class {$camel_case_name}
 		\${$outfilename}->get(\${$outfilename}->escape(\$controller->getID()));
 		\${$outfilename}->setActive('deleted');
 		\${$outfilename}->update();
-
+		\$this->forward("{$module_name}/{$outfilename}/");
 	}
 	
 	function executeList()
