@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.9 2006/09/18 14:41:33 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.10 2006/09/19 14:03:16 arzen Exp $
  */
 
 $RootDir = APF_ROOT_DIR.DIRECTORY_SEPARATOR; 
@@ -44,18 +44,18 @@ $opts = array(
     'extends_location'=>'',
 	'template_location'=>$TemplateDir,
 	'actions_location'=>$RootDir,
-	'modules_location'=>$RootDir.'/module/users/',
-	'modules_name_location'=>'artist',
+	'modules_location'=>$RootDir.'/module/news/',
+	'modules_name_location'=>'news',
 	'require_prefix'=>'dataobjects/',
 	'class_prefix'=>'Dao',
 	'extends'=>'DB_DataObject',
 	'generate_setters'=>'1',
 	'generate_getters'=>'1',
-	'artist_fields_list'=>'artistid,artistcode,artistname,artistname_eng,gender,lang,initial,status',
-	'artist_except_fields'=>'artistid,create_time,last_updated,imageurl,imagex,imagey,thumburl,thumbx,thumby,status,popularity,image_status',
+	$news_category_table.'_fields_list'=>'id,category_name,active',
+	$news_category_table.'_except_fields'=>'id,add_ip,created_at,update_at',
 	
-	'generator_add_validate_stubs'=>'video_url:empty,video_length:empty',
-	'generator_include_regex'=>'/'.$users_table.'/',
+	'generator_add_validate_stubs'=>'category_name:empty',
+	'generator_include_regex'=>'/'.$news_category_table.'/',
 	'generator_no_ini'=>'1',
 );
 

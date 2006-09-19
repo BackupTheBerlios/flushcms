@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: Controller.class.php,v 1.4 2006/09/18 13:44:57 arzen Exp $
+ * @version    CVS: $Id: Controller.class.php,v 1.5 2006/09/19 14:03:16 arzen Exp $
  */
 
 class Controller
@@ -76,6 +76,12 @@ class Controller
 	{
 		$path_arr = explode("/",$this->path_info);
 		return $path_arr[2];
+	}
+	
+	function getID () 
+	{
+		$path_arr = explode("/",$this->path_info);
+		return $path_arr[3];
 	}
 	
 	function getDefualtModule () 

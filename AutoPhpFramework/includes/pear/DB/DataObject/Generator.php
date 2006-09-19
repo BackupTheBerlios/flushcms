@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: Generator.php,v 1.4 2006/09/09 02:12:05 arzen Exp $
+ * @version    CVS: $Id: Generator.php,v 1.5 2006/09/19 14:03:16 arzen Exp $
  * @link       http://pear.php.net/package/DB_DataObject
  */
  
@@ -643,44 +643,6 @@ class DB_DataObject_Generator extends DB_DataObject
         //echo $out;
     }
     
-    function generateActions () 
-	{
-        //echo "Generating Class files:        \n";
-        $options = &PEAR::getStaticProperty('DB_DataObject','options');
-        $base = $options['actions_location'];
-        if (strpos($base,'%s') !== false) {
-            $base = dirname($base);
-        } 
-        
-        
-        if (!file_exists($base)) {
-            require_once 'System.php';
-            System::mkdir(array('-p',$base));
-        }
-
-        foreach($this->tables as $this->table) {
-            $this->table = trim($this->table);
-            $i = '';
-            
-            if (strpos($options['actions_location'],'%s') !== false) {
-                $outfilename   = sprintf($options['actions_location'], preg_replace('/[^A-Z0-9]/i','_',$this->table));
-            } else { 
-                $outfilename = "{$base}/".preg_replace('/[^A-Z0-9]/i','_',$this->table)."";//.php
-            }
-            $oldcontents = '';
-            if (file_exists($outfilename)) {
-                // file_get_contents???
-                $oldcontents = implode('',file($outfilename));
-            }
-            $out = $this->_generateActionsFile($oldcontents,$this->table);
-            $this->debug( "writing $this->classname\n");
-            $fh = fopen($outfilename.".php", "w");
-            fputs($fh,$out);
-            fclose($fh);
-        }
-        //echo $out;
-		
-	}
 	
 	function generateModuleFile () 
 	{
@@ -937,60 +899,6 @@ class DB_DataObject_Generator extends DB_DataObject
             $body,$input);
     }
     
-    function _generateActionsFile ($input = '',$outfilename='') 
-	{
-        $options = &PEAR::getStaticProperty('DB_DataObject','options');
-        $body="";
-        $defs = $this->_definitions[$this->table];
-        $upper_name = $this->CamelCaseFromUnderscore($outfilename);
-        $module_name = $options['modules_name_location'];
-        $body .=<<<EOD
-<?php
-/**
- *
- * {$outfilename}.php
- *
- * @package    core
- * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: \$Id\$
- */
-include_once("Init.php");
-
-include_once(\$ModuleDir."{$module_name}/{$upper_name}.class.php");
-\${$upper_name}Obj = new {$upper_name}();
-\$act = \$_REQUEST['act'];
-
-switch (\$act) {
-	case 'Add':
-		\${$upper_name}Obj->displayAddForm();
-		break;
-
-	case 'AddSubmit':
-		\${$upper_name}Obj->addSubmit();
-		break;
-		
-	case 'Del':
-		\${$upper_name}Obj->delOne();
-		break;
-
-	case 'Update':
-		\${$upper_name}Obj->displayUpdateForm();
-		break;
-		
-	case 'UpdateSubmit':
-		\${$upper_name}Obj->updateSubmit();
-		break;
-
-	default:
-		\${$upper_name}Obj->displayList();    
-		break;
-}
-
-?>      
-EOD;
-		return $body;		
-	}
-	
 	function _generateModuleFile ($input = '',$outfilename='') 
 	{
         $options = &PEAR::getStaticProperty('DB_DataObject','options');
@@ -1044,99 +952,43 @@ EOD;
  * @version    CVS: \$Id\$
  */
 
-class {$camel_case_name} extends Actions
+class {$camel_case_name}
 {
-	function displayAddForm()
+	function executeCreate()
 	{
-		global \$template;
+		global \$template,\$WebBaseDir;
 
 		\$template->setFile(array (
-			"Main" => "{$outfilename}_edit.html"
+			"MAIN" => "{$outfilename}_edit.html"
 		));
-		\$template->setBlock("Main", "add_block");
+		\$template->setBlock("MAIN", "add_block");
 		
 		\$template->setVar(array (
-			"DoAction" => "AddSubmit"
+			"WEBDIR" => \$WebBaseDir,
+			"DOACTION" => "addsubmit"
 		));
-
-		\$template->parse("OUT", array (
-			"Main"
-		));
-		\$template->parse("OUT", array (
-			"Header",
-			"Foot",
-			"Page"
-		));
-		\$template->p("OUT");
 
 	}
 	
-	function addSubmit()
+	function executeAddsubmit()
 	{
-		global \$template;
-		\${$outfilename} = DB_DataObject :: factory('{$camel_case_name}');
-
-{$post_code}
-		
-		\${$outfilename}->setCreateTime(DB_DataObject_Cast::dateTime());
-
-		\$val = \${$outfilename}->validate();
-		if (\$val === TRUE)
-		{
-			\${$outfilename}->insert();
-			\$this->forward('{$outfilename}.php');
-		}
-		else
-		{
-			\$template->setFile(array (
-				"Main" => "{$outfilename}_edit.html"
-			));
-			\$template->setBlock("Main", "edit_block");
-			\$template->setVar(array (
-				"DoAction" => "AddSubmit"
-			));
-			foreach (\$val as \$k => \$v)
-			{
-				if (\$v == false)
-				{
-					\$template->setVar(array (
-						strtoupper(\$k)."_ERROR_MSG" => " &darr; Please check here &darr; "
-					));
-
-				}
-			}
-			\$template->setVar(
-				array (
-				{$post_update_code}
-				)
-			 );
-			\$template->parse("OUT", array (
-				"Main"
-			));
-			\$template->parse("OUT", array (
-				"Header",
-				"Foot",
-				"Page"
-			));
-			\$template->p("OUT");
-
-		}
-
+		\$this->handleFormData();
 	}
 	
-	function displayUpdateForm()
+	function executeUpdate()
 	{
-		global \$template;
+		global \$template,\$WebBaseDir,\$controller;
 		\$template->setFile(array (
-			"Main" => "{$outfilename}_edit.html"
+			"MAIN" => "{$outfilename}_edit.html"
 		));
-		\$template->setBlock("Main", "edit_block");
+		\$template->setBlock("MAIN", "edit_block");
 		\$template->setVar(array (
-			"DoAction" => "UpdateSubmit"
+			"WEBDIR" => \$WebBaseDir,
+			"DOACTION" => "updatesubmit"
 		));
 
 		\${$outfilename} = DB_DataObject :: factory('{$camel_case_name}');
-		\${$outfilename}->get(\${$outfilename}->escape(\$_GET['ID']));
+		\${$outfilename}->get(\${$outfilename}->escape(\$controller->getID()));
 
 		if (\$_GET['view_status']=="ok") 
 		{
@@ -1148,44 +1000,53 @@ class {$camel_case_name} extends Actions
 
 		\$template->setVar(array ({$update_code}));
 		
-		\$template->parse("OUT", array (
-			"Main"
-		));
-		\$template->parse("OUT", array (
-			"Header",
-			"Foot",
-			"Page"
-		));
-		\$template->p("OUT");
-
+	}
+	
+	function executeUpdatesubmit () 
+	{
+		\$this->handleFormData(true);
 	}
 
-	function updateSubmit()
+	function handleFormData(\$edit_submit=false)
 	{
-		global \$template;
+		global \$template,\$WebBaseDir;
 		\${$outfilename} = DB_DataObject :: factory('{$camel_case_name}');
 
-		\${$outfilename}->get(\${$outfilename}->escape(\$_POST['ID']));
-		\$original = clone (\${$outfilename});
+		if (\$edit_submit) 
+		{
+			\${$outfilename}->get(\${$outfilename}->escape(\$_POST['ID']));
+			\$do_action = "updatesubmit";
+		}
+		else 
+		{
+			\$do_action = "addsubmit";
+		}
 
 {$post_code}
 				
-		\${$outfilename}->setLastUpdated(DB_DataObject_Cast::dateTime());
-		
 		\$val = \${$outfilename}->validate();
 		if (\$val === TRUE)
 		{
-			\${$outfilename}->update(\$original);
-			\$this->forward('{$outfilename}.php',"act=Update&ID={\$_POST['ID']}&view_status=ok");
+			if (\$edit_submit) 
+			{
+				\${$outfilename}->setUpdateAt(DB_DataObject_Cast::dateTime());
+				\${$outfilename}->update();
+			}
+			else 
+			{
+				\${$outfilename}->setCreatedAt(DB_DataObject_Cast::dateTime());
+				\${$outfilename}->insert();
+			}
 		}
 		else
 		{
 			\$template->setFile(array (
-				"Main" => "{$outfilename}_edit.html"
+				"MAIN" => "{$outfilename}_edit.html"
 			));
-			\$template->setBlock("Main", "edit_block");
+			\$template->setBlock("MAIN", "edit_block");
 			\$template->setVar(array (
-				"DoAction" => "UpdateSubmit"
+				"WEBDIR" => \$WebBaseDir,
+				"DOACTION" => \$do_action
 			));
 			foreach (\$val as \$k => \$v)
 			{
@@ -1202,39 +1063,30 @@ class {$camel_case_name} extends Actions
 				{$post_update_code}
 				)
 			 );
-			\$template->parse("OUT", array (
-				"Main"
-			));
-			\$template->parse("OUT", array (
-				"Header",
-				"Foot",
-				"Page"
-			));
-			\$template->p("OUT");
 
 		}
 	}
 	
-	function delOne()
+	function executeDel()
 	{
+		global \$controller;
 		\${$outfilename} = DB_DataObject :: factory('{$camel_case_name}');
-		\${$outfilename}->get(\${$outfilename}->escape(\$_GET['ID']));
-		\${$outfilename}->setStatus('deleted');
+		\${$outfilename}->get(\${$outfilename}->escape(\$controller->getID()));
+		\${$outfilename}->setActive('deleted');
 		\${$outfilename}->update();
 
-		\$this->forward('{$outfilename}.php');
 	}
 	
-	function displayList()
+	function executeList()
 	{
-		global \$template;
+		global \$template,\$WebBaseDir;
 
 		require_once 'Pager/Pager.php';
 		\$template->setFile(array (
-			"Main" => "{$outfilename}_list.html"
+			"MAIN" => "{$outfilename}_list.html"
 		));
 
-		\$template->setBlock("Main", "main_list", "list_block");
+		\$template->setBlock("MAIN", "main_list", "list_block");
 
 		\${$outfilename} = DB_DataObject :: factory('{$camel_case_name}');
 
@@ -1252,8 +1104,8 @@ class {$camel_case_name} extends Actions
 		
 		\$params = array(
 		    'itemData' => \$myData,
-		    'perPage' => PER_PAGE_NUM,
-		    'delta' => DISPLAY_PAGE_NUM,             // for 'Jumping'-style a lower number is better
+		    'perPage' => 10,
+		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
 		    'separator' => ' | ',
 		    'clearIfVoid' => false,
@@ -1287,24 +1139,15 @@ class {$camel_case_name} extends Actions
 		}
 		
 		\$template->setVar(array (
+			"WEBDIR" => \$WebBaseDir,
 			"TOLTAL_NUM" => \$ToltalNum,
 			"PAGINATION" => \$links['all']
 		));
 
-		\$template->parse("OUT", array (
-			"Main"
-		));
-		\$template->parse("OUT", array (
-			"Header",
-			"Foot",
-			"Page"
-		));
-		\$template->p("OUT");
-
 	}
 	
 }
-?>	
+?>
 EOD;
 		return $body;		
 	}
@@ -1314,6 +1157,7 @@ EOD;
         $options = &PEAR::getStaticProperty('DB_DataObject','options');
         $body="";
         $defs = $this->_definitions[$this->table];
+        $module_name = $options["modules_name_location"];
         
         $id_field_name = strtoupper($defs[0]->name);
         
@@ -1328,9 +1172,8 @@ EOD;
 	{SUCCESS_MSG}
   </div>
 
-<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{$outfilename}.php">
+<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{WEBDIR}/{$module_name}/{$outfilename}/{DOACTION}">
 <input type="hidden" name="ID" id="ID" value="{{$id_field_name}}" />
-<input type="hidden" name="act" value="{DoAction}" />
 <fieldset id="fieldset_________" class="">
 <h2>General info</h2>
 EOD;
@@ -1369,7 +1212,7 @@ EOD;
         $body .=<<<EOD
 </fieldset>
 <ul class="admin_actions">
-  <li><input class="admin_action_list" value="List" type="button" onclick="document.location.href='{$outfilename}.php';" /></li>
+  <li><input class="admin_action_list" value="List" type="button" onclick="document.location.href='{WEBDIR}/{$module_name}/{$outfilename}/list';" /></li>
   <li><input type="submit" name="save" value="Save" class="admin_action_save" /></li>
 
 </ul>
@@ -1398,6 +1241,7 @@ EOD;
     {
         $options = &PEAR::getStaticProperty('DB_DataObject','options');
         $body="";
+        $module_name = $options["modules_name_location"];
         $defs = $this->_definitions[$this->table];
         
         $body .=<<<EOD
@@ -1410,7 +1254,7 @@ EOD;
 </div>
         
 <ul class="admin_actions">
-          <li><input class="admin_action_create" value="Create" type="button" onclick="document.location.href='{$outfilename}.php?act=Add';" /></li>
+          <li><input class="admin_action_create" value="Create" type="button" onclick="document.location.href='{WEBDIR}/{$module_name}/{$outfilename}/create';" /></li>
 </ul>
 
 <table cellspacing="0" class="admin_list">      
@@ -1443,8 +1287,8 @@ EOD;
         $table_td .=<<<EOD
 <td>
 <ul class="admin_td_actions">
-  <li><a href="{$outfilename}.php?act=Update&ID={{$id_field_name}}"><img alt="edit" title="edit" src="{ImagesDir}/edit_icon.png" /></a></li>
-  <li><a onclick="if (confirm('Are you sure?')) { f = document.createElement('form'); document.body.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;" href="{$outfilename}.php?act=Del&ID={{$id_field_name}}"><img alt="delete" title="delete" src="{ImagesDir}/delete_icon.png" /></a></li>
+  <li><a href="{WEBDIR}/{$module_name}/{$outfilename}/update/{ID}"><img alt="edit" title="edit" src="{ImagesDir}/edit_icon.png" /></a></li>
+  <li><a onclick="if (confirm('Are you sure?')) { f = document.createElement('form'); document.body.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;" href="{WEBDIR}/{$module_name}/{$outfilename}/del/{ID}"><img alt="delete" title="delete" src="{ImagesDir}/delete_icon.png" /></a></li>
 </ul>
 
 </td>

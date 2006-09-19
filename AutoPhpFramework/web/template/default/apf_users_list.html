@@ -43,8 +43,8 @@
 <td>&nbsp;{UPDATE_AT}</td>
 <td>
 <ul class="admin_td_actions">
-  <li><a href="apf_users.php?act=Update&ID={ID}"><img alt="edit" title="edit" src="{ImagesDir}/edit_icon.png" /></a></li>
-  <li><a onclick="if (confirm('Are you sure?')) { f = document.createElement('form'); document.body.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;" href="apf_users.php?act=Del&ID={ID}"><img alt="delete" title="delete" src="{ImagesDir}/delete_icon.png" /></a></li>
+  <li><a href="{WEBDIR}/users/apf_users/update/{ID}"><img alt="edit" title="edit" src="{ImagesDir}/edit_icon.png" /></a></li>
+  <li><a onclick="if (confirm('Are you sure?')) { f = document.createElement('form'); document.body.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;" href="{WEBDIR}/users/apf_users/del/{ID}"><img alt="delete" title="delete" src="{ImagesDir}/delete_icon.png" /></a></li>
 </ul>
 
 </td>
