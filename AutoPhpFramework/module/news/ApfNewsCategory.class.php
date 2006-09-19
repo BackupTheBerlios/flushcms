@@ -6,10 +6,10 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.1 2006/09/19 14:03:16 arzen Exp $
+ * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.2 2006/09/19 23:30:36 arzen Exp $
  */
 
-class ApfNewsCategory
+class ApfNewsCategory extends Actions
 {
 	function executeCreate()
 	{
@@ -79,7 +79,6 @@ class ApfNewsCategory
 			$do_action = "addsubmit";
 		}
 
-		$apf_news_category->setId(stripslashes(trim($_POST['id'])));
 		$apf_news_category->setCategoryName(stripslashes(trim($_POST['category_name'])));
 		$apf_news_category->setActive(stripslashes(trim($_POST['active'])));
 		$apf_news_category->setAddIp(stripslashes(trim($_POST['add_ip'])));
@@ -94,11 +93,13 @@ class ApfNewsCategory
 			{
 				$apf_news_category->setUpdateAt(DB_DataObject_Cast::dateTime());
 				$apf_news_category->update();
+				$this->forward("news/apf_news_category/update/".$_POST['ID']);
 			}
 			else 
 			{
 				$apf_news_category->setCreatedAt(DB_DataObject_Cast::dateTime());
 				$apf_news_category->insert();
+				$this->forward("news/apf_news_category/");
 			}
 		}
 		else

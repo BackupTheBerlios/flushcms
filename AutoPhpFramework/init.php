@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.10 2006/09/19 14:03:16 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.11 2006/09/19 23:30:36 arzen Exp $
  */
 
 $RootDir = APF_ROOT_DIR.DIRECTORY_SEPARATOR; 
@@ -30,6 +30,7 @@ include_once("DB/DataObject.php");
 include_once("DB/DataObject/Cast.php");
 include_once($ControllerDir."Controller.class.php");
 include_once("HTML/Template/PHPLIB.php");
+include_once($ClassDir."Actions.class.php");
 
 $dsn = "{$DB_Type}://{$DB_UserName}:{$DB_PassWord}@{$DB_Host}/{$DB_Name}";
 $conn =& DB::connect ($dsn);
