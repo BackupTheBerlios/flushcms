@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: Controller.class.php,v 1.6 2006/09/20 10:44:13 arzen Exp $
+ * @version    CVS: $Id: Controller.class.php,v 1.7 2006/09/20 10:53:03 arzen Exp $
  */
 
 class Controller
@@ -57,6 +57,8 @@ class Controller
 			"LAOUT",
 		));
 		$template->p("OUT");
+		Var_Dump::display(array_keys($template->getVars()));
+		
 		if (defined('APF_DEBUG') && (APF_DEBUG==true) ) 
 		{
 			$timer->stop();

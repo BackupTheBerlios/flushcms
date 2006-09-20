@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.13 2006/09/20 10:44:13 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.14 2006/09/20 10:53:03 arzen Exp $
  */
 
 $RootDir = APF_ROOT_DIR.DIRECTORY_SEPARATOR; 
@@ -38,6 +38,7 @@ if (defined('APF_DEBUG') && (APF_DEBUG==true) )
 {
 	include_once 'Benchmark/Timer.php';
 	include_once 'Var_Dump.php';
+	Var_Dump::displayInit(array('display_mode' => 'HTML4_Table'));
 	$timer =& new Benchmark_Timer();
 	$timer->start();
 }
