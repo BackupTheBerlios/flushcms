@@ -1,4 +1,5 @@
 #navigation {
+width: 100%;
 text-align: center;
 float: left; /*Set to "left" or "right" to position menu accordingly*/
 /*border-bottom: 1px solid #999e87; uncomment this line to add bottom border*/

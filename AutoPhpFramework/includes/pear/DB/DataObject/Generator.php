@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: Generator.php,v 1.6 2006/09/19 23:41:17 arzen Exp $
+ * @version    CVS: $Id: Generator.php,v 1.7 2006/09/20 04:44:18 arzen Exp $
  * @link       http://pear.php.net/package/DB_DataObject
  */
  
@@ -1081,8 +1081,9 @@ class {$camel_case_name}  extends Actions
 	
 	function executeList()
 	{
-		global \$template,\$WebBaseDir;
+		global \$template,\$WebBaseDir,\$WebTemplateDir,\$ClassDir;
 
+		include_once(\$ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
 		\$template->setFile(array (
 			"MAIN" => "{$outfilename}_list.html"
@@ -1142,6 +1143,7 @@ class {$camel_case_name}  extends Actions
 		
 		\$template->setVar(array (
 			"WEBDIR" => \$WebBaseDir,
+			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().\$WebTemplateDir,
 			"TOLTAL_NUM" => \$ToltalNum,
 			"PAGINATION" => \$links['all']
 		));
@@ -1289,8 +1291,8 @@ EOD;
         $table_td .=<<<EOD
 <td>
 <ul class="admin_td_actions">
-  <li><a href="{WEBDIR}/{$module_name}/{$outfilename}/update/{ID}"><img alt="edit" title="edit" src="{ImagesDir}/edit_icon.png" /></a></li>
-  <li><a onclick="if (confirm('Are you sure?')) { f = document.createElement('form'); document.body.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;" href="{WEBDIR}/{$module_name}/{$outfilename}/del/{ID}"><img alt="delete" title="delete" src="{ImagesDir}/delete_icon.png" /></a></li>
+  <li><a href="{WEBDIR}/{$module_name}/{$outfilename}/update/{ID}"><img alt="edit" title="edit" src="{WEBTEMPLATEDIR}images/edit_icon.png" /></a></li>
+  <li><a onclick="if (confirm('Are you sure?')) { f = document.createElement('form'); document.body.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;" href="{WEBDIR}/{$module_name}/{$outfilename}/del/{ID}"><img alt="delete" title="delete" src="{WEBTEMPLATEDIR}images/delete_icon.png" /></a></li>
 </ul>
 
 </td>

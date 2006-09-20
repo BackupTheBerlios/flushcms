@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.3 2006/09/19 23:41:17 arzen Exp $
+ * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.4 2006/09/20 04:44:18 arzen Exp $
  */
 
 class ApfNewsCategory  extends Actions
@@ -79,9 +79,12 @@ class ApfNewsCategory  extends Actions
 			$do_action = "addsubmit";
 		}
 
+		$apf_news_category->setId(stripslashes(trim($_POST['id'])));
 		$apf_news_category->setCategoryName(stripslashes(trim($_POST['category_name'])));
 		$apf_news_category->setActive(stripslashes(trim($_POST['active'])));
 		$apf_news_category->setAddIp(stripslashes(trim($_POST['add_ip'])));
+		$apf_news_category->setCreatedAt(stripslashes(trim($_POST['created_at'])));
+		$apf_news_category->setUpdateAt(stripslashes(trim($_POST['update_at'])));
 
 				
 		$val = $apf_news_category->validate();
@@ -141,8 +144,9 @@ class ApfNewsCategory  extends Actions
 	
 	function executeList()
 	{
-		global $template,$WebBaseDir;
+		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir;
 
+		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
 		$template->setFile(array (
 			"MAIN" => "apf_news_category_list.html"
@@ -202,6 +206,7 @@ class ApfNewsCategory  extends Actions
 		
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().$WebTemplateDir,
 			"TOLTAL_NUM" => $ToltalNum,
 			"PAGINATION" => $links['all']
 		));
