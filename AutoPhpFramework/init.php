@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.11 2006/09/19 23:30:36 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.12 2006/09/20 10:17:52 arzen Exp $
  */
 
 $RootDir = APF_ROOT_DIR.DIRECTORY_SEPARATOR; 
@@ -19,6 +19,9 @@ $ControllerDir = $RootDir."controller".DIRECTORY_SEPARATOR;
 $TemplateDir = $RootDir."web/template/default/";
 $WebTemplateDir = "template/default/";
 $WebBaseDir = getenv("SCRIPT_NAME");
+$domain = 'general';
+$dir    = $RootDir.'lang/';
+
 
 ini_set('include_path', ".".PATH_SEPARATOR.$IncludeDir."pear");
 
@@ -60,6 +63,9 @@ $opts = array(
 	'generator_no_ini'=>'1',
 );
 
+require_once 'I18N/Messages/File.php';
+$i18n = new I18N_Messages_File($lang,$domain,$dir);
+
 $controller = new Controller();
 
 $template = new Template_PHPLIB($TemplateDir);
@@ -75,6 +81,8 @@ $template->setBlock("TAB", "tab");
 $template->setVar(array (
 	"TEMPLATEDIR" => dirname(getenv("SCRIPT_NAME"))."/".$WebTemplateDir,
 	"WEBBASEDIR" => $WebBaseDir,
+	"SITETITLE" => $i18n->_('site_title'),
+	"CHARSET" => $i18n->getCharset(),
 ));
 
 ?>
