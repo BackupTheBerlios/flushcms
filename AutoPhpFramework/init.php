@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.12 2006/09/20 10:17:52 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.13 2006/09/20 10:44:13 arzen Exp $
  */
 
 $RootDir = APF_ROOT_DIR.DIRECTORY_SEPARATOR; 
@@ -34,6 +34,13 @@ include_once("DB/DataObject/Cast.php");
 include_once($ControllerDir."Controller.class.php");
 include_once("HTML/Template/PHPLIB.php");
 include_once($ClassDir."Actions.class.php");
+if (defined('APF_DEBUG') && (APF_DEBUG==true) ) 
+{
+	include_once 'Benchmark/Timer.php';
+	include_once 'Var_Dump.php';
+	$timer =& new Benchmark_Timer();
+	$timer->start();
+}
 
 $dsn = "{$DB_Type}://{$DB_UserName}:{$DB_PassWord}@{$DB_Host}/{$DB_Name}";
 $conn =& DB::connect ($dsn);

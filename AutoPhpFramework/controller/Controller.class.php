@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: Controller.class.php,v 1.5 2006/09/19 14:03:16 arzen Exp $
+ * @version    CVS: $Id: Controller.class.php,v 1.6 2006/09/20 10:44:13 arzen Exp $
  */
 
 class Controller
@@ -24,7 +24,7 @@ class Controller
 	
 	function dispatch () 
 	{
-		global $ModuleDir,$ClassDir,$template,$DefaultModule,$DefaultPage;
+		global $ModuleDir,$ClassDir,$template,$DefaultModule,$DefaultPage,$timer;
 		$this->path_info = ltrim(getenv("PATH_INFO"), "/");
 		
 		$this->setDefualtModule($DefaultModule);
@@ -57,6 +57,11 @@ class Controller
 			"LAOUT",
 		));
 		$template->p("OUT");
+		if (defined('APF_DEBUG') && (APF_DEBUG==true) ) 
+		{
+			$timer->stop();
+			$timer->display();
+		}
 
 	}
 	
