@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: Controller.class.php,v 1.7 2006/09/20 10:53:03 arzen Exp $
+ * @version    CVS: $Id: Controller.class.php,v 1.8 2006/09/20 23:40:29 arzen Exp $
  */
 
 class Controller
@@ -49,6 +49,7 @@ class Controller
 		}
 		
 //		printf("module %s/ page %s/ action %s/ ",$module_name,$page_name,$action_name);
+		$this->parseTemplateLang();
 		
 		$template->parse("OUT", array (
 			"TAB",
@@ -57,7 +58,6 @@ class Controller
 			"LAOUT",
 		));
 		$template->p("OUT");
-		Var_Dump::display(array_keys($template->getVars()));
 		
 		if (defined('APF_DEBUG') && (APF_DEBUG==true) ) 
 		{
@@ -65,6 +65,21 @@ class Controller
 			$timer->display();
 		}
 
+	}
+	
+	function parseTemplateLang () 
+	{
+		global $template,$i18n;
+		$lang_arr = array_merge($template->getUndefined("MAIN"),$template->getUndefined("TAB"));
+		foreach($lang_arr as $key=>$value)
+		{
+			if (eregi("lang_",$key)) 
+			{
+				$lang_key = ltrim($key,"lang_");
+				$template->setVar($key,$i18n->_($lang_key));
+			}
+		}
+//		Var_Dump::display($template->getUndefined("MAIN"));
 	}
 	
 	function getModuleName () 
