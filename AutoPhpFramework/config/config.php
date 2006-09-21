@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: config.php,v 1.4 2006/09/20 10:17:52 arzen Exp $
+ * @version    CVS: $Id: config.php,v 1.5 2006/09/21 05:00:28 arzen Exp $
  */
  
 $DB_Type = "mysql";
@@ -16,8 +16,8 @@ $DB_UserName = "root";
 $DB_PassWord = "test1234";
 $DB_Name = "dev_apf";
 
-$DefaultModule = "default";
-$DefaultPage = "index";
+$DefaultModule = "users";
+$DefaultPage = "apf_users";
 
 $DbPrefix = "apf_";
 $lang   = 'zh';

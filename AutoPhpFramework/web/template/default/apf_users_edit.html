@@ -1,6 +1,6 @@
         
 <div id="admin_container">
-<h1>Edit info</h1>
+<h1>{lang_EditInfo}</h1>
 <div id="admin_header">
 </div>
 <div id="admin_content">
@@ -8,63 +8,58 @@
 	{SUCCESS_MSG}
   </div>
 
-<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{WEBDIR}/users/apf_users/{DOACTION}">
+<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{WEBDIR}/news/apf_users/{DOACTION}">
 <input type="hidden" name="ID" id="ID" value="{ID}" />
-<input type="hidden" name="act" value="{DoAction}" />
 <fieldset id="fieldset_________" class="">
-<h2>General info</h2><div class="form-row">
-  <label >Id:</label>  <div class="content">
-  <input type="text" name="id" id="id" value="{ID}" size="20" />    </div>
-</div>
-<div class="form-row">
-  <label >UserName:</label>  <div class="content">
-  <div class="form-error-msg" style="color: #ff0000;" id="error_for_user_name">{USER_NAME_ERROR_MSG}</div>
+<h2>{lang_GeneralInfo}</h2><div class="form-row">
+  <label >{lang_UserName}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{USER_NAME_ERROR_MSG}</div>
   <input type="text" name="user_name" id="user_name" value="{USER_NAME}" size="20" />    </div>
 </div>
 <div class="form-row">
-  <label >UserPwd:</label>  <div class="content">
+  <label >{lang_UserPwd}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{USER_PWD_ERROR_MSG}</div>
   <input type="text" name="user_pwd" id="user_pwd" value="{USER_PWD}" size="20" />    </div>
 </div>
 <div class="form-row">
-  <label >Gender:</label>  <div class="content">
+  <label >{lang_Gender}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{GENDER_ERROR_MSG}</div>
   <input type="text" name="gender" id="gender" value="{GENDER}" size="20" />    </div>
 </div>
 <div class="form-row">
-  <label >Addrees:</label>  <div class="content">
+  <label >{lang_Addrees}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ADDREES_ERROR_MSG}</div>
   <input type="text" name="addrees" id="addrees" value="{ADDREES}" size="20" />    </div>
 </div>
 <div class="form-row">
-  <label >Phone:</label>  <div class="content">
+  <label >{lang_Phone}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{PHONE_ERROR_MSG}</div>
   <input type="text" name="phone" id="phone" value="{PHONE}" size="20" />    </div>
 </div>
 <div class="form-row">
-  <label >Email:</label>  <div class="content">
+  <label >{lang_Email}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{EMAIL_ERROR_MSG}</div>
   <input type="text" name="email" id="email" value="{EMAIL}" size="20" />    </div>
 </div>
 <div class="form-row">
-  <label >Photo:</label>  <div class="content">
+  <label >{lang_Photo}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{PHOTO_ERROR_MSG}</div>
   <input type="text" name="photo" id="photo" value="{PHOTO}" size="20" />    </div>
 </div>
 <div class="form-row">
-  <label >Active:</label>  <div class="content">
+  <label >{lang_RoleId}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ROLE_ID_ERROR_MSG}</div>
+  <input type="text" name="role_id" id="role_id" value="{ROLE_ID}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Active}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ACTIVE_ERROR_MSG}</div>
   <input type="text" name="active" id="active" value="{ACTIVE}" size="20" />    </div>
-</div>
-<div class="form-row">
-  <label >AddIp:</label>  <div class="content">
-  <input type="text" name="add_ip" id="add_ip" value="{ADD_IP}" size="20" />    </div>
-</div>
-<div class="form-row">
-  <label >CreatedAt:</label>  <div class="content">
-  <input type="text" name="created_at" id="created_at" value="{CREATED_AT}" size="20" />    </div>
-</div>
-<div class="form-row">
-  <label >UpdateAt:</label>  <div class="content">
-  <input type="text" name="update_at" id="update_at" value="{UPDATE_AT}" size="20" />    </div>
 </div>
 </fieldset>
 <ul class="admin_actions">
-  <li><input class="admin_action_list" value="List" type="button" onclick="document.location.href='{WEBDIR}/users/apf_users/list';" /></li>
-  <li><input type="submit" name="save" value="Save" class="admin_action_save" /></li>
+  <li><input class="admin_action_list" value="{lang_List}" type="button" onclick="document.location.href='{WEBDIR}/news/apf_users/list';" /></li>
+  <li><input type="submit" name="save" value="{lang_Save}" class="admin_action_save" /></li>
 
 </ul>
 </form>

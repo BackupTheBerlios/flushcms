@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.14 2006/09/20 10:53:03 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.15 2006/09/21 05:00:28 arzen Exp $
  */
 
 $RootDir = APF_ROOT_DIR.DIRECTORY_SEPARATOR; 
@@ -66,8 +66,11 @@ $opts = array(
 	$news_category_table.'_fields_list'=>'id,category_name,active',
 	$news_category_table.'_except_fields'=>'id,add_ip,created_at,update_at',
 	
-	'generator_add_validate_stubs'=>'category_name:empty',
-	'generator_include_regex'=>'/'.$news_category_table.'/',
+	$users_table.'_fields_list'=>'id,user_name,user_pwd,gender,phone,role_id,active',
+	$users_table.'_except_fields'=>'id,add_ip,created_at,update_at',
+	
+	'generator_add_validate_stubs'=>'user_name:empty',
+	'generator_include_regex'=>'/'.$users_table.'/',
 	'generator_no_ini'=>'1',
 );
 

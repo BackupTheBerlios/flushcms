@@ -16,10 +16,11 @@ class DaoApfUsers extends DB_DataObject
     var $phone;                           // string(80)  
     var $email;                           // string(80)  
     var $photo;                           // string(80)  
-    var $active;                          // int(2)  
+    var $role_id;                         // int(8)  
+    var $active;                          // string(8)  not_null
     var $add_ip;                          // string(24)  
-    var $created_at;                      // datetime(19)  
-    var $update_at;                       // datetime(19)  
+    var $created_at;                      // datetime(19)  not_null
+    var $update_at;                       // datetime(19)  not_null
 
     /* ZE2 compatibility trick*/
     function __clone() { return $this;}
@@ -120,9 +121,20 @@ class DaoApfUsers extends DB_DataObject
     }
 
    /**
-    * Getter for $Active
+    * Getter for $RoleId
     *
     * @return   int
+    * @access   public
+    */
+    function getRoleId() 
+    {
+        return $this->role_id;
+    }
+
+   /**
+    * Getter for $Active
+    *
+    * @return   string
     * @access   public
     */
     function getActive() 
@@ -253,6 +265,17 @@ class DaoApfUsers extends DB_DataObject
     }
 
    /**
+    * Setter for $RoleId
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+    function setRoleId($value) 
+    {
+        $this->role_id = $value;
+    }
+
+   /**
     * Setter for $Active
     *
     * @param    mixed   input value
@@ -308,10 +331,11 @@ class DaoApfUsers extends DB_DataObject
              'phone' =>  DB_DATAOBJECT_STR,
              'email' =>  DB_DATAOBJECT_STR,
              'photo' =>  DB_DATAOBJECT_STR,
-             'active' =>  DB_DATAOBJECT_INT,
+             'role_id' =>  DB_DATAOBJECT_INT,
+             'active' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
              'add_ip' =>  DB_DATAOBJECT_STR,
-             'created_at' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME,
-             'update_at' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME,
+             'created_at' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
+             'update_at' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
          );
     }
 
@@ -335,6 +359,7 @@ class DaoApfUsers extends DB_DataObject
              'phone' => '',
              'email' => '',
              'photo' => '',
+             'active' => 'new',
              'add_ip' => '',
          );
     }
