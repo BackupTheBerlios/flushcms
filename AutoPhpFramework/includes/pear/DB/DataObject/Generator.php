@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: Generator.php,v 1.9 2006/09/21 04:49:55 arzen Exp $
+ * @version    CVS: $Id: Generator.php,v 1.10 2006/09/21 05:16:34 arzen Exp $
  * @link       http://pear.php.net/package/DB_DataObject
  */
  
@@ -951,7 +951,7 @@ EOD;
  * {$camel_case_name}.class.php
  *
  * @package    core
- * @author     John.meng <john.meng@achievo.com>
+ * @author     John.meng <arzen1013@gmail.com>
  * @version    CVS: \$Id\$
  */
 

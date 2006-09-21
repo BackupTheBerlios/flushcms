@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.15 2006/09/21 05:00:28 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.17 2006/09/21 05:14:32 arzen Exp $
  */
 
 $RootDir = APF_ROOT_DIR.DIRECTORY_SEPARATOR; 
@@ -34,6 +34,8 @@ include_once("DB/DataObject/Cast.php");
 include_once($ControllerDir."Controller.class.php");
 include_once("HTML/Template/PHPLIB.php");
 include_once($ClassDir."Actions.class.php");
+require_once 'LiveUser.php';
+require_once 'I18N/Messages/File.php';
 if (defined('APF_DEBUG') && (APF_DEBUG==true) ) 
 {
 	include_once 'Benchmark/Timer.php';
@@ -56,8 +58,8 @@ $opts = array(
     'extends_location'=>'',
 	'template_location'=>$TemplateDir,
 	'actions_location'=>$RootDir,
-	'modules_location'=>$RootDir.'/module/news/',
-	'modules_name_location'=>'news',
+	'modules_location'=>$RootDir.'/module/users/',
+	'modules_name_location'=>'users',
 	'require_prefix'=>'dataobjects/',
 	'class_prefix'=>'Dao',
 	'extends'=>'DB_DataObject',
@@ -74,7 +76,60 @@ $opts = array(
 	'generator_no_ini'=>'1',
 );
 
-require_once 'I18N/Messages/File.php';
+$liveuserConfig = array(
+    'session'           => array('name' => 'PHPSESSID','varname' => 'loginInfo'),
+    'logout'            => array('destroy'  => true),
+    'cookie'            => array(
+        'name' => 'loginInfo',
+        'path' => null,
+        'domain' => null,
+        'secure' => false,
+        'lifetime' => 30,
+        'secret' => 'mysecretkey',
+        'savedir' => '.',
+    ),
+    'authContainers'    => array(
+        'DB' => array(
+            'type'          => 'DB',
+            'expireTime'   => 0,
+            'idleTime'     => 0,
+            'passwordEncryptionMode' => 'PLAIN',
+            'storage' => array(
+                'dsn' => $dsn,
+                'alias' => array(
+                    'auth_user_id' => 'authuserid',
+                    'lastlogin' => 'lastlogin',
+                    'is_active' => 'isactive',
+                ),
+                'fields' => array(
+                    'lastlogin' => 'timestamp',
+                    'is_active' => 'boolean',
+                ),
+                'tables' => array(
+                    'users' => array(
+                        'fields' => array(
+                            'lastlogin' => false,
+                            'is_active' => false,
+                        ),
+                    ),
+                ),
+            )
+        )
+    ),
+    'permContainer' => array(
+        'type'  => 'Medium',
+        'storage' => array(
+            'MDB2' => array(
+                'dsn' => $dsn,
+                'prefix' => 'liveuser_',
+                'alias' => array(),
+                'tables' => array(),
+                'fields' => array(),
+            ),
+        ),
+    ),
+);
+
 $i18n = new I18N_Messages_File($lang,$domain,$dir);
 
 $controller = new Controller();
@@ -95,5 +150,12 @@ $template->setVar(array (
 	"SITETITLE" => $i18n->_('site_title'),
 	"CHARSET" => $i18n->getCharset(),
 ));
+
+$LU =& LiveUser::factory($liveuserConfig);
+if (!$LU->init()) 
+{
+    var_dump($LU->getErrors());
+    die();
+}
 
 ?>
