@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: Generator.php,v 1.8 2006/09/21 04:23:15 arzen Exp $
+ * @version    CVS: $Id: Generator.php,v 1.9 2006/09/21 04:49:55 arzen Exp $
  * @link       http://pear.php.net/package/DB_DataObject
  */
  
@@ -918,16 +918,19 @@ class DB_DataObject_Generator extends DB_DataObject
 
         foreach($defs as $t) 
         {
-            if (!strlen(trim($t->name))) 
+            if ( !strlen(trim($t->name)) ) // || (trim($t->name)==$id_field_name) || in_array(trim($t->name),explode(",",$options["{$outfilename}_except_fields"]))
             {
                 continue;
             }
             $field_name=$t->name;
             $field_upper_name=strtoupper($t->name);
             $field_camel_case_name=$this->CamelCaseFromUnderscore($t->name);
-        	$post_code .= <<<EOD
+            if(trim($t->name)!=$id_field_name)
+            {
+        		$post_code .= <<<EOD
 		\${$outfilename}->set{$field_camel_case_name}(stripslashes(trim(\$_POST['{$field_name}'])));\n
 EOD;
+            }
         	$update_code .= <<<EOD
 "{$field_upper_name}" => \${$outfilename}->get{$field_camel_case_name}(),
 EOD;
@@ -1009,7 +1012,7 @@ class {$camel_case_name}  extends Actions
 
 	function handleFormData(\$edit_submit=false)
 	{
-		global \$template,\$WebBaseDir;
+		global \$template,\$WebBaseDir,\$i18n;
 		\${$outfilename} = DB_DataObject :: factory('{$camel_case_name}');
 
 		if (\$edit_submit) 
@@ -1055,7 +1058,7 @@ class {$camel_case_name}  extends Actions
 				if (\$v == false)
 				{
 					\$template->setVar(array (
-						strtoupper(\$k)."_ERROR_MSG" => " &darr; Please check here &darr; "
+						strtoupper(\$k)."_ERROR_MSG" => " &darr; ".\$i18n->_("Please check here")." &darr; "
 					));
 
 				}

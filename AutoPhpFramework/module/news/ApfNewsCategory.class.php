@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.5 2006/09/21 04:23:15 arzen Exp $
+ * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.6 2006/09/21 04:49:55 arzen Exp $
  */
 
 class ApfNewsCategory  extends Actions
@@ -66,7 +66,7 @@ class ApfNewsCategory  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir;
+		global $template,$WebBaseDir,$i18n;
 		$apf_news_category = DB_DataObject :: factory('ApfNewsCategory');
 
 		if ($edit_submit) 
@@ -79,7 +79,6 @@ class ApfNewsCategory  extends Actions
 			$do_action = "addsubmit";
 		}
 
-		$apf_news_category->setId(stripslashes(trim($_POST['id'])));
 		$apf_news_category->setCategoryName(stripslashes(trim($_POST['category_name'])));
 		$apf_news_category->setActive(stripslashes(trim($_POST['active'])));
 		$apf_news_category->setAddIp(stripslashes(trim($_POST['add_ip'])));
@@ -118,7 +117,7 @@ class ApfNewsCategory  extends Actions
 				if ($v == false)
 				{
 					$template->setVar(array (
-						strtoupper($k)."_ERROR_MSG" => " &darr; Please check here &darr; "
+						strtoupper($k)."_ERROR_MSG" => " &darr; ".$i18n->_("Please check here")." &darr; "
 					));
 
 				}

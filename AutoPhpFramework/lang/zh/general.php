@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.3 2006/09/21 04:23:15 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.4 2006/09/21 04:49:55 arzen Exp $
  */
 $this->setCharset('gb2312'); 
 $messages = array(
@@ -16,8 +16,10 @@ $messages = array(
 	'Users' => 'Users',
 	'NewsCategory' => 'News Category',
 
-	'Listing' => 'Listing',
+	'AreYouSure' => 'Listing',
 	'Create' => 'Create',
+
+	'Please check here' => 'Çë¼ì²é´Ë´¦',
 );
 $this->set($messages);
 
