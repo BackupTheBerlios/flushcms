@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.17 2006/09/21 05:14:32 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.16 2006/09/21 05:11:07 arzen Exp $
  */
 
 $RootDir = APF_ROOT_DIR.DIRECTORY_SEPARATOR; 
@@ -58,8 +58,8 @@ $opts = array(
     'extends_location'=>'',
 	'template_location'=>$TemplateDir,
 	'actions_location'=>$RootDir,
-	'modules_location'=>$RootDir.'/module/users/',
-	'modules_name_location'=>'users',
+	'modules_location'=>$RootDir.'/module/news/',
+	'modules_name_location'=>'news',
 	'require_prefix'=>'dataobjects/',
 	'class_prefix'=>'Dao',
 	'extends'=>'DB_DataObject',

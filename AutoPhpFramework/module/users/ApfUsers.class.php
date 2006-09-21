@@ -5,8 +5,8 @@
  * ApfUsers.class.php
  *
  * @package    core
- * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfUsers.class.php,v 1.8 2006/09/21 05:16:34 arzen Exp $
+ * @author     John.meng <john.meng@achievo.com>
+ * @version    CVS: $Id: ApfUsers.class.php,v 1.7 2006/09/21 05:14:32 arzen Exp $
  */
 
 class ApfUsers  extends Actions
