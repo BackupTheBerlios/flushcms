@@ -12,10 +12,10 @@
 
 <table cellspacing="0" class="admin_list">      
 <thead>
-<tr><th>&nbsp;Id</th>
-<th>&nbsp;CategoryName</th>
-<th>&nbsp;Active</th>
-<th>Action</th>
+<tr><th>&nbsp;{lang_Id}</th>
+<th>&nbsp;{lang_CategoryName}</th>
+<th>&nbsp;{lang_Active}</th>
+<th>{lang_Action}</th>
 </tr>
 </thead>
 <tbody>
@@ -25,8 +25,8 @@
 <td>&nbsp;{ACTIVE}</td>
 <td>
 <ul class="admin_td_actions">
-  <li><a href="{WEBDIR}/news/apf_news_category/update/{ID}"><img alt="edit" title="edit" src="{WEBTEMPLATEDIR}images/edit_icon.png" /></a></li>
-  <li><a onclick="if (confirm('Are you sure?')) { f = document.createElement('form'); document.body.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;" href="{WEBDIR}/news/apf_news_category/del/{ID}"><img alt="delete" title="delete" src="{WEBTEMPLATEDIR}images/delete_icon.png" /></a></li>
+  <li><a href="{WEBDIR}/news/apf_news_category/update/{ID}"><img alt="{lang_Edit}" title="{lang_Edit}" src="{WEBTEMPLATEDIR}images/edit_icon.png" /></a></li>
+  <li><a onclick="if (confirm('Are you sure?')) { f = document.createElement('form'); document.body.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;" href="{WEBDIR}/news/apf_news_category/del/{ID}"><img alt="{lang_Delete}" title="{lang_Delete}" src="{WEBTEMPLATEDIR}images/delete_icon.png" /></a></li>
 </ul>
 
 </td>
@@ -38,7 +38,7 @@
 <div class="float-right">
 {PAGINATION}
 </div>
-{TOLTAL_NUM} result </th></tr>
+{TOLTAL_NUM} {lang_Result} </th></tr>
 </tfoot>
 
 </table>

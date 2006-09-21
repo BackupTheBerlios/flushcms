@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: Generator.php,v 1.7 2006/09/20 04:44:18 arzen Exp $
+ * @version    CVS: $Id: Generator.php,v 1.8 2006/09/21 04:23:15 arzen Exp $
  * @link       http://pear.php.net/package/DB_DataObject
  */
  
@@ -1168,7 +1168,7 @@ EOD;
         $body .=<<<EOD
         
 <div id="admin_container">
-<h1>Edit info</h1>
+<h1>{lang_EditInfo}</h1>
 <div id="admin_header">
 </div>
 <div id="admin_content">
@@ -1179,7 +1179,7 @@ EOD;
 <form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{WEBDIR}/{$module_name}/{$outfilename}/{DOACTION}">
 <input type="hidden" name="ID" id="ID" value="{{$id_field_name}}" />
 <fieldset id="fieldset_________" class="">
-<h2>General info</h2>
+<h2>{lang_GeneralInfo}</h2>
 EOD;
 
         foreach($defs as $t) {
@@ -1194,7 +1194,7 @@ EOD;
 				{
 		        		$body .=<<<EOD
 <div class="form-row">
-  <label >{$camel_case_name}:</label>  <div class="content">
+  <label >{lang_{$camel_case_name}}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{{$upper_name}_ERROR_MSG}</div>
   <input type="text" name="{$t->name}" id="{$t->name}" value="{{$upper_name}}" size="20" />    </div>
 </div>
@@ -1206,7 +1206,7 @@ EOD;
 			{
 		        $body .=<<<EOD
 <div class="form-row">
-  <label >{$camel_case_name}:</label>  <div class="content">
+  <label >{lang_{$camel_case_name}}:</label>  <div class="content">
   <input type="text" name="{$t->name}" id="{$t->name}" value="{{$upper_name}}" size="20" />    </div>
 </div>
 
@@ -1216,8 +1216,8 @@ EOD;
         $body .=<<<EOD
 </fieldset>
 <ul class="admin_actions">
-  <li><input class="admin_action_list" value="List" type="button" onclick="document.location.href='{WEBDIR}/{$module_name}/{$outfilename}/list';" /></li>
-  <li><input type="submit" name="save" value="Save" class="admin_action_save" /></li>
+  <li><input class="admin_action_list" value="{lang_List}" type="button" onclick="document.location.href='{WEBDIR}/{$module_name}/{$outfilename}/list';" /></li>
+  <li><input type="submit" name="save" value="{lang_Save}" class="admin_action_save" /></li>
 
 </ul>
 </form>
@@ -1251,14 +1251,14 @@ EOD;
         $body .=<<<EOD
         
 <div id="admin_container">
-<h1>Listing</h1>
+<h1>{lang_Listing}</h1>
 <div id="admin_header">
 </div>
 <div id="admin_bar">
 </div>
         
 <ul class="admin_actions">
-          <li><input class="admin_action_create" value="Create" type="button" onclick="document.location.href='{WEBDIR}/{$module_name}/{$outfilename}/create';" /></li>
+          <li><input class="admin_action_create" value="{lang_Create}" type="button" onclick="document.location.href='{WEBDIR}/{$module_name}/{$outfilename}/create';" /></li>
 </ul>
 
 <table cellspacing="0" class="admin_list">      
@@ -1274,25 +1274,25 @@ EOD;
 			{
 				if (in_array($t->name,explode(",",$fields))) 
 				{
-		            $table_th .= "<th>&nbsp;".$this->CamelCaseFromUnderscore($t->name)."</th>\n";
+		            $table_th .= "<th>&nbsp;{lang_".$this->CamelCaseFromUnderscore($t->name)."}</th>\n";
 		            $table_td .= "<td>&nbsp;{".strtoupper($t->name)."}</td>\n";
 				}
 			}
 			else
 			{
-	            $table_th .= "<th>&nbsp;".$this->CamelCaseFromUnderscore($t->name)."</th>\n";
+	            $table_th .= "<th>&nbsp;{lang_".$this->CamelCaseFromUnderscore($t->name)."}</th>\n";
 	            $table_td .= "<td>&nbsp;{".strtoupper($t->name)."}</td>\n";
 			}
           $i++;   
         }
-        $table_th .= "<th>Action</th>\n";
+        $table_th .= "<th>{lang_Action}</th>\n";
         $id_field_name = strtoupper($defs[0]->name);
         
         $table_td .=<<<EOD
 <td>
 <ul class="admin_td_actions">
-  <li><a href="{WEBDIR}/{$module_name}/{$outfilename}/update/{ID}"><img alt="edit" title="edit" src="{WEBTEMPLATEDIR}images/edit_icon.png" /></a></li>
-  <li><a onclick="if (confirm('Are you sure?')) { f = document.createElement('form'); document.body.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;" href="{WEBDIR}/{$module_name}/{$outfilename}/del/{ID}"><img alt="delete" title="delete" src="{WEBTEMPLATEDIR}images/delete_icon.png" /></a></li>
+  <li><a href="{WEBDIR}/{$module_name}/{$outfilename}/update/{ID}"><img alt="{lang_Edit}" title="{lang_Edit}" src="{WEBTEMPLATEDIR}images/edit_icon.png" /></a></li>
+  <li><a onclick="if (confirm('Are you sure?')) { f = document.createElement('form'); document.body.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;" href="{WEBDIR}/{$module_name}/{$outfilename}/del/{ID}"><img alt="{lang_Delete}" title="{lang_Delete}" src="{WEBTEMPLATEDIR}images/delete_icon.png" /></a></li>
 </ul>
 
 </td>
@@ -1307,7 +1307,7 @@ EOD;
 <div class="float-right">
 {PAGINATION}
 </div>
-{TOLTAL_NUM} result </th></tr>
+{TOLTAL_NUM} {lang_Result} </th></tr>
 </tfoot>
 
 </table>
