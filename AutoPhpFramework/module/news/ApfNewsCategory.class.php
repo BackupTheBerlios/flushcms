@@ -5,8 +5,8 @@
  * ApfNewsCategory.class.php
  *
  * @package    core
- * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.6 2006/09/21 04:49:55 arzen Exp $
+ * @author     John.meng <arzen1013@gmail.com>
+ * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.7 2006/09/22 12:58:25 arzen Exp $
  */
 
 class ApfNewsCategory  extends Actions

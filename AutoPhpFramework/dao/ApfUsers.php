@@ -366,9 +366,9 @@ class DaoApfUsers extends DB_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
     function validateUser_name()
     {
         return empty($this->user_name)?false:true;
     }
-
 }

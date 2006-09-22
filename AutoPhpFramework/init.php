@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.19 2006/09/22 05:40:05 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.20 2006/09/22 12:58:25 arzen Exp $
  */
 
 $RootDir = APF_ROOT_DIR . DIRECTORY_SEPARATOR;
@@ -61,19 +61,25 @@ $opts = array (
 	'template_location' => $TemplateDir,
 	'actions_location' => $RootDir,
 	'modules_location' => $RootDir . '/module/users/',
-	'modules_name_location' => 'users',
+	
+	$users_table.'_modules_location' => $RootDir . '/module/users/',
+	$users_table.'_modules_name_location' => 'users',
+	$users_table . '_fields_list' => 'id,user_name,user_pwd,gender,phone,role_id,active',
+	$users_table . '_except_fields' => 'id,add_ip,created_at,update_at',
+	$users_table.'_generator_add_validate_stubs' => 'user_name:empty',
+	
+	$news_category_table.'_modules_location' => $RootDir . '/module/news/',
+	$news_category_table.'_modules_name_location' => 'news',
+	$news_category_table . '_fields_list' => 'id,category_name,active',
+	$news_category_table . '_except_fields' => 'id,add_ip,created_at,update_at',
+	$news_category_table.'_generator_add_validate_stubs' => 'category_name:empty',
+
 	'require_prefix' => 'dataobjects/',
 	'class_prefix' => 'Dao',
 	'extends' => 'DB_DataObject',
 	'generate_setters' => '1',
 	'generate_getters' => '1',
-	$news_category_table . '_fields_list' => 'id,category_name,active',
-	$news_category_table . '_except_fields' => 'id,add_ip,created_at,update_at',
 
-	$users_table . '_fields_list' => 'id,user_name,user_pwd,gender,phone,role_id,active',
-	$users_table . '_except_fields' => 'id,add_ip,created_at,update_at',
-
-	'generator_add_validate_stubs' => 'user_name:empty',
 	'generator_include_regex' => '/' . $users_table . '/',
 	'generator_no_ini' => '1',
 	
@@ -100,8 +106,8 @@ $liveuserConfig = array (
 	'authContainers' => array (
 		'DB' => array (
 			'type' => 'DB',
-			'expireTime' => 5,
-			'idleTime' => 5,
+			'expireTime' => 60*20,
+			'idleTime' => 60*20,
 			'prefix' => '',
 			'passwordEncryptionMode' => 'plain',
 			'storage' => array (
@@ -117,7 +123,7 @@ $liveuserConfig = array (
 				),
 				'fields' => array (
 					'lastlogin' => 'timestamp',
-					'is_active' => 'boolean',
+					'is_active' => 'live',
 					
 				),
 				
@@ -143,8 +149,8 @@ $template->setBlock("LAOUT", "laout");
 $template->setBlock("TAB", "tab");
 
 $template->setVar(array (
-	"TEMPLATEDIR" => dirname(getenv("SCRIPT_NAME"
-)) . "/" . $WebTemplateDir, "WEBBASEDIR" => $WebBaseDir, "SITETITLE" => $i18n->_('site_title'), "CHARSET" => $i18n->getCharset(),));
+	"TEMPLATEDIR" => dirname(getenv("SCRIPT_NAME")) . "/" . $WebTemplateDir, 
+	"WEBBASEDIR" => $WebBaseDir, "SITETITLE" => $i18n->_('site_title'), "CHARSET" => $i18n->getCharset(),));
 
 $LU =& LiveUser::factory($liveuserConfig);
 
@@ -156,9 +162,13 @@ if (!$LU->init()) {
 $handle = (array_key_exists('handle', $_REQUEST)) ? $_REQUEST['handle'] : null;
 $passwd = (array_key_exists('passwd', $_REQUEST)) ? $_REQUEST['passwd'] : null;
 $logout = (array_key_exists('logout', $_REQUEST)) ? $_REQUEST['logout'] : false;
-if ($logout) {
-    $LU->logout(true);
-} elseif(!$LU->isLoggedIn() || ($handle && $LU->getProperty('handle') != $handle)) {
+if ($logout) 
+{
+     $LU->logout(true);
+     header("location:".getenv("SCRIPT_NAME"));
+} 
+elseif(!$LU->isLoggedIn() || ($handle && $LU->getProperty('handle') != $handle)) 
+{
     if (!$handle) {
         $LU->login(null, null, true);
     } else {

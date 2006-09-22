@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: Generator.php,v 1.10 2006/09/21 05:16:34 arzen Exp $
+ * @version    CVS: $Id: Generator.php,v 1.11 2006/09/22 12:58:25 arzen Exp $
  * @link       http://pear.php.net/package/DB_DataObject
  */
  
@@ -662,11 +662,10 @@ class DB_DataObject_Generator extends DB_DataObject
         foreach($this->tables as $this->table) {
             $this->table = trim($this->table);
             $i = '';
-            
-            if (strpos($options['modules_location'],'%s') !== false) {
-                $outfilename   = sprintf($options['modules_location'], preg_replace('/[^A-Z0-9]/i','_',$this->CamelCaseFromUnderscore($this->table)));
+             if (strpos($options["{$this->table}_modules_location"],'%s') !== false) {
+                $outfilename   = sprintf($options["{$this->table}_modules_location"], preg_replace('/[^A-Z0-9]/i','_',$this->CamelCaseFromUnderscore($this->table)));
             } else { 
-                $outfilename = "{$base}/".preg_replace('/[^A-Z0-9]/i','_',$this->CamelCaseFromUnderscore($this->table))."";//.php
+                $outfilename = $options["{$this->table}_modules_location"].preg_replace('/[^A-Z0-9]/i','_',$this->CamelCaseFromUnderscore($this->table))."";//.php
             }
             $oldcontents = '';
             if (file_exists($outfilename)) {
@@ -831,14 +830,14 @@ class DB_DataObject_Generator extends DB_DataObject
 
         // stubs..
         
-        if (!empty($options['generator_add_validate_stubs'])) {
+        if (!empty($options["{$this->table}_generator_add_validate_stubs"])) {
             
             foreach($defs as $t) {
                 if (!strlen(trim($t->name))) {
                     continue;
                 }
                 $match=array();
-                if (!preg_match('/' . $t->name . ':([^,]*)/i', $options['generator_add_validate_stubs'],$match)) {
+                if (!preg_match('/' . $t->name . ':([^,]*)/i', $options["{$this->table}_generator_add_validate_stubs"],$match)) {
                     continue;
                 }
                 $validate_conditon=$match[1];
@@ -909,7 +908,7 @@ class DB_DataObject_Generator extends DB_DataObject
         $upper_id_field_name = strtoupper($defs[0]->name);
 
         $camel_case_name = $this->CamelCaseFromUnderscore($outfilename);
-        $module_name = $options['modules_name_location'];
+        $module_name = $options["{$outfilename}_modules_name_location"];
         
         $post_code = "";
         $update_code = "";
@@ -1164,7 +1163,7 @@ EOD;
         $options = &PEAR::getStaticProperty('DB_DataObject','options');
         $body="";
         $defs = $this->_definitions[$this->table];
-        $module_name = $options["modules_name_location"];
+        $module_name = $options["{$outfilename}_modules_name_location"];
         
         $id_field_name = strtoupper($defs[0]->name);
         
@@ -1248,7 +1247,7 @@ EOD;
     {
         $options = &PEAR::getStaticProperty('DB_DataObject','options');
         $body="";
-        $module_name = $options["modules_name_location"];
+        $module_name = $options["{$outfilename}_modules_name_location"];
         $defs = $this->_definitions[$this->table];
         
         $body .=<<<EOD
