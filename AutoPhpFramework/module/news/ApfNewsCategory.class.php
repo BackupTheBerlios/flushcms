@@ -6,22 +6,24 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.7 2006/09/22 12:58:25 arzen Exp $
+ * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.8 2006/09/22 13:56:27 arzen Exp $
  */
 
 class ApfNewsCategory  extends Actions
 {
 	function executeCreate()
 	{
-		global $template,$WebBaseDir;
+		global $template,$WebBaseDir,$ActiveOption;
 
 		$template->setFile(array (
 			"MAIN" => "apf_news_category_edit.html"
 		));
 		$template->setBlock("MAIN", "add_block");
 		
+		array_shift($ActiveOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"ACTIVEOPTION" => selectTag("active",$ActiveOption),
 			"DOACTION" => "addsubmit"
 		));
 
@@ -34,28 +36,31 @@ class ApfNewsCategory  extends Actions
 	
 	function executeUpdate()
 	{
-		global $template,$WebBaseDir,$controller;
+		global $template,$WebBaseDir,$controller,$ActiveOption,$i18n;
 		$template->setFile(array (
 			"MAIN" => "apf_news_category_edit.html"
 		));
 		$template->setBlock("MAIN", "edit_block");
-		$template->setVar(array (
-			"WEBDIR" => $WebBaseDir,
-			"DOACTION" => "updatesubmit"
-		));
+
 
 		$apf_news_category = DB_DataObject :: factory('ApfNewsCategory');
 		$apf_news_category->get($apf_news_category->escape($controller->getID()));
 
-		if ($_GET['view_status']=="ok") 
+		if ($controller->getURLParam(1)=="ok") 
 		{
 			$template->setVar(array (
 				"SUCCESS_CLASS" => "save-ok",
-				"SUCCESS_MSG" => "<h2>Your modifications have been saved</h2>"
+				"SUCCESS_MSG" => "<h2>".$i18n->_("Your modifications have been saved")."</h2>"
 			));
 		}
 
-		$template->setVar(array ("ID" => $apf_news_category->getId(),"CATEGORY_NAME" => $apf_news_category->getCategoryName(),"ACTIVE" => $apf_news_category->getActive(),"ADD_IP" => $apf_news_category->getAddIp(),"CREATED_AT" => $apf_news_category->getCreatedAt(),"UPDATE_AT" => $apf_news_category->getUpdateAt(),));
+		$template->setVar(array ("ID" => $apf_news_category->getId(),"CATEGORY_NAME" => $apf_news_category->getCategoryName(),"ORDERID" => $apf_news_category->getOrderid(),"ACTIVE" => $apf_news_category->getActive(),"ADD_IP" => $apf_news_category->getAddIp(),"CREATED_AT" => $apf_news_category->getCreatedAt(),"UPDATE_AT" => $apf_news_category->getUpdateAt(),));
+		array_shift($ActiveOption);
+		$template->setVar(array (
+			"WEBDIR" => $WebBaseDir,
+			"ACTIVEOPTION" => selectTag("active",$ActiveOption,$apf_news_category->getActive()),
+			"DOACTION" => "updatesubmit"
+		));
 		
 	}
 	
@@ -66,7 +71,7 @@ class ApfNewsCategory  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n;
+		global $template,$WebBaseDir,$i18n,$ActiveOption;
 		$apf_news_category = DB_DataObject :: factory('ApfNewsCategory');
 
 		if ($edit_submit) 
@@ -80,6 +85,7 @@ class ApfNewsCategory  extends Actions
 		}
 
 		$apf_news_category->setCategoryName(stripslashes(trim($_POST['category_name'])));
+		$apf_news_category->setOrderid(stripslashes(trim($_POST['orderid'])));
 		$apf_news_category->setActive(stripslashes(trim($_POST['active'])));
 		$apf_news_category->setAddIp(stripslashes(trim($_POST['add_ip'])));
 		$apf_news_category->setCreatedAt(stripslashes(trim($_POST['created_at'])));
@@ -93,7 +99,7 @@ class ApfNewsCategory  extends Actions
 			{
 				$apf_news_category->setUpdateAt(DB_DataObject_Cast::dateTime());
 				$apf_news_category->update();
-				$this->forward("news/apf_news_category/update/".$_POST['ID']);
+				$this->forward("news/apf_news_category/update/".$_POST['ID']."/ok");
 			}
 			else 
 			{
@@ -108,8 +114,10 @@ class ApfNewsCategory  extends Actions
 				"MAIN" => "apf_news_category_edit.html"
 			));
 			$template->setBlock("MAIN", "edit_block");
+			array_shift($ActiveOption);
 			$template->setVar(array (
 				"WEBDIR" => $WebBaseDir,
+				"ACTIVEOPTION" => selectTag("active",$ActiveOption),
 				"DOACTION" => $do_action
 			));
 			foreach ($val as $k => $v)
@@ -124,7 +132,7 @@ class ApfNewsCategory  extends Actions
 			}
 			$template->setVar(
 				array (
-				"ID" => $_POST['id'],"CATEGORY_NAME" => $_POST['category_name'],"ACTIVE" => $_POST['active'],"ADD_IP" => $_POST['add_ip'],"CREATED_AT" => $_POST['created_at'],"UPDATE_AT" => $_POST['update_at'],
+				"ID" => $_POST['ID'],"CATEGORY_NAME" => $_POST['category_name'],"ORDERID" => $_POST['orderid'],"ACTIVE" => $_POST['active'],"ADD_IP" => $_POST['add_ip'],"CREATED_AT" => $_POST['created_at'],"UPDATE_AT" => $_POST['update_at'],
 				)
 			 );
 
@@ -197,7 +205,7 @@ class ApfNewsCategory  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 			
-			$template->setVar(array ("ID" => $data['id'],"CATEGORY_NAME" => $data['category_name'],"ACTIVE" => $data['active'],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
+			$template->setVar(array ("ID" => $data['id'],"CATEGORY_NAME" => $data['category_name'],"ORDERID" => $data['orderid'],"ACTIVE" => $data['active'],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
 
 			$template->parse("list_block", "main_list", TRUE);
 			$i++;

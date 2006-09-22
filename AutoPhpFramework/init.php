@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.20 2006/09/22 12:58:25 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.21 2006/09/22 13:56:27 arzen Exp $
  */
 
 $RootDir = APF_ROOT_DIR . DIRECTORY_SEPARATOR;
@@ -27,6 +27,8 @@ ini_set('include_path', "." . PATH_SEPARATOR . $IncludeDir . "pear");
 
 include_once ($ConfigDir . "config.php");
 include_once ($ConfigDir . "db_config.php");
+include_once ($ConfigDir . "common.php");
+include_once($ClassDir."FormObject.php");
 include_once ("PEAR.php");
 include_once ("DB.php");
 include_once ("DB/DataObject.php");
@@ -71,8 +73,14 @@ $opts = array (
 	$news_category_table.'_modules_location' => $RootDir . '/module/news/',
 	$news_category_table.'_modules_name_location' => 'news',
 	$news_category_table . '_fields_list' => 'id,category_name,active',
-	$news_category_table . '_except_fields' => 'id,add_ip,created_at,update_at',
+	$news_category_table . '_except_fields' => 'id,add_ip,created_at,update_at,orderid',
 	$news_category_table.'_generator_add_validate_stubs' => 'category_name:empty',
+
+	$news_table.'_modules_location' => $RootDir . '/module/news/',
+	$news_table.'_modules_name_location' => 'news',
+	$news_table . '_fields_list' => 'id,title,category_id,active',
+	$news_table . '_except_fields' => 'id,add_ip,created_at,update_at',
+	$news_table.'_generator_add_validate_stubs' => 'title:empty',
 
 	'require_prefix' => 'dataobjects/',
 	'class_prefix' => 'Dao',
@@ -80,7 +88,7 @@ $opts = array (
 	'generate_setters' => '1',
 	'generate_getters' => '1',
 
-	'generator_include_regex' => '/' . $users_table . '/',
+	'generator_include_regex' => '/' . $news_category_table . '$/',
 	'generator_no_ini' => '1',
 	
 );

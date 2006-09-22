@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: Generator.php,v 1.11 2006/09/22 12:58:25 arzen Exp $
+ * @version    CVS: $Id: Generator.php,v 1.12 2006/09/22 13:56:27 arzen Exp $
  * @link       http://pear.php.net/package/DB_DataObject
  */
  
@@ -979,7 +979,7 @@ class {$camel_case_name}  extends Actions
 	
 	function executeUpdate()
 	{
-		global \$template,\$WebBaseDir,\$controller;
+		global \$template,\$WebBaseDir,\$controller,\$i18n;
 		\$template->setFile(array (
 			"MAIN" => "{$outfilename}_edit.html"
 		));
@@ -992,11 +992,11 @@ class {$camel_case_name}  extends Actions
 		\${$outfilename} = DB_DataObject :: factory('{$camel_case_name}');
 		\${$outfilename}->get(\${$outfilename}->escape(\$controller->getID()));
 
-		if (\$_GET['view_status']=="ok") 
+		if (\$controller->getURLParam(1)=="ok") 
 		{
 			\$template->setVar(array (
 				"SUCCESS_CLASS" => "save-ok",
-				"SUCCESS_MSG" => "<h2>Your modifications have been saved</h2>"
+				"SUCCESS_MSG" => "<h2>".\$i18n->_("Your modifications have been saved")."</h2>"
 			));
 		}
 
@@ -1033,7 +1033,7 @@ class {$camel_case_name}  extends Actions
 			{
 				\${$outfilename}->setUpdateAt(DB_DataObject_Cast::dateTime());
 				\${$outfilename}->update();
-				\$this->forward("{$module_name}/{$outfilename}/update/".\$_POST['ID']);
+				\$this->forward("{$module_name}/{$outfilename}/update/".\$_POST['ID']."/ok");
 			}
 			else 
 			{

@@ -1,16 +1,17 @@
 <?php
 /**
- * Table Definition for apf_news_category
+ * Table Definition for apf_news
  */
-class DaoApfNewsCategory extends DB_DataObject 
+class DaoApfNews extends DB_DataObject 
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
 
-    var $__table = 'apf_news_category';               // table name
+    var $__table = 'apf_news';                        // table name
     var $id;                              // int(11)  not_null primary_key auto_increment
-    var $category_name;                   // string(60)  
-    var $orderid;                         // int(11)  not_null
+    var $category_id;                     // int(8)  not_null
+    var $title;                           // string(60)  
+    var $content;                         // blob(65535)  blob
     var $active;                          // string(8)  not_null
     var $add_ip;                          // string(24)  
     var $created_at;                      // datetime(19)  not_null
@@ -22,7 +23,7 @@ class DaoApfNewsCategory extends DB_DataObject
     /* Static get */
     function staticGet($k,$v=NULL) 
 	{
-		return DB_DataObject::staticGet('DaoApfNewsCategory',$k,$v);
+		return DB_DataObject::staticGet('DaoApfNews',$k,$v);
 	}
 
 
@@ -38,25 +39,36 @@ class DaoApfNewsCategory extends DB_DataObject
     }
 
    /**
-    * Getter for $CategoryName
-    *
-    * @return   string
-    * @access   public
-    */
-    function getCategoryName() 
-    {
-        return $this->category_name;
-    }
-
-   /**
-    * Getter for $Orderid
+    * Getter for $CategoryId
     *
     * @return   int
     * @access   public
     */
-    function getOrderid() 
+    function getCategoryId() 
     {
-        return $this->orderid;
+        return $this->category_id;
+    }
+
+   /**
+    * Getter for $Title
+    *
+    * @return   string
+    * @access   public
+    */
+    function getTitle() 
+    {
+        return $this->title;
+    }
+
+   /**
+    * Getter for $Content
+    *
+    * @return   blob
+    * @access   public
+    */
+    function getContent() 
+    {
+        return $this->content;
     }
 
    /**
@@ -116,25 +128,36 @@ class DaoApfNewsCategory extends DB_DataObject
     }
 
    /**
-    * Setter for $CategoryName
+    * Setter for $CategoryId
     *
     * @param    mixed   input value
     * @access   public
     */
-    function setCategoryName($value) 
+    function setCategoryId($value) 
     {
-        $this->category_name = $value;
+        $this->category_id = $value;
     }
 
    /**
-    * Setter for $Orderid
+    * Setter for $Title
     *
     * @param    mixed   input value
     * @access   public
     */
-    function setOrderid($value) 
+    function setTitle($value) 
     {
-        $this->orderid = $value;
+        $this->title = $value;
+    }
+
+   /**
+    * Setter for $Content
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+    function setContent($value) 
+    {
+        $this->content = $value;
     }
 
    /**
@@ -186,8 +209,9 @@ class DaoApfNewsCategory extends DB_DataObject
     {
          return array(
              'id' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
-             'category_name' =>  DB_DATAOBJECT_STR,
-             'orderid' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+             'category_id' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+             'title' =>  DB_DATAOBJECT_STR,
+             'content' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_BLOB,
              'active' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
              'add_ip' =>  DB_DATAOBJECT_STR,
              'created_at' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
@@ -208,8 +232,9 @@ class DaoApfNewsCategory extends DB_DataObject
     function defaults() // column default values 
     {
          return array(
-             'category_name' => '',
-             'orderid' => 0,
+             'category_id' => 0,
+             'title' => '',
+             'content' => '',
              'active' => 'new',
              'add_ip' => '',
          );
@@ -218,8 +243,8 @@ class DaoApfNewsCategory extends DB_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    function validateCategory_name()
+    function validateTitle()
     {
-        return empty($this->category_name)?false:true;
+        return empty($this->title)?false:true;
     }
 }
