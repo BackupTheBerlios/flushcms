@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContact.class.php,v 1.1 2006/09/23 03:18:56 arzen Exp $
+ * @version    CVS: $Id: ApfContact.class.php,v 1.2 2006/09/23 04:47:29 arzen Exp $
  */
 
 class ApfContact  extends Actions
@@ -22,6 +22,7 @@ class ApfContact  extends Actions
 		
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"BIRTHDAYDATE" => inputDateTag ("birthday"),
 			"DOACTION" => "addsubmit"
 		));
 
