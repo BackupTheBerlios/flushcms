@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.22 2006/09/23 00:41:10 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.23 2006/09/23 02:34:51 arzen Exp $
  */
 
 $RootDir = APF_ROOT_DIR . DIRECTORY_SEPARATOR;
@@ -194,6 +194,7 @@ if (!$LU->isLoggedIn())
 	$template->setFile(array (
 		"MAIN" => "login_screen.html"
 	));
+	$controller->parseTemplateLang();
 	$template->parse("OUT", array (
 		"MAIN",
 	));

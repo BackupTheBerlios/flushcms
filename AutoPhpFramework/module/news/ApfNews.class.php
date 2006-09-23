@@ -6,22 +6,27 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfNews.class.php,v 1.1 2006/09/22 13:56:27 arzen Exp $
+ * @version    CVS: $Id: ApfNews.class.php,v 1.2 2006/09/23 02:34:51 arzen Exp $
  */
 
 class ApfNews  extends Actions
 {
 	function executeCreate()
 	{
-		global $template,$WebBaseDir;
+		global $template,$WebBaseDir,$ActiveOption;
 
 		$template->setFile(array (
 			"MAIN" => "apf_news_edit.html"
 		));
 		$template->setBlock("MAIN", "add_block");
 		
+		$category_arr =$this->getCategory();
+		
+		array_shift($ActiveOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"CATEGORYOPTION" => selectTag("category_id",$category_arr),
+			"ACTIVEOPTION" => selectTag("active",$ActiveOption),
 			"DOACTION" => "addsubmit"
 		));
 
@@ -34,11 +39,12 @@ class ApfNews  extends Actions
 	
 	function executeUpdate()
 	{
-		global $template,$WebBaseDir,$controller;
+		global $template,$WebBaseDir,$controller,$i18n,$ActiveOption;
 		$template->setFile(array (
 			"MAIN" => "apf_news_edit.html"
 		));
 		$template->setBlock("MAIN", "edit_block");
+		
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
 			"DOACTION" => "updatesubmit"
@@ -47,15 +53,22 @@ class ApfNews  extends Actions
 		$apf_news = DB_DataObject :: factory('ApfNews');
 		$apf_news->get($apf_news->escape($controller->getID()));
 
-		if ($_GET['view_status']=="ok") 
+		if ($controller->getURLParam(1)=="ok") 
 		{
 			$template->setVar(array (
 				"SUCCESS_CLASS" => "save-ok",
-				"SUCCESS_MSG" => "<h2>Your modifications have been saved</h2>"
+				"SUCCESS_MSG" => "<h2>".$i18n->_("Your modifications have been saved")."</h2>"
 			));
 		}
 
 		$template->setVar(array ("ID" => $apf_news->getId(),"CATEGORY_ID" => $apf_news->getCategoryId(),"TITLE" => $apf_news->getTitle(),"CONTENT" => $apf_news->getContent(),"ACTIVE" => $apf_news->getActive(),"ADD_IP" => $apf_news->getAddIp(),"CREATED_AT" => $apf_news->getCreatedAt(),"UPDATE_AT" => $apf_news->getUpdateAt(),));
+
+		$category_arr =$this->getCategory();
+		array_shift($ActiveOption);
+		$template->setVar(array (
+			"ACTIVEOPTION" => selectTag("active",$ActiveOption,$apf_news->getActive()),
+			"CATEGORYOPTION" => selectTag("category_id",$category_arr,$apf_news->getCategoryId()),
+		));
 		
 	}
 	
@@ -66,7 +79,7 @@ class ApfNews  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n;
+		global $template,$WebBaseDir,$i18n,$ActiveOption;
 		$apf_news = DB_DataObject :: factory('ApfNews');
 
 		if ($edit_submit) 
@@ -95,7 +108,7 @@ class ApfNews  extends Actions
 			{
 				$apf_news->setUpdateAt(DB_DataObject_Cast::dateTime());
 				$apf_news->update();
-				$this->forward("news/apf_news/update/".$_POST['ID']);
+				$this->forward("news/apf_news/update/".$_POST['ID']."/ok");
 			}
 			else 
 			{
@@ -113,6 +126,12 @@ class ApfNews  extends Actions
 			$template->setVar(array (
 				"WEBDIR" => $WebBaseDir,
 				"DOACTION" => $do_action
+			));
+			$category_arr =$this->getCategory();
+			array_shift($ActiveOption);
+			$template->setVar(array (
+				"ACTIVEOPTION" => selectTag("active",$ActiveOption,$_POST['active']),
+				"CATEGORYOPTION" => selectTag("category_id",$category_arr,$_POST['category_id']),
 			));
 			foreach ($val as $k => $v)
 			{
@@ -156,9 +175,10 @@ class ApfNews  extends Actions
 		$template->setBlock("MAIN", "main_list", "list_block");
 
 		$apf_news = DB_DataObject :: factory('ApfNews');
-
-		$apf_news->orderBy('id desc');
-		
+		$apf_news->orderBy('apf_news.id desc');
+		$apf_news->buildCategroyJoin();
+		$apf_news->selectAs(array('id','active'), 'n_%s','apf_news');
+//		$apf_news->debugLevel(4);
 		$apf_news->find();
 		
 		$i=0;
@@ -199,7 +219,7 @@ class ApfNews  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 			
-			$template->setVar(array ("ID" => $data['id'],"CATEGORY_ID" => $data['category_id'],"TITLE" => $data['title'],"CONTENT" => $data['content'],"ACTIVE" => $data['active'],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
+			$template->setVar(array ("ID" => $data['n_id'],"CATEGORY_ID" => $data['category_name'],"TITLE" => $data['title'],"CONTENT" => $data['content'],"ACTIVE" => $data['n_active'],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
 
 			$template->parse("list_block", "main_list", TRUE);
 			$i++;
@@ -212,6 +232,19 @@ class ApfNews  extends Actions
 			"PAGINATION" => $links['all']
 		));
 
+	}
+	
+	function getCategory () 
+	{
+		$apf_news_category = DB_DataObject :: factory('ApfNewsCategory');
+		$apf_news_category->orderBy('orderid ASC');
+		$apf_news_category->find();
+		$myData = array();
+		while ($apf_news_category->fetch())
+		{
+			$myData[$apf_news_category->getId()] = $apf_news_category->getCategoryName();
+		}
+		return $myData;
 	}
 	
 }

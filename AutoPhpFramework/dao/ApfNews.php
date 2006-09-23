@@ -242,6 +242,11 @@ class DaoApfNews extends DB_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+    
+    function buildCategroyJoin () 
+	{
+		$this->_join .= " LEFT JOIN apf_news_category ON apf_news_category.id=apf_news.category_id ";
+	}
 
     function validateTitle()
     {

@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: Controller.class.php,v 1.10 2006/09/23 00:41:10 arzen Exp $
+ * @version    CVS: $Id: Controller.class.php,v 1.11 2006/09/23 02:34:51 arzen Exp $
  */
 
 class Controller
@@ -70,7 +70,9 @@ class Controller
 	function parseTemplateLang () 
 	{
 		global $template,$i18n;
-		$lang_arr = array_merge($template->getUndefined("MAIN"),$template->getUndefined("TAB"),$template->getUndefined("list_block"));
+		$lang_arr = array_merge($template->getUndefined("MAIN"),$template->getUndefined("TAB"),
+			$template->getUndefined("list_block"),$template->getUndefined("FOOT")
+			);
 		foreach($lang_arr as $key=>$value)
 		{
 			if (eregi("lang_",$key)) 
