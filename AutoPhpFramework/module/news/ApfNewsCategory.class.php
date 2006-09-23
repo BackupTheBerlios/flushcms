@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.9 2006/09/23 00:41:10 arzen Exp $
+ * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.10 2006/09/23 03:34:44 arzen Exp $
  */
 
 class ApfNewsCategory  extends Actions
@@ -23,7 +23,7 @@ class ApfNewsCategory  extends Actions
 		array_shift($ActiveOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
-			"ACTIVEOPTION" => selectTag("active",$ActiveOption),
+			"ACTIVEOPTION" => radioTag("active",$ActiveOption,"live"),
 			"DOACTION" => "addsubmit"
 		));
 
@@ -58,7 +58,7 @@ class ApfNewsCategory  extends Actions
 		array_shift($ActiveOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
-			"ACTIVEOPTION" => selectTag("active",$ActiveOption,$apf_news_category->getActive()),
+			"ACTIVEOPTION" => radioTag("active",$ActiveOption,$apf_news_category->getActive()),
 			"DOACTION" => "updatesubmit"
 		));
 		
@@ -120,7 +120,7 @@ class ApfNewsCategory  extends Actions
 			array_shift($ActiveOption);
 			$template->setVar(array (
 				"WEBDIR" => $WebBaseDir,
-				"ACTIVEOPTION" => selectTag("active",$ActiveOption),
+				"ACTIVEOPTION" => radioTag("active",$ActiveOption,$_POST['active']),
 				"DOACTION" => $do_action
 			));
 			foreach ($val as $k => $v)

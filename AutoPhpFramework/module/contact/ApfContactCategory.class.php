@@ -6,22 +6,24 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContactCategory.class.php,v 1.1 2006/09/23 03:18:56 arzen Exp $
+ * @version    CVS: $Id: ApfContactCategory.class.php,v 1.2 2006/09/23 03:34:44 arzen Exp $
  */
 
 class ApfContactCategory  extends Actions
 {
 	function executeCreate()
 	{
-		global $template,$WebBaseDir;
+		global $template,$WebBaseDir,$ActiveOption;
 
 		$template->setFile(array (
 			"MAIN" => "apf_contact_category_edit.html"
 		));
 		$template->setBlock("MAIN", "add_block");
 		
+		array_shift($ActiveOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"ACTIVEOPTION" => radioTag("active",$ActiveOption,"live"),
 			"DOACTION" => "addsubmit"
 		));
 
@@ -34,7 +36,7 @@ class ApfContactCategory  extends Actions
 	
 	function executeUpdate()
 	{
-		global $template,$WebBaseDir,$controller,$i18n;
+		global $template,$WebBaseDir,$controller,$i18n,$ActiveOption;
 		$template->setFile(array (
 			"MAIN" => "apf_contact_category_edit.html"
 		));
@@ -56,6 +58,10 @@ class ApfContactCategory  extends Actions
 		}
 
 		$template->setVar(array ("ID" => $apf_contact_category->getId(),"CATEGORY_NAME" => $apf_contact_category->getCategoryName(),"ACTIVE" => $apf_contact_category->getActive(),"ADD_IP" => $apf_contact_category->getAddIp(),"CREATED_AT" => $apf_contact_category->getCreatedAt(),"UPDATE_AT" => $apf_contact_category->getUpdateAt(),));
+		array_shift($ActiveOption);
+		$template->setVar(array (
+			"ACTIVEOPTION" => radioTag("active",$ActiveOption,$apf_contact_category->getActive()),
+		));
 		
 	}
 	
@@ -66,7 +72,7 @@ class ApfContactCategory  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n;
+		global $template,$WebBaseDir,$i18n,$ActiveOption;
 		$apf_contact_category = DB_DataObject :: factory('ApfContactCategory');
 
 		if ($edit_submit) 
@@ -108,8 +114,10 @@ class ApfContactCategory  extends Actions
 				"MAIN" => "apf_contact_category_edit.html"
 			));
 			$template->setBlock("MAIN", "edit_block");
+			array_shift($ActiveOption);
 			$template->setVar(array (
 				"WEBDIR" => $WebBaseDir,
+				"ACTIVEOPTION" => radioTag("active",$ActiveOption,$_POST['active']),
 				"DOACTION" => $do_action
 			));
 			foreach ($val as $k => $v)
