@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.24 2006/09/23 03:18:56 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.25 2006/09/23 04:47:29 arzen Exp $
  */
 
 $RootDir = APF_ROOT_DIR . DIRECTORY_SEPARATOR;
@@ -20,6 +20,7 @@ $ControllerDir = $RootDir . "controller" . DIRECTORY_SEPARATOR;
 $TemplateDir = $RootDir . "web/template/default/";
 $WebTemplateDir = "template/default/";
 $WebBaseDir = getenv("SCRIPT_NAME");
+$WebTemplateFullPath = dirname(getenv("SCRIPT_NAME")) . "/" . $WebTemplateDir;
 $domain = 'general';
 $dir = $RootDir . 'lang/';
 
@@ -186,9 +187,6 @@ $template->setFile(array (
 $template->setBlock("LAOUT", "laout");
 $template->setBlock("TAB", "tab");
 
-$template->setVar(array (
-	"TEMPLATEDIR" => dirname(getenv("SCRIPT_NAME")) . "/" . $WebTemplateDir, 
-	"WEBBASEDIR" => $WebBaseDir, "SITETITLE" => $i18n->_('site_title'), "CHARSET" => $i18n->getCharset(),));
 
 $LU =& LiveUser::factory($liveuserConfig);
 

@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: Controller.class.php,v 1.12 2006/09/23 04:47:29 arzen Exp $
+ * @version    CVS: $Id: Controller.class.php,v 1.13 2006/09/23 04:48:45 arzen Exp $
  */
 
 class Controller
@@ -24,7 +24,7 @@ class Controller
 	
 	function dispatch () 
 	{
-		global $ModuleDir,$ClassDir,$template,$DefaultModule,$DefaultPage,$timer,$WebTemplateFullPath,$WebBaseDir,$i18n;
+		global $ModuleDir,$ClassDir,$template,$DefaultModule,$DefaultPage,$timer;
 		$this->path_info = ltrim(getenv("PATH_INFO"), "/");
 		
 		$this->setDefualtModule($DefaultModule);
@@ -50,9 +50,6 @@ class Controller
 		
 //		printf("module %s/ page %s/ action %s/ ",$module_name,$page_name,$action_name);
 		$this->parseTemplateLang();
-		$template->setVar(array (
-			"TEMPLATEDIR" => $WebTemplateFullPath, 
-			"WEBBASEDIR" => $WebBaseDir, "SITETITLE" => $i18n->_('site_title'), "CHARSET" => $i18n->getCharset(),));
 		
 		$template->parse("OUT", array (
 			"TAB",
@@ -72,7 +69,7 @@ class Controller
 	
 	function parseTemplateLang () 
 	{
-		global $template,$i18n;
+		global $template,$i18n,$WebTemplateFullPath,$WebBaseDir;
 		$lang_arr = array_merge($template->getUndefined("MAIN"),$template->getUndefined("TAB"),
 			is_array($template->getUndefined("list_block"))?$template->getUndefined("list_block"):array(),$template->getUndefined("FOOT")
 			);
@@ -84,6 +81,9 @@ class Controller
 				$template->setVar($key,$i18n->_($lang_key));
 			}
 		}
+		$template->setVar(array (
+			"TEMPLATEDIR" => $WebTemplateFullPath, 
+			"WEBBASEDIR" => $WebBaseDir, "SITETITLE" => $i18n->_('site_title'), "CHARSET" => $i18n->getCharset(),));
 //		Var_Dump::display($template->getUndefined("MAIN"));
 	}
 	
