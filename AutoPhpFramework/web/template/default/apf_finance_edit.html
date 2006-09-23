@@ -1,3 +1,7 @@
+<link rel="stylesheet" type="text/css" media="all" href="{TEMPLATEDIR}calendar/calendar-win2k-cold-1.css" title="win2k-cold-1" />
+<script type="text/javascript" src="{TEMPLATEDIR}calendar/calendar.js"></script>
+<script type="text/javascript" src="{TEMPLATEDIR}calendar/lang/calendar-en.js"></script>
+<script type="text/javascript" src="{TEMPLATEDIR}calendar/calendar-setup.js"></script>
         
 <div id="admin_container">
 <h1>{lang_EditInfo}</h1>
@@ -14,22 +18,22 @@
 <h2>{lang_GeneralInfo}</h2><div class="form-row">
   <label >{lang_Category}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{CATEGORY_ERROR_MSG}</div>
-  <input type="text" name="category" id="category" value="{CATEGORY}" size="20" />    </div>
+  {CATEGORYOPTION}    </div>
 </div>
 <div class="form-row">
   <label >{lang_CreateDate}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{CREATE_DATE_ERROR_MSG}</div>
-  <input type="text" name="create_date" id="create_date" value="{CREATE_DATE}" size="20" />    </div>
+  {CREATEDATE} </div>
 </div>
 <div class="form-row">
   <label >{lang_Amount}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{AMOUNT_ERROR_MSG}</div>
-  <input type="text" name="amount" id="amount" value="{AMOUNT}" size="20" />    </div>
+  {AMOUNTTEXT}    </div>
 </div>
 <div class="form-row">
   <label >{lang_Debit}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{DEBIT_ERROR_MSG}</div>
-  <input type="text" name="debit" id="debit" value="{DEBIT}" size="20" />    </div>
+  {DEBITOPTION}    </div>
 </div>
 <div class="form-row">
   <label >{lang_Money}:</label>  <div class="content">
@@ -39,12 +43,12 @@
 <div class="form-row">
   <label >{lang_Memo}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{MEMO_ERROR_MSG}</div>
-  <input type="text" name="memo" id="memo" value="{MEMO}" size="20" />    </div>
+  <TEXTAREA NAME="memo" ROWS="8" COLS="40">{MEMO}</TEXTAREA> </div>
 </div>
 <div class="form-row">
   <label >{lang_Active}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ACTIVE_ERROR_MSG}</div>
-  <input type="text" name="active" id="active" value="{ACTIVE}" size="20" />    </div>
+  {ACTIVEOPTION}    </div>
 </div>
 </fieldset>
 <ul class="admin_actions">

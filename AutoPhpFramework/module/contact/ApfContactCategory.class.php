@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContactCategory.class.php,v 1.2 2006/09/23 03:34:44 arzen Exp $
+ * @version    CVS: $Id: ApfContactCategory.class.php,v 1.3 2006/09/23 07:41:33 arzen Exp $
  */
 
 class ApfContactCategory  extends Actions
@@ -132,7 +132,7 @@ class ApfContactCategory  extends Actions
 			}
 			$template->setVar(
 				array (
-				"ID" => $_POST['id'],"CATEGORY_NAME" => $_POST['category_name'],"ACTIVE" => $_POST['active'],"ADD_IP" => $_POST['add_ip'],"CREATED_AT" => $_POST['created_at'],"UPDATE_AT" => $_POST['update_at'],
+				"ID" => $_POST['ID'],"CATEGORY_NAME" => $_POST['category_name'],"ACTIVE" => $_POST['active'],"ADD_IP" => $_POST['add_ip'],"CREATED_AT" => $_POST['created_at'],"UPDATE_AT" => $_POST['update_at'],
 				)
 			 );
 

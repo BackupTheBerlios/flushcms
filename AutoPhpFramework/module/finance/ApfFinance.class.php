@@ -6,22 +6,31 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfFinance.class.php,v 1.1 2006/09/23 03:18:56 arzen Exp $
+ * @version    CVS: $Id: ApfFinance.class.php,v 1.2 2006/09/23 07:41:33 arzen Exp $
  */
 
 class ApfFinance  extends Actions
 {
 	function executeCreate()
 	{
-		global $template,$WebBaseDir;
+		global $template,$WebBaseDir,$ActiveOption,$DebitOption;
 
 		$template->setFile(array (
 			"MAIN" => "apf_finance_edit.html"
 		));
 		$template->setBlock("MAIN", "add_block");
 		
+		$category_arr =$this->getCategory();
+		array_shift($ActiveOption);
+		array_shift($DebitOption);
+
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"CATEGORYOPTION" => selectTag("category",$category_arr),
+			"CREATEDATE" => inputDateTag ("create_date",date("Y-m-d")),
+			"AMOUNTTEXT" => textTag ("amount",1),
+			"ACTIVEOPTION" => radioTag("active",$ActiveOption,"new"),
+			"DEBITOPTION" => radioTag("debit",$DebitOption,"I"),
 			"DOACTION" => "addsubmit"
 		));
 
@@ -215,6 +224,19 @@ class ApfFinance  extends Actions
 			"PAGINATION" => $links['all']
 		));
 
+	}
+	
+	function getCategory () 
+	{
+		$apf_finance_category = DB_DataObject :: factory('ApfFinanceCategory');
+		$apf_finance_category->orderBy('id ASC');
+		$apf_finance_category->find();
+		$myData = array();
+		while ($apf_finance_category->fetch())
+		{
+			$myData[$apf_finance_category->getId()] = $apf_finance_category->getCategoryName();
+		}
+		return $myData;
 	}
 	
 }

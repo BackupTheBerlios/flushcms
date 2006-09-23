@@ -6,22 +6,24 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfFinanceCategory.class.php,v 1.1 2006/09/23 03:18:56 arzen Exp $
+ * @version    CVS: $Id: ApfFinanceCategory.class.php,v 1.2 2006/09/23 07:41:33 arzen Exp $
  */
 
 class ApfFinanceCategory  extends Actions
 {
 	function executeCreate()
 	{
-		global $template,$WebBaseDir;
+		global $template,$WebBaseDir,$ActiveOption;
 
 		$template->setFile(array (
 			"MAIN" => "apf_finance_category_edit.html"
 		));
 		$template->setBlock("MAIN", "add_block");
 		
+		array_shift($ActiveOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"ACTIVEOPTION" => radioTag("active",$ActiveOption,"live"),
 			"DOACTION" => "addsubmit"
 		));
 
@@ -34,7 +36,7 @@ class ApfFinanceCategory  extends Actions
 	
 	function executeUpdate()
 	{
-		global $template,$WebBaseDir,$controller,$i18n;
+		global $template,$WebBaseDir,$controller,$i18n,$ActiveOption;
 		$template->setFile(array (
 			"MAIN" => "apf_finance_category_edit.html"
 		));
@@ -56,6 +58,10 @@ class ApfFinanceCategory  extends Actions
 		}
 
 		$template->setVar(array ("ID" => $apf_finance_category->getId(),"CATEGORY_NAME" => $apf_finance_category->getCategoryName(),"ACTIVE" => $apf_finance_category->getActive(),"ADD_IP" => $apf_finance_category->getAddIp(),"CREATED_AT" => $apf_finance_category->getCreatedAt(),"UPDATE_AT" => $apf_finance_category->getUpdateAt(),));
+		array_shift($ActiveOption);
+		$template->setVar(array (
+			"ACTIVEOPTION" => radioTag("active",$ActiveOption,$apf_finance_category->getActive()),
+		));
 		
 	}
 	
@@ -66,7 +72,7 @@ class ApfFinanceCategory  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n;
+		global $template,$WebBaseDir,$i18n,$ActiveOption;
 		$apf_finance_category = DB_DataObject :: factory('ApfFinanceCategory');
 
 		if ($edit_submit) 
@@ -108,8 +114,10 @@ class ApfFinanceCategory  extends Actions
 				"MAIN" => "apf_finance_category_edit.html"
 			));
 			$template->setBlock("MAIN", "edit_block");
+			array_shift($ActiveOption);
 			$template->setVar(array (
 				"WEBDIR" => $WebBaseDir,
+				"ACTIVEOPTION" => radioTag("active",$ActiveOption,$_POST['active']),
 				"DOACTION" => $do_action
 			));
 			foreach ($val as $k => $v)
@@ -124,7 +132,7 @@ class ApfFinanceCategory  extends Actions
 			}
 			$template->setVar(
 				array (
-				"ID" => $_POST['id'],"CATEGORY_NAME" => $_POST['category_name'],"ACTIVE" => $_POST['active'],"ADD_IP" => $_POST['add_ip'],"CREATED_AT" => $_POST['created_at'],"UPDATE_AT" => $_POST['update_at'],
+				"ID" => $_POST['ID'],"CATEGORY_NAME" => $_POST['category_name'],"ACTIVE" => $_POST['active'],"ADD_IP" => $_POST['add_ip'],"CREATED_AT" => $_POST['created_at'],"UPDATE_AT" => $_POST['update_at'],
 				)
 			 );
 
