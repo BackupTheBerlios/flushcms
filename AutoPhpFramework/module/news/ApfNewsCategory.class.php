@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.8 2006/09/22 13:56:27 arzen Exp $
+ * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.9 2006/09/23 00:41:10 arzen Exp $
  */
 
 class ApfNewsCategory  extends Actions
@@ -104,7 +104,10 @@ class ApfNewsCategory  extends Actions
 			else 
 			{
 				$apf_news_category->setCreatedAt(DB_DataObject_Cast::dateTime());
-				$apf_news_category->insert();
+				$insert_id = $apf_news_category->insert();
+				$apf_news_category->get($insert_id);
+				$apf_news_category->setOrderid($insert_id);
+				$apf_news_category->update();
 				$this->forward("news/apf_news_category/");
 			}
 		}
@@ -149,6 +152,48 @@ class ApfNewsCategory  extends Actions
 		$this->forward("news/apf_news_category/");
 	}
 	
+	function executeMoveup () 
+	{
+		global $controller;
+		
+		$apf_news_category = DB_DataObject :: factory('ApfNewsCategory');
+		$apf_news_category->get($apf_news_category->escape($controller->getID()));
+		$apf_news_category->find();
+		
+		$pre_item = DB_DataObject :: factory('ApfNewsCategory');
+		$pre_item->whereAdd('orderid < '.$apf_news_category->getOrderid());
+		$pre_item->orderBy('orderid DESC ');
+		$pre_item->limit(1);
+		$pre_item->find();
+		$pre_item->fetch();
+		if ($pre_item->getOrderid()>0) 
+		{
+			$apf_news_category->swapWith($pre_item);
+		}
+		$this->forward("news/apf_news_category/");
+	}
+	
+	function executeMovedown () 
+	{
+		global $controller;
+		
+		$apf_news_category = DB_DataObject :: factory('ApfNewsCategory');
+		$apf_news_category->get($apf_news_category->escape($controller->getID()));
+		$apf_news_category->find();
+		
+		$next_item = DB_DataObject :: factory('ApfNewsCategory');
+		$next_item->whereAdd('orderid > '.$apf_news_category->getOrderid());
+		$next_item->orderBy('orderid ASC ');
+		$next_item->limit(1);
+		$next_item->find();
+		$next_item->fetch();
+		if ($next_item->getOrderid()>0) 
+		{
+			$apf_news_category->swapWith($next_item);
+		}
+		$this->forward("news/apf_news_category/");
+	}
+	
 	function executeList()
 	{
 		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir;
@@ -163,7 +208,7 @@ class ApfNewsCategory  extends Actions
 
 		$apf_news_category = DB_DataObject :: factory('ApfNewsCategory');
 
-		$apf_news_category->orderBy('id desc');
+		$apf_news_category->orderBy('orderid ASC');
 		
 		$apf_news_category->find();
 		

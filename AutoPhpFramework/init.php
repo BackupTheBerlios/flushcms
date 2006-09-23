@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.21 2006/09/22 13:56:27 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.22 2006/09/23 00:41:10 arzen Exp $
  */
 
 $RootDir = APF_ROOT_DIR . DIRECTORY_SEPARATOR;
@@ -114,8 +114,8 @@ $liveuserConfig = array (
 	'authContainers' => array (
 		'DB' => array (
 			'type' => 'DB',
-			'expireTime' => 60*20,
-			'idleTime' => 60*20,
+			'expireTime' => 60*60,
+			'idleTime' => 60*60,
 			'prefix' => '',
 			'passwordEncryptionMode' => 'plain',
 			'storage' => array (
