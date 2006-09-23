@@ -6,23 +6,31 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContact.class.php,v 1.2 2006/09/23 04:47:29 arzen Exp $
+ * @version    CVS: $Id: ApfContact.class.php,v 1.3 2006/09/23 06:58:46 arzen Exp $
  */
 
 class ApfContact  extends Actions
 {
 	function executeCreate()
 	{
-		global $template,$WebBaseDir;
+		global $template,$WebBaseDir,$ActiveOption,$GenderOption;
 
 		$template->setFile(array (
 			"MAIN" => "apf_contact_edit.html"
 		));
 		$template->setBlock("MAIN", "add_block");
 		
+		$category_arr =$this->getCategory();
+		array_shift($GenderOption);
+		array_shift($ActiveOption);
+
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"CATEGORYOPTION" => selectTag("category",$category_arr),
 			"BIRTHDAYDATE" => inputDateTag ("birthday"),
+			"GENDEROPTION" => radioTag("gender",$GenderOption,"m"),
+			"FILEPHOTO" => fileTag("photo"),
+			"ACTIVEOPTION" => radioTag("active",$ActiveOption,"new"),
 			"DOACTION" => "addsubmit"
 		));
 
@@ -35,7 +43,7 @@ class ApfContact  extends Actions
 	
 	function executeUpdate()
 	{
-		global $template,$WebBaseDir,$controller,$i18n;
+		global $template,$WebBaseDir,$controller,$i18n,$GenderOption,$ActiveOption;
 		$template->setFile(array (
 			"MAIN" => "apf_contact_edit.html"
 		));
@@ -58,6 +66,17 @@ class ApfContact  extends Actions
 
 		$template->setVar(array ("ID" => $apf_contact->getId(),"CATEGORY" => $apf_contact->getCategory(),"COMPANY_ID" => $apf_contact->getCompanyId(),"NAME" => $apf_contact->getName(),"GENDER" => $apf_contact->getGender(),"BIRTHDAY" => $apf_contact->getBirthday(),"ADDREES" => $apf_contact->getAddrees(),"OFFICE_PHONE" => $apf_contact->getOfficePhone(),"PHONE" => $apf_contact->getPhone(),"FAX" => $apf_contact->getFax(),"MOBILE" => $apf_contact->getMobile(),"EMAIL" => $apf_contact->getEmail(),"PHOTO" => $apf_contact->getPhoto(),"HOMEPAGE" => $apf_contact->getHomepage(),"ACTIVE" => $apf_contact->getActive(),"ADD_IP" => $apf_contact->getAddIp(),"CREATED_AT" => $apf_contact->getCreatedAt(),"UPDATE_AT" => $apf_contact->getUpdateAt(),));
 		
+		$category_arr =$this->getCategory();
+		array_shift($GenderOption);
+		array_shift($ActiveOption);
+		$template->setVar(array (
+			"CATEGORYOPTION" => selectTag("category",$category_arr,$apf_contact->getCategory()),
+			"BIRTHDAYDATE" => inputDateTag ("birthday",$apf_contact->getBirthday()),
+			"GENDEROPTION" => radioTag("gender",$GenderOption,$apf_contact->getGender()),
+			"FILEPHOTO" => fileTag("photo",$apf_contact->getPhoto()),
+			"ACTIVEOPTION" => radioTag("active",$ActiveOption,$apf_contact->getActive()),
+		));
+		
 	}
 	
 	function executeUpdatesubmit () 
@@ -67,7 +86,7 @@ class ApfContact  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n;
+		global $template,$WebBaseDir,$i18n,$GenderOption,$ActiveOption;
 		$apf_contact = DB_DataObject :: factory('ApfContact');
 
 		if ($edit_submit) 
@@ -125,6 +144,18 @@ class ApfContact  extends Actions
 				"WEBDIR" => $WebBaseDir,
 				"DOACTION" => $do_action
 			));
+			
+			$category_arr =$this->getCategory();
+			array_shift($GenderOption);
+			array_shift($ActiveOption);
+			$template->setVar(array (
+				"CATEGORYOPTION" => selectTag("category",$category_arr,$_POST['category']),
+				"BIRTHDAYDATE" => inputDateTag ("birthday",$_POST['birthday']),
+				"GENDEROPTION" => radioTag("gender",$GenderOption,$_POST['gender']),
+				"FILEPHOTO" => fileTag("photo",$_POST['old_photo']),
+				"ACTIVEOPTION" => radioTag("active",$ActiveOption,$_POST['active']),
+			));
+			
 			foreach ($val as $k => $v)
 			{
 				if ($v == false)
@@ -156,20 +187,39 @@ class ApfContact  extends Actions
 	
 	function executeList()
 	{
-		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir;
+		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$GenderOption,$ActiveOption,$i18n;
 
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
 		$template->setFile(array (
 			"MAIN" => "apf_contact_list.html"
 		));
-
+		
+		$category_arr =array(""=>$i18n->_("All"))+$this->getCategory();
+		
 		$template->setBlock("MAIN", "main_list", "list_block");
 
 		$apf_contact = DB_DataObject :: factory('ApfContact');
+		
+		if (($keyword = trim($_REQUEST['q'])) != "") 
+		{
+			$apf_contact->whereAdd("name LIKE '%".$apf_contact->escape("{$keyword}") . "%' OR phone LIKE '%".$apf_contact->escape("{$keyword}") . "%' OR mobile LIKE '%".$apf_contact->escape("{$keyword}") . "%' ");
+		}
+		if (($category = trim($_REQUEST['category'])) != "") 
+		{
+			$apf_contact->whereAdd(" category = '".$apf_contact->escape("{$category}") . "'  ");
+		}
+		if (($active = trim($_REQUEST['active'])) != "") 
+		{
+			$apf_contact->whereAdd(" active = '".$apf_contact->escape("{$active}") . "'  ");
+		}
+		if (($gender = trim($_REQUEST['gender'])) != "") 
+		{
+			$apf_contact->whereAdd(" gender = '".$apf_contact->escape("{$gender}") . "'  ");
+		}
 
 		$apf_contact->orderBy('id desc');
-		
+//		$apf_contact->debugLevel(4);
 		$apf_contact->find();
 		
 		$i=0;
@@ -193,6 +243,10 @@ class ApfContact  extends Actions
 		    //'mode'  => 'Sliding',    //try switching modes
 		    'mode'  => 'Jumping',
 		    'extraVars' => array(
+			    'q'  => $_REQUEST['q'],
+			    'category'  => $_REQUEST['category'],
+			    'active'  => $_REQUEST['active'],
+			    'gender'  => $_REQUEST['gender'],
 		    ),
 		
 		);
@@ -210,7 +264,7 @@ class ApfContact  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 			
-			$template->setVar(array ("ID" => $data['id'],"CATEGORY" => $data['category'],"COMPANY_ID" => $data['company_id'],"NAME" => $data['name'],"GENDER" => $data['gender'],"BIRTHDAY" => $data['birthday'],"ADDREES" => $data['addrees'],"OFFICE_PHONE" => $data['office_phone'],"PHONE" => $data['phone'],"FAX" => $data['fax'],"MOBILE" => $data['mobile'],"EMAIL" => $data['email'],"PHOTO" => $data['photo'],"HOMEPAGE" => $data['homepage'],"ACTIVE" => $data['active'],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
+			$template->setVar(array ("ID" => $data['id'],"CATEGORY" => $category_arr[$data['category']],"COMPANY_ID" => $data['company_id'],"NAME" => $data['name'],"GENDER" => $GenderOption[$data['gender']],"BIRTHDAY" => $data['birthday'],"ADDREES" => $data['addrees'],"OFFICE_PHONE" => $data['office_phone'],"PHONE" => $data['phone'],"FAX" => $data['fax'],"MOBILE" => $data['mobile'],"EMAIL" => $data['email'],"PHOTO" => $data['photo'],"HOMEPAGE" => $data['homepage'],"ACTIVE" => $data['active'],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
 
 			$template->parse("list_block", "main_list", TRUE);
 			$i++;
@@ -219,10 +273,27 @@ class ApfContact  extends Actions
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
 			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().$WebTemplateDir,
+			"KEYWORD" => textTag ("q",$_REQUEST['q']),
+			"CATEGORYOPTION" => selectTag("category",$category_arr,$_REQUEST['category']),
+			"ACTIVEOPTION" => selectTag("active",$ActiveOption,$_REQUEST['active']),
+			"GENDEROPTION" => selectTag("gender",$GenderOption,$_REQUEST['gender']),
 			"TOLTAL_NUM" => $ToltalNum,
 			"PAGINATION" => $links['all']
 		));
 
+	}
+	
+	function getCategory () 
+	{
+		$apf_contact_category = DB_DataObject :: factory('ApfContactCategory');
+		$apf_contact_category->orderBy('id ASC');
+		$apf_contact_category->find();
+		$myData = array();
+		while ($apf_contact_category->fetch())
+		{
+			$myData[$apf_contact_category->getId()] = $apf_contact_category->getCategoryName();
+		}
+		return $myData;
 	}
 	
 }

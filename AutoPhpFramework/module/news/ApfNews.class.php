@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfNews.class.php,v 1.2 2006/09/23 02:34:51 arzen Exp $
+ * @version    CVS: $Id: ApfNews.class.php,v 1.3 2006/09/23 06:58:46 arzen Exp $
  */
 
 class ApfNews  extends Actions
@@ -26,7 +26,7 @@ class ApfNews  extends Actions
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
 			"CATEGORYOPTION" => selectTag("category_id",$category_arr),
-			"ACTIVEOPTION" => selectTag("active",$ActiveOption),
+			"ACTIVEOPTION" => radioTag("active",$ActiveOption,"new"),
 			"DOACTION" => "addsubmit"
 		));
 
@@ -66,7 +66,7 @@ class ApfNews  extends Actions
 		$category_arr =$this->getCategory();
 		array_shift($ActiveOption);
 		$template->setVar(array (
-			"ACTIVEOPTION" => selectTag("active",$ActiveOption,$apf_news->getActive()),
+			"ACTIVEOPTION" => radioTag("active",$ActiveOption,$apf_news->getActive()),
 			"CATEGORYOPTION" => selectTag("category_id",$category_arr,$apf_news->getCategoryId()),
 		));
 		
@@ -130,7 +130,7 @@ class ApfNews  extends Actions
 			$category_arr =$this->getCategory();
 			array_shift($ActiveOption);
 			$template->setVar(array (
-				"ACTIVEOPTION" => selectTag("active",$ActiveOption,$_POST['active']),
+				"ACTIVEOPTION" => radioTag("active",$ActiveOption,$_POST['active']),
 				"CATEGORYOPTION" => selectTag("category_id",$category_arr,$_POST['category_id']),
 			));
 			foreach ($val as $k => $v)

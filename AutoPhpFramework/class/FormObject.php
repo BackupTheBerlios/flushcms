@@ -5,7 +5,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: FormObject.php,v 1.2 2006/09/23 04:47:29 arzen Exp $
+ * @version    CVS: $Id: FormObject.php,v 1.3 2006/09/23 06:58:46 arzen Exp $
  */
 
 /**
@@ -96,7 +96,7 @@ function inputDateTag ($name, $value="")
 {
 	global $WebTemplateFullPath;
 	$html_code = "";
-	$html_code .="  <input type=\"text\" name=\"{$name}\" id=\"{$name}\" value=\"\" calendar_button_img=\"{$WebTemplateFullPath}images/date.png\" date_format=\"yyyy-MM-dd\" size=\"9\" /><img id=\"trigger_{$name}\" style=\"cursor: pointer; vertical-align: middle\" src=\"{$WebTemplateFullPath}images/date.png\" alt=\"Date\" /><script type=\"text/javascript\">
+	$html_code .="  <input type=\"text\" name=\"{$name}\" id=\"{$name}\" value=\"{$value}\" calendar_button_img=\"{$WebTemplateFullPath}images/date.png\" date_format=\"yyyy-MM-dd\" size=\"9\" /><img id=\"trigger_{$name}\" style=\"cursor: pointer; vertical-align: middle\" src=\"{$WebTemplateFullPath}images/date.png\" alt=\"Date\" /><script type=\"text/javascript\">
     document.getElementById(\"trigger_{$name}\").disabled = false;
     Calendar.setup({
       inputField : \"{$name}\",

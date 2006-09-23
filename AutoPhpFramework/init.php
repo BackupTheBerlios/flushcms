@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.25 2006/09/23 04:47:29 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.26 2006/09/23 06:58:46 arzen Exp $
  */
 
 $RootDir = APF_ROOT_DIR . DIRECTORY_SEPARATOR;
@@ -28,7 +28,6 @@ ini_set('include_path', "." . PATH_SEPARATOR . $IncludeDir . "pear");
 
 include_once ($ConfigDir . "config.php");
 include_once ($ConfigDir . "db_config.php");
-include_once ($ConfigDir . "common.php");
 include_once($ClassDir."FormObject.php");
 include_once ("PEAR.php");
 include_once ("DB.php");
@@ -39,6 +38,8 @@ include_once ("HTML/Template/PHPLIB.php");
 include_once ($ClassDir . "Actions.class.php");
 require_once 'LiveUser.php';
 require_once 'I18N/Messages/File.php';
+$i18n = new I18N_Messages_File($lang, $domain, $dir);
+include_once ($ConfigDir . "common.php");
 if (defined('APF_DEBUG') && (APF_DEBUG == true))
 {
 	include_once 'Benchmark/Timer.php';
@@ -172,7 +173,6 @@ $liveuserConfig = array (
 	
 );
 
-$i18n = new I18N_Messages_File($lang, $domain, $dir);
 
 $controller = new Controller();
 
