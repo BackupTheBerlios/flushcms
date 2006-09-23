@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContact.class.php,v 1.3 2006/09/23 06:58:46 arzen Exp $
+ * @version    CVS: $Id: ApfContact.class.php,v 1.4 2006/09/23 11:37:15 arzen Exp $
  */
 
 class ApfContact  extends Actions
@@ -183,6 +183,46 @@ class ApfContact  extends Actions
 		$apf_contact->setActive('deleted');
 		$apf_contact->update();
 		$this->forward("contact/apf_contact/");
+	}
+	
+	function executeExportvcard () 
+	{
+		global $controller;
+		require_once 'Contact_Vcard_Build.php';
+		$vcard = new Contact_Vcard_Build();
+		
+		$apf_contact = DB_DataObject :: factory('ApfContact');
+		$apf_contact->get($apf_contact->escape($controller->getID()));
+		
+	    // set a formatted name
+	    $vcard->setFormattedName($apf_contact->getName());
+	    
+	    // set the structured name parts
+	    $vcard->setName($apf_contact->getName(), $apf_contact->getName(), $apf_contact->getName(),
+	        'Mr.', 'III');
+	    
+	    // add a work email.  note that we add the value
+	    // first and the param after -- Contact_Vcard_Build
+	    // is smart enough to add the param in the correct
+	    // place.
+	    $vcard->addEmail($apf_contact->getEmail());
+	    $vcard->addParam('TYPE', 'WORK');
+	    
+	    // add a home/preferred email
+	    $vcard->addEmail($apf_contact->getEmail());
+	    $vcard->addParam('TYPE', 'HOME');
+	    $vcard->addParam('TYPE', 'PREF');
+	    
+	    // add a work address
+	    $vcard->addAddress('POB 101', 'Suite 202', '123 Main',
+	        'Beverly Hills', 'CA', '90210', 'US');
+	    $vcard->addParam('TYPE', 'WORK');
+	    
+	    // set the title (checks for colon-escaping)
+	    $vcard->setTitle('The Title: The Subtitle');
+
+		$vcard->send($apf_contact->getName().".vcf");
+		exit;
 	}
 	
 	function executeList()

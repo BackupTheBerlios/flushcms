@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfFinance.class.php,v 1.3 2006/09/23 08:00:12 arzen Exp $
+ * @version    CVS: $Id: ApfFinance.class.php,v 1.4 2006/09/23 11:37:15 arzen Exp $
  */
 
 class ApfFinance  extends Actions
@@ -43,7 +43,7 @@ class ApfFinance  extends Actions
 	
 	function executeUpdate()
 	{
-		global $template,$WebBaseDir,$controller,$i18n;
+		global $template,$WebBaseDir,$controller,$i18n,$ActiveOption,$DebitOption;
 		$template->setFile(array (
 			"MAIN" => "apf_finance_edit.html"
 		));
@@ -65,6 +65,18 @@ class ApfFinance  extends Actions
 		}
 
 		$template->setVar(array ("ID" => $apf_finance->getId(),"CATEGORY" => $apf_finance->getCategory(),"CREATE_DATE" => $apf_finance->getCreateDate(),"AMOUNT" => $apf_finance->getAmount(),"DEBIT" => $apf_finance->getDebit(),"MONEY" => $apf_finance->getMoney(),"MEMO" => $apf_finance->getMemo(),"ACTIVE" => $apf_finance->getActive(),"ADD_IP" => $apf_finance->getAddIp(),"CREATED_AT" => $apf_finance->getCreatedAt(),"UPDATE_AT" => $apf_finance->getUpdateAt(),));
+
+		$category_arr =$this->getCategory();
+		array_shift($ActiveOption);
+		array_shift($DebitOption);
+
+		$template->setVar(array (
+			"CATEGORYOPTION" => selectTag("category",$category_arr,$apf_finance->getCategory()),
+			"CREATEDATE" => inputDateTag ("create_date",$apf_finance->getCreateDate()),
+			"AMOUNTTEXT" => textTag ("amount",$apf_finance->getAmount()),
+			"ACTIVEOPTION" => radioTag("active",$ActiveOption,$apf_finance->getActive()),
+			"DEBITOPTION" => radioTag("debit",$DebitOption,$apf_finance->getDebit()),
+		));
 		
 	}
 	
@@ -75,7 +87,7 @@ class ApfFinance  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n;
+		global $template,$WebBaseDir,$i18n,$ActiveOption,$DebitOption;
 		$apf_finance = DB_DataObject :: factory('ApfFinance');
 
 		if ($edit_submit) 
@@ -96,8 +108,6 @@ class ApfFinance  extends Actions
 		$apf_finance->setMemo(stripslashes(trim($_POST['memo'])));
 		$apf_finance->setActive(stripslashes(trim($_POST['active'])));
 		$apf_finance->setAddIp(stripslashes(trim($_POST['add_ip'])));
-		$apf_finance->setCreatedAt(stripslashes(trim($_POST['created_at'])));
-		$apf_finance->setUpdateAt(stripslashes(trim($_POST['update_at'])));
 
 				
 		$val = $apf_finance->validate();
@@ -138,9 +148,21 @@ class ApfFinance  extends Actions
 			}
 			$template->setVar(
 				array (
-				"ID" => $_POST['id'],"CATEGORY" => $_POST['category'],"CREATE_DATE" => $_POST['create_date'],"AMOUNT" => $_POST['amount'],"DEBIT" => $_POST['debit'],"MONEY" => $_POST['money'],"MEMO" => $_POST['memo'],"ACTIVE" => $_POST['active'],"ADD_IP" => $_POST['add_ip'],"CREATED_AT" => $_POST['created_at'],"UPDATE_AT" => $_POST['update_at'],
+				"ID" => $_POST['ID'],"CATEGORY" => $_POST['category'],"CREATE_DATE" => $_POST['create_date'],"AMOUNT" => $_POST['amount'],"DEBIT" => $_POST['debit'],"MONEY" => $_POST['money'],"MEMO" => $_POST['memo'],"ACTIVE" => $_POST['active'],"ADD_IP" => $_POST['add_ip'],"CREATED_AT" => $_POST['created_at'],"UPDATE_AT" => $_POST['update_at'],
 				)
 			 );
+			 
+			$category_arr =$this->getCategory();
+			array_shift($ActiveOption);
+			array_shift($DebitOption);
+	
+			$template->setVar(array (
+				"CATEGORYOPTION" => selectTag("category",$category_arr,$_POST['category']),
+				"CREATEDATE" => inputDateTag ("create_date",$_POST['create_date']),
+				"AMOUNTTEXT" => textTag ("amount",$_POST['amount']),
+				"ACTIVEOPTION" => radioTag("active",$ActiveOption,$_POST['active']),
+				"DEBITOPTION" => radioTag("debit",$DebitOption,$_POST['debit']),
+			));
 
 		}
 	}
