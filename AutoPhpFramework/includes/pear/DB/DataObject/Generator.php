@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: Generator.php,v 1.12 2006/09/22 13:56:27 arzen Exp $
+ * @version    CVS: $Id: Generator.php,v 1.13 2006/09/23 03:18:56 arzen Exp $
  * @link       http://pear.php.net/package/DB_DataObject
  */
  
@@ -661,6 +661,10 @@ class DB_DataObject_Generator extends DB_DataObject
 
         foreach($this->tables as $this->table) {
             $this->table = trim($this->table);
+	        if (!file_exists($options["{$this->table}_modules_location"])) {
+	            require_once 'System.php';
+	            System::mkdir(array('-p',$options["{$this->table}_modules_location"]));
+	        }
             $i = '';
              if (strpos($options["{$this->table}_modules_location"],'%s') !== false) {
                 $outfilename   = sprintf($options["{$this->table}_modules_location"], preg_replace('/[^A-Z0-9]/i','_',$this->CamelCaseFromUnderscore($this->table)));

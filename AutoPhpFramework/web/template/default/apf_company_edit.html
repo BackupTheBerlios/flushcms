@@ -1,0 +1,104 @@
+        
+<div id="admin_container">
+<h1>{lang_EditInfo}</h1>
+<div id="admin_header">
+</div>
+<div id="admin_content">
+  <div class="{SUCCESS_CLASS}">
+	{SUCCESS_MSG}
+  </div>
+
+<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{WEBDIR}/company/apf_company/{DOACTION}">
+<input type="hidden" name="ID" id="ID" value="{ID}" />
+<fieldset id="fieldset_________" class="">
+<h2>{lang_GeneralInfo}</h2><div class="form-row">
+  <label >{lang_Name}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{NAME_ERROR_MSG}</div>
+  <input type="text" name="name" id="name" value="{NAME}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Addrees}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ADDREES_ERROR_MSG}</div>
+  <input type="text" name="addrees" id="addrees" value="{ADDREES}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Phone}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{PHONE_ERROR_MSG}</div>
+  <input type="text" name="phone" id="phone" value="{PHONE}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Fax}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{FAX_ERROR_MSG}</div>
+  <input type="text" name="fax" id="fax" value="{FAX}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Email}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{EMAIL_ERROR_MSG}</div>
+  <input type="text" name="email" id="email" value="{EMAIL}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Photo}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{PHOTO_ERROR_MSG}</div>
+  <input type="text" name="photo" id="photo" value="{PHOTO}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Homepage}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{HOMEPAGE_ERROR_MSG}</div>
+  <input type="text" name="homepage" id="homepage" value="{HOMEPAGE}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Employee}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{EMPLOYEE_ERROR_MSG}</div>
+  <input type="text" name="employee" id="employee" value="{EMPLOYEE}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Bankroll}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{BANKROLL_ERROR_MSG}</div>
+  <input type="text" name="bankroll" id="bankroll" value="{BANKROLL}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_LinkMan}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{LINK_MAN_ERROR_MSG}</div>
+  <input type="text" name="link_man" id="link_man" value="{LINK_MAN}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Incorporator}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{INCORPORATOR_ERROR_MSG}</div>
+  <input type="text" name="incorporator" id="incorporator" value="{INCORPORATOR}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Industry}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{INDUSTRY_ERROR_MSG}</div>
+  <input type="text" name="industry" id="industry" value="{INDUSTRY}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Products}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{PRODUCTS_ERROR_MSG}</div>
+  <input type="text" name="products" id="products" value="{PRODUCTS}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Memo}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{MEMO_ERROR_MSG}</div>
+  <input type="text" name="memo" id="memo" value="{MEMO}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Active}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ACTIVE_ERROR_MSG}</div>
+  <input type="text" name="active" id="active" value="{ACTIVE}" size="20" />    </div>
+</div>
+</fieldset>
+<ul class="admin_actions">
+  <li><input class="admin_action_list" value="{lang_List}" type="button" onclick="document.location.href='{WEBDIR}/company/apf_company/list';" /></li>
+  <li><input type="submit" name="save" value="{lang_Save}" class="admin_action_save" /></li>
+
+</ul>
+</form>
+
+<ul class="admin_actions">
+      <li class="float-left"></li>
+</ul>
+</div>
+
+<div id="admin_footer">
+</div>
+</div>

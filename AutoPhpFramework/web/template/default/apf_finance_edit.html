@@ -1,0 +1,64 @@
+        
+<div id="admin_container">
+<h1>{lang_EditInfo}</h1>
+<div id="admin_header">
+</div>
+<div id="admin_content">
+  <div class="{SUCCESS_CLASS}">
+	{SUCCESS_MSG}
+  </div>
+
+<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{WEBDIR}/finance/apf_finance/{DOACTION}">
+<input type="hidden" name="ID" id="ID" value="{ID}" />
+<fieldset id="fieldset_________" class="">
+<h2>{lang_GeneralInfo}</h2><div class="form-row">
+  <label >{lang_Category}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{CATEGORY_ERROR_MSG}</div>
+  <input type="text" name="category" id="category" value="{CATEGORY}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_CreateDate}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{CREATE_DATE_ERROR_MSG}</div>
+  <input type="text" name="create_date" id="create_date" value="{CREATE_DATE}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Amount}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{AMOUNT_ERROR_MSG}</div>
+  <input type="text" name="amount" id="amount" value="{AMOUNT}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Debit}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{DEBIT_ERROR_MSG}</div>
+  <input type="text" name="debit" id="debit" value="{DEBIT}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Money}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{MONEY_ERROR_MSG}</div>
+  <input type="text" name="money" id="money" value="{MONEY}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Memo}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{MEMO_ERROR_MSG}</div>
+  <input type="text" name="memo" id="memo" value="{MEMO}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Active}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ACTIVE_ERROR_MSG}</div>
+  <input type="text" name="active" id="active" value="{ACTIVE}" size="20" />    </div>
+</div>
+</fieldset>
+<ul class="admin_actions">
+  <li><input class="admin_action_list" value="{lang_List}" type="button" onclick="document.location.href='{WEBDIR}/finance/apf_finance/list';" /></li>
+  <li><input type="submit" name="save" value="{lang_Save}" class="admin_action_save" /></li>
+
+</ul>
+</form>
+
+<ul class="admin_actions">
+      <li class="float-left"></li>
+</ul>
+</div>
+
+<div id="admin_footer">
+</div>
+</div>

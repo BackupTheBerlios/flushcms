@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.23 2006/09/23 02:34:51 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.24 2006/09/23 03:18:56 arzen Exp $
  */
 
 $RootDir = APF_ROOT_DIR . DIRECTORY_SEPARATOR;
@@ -82,13 +82,43 @@ $opts = array (
 	$news_table . '_except_fields' => 'id,add_ip,created_at,update_at',
 	$news_table.'_generator_add_validate_stubs' => 'title:empty',
 
+	$finance_category_table.'_modules_location' => $RootDir . '/module/finance/',
+	$finance_category_table.'_modules_name_location' => 'finance',
+	$finance_category_table . '_fields_list' => 'id,category_name,active',
+	$finance_category_table . '_except_fields' => 'id,add_ip,created_at,update_at,orderid',
+	$finance_category_table.'_generator_add_validate_stubs' => 'category_name:empty',
+
+	$finance_table.'_modules_location' => $RootDir . '/module/finance/',
+	$finance_table.'_modules_name_location' => 'finance',
+	$finance_table . '_fields_list' => 'id,category,amount,debit,money,active',
+	$finance_table . '_except_fields' => 'id,add_ip,created_at,update_at',
+	$finance_table.'_generator_add_validate_stubs' => 'money:empty',
+
+	$contact_category_table.'_modules_location' => $RootDir . '/module/contact/',
+	$contact_category_table.'_modules_name_location' => 'contact',
+	$contact_category_table . '_fields_list' => 'id,category_name,active',
+	$contact_category_table . '_except_fields' => 'id,add_ip,created_at,update_at,orderid',
+	$contact_category_table.'_generator_add_validate_stubs' => 'category_name:empty',
+
+	$contact_table.'_modules_location' => $RootDir . '/module/contact/',
+	$contact_table.'_modules_name_location' => 'contact',
+	$contact_table . '_fields_list' => 'id,category,company_id,name,gender,mobile,phone,active',
+	$contact_table . '_except_fields' => 'id,add_ip,created_at,update_at',
+	$contact_table.'_generator_add_validate_stubs' => 'name:empty',
+
+	$company_table.'_modules_location' => $RootDir . '/module/company/',
+	$company_table.'_modules_name_location' => 'company',
+	$company_table . '_fields_list' => 'id,name,phone,fax,link_man,addrees,active',
+	$company_table . '_except_fields' => 'id,add_ip,created_at,update_at',
+	$company_table.'_generator_add_validate_stubs' => 'name:empty',
+
 	'require_prefix' => 'dataobjects/',
 	'class_prefix' => 'Dao',
 	'extends' => 'DB_DataObject',
 	'generate_setters' => '1',
 	'generate_getters' => '1',
 
-	'generator_include_regex' => '/' . $news_category_table . '$/',
+	'generator_include_regex' => '/' . $company_table . '$/',
 	'generator_no_ini' => '1',
 	
 );
