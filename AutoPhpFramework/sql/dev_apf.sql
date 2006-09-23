@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 -- 
 -- 主机: localhost
--- 生成日期: 2006 年 09 月 23 日 11:16
+-- 生成日期: 2006 年 09 月 23 日 15:58
 -- 服务器版本: 4.0.26
 -- PHP 版本: 4.4.2
 -- 
@@ -70,12 +70,14 @@ CREATE TABLE `apf_contact` (
   `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
   `update_at` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
+) TYPE=MyISAM AUTO_INCREMENT=3 ;
 
 -- 
 -- 导出表中的数据 `apf_contact`
 -- 
 
+INSERT INTO `apf_contact` (`id`, `category`, `company_id`, `name`, `gender`, `birthday`, `addrees`, `office_phone`, `phone`, `fax`, `mobile`, `email`, `photo`, `homepage`, `active`, `add_ip`, `created_at`, `update_at`) VALUES (1, 1, 0, '孟远螓', 'm', '1981-10-13', '广西贺州', '0755-83818420', '0755-83818420', '0755-83818420', '13684987661', 'arzen1013@gmail.com', '', 'http://www.518ic.com', 'new', '', '0000-00-00 00:00:00', '2006-09-23 14:13:59'),
+(2, 1, 0, '古金', 'f', '1981-04-23', '广东肇庆', '0755-83818420', '0755-83818420', '0755-83818420', '13537699656', '', '', '', 'live', '', '0000-00-00 00:00:00', '2006-09-23 15:07:06');
 
 -- --------------------------------------------------------
 
@@ -91,12 +93,16 @@ CREATE TABLE `apf_contact_category` (
   `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
   `update_at` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
+) TYPE=MyISAM AUTO_INCREMENT=5 ;
 
 -- 
 -- 导出表中的数据 `apf_contact_category`
 -- 
 
+INSERT INTO `apf_contact_category` (`id`, `category_name`, `active`, `add_ip`, `created_at`, `update_at`) VALUES (1, '朋友', 'new', '', '0000-00-00 00:00:00', '2006-09-23 11:24:12'),
+(2, '同事', 'live', '', '2006-09-23 11:24:22', '0000-00-00 00:00:00'),
+(3, '同学', 'live', '', '2006-09-23 11:24:39', '0000-00-00 00:00:00'),
+(4, '国外朋友', 'live', '', '2006-09-23 11:28:21', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -109,7 +115,7 @@ CREATE TABLE `apf_finance` (
   `category` int(5) default NULL,
   `create_date` date default NULL,
   `amount` tinyint(4) default NULL,
-  `debit` tinyint(2) default NULL,
+  `debit` varchar(4) default NULL,
   `money` decimal(10,2) default NULL,
   `memo` text,
   `active` varchar(8) NOT NULL default 'new',
@@ -117,12 +123,14 @@ CREATE TABLE `apf_finance` (
   `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
   `update_at` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
+) TYPE=MyISAM AUTO_INCREMENT=3 ;
 
 -- 
 -- 导出表中的数据 `apf_finance`
 -- 
 
+INSERT INTO `apf_finance` (`id`, `category`, `create_date`, `amount`, `debit`, `money`, `memo`, `active`, `add_ip`, `created_at`, `update_at`) VALUES (1, 1, '2006-09-23', 1, 'I', 599.00, '', 'new', '', '2006-09-23 15:44:51', '0000-00-00 00:00:00'),
+(2, 1, '2006-09-23', 2, 'P', 287956.00, '', 'new', '', '2006-09-23 15:46:56', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -138,12 +146,14 @@ CREATE TABLE `apf_finance_category` (
   `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
   `update_at` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
+) TYPE=MyISAM AUTO_INCREMENT=3 ;
 
 -- 
 -- 导出表中的数据 `apf_finance_category`
 -- 
 
+INSERT INTO `apf_finance_category` (`id`, `category_name`, `active`, `add_ip`, `created_at`, `update_at`) VALUES (1, '工资', 'live', '', '0000-00-00 00:00:00', '2006-09-23 15:20:06'),
+(2, '外单', 'live', '', '0000-00-00 00:00:00', '2006-09-23 15:20:18');
 
 -- --------------------------------------------------------
 
@@ -190,8 +200,8 @@ CREATE TABLE `apf_news_category` (
 -- 导出表中的数据 `apf_news_category`
 -- 
 
-INSERT INTO `apf_news_category` (`id`, `category_name`, `orderid`, `active`, `add_ip`, `created_at`, `update_at`) VALUES (1, 'local news', 1, 'deleted', '', '2006-09-22 22:08:59', '0000-00-00 00:00:00'),
-(2, 'chinese news', 2, 'new', '', '2006-09-22 22:09:21', '0000-00-00 00:00:00');
+INSERT INTO `apf_news_category` (`id`, `category_name`, `orderid`, `active`, `add_ip`, `created_at`, `update_at`) VALUES (1, 'local news', 2, 'deleted', '', '2006-09-22 22:08:59', '0000-00-00 00:00:00'),
+(2, 'chinese news', 1, 'new', '', '2006-09-22 22:09:21', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 

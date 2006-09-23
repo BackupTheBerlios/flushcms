@@ -12,7 +12,7 @@ class DaoApfFinance extends DB_DataObject
     var $category;                        // int(5)  
     var $create_date;                     // date(10)  
     var $amount;                          // int(4)  
-    var $debit;                           // int(2)  
+    var $debit;                           // string(4)  
     var $money;                           // real(12)  
     var $memo;                            // blob(65535)  blob
     var $active;                          // string(8)  not_null
@@ -77,7 +77,7 @@ class DaoApfFinance extends DB_DataObject
    /**
     * Getter for $Debit
     *
-    * @return   int
+    * @return   string
     * @access   public
     */
     function getDebit() 
@@ -281,7 +281,7 @@ class DaoApfFinance extends DB_DataObject
              'category' =>  DB_DATAOBJECT_INT,
              'create_date' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE,
              'amount' =>  DB_DATAOBJECT_INT,
-             'debit' =>  DB_DATAOBJECT_INT,
+             'debit' =>  DB_DATAOBJECT_STR,
              'money' =>  DB_DATAOBJECT_INT,
              'memo' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_BLOB,
              'active' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
@@ -304,6 +304,7 @@ class DaoApfFinance extends DB_DataObject
     function defaults() // column default values 
     {
          return array(
+             'debit' => '',
              'memo' => '',
              'active' => 'new',
              'add_ip' => '',

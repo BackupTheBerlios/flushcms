@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.26 2006/09/23 06:58:46 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.27 2006/09/23 08:00:12 arzen Exp $
  */
 
 $RootDir = APF_ROOT_DIR . DIRECTORY_SEPARATOR;
@@ -120,7 +120,7 @@ $opts = array (
 	'generate_setters' => '1',
 	'generate_getters' => '1',
 
-	'generator_include_regex' => '/' . $company_table . '$/',
+	'generator_include_regex' => '/' . $finance_table . '$/',
 	'generator_no_ini' => '1',
 	
 );

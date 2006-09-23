@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: config.php,v 1.5 2006/09/21 05:00:28 arzen Exp $
+ * @version    CVS: $Id: config.php,v 1.6 2006/09/23 08:00:12 arzen Exp $
  */
  
 $DB_Type = "mysql";
@@ -21,5 +21,7 @@ $DefaultPage = "apf_users";
 
 $DbPrefix = "apf_";
 $lang   = 'zh';
+
+$CurrencyFormat = "en_US";
 
 ?>
