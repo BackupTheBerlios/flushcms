@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContact.class.php,v 1.4 2006/09/23 11:37:15 arzen Exp $
+ * @version    CVS: $Id: ApfContact.class.php,v 1.5 2006/09/24 04:19:29 arzen Exp $
  */
 
 class ApfContact  extends Actions
@@ -224,6 +224,123 @@ class ApfContact  extends Actions
 		$vcard->send($apf_contact->getName().".vcf");
 		exit;
 	}
+	
+	function executeExport () 
+	{
+		global $template,$WebBaseDir;
+
+		$template->setFile(array (
+			"MAIN" => "apf_contact_export.html"
+		));
+		$template->setBlock("MAIN", "add_block");
+		
+
+		$template->setVar(array (
+			"WEBDIR" => $WebBaseDir,
+			"DOACTION" => "exportsubmit"
+		));
+	}
+	
+	function executeExportsubmit () 
+	{
+		switch (strtolower($_POST['what'])) 
+		{
+			case 'excel':
+				$this->exportExcel();
+				break;
+		}
+	}
+	
+	function exportExcel () 
+	{
+		global $i18n,$ClassDir;
+		require_once 'Spreadsheet/Excel/Writer.php';
+		require_once $ClassDir.'StringHelper.class.php';
+		
+		$header = array(
+			"name"=>"30",
+			"gender"=>"10",
+			"birthday"=>"20",
+			"phone"=>"30",
+			"office_phone"=>"30",
+			"fax"=>"30",
+			"mobile"=>"30",
+			"addrees"=>"40",
+			"category"=>"10",
+			"email"=>"30",
+			"homepage"=>"40",
+			);
+		
+		// Creating a workbook
+		$workbook = new Spreadsheet_Excel_Writer();
+		// sending HTTP headers
+		$filename = date("Y_m_d")."_contact_export.xls";
+		$workbook->send($filename);
+		// Creating a worksheet
+		$worksheet =& $workbook->addWorksheet($i18n->_('Contact'));
+		
+		// Write header
+		$i=0;
+		foreach($header as $title=>$lenght)
+		{
+			$format_title =& $workbook->addFormat(array('right' => 5, 'top' => 20, 'size' => 14,
+                                                      'pattern' => 1, 'bordercolor' => 'blue',
+                                                      'Bold '=>1,'Color'=>'yellow','Align'=>'center',
+                                                      'fgcolor' => 'blue'));
+			$coloum_title = StringHelper::CamelCaseFromUnderscore($title);
+			$worksheet->write(0, $i, $i18n->_($coloum_title),$format_title);
+			$worksheet->setColumn($i,$i,$lenght);
+			$i++;
+		}
+		//		Write contact record
+		$apf_contact = DB_DataObject :: factory('ApfContact');
+		$apf_contact->orderBy('id desc');
+		$apf_contact->find();
+		
+		$x=1;
+		while ($apf_contact->fetch())
+		{
+			$y=0;
+			foreach($header as $title=>$lenght)
+			{
+				$coloum_function = "get".StringHelper::CamelCaseFromUnderscore($title);
+				$worksheet->write($x, $y, $apf_contact->$coloum_function());
+				$y++;
+			}
+			$x++;
+		}
+				
+		$worksheet->freezePanes(array(1, 1));
+				
+		$workbook->close();
+	}
+	
+	function executeImport () 
+	{
+		global $template,$WebBaseDir;
+
+		$template->setFile(array (
+			"MAIN" => "apf_contact_import.html"
+		));
+		$template->setBlock("MAIN", "add_block");
+		
+
+		$template->setVar(array (
+			"WEBDIR" => $WebBaseDir,
+			"DOACTION" => "importsubmit"
+		));
+	}
+	
+	function executeImportsubmit () 
+	{
+		switch (strtolower($_POST['what'])) 
+		{
+			case 'excel':
+				$this->importExcel();
+				break;
+		}
+	}
+	
 	
 	function executeList()
 	{

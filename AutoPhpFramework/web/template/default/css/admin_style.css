@@ -324,3 +324,10 @@ ul.admin_actions input
 {
   color: #ff0000;
 }
+
+.formelementrow
+{
+    border: 1px solid transparent;
+	width: 100%;
+}
+
