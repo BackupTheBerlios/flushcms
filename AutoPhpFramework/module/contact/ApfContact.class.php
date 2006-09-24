@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContact.class.php,v 1.5 2006/09/24 04:19:29 arzen Exp $
+ * @version    CVS: $Id: ApfContact.class.php,v 1.6 2006/09/24 08:07:23 arzen Exp $
  */
 
 class ApfContact  extends Actions
@@ -248,6 +248,9 @@ class ApfContact  extends Actions
 			case 'excel':
 				$this->exportExcel();
 				break;
+			case 'pdf':
+				$this->exportPDF();
+				break;
 		}
 	}
 	
@@ -329,6 +332,70 @@ class ApfContact  extends Actions
 			"WEBDIR" => $WebBaseDir,
 			"DOACTION" => "importsubmit"
 		));
+	}
+	
+	function exportPDF () 
+	{
+		global $i18n,$ClassDir;
+		require_once ('fpdf/PDF_Chinese.php'); 
+		require_once $ClassDir.'StringHelper.class.php';
+		$header = array(
+			"name"=>"20",
+			"gender"=>"12",
+			"birthday"=>"25",
+			"phone"=>"30",
+			"office_phone"=>"30",
+			"fax"=>"30",
+			"mobile"=>"30",
+			"addrees"=>"20",
+			);
+
+		$pdf=new PDF_Chinese(); 
+		$pdf->AddGBFont('simsun','ËÎÌå'); 
+		$pdf->AddGBFont('simhei','ºÚÌå'); 
+		$pdf->AddGBFont('simkai','¿¬Ìå_GB2312'); 
+		$pdf->AddGBFont('sinfang','·ÂËÎ_GB2312'); 
+		$pdf->Open(); 
+		$pdf->AddPage(); 
+
+		$pdf->SetFont('simsun','',16);
+		$pdf->Cell(0,20,$i18n->_('Contact'),0,1,'C');
+		
+		foreach($header as $title=>$lenght)
+		{
+			$header_title_arr[] = $i18n->_(StringHelper::CamelCaseFromUnderscore($title));
+		}
+		
+		// Write header
+		$pdf->SetFont('simsun','B',7);
+		$pdf->SetWidths(array_values($header));
+		$pdf->Row(array_values($header_title_arr));
+
+		// Write contact record
+		$pdf->SetFont('simsun','',7); 
+		$apf_contact = DB_DataObject :: factory('ApfContact');
+		$apf_contact->orderBy('id desc');
+		$apf_contact->find();
+		
+		while ($apf_contact->fetch())
+		{
+			$coloum_data = array();
+			foreach($header as $title=>$lenght)
+			{
+				$coloum_function = "get".StringHelper::CamelCaseFromUnderscore($title);
+				$coloum_data []= $apf_contact->$coloum_function();
+			}
+			$pdf->Row(array_values($coloum_data));
+			
+		}
+		
+		$pdf->SetFont('Arial','',9);
+		$pdf->AliasNbPages();
+		
+	
+		$filename = date("Y_m_d")."_contact_export.pdf";
+		$pdf->Output($filename,true);
+		exit; 		
 	}
 	
 	function executeImportsubmit () 

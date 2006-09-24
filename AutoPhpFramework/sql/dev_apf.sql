@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 -- 
 -- 主机: localhost
--- 生成日期: 2006 年 09 月 23 日 15:58
+-- 生成日期: 2006 年 09 月 24 日 12:33
 -- 服务器版本: 4.0.26
 -- PHP 版本: 4.4.2
 -- 
@@ -129,8 +129,8 @@ CREATE TABLE `apf_finance` (
 -- 导出表中的数据 `apf_finance`
 -- 
 
-INSERT INTO `apf_finance` (`id`, `category`, `create_date`, `amount`, `debit`, `money`, `memo`, `active`, `add_ip`, `created_at`, `update_at`) VALUES (1, 1, '2006-09-23', 1, 'I', 599.00, '', 'new', '', '2006-09-23 15:44:51', '0000-00-00 00:00:00'),
-(2, 1, '2006-09-23', 2, 'P', 287956.00, '', 'new', '', '2006-09-23 15:46:56', '0000-00-00 00:00:00');
+INSERT INTO `apf_finance` (`id`, `category`, `create_date`, `amount`, `debit`, `money`, `memo`, `active`, `add_ip`, `created_at`, `update_at`) VALUES (1, 2, '2006-09-23', 1, 'P', 599.00, '', 'new', '', '0000-00-00 00:00:00', '2006-09-23 18:18:34'),
+(2, 1, '2006-09-23', 2, 'P', 287956.00, '', 'new', '', '0000-00-00 00:00:00', '2006-09-23 18:20:59');
 
 -- --------------------------------------------------------
 
