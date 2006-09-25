@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContact.class.php,v 1.7 2006/09/25 05:06:05 arzen Exp $
+ * @version    CVS: $Id: ApfContact.class.php,v 1.8 2006/09/25 14:37:14 arzen Exp $
  */
 
 class ApfContact  extends Actions
@@ -381,8 +381,99 @@ class ApfContact  extends Actions
 
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"IMPORTFILE" => fileTag("sourcefile"),
 			"DOACTION" => "importsubmit"
 		));
+	}
+
+	function executeImportsubmit () 
+	{
+		global $ClassDir,$AllowUploadFilesType,$UploadDir;
+		
+		$import_file_name="";
+		if($_FILES['sourcefile']['name'])
+		{
+			require_once 'HTTP/Upload.php';
+			require_once ($ClassDir."FileHelper.class.php");
+			$upload = new http_upload();
+			$file = $upload->getFiles('sourcefile');
+			$file->setValidExtensions($AllowUploadFilesType,'accept');
+			if (PEAR::isError($file)) 
+			{
+				$allow_upload_file = FALSE;
+				$upload_error_msg = $file->getMessage();
+			}
+			if ($file->isValid()) 
+			{
+				$file->setName('uniq');
+				$current_date = FileHelper::createCategoryDir($UploadDir,"import");
+				$date_photo_dir = $UploadDir.$current_date;
+				$dest_name = $file->moveTo($date_photo_dir);
+				if (PEAR::isError($dest_name)) 
+				{
+					$allow_upload_file = FALSE;
+					$upload_error_msg = $dest_name->getMessage();
+				}
+				else 
+				{
+					$real = $file->getProp('real');
+					$import_file_name = $UploadDir.$current_date.$dest_name;
+				}
+			} 
+			elseif ($file->isError()) 
+			{
+				$allow_upload_file = FALSE;
+				$upload_error_msg = $file->errorMsg();
+			}			
+		}
+		if (file_exists($import_file_name)) 
+		{
+			switch (strtolower($_POST['what'])) 
+			{
+				case 'excel':
+					$this->importExcel($import_file_name);
+					break;
+			}
+		}
+	}
+	
+	function importExcel ($import_file_name) 
+	{
+		global $i18n,$ClassDir;
+
+		require_once 'Spreadsheet/Excel/reader.php';
+		require_once $ClassDir.'StringHelper.class.php';
+		
+		$header = array(
+			"name",
+			"gender",
+			"birthday",
+			"phone",
+			"office_phone",
+			"fax",
+			"mobile",
+			"addrees",
+			"category",
+			"email",
+			"homepage",
+			);
+
+		$data = new Spreadsheet_Excel_Reader();
+		$data->setOutputEncoding('gbk');
+		$data->read($import_file_name);
+		for ($i = 2; $i <= $data->sheets[0]['numRows']; $i++) 
+		{
+			$apf_contact = DB_DataObject :: factory('ApfContact');
+			for ($j = 1; $j <= $data->sheets[0]['numCols']; $j++) 
+			{
+				$coloum_function = "set".StringHelper::CamelCaseFromUnderscore($header[$j-1]);
+				$apf_contact->$coloum_function($data->sheets[0]['cells'][$i][$j]);
+			}
+			$apf_contact->insert();
+		}
+		unlink($import_file_name);
+		$this->forward("contact/apf_contact/");
+				
 	}
 	
 	function exportPDF () 
@@ -407,8 +498,10 @@ class ApfContact  extends Actions
 		$pdf->AddGBFont('simkai','¿¬Ìå_GB2312'); 
 		$pdf->AddGBFont('sinfang','·ÂËÎ_GB2312'); 
 		$pdf->Open(); 
-		$pdf->AddPage(); 
-
+		$pdf->SetMargins(5,20,5);
+		$pdf->AddPage();
+		$pdf->SetAutoPageBreak("on",20); 
+		
 		$pdf->SetFont('simsun','',16);
 		$pdf->Cell(0,20,$i18n->_('Contact'),0,1,'C');
 		
@@ -428,8 +521,11 @@ class ApfContact  extends Actions
 		$apf_contact->orderBy('id desc');
 		$apf_contact->find();
 		
+		$i=0;
+		$page_rows=30;
 		while ($apf_contact->fetch())
 		{
+			(($i%$page_rows == 0) && $i)?$pdf->AddPage():"";
 			$coloum_data = array();
 			foreach($header as $title=>$lenght)
 			{
@@ -437,7 +533,7 @@ class ApfContact  extends Actions
 				$coloum_data []= $apf_contact->$coloum_function();
 			}
 			$pdf->Row(array_values($coloum_data));
-			
+			$i++;
 		}
 		
 		$pdf->SetFont('Arial','',9);
@@ -449,15 +545,6 @@ class ApfContact  extends Actions
 		exit; 		
 	}
 	
-	function executeImportsubmit () 
-	{
-		switch (strtolower($_POST['what'])) 
-		{
-			case 'excel':
-				$this->importExcel();
-				break;
-		}
-	}
 	
 	
 	function executeList()
@@ -507,7 +594,7 @@ class ApfContact  extends Actions
 		
 		$params = array(
 		    'itemData' => $myData,
-		    'perPage' => 10,
+		    'perPage' => 50,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
 		    'separator' => ' | ',

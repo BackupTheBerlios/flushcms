@@ -944,6 +944,7 @@ function _beginpage($orientation) {
 		$this->SetY($maxY);
 		$this->SetFont('Arial', '', 8);
 		$this->Write(10,"Date:".date("Y/m/d"));
+		$this->SetTopMargin(80);
 		//Put watermark
 		$this->SetFont('Arial', 'B', 50);
 		$this->SetTextColor(255, 192, 203);

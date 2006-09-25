@@ -6,7 +6,7 @@
 <div id="admin_bar">
 </div>
 
-<form action="{WEBDIR}/contact/apf_contact/{DOACTION}" method="post" >
+<form action="{WEBDIR}/contact/apf_contact/{DOACTION}" method="post" enctype="multipart/form-data" >
 <div id="div_container_exportoptions">
 
 <fieldset id="exportoptions">
@@ -14,6 +14,10 @@
 <div class="form-row">
   <label for="radio_dump_latex">Excel</label>  
   <div class="content"><input type="radio" name="what" value="excel" id="excel"/ checked></div>
+</div>
+<div class="form-row">
+  <label for="radio_dump_latex">File</label>  
+  <div class="content">{IMPORTFILE}</div>
 </div>
 </fieldset>
 
