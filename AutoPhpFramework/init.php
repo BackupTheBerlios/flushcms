@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.27 2006/09/23 08:00:12 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.28 2006/09/25 05:06:05 arzen Exp $
  */
 
 $RootDir = APF_ROOT_DIR . DIRECTORY_SEPARATOR;
@@ -51,6 +51,8 @@ if (defined('APF_DEBUG') && (APF_DEBUG == true))
 	$timer->start();
 }
 
+$UploadDir = $RootDir."web/".$Upload_Dir;
+$WebUploadDir = dirname(getenv("SCRIPT_NAME")) . "/" . $Upload_Dir;
 $dsn = "{$DB_Type}://{$DB_UserName}:{$DB_PassWord}@{$DB_Host}/{$DB_Name}";
 $conn = & DB :: connect($dsn);
 if (DB :: isError($conn))

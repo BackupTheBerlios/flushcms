@@ -5,7 +5,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: FormObject.php,v 1.3 2006/09/23 06:58:46 arzen Exp $
+ * @version    CVS: $Id: FormObject.php,v 1.4 2006/09/25 05:06:05 arzen Exp $
  */
 
 /**
@@ -66,18 +66,18 @@ function selectTag ($name,$options,$selected="",$extend="")
  */
 function fileTag ($name,$oldfile="", $delete=true, $ext="jpg") 
 {
-	global $Upload_Dir;
+	global $WebUploadDir;
 	
 	if ($oldfile) 
 	{
 		if ($ext == "swf")
 		{
-			$html_code = showFlash($Upload_Dir . $oldfile, 80, 60) . "<br>" . 
-		  			"<a target='_blank' href={$Upload_Dir}{$oldfile}>Full Screen</a>";
+			$html_code = showFlash($WebUploadDir . $oldfile, 80, 60) . "<br>" . 
+		  			"<a target='_blank' href={$WebUploadDir}{$oldfile}>Full Screen</a>";
 		}
 		else
 		{
-			$html_code="<a target='_blank' href={$Upload_Dir}{$oldfile}><IMG SRC=\"{$Upload_Dir}{$oldfile}\" WIDTH=\"80\" BORDER=\"0\" ></a> &nbsp;";
+			$html_code="<a target='_blank' href={$WebUploadDir}{$oldfile}><IMG SRC=\"{$WebUploadDir}{$oldfile}\" WIDTH=\"80\" BORDER=\"0\" ></a> &nbsp;";
 		}
 		
 		if ($delete) {

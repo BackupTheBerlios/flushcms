@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: config.php,v 1.6 2006/09/23 08:00:12 arzen Exp $
+ * @version    CVS: $Id: config.php,v 1.7 2006/09/25 05:06:05 arzen Exp $
  */
  
 $DB_Type = "mysql";
@@ -23,5 +23,8 @@ $DbPrefix = "apf_";
 $lang   = 'zh';
 
 $CurrencyFormat = "en_US";
+
+$AllowUploadFilesType = array('jpg','gif','png');
+$Upload_Dir = "uploads/";
 
 ?>

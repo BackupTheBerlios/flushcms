@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContact.class.php,v 1.6 2006/09/24 08:07:23 arzen Exp $
+ * @version    CVS: $Id: ApfContact.class.php,v 1.7 2006/09/25 05:06:05 arzen Exp $
  */
 
 class ApfContact  extends Actions
@@ -38,6 +38,7 @@ class ApfContact  extends Actions
 	
 	function executeAddsubmit()
 	{
+		global $UploadDir;
 		$this->handleFormData();
 	}
 	
@@ -86,7 +87,8 @@ class ApfContact  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n,$GenderOption,$ActiveOption;
+		global $template,$WebBaseDir,$i18n,$GenderOption,$ActiveOption,$ClassDir,$UploadDir,$AllowUploadFilesType;
+		
 		$apf_contact = DB_DataObject :: factory('ApfContact');
 
 		if ($edit_submit) 
@@ -110,16 +112,56 @@ class ApfContact  extends Actions
 		$apf_contact->setFax(stripslashes(trim($_POST['fax'])));
 		$apf_contact->setMobile(stripslashes(trim($_POST['mobile'])));
 		$apf_contact->setEmail(stripslashes(trim($_POST['email'])));
-		$apf_contact->setPhoto(stripslashes(trim($_POST['photo'])));
 		$apf_contact->setHomepage(stripslashes(trim($_POST['homepage'])));
 		$apf_contact->setActive(stripslashes(trim($_POST['active'])));
 		$apf_contact->setAddIp(stripslashes(trim($_POST['add_ip'])));
-		$apf_contact->setCreatedAt(stripslashes(trim($_POST['created_at'])));
-		$apf_contact->setUpdateAt(stripslashes(trim($_POST['update_at'])));
+		
+		if ($_POST['photo_del']=='Y') 
+		{
+			unlink($UploadDir.$_POST['photo_old']);
+			$apf_contact->setPhoto("");
+			$_POST['photo_old']="";
+		}
 
+		$allow_upload_file = TRUE;
+		if($_FILES['photo']['name'])
+		{
+			require_once 'HTTP/Upload.php';
+			require_once ($ClassDir."FileHelper.class.php");
+			$upload = new http_upload();
+			$file = $upload->getFiles('photo');
+			$file->setValidExtensions($AllowUploadFilesType,'accept');
+			if (PEAR::isError($file)) 
+			{
+				$allow_upload_file = FALSE;
+				$upload_error_msg = $file->getMessage();
+			}
+			if ($file->isValid()) 
+			{
+				$file->setName('uniq');
+				$current_date = FileHelper::createCategoryDir($UploadDir,"photo");
+				$date_photo_dir = $UploadDir.$current_date;
+				$dest_name = $file->moveTo($date_photo_dir);
+				if (PEAR::isError($dest_name)) 
+				{
+					$allow_upload_file = FALSE;
+					$upload_error_msg = $dest_name->getMessage();
+				}
+				else 
+				{
+					$real = $file->getProp('real');
+					$apf_contact->setPhoto($current_date.$dest_name);
+				}
+			} 
+			elseif ($file->isError()) 
+			{
+				$allow_upload_file = FALSE;
+				$upload_error_msg = $file->errorMsg();
+			}			
+		}
 				
 		$val = $apf_contact->validate();
-		if ($val === TRUE)
+		if ( ($val === TRUE) && ($allow_upload_file === TRUE) )
 		{
 			if ($edit_submit) 
 			{
@@ -152,7 +194,7 @@ class ApfContact  extends Actions
 				"CATEGORYOPTION" => selectTag("category",$category_arr,$_POST['category']),
 				"BIRTHDAYDATE" => inputDateTag ("birthday",$_POST['birthday']),
 				"GENDEROPTION" => radioTag("gender",$GenderOption,$_POST['gender']),
-				"FILEPHOTO" => fileTag("photo",$_POST['old_photo']),
+				"FILEPHOTO" => fileTag("photo",$_POST['photo_old']),
 				"ACTIVEOPTION" => radioTag("active",$ActiveOption,$_POST['active']),
 			));
 			
@@ -165,6 +207,12 @@ class ApfContact  extends Actions
 					));
 
 				}
+			}
+			if ($allow_upload_file !== TRUE) 
+			{
+				$template->setVar(array (
+					"PHOTO_ERROR_MSG" => " &darr; {$upload_error_msg} &darr; "
+				));
 			}
 			$template->setVar(
 				array (
@@ -291,6 +339,7 @@ class ApfContact  extends Actions
                                                       'Bold '=>1,'Color'=>'yellow','Align'=>'center',
                                                       'fgcolor' => 'blue'));
 			$coloum_title = StringHelper::CamelCaseFromUnderscore($title);
+			$worksheet->setInputEncoding('gb2312');
 			$worksheet->write(0, $i, $i18n->_($coloum_title),$format_title);
 			$worksheet->setColumn($i,$i,$lenght);
 			$i++;
@@ -307,6 +356,7 @@ class ApfContact  extends Actions
 			foreach($header as $title=>$lenght)
 			{
 				$coloum_function = "get".StringHelper::CamelCaseFromUnderscore($title);
+				$worksheet->setInputEncoding('gb2312');
 				$worksheet->write($x, $y, $apf_contact->$coloum_function());
 				$y++;
 			}
@@ -316,6 +366,7 @@ class ApfContact  extends Actions
 		$worksheet->freezePanes(array(1, 1));
 				
 		$workbook->close();
+		exit;
 	}
 	
 	function executeImport () 
