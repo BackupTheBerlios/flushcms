@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContact.class.php,v 1.10 2006/09/27 05:21:02 arzen Exp $
+ * @version    CVS: $Id: ApfContact.class.php,v 1.11 2006/09/27 10:35:17 arzen Exp $
  */
 
 class ApfContact  extends Actions
@@ -231,6 +231,24 @@ class ApfContact  extends Actions
 		$apf_contact->setActive('deleted');
 		$apf_contact->update();
 		$this->forward("contact/apf_contact/");
+	}
+	
+	function executeExportword () 
+	{
+		global $controller,$ClassDir,$UploadDir;
+		require_once $ClassDir.'MsDocGenerator.class.php';
+		$doc = new clsMsDocGenerator();
+		
+		$apf_contact = DB_DataObject :: factory('ApfContact');
+		$apf_contact->get($apf_contact->escape($controller->getID()));
+		$doc->setDocumentCharset("utf-8");
+		
+		$doc->addParagraph($apf_contact->getName());
+		$apf_contact->getPhoto()?$doc->addParagraph($doc->bufferImage($UploadDir.$apf_contact->getPhoto())):"";
+		
+		$filename = date("Y_m_d").$apf_contact->getName().".doc";
+		$doc->output($filename);
+		
 	}
 	
 	function executeExportvcard () 
