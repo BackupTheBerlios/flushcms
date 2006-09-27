@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: DataObject.php,v 1.3 2006/09/23 00:41:10 arzen Exp $
+ * @version    CVS: $Id: DataObject.php,v 1.4 2006/09/27 23:23:50 arzen Exp $
  * @link       http://pear.php.net/package/DB_DataObject
  */
   
@@ -3484,7 +3484,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 if (($key == $seq[0]) && ($seq[1] == true)) {
                     continue;
                 }
-                $ret[$key] = false;
+                $ret[$key] = true;
                 continue;
             }
             
