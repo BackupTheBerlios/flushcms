@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContact.class.php,v 1.8 2006/09/25 14:37:14 arzen Exp $
+ * @version    CVS: $Id: ApfContact.class.php,v 1.9 2006/09/27 04:54:27 arzen Exp $
  */
 
 class ApfContact  extends Actions
@@ -299,7 +299,61 @@ class ApfContact  extends Actions
 			case 'pdf':
 				$this->exportPDF();
 				break;
+			case 'csv':
+				$this->exportCsv();
+				break;
 		}
+	}
+	
+	function exportCsv () 
+	{
+		global $i18n,$ClassDir;
+		
+		require_once 'File/CSV.php';
+		require_once $ClassDir.'StringHelper.class.php';
+		$header = array(
+			"name",
+			"gender",
+			"birthday",
+			"phone",
+			"office_phone",
+			"fax",
+			"mobile",
+			"addrees",
+			"category",
+			"email",
+			"homepage",
+			);
+			
+		$conf = array(
+		    'fields' => count($header),
+		    'sep'    => ";",
+		    'quote'  => '"',
+		    'header' => false,
+		    'crlf' => "\r\n"
+		);
+		$filename = date("Y_m_d")."_contact_export.csv";
+		$csv = new File_CSV;
+		
+		//		Write contact record
+		$apf_contact = DB_DataObject :: factory('ApfContact');
+		$apf_contact->orderBy('id desc');
+		$apf_contact->find();
+		
+		while ($apf_contact->fetch())
+		{
+			$row_data = array();
+			foreach($header as $title)
+			{
+				$coloum_function = "get".StringHelper::CamelCaseFromUnderscore($title);
+				$row_data[] = $apf_contact->$coloum_function();
+			}
+			$csv->append($row_data, $conf);
+		}
+		
+		$csv->send($filename);
+		exit;
+		
 	}
 	
 	function exportExcel () 
