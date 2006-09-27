@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContact.class.php,v 1.9 2006/09/27 04:54:27 arzen Exp $
+ * @version    CVS: $Id: ApfContact.class.php,v 1.10 2006/09/27 05:21:02 arzen Exp $
  */
 
 class ApfContact  extends Actions
@@ -300,12 +300,68 @@ class ApfContact  extends Actions
 				$this->exportPDF();
 				break;
 			case 'csv':
-				$this->exportCsv();
+				$this->exportCSV();
+				break;
+			case 'xml':
+				$this->exportXML();
 				break;
 		}
 	}
 	
-	function exportCsv () 
+	function exportXML () 
+	{
+		global $i18n,$ClassDir;
+		
+		require_once 'XML/Util.php';
+		require_once $ClassDir.'StringHelper.class.php';
+		
+		$header = array(
+			"name",
+			"gender",
+			"birthday",
+			"phone",
+			"office_phone",
+			"fax",
+			"mobile",
+			"addrees",
+			"category",
+			"email",
+			"homepage",
+			);
+
+		$filename = date("Y_m_d")."_contact_export.xml";
+		$xml_data = "";
+		$xml = new XML_Util;
+		$xml_data .=$xml->getXMLDeclaration("1.0", "UTF-8")."\n";
+		$xml_data .="".$xml->createStartElement("contact")."\n";
+
+		//		Write contact record
+		$apf_contact = DB_DataObject :: factory('ApfContact');
+		$apf_contact->orderBy('id desc');
+		$apf_contact->find();
+		
+		while ($apf_contact->fetch())
+		{
+			$xml_data .="\t".$xml->createStartElement("record")."\n";
+			foreach($header as $title)
+			{
+				$coloum_function = "get".StringHelper::CamelCaseFromUnderscore($title);
+				$tag = array(
+							  "qname"        => $title,
+							  "content"      => $apf_contact->$coloum_function()
+							);
+				$xml_data .= "\t\t".$xml->createTagFromArray($tag)."\n";
+			}
+			$xml_data .="\t".$xml->createEndElement("record")."\n";
+		}
+		
+		$xml_data .="".$xml->createEndElement("contact")."\n";
+		$xml->send($xml_data,$filename);
+		exit;
+		
+	}
+	
+	function exportCSV () 
 	{
 		global $i18n,$ClassDir;
 		
