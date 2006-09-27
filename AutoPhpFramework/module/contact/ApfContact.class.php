@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContact.class.php,v 1.11 2006/09/27 10:35:17 arzen Exp $
+ * @version    CVS: $Id: ApfContact.class.php,v 1.12 2006/09/27 16:08:53 arzen Exp $
  */
 
 class ApfContact  extends Actions
@@ -241,14 +241,15 @@ class ApfContact  extends Actions
 		
 		$apf_contact = DB_DataObject :: factory('ApfContact');
 		$apf_contact->get($apf_contact->escape($controller->getID()));
-		$doc->setDocumentCharset("utf-8");
+		$doc->setDocumentCharset("gbk");
+		$doc->setDocumentLang("setDocumentLang");
 		
 		$doc->addParagraph($apf_contact->getName());
-		$apf_contact->getPhoto()?$doc->addParagraph($doc->bufferImage($UploadDir.$apf_contact->getPhoto())):"";
+		$apf_contact->getPhoto()?$doc->addParagraph($doc->addImage($UploadDir.$apf_contact->getPhoto(),80,80)):"";
 		
 		$filename = date("Y_m_d").$apf_contact->getName().".doc";
 		$doc->output($filename);
-		
+		exit;
 	}
 	
 	function executeExportvcard () 
@@ -337,10 +338,10 @@ class ApfContact  extends Actions
 			"name",
 			"gender",
 			"birthday",
+			"mobile",
 			"phone",
 			"office_phone",
 			"fax",
-			"mobile",
 			"addrees",
 			"category",
 			"email",
@@ -389,10 +390,10 @@ class ApfContact  extends Actions
 			"name",
 			"gender",
 			"birthday",
+			"mobile",
 			"phone",
 			"office_phone",
 			"fax",
-			"mobile",
 			"addrees",
 			"category",
 			"email",
@@ -440,10 +441,10 @@ class ApfContact  extends Actions
 			"name"=>"30",
 			"gender"=>"10",
 			"birthday"=>"20",
+			"mobile"=>"30",
 			"phone"=>"30",
 			"office_phone"=>"30",
 			"fax"=>"30",
-			"mobile"=>"30",
 			"addrees"=>"40",
 			"category"=>"10",
 			"email"=>"30",
@@ -576,10 +577,10 @@ class ApfContact  extends Actions
 			"name",
 			"gender",
 			"birthday",
+			"mobile",
 			"phone",
 			"office_phone",
 			"fax",
-			"mobile",
 			"addrees",
 			"category",
 			"email",
@@ -613,10 +614,10 @@ class ApfContact  extends Actions
 			"name"=>"20",
 			"gender"=>"12",
 			"birthday"=>"25",
+			"mobile"=>"30",
 			"phone"=>"30",
 			"office_phone"=>"30",
 			"fax"=>"30",
-			"mobile"=>"30",
 			"addrees"=>"20",
 			);
 
