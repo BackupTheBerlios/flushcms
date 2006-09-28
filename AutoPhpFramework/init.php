@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.28 2006/09/25 05:06:05 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.29 2006/09/28 23:40:57 arzen Exp $
  */
 
 $RootDir = APF_ROOT_DIR . DIRECTORY_SEPARATOR;
@@ -142,7 +142,7 @@ $liveuserConfig = array (
 		'secure' => false,
 		'lifetime' => 30,
 		'secret' => 'mysecretkey',
-		'savedir' => '.',
+		'savedir' => $RootDir.'cookies',
 		
 	),
 	'authContainers' => array (
@@ -200,6 +200,7 @@ if (!$LU->init()) {
 $handle = (array_key_exists('handle', $_REQUEST)) ? $_REQUEST['handle'] : null;
 $passwd = (array_key_exists('passwd', $_REQUEST)) ? $_REQUEST['passwd'] : null;
 $logout = (array_key_exists('logout', $_REQUEST)) ? $_REQUEST['logout'] : false;
+$remember = (array_key_exists('remember', $_REQUEST)) ? $_REQUEST['remember'] : false;
 if ($logout) 
 {
      $LU->logout(true);
@@ -218,7 +219,7 @@ require_once 'LiveUser/Admin.php';
 
 $luadmin =& LiveUser_Admin::factory($liveuserConfig);
 $luadmin->init();
-
+//Var_Dump::display($LU->readRememberCookie());
 if (!$LU->isLoggedIn()) 
 {
 	$template->setFile(array (
