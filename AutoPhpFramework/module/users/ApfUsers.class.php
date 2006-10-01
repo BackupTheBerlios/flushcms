@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfUsers.class.php,v 1.9 2006/09/22 12:58:25 arzen Exp $
+ * @version    CVS: $Id: ApfUsers.class.php,v 1.10 2006/10/01 12:04:52 arzen Exp $
  */
 
 class ApfUsers  extends Actions
@@ -66,7 +66,7 @@ class ApfUsers  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n;
+		global $template,$WebBaseDir,$i18n,$luadmin;
 		$apf_users = DB_DataObject :: factory('ApfUsers');
 
 		if ($edit_submit) 
@@ -98,15 +98,32 @@ class ApfUsers  extends Actions
 		{
 			if ($edit_submit) 
 			{
+			    
 				$apf_users->setUpdateAt(DB_DataObject_Cast::dateTime());
 				$apf_users->update();
-				$this->forward("users/apf_users/update/".$_POST['ID']);
+				
+			    $data = array(
+			        'handle' => 'johndoe' . rand(),
+			        'passwd' => 'test',
+			        'perm_type'  => 1,
+			    );
+			    $user_id = $luadmin->addUser($data);
+			    if ($user_id === false) {
+			        echo '<strong>Error on line: '.__LINE__.'</strong><br />';
+			        print_r($luadmin->getErrors());
+			    } else {
+			        echo 'Created User Id <strong>' . $user_id . '</strong><br />';
+			    }
+
+//				$this->forward("users/apf_users/update/".$_POST['ID']);
 			}
 			else 
 			{
 				$apf_users->setCreatedAt(DB_DataObject_Cast::dateTime());
 				$apf_users->insert();
-				$this->forward("users/apf_users/");
+				
+
+//				$this->forward("users/apf_users/");
 			}
 		}
 		else
@@ -218,6 +235,7 @@ class ApfUsers  extends Actions
 		));
 
 	}
+	
 	
 }
 ?>

@@ -1,0 +1,58 @@
+        
+<div id="admin_container">
+<h1>{lang_EditInfo}</h1>
+<div id="admin_header">
+</div>
+<div id="admin_content">
+  <div class="{SUCCESS_CLASS}">
+	{SUCCESS_MSG}
+  </div>
+
+<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{WEBDIR}/users/apf_groups/{DOACTION}">
+<input type="hidden" name="ID" id="ID" value="{GROUP_ID}" />
+<fieldset id="fieldset_________" class="">
+<h2>{lang_GeneralInfo}</h2><div class="form-row">
+  <label >{lang_GroupId}:</label>  <div class="content">
+  <input type="text" name="group_id" id="group_id" value="{GROUP_ID}" size="20" />    </div>
+</div>
+
+<!--
+<div class="form-row">
+  <label >{lang_GroupType}:</label>  <div class="content">
+  <input type="text" name="group_type" id="group_type" value="{GROUP_TYPE}" size="20" />    </div>
+</div>
+-->
+<div class="form-row">
+  <label >{lang_GroupDefineName}:</label>  <div class="content">
+  <input type="text" name="group_define_name" id="group_define_name" value="{GROUP_DEFINE_NAME}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_IsActive}:</label>  <div class="content">
+  <input type="text" name="is_active" id="is_active" value="{IS_ACTIVE}" size="20" />    </div>
+</div>
+<!--
+<div class="form-row">
+  <label >{lang_OwnerUserId}:</label>  <div class="content">
+  <input type="text" name="owner_user_id" id="owner_user_id" value="{OWNER_USER_ID}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_OwnerGroupId}:</label>  <div class="content">
+  <input type="text" name="owner_group_id" id="owner_group_id" value="{OWNER_GROUP_ID}" size="20" />    </div>
+</div>
+-->
+</fieldset>
+<ul class="admin_actions">
+  <li><input class="admin_action_list" value="{lang_List}" type="button" onclick="document.location.href='{WEBDIR}/users/apf_groups/list';" /></li>
+  <li><input type="submit" name="save" value="{lang_Save}" class="admin_action_save" /></li>
+
+</ul>
+</form>
+
+<ul class="admin_actions">
+      <li class="float-left"></li>
+</ul>
+</div>
+
+<div id="admin_footer">
+</div>
+</div>

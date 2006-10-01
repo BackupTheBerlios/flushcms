@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.29 2006/09/28 23:40:57 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.30 2006/10/01 12:04:52 arzen Exp $
  */
 
 $RootDir = APF_ROOT_DIR . DIRECTORY_SEPARATOR;
@@ -73,6 +73,18 @@ $opts = array (
 	$users_table . '_fields_list' => 'id,user_name,user_pwd,gender,phone,role_id,active',
 	$users_table . '_except_fields' => 'id,add_ip,created_at,update_at',
 	$users_table.'_generator_add_validate_stubs' => 'user_name:empty',
+
+	$groups_table.'_modules_location' => $RootDir . '/module/users/',
+	$groups_table.'_modules_name_location' => 'users',
+	$groups_table . '_fields_list' => 'group_id,group_type,group_define_name,is_active,owner_user_id,owner_group_id',
+	$groups_table . '_except_fields' => '',
+	$groups_table.'_generator_add_validate_stubs' => 'group_define_name:empty',
+
+	$rights_table.'_modules_location' => $RootDir . '/module/users/',
+	$rights_table.'_modules_name_location' => 'users',
+	$rights_table . '_fields_list' => 'right_id,right_define_name',
+	$rights_table . '_except_fields' => 'area_id,has_implied',
+	$rights_table.'_generator_add_validate_stubs' => 'right_define_name:empty',
 	
 	$news_category_table.'_modules_location' => $RootDir . '/module/news/',
 	$news_category_table.'_modules_name_location' => 'news',
@@ -122,7 +134,7 @@ $opts = array (
 	'generate_setters' => '1',
 	'generate_getters' => '1',
 
-	'generator_include_regex' => '/' . $finance_table . '$/',
+	'generator_include_regex' => '/' . $rights_table . '$/',
 	'generator_no_ini' => '1',
 	
 );
@@ -150,9 +162,10 @@ $liveuserConfig = array (
 			'type' => 'DB',
 			'expireTime' => 60*60,
 			'idleTime' => 60*60,
-			'prefix' => '',
+			'prefix' => 'apf_',
 			'passwordEncryptionMode' => 'plain',
 			'storage' => array (
+				'prefix' => '',
 				'dsn' => $dsn,
 				'alias' => array (
 					'users' => $users_table,
@@ -172,7 +185,39 @@ $liveuserConfig = array (
 			)
 		)
 	),
-	
+
+    'permContainer' => array(
+        'type' => 'Medium',
+        'storage' => array(
+            'DB' => array(              // storage container name
+                'dsn' => $dsn,
+                'prefix' => 'apf_',  // table prefix
+                'tables' => array(        // contains additional tables
+                                          // or fields in existing tables
+                    'groups' => array(
+                        'fields' => array(
+                            'owner_user_id'  => false,
+                            'owner_group_id' => false,
+                            'is_active'      => false
+                        )
+                    )
+                ),
+                'fields' => array(        // contains any additional
+                                          // or non-default field types
+                    'owner_user_id'  => 'integer',
+                    'owner_group_id' => 'integer',
+                    'is_active'      => 'boolean'
+                ),
+                'alias'  => array(        // contains any additional
+                                          // or non-default field alias
+                    'owner_user_id'  => 'owner_user_id',
+                    'owner_group_id' => 'owner_group_id',
+                    'is_active'      => 'is_active'
+                )
+            )
+        )
+    )
+    	
 );
 
 

@@ -5,7 +5,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: FormObject.php,v 1.4 2006/09/25 05:06:05 arzen Exp $
+ * @version    CVS: $Id: FormObject.php,v 1.5 2006/10/01 12:04:52 arzen Exp $
  */
 
 /**
@@ -49,7 +49,7 @@ function selectTag ($name,$options,$selected="",$extend="")
 	$html_code="";
 	if (is_array($options)) 
 	{
-		$html_code = "<select name=\"{$name}\" {$extend}> \n";
+		$html_code = "<select id = \"{$name}\" name=\"{$name}\" {$extend}> \n";
 		foreach($options as $key=>$value)
 		{
 			($key==$selected)?$option_selected="selected":$option_selected="";
