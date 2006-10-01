@@ -4,29 +4,20 @@
 
 <script type="text/javascript">
 
-function removeAllOptions(from) 
-{ 
-	if (!hasOptions(from)) { return; }
-	for (var i=(from.options.length-1); i>=0; i--) 
-	{ 
-		from.options[i] = null; 
-	} 
-	from.selectedIndex = -1; 
-} 	
-
 var callback = {
 	inGroupUsers: function(result) 
 	{
-		if(document.getElementById('list2').options.length>0)
+		if(document.getElementById('ingrouplist[]').options.length>0)
 		{
-			removeAllOptions(document.getElementById('list2'));
+			removeAllOptions(document.getElementById('ingrouplist[]'));
 		}
 		
 		var i=0;
 		var ingroupusers="";
 		for ( var keyVar in result ) 
 		{
-			document.getElementById('list2').options[i] = new Option( result[keyVar], keyVar, false, false);
+			if(keyVar != "")
+			document.getElementById('ingrouplist[]').options[i] = new Option( result[keyVar], keyVar, false, false);
 			ingroupusers +=keyVar+",";
 			i++;
 		}
@@ -34,16 +25,17 @@ var callback = {
 	},	
 	unInGroupUsers: function(result) 
 	{
-		if(document.getElementById('list1').options.length>0)
+		if(document.getElementById('uningrouplist[][]').options.length>0)
 		{
-			removeAllOptions(document.getElementById('list1'));
+			removeAllOptions(document.getElementById('uningrouplist[][]'));
 		}
 
 		var i=0;
 		var uningroupusers="";
 		for ( var keyVar in result ) 
 		{
-			document.getElementById('list1').options[i] = new Option( result[keyVar], keyVar, false, false);
+			if(keyVar != "")
+			document.getElementById('uningrouplist[][]').options[i] = new Option( result[keyVar], keyVar, false, false);
 			uningroupusers +=keyVar+",";
 			i++;
 		}
@@ -53,6 +45,13 @@ var callback = {
 }
 
 var remoteGroupUsers = new GroupUsers(callback); // our php5/4 compat version
+
+function dosubmit(form) 
+{
+	selectAllOptions(document.getElementById('uningrouplist[][]'));
+	selectAllOptions(document.getElementById('ingrouplist[]'));
+	form.submit();	
+}
 
 </script>
         
@@ -80,21 +79,21 @@ var remoteGroupUsers = new GroupUsers(callback); // our php5/4 compat version
 <TR>
 	<TD>
 	{lang_NotInGroup}:<br/>
-	<SELECT ID="list1" NAME="list1" MULTIPLE SIZE=10 onDblClick="moveSelectedOptions(this.form['list1'],this.form['list2'],true)">
+	<SELECT ID="uningrouplist[][]" NAME="uningrouplist[][]" MULTIPLE SIZE=10 onDblClick="moveSelectedOptions(this.form['uningrouplist[][]'],this.form['ingrouplist[]'],true)">
 
 	</SELECT>
 	<input type="hidden" name="old_uningroup" id="old_uningroup" />
 	</TD>
 	<TD VALIGN=MIDDLE ALIGN=CENTER>
-		<INPUT TYPE="button" NAME="right" VALUE="&gt;" ONCLICK="moveSelectedOptions(this.form['list1'],this.form['list2'],true)"><BR><BR>
-		<INPUT TYPE="button" NAME="right" VALUE="All &gt;&gt;" ONCLICK="moveAllOptions(this.form['list1'],this.form['list2'],true)"><BR><BR>
-		<INPUT TYPE="button" NAME="left" VALUE="&lt;" ONCLICK="moveSelectedOptions(this.form['list2'],this.form['list1'],true)"><BR><BR>
-		<INPUT TYPE="button" NAME="left" VALUE="All &lt;&lt;" ONCLICK="moveAllOptions(this.form['list2'],this.form['list1'],true)">
+		<INPUT TYPE="button" NAME="right" VALUE="&gt;" ONCLICK="moveSelectedOptions(this.form['uningrouplist[][]'],this.form['ingrouplist[]'],true)"><BR><BR>
+		<INPUT TYPE="button" NAME="right" VALUE="All &gt;&gt;" ONCLICK="moveAllOptions(this.form['uningrouplist[][]'],this.form['ingrouplist[]'],true)"><BR><BR>
+		<INPUT TYPE="button" NAME="left" VALUE="&lt;" ONCLICK="moveSelectedOptions(this.form['ingrouplist[]'],this.form['uningrouplist[][]'],true)"><BR><BR>
+		<INPUT TYPE="button" NAME="left" VALUE="All &lt;&lt;" ONCLICK="moveAllOptions(this.form['ingrouplist[]'],this.form['uningrouplist[][]'],true)">
 	</TD>
 	<TD>
 	{lang_InGroup}:<br/>
 	<input type="hidden" name="old_ingroup" id="old_ingroup" />
-	<SELECT ID="list2" NAME="list2" MULTIPLE SIZE=10 onDblClick="moveSelectedOptions(this.form['list2'],this.form['list1'],true)">
+	<SELECT ID="ingrouplist[]" NAME="ingrouplist[]" MULTIPLE SIZE=10 onDblClick="moveSelectedOptions(this.form['ingrouplist[]'],this.form['uningrouplist[][]'],true)">
 
 	</SELECT>
 	</TD>
@@ -105,7 +104,7 @@ var remoteGroupUsers = new GroupUsers(callback); // our php5/4 compat version
 </fieldset>
 <ul class="admin_actions">
   <li><input class="admin_action_list" value="{lang_List}" type="button" onclick="document.location.href='{WEBDIR}/users/apf_groups/list';" /></li>
-  <li><input type="submit" name="save" value="{lang_Save}" class="admin_action_save" /></li>
+  <li><input type="button" value="{lang_Save}" class="admin_action_save" onclick="dosubmit(document.admin_edit_form);" /></li>
 
 </ul>
 </form>
