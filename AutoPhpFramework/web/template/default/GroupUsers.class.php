@@ -1,19 +1,14 @@
 <?php
 /**
  *
- * GroupUsersServer.php.
+ * GroupUsers.class.php.
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: GroupUsersServer.php,v 1.1 2006/10/01 12:04:52 arzen Exp $
+ * @version    CVS: $Id: GroupUsers.class.php,v 1.1 2006/10/06 10:50:38 arzen Exp $
  */
-define('APF_ROOT_DIR',    realpath(dirname(__FILE__).'/../../..'));
-require_once(APF_ROOT_DIR.DIRECTORY_SEPARATOR.'init.php');
-
-require_once 'HTML/AJAX/Server.php';
-
 class GroupUsers
 {
 	function inGroupUsers($group)
@@ -41,7 +36,7 @@ class GroupUsers
 		$group_users = array();
 		foreach($usersGroup as $key=>$userdata)
 		{
-			$group_users[$userdata['auth_user_id']] = $userdata['handle'];		
+			$group_users[$userdata['perm_user_id']] = $userdata['handle'];		
 		}
 		
 		return $group_users;
@@ -54,7 +49,7 @@ class GroupUsers
 		$group_users = array();
 		foreach($usersGroup as $key=>$userdata)
 		{
-			$group_users[$userdata['auth_user_id']] = $userdata['handle'];		
+			$group_users[$userdata['perm_user_id']] = $userdata['handle'];		
 		}
 		
 		return $group_users;
@@ -73,16 +68,4 @@ class GroupUsers
 	
 }
 
-$server = new HTML_AJAX_Server();
-
-// upperCase will export as uppercase in php4 and upperCase in php5
-$server->registerClass(new GroupUsers());
-
-// works in both php4 and 5 plus doing class name aliasing
-$server->registerClass(new GroupUsers(), 'GroupUsers', array (
-	'inGroupUsers',
-	'unInGroupUsers'
-));
-
-$server->handleRequest();
 ?>

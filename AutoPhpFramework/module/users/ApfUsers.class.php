@@ -6,24 +6,32 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfUsers.class.php,v 1.10 2006/10/01 12:04:52 arzen Exp $
+ * @version    CVS: $Id: ApfUsers.class.php,v 1.11 2006/10/06 10:50:40 arzen Exp $
  */
 
 class ApfUsers  extends Actions
 {
 	function executeCreate()
 	{
-		global $template,$WebBaseDir;
-
-		$template->setFile(array (
-			"MAIN" => "apf_users_edit.html"
-		));
-		$template->setBlock("MAIN", "add_block");
+		global $template,$WebBaseDir,$LU;
 		
-		$template->setVar(array (
-			"WEBDIR" => $WebBaseDir,
-			"DOACTION" => "addsubmit"
-		));
+		if ($LU->checkRight(array(CREATE))) 
+		{
+			$template->setFile(array (
+				"MAIN" => "apf_users_edit.html"
+			));
+			$template->setBlock("MAIN", "add_block");
+			
+			$template->setVar(array (
+				"WEBDIR" => $WebBaseDir,
+				"DOACTION" => "addsubmit"
+			));
+		} 
+		else 
+		{
+			$this->notPermit();
+		}
+
 
 	}
 	
@@ -79,8 +87,6 @@ class ApfUsers  extends Actions
 			$do_action = "addsubmit";
 		}
 
-		$apf_users->setUserName(stripslashes(trim($_POST['user_name'])));
-		$apf_users->setUserPwd(stripslashes(trim($_POST['user_pwd'])));
 		$apf_users->setGender(stripslashes(trim($_POST['gender'])));
 		$apf_users->setAddrees(stripslashes(trim($_POST['addrees'])));
 		$apf_users->setPhone(stripslashes(trim($_POST['phone'])));
@@ -119,9 +125,19 @@ class ApfUsers  extends Actions
 			}
 			else 
 			{
-				$apf_users->setCreatedAt(DB_DataObject_Cast::dateTime());
-				$apf_users->insert();
-				
+			    $data = array(
+			        'handle' => stripslashes(trim($_POST['user_name'])),
+			        'passwd' => stripslashes(trim($_POST['user_pwd'])),
+			        'perm_type'  => 1,
+			    );
+			    $user_id = $luadmin->addUser($data);
+				$apf_users->get($apf_users->escape($user_id));
+//				$apf_users->debugLevel(4);
+				$apf_users->update();
+
+//				$apf_users->setCreatedAt(DB_DataObject_Cast::dateTime());
+//				$apf_users->insert();
+//				
 
 //				$this->forward("users/apf_users/");
 			}

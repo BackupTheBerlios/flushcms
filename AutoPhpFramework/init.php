@@ -8,8 +8,9 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.30 2006/10/01 12:04:52 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.31 2006/10/06 10:50:40 arzen Exp $
  */
+define('CREATE', 3);
 
 $RootDir = APF_ROOT_DIR . DIRECTORY_SEPARATOR;
 $ConfigDir = $RootDir . "config" . DIRECTORY_SEPARATOR;

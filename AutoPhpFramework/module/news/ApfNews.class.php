@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfNews.class.php,v 1.3 2006/09/23 06:58:46 arzen Exp $
+ * @version    CVS: $Id: ApfNews.class.php,v 1.4 2006/10/06 10:50:40 arzen Exp $
  */
 
 class ApfNews  extends Actions
@@ -27,6 +27,7 @@ class ApfNews  extends Actions
 			"WEBDIR" => $WebBaseDir,
 			"CATEGORYOPTION" => selectTag("category_id",$category_arr),
 			"ACTIVEOPTION" => radioTag("active",$ActiveOption,"new"),
+			"TEXTAREACONTENT" => textareaTag ("content","",true),
 			"DOACTION" => "addsubmit"
 		));
 
@@ -68,6 +69,7 @@ class ApfNews  extends Actions
 		$template->setVar(array (
 			"ACTIVEOPTION" => radioTag("active",$ActiveOption,$apf_news->getActive()),
 			"CATEGORYOPTION" => selectTag("category_id",$category_arr,$apf_news->getCategoryId()),
+			"TEXTAREACONTENT" => textareaTag ("content",$apf_news->getContent(),true),
 		));
 		
 	}
