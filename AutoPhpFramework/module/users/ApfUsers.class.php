@@ -6,14 +6,14 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfUsers.class.php,v 1.11 2006/10/06 10:50:40 arzen Exp $
+ * @version    CVS: $Id: ApfUsers.class.php,v 1.12 2006/10/07 00:12:00 arzen Exp $
  */
 
 class ApfUsers  extends Actions
 {
 	function executeCreate()
 	{
-		global $template,$WebBaseDir,$LU;
+		global $template,$WebBaseDir,$LU,$GenderOption,$ActiveOption;
 		
 		if ($LU->checkRight(array(CREATE))) 
 		{
@@ -22,7 +22,12 @@ class ApfUsers  extends Actions
 			));
 			$template->setBlock("MAIN", "add_block");
 			
+			array_shift($GenderOption);
+			array_shift($ActiveOption);
 			$template->setVar(array (
+				"GENDEROPTION" => radioTag("gender",$GenderOption,"m"),
+				"ACTIVEOPTION" => radioTag("active",$ActiveOption,"new"),
+				"FILEPHOTO" => fileTag("photo"),
 				"WEBDIR" => $WebBaseDir,
 				"DOACTION" => "addsubmit"
 			));
@@ -42,20 +47,16 @@ class ApfUsers  extends Actions
 	
 	function executeUpdate()
 	{
-		global $template,$WebBaseDir,$controller;
+		global $template,$WebBaseDir,$controller,$GenderOption,$ActiveOption;
 		$template->setFile(array (
 			"MAIN" => "apf_users_edit.html"
 		));
 		$template->setBlock("MAIN", "edit_block");
-		$template->setVar(array (
-			"WEBDIR" => $WebBaseDir,
-			"DOACTION" => "updatesubmit"
-		));
 
 		$apf_users = DB_DataObject :: factory('ApfUsers');
 		$apf_users->get($apf_users->escape($controller->getID()));
 
-		if ($_GET['view_status']=="ok") 
+		if ($controller->getURLParam(1)=="ok") 
 		{
 			$template->setVar(array (
 				"SUCCESS_CLASS" => "save-ok",
@@ -63,7 +64,16 @@ class ApfUsers  extends Actions
 			));
 		}
 
-		$template->setVar(array ("ID" => $apf_users->getId(),"USER_NAME" => $apf_users->getUserName(),"USER_PWD" => $apf_users->getUserPwd(),"GENDER" => $apf_users->getGender(),"ADDREES" => $apf_users->getAddrees(),"PHONE" => $apf_users->getPhone(),"EMAIL" => $apf_users->getEmail(),"PHOTO" => $apf_users->getPhoto(),"ROLE_ID" => $apf_users->getRoleId(),"ACTIVE" => $apf_users->getActive(),"ADD_IP" => $apf_users->getAddIp(),"CREATED_AT" => $apf_users->getCreatedAt(),"UPDATE_AT" => $apf_users->getUpdateAt(),));
+		array_shift($GenderOption);
+		array_shift($ActiveOption);
+		$template->setVar(array ("ID" => $apf_users->getId(),"USER_NAME" => $apf_users->getUserName(),"OLD_PASSWORD" => $apf_users->getUserPwd(),"GENDER" => $apf_users->getGender(),"ADDREES" => $apf_users->getAddrees(),"PHONE" => $apf_users->getPhone(),"EMAIL" => $apf_users->getEmail(),"PHOTO" => $apf_users->getPhoto(),"ROLE_ID" => $apf_users->getRoleId(),"ACTIVE" => $apf_users->getActive(),"ADD_IP" => $apf_users->getAddIp(),"CREATED_AT" => $apf_users->getCreatedAt(),"UPDATE_AT" => $apf_users->getUpdateAt(),));
+		$template->setVar(array (
+			"GENDEROPTION" => radioTag("gender",$GenderOption,$apf_users->getGender()),
+			"ACTIVEOPTION" => radioTag("active",$ActiveOption,$apf_users->getActive()),
+			"FILEPHOTO" => fileTag("photo",$apf_users->getPhoto()),
+			"WEBDIR" => $WebBaseDir,
+			"DOACTION" => "updatesubmit"
+		));
 		
 	}
 	
@@ -74,7 +84,7 @@ class ApfUsers  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n,$luadmin;
+		global $template,$WebBaseDir,$i18n,$luadmin,$ClassDir,$AllowUploadFilesType,$UploadDir;
 		$apf_users = DB_DataObject :: factory('ApfUsers');
 
 		if ($edit_submit) 
@@ -98,30 +108,66 @@ class ApfUsers  extends Actions
 		$apf_users->setCreatedAt(stripslashes(trim($_POST['created_at'])));
 		$apf_users->setUpdateAt(stripslashes(trim($_POST['update_at'])));
 
+		if ($_POST['photo_del']=='Y') 
+		{
+			unlink($UploadDir.$_POST['photo_old']);
+			$apf_users->setPhoto("");
+			$_POST['photo_old']="";
+		}
+
+		$allow_upload_file = TRUE;
+		if($_FILES['photo']['name'])
+		{
+			require_once 'HTTP/Upload.php';
+			require_once ($ClassDir."FileHelper.class.php");
+			$upload = new http_upload();
+			$file = $upload->getFiles('photo');
+			$file->setValidExtensions($AllowUploadFilesType,'accept');
+			if (PEAR::isError($file)) 
+			{
+				$allow_upload_file = FALSE;
+				$upload_error_msg = $file->getMessage();
+			}
+			if ($file->isValid()) 
+			{
+				$file->setName('uniq');
+				$current_date = FileHelper::createCategoryDir($UploadDir,"users");
+				$date_photo_dir = $UploadDir.$current_date;
+				$dest_name = $file->moveTo($date_photo_dir);
+				if (PEAR::isError($dest_name)) 
+				{
+					$allow_upload_file = FALSE;
+					$upload_error_msg = $dest_name->getMessage();
+				}
+				else 
+				{
+					$real = $file->getProp('real');
+					$apf_users->setPhoto($current_date.$dest_name);
+				}
+			} 
+			elseif ($file->isError()) 
+			{
+				$allow_upload_file = FALSE;
+				$upload_error_msg = $file->errorMsg();
+			}			
+		}
 				
 		$val = $apf_users->validate();
-		if ($val === TRUE)
+		if ( ($val === TRUE) && ($allow_upload_file === TRUE) )
 		{
 			if ($edit_submit) 
 			{
 			    
 				$apf_users->setUpdateAt(DB_DataObject_Cast::dateTime());
 				$apf_users->update();
-				
+				$password = stripslashes(trim($_POST['user_pwd']))?stripslashes(trim($_POST['user_pwd'])):stripslashes(trim($_POST['old_password']));
 			    $data = array(
-			        'handle' => 'johndoe' . rand(),
-			        'passwd' => 'test',
-			        'perm_type'  => 1,
+			        'handle' => stripslashes(trim($_POST['user_name'])),
+			        'passwd' => $password,
 			    );
-			    $user_id = $luadmin->addUser($data);
-			    if ($user_id === false) {
-			        echo '<strong>Error on line: '.__LINE__.'</strong><br />';
-			        print_r($luadmin->getErrors());
-			    } else {
-			        echo 'Created User Id <strong>' . $user_id . '</strong><br />';
-			    }
+			    $updated = $luadmin->updateUser($data, $_POST['ID']);
 
-//				$this->forward("users/apf_users/update/".$_POST['ID']);
+				$this->forward("users/apf_users/update/".$_POST['ID']."/ok");
 			}
 			else 
 			{
@@ -135,11 +181,8 @@ class ApfUsers  extends Actions
 //				$apf_users->debugLevel(4);
 				$apf_users->update();
 
-//				$apf_users->setCreatedAt(DB_DataObject_Cast::dateTime());
-//				$apf_users->insert();
-//				
 
-//				$this->forward("users/apf_users/");
+				$this->forward("users/apf_users/");
 			}
 		}
 		else
@@ -162,6 +205,12 @@ class ApfUsers  extends Actions
 
 				}
 			}
+			if ($allow_upload_file !== TRUE) 
+			{
+				$template->setVar(array (
+					"PHOTO_ERROR_MSG" => " &darr; {$upload_error_msg} &darr; "
+				));
+			}
 			$template->setVar(
 				array (
 				"ID" => $_POST['id'],"USER_NAME" => $_POST['user_name'],"USER_PWD" => $_POST['user_pwd'],"GENDER" => $_POST['gender'],"ADDREES" => $_POST['addrees'],"PHONE" => $_POST['phone'],"EMAIL" => $_POST['email'],"PHOTO" => $_POST['photo'],"ROLE_ID" => $_POST['role_id'],"ACTIVE" => $_POST['active'],"ADD_IP" => $_POST['add_ip'],"CREATED_AT" => $_POST['created_at'],"UPDATE_AT" => $_POST['update_at'],
@@ -183,7 +232,7 @@ class ApfUsers  extends Actions
 	
 	function executeList()
 	{
-		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir;
+		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$GenderOption;
 
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
@@ -237,7 +286,7 @@ class ApfUsers  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 			
-			$template->setVar(array ("ID" => $data['id'],"USER_NAME" => $data['user_name'],"USER_PWD" => $data['user_pwd'],"GENDER" => $data['gender'],"ADDREES" => $data['addrees'],"PHONE" => $data['phone'],"EMAIL" => $data['email'],"PHOTO" => $data['photo'],"ROLE_ID" => $data['role_id'],"ACTIVE" => $data['active'],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
+			$template->setVar(array ("ID" => $data['id'],"USER_NAME" => $data['user_name'],"USER_PWD" => $data['user_pwd'],"GENDER" => $GenderOption[$data['gender']],"ADDREES" => $data['addrees'],"PHONE" => $data['phone'],"EMAIL" => $data['email'],"PHOTO" => $data['photo'],"ROLE_ID" => $data['role_id'],"ACTIVE" => $data['active'],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
 
 			$template->parse("list_block", "main_list", TRUE);
 			$i++;

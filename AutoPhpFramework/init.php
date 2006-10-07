@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.31 2006/10/06 10:50:40 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.32 2006/10/07 00:12:00 arzen Exp $
  */
 define('CREATE', 3);
 
@@ -164,7 +164,7 @@ $liveuserConfig = array (
 			'expireTime' => 60*60,
 			'idleTime' => 60*60,
 			'prefix' => 'apf_',
-			'passwordEncryptionMode' => 'plain',
+			'passwordEncryptionMode' => 'md5',
 			'storage' => array (
 				'prefix' => '',
 				'dsn' => $dsn,

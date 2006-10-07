@@ -10,6 +10,7 @@
 
 <form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{WEBDIR}/users/apf_users/{DOACTION}">
 <input type="hidden" name="ID" id="ID" value="{ID}" />
+<input type="hidden" name="old_password" id="old_password" value="{OLD_PASSWORD}" />
 <fieldset id="fieldset_________" class="">
 <h2>{lang_GeneralInfo}</h2><div class="form-row">
   <label >{lang_UserName}:</label>  <div class="content">
@@ -19,17 +20,17 @@
 <div class="form-row">
   <label >{lang_UserPwd}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{USER_PWD_ERROR_MSG}</div>
-  <input type="text" name="user_pwd" id="user_pwd" value="{USER_PWD}" size="20" />    </div>
+  <input type="password" name="user_pwd" id="user_pwd" value="{USER_PWD}" size="20" />    </div>
 </div>
 <div class="form-row">
   <label >{lang_Gender}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{GENDER_ERROR_MSG}</div>
-  <input type="text" name="gender" id="gender" value="{GENDER}" size="20" />    </div>
+  {GENDEROPTION}    </div>
 </div>
 <div class="form-row">
   <label >{lang_Addrees}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ADDREES_ERROR_MSG}</div>
-  <input type="text" name="addrees" id="addrees" value="{ADDREES}" size="20" />    </div>
+  <input type="text" name="addrees" id="addrees" value="{ADDREES}" size="40" />    </div>
 </div>
 <div class="form-row">
   <label >{lang_Phone}:</label>  <div class="content">
@@ -44,17 +45,12 @@
 <div class="form-row">
   <label >{lang_Photo}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{PHOTO_ERROR_MSG}</div>
-  <input type="text" name="photo" id="photo" value="{PHOTO}" size="20" />    </div>
-</div>
-<div class="form-row">
-  <label >{lang_RoleId}:</label>  <div class="content">
-  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ROLE_ID_ERROR_MSG}</div>
-  <input type="text" name="role_id" id="role_id" value="{ROLE_ID}" size="20" />    </div>
+  {FILEPHOTO}    </div>
 </div>
 <div class="form-row">
   <label >{lang_Active}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ACTIVE_ERROR_MSG}</div>
-  <input type="text" name="active" id="active" value="{ACTIVE}" size="20" />    </div>
+  {ACTIVEOPTION}    </div>
 </div>
 </fieldset>
 <ul class="admin_actions">
