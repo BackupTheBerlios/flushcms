@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContact.class.php,v 1.12 2006/09/27 16:08:53 arzen Exp $
+ * @version    CVS: $Id: ApfContact.class.php,v 1.13 2006/10/08 23:40:57 arzen Exp $
  */
 
 class ApfContact  extends Actions
@@ -254,7 +254,7 @@ class ApfContact  extends Actions
 	
 	function executeExportvcard () 
 	{
-		global $controller;
+		global $controller,$GenderOption;
 		require_once 'Contact_Vcard_Build.php';
 		$vcard = new Contact_Vcard_Build();
 		
@@ -265,8 +265,8 @@ class ApfContact  extends Actions
 	    $vcard->setFormattedName($apf_contact->getName());
 	    
 	    // set the structured name parts
-	    $vcard->setName($apf_contact->getName(), $apf_contact->getName(), $apf_contact->getName(),
-	        'Mr.', 'III');
+	    $vcard->setName($apf_contact->getName(), '', '',
+	        $GenderOption[$apf_contact->getGender()], '');
 	    
 	    // add a work email.  note that we add the value
 	    // first and the param after -- Contact_Vcard_Build
@@ -279,14 +279,25 @@ class ApfContact  extends Actions
 	    $vcard->addEmail($apf_contact->getEmail());
 	    $vcard->addParam('TYPE', 'HOME');
 	    $vcard->addParam('TYPE', 'PREF');
+
+	    // add a home/preferred Telephone
+	    $vcard->addTelephone($apf_contact->getPhone());
+	    $vcard->addParam('TYPE', 'HOME');
+	    $vcard->addParam('TYPE', 'PREF');
+
+	    // add a home/preferred Telephone
+	    $vcard->addTelephone($apf_contact->getMobile());
+	    $vcard->addParam('TYPE', 'CELL');
+	    $vcard->addParam('TYPE', 'VOICE');
 	    
 	    // add a work address
-	    $vcard->addAddress('POB 101', 'Suite 202', '123 Main',
-	        'Beverly Hills', 'CA', '90210', 'US');
+	    $vcard->addAddress('', '', $apf_contact->getAddrees(),
+	        '', '', '', 'CN');
 	    $vcard->addParam('TYPE', 'WORK');
+	    $vcard->addParam('TYPE', 'HOME');
 	    
 	    // set the title (checks for colon-escaping)
-	    $vcard->setTitle('The Title: The Subtitle');
+//	    $vcard->setTitle('The Title: The Subtitle');
 
 		$vcard->send($apf_contact->getName().".vcf");
 		exit;
