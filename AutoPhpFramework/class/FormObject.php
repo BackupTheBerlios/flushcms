@@ -5,7 +5,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: FormObject.php,v 1.6 2006/10/06 10:50:39 arzen Exp $
+ * @version    CVS: $Id: FormObject.php,v 1.7 2006/10/08 13:02:14 arzen Exp $
  */
 
 /**
@@ -42,8 +42,8 @@ function textareaTag ($name,$value="",$rich=false,$extend=" ROWS=\"30\" COLS=\"1
 		theme_advanced_toolbar_align : "left",
 		theme_advanced_path_location : "bottom",
 		extended_valid_elements : "a[href|target|name]",
-		plugins : "table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,zoom,flash,searchreplace,print,contextmenu,paste,directionality,fullscreen",
-		theme_advanced_buttons1_add : "fontselect,fontsizeselect",
+		plugins : "table,save,advhr,advimage,advlink,emotions,ibrowser,iespell,insertdatetime,preview,zoom,flash,searchreplace,print,contextmenu,paste,directionality,fullscreen",
+		theme_advanced_buttons1_add : "fontselect,fontsizeselect,ibrowser",
 		theme_advanced_buttons2_add_before: "cut,copy,paste,pastetext,pasteword,separator,search,replace,insertdate,inserttime",
 		theme_advanced_buttons3_add_before : "tablecontrols,separator,forecolor,backcolor",
 		//invalid_elements : "a",
