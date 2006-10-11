@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContact.class.php,v 1.15 2006/10/11 10:29:15 arzen Exp $
+ * @version    CVS: $Id: ApfContact.class.php,v 1.16 2006/10/11 10:48:13 arzen Exp $
  */
 
 class ApfContact  extends Actions
@@ -803,7 +803,9 @@ class ApfContact  extends Actions
 		global $ClassDir,$WebTemplateDir;
 		
 		include_once($ClassDir."URLHelper.class.php");
-		$icon = $mobile_phone?"<A HREF='###' ONCLICK=\"remoteCellPhoneSMS.callMobilePhone('{$phone_num}');\" ><IMG SRC='".URLHelper::getWebBaseURL ().$WebTemplateDir."images/cellphone.gif' /></A><A HREF='###' ONCLICK=\"remoteCellPhoneSMS.sendSMS('{$phone_num}');\" ><IMG SRC='".URLHelper::getWebBaseURL ().$WebTemplateDir."images/sms.png' /></A>":"<A HREF='###' ONCLICK=\"remoteCellPhoneSMS.callPhone('{$phone_num}');\" ><IMG SRC='".URLHelper::getWebBaseURL ().$WebTemplateDir."images/call.png' /></A>";
+		include_once($ClassDir."StringHelper.class.php");
+		$phone_num = StringHelper::handleStrNewline ($phone_num);
+		$icon = $mobile_phone?"<A HREF='###' ONCLICK=\"remoteCellPhoneSMS.callMobilePhone('{$phone_num}');\" ><IMG SRC='".URLHelper::getWebBaseURL ().$WebTemplateDir."images/cellphone.gif' /></A><A HREF='###' ONCLICK=\"remoteCellPhoneSMS.sendSMS('{$phone_num}');\" ><IMG SRC='".URLHelper::getWebBaseURL ().$WebTemplateDir."images/sms.png' /></A>":"<A ID=\"{$phone_num}phone\" NAME=\"{$phone_num}phone\" HREF='###' ONCLICK=\"remoteCellPhoneSMS.callPhone('{$phone_num}');\" ><IMG SRC='".URLHelper::getWebBaseURL ().$WebTemplateDir."images/call.png' /></A>";
 		if(trim($phone_num))
 			return $icon;
 		return;

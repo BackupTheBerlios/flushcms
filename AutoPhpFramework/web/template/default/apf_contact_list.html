@@ -5,14 +5,24 @@
 var callback = {
 	callPhone: function(result) 
 	{
-	
+		 alert(result);
+		 var bdHtml = '';
+		 bdHtml+= '<form id="hkpolling_'+elForm.id+'"><div class="container">';
+		 bdHtml+= '<input type="radio" id="id_choice_0_0" name="choice[0][]" value="0_1" checked><span>正面</span></input>';
+		 bdHtml+= '<input type="radio" id="id_choice_0_1" name="choice[0][]" value="1_1"><span>普通</span></input>';
+		 bdHtml+= '<input type="radio" id="id_choice_0_2" name="choice[0][]" value="2_1"><span>負面</span></input>';
+		 bdHtml+= '<input type="hidden" name="poll" value="'+elForm.id+'"/>';
+		 bdHtml+= '</div></form>';
+		HTML_AJAX_Util.setInnerHTML(result+'phone',bdHtml,'append');
 	},	
 	callMobilePhone: function(result) 
 	{
+		 alert(result);
 	
 	},
 	sendSMS: function(result) 
 	{
+		 alert(result);
 	
 	}
 		
