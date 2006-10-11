@@ -23,7 +23,9 @@
 
 <table cellspacing="0" class="admin_list">      
 <thead>
-<tr><th>&nbsp;{lang_Id}</th>
+<tr>
+<th>&nbsp;<input type="checkbox" onClick="selectAll(this.checked,'SelectID[]')"/></th>
+<th>&nbsp;{lang_Id}</th>
 <th>&nbsp;{lang_Category}</th>
 <th>&nbsp;{lang_CompanyId}</th>
 <th>&nbsp;{lang_Name}</th>
@@ -36,7 +38,9 @@
 </thead>
 <tbody>
 <!-- BEGIN main_list -->
-<tr class="{LIST_TD_CLASS}"><td>&nbsp;{ID}</td>
+<tr class="{LIST_TD_CLASS}">
+<td>&nbsp;<INPUT TYPE="checkbox" NAME="SelectID[]" value="{ID}"></td>
+<td>&nbsp;{ID}</td>
 <td>&nbsp;{CATEGORY}</td>
 <td>&nbsp;{COMPANY_ID}</td>
 <td>&nbsp;{NAME}</td>
