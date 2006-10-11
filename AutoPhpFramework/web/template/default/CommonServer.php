@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: CommonServer.php,v 1.2 2006/10/11 10:29:15 arzen Exp $
+ * @version    CVS: $Id: CommonServer.php,v 1.3 2006/10/11 23:41:04 arzen Exp $
  */
 define('APF_ROOT_DIR',    realpath(dirname(__FILE__).'/../../..'));
 require_once(APF_ROOT_DIR.DIRECTORY_SEPARATOR.'init.php');
@@ -43,11 +43,13 @@ class CommonServer extends HTML_AJAX_Server
 
 	function initCellPhoneSMS() 
 	{
+		global $ClassDir;
 		include_once 'CellPhoneSMS.class.php';
 		$this->registerClass(new CellPhoneSMS());
 		// works in both php4 and 5 plus doing class name aliasing
 		$this->registerClass(new CellPhoneSMS(), 'CellPhoneSMS', array (
 			'callPhone',
+			'hangUp',
 			'callMobilePhone',
 			'sendSMS'
 		));

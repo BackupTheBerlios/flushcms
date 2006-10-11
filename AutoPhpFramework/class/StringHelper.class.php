@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: StringHelper.class.php,v 1.2 2006/10/11 10:48:13 arzen Exp $
+ * @version    CVS: $Id: StringHelper.class.php,v 1.3 2006/10/11 23:41:05 arzen Exp $
  */
 
 class StringHelper 
@@ -70,7 +70,7 @@ class StringHelper
 	
 	function handleStrNewline ($source) 
 	{
-		$patten = array("/(\015\012)|(\015)|(\012)/");
+		$patten = array("/(\015\012)|(\015)|(\012)|-/");
 		$replace = array("");
 		return addslashes(preg_replace($patten,$replace,$source));
 	}

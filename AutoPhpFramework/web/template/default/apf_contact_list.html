@@ -5,15 +5,12 @@
 var callback = {
 	callPhone: function(result) 
 	{
+
+	},	
+	hangUp: function(result) 
+	{
 		 alert(result);
-		 var bdHtml = '';
-		 bdHtml+= '<form id="hkpolling_'+elForm.id+'"><div class="container">';
-		 bdHtml+= '<input type="radio" id="id_choice_0_0" name="choice[0][]" value="0_1" checked><span>正面</span></input>';
-		 bdHtml+= '<input type="radio" id="id_choice_0_1" name="choice[0][]" value="1_1"><span>普通</span></input>';
-		 bdHtml+= '<input type="radio" id="id_choice_0_2" name="choice[0][]" value="2_1"><span>負面</span></input>';
-		 bdHtml+= '<input type="hidden" name="poll" value="'+elForm.id+'"/>';
-		 bdHtml+= '</div></form>';
-		HTML_AJAX_Util.setInnerHTML(result+'phone',bdHtml,'append');
+
 	},	
 	callMobilePhone: function(result) 
 	{
@@ -26,6 +23,17 @@ var callback = {
 	
 	}
 		
+}
+
+function hangUp(result)
+{
+//		 alert(result);
+		 var bdHtml = '';
+		 bdHtml+= '<form action="{WEBTEMPLATEDIR}CommonServer.php" method="post" onsubmit="return !HTML_AJAX.formSubmit(this, \'target\', {className: \'CellPhoneSMS\', methodName:\'hangUp\'});"><div class="container" style="color:black;">';
+		 bdHtml+= '<INPUT TYPE="submit" value="Cancel">';
+		 bdHtml+= '</div></form>';
+		HTML_AJAX_Util.setInnerHTML(result+'phone',bdHtml,'append');
+
 }
 
 var remoteCellPhoneSMS = new CellPhoneSMS(callback); // our php5/4 compat version
@@ -53,6 +61,9 @@ var remoteCellPhoneSMS = new CellPhoneSMS(callback); // our php5/4 compat versio
           <li><input class="admin_action_create" value="{lang_ExportAll}" type="button" onclick="document.location.href='{WEBDIR}/contact/apf_contact/export';" /></li>
           <li><input class="admin_action_create" value="{lang_Import}" type="button" onclick="document.location.href='{WEBDIR}/contact/apf_contact/import';" /></li>
 </ul>
+
+<pre id="target">
+</pre>
 
 <table cellspacing="0" class="admin_list">      
 <thead>
