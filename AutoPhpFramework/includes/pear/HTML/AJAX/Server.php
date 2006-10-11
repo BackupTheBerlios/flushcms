@@ -468,7 +468,7 @@ class HTML_AJAX_Server
     function clientJsLocation() 
     {
         if (!$this->clientJsLocation) {
-            $path = 'D:\php4\pear\data'.DIRECTORY_SEPARATOR.'HTML_AJAX'.DIRECTORY_SEPARATOR.'js'.DIRECTORY_SEPARATOR;
+            $path = realpath(dirname(__FILE__).DIRECTORY_SEPARATOR.'..').DIRECTORY_SEPARATOR.'js'.DIRECTORY_SEPARATOR;//'D:\php5\pear\data'.DIRECTORY_SEPARATOR.'HTML_AJAX'.DIRECTORY_SEPARATOR.'js'.DIRECTORY_SEPARATOR;
             if(strpos($path, '@'.'data-dir@') === 0)
             {
                 $path = realpath(dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'js').DIRECTORY_SEPARATOR;

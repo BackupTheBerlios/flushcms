@@ -1,4 +1,27 @@
-        
+<script type="text/javascript" src="{WEBTEMPLATEDIR}CommonServer.php?client=all"></script>
+<script type="text/javascript" src="{WEBTEMPLATEDIR}CommonServer.php?stub=CellPhoneSMS"></script>
+<script type="text/javascript">
+
+var callback = {
+	callPhone: function(result) 
+	{
+	
+	},	
+	callMobilePhone: function(result) 
+	{
+	
+	},
+	sendSMS: function(result) 
+	{
+	
+	}
+		
+}
+
+var remoteCellPhoneSMS = new CellPhoneSMS(callback); // our php5/4 compat version
+
+</script>   
+     
 <div id="admin_container">
 <h1>{lang_Listing}</h1>
 <div id="admin_header">
