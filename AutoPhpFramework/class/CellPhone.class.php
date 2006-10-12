@@ -9,7 +9,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: CellPhone.class.php,v 1.3 2006/10/12 10:27:35 arzen Exp $
+ * @version    CVS: $Id: CellPhone.class.php,v 1.4 2006/10/12 10:37:57 arzen Exp $
  */
 include_once($ConfigDir."at.command.php");
 class CellPhone
@@ -42,14 +42,19 @@ class CellPhone
 	function sendSMS ($phone_num,$content) 
 	{
 		$cmd = NOKIA_QD_CMGF_AT_COMMAND.chr(13);
-		$cmd .= " ".NOKIA_QD_CMGS_AT_COMMAND." \"+86".$phone_num."\" ".chr(13);
-		$cmd .= " ".$content." ".chr(26)." ".chr(13);
+		ser_write($cmd);
+		$cmd_log = $cmd;
+		$cmd = NOKIA_QD_CMGS_AT_COMMAND." \"+86".$phone_num."\" ".chr(13);
+		ser_write($cmd);
+		$cmd_log .= $cmd;
+		$cmd =$content." ".chr(26)." ".chr(13);
+		ser_write($cmd);
+		$cmd_log .= $cmd;
+		
 		$fp = fopen("log.txt","w+");
-		fwrite($fp, $cmd);
+		fwrite($fp, $cmd_log);
 		fclose($fp);
-		$feedback = ser_write($cmd);
-		for ($i = 1; $i <= 50; $i++);
-		return $feedback;
+		return "";
 	}
 	
 	function closeSerialPort () 
