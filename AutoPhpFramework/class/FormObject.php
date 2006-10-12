@@ -5,7 +5,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: FormObject.php,v 1.7 2006/10/08 13:02:14 arzen Exp $
+ * @version    CVS: $Id: FormObject.php,v 1.8 2006/10/12 23:41:15 arzen Exp $
  */
 
 /**
@@ -222,4 +222,38 @@ function showImage($url, $width)
 {
 	return "<IMG SRC=\"{$url}\" WIDTH=\"$width\" BORDER=\"0\" >";
 }
+
+function gb2unicode($str)
+{
+        return iconv("gb2312", "UCS-2", $str);
+}
+
+function hex2str($hexstring) 
+{
+        $str = '';
+        for($i=0; $i<strlen($hexstring); $i++){
+                $str .= sprintf("%02X",ord(substr($hexstring,$i,1)));
+        }
+        return $str;
+}
+/**
+ * @author John.meng
+ * send sms will use it.
+ */
+function InvertNumbers($msisdn) 
+{
+        $len = strlen($msisdn);
+        if ( 0 != fmod($len, 2) ) {
+                $msisdn .= "F";
+                $len = $len + 1;
+        }
+
+        for ($i=0; $i<$len; $i+=2) {
+                $t = $msisdn[$i];
+                $msisdn[$i] = $msisdn[$i+1];
+                $msisdn[$i+1] = $t;
+        }
+        return $msisdn;
+}
+
 ?>

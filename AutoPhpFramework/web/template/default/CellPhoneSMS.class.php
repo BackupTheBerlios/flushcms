@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: CellPhoneSMS.class.php,v 1.3 2006/10/12 10:27:35 arzen Exp $
+ * @version    CVS: $Id: CellPhoneSMS.class.php,v 1.4 2006/10/12 23:41:15 arzen Exp $
  */
 include_once($ClassDir."CellPhone.class.php");
 include_once($ClassDir."URLHelper.class.php");
@@ -50,9 +50,10 @@ class CellPhoneSMS
 		$args = func_get_args();
 		if($args[2])
 		{
-			CellPhone::openSerialPort();
-			CellPhone::sendSMS($args[1],$args[2]);
-			CellPhone::closeSerialPort();
+//			CellPhone::openSerialPort();
+//			CellPhone::sendSMS($args[1],$args[2]);
+			CellPhone::sendPDUSms($args[1],$args[2]);
+//			CellPhone::closeSerialPort();
 		}
 		return "";
 	}
