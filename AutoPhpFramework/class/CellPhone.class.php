@@ -9,48 +9,53 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: CellPhone.class.php,v 1.2 2006/10/11 23:41:05 arzen Exp $
+ * @version    CVS: $Id: CellPhone.class.php,v 1.3 2006/10/12 10:27:35 arzen Exp $
  */
-
+include_once($ConfigDir."at.command.php");
 class CellPhone
 {
-	var $NOKIA_QD_HANG_UP_AT_COMMAND = "AT+CHUP";
-	var $NOKIA_QD_CALL_AT_COMMAND = "ATD";
 	
-	function CellPhone () 
-	{
-		if (!defined('APF_OPEN_COM')) 
-		{
-			define("APF_OPEN_COM",true);
-			$this->openSerialPort();
-		}
-	}
 	
 	function openSerialPort()
 	{
-		ser_open( "COM12", 9600, 8, "None", 1, "None" ); 
-		$str = ser_isopen();
+		if ($_SESSION['APF_OPEN_COM']!="Y") 
+		{
+			$_SESSION['APF_OPEN_COM']="Y";
+			ser_open( "COM12", 9600, 8, "None", 1, "None" ); 
+			$str = ser_isopen();
+			ser_setDTR( True );
+		}
 	}
 	
 	function callPhone ($phone_num) 
 	{
-		$this->openSerialPort();
-		$cmd = $this->NOKIA_QD_CALL_AT_COMMAND."$phone_num;".chr(13);
+		$cmd = NOKIA_QD_CALL_AT_COMMAND."$phone_num;".chr(13);
 		ser_write( $cmd );
-		$this->closeSerialPort();
 	}
 	
 	function callHangUp () 
 	{
-		$this->openSerialPort();
-		$cmd = $this->NOKIA_QD_HANG_UP_AT_COMMAND.chr(13);
+		$cmd = NOKIA_QD_HANG_UP_AT_COMMAND.chr(13);
 		ser_write( $cmd );
-		$this->closeSerialPort();
+	}
+	
+	function sendSMS ($phone_num,$content) 
+	{
+		$cmd = NOKIA_QD_CMGF_AT_COMMAND.chr(13);
+		$cmd .= " ".NOKIA_QD_CMGS_AT_COMMAND." \"+86".$phone_num."\" ".chr(13);
+		$cmd .= " ".$content." ".chr(26)." ".chr(13);
+		$fp = fopen("log.txt","w+");
+		fwrite($fp, $cmd);
+		fclose($fp);
+		$feedback = ser_write($cmd);
+		for ($i = 1; $i <= 50; $i++);
+		return $feedback;
 	}
 	
 	function closeSerialPort () 
 	{
 		ser_close();
+		$_SESSION['APF_OPEN_COM']="";
 	}
 	
 }

@@ -5,35 +5,37 @@
 var callback = {
 	callPhone: function(result) 
 	{
-
-	},	
-	hangUp: function(result) 
-	{
-		 alert(result);
-
+//		 alert(result["phone_num"]);
+		 var phone_num=result["phone_num"];
+		 var msg=result["msg"];
+		 var bdHtml = '';
+		 bdHtml+= '<form action="{WEBTEMPLATEDIR}CommonServer.php" method="post" onsubmit="return !HTML_AJAX.formSubmit(this, \'\', {className: \'CellPhoneSMS\', methodName:\'hangUp\'});"><div class="container" >';
+		 bdHtml+= msg;
+		 bdHtml+= '</div></form>';
+		HTML_AJAX_Util.setInnerHTML(phone_num+'phone',bdHtml,'append');
 	},	
 	callMobilePhone: function(result) 
 	{
-		 alert(result);
+		 var phone_num=result["phone_num"];
+		 var msg=result["msg"];
+		 var bdHtml = '';
+		 bdHtml+= '<form action="{WEBTEMPLATEDIR}CommonServer.php" method="post" onsubmit="return !HTML_AJAX.formSubmit(this, \'\', {className: \'CellPhoneSMS\', methodName:\'hangUp\'});"><div class="container" >';
+		 bdHtml+= msg;
+		 bdHtml+= '</div></form>';
+		HTML_AJAX_Util.setInnerHTML(phone_num+'mobile',bdHtml,'append');
 	
 	},
 	sendSMS: function(result) 
 	{
-		 alert(result);
-	
+		 var phone_num=result["phone_num"];
+		 var msg=result["msg"];
+		 var bdHtml = '';
+		 bdHtml+= '<form action="{WEBTEMPLATEDIR}CommonServer.php" method="post" onsubmit="return !HTML_AJAX.formSubmit(this, \'\', {className: \'CellPhoneSMS\', methodName:\'doSendSMS\'});"><div class="container" >';
+		 bdHtml+= msg;
+		 bdHtml+= '</div></form>';
+		HTML_AJAX_Util.setInnerHTML(phone_num+'sms',bdHtml,'append');
 	}
 		
-}
-
-function hangUp(result)
-{
-//		 alert(result);
-		 var bdHtml = '';
-		 bdHtml+= '<form action="{WEBTEMPLATEDIR}CommonServer.php" method="post" onsubmit="return !HTML_AJAX.formSubmit(this, \'target\', {className: \'CellPhoneSMS\', methodName:\'hangUp\'});"><div class="container" style="color:black;">';
-		 bdHtml+= '<INPUT TYPE="submit" value="Cancel">';
-		 bdHtml+= '</div></form>';
-		HTML_AJAX_Util.setInnerHTML(result+'phone',bdHtml,'append');
-
 }
 
 var remoteCellPhoneSMS = new CellPhoneSMS(callback); // our php5/4 compat version
@@ -60,6 +62,8 @@ var remoteCellPhoneSMS = new CellPhoneSMS(callback); // our php5/4 compat versio
           <li><input class="admin_action_create" value="{lang_ContactCategory}" type="button" onclick="document.location.href='{WEBDIR}/contact/apf_contact_category';" /></li>
           <li><input class="admin_action_create" value="{lang_ExportAll}" type="button" onclick="document.location.href='{WEBDIR}/contact/apf_contact/export';" /></li>
           <li><input class="admin_action_create" value="{lang_Import}" type="button" onclick="document.location.href='{WEBDIR}/contact/apf_contact/import';" /></li>
+          <li><input class="admin_action_create" value="{lang_ConnectCOM}" type="button" onclick="remoteCellPhoneSMS.connectCOM();" /></li>
+          <li><input class="admin_action_create" value="{lang_DisconnectCOM}" type="button" onclick="remoteCellPhoneSMS.disconnectCOM();" /></li>
 </ul>
 
 <pre id="target">

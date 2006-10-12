@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContact.class.php,v 1.17 2006/10/11 23:41:05 arzen Exp $
+ * @version    CVS: $Id: ApfContact.class.php,v 1.18 2006/10/12 10:27:35 arzen Exp $
  */
 
 class ApfContact  extends Actions
@@ -696,7 +696,6 @@ class ApfContact  extends Actions
 		$template->setFile(array (
 			"MAIN" => "apf_contact_list.html"
 		));
-		
 		$category_arr =array(""=>$i18n->_("All"))+$this->getCategory();
 		
 		$template->setBlock("MAIN", "main_list", "list_block");
@@ -805,7 +804,7 @@ class ApfContact  extends Actions
 		include_once($ClassDir."URLHelper.class.php");
 		include_once($ClassDir."StringHelper.class.php");
 		$phone_num = StringHelper::handleStrNewline ($phone_num);
-		$icon = $mobile_phone?"<A HREF='###' ONCLICK=\"remoteCellPhoneSMS.callMobilePhone('{$phone_num}');\" ><IMG SRC='".URLHelper::getWebBaseURL ().$WebTemplateDir."images/cellphone.gif' /></A><A HREF='###' ONCLICK=\"remoteCellPhoneSMS.sendSMS('{$phone_num}');\" ><IMG SRC='".URLHelper::getWebBaseURL ().$WebTemplateDir."images/sms.png' /></A>":"<A HREF='###' ONCLICK=\"remoteCellPhoneSMS.callPhone('{$phone_num}');hangUp('{$phone_num}');\" ><IMG SRC='".URLHelper::getWebBaseURL ().$WebTemplateDir."images/call.png' /></A><DIV ID=\"{$phone_num}phone\" />";
+		$icon = $mobile_phone?"<A HREF='###' ONCLICK=\"remoteCellPhoneSMS.callMobilePhone('{$phone_num}');\" ><IMG SRC='".URLHelper::getWebBaseURL ().$WebTemplateDir."images/cellphone.gif' /></A><A HREF='###' ONCLICK=\"remoteCellPhoneSMS.sendSMS('{$phone_num}');\" ><IMG SRC='".URLHelper::getWebBaseURL ().$WebTemplateDir."images/sms.png' /></A><DIV ID=\"{$phone_num}mobile\" style=\"z-index:10; position:absolute;color:#FFFFFF;\" /><DIV ID=\"{$phone_num}sms\" style=\"z-index:10; position:absolute;color:#FFFFFF;\" />":"<A HREF='###' ONCLICK=\"remoteCellPhoneSMS.callPhone('{$phone_num}');\" ><IMG SRC='".URLHelper::getWebBaseURL ().$WebTemplateDir."images/call.png' /></A><DIV ID=\"{$phone_num}phone\" style=\"z-index:10; position:absolute;color:#FFFFFF;\" />";
 		if(trim($phone_num))
 			return $icon;
 		return;
