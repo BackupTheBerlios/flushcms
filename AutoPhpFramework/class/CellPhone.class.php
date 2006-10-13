@@ -9,7 +9,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: CellPhone.class.php,v 1.5 2006/10/12 23:41:15 arzen Exp $
+ * @version    CVS: $Id: CellPhone.class.php,v 1.6 2006/10/13 02:28:54 arzen Exp $
  */
 include_once($ConfigDir."at.command.php");
 include_once($ClassDir."StringHelper.class.php");
@@ -61,11 +61,11 @@ class CellPhone
 	{
 		// 短信中心号码
 		$smsc = SMS_SMSC;
-		$cmd_log = $smsc;
-		$cmd_log .= $sms_text;
+//		$cmd_log = $smsc;
+//		$cmd_log .= $sms_text;
 		// 短信最大长度70个汉字，Unicode表示需要280个字节
 		$max_len = 280;
-		$invert_smsc = InvertNumbers($smsc);
+		$invert_smsc = StringHelper::InvertNumbers($smsc);
 	
 		$len = 1; 
 		$s = chr(13);
@@ -73,9 +73,9 @@ class CellPhone
 		$sms_text = $sms_text;
 	   
 	   
-		$pdu_text = hex2str(gb2unicode($sms_text));
-		$cmd_log .= gb2unicode($sms_text);
-		$invert_msisdn = InvertNumbers($phone_num);
+		$pdu_text = StringHelper::hex2str(StringHelper::gb2unicode($sms_text));
+//		$cmd_log .= StringHelper::gb2unicode($sms_text);
+		$invert_msisdn = StringHelper::InvertNumbers($phone_num);
 	   
 		// 拆分发送超过70汉字的短信(todo: 没有判断全英文的情况)
 		$pdu_len = strlen($pdu_text);
@@ -95,21 +95,24 @@ class CellPhone
 		$atcmd = "AT+CMGS=" . sprintf("%d", strlen($pdu_text1)/2) . chr(13);
 		$l = strlen($atcmd);
 		
-		$cmd = NOKIA_QD_CMGF_AT_COMMAND."0".chr(13);
+//		$cmd = NOKIA_QD_CMGF_AT_COMMAND."0".chr(13);
 //		ser_write($cmd);
-		$cmd_log .= $cmd;
+//		$cmd_log .= $cmd;
 
-//		ser_write($atcmd);
-		$cmd_log .= $atcmd;
+		ser_write($atcmd);
+		$cmd_log = $atcmd;
 
+		ser_write(" ". chr(26).chr(13));
 		$pdu_text1 = "0891" . $invert_smsc . $pdu_text1 . chr(26).chr(13);
 		$l = strlen($pdu_text1);
-//		ser_write($pdu_text1);
+		ser_write($pdu_text1);
 		$cmd_log .= $pdu_text1;
 		
-		$fp = fopen("pud_log.txt","w+");
-		fwrite($fp, $cmd_log);
-		fclose($fp);
+		ser_write("AT+CMGS: 88 ".chr(13));
+		
+//		$fp = fopen("pud_log.txt","w+");
+//		fwrite($fp, $cmd_log);
+//		fclose($fp);
 		
 	}
 	

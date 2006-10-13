@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: StringHelper.class.php,v 1.4 2006/10/12 23:41:15 arzen Exp $
+ * @version    CVS: $Id: StringHelper.class.php,v 1.5 2006/10/13 02:28:54 arzen Exp $
  */
 
 class StringHelper 
@@ -74,7 +74,39 @@ class StringHelper
 		$replace = array("");
 		return addslashes(preg_replace($patten,$replace,$source));
 	}
-
+	
+	function gb2unicode($str)
+	{
+	        return iconv("utf-8", "UCS-2", $str);
+	}
+	
+	function hex2str($hexstring) 
+	{
+	        $str = '';
+	        for($i=0; $i<strlen($hexstring); $i++){
+	                $str .= sprintf("%02X",ord(substr($hexstring,$i,1)));
+	        }
+	        return $str;
+	}
+	/**
+	 * @author John.meng
+	 * send sms will use it.
+	 */
+	function InvertNumbers($msisdn) 
+	{
+	        $len = strlen($msisdn);
+	        if ( 0 != fmod($len, 2) ) {
+	                $msisdn .= "F";
+	                $len = $len + 1;
+	        }
+	
+	        for ($i=0; $i<$len; $i+=2) {
+	                $t = $msisdn[$i];
+	                $msisdn[$i] = $msisdn[$i+1];
+	                $msisdn[$i+1] = $t;
+	        }
+	        return $msisdn;
+	}
 
 }
 
