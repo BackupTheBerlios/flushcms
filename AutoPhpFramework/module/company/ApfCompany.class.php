@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfCompany.class.php,v 1.2 2006/10/14 05:12:53 arzen Exp $
+ * @version    CVS: $Id: ApfCompany.class.php,v 1.3 2006/10/14 16:05:00 arzen Exp $
  */
 
 class ApfCompany  extends Actions
@@ -162,7 +162,7 @@ class ApfCompany  extends Actions
 	
 	function executeList()
 	{
-		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir;
+		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$ActiveOption;
 
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
@@ -175,6 +175,15 @@ class ApfCompany  extends Actions
 		$apf_company = DB_DataObject :: factory('ApfCompany');
 
 		$apf_company->orderBy('id desc');
+		
+		if (($keyword = trim($_REQUEST['q'])) != "") 
+		{
+			$apf_company->whereAdd("name LIKE '%".$apf_company->escape("{$keyword}") . "%' OR addrees LIKE '%".$apf_company->escape("{$keyword}") . "%' OR phone LIKE '%".$apf_company->escape("{$keyword}") . "%' ");
+		}
+		if (($active = trim($_REQUEST['active'])) != "") 
+		{
+			$apf_company->whereAdd(" active = '".$apf_company->escape("{$active}") . "'  ");
+		}
 		
 		$apf_company->find();
 		
@@ -223,6 +232,8 @@ class ApfCompany  extends Actions
 		}
 		
 		$template->setVar(array (
+			"KEYWORD" => textTag ("q",$_REQUEST['q']),
+			"ACTIVEOPTION" => selectTag("active",$ActiveOption,$_REQUEST['active']),
 			"WEBDIR" => $WebBaseDir,
 			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().$WebTemplateDir,
 			"TOLTAL_NUM" => $ToltalNum,

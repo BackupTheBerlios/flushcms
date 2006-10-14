@@ -5,7 +5,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: FormObject.php,v 1.9 2006/10/13 02:28:54 arzen Exp $
+ * @version    CVS: $Id: FormObject.php,v 1.10 2006/10/14 16:05:00 arzen Exp $
  */
 
 /**
@@ -168,6 +168,12 @@ function fileTag ($name,$oldfile="", $delete=true, $ext="jpg")
 	$html_code .="<INPUT TYPE=\"file\" NAME=\"{$name}\" > &nbsp;\n";
 	return $html_code;
 	
+}
+
+function imageTag ($filename) 
+{
+	global $WebUploadDir;
+	return $filename?"<a target='_blank' href={$WebUploadDir}{$filename}><IMG SRC=\"{$WebUploadDir}{$filename}\" WIDTH=\"80\" BORDER=\"0\" ></a> &nbsp;":"";
 }
 
 function inputDateTag ($name, $value="") 

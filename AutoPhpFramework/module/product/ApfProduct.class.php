@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfProduct.class.php,v 1.1 2006/10/14 05:12:53 arzen Exp $
+ * @version    CVS: $Id: ApfProduct.class.php,v 1.2 2006/10/14 16:05:00 arzen Exp $
  */
 
 class ApfProduct  extends Actions
@@ -213,21 +213,37 @@ class ApfProduct  extends Actions
 	
 	function executeList()
 	{
-		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$i18n,$WebUploadDir;
+		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$i18n,$WebUploadDir,$CurrencyFormat,$ActiveOption;
 
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
+		require_once 'I18N/Currency.php';
+
 		$template->setFile(array (
 			"MAIN" => "apf_product_list.html"
 		));
 
 		$template->setBlock("MAIN", "main_list", "list_block");
 
+		$currency = new I18N_Currency($CurrencyFormat);
 		$category_arr =array(""=>$i18n->_("All"))+$this->getCategory();
 
 		$apf_product = DB_DataObject :: factory('ApfProduct');
 
 		$apf_product->orderBy('id desc');
+		
+		if (($keyword = trim($_REQUEST['q'])) != "") 
+		{
+			$apf_product->whereAdd("name LIKE '%".$apf_product->escape("{$keyword}") . "%' ");
+		}
+		if (($category = trim($_REQUEST['category'])) != "") 
+		{
+			$apf_product->whereAdd(" category = '".$apf_product->escape("{$category}") . "'  ");
+		}
+		if (($active = trim($_REQUEST['active'])) != "") 
+		{
+			$apf_product->whereAdd(" active = '".$apf_product->escape("{$active}") . "'  ");
+		}
 		
 		$apf_product->find();
 		
@@ -269,13 +285,16 @@ class ApfProduct  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 			
-			$template->setVar(array ("ID" => $data['id'],"CATEGORY" => $category_arr[$data['category']],"COMPANY_ID" => $data['company_id'],"NAME" => $data['name'],"PRICE" => $data['price'],"PHOTO" => $data['photo']?"<img src=\"{$WebUploadDir}{$data['photo']}\" width=\"80\"/>":"","MEMO" => $data['memo'],"ACTIVE" => $data['active'],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
+			$template->setVar(array ("ID" => $data['id'],"CATEGORY" => $category_arr[$data['category']],"COMPANY_ID" => $data['company_id'],"NAME" => $data['name'],"PRICE" => $currency->format( $data['price'] ),"PHOTO" => imageTag ($data['photo']),"MEMO" => $data['memo'],"ACTIVE" => $data['active'],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
 
 			$template->parse("list_block", "main_list", TRUE);
 			$i++;
 		}
 		
 		$template->setVar(array (
+			"KEYWORD" => textTag ("q",$_REQUEST['q']),
+			"CATEGORYOPTION" => selectTag("category",$category_arr,$_REQUEST['category']),
+			"ACTIVEOPTION" => selectTag("active",$ActiveOption,$_REQUEST['active']),
 			"WEBDIR" => $WebBaseDir,
 			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().$WebTemplateDir,
 			"TOLTAL_NUM" => $ToltalNum,

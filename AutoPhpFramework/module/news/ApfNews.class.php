@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfNews.class.php,v 1.6 2006/10/14 16:05:00 arzen Exp $
+ * @version    CVS: $Id: ApfNews.class.php,v 1.7 2006/10/14 16:09:27 arzen Exp $
  */
 
 class ApfNews  extends Actions
@@ -265,7 +265,7 @@ class ApfNews  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 			
-			$template->setVar(array ("ID" => $data['id'],"CATEGORY_ID" => $category_arr[$data['category_id']],"TITLE" => "<a href=\"###\" onclick=\"popOpenWindow('{$WebBaseDir}/news/apf_news/detail/{$data['n_id']}', '', '', 600, 600, 'yes')\">".$data['title']."</a>","CONTENT" => $data['content'],"ACTIVE" => $data['active'],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
+			$template->setVar(array ("ID" => $data['id'],"CATEGORY_ID" => $category_arr[$data['category_id']],"TITLE" => "<a href=\"###\" onclick=\"popOpenWindow('{$WebBaseDir}/news/apf_news/detail/{$data['id']}', '', '', 600, 600, 'yes')\">".$data['title']."</a>","CONTENT" => $data['content'],"ACTIVE" => $data['active'],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
 
 			$template->parse("list_block", "main_list", TRUE);
 			$i++;
