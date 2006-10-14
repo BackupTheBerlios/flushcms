@@ -6,22 +6,24 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfCompany.class.php,v 1.1 2006/09/23 03:18:56 arzen Exp $
+ * @version    CVS: $Id: ApfCompany.class.php,v 1.2 2006/10/14 05:12:53 arzen Exp $
  */
 
 class ApfCompany  extends Actions
 {
 	function executeCreate()
 	{
-		global $template,$WebBaseDir;
+		global $template,$WebBaseDir,$ActiveOption;
 
 		$template->setFile(array (
 			"MAIN" => "apf_company_edit.html"
 		));
 		$template->setBlock("MAIN", "add_block");
 		
+		array_shift($ActiveOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"ACTIVEOPTION" => radioTag("active",$ActiveOption,"new"),
 			"DOACTION" => "addsubmit"
 		));
 
@@ -34,15 +36,11 @@ class ApfCompany  extends Actions
 	
 	function executeUpdate()
 	{
-		global $template,$WebBaseDir,$controller,$i18n;
+		global $template,$WebBaseDir,$controller,$i18n,$ActiveOption;
 		$template->setFile(array (
 			"MAIN" => "apf_company_edit.html"
 		));
 		$template->setBlock("MAIN", "edit_block");
-		$template->setVar(array (
-			"WEBDIR" => $WebBaseDir,
-			"DOACTION" => "updatesubmit"
-		));
 
 		$apf_company = DB_DataObject :: factory('ApfCompany');
 		$apf_company->get($apf_company->escape($controller->getID()));
@@ -56,6 +54,12 @@ class ApfCompany  extends Actions
 		}
 
 		$template->setVar(array ("ID" => $apf_company->getId(),"NAME" => $apf_company->getName(),"ADDREES" => $apf_company->getAddrees(),"PHONE" => $apf_company->getPhone(),"FAX" => $apf_company->getFax(),"EMAIL" => $apf_company->getEmail(),"PHOTO" => $apf_company->getPhoto(),"HOMEPAGE" => $apf_company->getHomepage(),"EMPLOYEE" => $apf_company->getEmployee(),"BANKROLL" => $apf_company->getBankroll(),"LINK_MAN" => $apf_company->getLinkMan(),"INCORPORATOR" => $apf_company->getIncorporator(),"INDUSTRY" => $apf_company->getIndustry(),"PRODUCTS" => $apf_company->getProducts(),"MEMO" => $apf_company->getMemo(),"ACTIVE" => $apf_company->getActive(),"ADD_IP" => $apf_company->getAddIp(),"CREATED_AT" => $apf_company->getCreatedAt(),"UPDATE_AT" => $apf_company->getUpdateAt(),));
+		array_shift($ActiveOption);
+		$template->setVar(array (
+			"WEBDIR" => $WebBaseDir,
+			"ACTIVEOPTION" => radioTag("active",$ActiveOption,$apf_company->getActive()),
+			"DOACTION" => "updatesubmit"
+		));
 		
 	}
 	
@@ -66,7 +70,7 @@ class ApfCompany  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n;
+		global $template,$WebBaseDir,$i18n,$ActiveOption;
 		$apf_company = DB_DataObject :: factory('ApfCompany');
 
 		if ($edit_submit) 
@@ -121,10 +125,6 @@ class ApfCompany  extends Actions
 				"MAIN" => "apf_company_edit.html"
 			));
 			$template->setBlock("MAIN", "edit_block");
-			$template->setVar(array (
-				"WEBDIR" => $WebBaseDir,
-				"DOACTION" => $do_action
-			));
 			foreach ($val as $k => $v)
 			{
 				if ($v == false)
@@ -140,6 +140,12 @@ class ApfCompany  extends Actions
 				"ID" => $_POST['id'],"NAME" => $_POST['name'],"ADDREES" => $_POST['addrees'],"PHONE" => $_POST['phone'],"FAX" => $_POST['fax'],"EMAIL" => $_POST['email'],"PHOTO" => $_POST['photo'],"HOMEPAGE" => $_POST['homepage'],"EMPLOYEE" => $_POST['employee'],"BANKROLL" => $_POST['bankroll'],"LINK_MAN" => $_POST['link_man'],"INCORPORATOR" => $_POST['incorporator'],"INDUSTRY" => $_POST['industry'],"PRODUCTS" => $_POST['products'],"MEMO" => $_POST['memo'],"ACTIVE" => $_POST['active'],"ADD_IP" => $_POST['add_ip'],"CREATED_AT" => $_POST['created_at'],"UPDATE_AT" => $_POST['update_at'],
 				)
 			 );
+			array_shift($ActiveOption);
+			$template->setVar(array (
+				"WEBDIR" => $WebBaseDir,
+				"ACTIVEOPTION" => radioTag("active",$ActiveOption,$_POST['active']),
+				"DOACTION" => $do_action
+			));
 
 		}
 	}
