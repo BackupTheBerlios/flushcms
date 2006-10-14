@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: Controller.class.php,v 1.13 2006/09/23 04:48:45 arzen Exp $
+ * @version    CVS: $Id: Controller.class.php,v 1.14 2006/10/14 01:21:51 arzen Exp $
  */
 
 class Controller
@@ -49,12 +49,14 @@ class Controller
 		}
 		
 //		printf("module %s/ page %s/ action %s/ ",$module_name,$page_name,$action_name);
-		$this->parseTemplateLang();
+		$template->setFile(array (
+			"TAB" => "tab.html",
+		));
+		$template->setBlock("TAB", "tab");
+		
+		$this->parseTemplateLang(true);
 		
 		$template->parse("OUT", array (
-			"TAB",
-			"FOOT",
-			"MAIN",
 			"LAOUT",
 		));
 		$template->p("OUT");
@@ -67,10 +69,10 @@ class Controller
 
 	}
 	
-	function parseTemplateLang () 
+	function parseTemplateLang ($parse_tab=false) 
 	{
 		global $template,$i18n,$WebTemplateFullPath,$WebBaseDir;
-		$lang_arr = array_merge($template->getUndefined("MAIN"),$template->getUndefined("TAB"),
+		$lang_arr = array_merge($template->getUndefined("MAIN"),$parse_tab?$template->getUndefined("TAB"):array(),
 			is_array($template->getUndefined("list_block"))?$template->getUndefined("list_block"):array(),$template->getUndefined("FOOT")
 			);
 		foreach($lang_arr as $key=>$value)

@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfNews.class.php,v 1.4 2006/10/06 10:50:40 arzen Exp $
+ * @version    CVS: $Id: ApfNews.class.php,v 1.5 2006/10/14 01:21:51 arzen Exp $
  */
 
 class ApfNews  extends Actions
@@ -164,6 +164,31 @@ class ApfNews  extends Actions
 		$this->forward("news/apf_news/");
 	}
 	
+	function executeDetail () 
+	{
+		global $template,$WebBaseDir,$controller,$i18n,$ActiveOption,$WebTemplateFullPath;
+		$template->setFile(array (
+			"MAIN" => "apf_news_detail.html"
+		));
+		$template->setBlock("MAIN", "detail_block");
+		
+		$apf_news = DB_DataObject :: factory('ApfNews');
+		$apf_news->get($apf_news->escape($controller->getID()));
+
+		$template->setVar(array ("ID" => $apf_news->getId(),"CATEGORY_ID" => $apf_news->getCategoryId(),"TITLE" => $apf_news->getTitle(),"CONTENT" => $apf_news->getContent(),"ACTIVE" => $apf_news->getActive(),"ADD_IP" => $apf_news->getAddIp(),"CREATED_AT" => $apf_news->getCreatedAt(),"UPDATE_AT" => $apf_news->getUpdateAt(),));
+		$template->setVar(array (
+			"TEMPLATEDIR" => $WebTemplateFullPath,
+			));
+			
+		$controller->parseTemplateLang();		
+		$template->parse("OUT", array (
+			"LAOUT",
+		));
+		$template->p("OUT");
+		exit;
+	
+	}
+	
 	function executeList()
 	{
 		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir;
@@ -193,7 +218,7 @@ class ApfNews  extends Actions
 		
 		$params = array(
 		    'itemData' => $myData,
-		    'perPage' => 10,
+		    'perPage' => 50,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
 		    'separator' => ' | ',
@@ -221,7 +246,7 @@ class ApfNews  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 			
-			$template->setVar(array ("ID" => $data['n_id'],"CATEGORY_ID" => $data['category_name'],"TITLE" => $data['title'],"CONTENT" => $data['content'],"ACTIVE" => $data['n_active'],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
+			$template->setVar(array ("ID" => $data['n_id'],"CATEGORY_ID" => $data['category_name'],"TITLE" => "<a href=\"###\" onclick=\"popOpenWindow('{$WebBaseDir}/news/apf_news/detail/{$data['n_id']}', '', '', 600, 600, 'yes')\">".$data['title']."</a>","CONTENT" => $data['content'],"ACTIVE" => $data['n_active'],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
 
 			$template->parse("list_block", "main_list", TRUE);
 			$i++;

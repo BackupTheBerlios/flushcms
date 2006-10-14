@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.32 2006/10/07 00:12:00 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.33 2006/10/14 01:21:51 arzen Exp $
  */
 define('CREATE', 3);
 
@@ -227,13 +227,11 @@ $controller = new Controller();
 $template = new Template_PHPLIB($TemplateDir);
 $template->setFile(array (
 	"LAOUT" => "laout.html",
-	"TAB" => "tab.html",
 	"FOOT" => "foot.html",
 	
 ));
 
 $template->setBlock("LAOUT", "laout");
-$template->setBlock("TAB", "tab");
 
 
 $LU =& LiveUser::factory($liveuserConfig);
