@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfCompany.class.php,v 1.3 2006/10/14 16:05:00 arzen Exp $
+ * @version    CVS: $Id: ApfCompany.class.php,v 1.4 2006/10/14 17:55:03 arzen Exp $
  */
 
 class ApfCompany  extends Actions
@@ -160,6 +160,31 @@ class ApfCompany  extends Actions
 		$this->forward("company/apf_company/");
 	}
 	
+	function executeDetail () 
+	{
+		global $template,$WebBaseDir,$controller,$i18n,$ActiveOption,$WebTemplateFullPath;
+		$template->setFile(array (
+			"MAIN" => "apf_company_detail.html"
+		));
+		$template->setBlock("MAIN", "detail_block");
+		
+		$apf_company = DB_DataObject :: factory('Apfcompany');
+		$apf_company->get($apf_company->escape($controller->getID()));
+
+		$template->setVar(array ("ID" => $apf_company->getId(),"CATEGORY_ID" => $apf_company->getCategoryId(),"TITLE" => $apf_company->getTitle(),"CONTENT" => $apf_company->getContent(),"ACTIVE" => $apf_company->getActive(),"ADD_IP" => $apf_company->getAddIp(),"CREATED_AT" => $apf_company->getCreatedAt(),"UPDATE_AT" => $apf_company->getUpdateAt(),));
+		$template->setVar(array (
+			"TEMPLATEDIR" => $WebTemplateFullPath,
+			));
+			
+		$controller->parseTemplateLang();		
+		$template->parse("OUT", array (
+			"LAOUT",
+		));
+		$template->p("OUT");
+		exit;
+		
+	}
+	
 	function executeList()
 	{
 		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$ActiveOption;
@@ -225,7 +250,7 @@ class ApfCompany  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 			
-			$template->setVar(array ("ID" => $data['id'],"NAME" => $data['name'],"ADDREES" => $data['addrees'],"PHONE" => $data['phone'],"FAX" => $data['fax'],"EMAIL" => $data['email'],"PHOTO" => $data['photo'],"HOMEPAGE" => $data['homepage'],"EMPLOYEE" => $data['employee'],"BANKROLL" => $data['bankroll'],"LINK_MAN" => $data['link_man'],"INCORPORATOR" => $data['incorporator'],"INDUSTRY" => $data['industry'],"PRODUCTS" => $data['products'],"MEMO" => $data['memo'],"ACTIVE" => $data['active'],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
+			$template->setVar(array ("ID" => $data['id'],"NAME" => "<a href=\"{$WebBaseDir}/company/apf_company/detail/{$data['id']}\" >".$data['name']."</a>","ADDREES" => $data['addrees'],"PHONE" => $data['phone'],"FAX" => $data['fax'],"EMAIL" => $data['email'],"PHOTO" => $data['photo'],"HOMEPAGE" => $data['homepage'],"EMPLOYEE" => $data['employee'],"BANKROLL" => $data['bankroll'],"LINK_MAN" => $data['link_man'],"INCORPORATOR" => $data['incorporator'],"INDUSTRY" => $data['industry'],"PRODUCTS" => $data['products'],"MEMO" => $data['memo'],"ACTIVE" => $data['active'],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
 
 			$template->parse("list_block", "main_list", TRUE);
 			$i++;
