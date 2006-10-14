@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfNews.class.php,v 1.5 2006/10/14 01:21:51 arzen Exp $
+ * @version    CVS: $Id: ApfNews.class.php,v 1.6 2006/10/14 16:05:00 arzen Exp $
  */
 
 class ApfNews  extends Actions
@@ -191,20 +191,39 @@ class ApfNews  extends Actions
 	
 	function executeList()
 	{
-		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir;
+		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$CurrencyFormat,$ActiveOption,$i18n;
 
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
+		require_once 'I18N/Currency.php';
+
 		$template->setFile(array (
 			"MAIN" => "apf_news_list.html"
 		));
 
 		$template->setBlock("MAIN", "main_list", "list_block");
 
+		$currency = new I18N_Currency($CurrencyFormat);
+		$category_arr =array(""=>$i18n->_("All"))+$this->getCategory();
+
 		$apf_news = DB_DataObject :: factory('ApfNews');
 		$apf_news->orderBy('apf_news.id desc');
-		$apf_news->buildCategroyJoin();
-		$apf_news->selectAs(array('id','active'), 'n_%s','apf_news');
+		
+		if (($keyword = trim($_REQUEST['q'])) != "") 
+		{
+			$apf_news->whereAdd("title LIKE '%".$apf_news->escape("{$keyword}") . "%' OR content LIKE '%".$apf_news->escape("{$keyword}") . "%' ");
+		}
+		if (($category = trim($_REQUEST['category'])) != "") 
+		{
+			$apf_news->whereAdd(" category_id = '".$apf_news->escape("{$category}") . "'  ");
+		}
+		if (($active = trim($_REQUEST['active'])) != "") 
+		{
+			$apf_news->whereAdd(" active = '".$apf_news->escape("{$active}") . "'  ");
+		}
+
+//		$apf_news->buildCategroyJoin();
+//		$apf_news->selectAs(array('id','active'), 'n_%s','apf_news');
 //		$apf_news->debugLevel(4);
 		$apf_news->find();
 		
@@ -246,13 +265,16 @@ class ApfNews  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 			
-			$template->setVar(array ("ID" => $data['n_id'],"CATEGORY_ID" => $data['category_name'],"TITLE" => "<a href=\"###\" onclick=\"popOpenWindow('{$WebBaseDir}/news/apf_news/detail/{$data['n_id']}', '', '', 600, 600, 'yes')\">".$data['title']."</a>","CONTENT" => $data['content'],"ACTIVE" => $data['n_active'],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
+			$template->setVar(array ("ID" => $data['id'],"CATEGORY_ID" => $category_arr[$data['category_id']],"TITLE" => "<a href=\"###\" onclick=\"popOpenWindow('{$WebBaseDir}/news/apf_news/detail/{$data['n_id']}', '', '', 600, 600, 'yes')\">".$data['title']."</a>","CONTENT" => $data['content'],"ACTIVE" => $data['active'],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
 
 			$template->parse("list_block", "main_list", TRUE);
 			$i++;
 		}
 		
 		$template->setVar(array (
+			"KEYWORD" => textTag ("q",$_REQUEST['q']),
+			"CATEGORYOPTION" => selectTag("category",$category_arr,$_REQUEST['category']),
+			"ACTIVEOPTION" => selectTag("active",$ActiveOption,$_REQUEST['active']),
 			"WEBDIR" => $WebBaseDir,
 			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().$WebTemplateDir,
 			"TOLTAL_NUM" => $ToltalNum,
