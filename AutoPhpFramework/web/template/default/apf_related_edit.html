@@ -1,5 +1,13 @@
 <SCRIPT LANGUAGE="JavaScript" SRC="{WEBTEMPLATEDIR}js/selectbox.js"></SCRIPT>
 
+<script type="text/javascript">
+function dosubmit(form) 
+{
+	selectAllOptions(document.getElementById('relatedlist[]'));
+	form.submit();	
+}
+</SCRIPT>
+
 <div id="admin_container">
 <h1>{lang_GroupUsers}</h1>
 <div id="admin_header">
@@ -7,8 +15,8 @@
 
 <div >
 
-<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{WEBDIR}/users/apf_groupusers/{DOACTION}">
-<input type="hidden" name="ID" id="ID" value="{GROUP_ID}" />
+<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{WEBDIR}/company/apf_company/{DOACTION}">
+<input type="hidden" name="ID" id="ID" value="{C_ID}" />
 <fieldset id="fieldset_________" class="">
 <h2>{lang_GroupUsers}</h2>
 
@@ -18,9 +26,9 @@
 	<TD>
 	{lang_NotInGroup}:<br/>
 	<SELECT ID="relatedlist[]" NAME="relatedlist[]" MULTIPLE SIZE=10 >
-
+		{OPTION_ITEMS}
 	</SELECT>
-	<input type="hidden" name="old_uningroup" id="old_uningroup" />
+	<input type="hidden" name="old_relatedlist" id="old_relatedlist" VALUE="{OLD_RELATEDLIST}" />
 	</TD>
 	<TD VALIGN=MIDDLE ALIGN=CENTER>
 	<ul class="admin_actions">

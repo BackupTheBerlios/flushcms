@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfCompany.class.php,v 1.6 2006/10/15 02:47:39 arzen Exp $
+ * @version    CVS: $Id: ApfCompany.class.php,v 1.7 2006/10/15 06:37:11 arzen Exp $
  */
 
 class ApfCompany  extends Actions
@@ -206,7 +206,7 @@ class ApfCompany  extends Actions
 	
 	function executeDetail () 
 	{
-		global $template,$WebBaseDir,$controller,$i18n,$ActiveOption,$WebTemplateFullPath;
+		global $template,$WebBaseDir,$controller,$i18n,$ActiveOption,$WebTemplateFullPath,$GenderOption;
 		$template->setFile(array (
 			"MAIN" => "apf_company_detail.html"
 		));
@@ -216,15 +216,41 @@ class ApfCompany  extends Actions
 		$apf_company->get($apf_company->escape($controller->getID()));
 
 		$template->setVar(array ("ID" => $apf_company->getId(),"NAME" => $apf_company->getName(),"ADDREES" => $apf_company->getAddrees(),"PHONE" => $apf_company->getPhone(),"FAX" => $apf_company->getFax(),"EMAIL" => $apf_company->getEmail(),"PHOTO" => imageTag ($apf_company->getPhoto()),"HOMEPAGE" => $apf_company->getHomepage(),"EMPLOYEE" => $apf_company->getEmployee(),"BANKROLL" => $apf_company->getBankroll(),"LINK_MAN" => $apf_company->getLinkMan(),"INCORPORATOR" => $apf_company->getIncorporator(),"INDUSTRY" => $apf_company->getIndustry(),"PRODUCTS" => $apf_company->getProducts(),"MEMO" => $apf_company->getMemo(),"ACTIVE" => $apf_company->getActive(),"ADD_IP" => $apf_company->getAddIp(),"CREATED_AT" => $apf_company->getCreatedAt(),"UPDATE_AT" => $apf_company->getUpdateAt(),));
+
+//		related contact
+		$apf_company_contact = DB_DataObject :: factory('ApfCompanyContact');
+		$apf_company_contact->whereAdd(" apf_company_contact.company_id = '".$apf_company->getId() . "'  ");
+		$apf_company_contact->buildContactJoin();
+//		$apf_company_contact->debugLevel(4);
+		$apf_company_contact->find();
+
+		$template->setBlock("MAIN", "contact_list", "contact_list_block");
+		$i = 0;
+		while ($apf_company_contact->fetch())
+		{
+			$data = $apf_company_contact->toArray();
+			(($i % 2) == 0) ? $list_td_class = "admin_row_0" : $list_td_class = "admin_row_1";
+			
+			$template->setVar(array (
+				"LIST_TD_CLASS" => $list_td_class
+			));
+//			Var_Dump::display($data);
+			$template->setVar(array ("C_ID" => $data['id'],"C_CATEGORY" => $data['category'],"C_NAME" => $data['name'],"C_GENDER" => $GenderOption[$data['gender']],"C_BIRTHDAY" => $data['birthday'],"C_ADDREES" => $data['addrees'],"C_OFFICE_PHONE" => $data['office_phone'],"C_PHONE" => $data['phone'],"C_FAX" => $data['fax'],"C_MOBILE" => $data['mobile'],"C_EMAIL" => $data['email'],"C_ACTIVE" => $data['active']));
+
+			$template->parse("contact_list_block", "contact_list", TRUE);
+			$i++;
+		}
+
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"C_ID" => $apf_company->getId(),
 		));
 			
 	}
 	
 	function executeRelatedcontact () 
 	{
-		global $ClassDir,$template,$WebBaseDir,$WebTemplateDir,$controller,$i18n,$ActiveOption,$WebTemplateFullPath;
+		global $ClassDir,$template,$WebBaseDir,$WebTemplateDir,$controller,$i18n,$ActiveOption,$WebTemplateFullPath,$GenderOption;
 
 		include_once($ClassDir."URLHelper.class.php");
 		$template->setFile(array (
@@ -232,10 +258,31 @@ class ApfCompany  extends Actions
 		));
 		$template->setBlock("MAIN", "detail_block");
 		
+//		related contact
+		$apf_company_contact = DB_DataObject :: factory('ApfCompanyContact');
+		$apf_company_contact->whereAdd(" apf_company_contact.company_id = '".$controller->getId() . "'  ");
+		$apf_company_contact->buildContactJoin();
+//		$apf_company_contact->debugLevel(4);
+		$apf_company_contact->find();
+
+		$i = 0;
+		$option_items = "";
+		while ($apf_company_contact->fetch())
+		{
+			$row = $apf_company_contact->toArray();
+			$data[] = $row['contact_id'];
+			$option_items .= "<option value=\"{$row['contact_id']}\"  >{$row['name']}</option>\n";
+			$i++;
+		}
+		
 		$template->setVar(array (
+			"C_ID" => $controller->getID(),
+			"OLD_RELATEDLIST" => is_array($data)?implode(",",$data):"",
+			"OPTION_ITEMS" => $option_items,
 			"WEBDIR" => $WebBaseDir,
 			"TEMPLATEDIR" => $WebTemplateFullPath,
 			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().$WebTemplateDir,
+			"DOACTION" => "relatedcontactsubmit",
 			));
 			
 		$controller->parseTemplateLang();		
@@ -245,6 +292,42 @@ class ApfCompany  extends Actions
 		$template->p("OUT");
 		exit;
 
+	}
+	
+	function executeRelatedcontactsubmit () 
+	{
+		$old_relatedlist_arr = explode(",",$_POST['old_relatedlist']);
+		$relatedlist_arr = $_POST['relatedlist']?$_POST['relatedlist']:array();
+
+		$new_relatedlist_arr =	array_diff($relatedlist_arr,$old_relatedlist_arr);
+		$remove_relatedlist_arr = array_diff($old_relatedlist_arr,$relatedlist_arr);
+		Var_Dump::display(array($new_relatedlist_arr,$remove_relatedlist_arr));
+		
+		if (is_array($new_relatedlist_arr) && sizeof($new_relatedlist_arr)>0) 
+		{
+		    foreach($new_relatedlist_arr as $contact_id)
+		    {
+				$apf_company_contact = DB_DataObject :: factory('ApfCompanyContact');
+				$apf_company_contact->setCompanyId($_POST['ID']);
+				$apf_company_contact->setContactId($contact_id);
+//				$apf_company_contact->debugLevel(4);
+				$apf_company_contact->insert();
+		    }
+		}
+		
+		if (is_array($remove_relatedlist_arr) && sizeof($remove_relatedlist_arr)>0) 
+		{
+		    foreach($remove_relatedlist_arr as $contact_id)
+		    {
+				$apf_company_contact = DB_DataObject :: factory('ApfCompanyContact');
+				$apf_company_contact->setCompanyId($_POST['ID']);
+				$apf_company_contact->setContactId($contact_id);
+//				$apf_company_contact->debugLevel(4);
+				$apf_company_contact->delete();
+		    }
+		}
+		echo "<SCRIPT LANGUAGE=\"JavaScript\">opener.location.reload( true );window.close(); </SCRIPT>";
+		exit;
 	}
 	
 	function executeList()

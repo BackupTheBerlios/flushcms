@@ -111,4 +111,10 @@ class DaoApfCompanyContact extends DB_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+    
+    function buildContactJoin () 
+	{
+		$this->_join .= " LEFT JOIN apf_contact ON apf_contact.id=".$this->__table.".contact_id ";
+	}
+
 }

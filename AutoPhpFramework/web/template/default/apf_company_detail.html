@@ -79,7 +79,7 @@
 <div id="admin_header">
 </div>
 <ul class="admin_actions">
-          <li><input class="admin_action_create" value="{lang_Manage}" type="button" onclick="popOpenWindow('{WEBDIR}/company/apf_company/relatedcontact', '', '', 450, 400, 'yes')" /></li>
+          <li><input class="admin_action_create" value="{lang_Manage}" type="button" onclick="popOpenWindow('{WEBDIR}/company/apf_company/relatedcontact/{C_ID}', '', '', 450, 400, 'yes')" /></li>
 </ul>
 <table cellspacing="0" class="admin_list">      
 <thead>
@@ -94,17 +94,17 @@
 </tr>
 </thead>
 <tbody>
-<!-- BEGIN main_list -->
+<!-- BEGIN contact_list -->
 <tr class="{LIST_TD_CLASS}">
-<td>&nbsp;{ID}</td>
-<td>&nbsp;{CATEGORY}</td>
-<td>&nbsp;{NAME}</td>
-<td>&nbsp;{GENDER}</td>
-<td>&nbsp;{PHONE}</td>
-<td>&nbsp;{MOBILE}</td>
-<td>&nbsp;{ACTIVE}</td>
+<td>&nbsp;{C_ID}</td>
+<td>&nbsp;{C_CATEGORY}</td>
+<td>&nbsp;{C_NAME}</td>
+<td>&nbsp;{C_GENDER}</td>
+<td>&nbsp;{C_PHONE}</td>
+<td>&nbsp;{C_MOBILE}</td>
+<td>&nbsp;{C_ACTIVE}</td>
          </tr>
-<!-- END main_list -->
+<!-- END contact_list -->
 </tbody>
 <tfoot>
 <tr><th colspan="19">
