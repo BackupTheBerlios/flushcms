@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfCompany.class.php,v 1.8 2006/10/15 13:25:05 arzen Exp $
+ * @version    CVS: $Id: ApfCompany.class.php,v 1.9 2006/10/15 23:06:28 arzen Exp $
  */
 
 class ApfCompany  extends Actions
@@ -206,9 +206,11 @@ class ApfCompany  extends Actions
 	
 	function executeDetail () 
 	{
-		global $template,$WebBaseDir,$controller,$i18n,$ActiveOption,$WebTemplateFullPath,$GenderOption,$CurrencyFormat;
+		global $template,$ModuleDir,$WebBaseDir,$controller,$i18n,$ActiveOption,$WebTemplateFullPath,$GenderOption,$CurrencyFormat;
 
 		require_once 'I18N/Currency.php';
+		require_once $ModuleDir.'contact/ApfContact.class.php';
+		require_once $ModuleDir.'product/ApfProduct.class.php';
 
 		$template->setFile(array (
 			"MAIN" => "apf_company_detail.html"
@@ -221,8 +223,11 @@ class ApfCompany  extends Actions
 		$template->setVar(array ("ID" => $apf_company->getId(),"NAME" => $apf_company->getName(),"ADDREES" => $apf_company->getAddrees(),"PHONE" => $apf_company->getPhone(),"FAX" => $apf_company->getFax(),"EMAIL" => $apf_company->getEmail(),"PHOTO" => imageTag ($apf_company->getPhoto()),"HOMEPAGE" => $apf_company->getHomepage(),"EMPLOYEE" => $apf_company->getEmployee(),"BANKROLL" => $apf_company->getBankroll(),"LINK_MAN" => $apf_company->getLinkMan(),"INCORPORATOR" => $apf_company->getIncorporator(),"INDUSTRY" => $apf_company->getIndustry(),"PRODUCTS" => $apf_company->getProducts(),"MEMO" => $apf_company->getMemo(),"ACTIVE" => $apf_company->getActive(),"ADD_IP" => $apf_company->getAddIp(),"CREATED_AT" => $apf_company->getCreatedAt(),"UPDATE_AT" => $apf_company->getUpdateAt(),));
 
 //		related contact
+		$contact_category_arr =array(""=>$i18n->_("All"))+ApfContact::getCategory();
+
 		$apf_company_contact = DB_DataObject :: factory('ApfCompanyContact');
 		$apf_company_contact->whereAdd(" apf_company_contact.company_id = '".$apf_company->getId() . "'  ");
+		$apf_company_contact->orderBy("apf_contact.id desc");
 		$apf_company_contact->buildContactJoin();
 //		$apf_company_contact->debugLevel(4);
 		$apf_company_contact->find();
@@ -238,7 +243,7 @@ class ApfCompany  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 //			Var_Dump::display($data);
-			$template->setVar(array ("C_ID" => $data['id'],"C_CATEGORY" => $data['category'],"C_NAME" => $data['name'],"C_GENDER" => $GenderOption[$data['gender']],"C_BIRTHDAY" => $data['birthday'],"C_ADDREES" => $data['addrees'],"C_OFFICE_PHONE" => $data['office_phone'],"C_PHONE" => $data['phone'],"C_FAX" => $data['fax'],"C_MOBILE" => $data['mobile'],"C_EMAIL" => $data['email'],"C_ACTIVE" => $data['active']));
+			$template->setVar(array ("C_ID" => $data['id'],"C_CATEGORY" => $contact_category_arr[$data['category']],"C_NAME" => $data['name'],"C_GENDER" => $GenderOption[$data['gender']],"C_BIRTHDAY" => $data['birthday'],"C_ADDREES" => $data['addrees'],"C_OFFICE_PHONE" => $data['office_phone'],"C_PHONE" => $data['phone'],"C_FAX" => $data['fax'],"C_MOBILE" => $data['mobile'],"C_EMAIL" => $data['email'],"C_ACTIVE" => $data['active']));
 
 			$template->parse("contact_list_block", "contact_list", TRUE);
 			$i++;
@@ -247,9 +252,10 @@ class ApfCompany  extends Actions
 		
 //		related product
 		$currency = new I18N_Currency($CurrencyFormat);
-//		$category_arr =array(""=>$i18n->_("All"))+$this->getCategory();
+		$product_category_arr =array(""=>$i18n->_("All"))+ApfProduct::getCategory();
 
 		$apf_company_product = DB_DataObject :: factory('ApfCompanyProduct');
+		$apf_company_product->orderBy("apf_product.id desc");
 		$apf_company_product->whereAdd(" apf_company_product.company_id = '".$apf_company->getId() . "'  ");
 		$apf_company_product->buildProductJoin();
 //		$apf_company_product->debugLevel(4);
@@ -266,7 +272,7 @@ class ApfCompany  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 //			Var_Dump::display($data);
-			$template->setVar(array ("P_ID" => $data['id'],"P_CATEGORY" => $data['category'],"P_COMPANY_ID" => $data['company_id'],"P_NAME" => $data['name'],"P_PRICE" => $currency->format( $data['price'] ),"P_PHOTO" => imageTag ($data['photo']),"P_MEMO" => $data['memo'],"P_ACTIVE" => $data['active']));
+			$template->setVar(array ("P_ID" => $data['id'],"P_CATEGORY" => $product_category_arr[$data['category']],"P_COMPANY_ID" => $data['company_id'],"P_NAME" => $data['name'],"P_PRICE" => $currency->format( $data['price'] ),"P_PHOTO" => imageTag ($data['photo']),"P_MEMO" => $data['memo'],"P_ACTIVE" => $data['active']));
 
 			$template->parse("product_list_block", "product_list", TRUE);
 			$i++;

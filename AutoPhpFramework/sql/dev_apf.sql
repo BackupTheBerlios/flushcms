@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 -- 
 -- 主机: localhost
--- 生成日期: 2006 年 10 月 15 日 09:38
+-- 生成日期: 2006 年 10 月 16 日 07:07
 -- 服务器版本: 4.0.26
 -- PHP 版本: 4.4.2
 -- 
@@ -76,12 +76,15 @@ CREATE TABLE `apf_company_contact` (
   PRIMARY KEY  (`id`),
   KEY `company_id` (`company_id`),
   KEY `contact_id` (`contact_id`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
+) TYPE=MyISAM AUTO_INCREMENT=9 ;
 
 -- 
 -- 导出表中的数据 `apf_company_contact`
 -- 
 
+INSERT INTO `apf_company_contact` (`id`, `company_id`, `contact_id`) VALUES (2, 1, 46),
+(4, 1, 39),
+(6, 1, 44);
 
 -- --------------------------------------------------------
 
@@ -96,12 +99,14 @@ CREATE TABLE `apf_company_product` (
   PRIMARY KEY  (`id`),
   KEY `company_id` (`company_id`),
   KEY `product_id` (`product_id`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
+) TYPE=MyISAM AUTO_INCREMENT=4 ;
 
 -- 
 -- 导出表中的数据 `apf_company_product`
 -- 
 
+INSERT INTO `apf_company_product` (`id`, `company_id`, `product_id`) VALUES (2, 1, 1),
+(3, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -466,13 +471,14 @@ CREATE TABLE `apf_product` (
   `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
   `update_at` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM AUTO_INCREMENT=2 ;
+) TYPE=MyISAM AUTO_INCREMENT=3 ;
 
 -- 
 -- 导出表中的数据 `apf_product`
 -- 
 
-INSERT INTO `apf_product` (`id`, `category`, `company_id`, `name`, `price`, `photo`, `memo`, `active`, `add_ip`, `created_at`, `update_at`) VALUES (1, 1, 0, '油画', 200.00, 'product/20061014/3118645306f9c6fc89.jpg', '油画', 'live', '', '2006-10-14 05:03:24', '0000-00-00 00:00:00');
+INSERT INTO `apf_product` (`id`, `category`, `company_id`, `name`, `price`, `photo`, `memo`, `active`, `add_ip`, `created_at`, `update_at`) VALUES (1, 1, 0, '油画', 200.00, 'product/20061014/3118645306f9c6fc89.jpg', '油画', 'live', '', '2006-10-14 05:03:24', '0000-00-00 00:00:00'),
+(2, 1, 0, '奶粉', 120.00, 'product/20061016/84164532bc0bdbefa.jpg', '奶粉奶粉', 'new', '', '0000-00-00 00:00:00', '2006-10-16 06:54:17');
 
 -- --------------------------------------------------------
 

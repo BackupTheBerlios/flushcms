@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfProduct.class.php,v 1.3 2006/10/15 13:25:05 arzen Exp $
+ * @version    CVS: $Id: ApfProduct.class.php,v 1.4 2006/10/15 23:06:28 arzen Exp $
  */
 
 class ApfProduct  extends Actions
@@ -96,7 +96,6 @@ class ApfProduct  extends Actions
 		$apf_product->setCompanyId(stripslashes(trim($_POST['company_id'])));
 		$apf_product->setName(stripslashes(trim($_POST['name'])));
 		$apf_product->setPrice(stripslashes(trim($_POST['price'])));
-		$apf_product->setPhoto(stripslashes(trim($_POST['photo'])));
 		$apf_product->setMemo(stripslashes(trim($_POST['memo'])));
 		$apf_product->setActive(stripslashes(trim($_POST['active'])));
 		$apf_product->setAddIp(stripslashes(trim($_POST['add_ip'])));
