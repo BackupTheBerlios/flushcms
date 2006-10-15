@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfProduct.class.php,v 1.2 2006/10/14 16:05:00 arzen Exp $
+ * @version    CVS: $Id: ApfProduct.class.php,v 1.3 2006/10/15 13:25:05 arzen Exp $
  */
 
 class ApfProduct  extends Actions
@@ -210,8 +210,20 @@ class ApfProduct  extends Actions
 		$apf_product->update();
 		$this->forward("product/apf_product/");
 	}
+
+	function executeRelated () 
+	{
+		global $controller,$template;
+		$this->executeList(true);
+		$controller->parseTemplateLang();		
+		$template->parse("OUT", array (
+			"LAOUT",
+		));
+		$template->p("OUT");
+		exit;
+	}
 	
-	function executeList()
+	function executeList($is_related=false)
 	{
 		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$i18n,$WebUploadDir,$CurrencyFormat,$ActiveOption;
 
@@ -220,7 +232,7 @@ class ApfProduct  extends Actions
 		require_once 'I18N/Currency.php';
 
 		$template->setFile(array (
-			"MAIN" => "apf_product_list.html"
+			"MAIN" => $is_related?"apf_product_related_list.html":"apf_product_list.html"
 		));
 
 		$template->setBlock("MAIN", "main_list", "list_block");

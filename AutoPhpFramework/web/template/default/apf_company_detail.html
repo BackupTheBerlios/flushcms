@@ -79,7 +79,7 @@
 <div id="admin_header">
 </div>
 <ul class="admin_actions">
-          <li><input class="admin_action_create" value="{lang_Manage}" type="button" onclick="popOpenWindow('{WEBDIR}/company/apf_company/relatedcontact/{C_ID}', '', '', 450, 400, 'yes')" /></li>
+          <li><input class="admin_action_create" value="{lang_Manage}" type="button" onclick="popOpenWindow('{WEBDIR}/company/apf_company/relatedcontact/{COMID}', '', '', 450, 400, 'yes')" /></li>
 </ul>
 <table cellspacing="0" class="admin_list">      
 <thead>
@@ -111,7 +111,7 @@
 <div class="float-right">
 {PAGINATION}
 </div>
-{TOLTAL_NUM} {lang_Result} </th></tr>
+{C_TOLTAL_NUM} {lang_Result} </th></tr>
 </tfoot>
 
 </table>
@@ -122,7 +122,7 @@
 <div id="admin_header">
 </div>
 <ul class="admin_actions">
-          <li><input class="admin_action_create" value="{lang_Manage}" type="button" onclick="document.location.href='{WEBDIR}/contact/apf_contact/create';" /></li>
+          <li><input class="admin_action_create" value="{lang_Manage}" type="button" onclick="popOpenWindow('{WEBDIR}/company/apf_company/relatedproduct/{COMID}', '', '', 450, 400, 'yes')"/></li>
 </ul>
 <table cellspacing="0" class="admin_list">      
 <thead>
@@ -135,22 +135,23 @@
 </tr>
 </thead>
 <tbody>
-<!-- BEGIN main_list -->
-<tr class="{LIST_TD_CLASS}"><td>&nbsp;{ID}</td>
-<td>&nbsp;{CATEGORY}</td>
-<td>&nbsp;{NAME}</td>
-<td>&nbsp;{PRICE}</td>
-<td>&nbsp;{PHOTO}</td>
-<td>&nbsp;{ACTIVE}</td>
+<!-- BEGIN product_list -->
+<tr class="{LIST_TD_CLASS}">
+<td>&nbsp;{P_ID}</td>
+<td>&nbsp;{P_CATEGORY}</td>
+<td>&nbsp;{P_NAME}</td>
+<td>&nbsp;{P_PRICE}</td>
+<td>&nbsp;{P_PHOTO}</td>
+<td>&nbsp;{P_ACTIVE}</td>
          </tr>
-<!-- END main_list -->
+<!-- END product_list -->
 </tbody>
 <tfoot>
 <tr><th colspan="12">
 <div class="float-right">
 {PAGINATION}
 </div>
-{TOLTAL_NUM} {lang_Result} </th></tr>
+{P_TOLTAL_NUM} {lang_Result} </th></tr>
 </tfoot>
 
 </table>

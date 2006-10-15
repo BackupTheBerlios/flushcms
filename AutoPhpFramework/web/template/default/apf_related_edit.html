@@ -9,22 +9,21 @@ function dosubmit(form)
 </SCRIPT>
 
 <div id="admin_container">
-<h1>{lang_GroupUsers}</h1>
+<h1>{TOPIC}</h1>
 <div id="admin_header">
 </div>
 
 <div >
 
-<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{WEBDIR}/company/apf_company/{DOACTION}">
+<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{WEBDIR}{RELATED_CONTACT_SUBMIT_URL}{DOACTION}">
 <input type="hidden" name="ID" id="ID" value="{C_ID}" />
 <fieldset id="fieldset_________" class="">
-<h2>{lang_GroupUsers}</h2>
+<h2>{lang_Relationship}</h2>
 
 <div class="form-row">
 <TABLE BORDER=0>
 <TR>
 	<TD>
-	{lang_NotInGroup}:<br/>
 	<SELECT ID="relatedlist[]" NAME="relatedlist[]" MULTIPLE SIZE=10 >
 		{OPTION_ITEMS}
 	</SELECT>
@@ -32,7 +31,7 @@ function dosubmit(form)
 	</TD>
 	<TD VALIGN=MIDDLE ALIGN=CENTER>
 	<ul class="admin_actions">
-		  <li><input class="admin_action_list" value="{lang_Add}" type="button" onclick="popOpenWindow('{WEBDIR}/contact/apf_contact/related', 'related', '', 550, 550, 'yes');" /></li><BR><BR>
+		  <li><input class="admin_action_list" value="{lang_Add}" type="button" onclick="popOpenWindow('{WEBDIR}{RELATED_CONTACT_ADD_URL}', 'related', '', 550, 550, 'yes');" /></li><BR><BR>
 		  <li><input class="admin_action_list" value="{lang_Remove}" type="button" onclick="removeSelectedOptions(document.getElementById('relatedlist[]'));" /></li><BR><BR>
 	</ul>
 	</TD>

@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfCompany.class.php,v 1.7 2006/10/15 06:37:11 arzen Exp $
+ * @version    CVS: $Id: ApfCompany.class.php,v 1.8 2006/10/15 13:25:05 arzen Exp $
  */
 
 class ApfCompany  extends Actions
@@ -206,7 +206,10 @@ class ApfCompany  extends Actions
 	
 	function executeDetail () 
 	{
-		global $template,$WebBaseDir,$controller,$i18n,$ActiveOption,$WebTemplateFullPath,$GenderOption;
+		global $template,$WebBaseDir,$controller,$i18n,$ActiveOption,$WebTemplateFullPath,$GenderOption,$CurrencyFormat;
+
+		require_once 'I18N/Currency.php';
+
 		$template->setFile(array (
 			"MAIN" => "apf_company_detail.html"
 		));
@@ -240,10 +243,41 @@ class ApfCompany  extends Actions
 			$template->parse("contact_list_block", "contact_list", TRUE);
 			$i++;
 		}
+		$contact_total = $i;
+		
+//		related product
+		$currency = new I18N_Currency($CurrencyFormat);
+//		$category_arr =array(""=>$i18n->_("All"))+$this->getCategory();
+
+		$apf_company_product = DB_DataObject :: factory('ApfCompanyProduct');
+		$apf_company_product->whereAdd(" apf_company_product.company_id = '".$apf_company->getId() . "'  ");
+		$apf_company_product->buildProductJoin();
+//		$apf_company_product->debugLevel(4);
+		$apf_company_product->find();
+
+		$template->setBlock("MAIN", "product_list", "product_list_block");
+		$i = 0;
+		while ($apf_company_product->fetch())
+		{
+			$data = $apf_company_product->toArray();
+			(($i % 2) == 0) ? $list_td_class = "admin_row_0" : $list_td_class = "admin_row_1";
+			
+			$template->setVar(array (
+				"LIST_TD_CLASS" => $list_td_class
+			));
+//			Var_Dump::display($data);
+			$template->setVar(array ("P_ID" => $data['id'],"P_CATEGORY" => $data['category'],"P_COMPANY_ID" => $data['company_id'],"P_NAME" => $data['name'],"P_PRICE" => $currency->format( $data['price'] ),"P_PHOTO" => imageTag ($data['photo']),"P_MEMO" => $data['memo'],"P_ACTIVE" => $data['active']));
+
+			$template->parse("product_list_block", "product_list", TRUE);
+			$i++;
+		}
+		$product_total = $i;
 
 		$template->setVar(array (
+			"C_TOLTAL_NUM" => $contact_total,
+			"P_TOLTAL_NUM" => $product_total,
 			"WEBDIR" => $WebBaseDir,
-			"C_ID" => $apf_company->getId(),
+			"COMID" => $apf_company->getId(),
 		));
 			
 	}
@@ -279,9 +313,12 @@ class ApfCompany  extends Actions
 			"C_ID" => $controller->getID(),
 			"OLD_RELATEDLIST" => is_array($data)?implode(",",$data):"",
 			"OPTION_ITEMS" => $option_items,
+			"RELATED_CONTACT_ADD_URL" => "/contact/apf_contact/related",
+			"RELATED_CONTACT_SUBMIT_URL" => "/company/apf_company/",
 			"WEBDIR" => $WebBaseDir,
 			"TEMPLATEDIR" => $WebTemplateFullPath,
 			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().$WebTemplateDir,
+			"TOPIC" => $i18n->_("Company Contact Relation"),
 			"DOACTION" => "relatedcontactsubmit",
 			));
 			
@@ -301,7 +338,7 @@ class ApfCompany  extends Actions
 
 		$new_relatedlist_arr =	array_diff($relatedlist_arr,$old_relatedlist_arr);
 		$remove_relatedlist_arr = array_diff($old_relatedlist_arr,$relatedlist_arr);
-		Var_Dump::display(array($new_relatedlist_arr,$remove_relatedlist_arr));
+//		Var_Dump::display(array($new_relatedlist_arr,$remove_relatedlist_arr));
 		
 		if (is_array($new_relatedlist_arr) && sizeof($new_relatedlist_arr)>0) 
 		{
@@ -324,6 +361,91 @@ class ApfCompany  extends Actions
 				$apf_company_contact->setContactId($contact_id);
 //				$apf_company_contact->debugLevel(4);
 				$apf_company_contact->delete();
+		    }
+		}
+		echo "<SCRIPT LANGUAGE=\"JavaScript\">opener.location.reload( true );window.close(); </SCRIPT>";
+		exit;
+	}
+
+	function executeRelatedproduct () 
+	{
+		global $ClassDir,$template,$WebBaseDir,$WebTemplateDir,$controller,$i18n,$ActiveOption,$WebTemplateFullPath,$GenderOption;
+
+		include_once($ClassDir."URLHelper.class.php");
+		$template->setFile(array (
+			"MAIN" => "apf_related_edit.html"
+		));
+		$template->setBlock("MAIN", "detail_block");
+		
+//		related product
+		$apf_company_product = DB_DataObject :: factory('ApfCompanyProduct');
+		$apf_company_product->whereAdd(" apf_company_product.company_id = '".$controller->getId() . "'  ");
+		$apf_company_product->buildProductJoin();
+//		$apf_company_product->debugLevel(4);
+		$apf_company_product->find();
+
+		$i = 0;
+		$option_items = "";
+		while ($apf_company_product->fetch())
+		{
+			$row = $apf_company_product->toArray();
+			$data[] = $row['product_id'];
+			$option_items .= "<option value=\"{$row['product_id']}\"  >{$row['name']}</option>\n";
+			$i++;
+		}
+		
+		$template->setVar(array (
+			"C_ID" => $controller->getID(),
+			"OLD_RELATEDLIST" => is_array($data)?implode(",",$data):"",
+			"OPTION_ITEMS" => $option_items,
+			"RELATED_CONTACT_ADD_URL" => "/product/apf_product/related",
+			"RELATED_CONTACT_SUBMIT_URL" => "/company/apf_company/",
+			"WEBDIR" => $WebBaseDir,
+			"TEMPLATEDIR" => $WebTemplateFullPath,
+			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().$WebTemplateDir,
+			"TOPIC" => $i18n->_("Company Products Relation"),
+			"DOACTION" => "relatedproductsubmit",
+			));
+			
+		$controller->parseTemplateLang();		
+		$template->parse("OUT", array (
+			"LAOUT",
+		));
+		$template->p("OUT");
+		exit;
+
+	}
+	
+	function executeRelatedproductsubmit () 
+	{
+		$old_relatedlist_arr = explode(",",$_POST['old_relatedlist']);
+		$relatedlist_arr = $_POST['relatedlist']?$_POST['relatedlist']:array();
+
+		$new_relatedlist_arr =	array_diff($relatedlist_arr,$old_relatedlist_arr);
+		$remove_relatedlist_arr = array_diff($old_relatedlist_arr,$relatedlist_arr);
+//		Var_Dump::display(array($new_relatedlist_arr,$remove_relatedlist_arr));
+		
+		if (is_array($new_relatedlist_arr) && sizeof($new_relatedlist_arr)>0) 
+		{
+		    foreach($new_relatedlist_arr as $product_id)
+		    {
+				$apf_company_product = DB_DataObject :: factory('ApfCompanyProduct');
+				$apf_company_product->setCompanyId($_POST['ID']);
+				$apf_company_product->setProductId($product_id);
+//				$apf_company_product->debugLevel(4);
+				$apf_company_product->insert();
+		    }
+		}
+		
+		if (is_array($remove_relatedlist_arr) && sizeof($remove_relatedlist_arr)>0) 
+		{
+		    foreach($remove_relatedlist_arr as $product_id)
+		    {
+				$apf_company_product = DB_DataObject :: factory('ApfCompanyProduct');
+				$apf_company_product->setCompanyId($_POST['ID']);
+				$apf_company_product->setProductId($product_id);
+//				$apf_company_product->debugLevel(4);
+				$apf_company_product->delete();
 		    }
 		}
 		echo "<SCRIPT LANGUAGE=\"JavaScript\">opener.location.reload( true );window.close(); </SCRIPT>";

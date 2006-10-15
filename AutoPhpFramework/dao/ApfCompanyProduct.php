@@ -111,4 +111,8 @@ class DaoApfCompanyProduct extends DB_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+    function buildProductJoin () 
+	{
+		$this->_join .= " LEFT JOIN apf_product ON apf_product.id=".$this->__table.".product_id ";
+	}
 }
