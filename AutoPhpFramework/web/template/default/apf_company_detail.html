@@ -1,22 +1,157 @@
         
 <div id="admin_container">
+<h1>{NAME}</h1>
 <div id="admin_header">
 </div>
-<div >
+<div id="admin_content">
 
-<fieldset id="fieldset_________" >
-<h1>{TITLE}</h1>
+<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{WEBDIR}/company/apf_company/{DOACTION}">
+<input type="hidden" name="ID" id="ID" value="{ID}" />
+<fieldset id="fieldset_________" class="">
+<h2>{lang_DetailInfo}</h2>
 <div class="form-row">
-  {CONTENT}
-</div>
+<TABLE>
+<TR>
+	<TD>{lang_Name}:</TD>
+	<TD>{NAME}</TD>
+	<TD>{lang_Photo}:</TD>
+	<TD>{PHOTO}</TD>
+</TR>
+<TR>
+	<TD>{lang_Phone}:</TD>
+	<TD>{PHONE}</TD>
+	<TD>{lang_Fax}:</TD>
+	<TD>{FAX}</TD>
+</TR>
+<TR>
+	<TD>{lang_Email}:</TD>
+	<TD>{EMAIL}</TD>
+	<TD>{lang_Employee}:</TD>
+	<TD>{EMPLOYEE}</TD>
+</TR>
+<TR>
+	<TD>{lang_Bankroll}:</TD>
+	<TD>{BANKROLL}</TD>
+	<TD>{lang_LinkMan}:</TD>
+	<TD>{LINK_MAN}</TD>
+</TR>
+<TR>
+	<TD>{lang_Incorporator}:</TD>
+	<TD>{INCORPORATOR}</TD>
+	<TD>{lang_Industry}:</TD>
+	<TD>{INDUSTRY}</TD>
+</TR>
+<TR>
+	<TD>{lang_Products}:</TD>
+	<TD>{PRODUCTS}</TD>
+	<TD>{lang_Homepage}:</TD>
+	<TD>{HOMEPAGE}</TD>
+</TR>
+<TR>
+	<TD>{lang_Addrees}:</TD>
+	<TD>{ADDREES}</TD>
+	<TD>{lang_Memo}:</TD>
+	<TD>{MEMO}</TD>
+</TR>
+<TR>
+	<TD>{lang_Active}:</TD>
+	<TD>{ACTIVE}</TD>
+	<TD></TD>
+	<TD></TD>
+</TR>
+</TABLE>
 </fieldset>
+<ul class="admin_actions">
+  <li><input class="admin_action_list" value="{lang_Back}" type="button" onclick="document.location.href='{WEBDIR}/company/apf_company';" /></li>
+
+</ul>
+</form>
 
 <ul class="admin_actions">
-  <li><input class="admin_action_list" value="{lang_Close}" type="button" onclick="window.close();" /></li>
- 
+      <li class="float-left"></li>
 </ul>
+
 </div>
 
-<div id="admin_footer">
+<!-- Contact Listing -->
+<div id="admin_container">
+<h3>{lang_Contact}</h3>
+<div id="admin_header">
 </div>
+<ul class="admin_actions">
+          <li><input class="admin_action_create" value="{lang_Manage}" type="button" onclick="popOpenWindow('{WEBDIR}/company/apf_company/relatedcontact', '', '', 450, 400, 'yes')" /></li>
+</ul>
+<table cellspacing="0" class="admin_list">      
+<thead>
+<tr>
+<th>&nbsp;{lang_Id}</th>
+<th>&nbsp;{lang_Category}</th>
+<th>&nbsp;{lang_Name}</th>
+<th>&nbsp;{lang_Gender}</th>
+<th>&nbsp;{lang_Phone}</th>
+<th>&nbsp;{lang_Mobile}</th>
+<th>&nbsp;{lang_Active}</th>
+</tr>
+</thead>
+<tbody>
+<!-- BEGIN main_list -->
+<tr class="{LIST_TD_CLASS}">
+<td>&nbsp;{ID}</td>
+<td>&nbsp;{CATEGORY}</td>
+<td>&nbsp;{NAME}</td>
+<td>&nbsp;{GENDER}</td>
+<td>&nbsp;{PHONE}</td>
+<td>&nbsp;{MOBILE}</td>
+<td>&nbsp;{ACTIVE}</td>
+         </tr>
+<!-- END main_list -->
+</tbody>
+<tfoot>
+<tr><th colspan="19">
+<div class="float-right">
+{PAGINATION}
 </div>
+{TOLTAL_NUM} {lang_Result} </th></tr>
+</tfoot>
+
+</table>
+
+<!-- Products Listing -->
+<div id="admin_container">
+<h3>{lang_Product}</h3>
+<div id="admin_header">
+</div>
+<ul class="admin_actions">
+          <li><input class="admin_action_create" value="{lang_Manage}" type="button" onclick="document.location.href='{WEBDIR}/contact/apf_contact/create';" /></li>
+</ul>
+<table cellspacing="0" class="admin_list">      
+<thead>
+<tr><th>&nbsp;{lang_Id}</th>
+<th>&nbsp;{lang_Category}</th>
+<th>&nbsp;{lang_Name}</th>
+<th>&nbsp;{lang_Price}</th>
+<th>&nbsp;{lang_Photo}</th>
+<th>&nbsp;{lang_Active}</th>
+</tr>
+</thead>
+<tbody>
+<!-- BEGIN main_list -->
+<tr class="{LIST_TD_CLASS}"><td>&nbsp;{ID}</td>
+<td>&nbsp;{CATEGORY}</td>
+<td>&nbsp;{NAME}</td>
+<td>&nbsp;{PRICE}</td>
+<td>&nbsp;{PHOTO}</td>
+<td>&nbsp;{ACTIVE}</td>
+         </tr>
+<!-- END main_list -->
+</tbody>
+<tfoot>
+<tr><th colspan="12">
+<div class="float-right">
+{PAGINATION}
+</div>
+{TOLTAL_NUM} {lang_Result} </th></tr>
+</tfoot>
+
+</table>
+

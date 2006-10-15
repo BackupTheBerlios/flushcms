@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfCompany.class.php,v 1.4 2006/10/14 17:55:03 arzen Exp $
+ * @version    CVS: $Id: ApfCompany.class.php,v 1.5 2006/10/15 01:47:14 arzen Exp $
  */
 
 class ApfCompany  extends Actions
@@ -22,6 +22,7 @@ class ApfCompany  extends Actions
 		
 		array_shift($ActiveOption);
 		$template->setVar(array (
+			"FILEPHOTO" => fileTag("photo"),
 			"WEBDIR" => $WebBaseDir,
 			"ACTIVEOPTION" => radioTag("active",$ActiveOption,"new"),
 			"DOACTION" => "addsubmit"
@@ -56,6 +57,7 @@ class ApfCompany  extends Actions
 		$template->setVar(array ("ID" => $apf_company->getId(),"NAME" => $apf_company->getName(),"ADDREES" => $apf_company->getAddrees(),"PHONE" => $apf_company->getPhone(),"FAX" => $apf_company->getFax(),"EMAIL" => $apf_company->getEmail(),"PHOTO" => $apf_company->getPhoto(),"HOMEPAGE" => $apf_company->getHomepage(),"EMPLOYEE" => $apf_company->getEmployee(),"BANKROLL" => $apf_company->getBankroll(),"LINK_MAN" => $apf_company->getLinkMan(),"INCORPORATOR" => $apf_company->getIncorporator(),"INDUSTRY" => $apf_company->getIndustry(),"PRODUCTS" => $apf_company->getProducts(),"MEMO" => $apf_company->getMemo(),"ACTIVE" => $apf_company->getActive(),"ADD_IP" => $apf_company->getAddIp(),"CREATED_AT" => $apf_company->getCreatedAt(),"UPDATE_AT" => $apf_company->getUpdateAt(),));
 		array_shift($ActiveOption);
 		$template->setVar(array (
+			"FILEPHOTO" => fileTag("photo",$apf_company->getPhoto()),
 			"WEBDIR" => $WebBaseDir,
 			"ACTIVEOPTION" => radioTag("active",$ActiveOption,$apf_company->getActive()),
 			"DOACTION" => "updatesubmit"
@@ -70,7 +72,7 @@ class ApfCompany  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n,$ActiveOption;
+		global $template,$WebBaseDir,$i18n,$ActiveOption,$UploadDir,$ClassDir,$AllowUploadFilesType;
 		$apf_company = DB_DataObject :: factory('ApfCompany');
 
 		if ($edit_submit) 
@@ -99,9 +101,50 @@ class ApfCompany  extends Actions
 		$apf_company->setMemo(stripslashes(trim($_POST['memo'])));
 		$apf_company->setActive(stripslashes(trim($_POST['active'])));
 		$apf_company->setAddIp(stripslashes(trim($_POST['add_ip'])));
-		$apf_company->setCreatedAt(stripslashes(trim($_POST['created_at'])));
-		$apf_company->setUpdateAt(stripslashes(trim($_POST['update_at'])));
 
+		if ($_POST['photo_del']=='Y') 
+		{
+			unlink($UploadDir.$_POST['photo_old']);
+			$apf_company->setPhoto("");
+			$_POST['photo_old']="";
+		}
+
+		$allow_upload_file = TRUE;
+		if($_FILES['photo']['name'])
+		{
+			require_once 'HTTP/Upload.php';
+			require_once ($ClassDir."FileHelper.class.php");
+			$upload = new http_upload();
+			$file = $upload->getFiles('photo');
+			$file->setValidExtensions($AllowUploadFilesType,'accept');
+			if (PEAR::isError($file)) 
+			{
+				$allow_upload_file = FALSE;
+				$upload_error_msg = $file->getMessage();
+			}
+			if ($file->isValid()) 
+			{
+				$file->setName('uniq');
+				$current_date = FileHelper::createCategoryDir($UploadDir,"product");
+				$date_photo_dir = $UploadDir.$current_date;
+				$dest_name = $file->moveTo($date_photo_dir);
+				if (PEAR::isError($dest_name)) 
+				{
+					$allow_upload_file = FALSE;
+					$upload_error_msg = $dest_name->getMessage();
+				}
+				else 
+				{
+					$real = $file->getProp('real');
+					$apf_company->setPhoto($current_date.$dest_name);
+				}
+			} 
+			elseif ($file->isError()) 
+			{
+				$allow_upload_file = FALSE;
+				$upload_error_msg = $file->errorMsg();
+			}			
+		}
 				
 		$val = $apf_company->validate();
 		if ($val === TRUE)
@@ -142,6 +185,7 @@ class ApfCompany  extends Actions
 			 );
 			array_shift($ActiveOption);
 			$template->setVar(array (
+				"FILEPHOTO" => fileTag("photo",$_POST['photo_old']),
 				"WEBDIR" => $WebBaseDir,
 				"ACTIVEOPTION" => radioTag("active",$ActiveOption,$_POST['active']),
 				"DOACTION" => $do_action
@@ -171,7 +215,21 @@ class ApfCompany  extends Actions
 		$apf_company = DB_DataObject :: factory('Apfcompany');
 		$apf_company->get($apf_company->escape($controller->getID()));
 
-		$template->setVar(array ("ID" => $apf_company->getId(),"CATEGORY_ID" => $apf_company->getCategoryId(),"TITLE" => $apf_company->getTitle(),"CONTENT" => $apf_company->getContent(),"ACTIVE" => $apf_company->getActive(),"ADD_IP" => $apf_company->getAddIp(),"CREATED_AT" => $apf_company->getCreatedAt(),"UPDATE_AT" => $apf_company->getUpdateAt(),));
+		$template->setVar(array ("ID" => $apf_company->getId(),"NAME" => $apf_company->getName(),"ADDREES" => $apf_company->getAddrees(),"PHONE" => $apf_company->getPhone(),"FAX" => $apf_company->getFax(),"EMAIL" => $apf_company->getEmail(),"PHOTO" => imageTag ($apf_company->getPhoto()),"HOMEPAGE" => $apf_company->getHomepage(),"EMPLOYEE" => $apf_company->getEmployee(),"BANKROLL" => $apf_company->getBankroll(),"LINK_MAN" => $apf_company->getLinkMan(),"INCORPORATOR" => $apf_company->getIncorporator(),"INDUSTRY" => $apf_company->getIndustry(),"PRODUCTS" => $apf_company->getProducts(),"MEMO" => $apf_company->getMemo(),"ACTIVE" => $apf_company->getActive(),"ADD_IP" => $apf_company->getAddIp(),"CREATED_AT" => $apf_company->getCreatedAt(),"UPDATE_AT" => $apf_company->getUpdateAt(),));
+		$template->setVar(array (
+			"WEBDIR" => $WebBaseDir,
+		));
+			
+	}
+	
+	function executeRelatedcontact () 
+	{
+		global $template,$WebBaseDir,$controller,$i18n,$ActiveOption,$WebTemplateFullPath;
+		$template->setFile(array (
+			"MAIN" => "apf_related_edit.html"
+		));
+		$template->setBlock("MAIN", "detail_block");
+		
 		$template->setVar(array (
 			"TEMPLATEDIR" => $WebTemplateFullPath,
 			));
@@ -182,7 +240,7 @@ class ApfCompany  extends Actions
 		));
 		$template->p("OUT");
 		exit;
-		
+
 	}
 	
 	function executeList()

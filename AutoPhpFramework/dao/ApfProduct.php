@@ -7,18 +7,18 @@ class DaoApfProduct extends DB_DataObject
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
 
-    public $__table = 'apf_product';                     // table name
-    public $id;                              // int(11)  not_null primary_key auto_increment
-    public $category;                        // int(5)  
-    public $company_id;                      // int(5)  
-    public $name;                            // string(60)  
-    public $price;                           // real(12)  
-    public $photo;                           // string(60)  
-    public $memo;                            // blob(65535)  blob
-    public $active;                          // string(8)  not_null
-    public $add_ip;                          // string(24)  
-    public $created_at;                      // datetime(19)  not_null
-    public $update_at;                       // datetime(19)  not_null
+    var $__table = 'apf_product';                     // table name
+    var $id;                              // int(11)  not_null primary_key auto_increment
+    var $category;                        // int(5)  
+    var $company_id;                      // int(5)  
+    var $name;                            // string(60)  
+    var $price;                           // real(12)  
+    var $photo;                           // string(60)  
+    var $memo;                            // blob(65535)  blob
+    var $active;                          // string(8)  not_null
+    var $add_ip;                          // string(24)  
+    var $created_at;                      // datetime(19)  not_null
+    var $update_at;                       // datetime(19)  not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) 

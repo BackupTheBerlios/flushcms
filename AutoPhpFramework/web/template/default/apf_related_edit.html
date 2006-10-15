@@ -1,0 +1,48 @@
+<div id="admin_container">
+<h1>{lang_GroupUsers}</h1>
+<div id="admin_header">
+</div>
+
+<div >
+
+<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{WEBDIR}/users/apf_groupusers/{DOACTION}">
+<input type="hidden" name="ID" id="ID" value="{GROUP_ID}" />
+<fieldset id="fieldset_________" class="">
+<h2>{lang_GroupUsers}</h2>
+
+<div class="form-row">
+<TABLE BORDER=0>
+<TR>
+	<TD>
+	{lang_NotInGroup}:<br/>
+	<SELECT ID="uningrouplist[]" NAME="uningrouplist[]" MULTIPLE SIZE=10 onDblClick="moveSelectedOptions(this.form['uningrouplist[]'],this.form['ingrouplist[]'],true)">
+
+	</SELECT>
+	<input type="hidden" name="old_uningroup" id="old_uningroup" />
+	</TD>
+	<TD VALIGN=MIDDLE ALIGN=CENTER>
+	<ul class="admin_actions">
+		  <li><input class="admin_action_list" value="{lang_Add}" type="button" onclick="window.close();" /></li><BR><BR>
+		  <li><input class="admin_action_list" value="{lang_Remove}" type="button" onclick="window.close();" /></li><BR><BR>
+	</ul>
+	</TD>
+</TR>
+</TABLE>
+</div>
+
+</fieldset>
+<ul class="admin_actions">
+  <li><input class="admin_action_list" value="{lang_Close}" type="button" onclick="window.close();" /></li>
+  <li><input type="button" value="{lang_Save}" class="admin_action_save" onclick="dosubmit(document.admin_edit_form);" /></li>
+
+</ul>
+</form>
+
+<ul class="admin_actions">
+      <li class="float-left"></li>
+</ul>
+</div>
+
+<div id="admin_footer">
+</div>
+</div>

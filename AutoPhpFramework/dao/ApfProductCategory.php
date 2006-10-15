@@ -7,13 +7,13 @@ class DaoApfProductCategory extends DB_DataObject
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
 
-    public $__table = 'apf_product_category';            // table name
-    public $id;                              // int(11)  not_null primary_key auto_increment
-    public $category_name;                   // string(60)  
-    public $active;                          // string(8)  not_null
-    public $add_ip;                          // string(24)  
-    public $created_at;                      // datetime(19)  not_null
-    public $update_at;                       // datetime(19)  not_null
+    var $__table = 'apf_product_category';            // table name
+    var $id;                              // int(11)  not_null primary_key auto_increment
+    var $category_name;                   // string(60)  
+    var $active;                          // string(8)  not_null
+    var $add_ip;                          // string(24)  
+    var $created_at;                      // datetime(19)  not_null
+    var $update_at;                       // datetime(19)  not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) 

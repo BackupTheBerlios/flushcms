@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.34 2006/10/14 05:12:53 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.35 2006/10/15 01:47:14 arzen Exp $
  */
 define('CREATE', 3);
 
@@ -141,13 +141,25 @@ $opts = array (
 	$product_table . '_except_fields' => 'id,add_ip,created_at,update_at',
 	$product_table.'_generator_add_validate_stubs' => 'name:empty',
 
+	$company_product_table.'_modules_location' => $RootDir . '/module/company_product/',
+	$company_product_table.'_modules_name_location' => 'company_product',
+	$company_product_table . '_fields_list' => 'id,category,company_id,name,price,photo,active',
+	$company_product_table . '_except_fields' => 'id,add_ip,created_at,update_at',
+	$company_product_table.'_generator_add_validate_stubs' => 'name:empty',
+
+	$company_contact_table.'_modules_location' => $RootDir . '/module/company_contact/',
+	$company_contact_table.'_modules_name_location' => 'company_contact',
+	$company_contact_table . '_fields_list' => 'id,category,company_id,name,price,photo,active',
+	$company_contact_table . '_except_fields' => 'id,add_ip,created_at,update_at',
+	$company_contact_table.'_generator_add_validate_stubs' => 'name:empty',
+
 	'require_prefix' => 'dataobjects/',
 	'class_prefix' => 'Dao',
 	'extends' => 'DB_DataObject',
 	'generate_setters' => '1',
 	'generate_getters' => '1',
 
-	'generator_include_regex' => '/' . $product_table . '/',
+	'generator_include_regex' => '/' . $company_contact_table . '/',
 	'generator_no_ini' => '1',
 	
 );
