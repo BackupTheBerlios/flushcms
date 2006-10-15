@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfCompany.class.php,v 1.5 2006/10/15 01:47:14 arzen Exp $
+ * @version    CVS: $Id: ApfCompany.class.php,v 1.6 2006/10/15 02:47:39 arzen Exp $
  */
 
 class ApfCompany  extends Actions
@@ -224,14 +224,18 @@ class ApfCompany  extends Actions
 	
 	function executeRelatedcontact () 
 	{
-		global $template,$WebBaseDir,$controller,$i18n,$ActiveOption,$WebTemplateFullPath;
+		global $ClassDir,$template,$WebBaseDir,$WebTemplateDir,$controller,$i18n,$ActiveOption,$WebTemplateFullPath;
+
+		include_once($ClassDir."URLHelper.class.php");
 		$template->setFile(array (
 			"MAIN" => "apf_related_edit.html"
 		));
 		$template->setBlock("MAIN", "detail_block");
 		
 		$template->setVar(array (
+			"WEBDIR" => $WebBaseDir,
 			"TEMPLATEDIR" => $WebTemplateFullPath,
+			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().$WebTemplateDir,
 			));
 			
 		$controller->parseTemplateLang();		

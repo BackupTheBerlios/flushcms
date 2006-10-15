@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContact.class.php,v 1.19 2006/10/12 23:41:15 arzen Exp $
+ * @version    CVS: $Id: ApfContact.class.php,v 1.20 2006/10/15 02:47:39 arzen Exp $
  */
 
 class ApfContact  extends Actions
@@ -685,16 +685,26 @@ class ApfContact  extends Actions
 		exit; 		
 	}
 	
+	function executeRelated () 
+	{
+		global $controller,$template;
+		$this->executeList(true);
+		$controller->parseTemplateLang();		
+		$template->parse("OUT", array (
+			"LAOUT",
+		));
+		$template->p("OUT");
+		exit;
+	}
 	
-	
-	function executeList()
+	function executeList($is_related=false)
 	{
 		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$GenderOption,$ActiveOption,$i18n;
 
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
 		$template->setFile(array (
-			"MAIN" => "apf_contact_list.html"
+			"MAIN" => $is_related?"apf_contact_related_list.html":"apf_contact_list.html"
 		));
 		$category_arr =array(""=>$i18n->_("All"))+$this->getCategory();
 		

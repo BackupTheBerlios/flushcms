@@ -1,0 +1,59 @@
+<SCRIPT LANGUAGE="JavaScript" SRC="{WEBTEMPLATEDIR}js/selectbox.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+function addRelatedItem(id,name)
+{
+	addOption(opener.document.getElementById('relatedlist[]'),name,id,'');
+	opener.focus();
+}
+//-->
+</SCRIPT>
+
+<div id="admin_container">
+<h1>{lang_Listing}</h1>
+<div id="admin_header">
+</div>
+<div id="admin_bar">
+</div>
+
+<div id="admin_filter">
+
+<FORM METHOD="POST" ACTION="" name="admin_filter">
+{KEYWORD} {CATEGORYOPTION} {GENDEROPTION} {ACTIVEOPTION} <INPUT TYPE="submit" value="{lang_Search}">
+</FORM>
+
+</div>
+        
+<pre id="target">
+</pre>
+
+<table cellspacing="0" class="admin_list">      
+<thead>
+<tr>
+<th>&nbsp;{lang_Id}</th>
+<th>&nbsp;{lang_Category}</th>
+<th>&nbsp;{lang_Name}</th>
+<th>&nbsp;{lang_Gender}</th>
+<th>&nbsp;{lang_Active}</th>
+</tr>
+</thead>
+<tbody>
+<!-- BEGIN main_list -->
+<tr class="{LIST_TD_CLASS}">
+<td>&nbsp;{ID}</td>
+<td>&nbsp;{CATEGORY}</td>
+<td>&nbsp;<a href="####" onclick="addRelatedItem('{ID}','{NAME}')">{NAME}</a></td>
+<td>&nbsp;{GENDER}</td>
+<td>&nbsp;{ACTIVE}</td>
+</tr>
+<!-- END main_list -->
+</tbody>
+<tfoot>
+<tr><th colspan="19">
+<div class="float-right">
+{PAGINATION}
+</div>
+{TOLTAL_NUM} {lang_Result} </th></tr>
+</tfoot>
+
+</table>

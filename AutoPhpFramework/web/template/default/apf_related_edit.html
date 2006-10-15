@@ -1,3 +1,5 @@
+<SCRIPT LANGUAGE="JavaScript" SRC="{WEBTEMPLATEDIR}js/selectbox.js"></SCRIPT>
+
 <div id="admin_container">
 <h1>{lang_GroupUsers}</h1>
 <div id="admin_header">
@@ -15,15 +17,15 @@
 <TR>
 	<TD>
 	{lang_NotInGroup}:<br/>
-	<SELECT ID="uningrouplist[]" NAME="uningrouplist[]" MULTIPLE SIZE=10 onDblClick="moveSelectedOptions(this.form['uningrouplist[]'],this.form['ingrouplist[]'],true)">
+	<SELECT ID="relatedlist[]" NAME="relatedlist[]" MULTIPLE SIZE=10 >
 
 	</SELECT>
 	<input type="hidden" name="old_uningroup" id="old_uningroup" />
 	</TD>
 	<TD VALIGN=MIDDLE ALIGN=CENTER>
 	<ul class="admin_actions">
-		  <li><input class="admin_action_list" value="{lang_Add}" type="button" onclick="window.close();" /></li><BR><BR>
-		  <li><input class="admin_action_list" value="{lang_Remove}" type="button" onclick="window.close();" /></li><BR><BR>
+		  <li><input class="admin_action_list" value="{lang_Add}" type="button" onclick="popOpenWindow('{WEBDIR}/contact/apf_contact/related', 'related', '', 550, 550, 'yes');" /></li><BR><BR>
+		  <li><input class="admin_action_list" value="{lang_Remove}" type="button" onclick="removeSelectedOptions(document.getElementById('relatedlist[]'));" /></li><BR><BR>
 	</ul>
 	</TD>
 </TR>
