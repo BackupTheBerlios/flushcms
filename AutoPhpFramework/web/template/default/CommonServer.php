@@ -7,12 +7,13 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: CommonServer.php,v 1.4 2006/10/12 10:27:35 arzen Exp $
+ * @version    CVS: $Id: CommonServer.php,v 1.5 2006/10/17 10:38:12 arzen Exp $
  */
 define('APF_ROOT_DIR',    realpath(dirname(__FILE__).'/../../..'));
 require_once(APF_ROOT_DIR.DIRECTORY_SEPARATOR.'init.php');
 
 require_once 'HTML/AJAX/Server.php';
+require_once 'I18N/Currency.php';
 
 class CommonServer extends HTML_AJAX_Server
 {
@@ -58,6 +59,16 @@ class CommonServer extends HTML_AJAX_Server
 		));
 	}
 	
+	function initProductPrice() 
+	{
+		global $ClassDir,$WebTemplateDir,$ConfigDir,$CurrencyFormat;
+		include_once 'ProductPrice.class.php';
+		$this->registerClass(new ProductPrice());
+		// works in both php4 and 5 plus doing class name aliasing
+		$this->registerClass(new ProductPrice(), 'ProductPrice', array (
+			'doEditProductPrice'
+		));
+	}
 	  
 }
 

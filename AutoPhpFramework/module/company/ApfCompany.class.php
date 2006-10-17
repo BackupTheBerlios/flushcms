@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfCompany.class.php,v 1.9 2006/10/15 23:06:28 arzen Exp $
+ * @version    CVS: $Id: ApfCompany.class.php,v 1.10 2006/10/17 10:38:12 arzen Exp $
  */
 
 class ApfCompany  extends Actions
@@ -206,8 +206,9 @@ class ApfCompany  extends Actions
 	
 	function executeDetail () 
 	{
-		global $template,$ModuleDir,$WebBaseDir,$controller,$i18n,$ActiveOption,$WebTemplateFullPath,$GenderOption,$CurrencyFormat;
+		global $template,$ModuleDir,$ClassDir,$WebTemplateDir,$WebBaseDir,$controller,$i18n,$ActiveOption,$WebTemplateFullPath,$GenderOption,$CurrencyFormat;
 
+		include_once($ClassDir."URLHelper.class.php");
 		require_once 'I18N/Currency.php';
 		require_once $ModuleDir.'contact/ApfContact.class.php';
 		require_once $ModuleDir.'product/ApfProduct.class.php';
@@ -272,7 +273,7 @@ class ApfCompany  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 //			Var_Dump::display($data);
-			$template->setVar(array ("P_ID" => $data['id'],"P_CATEGORY" => $product_category_arr[$data['category']],"P_COMPANY_ID" => $data['company_id'],"P_NAME" => $data['name'],"P_PRICE" => $currency->format( $data['price'] ),"P_PHOTO" => imageTag ($data['photo']),"P_MEMO" => $data['memo'],"P_ACTIVE" => $data['active']));
+			$template->setVar(array ("P_ID" => $data['id'],"P_CATEGORY" => $product_category_arr[$data['category']],"P_COMPANY_ID" => $data['company_id'],"P_NAME" => $data['name'],"P_PRICE" => "<div onclick=\"editPrice('".$data['id']."','".$apf_company->getId()."','".$data['price']."')\" >".$currency->format( $data['price'] )."</div>","P_PHOTO" => imageTag ($data['photo']),"P_MEMO" => $data['memo'],"P_ACTIVE" => $data['active']));
 
 			$template->parse("product_list_block", "product_list", TRUE);
 			$i++;
@@ -280,6 +281,8 @@ class ApfCompany  extends Actions
 		$product_total = $i;
 
 		$template->setVar(array (
+			"WEBDIR" => $WebBaseDir,
+			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().$WebTemplateDir,
 			"C_TOLTAL_NUM" => $contact_total,
 			"P_TOLTAL_NUM" => $product_total,
 			"WEBDIR" => $WebBaseDir,

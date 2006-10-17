@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.35 2006/10/15 01:47:14 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.36 2006/10/17 10:38:12 arzen Exp $
  */
 define('CREATE', 3);
 
@@ -153,13 +153,19 @@ $opts = array (
 	$company_contact_table . '_except_fields' => 'id,add_ip,created_at,update_at',
 	$company_contact_table.'_generator_add_validate_stubs' => 'name:empty',
 
+	$product_price_table.'_modules_location' => $RootDir . '/module/product/',
+	$product_price_table.'_modules_name_location' => 'product',
+	$product_price_table . '_fields_list' => 'id,company_id,product_id,price,created_at',
+	$product_price_table . '_except_fields' => 'id,add_ip,company_id,product_id,created_at,update_at',
+	$product_price_table.'_generator_add_validate_stubs' => 'price:empty',
+
 	'require_prefix' => 'dataobjects/',
 	'class_prefix' => 'Dao',
 	'extends' => 'DB_DataObject',
 	'generate_setters' => '1',
 	'generate_getters' => '1',
 
-	'generator_include_regex' => '/' . $company_contact_table . '/',
+	'generator_include_regex' => '/' . $product_price_table . '/',
 	'generator_no_ini' => '1',
 	
 );

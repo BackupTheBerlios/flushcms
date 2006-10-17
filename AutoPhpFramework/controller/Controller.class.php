@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: Controller.class.php,v 1.14 2006/10/14 01:21:51 arzen Exp $
+ * @version    CVS: $Id: Controller.class.php,v 1.15 2006/10/17 10:38:12 arzen Exp $
  */
 
 class Controller
@@ -73,7 +73,7 @@ class Controller
 	{
 		global $template,$i18n,$WebTemplateFullPath,$WebBaseDir;
 		$lang_arr = array_merge($template->getUndefined("MAIN"),$parse_tab?$template->getUndefined("TAB"):array(),
-			is_array($template->getUndefined("list_block"))?$template->getUndefined("list_block"):array(),$template->getUndefined("FOOT")
+			is_array($template->getUndefined("list_block"))?$template->getUndefined("list_block"):array(),is_array($template->getUndefined("product_list_block"))?$template->getUndefined("product_list_block"):array(),$template->getUndefined("FOOT")
 			);
 		foreach($lang_arr as $key=>$value)
 		{

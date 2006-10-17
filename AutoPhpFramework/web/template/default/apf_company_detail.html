@@ -1,4 +1,32 @@
-        
+<script type="text/javascript" src="{WEBTEMPLATEDIR}CommonServer.php?client=all"></script>
+<script type="text/javascript" src="{WEBTEMPLATEDIR}CommonServer.php?stub=ProductPrice"></script>
+
+<script type="text/javascript">
+var callback = {
+
+	doEditProductPrice: function(result) 
+	{
+		 
+	}
+
+}
+
+var remoteProductPrice = new ProductPrice(callback); // our php5/4 compat version
+
+function editPrice(p_id,company_id,p_price) {
+		 var bdHtml = '';
+		 bdHtml+= '<form action="{WEBTEMPLATEDIR}CommonServer.php" method="post" onsubmit="return !HTML_AJAX.formSubmit(this, \'\', {className: \'ProductPrice\', methodName:\'doEditProductPrice\'});" ><div >';
+		 bdHtml+= '<INPUT TYPE="text" NAME="price" Value="'+p_price+'" size="6">';
+		 bdHtml+= '<INPUT TYPE="hidden" name="product_id" id="product_id" value="'+p_id+'" >';
+		 bdHtml+= '<INPUT TYPE="hidden" name="company_id" id="company_id" value="'+company_id+'" >';
+		 bdHtml+= '<INPUT TYPE="submit" VALUE="Submit">';
+		 bdHtml+= '</div></form>';
+		HTML_AJAX_Util.setInnerHTML(p_id+'_price',bdHtml);
+
+}
+
+</script>
+         
 <div id="admin_container">
 <h1>{NAME}</h1>
 <div id="admin_header">
@@ -132,6 +160,7 @@
 <th>&nbsp;{lang_Price}</th>
 <th>&nbsp;{lang_Photo}</th>
 <th>&nbsp;{lang_Active}</th>
+<th>&nbsp;{lang_Action}</th>
 </tr>
 </thead>
 <tbody>
@@ -140,10 +169,15 @@
 <td>&nbsp;{P_ID}</td>
 <td>&nbsp;{P_CATEGORY}</td>
 <td>&nbsp;{P_NAME}</td>
-<td>&nbsp;{P_PRICE}</td>
+<td>&nbsp;<div id="{P_ID}_price">{P_PRICE}</div></td>
 <td>&nbsp;{P_PHOTO}</td>
 <td>&nbsp;{P_ACTIVE}</td>
-         </tr>
+<td>
+<ul class="admin_td_actions">
+  <li><a href="{WEBDIR}/product/apf_product_price/update/{ID}">{lang_ViewHistoryPrice}</a></li>
+</ul>
+</td>
+</tr>
 <!-- END product_list -->
 </tbody>
 <tfoot>

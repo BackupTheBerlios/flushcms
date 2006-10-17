@@ -590,3 +590,20 @@ CREATE TABLE `apf_users_auth_user_id_seq` (
 -- 
 
 INSERT INTO `apf_users_auth_user_id_seq` (`id`) VALUES (3);
+
+-- 
+-- 表的结构 `apf_company_contact`
+-- 
+
+CREATE TABLE `apf_product_price` (
+  `id` int(11) NOT NULL auto_increment,
+  `company_id` int(11) default NULL,
+  `product_id` int(11) default NULL,
+  `price` decimal(10,2) default NULL,
+  `add_ip` varchar(24) default NULL,
+  `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
+  `update_at` datetime NOT NULL default '0000-00-00 00:00:00',
+  PRIMARY KEY  (`id`),
+  KEY `company_id` (`company_id`),
+  KEY `product_id` (`product_id`)
+) TYPE=MyISAM;
