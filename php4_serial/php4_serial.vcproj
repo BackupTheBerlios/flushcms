@@ -4,6 +4,7 @@
 	Version="7.10"
 	Name="php4_serial"
 	ProjectGUID="{1827672A-3D0B-496B-9EBC-7144DCA0140B}"
+	RootNamespace="php4_serial"
 	SccProjectName="php4_serial"
 	SccAuxPath=""
 	SccLocalPath="."
@@ -41,7 +42,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="php4ts.lib odbc32.lib odbccp32.lib"
-				OutputFile=".\php4_serial.dll"
+				OutputFile=".\Debug_TS\php4_serial.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="D:\php4;..\..\Debug_TS"
