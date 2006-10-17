@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfProductPrice.class.php,v 1.1 2006/10/17 10:38:12 arzen Exp $
+ * @version    CVS: $Id: ApfProductPrice.class.php,v 1.2 2006/10/17 23:45:45 arzen Exp $
  */
 
 class ApfProductPrice  extends Actions
@@ -144,8 +144,9 @@ class ApfProductPrice  extends Actions
 	
 	function executeList()
 	{
-		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir;
+		global $template,$controller,$WebBaseDir,$WebTemplateDir,$ClassDir,$CurrencyFormat;
 
+		require_once 'I18N/Currency.php';
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
 		$template->setFile(array (
@@ -154,10 +155,18 @@ class ApfProductPrice  extends Actions
 
 		$template->setBlock("MAIN", "main_list", "list_block");
 
+		$currency = new I18N_Currency($CurrencyFormat);
 		$apf_product_price = DB_DataObject :: factory('ApfProductPrice');
-
+		if ($company_id = $controller->getURLParam(0)) 
+		{
+			$apf_product_price->whereAdd("company_id ='".$apf_product_price->escape($company_id)."' ");
+		}
+		if ($product_id = $controller->getURLParam(1)) 
+		{
+			$apf_product_price->whereAdd("product_id ='".$apf_product_price->escape($product_id)."' ");
+		}
 		$apf_product_price->orderBy('id desc');
-		
+//		$apf_product_price->debugLevel(4);
 		$apf_product_price->find();
 		
 		$i=0;
@@ -198,7 +207,7 @@ class ApfProductPrice  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 			
-			$template->setVar(array ("ID" => $data['id'],"COMPANY_ID" => $data['company_id'],"PRODUCT_ID" => $data['product_id'],"PRICE" => $data['price'],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
+			$template->setVar(array ("ID" => $data['id'],"COMPANY_ID" => $data['company_id'],"PRODUCT_ID" => $data['product_id'],"PRICE" => $currency->format( $data['price'] ),"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
 
 			$template->parse("list_block", "main_list", TRUE);
 			$i++;
@@ -210,6 +219,13 @@ class ApfProductPrice  extends Actions
 			"TOLTAL_NUM" => $ToltalNum,
 			"PAGINATION" => $links['all']
 		));
+
+		$controller->parseTemplateLang();		
+		$template->parse("OUT", array (
+			"LAOUT",
+		));
+		$template->p("OUT");
+		exit;
 
 	}
 	

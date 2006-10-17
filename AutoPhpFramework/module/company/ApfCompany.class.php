@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfCompany.class.php,v 1.11 2006/10/17 10:57:07 arzen Exp $
+ * @version    CVS: $Id: ApfCompany.class.php,v 1.12 2006/10/17 23:45:45 arzen Exp $
  */
 
 class ApfCompany  extends Actions
@@ -267,6 +267,17 @@ class ApfCompany  extends Actions
 		while ($apf_company_product->fetch())
 		{
 			$data = $apf_company_product->toArray();
+			
+//			get the last product price
+			$apf_product_price = DB_DataObject :: factory('ApfProductPrice');
+			$apf_product_price->whereAdd("company_id ='".$apf_company->getId()."' ");
+			$apf_product_price->whereAdd("product_id ='{$data['id']}' ");
+			$apf_product_price->orderBy('created_at desc');
+//			$apf_product_price->debugLevel(4);
+			$apf_product_price->find();
+			$apf_product_price->fetch();
+			$data['price'] = $apf_product_price->getPrice()?$apf_product_price->getPrice():$data['price'];
+					
 			(($i % 2) == 0) ? $list_td_class = "admin_row_0" : $list_td_class = "admin_row_1";
 			
 			$template->setVar(array (

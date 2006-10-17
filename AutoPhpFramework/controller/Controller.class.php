@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: Controller.class.php,v 1.15 2006/10/17 10:38:12 arzen Exp $
+ * @version    CVS: $Id: Controller.class.php,v 1.16 2006/10/17 23:45:45 arzen Exp $
  */
 
 class Controller
@@ -116,6 +116,7 @@ class Controller
 	function getURLParam ($num) 
 	{
 		$path_arr = explode("/",$this->path_info);
+//		Var_Dump::display($path_arr);
 		return $path_arr[3+$num];
 	}
 	
