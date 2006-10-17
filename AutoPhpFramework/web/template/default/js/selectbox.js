@@ -336,8 +336,47 @@ function removeAllOptions(from) {
 // addOption(select_object,display_text,value,selected)
 //  Add an option to a list
 // -------------------------------------------------------------------
-function addOption(obj,text,value,selected) {
+function addOption(obj,text,value,selected) 
+{
 	if (obj!=null && obj.options!=null) {
 		obj.options[obj.options.length] = new Option(text, value, false, selected);
 		}
-	}
+}
+	
+	
+// -------------------------------------------------------------------
+// recheck(selectObject, optionText, optionValue)
+//  Check item already in list
+// -------------------------------------------------------------------
+function recheck (selectObject, optionText, optionValue){
+  var sltbool = false;
+  for (i=0; i<selectObject.options.length; i++){
+     if (optionText == selectObject.options[i].text ||  optionValue == selectObject.options[i].value ){
+        sltbool = true;
+        break
+     }
+  }
+  return sltbool;
+}
+
+// -------------------------------------------------------------------
+// addRelatedItem(id,name)
+//  Check item already in list
+// -------------------------------------------------------------------
+
+function addRelatedItem(id,name)
+{
+    if ( !recheck (opener.document.getElementById('relatedlist[]'),name,id) )
+    {
+		addOption(opener.document.getElementById('relatedlist[]'),name,id,'');
+		opener.focus();
+		window.close();
+    }
+    else
+    {
+        alert("Option is already present");
+		window.focus();
+    }
+
+}
+	
