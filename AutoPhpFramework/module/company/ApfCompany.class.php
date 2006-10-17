@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfCompany.class.php,v 1.10 2006/10/17 10:38:12 arzen Exp $
+ * @version    CVS: $Id: ApfCompany.class.php,v 1.11 2006/10/17 10:57:07 arzen Exp $
  */
 
 class ApfCompany  extends Actions
@@ -273,7 +273,7 @@ class ApfCompany  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 //			Var_Dump::display($data);
-			$template->setVar(array ("P_ID" => $data['id'],"P_CATEGORY" => $product_category_arr[$data['category']],"P_COMPANY_ID" => $data['company_id'],"P_NAME" => $data['name'],"P_PRICE" => "<div onclick=\"editPrice('".$data['id']."','".$apf_company->getId()."','".$data['price']."')\" >".$currency->format( $data['price'] )."</div>","P_PHOTO" => imageTag ($data['photo']),"P_MEMO" => $data['memo'],"P_ACTIVE" => $data['active']));
+			$template->setVar(array ("P_ID" => $data['id'],"P_CATEGORY" => $product_category_arr[$data['category']],"P_COMPANY_ID" => $data['company_id'],"P_NAME" => $data['name'],"P_PRICE" => "<div ondblclick=\"editPrice('".$data['id']."','".$apf_company->getId()."','".$data['price']."')\" >".$currency->format( $data['price'] )."</div>","P_PHOTO" => imageTag ($data['photo']),"P_MEMO" => $data['memo'],"P_ACTIVE" => $data['active']));
 
 			$template->parse("product_list_block", "product_list", TRUE);
 			$i++;

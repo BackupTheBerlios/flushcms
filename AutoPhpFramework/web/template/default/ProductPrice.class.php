@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: ProductPrice.class.php,v 1.1 2006/10/17 10:38:12 arzen Exp $
+ * @version    CVS: $Id: ProductPrice.class.php,v 1.2 2006/10/17 10:57:07 arzen Exp $
  */
 class ProductPrice
 {
@@ -17,12 +17,13 @@ class ProductPrice
 	{
 		global $CurrencyFormat;
 		
+		require_once 'I18N/Currency.php';
+		
 		$args = func_get_args();
 		$price = $args[0];
 		$product_id = $args[1];
 		$company_id = $args[2];
 		
-		$currency = new I18N_Currency($CurrencyFormat);
 		$apf_product_price = DB_DataObject :: factory('ApfProductPrice');
 		
 		$apf_product_price->setCompanyId($company_id);
@@ -31,7 +32,9 @@ class ProductPrice
 		$apf_product_price->setCreatedAt(DB_DataObject_Cast::dateTime());
 		$apf_product_price->insert();
 		
-		return "<div onclick=\"editPrice('".$product_id."','".$company_id."','".$price."')\" >".$currency->format($price)."</div>";
+		$currency = new I18N_Currency($CurrencyFormat);
+
+		return "<div ondblclick=\"editPrice('".$product_id."','".$company_id."','".$price."')\" >".$currency->format($price)."</div>";
 		
 	}
 

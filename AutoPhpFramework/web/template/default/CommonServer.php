@@ -7,13 +7,12 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: CommonServer.php,v 1.5 2006/10/17 10:38:12 arzen Exp $
+ * @version    CVS: $Id: CommonServer.php,v 1.6 2006/10/17 10:57:06 arzen Exp $
  */
 define('APF_ROOT_DIR',    realpath(dirname(__FILE__).'/../../..'));
 require_once(APF_ROOT_DIR.DIRECTORY_SEPARATOR.'init.php');
 
 require_once 'HTML/AJAX/Server.php';
-require_once 'I18N/Currency.php';
 
 class CommonServer extends HTML_AJAX_Server
 {
