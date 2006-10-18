@@ -7,7 +7,7 @@ company_email_pattren:
 company_homepage_pattren:<td>公司网站：\s+(.*)<\/td>
 company_employee_pattren:
 company_bankroll_pattren:
-company_link_man_pattren:
+company_link_man_pattren:<td>联 系 人：([^<]*)<\/td>
 company_incorporator_pattren:
 company_industry_pattren:
 company_products_pattren:
