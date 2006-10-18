@@ -7,11 +7,11 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: ContentParse.php,v 1.1 2006/10/18 10:25:55 arzen Exp $
+ * @version    CVS: $Id: ContentParse.php,v 1.2 2006/10/18 10:41:50 arzen Exp $
  */
 function parseTag ($pattren,$content,$back_num=1) 
 {
-	preg_match("/{$pattren}/isU",$content,$match);
+	preg_match("/".$pattren."/isU",$content,$match);
 	$data = trim($match[$back_num]);
 	return $data;
 }

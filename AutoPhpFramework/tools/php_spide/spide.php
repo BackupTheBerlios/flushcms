@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: spide.php,v 1.2 2006/10/18 10:25:55 arzen Exp $
+ * @version    CVS: $Id: spide.php,v 1.3 2006/10/18 10:41:50 arzen Exp $
  */
 define('APF_ROOT_DIR',    realpath(dirname(__FILE__).'/../..'));
 require_once(APF_ROOT_DIR.DIRECTORY_SEPARATOR.'init.php');
@@ -43,8 +43,15 @@ $logger = &Log::singleton('file', $PattenLogDir.$site.'.log', 'ident', $conf);
 //createConfigFile($site,$file_type);
  
 $data = readConfigFile($site,$file_type); 
-$content = getContent($url); 
-var_dump($content);
+$content = getContent($url);
 
+//var_dump($data);
+foreach($data["root"] as $key=>$value)
+{
+	if ( $value != "" ) 
+	{
+		var_dump(parseTag ($value,$content));
+	}
+}
 
 ?>

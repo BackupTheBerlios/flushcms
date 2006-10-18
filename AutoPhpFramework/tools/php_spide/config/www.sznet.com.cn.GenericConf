@@ -1,10 +1,10 @@
 #Search Company Info Configuration
-company_name_pattren:<td class=tit><font color="#464646"><b>([^<]*)\s+</b>\s+</font>\s+</td></tr>
-company_address_pattren:<td>企业地址：\s+([^<]*)\s+</td>
-company_phone_pattren:<td>电话号码：\s+([^<]*)\s+</td>
-company_fax_pattren:<td>传真号码：\s+([^<]*)\s+</td>
+company_name_pattren:<td class=tit><font color=\"#464646\"><b>([^<]*)<\/b><\/font><\/td>\s+<\/tr>
+company_address_pattren:<td>企业地址：\s+([^<]*)<\/td>
+company_phone_pattren:<td>电话号码：\s+([^<]*)<\/td>
+company_fax_pattren:<td>传真号码：\s+([^<]*)<\/td>
 company_email_pattren:
-company_homepage_pattren:<td>公司网站：\s+([^<]*)\s+</td>
+company_homepage_pattren:<td>公司网站：\s+(.*)<\/td>
 company_employee_pattren:
 company_bankroll_pattren:
 company_link_man_pattren:
