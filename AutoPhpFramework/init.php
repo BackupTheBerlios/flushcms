@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.36 2006/10/17 10:38:12 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.37 2006/10/18 10:25:55 arzen Exp $
  */
 define('CREATE', 3);
 
@@ -170,88 +170,6 @@ $opts = array (
 	
 );
 
-$liveuserConfig = array (
-	'session' => array (
-		'name' => 'PHPSESSID',
-		'varname' => 'loginInfo'
-	),
-	'logout' => array (
-		'destroy' => true
-	),
-	'cookie' => array (
-		'name' => 'loginInfo',
-		'path' => null,
-		'domain' => null,
-		'secure' => false,
-		'lifetime' => 30,
-		'secret' => 'mysecretkey',
-		'savedir' => $RootDir.'cookies',
-		
-	),
-	'authContainers' => array (
-		'DB' => array (
-			'type' => 'DB',
-			'expireTime' => 60*60,
-			'idleTime' => 60*60,
-			'prefix' => 'apf_',
-			'passwordEncryptionMode' => 'md5',
-			'storage' => array (
-				'prefix' => '',
-				'dsn' => $dsn,
-				'alias' => array (
-					'users' => $users_table,
-					'auth_user_id' => 'id',
-					'handle' => 'user_name',
-					'passwd' => 'user_pwd',
-					'lastlogin' => 'update_at',
-					'is_active' => 'active',
-					
-				),
-				'fields' => array (
-					'lastlogin' => 'timestamp',
-					'is_active' => 'live',
-					
-				),
-				
-			)
-		)
-	),
-
-    'permContainer' => array(
-        'type' => 'Medium',
-        'storage' => array(
-            'DB' => array(              // storage container name
-                'dsn' => $dsn,
-                'prefix' => 'apf_',  // table prefix
-                'tables' => array(        // contains additional tables
-                                          // or fields in existing tables
-                    'groups' => array(
-                        'fields' => array(
-                            'owner_user_id'  => false,
-                            'owner_group_id' => false,
-                            'is_active'      => false
-                        )
-                    )
-                ),
-                'fields' => array(        // contains any additional
-                                          // or non-default field types
-                    'owner_user_id'  => 'integer',
-                    'owner_group_id' => 'integer',
-                    'is_active'      => 'boolean'
-                ),
-                'alias'  => array(        // contains any additional
-                                          // or non-default field alias
-                    'owner_user_id'  => 'owner_user_id',
-                    'owner_group_id' => 'owner_group_id',
-                    'is_active'      => 'is_active'
-                )
-            )
-        )
-    )
-    	
-);
-
-
 $controller = new Controller();
 
 $template = new Template_PHPLIB($TemplateDir);
@@ -262,49 +180,132 @@ $template->setFile(array (
 ));
 
 $template->setBlock("LAOUT", "laout");
-
-
-$LU =& LiveUser::factory($liveuserConfig);
-
-if (!$LU->init()) {
-    var_dump($LU->getErrors());
-    die();
-}
-
-$handle = (array_key_exists('handle', $_REQUEST)) ? $_REQUEST['handle'] : null;
-$passwd = (array_key_exists('passwd', $_REQUEST)) ? $_REQUEST['passwd'] : null;
-$logout = (array_key_exists('logout', $_REQUEST)) ? $_REQUEST['logout'] : false;
-$remember = (array_key_exists('remember', $_REQUEST)) ? $_REQUEST['remember'] : false;
-if ($logout) 
+if (defined('APF_LOGIN_ACCESS') && (APF_LOGIN_ACCESS == "Y") ) 
 {
-     $LU->logout(true);
-     header("location:".getenv("SCRIPT_NAME"));
-} 
-elseif(!$LU->isLoggedIn() || ($handle && $LU->getProperty('handle') != $handle)) 
-{
-    if (!$handle) {
-        $LU->login(null, null, true);
-    } else {
-        $LU->login($handle, $passwd, $remember);
-    }
-}
-
-require_once 'LiveUser/Admin.php';
-
-$luadmin =& LiveUser_Admin::factory($liveuserConfig);
-$luadmin->init();
-//Var_Dump::display($LU->readRememberCookie());
-if (!$LU->isLoggedIn()) 
-{
-	$template->setFile(array (
-		"MAIN" => "login_screen.html"
-	));
-	$controller->parseTemplateLang();
-	$template->parse("OUT", array (
-		"MAIN",
-	));
-	$template->p("OUT");
-	exit();
+	
+	$liveuserConfig = array (
+		'session' => array (
+			'name' => 'PHPSESSID',
+			'varname' => 'loginInfo'
+		),
+		'logout' => array (
+			'destroy' => true
+		),
+		'cookie' => array (
+			'name' => 'loginInfo',
+			'path' => null,
+			'domain' => null,
+			'secure' => false,
+			'lifetime' => 30,
+			'secret' => 'mysecretkey',
+			'savedir' => $RootDir.'cookies',
+			
+		),
+		'authContainers' => array (
+			'DB' => array (
+				'type' => 'DB',
+				'expireTime' => 60*60,
+				'idleTime' => 60*60,
+				'prefix' => 'apf_',
+				'passwordEncryptionMode' => 'md5',
+				'storage' => array (
+					'prefix' => '',
+					'dsn' => $dsn,
+					'alias' => array (
+						'users' => $users_table,
+						'auth_user_id' => 'id',
+						'handle' => 'user_name',
+						'passwd' => 'user_pwd',
+						'lastlogin' => 'update_at',
+						'is_active' => 'active',
+						
+					),
+					'fields' => array (
+						'lastlogin' => 'timestamp',
+						'is_active' => 'live',
+						
+					),
+					
+				)
+			)
+		),
+	
+	    'permContainer' => array(
+	        'type' => 'Medium',
+	        'storage' => array(
+	            'DB' => array(              // storage container name
+	                'dsn' => $dsn,
+	                'prefix' => 'apf_',  // table prefix
+	                'tables' => array(        // contains additional tables
+	                                          // or fields in existing tables
+	                    'groups' => array(
+	                        'fields' => array(
+	                            'owner_user_id'  => false,
+	                            'owner_group_id' => false,
+	                            'is_active'      => false
+	                        )
+	                    )
+	                ),
+	                'fields' => array(        // contains any additional
+	                                          // or non-default field types
+	                    'owner_user_id'  => 'integer',
+	                    'owner_group_id' => 'integer',
+	                    'is_active'      => 'boolean'
+	                ),
+	                'alias'  => array(        // contains any additional
+	                                          // or non-default field alias
+	                    'owner_user_id'  => 'owner_user_id',
+	                    'owner_group_id' => 'owner_group_id',
+	                    'is_active'      => 'is_active'
+	                )
+	            )
+	        )
+	    )
+	    	
+	);
+	
+	$LU =& LiveUser::factory($liveuserConfig);
+	
+	if (!$LU->init()) {
+	    var_dump($LU->getErrors());
+	    die();
+	}
+	
+	$handle = (array_key_exists('handle', $_REQUEST)) ? $_REQUEST['handle'] : null;
+	$passwd = (array_key_exists('passwd', $_REQUEST)) ? $_REQUEST['passwd'] : null;
+	$logout = (array_key_exists('logout', $_REQUEST)) ? $_REQUEST['logout'] : false;
+	$remember = (array_key_exists('remember', $_REQUEST)) ? $_REQUEST['remember'] : false;
+	if ($logout) 
+	{
+	     $LU->logout(true);
+	     header("location:".getenv("SCRIPT_NAME"));
+	} 
+	elseif(!$LU->isLoggedIn() || ($handle && $LU->getProperty('handle') != $handle)) 
+	{
+	    if (!$handle) {
+	        $LU->login(null, null, true);
+	    } else {
+	        $LU->login($handle, $passwd, $remember);
+	    }
+	}
+	
+	require_once 'LiveUser/Admin.php';
+	
+	$luadmin =& LiveUser_Admin::factory($liveuserConfig);
+	$luadmin->init();
+	//Var_Dump::display($LU->readRememberCookie());
+	if (!$LU->isLoggedIn()) 
+	{
+		$template->setFile(array (
+			"MAIN" => "login_screen.html"
+		));
+		$controller->parseTemplateLang();
+		$template->parse("OUT", array (
+			"MAIN",
+		));
+		$template->p("OUT");
+		exit();
+	}
 }
 
 ?>
