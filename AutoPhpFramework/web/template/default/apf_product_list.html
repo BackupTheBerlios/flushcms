@@ -45,6 +45,7 @@
 <ul class="admin_td_actions">
   <li><a href="{WEBDIR}/product/apf_product/update/{ID}"><img alt="{lang_Edit}" title="{lang_Edit}" src="{WEBTEMPLATEDIR}images/edit_icon.png" /></a></li>
   <li><a onclick="if (confirm('Are you sure?')) { f = document.createElement('form'); document.body.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;" href="{WEBDIR}/product/apf_product/del/{ID}"><img alt="{lang_Delete}" title="{lang_Delete}" src="{WEBTEMPLATEDIR}images/delete_icon.png" /></a></li>
+  <li><a href="####" onclick="popOpenWindow('{WEBDIR}/product/apf_product_price/list/{ID}', '', '', 600, 600, 'yes')">{lang_HistoryPrice}</a></li>
 </ul>
 
 </td>

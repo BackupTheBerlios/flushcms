@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfProductPrice.class.php,v 1.2 2006/10/17 23:45:45 arzen Exp $
+ * @version    CVS: $Id: ApfProductPrice.class.php,v 1.3 2006/10/18 02:13:24 arzen Exp $
  */
 
 class ApfProductPrice  extends Actions
@@ -157,15 +157,19 @@ class ApfProductPrice  extends Actions
 
 		$currency = new I18N_Currency($CurrencyFormat);
 		$apf_product_price = DB_DataObject :: factory('ApfProductPrice');
-		if ($company_id = $controller->getURLParam(0)) 
+		if ($product_id = $controller->getURLParam(0)) 
 		{
-			$apf_product_price->whereAdd("company_id ='".$apf_product_price->escape($company_id)."' ");
+			$apf_product_price->whereAdd("apf_product_price.product_id ='".$apf_product_price->escape($product_id)."' ");
 		}
-		if ($product_id = $controller->getURLParam(1)) 
+		if ($company_id = $controller->getURLParam(1)) 
 		{
-			$apf_product_price->whereAdd("product_id ='".$apf_product_price->escape($product_id)."' ");
+			$apf_product_price->whereAdd("apf_product_price.company_id ='".$apf_product_price->escape($company_id)."' ");
 		}
-		$apf_product_price->orderBy('id desc');
+		$apf_product_price->orderBy('apf_product_price.id desc');
+		$apf_product_price->buildJoin(); 
+		$apf_product_price->selectAs(array("id","price","created_at"), 'p_%s');
+		$apf_product_price->selectAdd('apf_company.name AS company_name,apf_product.name AS product_name ');
+
 //		$apf_product_price->debugLevel(4);
 		$apf_product_price->find();
 		
@@ -179,7 +183,7 @@ class ApfProductPrice  extends Actions
 		
 		$params = array(
 		    'itemData' => $myData,
-		    'perPage' => 10,
+		    'perPage' => 15,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
 		    'separator' => ' | ',
@@ -201,13 +205,14 @@ class ApfProductPrice  extends Actions
 		$i = 0;
 		foreach($page_data as $data)
 		{
+//			Var_Dump::display($data);
 			(($i % 2) == 0) ? $list_td_class = "admin_row_0" : $list_td_class = "admin_row_1";
 			
 			$template->setVar(array (
 				"LIST_TD_CLASS" => $list_td_class
 			));
 			
-			$template->setVar(array ("ID" => $data['id'],"COMPANY_ID" => $data['company_id'],"PRODUCT_ID" => $data['product_id'],"PRICE" => $currency->format( $data['price'] ),"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
+			$template->setVar(array ("ID" => $data['p_id'],"COMPANY_ID" => $data['company_name'],"PRODUCT_ID" => $data['product_name'],"PRICE" => $currency->format( $data['p_price'] ),"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['p_created_at'],"UPDATE_AT" => $data['update_at'],));
 
 			$template->parse("list_block", "main_list", TRUE);
 			$i++;

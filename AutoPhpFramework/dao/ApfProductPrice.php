@@ -219,4 +219,10 @@ class DaoApfProductPrice extends DB_DataObject
     {
         return empty($this->price)?false:true;
     }
+ 
+    function buildJoin () 
+	{
+		$this->_join .= " LEFT JOIN apf_company ON apf_product_price.company_id=apf_company.id LEFT JOIN apf_product ON apf_product_price.product_id=apf_product.id ";
+	}
+
 }
