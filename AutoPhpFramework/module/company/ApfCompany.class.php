@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfCompany.class.php,v 1.12 2006/10/17 23:45:45 arzen Exp $
+ * @version    CVS: $Id: ApfCompany.class.php,v 1.13 2006/10/19 02:31:16 arzen Exp $
  */
 
 class ApfCompany  extends Actions
@@ -509,7 +509,7 @@ class ApfCompany  extends Actions
 		
 		$params = array(
 		    'itemData' => $myData,
-		    'perPage' => 10,
+		    'perPage' => 50,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
 		    'separator' => ' | ',
