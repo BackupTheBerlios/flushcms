@@ -1,0 +1,15 @@
+#Search Company Info Configuration
+company_name_pattren:<td height=\"26\" align=\"right\">企业名称：<\/td>\s+<td height=\"20\">(.*)<\/td>
+company_address_pattren:<td height=\"26\" align=\"right\">地址：<\/td>\s+<td height=\"20\">(.*)<\/td>
+company_phone_pattren:<td height=\"26\" align=\"right\">电 话：<\/td>\s+<td height=\"20\">(.*)<\/td>
+company_fax_pattren:<td height=\"26\" align=\"right\">传 真：<\/td>\s+<td height=\"20\">(.*)<\/td>
+company_email_pattren:<td height=\"26\" align=\"right\">电子邮件：<\/td>\s+<td height=\"20\">(.*)<\/td>
+company_homepage_pattren:<td height=\"26\" align=\"right\">网 址：<\/td>\s+<td height=\"20\">(.*)<\/td>
+company_employee_pattren:<td height=\"26\" align=\"right\">雇员人数：<\/td>\s+<td height=\"20\">(.*)<\/td>
+company_bankroll_pattren:<td height=\"26\" align=\"right\">年营业额： <\/td>\s+<td height=\"20\">(.*)<\/td>
+company_link_man_pattren:<td height=\"26\" align=\"right\">联系人：<\/td>\s+<td height=\"20\">(.*)<\/td>
+company_incorporator_pattren:
+company_industry_pattren:<td height=\"26\" align=\"right\">主要行业：<\/td>\s+<td height=\"20\">(.*)<\/td>
+company_products_pattren:<td height=\"26\" align=\"right\">经营范围：<\/td>\s+<td height=\"20\">(.*)<\/td>
+company_created_at_pattren:
+company_memo_pattren:<td height=\"26\" align=\"right\">公司简介：<\/td>\s+<td height=\"20\">(.*)<\/td>\s+<\/tr>

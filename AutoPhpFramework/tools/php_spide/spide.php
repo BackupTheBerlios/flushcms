@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: spide.php,v 1.5 2006/10/19 02:31:16 arzen Exp $
+ * @version    CVS: $Id: spide.php,v 1.6 2006/10/19 08:27:09 arzen Exp $
  */
 set_time_limit(0);
 define('APF_ROOT_DIR',    realpath(dirname(__FILE__).'/../..'));
@@ -19,6 +19,7 @@ require_once 'ConfigFile.php';
 require_once 'ContentParse.php';
 require_once 'Log.php';
 require_once 'File/CSV.php';
+require_once $ClassDir.'StringHelper.class.php';
 
 $PattenConfigDir = "config/";
 if (!file_exists($PattenConfigDir)) 
@@ -42,8 +43,12 @@ if (!file_exists($PattenDataDir))
 }
 
 //http://www.sznet.com.cn/company_contact.php?userid=683
-$site="www.sznet.com.cn";
-$url="http://www.sznet.com.cn/company_contact.php?userid=683";
+//$site="www.sznet.com.cn";
+//$url="http://www.sznet.com.cn/company_contact.php?userid=683";
+//http://yp.sz.net.cn/Enterprise/Enterprise_View.asp?MemberID=134156
+$site="yp.sz.net.cn";
+$url="http://yp.sz.net.cn/Enterprise/Enterprise_View.asp?MemberID=134156";
+
 $file_type = "GenericConf";
 
 $conf = array('mode' => 0777, 'timeFormat' => '%X %x');
@@ -65,51 +70,59 @@ $data = readConfigFile($site,$file_type);
 
 
 // write data
-//$x=1;
-//$start=1;
-//$end=10000;
-//for ($m=$start;$m<$end;$m++)
-//{
-//	$url="http://www.sznet.com.cn/company_contact.php?userid=".$m;
-//	$content = getContent($url);
-//	if ( $content != "" ) 
-//	{
-//		
-//		$row_data=array();
-//		foreach($data["root"] as $key=>$value)
-//		{
-//			$row_data[] = parseTag ($value,$content);
-//		}
-//		$row_data[]=$url;
-//		if (trim($row_data[0]) || trim($row_data[1]) || trim($row_data[2])) 
-//		{
-//	        File_CSV::write($filename, $row_data, $conf);
-//			echo "{$x} Ok.\n";
-//		}
-//		else 
-//		{
-//			echo "{$x} Fail.\n";
-//		}
-//	}
-//	$x++;
-//	
-//}
+$start=20000;
+$x=$start;
+$end=50000;
+for ($m=$start;$m<$end;$m++)
+{
+	$url="http://yp.sz.net.cn/Enterprise/Enterprise_View.asp?MemberID=".$m;
+	$content = getContent($url);
+	if ( $content != "" ) 
+	{
+		
+		$row_data=array();
+		foreach($data["root"] as $key=>$value)
+		{
+			$row_data[] = StringHelper::handleStrNewline(parseTag ($value,$content));
+		}
+		$row_data[]=$url;
+		if (trim($row_data[0]) || trim($row_data[1]) || trim($row_data[2])) 
+		{
+	        File_CSV::write($filename, $row_data, $conf);
+			echo "{$x} [Ok].\n";
+			$logger->log("Get {$url} content.[Ok]");
+		}
+		else 
+		{
+			echo "{$x} [Fail].\n";
+			$logger->log("Get {$url} content.[Fail]");
+		}
+	}
+	$x++;
+	
+}
 
 // read data
-//$filename = $PattenDataDir."2006_10_19_02_03.txt";
+//$filename = $PattenDataDir."2006_10_19_05_52.txt";
 //while ($fields = File_CSV::read($filename, $conf)) 
 //{
-//	$apf_company = DB_DataObject :: factory('ApfCompany');
-//	$apf_company->setName($fields[0]);
-//	$apf_company->setAddrees($fields[1]);
-//	$apf_company->setPhone($fields[2]);
-//	$apf_company->setFax($fields[3]);
-//	$apf_company->setHomepage($fields[5]);
-//	$apf_company->setLinkMan($fields[8]);
-//	$apf_company->setMemo($fields[14]);
-//	$apf_company->insert();
-////    print_r($fields);
+////	$apf_company = DB_DataObject :: factory('ApfCompany');
+////	$apf_company->setName($fields[0]);
+////	$apf_company->setAddrees($fields[1]);
+////	$apf_company->setPhone($fields[2]);
+////	$apf_company->setFax($fields[3]);
+////	$apf_company->setHomepage($fields[5]);
+////	$apf_company->setLinkMan($fields[8]);
+////	$apf_company->setMemo($fields[14]);
+////	$apf_company->insert();
+//    print_r($fields);
 //}
+
+//	$content = getContent($url);
+//	foreach($data["root"] as $key=>$value)
+//	{
+//		var_dump(parseTag ($value,$content));
+//	}
 
 
 ?>
