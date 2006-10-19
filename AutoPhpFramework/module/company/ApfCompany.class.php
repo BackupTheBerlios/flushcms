@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfCompany.class.php,v 1.14 2006/10/19 09:41:17 arzen Exp $
+ * @version    CVS: $Id: ApfCompany.class.php,v 1.15 2006/10/19 13:31:40 arzen Exp $
  */
 
 class ApfCompany  extends Actions
@@ -484,19 +484,19 @@ class ApfCompany  extends Actions
 
 		$template->setBlock("MAIN", "main_list", "list_block");
 
+		$max_row = 30;
 		$apf_company = DB_DataObject :: factory('ApfCompany');
 
 		$apf_company->orderBy('id desc');
 		
 		if (($keyword = trim($_REQUEST['q'])) != "") 
 		{
-			$apf_company->whereAdd("name LIKE '%".$apf_company->escape("{$keyword}") . "%' OR addrees LIKE '%".$apf_company->escape("{$keyword}") . "%' OR phone LIKE '%".$apf_company->escape("{$keyword}") . "%' ");
+			$apf_company->whereAdd("name LIKE '%".$apf_company->escape("{$keyword}") . "%' OR addrees LIKE '%".$apf_company->escape("{$keyword}") . "%' OR phone LIKE '%".$apf_company->escape("{$keyword}") . "%' OR link_man LIKE '%".$apf_company->escape("{$keyword}") . "%' ");
 		}
 		if (($active = trim($_REQUEST['active'])) != "") 
 		{
 			$apf_company->whereAdd(" active = '".$apf_company->escape("{$active}") . "'  ");
 		}
-		
 		$apf_company->find();
 		
 		$i=0;
@@ -509,7 +509,7 @@ class ApfCompany  extends Actions
 		
 		$params = array(
 		    'itemData' => $myData,
-		    'perPage' => 30,
+		    'perPage' => $max_row,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
 		    'separator' => ' | ',
