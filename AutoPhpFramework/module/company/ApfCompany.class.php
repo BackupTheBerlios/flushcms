@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfCompany.class.php,v 1.16 2006/10/19 23:09:19 arzen Exp $
+ * @version    CVS: $Id: ApfCompany.class.php,v 1.17 2006/10/19 23:16:38 arzen Exp $
  */
 
 class ApfCompany  extends Actions
@@ -504,6 +504,7 @@ class ApfCompany  extends Actions
 		$apf_company->find();
 		
 		$i=0;
+		$myData=array();
 		while ($apf_company->fetch())
 		{
 			$myData[] = $apf_company->toArray();
