@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfCompany.class.php,v 1.15 2006/10/19 13:31:40 arzen Exp $
+ * @version    CVS: $Id: ApfCompany.class.php,v 1.16 2006/10/19 23:09:19 arzen Exp $
  */
 
 class ApfCompany  extends Actions
@@ -497,6 +497,10 @@ class ApfCompany  extends Actions
 		{
 			$apf_company->whereAdd(" active = '".$apf_company->escape("{$active}") . "'  ");
 		}
+		$ToltalNum = $apf_company->count();
+		
+		$start_num = !isset($_GET['entrant'])?0:($_GET['entrant']-1)*$max_row;
+		$apf_company->limit($start_num,$max_row);
 		$apf_company->find();
 		
 		$i=0;
@@ -505,10 +509,9 @@ class ApfCompany  extends Actions
 			$myData[] = $apf_company->toArray();
 			$i++;
 		}
-		$ToltalNum =$i;
-		
+		$tmpData = ($ToltalNum>$max_row)?array_pad($myData, $ToltalNum-$max_row, array()):$myData;
 		$params = array(
-		    'itemData' => $myData,
+		    'itemData' => $tmpData,
 		    'perPage' => $max_row,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
@@ -520,6 +523,8 @@ class ApfCompany  extends Actions
 		    //'mode'  => 'Sliding',    //try switching modes
 		    'mode'  => 'Jumping',
 		    'extraVars' => array(
+			    'q'  => $_REQUEST['q'],
+			    'active'  => $_REQUEST['active'],
 		    ),
 		
 		);
@@ -529,7 +534,7 @@ class ApfCompany  extends Actions
 		
 		$selectBox = $pager->getPerPageSelectBox();
 		$i = 0;
-		foreach($page_data as $data)
+		foreach($myData as $data)
 		{
 			(($i % 2) == 0) ? $list_td_class = "admin_row_0" : $list_td_class = "admin_row_1";
 			
