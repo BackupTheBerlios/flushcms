@@ -7,8 +7,12 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: CellPhoneSMS.class.php,v 1.5 2006/10/13 02:28:54 arzen Exp $
+ * @version    CVS: $Id: CellPhoneSMS.class.php,v 1.6 2006/10/23 23:36:56 arzen Exp $
  */
+//define('APF_ROOT_DIR',    realpath(dirname(__FILE__).'/../../..'));
+//define('APF_LOGIN_ACCESS',       "Y");
+//require_once(APF_ROOT_DIR.DIRECTORY_SEPARATOR.'init.php');
+
 include_once($ClassDir."CellPhone.class.php");
 include_once($ClassDir."URLHelper.class.php");
 class CellPhoneSMS
@@ -77,4 +81,7 @@ class CellPhoneSMS
 	}
 	
 }
+
+//$test = new CellPhoneSMS;
+//var_dump($test->sendSMS("13684987661"));
 ?>

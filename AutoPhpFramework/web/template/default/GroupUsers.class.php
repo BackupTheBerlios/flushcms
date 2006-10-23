@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: GroupUsers.class.php,v 1.1 2006/10/06 10:50:38 arzen Exp $
+ * @version    CVS: $Id: GroupUsers.class.php,v 1.2 2006/10/23 23:36:56 arzen Exp $
  */
 class GroupUsers
 {
@@ -67,5 +67,4 @@ class GroupUsers
 	}
 	
 }
-
 ?>

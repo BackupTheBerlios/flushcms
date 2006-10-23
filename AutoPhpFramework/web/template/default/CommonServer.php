@@ -7,9 +7,10 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: CommonServer.php,v 1.6 2006/10/17 10:57:06 arzen Exp $
+ * @version    CVS: $Id: CommonServer.php,v 1.7 2006/10/23 23:36:56 arzen Exp $
  */
 define('APF_ROOT_DIR',    realpath(dirname(__FILE__).'/../../..'));
+define('APF_LOGIN_ACCESS',       "Y");
 require_once(APF_ROOT_DIR.DIRECTORY_SEPARATOR.'init.php');
 
 require_once 'HTML/AJAX/Server.php';

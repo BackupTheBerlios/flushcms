@@ -17,6 +17,7 @@ var callback = {
 		for ( var keyVar in result ) 
 		{
 			if(keyVar != "")
+//			alert(result[keyVar]);
 			document.getElementById('ingrouplist[]').options[i] = new Option( result[keyVar], keyVar, false, false);
 			ingroupusers +=keyVar+",";
 			i++;
