@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfNews.class.php,v 1.7 2006/10/14 16:09:27 arzen Exp $
+ * @version    CVS: $Id: ApfNews.class.php,v 1.8 2006/10/23 13:48:33 arzen Exp $
  */
 
 class ApfNews  extends Actions
@@ -206,6 +206,7 @@ class ApfNews  extends Actions
 		$currency = new I18N_Currency($CurrencyFormat);
 		$category_arr =array(""=>$i18n->_("All"))+$this->getCategory();
 
+		$max_row = 30;
 		$apf_news = DB_DataObject :: factory('ApfNews');
 		$apf_news->orderBy('apf_news.id desc');
 		
@@ -222,6 +223,10 @@ class ApfNews  extends Actions
 			$apf_news->whereAdd(" active = '".$apf_news->escape("{$active}") . "'  ");
 		}
 
+		$ToltalNum = $apf_news->count();
+		
+		$start_num = !isset($_GET['entrant'])?0:($_GET['entrant']-1)*$max_row;
+		$apf_news->limit($start_num,$max_row);
 //		$apf_news->buildCategroyJoin();
 //		$apf_news->selectAs(array('id','active'), 'n_%s','apf_news');
 //		$apf_news->debugLevel(4);
@@ -233,11 +238,11 @@ class ApfNews  extends Actions
 			$myData[] = $apf_news->toArray();
 			$i++;
 		}
-		$ToltalNum =$i;
 		
+		$tmpData = ($ToltalNum>$max_row)?array_pad($myData, $ToltalNum, array()):$myData;
 		$params = array(
-		    'itemData' => $myData,
-		    'perPage' => 50,
+		    'itemData' => $tmpData,
+		    'perPage' => $max_row,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
 		    'separator' => ' | ',
@@ -257,7 +262,7 @@ class ApfNews  extends Actions
 		
 		$selectBox = $pager->getPerPageSelectBox();
 		$i = 0;
-		foreach($page_data as $data)
+		foreach($myData as $data)
 		{
 			(($i % 2) == 0) ? $list_td_class = "admin_row_0" : $list_td_class = "admin_row_1";
 			

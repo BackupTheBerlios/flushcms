@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContact.class.php,v 1.20 2006/10/15 02:47:39 arzen Exp $
+ * @version    CVS: $Id: ApfContact.class.php,v 1.21 2006/10/23 13:48:33 arzen Exp $
  */
 
 class ApfContact  extends Actions
@@ -710,6 +710,7 @@ class ApfContact  extends Actions
 		
 		$template->setBlock("MAIN", "main_list", "list_block");
 
+		$max_row = 30;
 		$apf_contact = DB_DataObject :: factory('ApfContact');
 		
 		if (($keyword = trim($_REQUEST['q'])) != "") 
@@ -730,6 +731,10 @@ class ApfContact  extends Actions
 		}
 
 		$apf_contact->orderBy('id desc');
+		$ToltalNum = $apf_contact->count();
+		
+		$start_num = !isset($_GET['entrant'])?0:($_GET['entrant']-1)*$max_row;
+		$apf_contact->limit($start_num,($start_num+$max_row));
 //		$apf_contact->debugLevel(4);
 		$apf_contact->find();
 		
@@ -739,11 +744,11 @@ class ApfContact  extends Actions
 			$myData[] = $apf_contact->toArray();
 			$i++;
 		}
-		$ToltalNum =$i;
 		
+		$tmpData = ($ToltalNum>$max_row)?array_pad($myData, $ToltalNum, array()):$myData;
 		$params = array(
-		    'itemData' => $myData,
-		    'perPage' => 50,
+		    'itemData' => $tmpData,
+		    'perPage' => $max_row,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
 		    'separator' => ' | ',
@@ -767,7 +772,7 @@ class ApfContact  extends Actions
 		
 		$selectBox = $pager->getPerPageSelectBox();
 		$i = 0;
-		foreach($page_data as $data)
+		foreach($myData as $data)
 		{
 			(($i % 2) == 0) ? $list_td_class = "admin_row_0" : $list_td_class = "admin_row_1";
 			

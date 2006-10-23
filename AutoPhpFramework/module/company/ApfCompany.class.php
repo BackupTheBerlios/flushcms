@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfCompany.class.php,v 1.17 2006/10/19 23:16:38 arzen Exp $
+ * @version    CVS: $Id: ApfCompany.class.php,v 1.18 2006/10/23 13:48:33 arzen Exp $
  */
 
 class ApfCompany  extends Actions
@@ -510,7 +510,7 @@ class ApfCompany  extends Actions
 			$myData[] = $apf_company->toArray();
 			$i++;
 		}
-		$tmpData = ($ToltalNum>$max_row)?array_pad($myData, $ToltalNum-$max_row, array()):$myData;
+		$tmpData = ($ToltalNum>$max_row)?array_pad($myData, $ToltalNum, array()):$myData;
 		$params = array(
 		    'itemData' => $tmpData,
 		    'perPage' => $max_row,

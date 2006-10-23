@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfProduct.class.php,v 1.4 2006/10/15 23:06:28 arzen Exp $
+ * @version    CVS: $Id: ApfProduct.class.php,v 1.5 2006/10/23 13:48:33 arzen Exp $
  */
 
 class ApfProduct  extends Actions
@@ -239,6 +239,7 @@ class ApfProduct  extends Actions
 		$currency = new I18N_Currency($CurrencyFormat);
 		$category_arr =array(""=>$i18n->_("All"))+$this->getCategory();
 
+		$max_row = 30;
 		$apf_product = DB_DataObject :: factory('ApfProduct');
 
 		$apf_product->orderBy('id desc');
@@ -256,6 +257,10 @@ class ApfProduct  extends Actions
 			$apf_product->whereAdd(" active = '".$apf_product->escape("{$active}") . "'  ");
 		}
 		
+		$ToltalNum = $apf_product->count();
+		
+		$start_num = !isset($_GET['entrant'])?0:($_GET['entrant']-1)*$max_row;
+		$apf_product->limit($start_num,$max_row);
 		$apf_product->find();
 		
 		$i=0;
@@ -264,11 +269,11 @@ class ApfProduct  extends Actions
 			$myData[] = $apf_product->toArray();
 			$i++;
 		}
-		$ToltalNum =$i;
 		
+		$tmpData = ($ToltalNum>$max_row)?array_pad($myData, $ToltalNum, array()):$myData;
 		$params = array(
-		    'itemData' => $myData,
-		    'perPage' => 50,
+		    'itemData' => $tmpData,
+		    'perPage' => $max_row,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
 		    'separator' => ' | ',
@@ -288,7 +293,7 @@ class ApfProduct  extends Actions
 		
 		$selectBox = $pager->getPerPageSelectBox();
 		$i = 0;
-		foreach($page_data as $data)
+		foreach($myData as $data)
 		{
 			(($i % 2) == 0) ? $list_td_class = "admin_row_0" : $list_td_class = "admin_row_1";
 			
