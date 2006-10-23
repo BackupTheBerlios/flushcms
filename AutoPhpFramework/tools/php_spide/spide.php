@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: spide.php,v 1.6 2006/10/19 08:27:09 arzen Exp $
+ * @version    CVS: $Id: spide.php,v 1.7 2006/10/23 13:08:01 arzen Exp $
  */
 set_time_limit(0);
 define('APF_ROOT_DIR',    realpath(dirname(__FILE__).'/../..'));
@@ -46,8 +46,9 @@ if (!file_exists($PattenDataDir))
 //$site="www.sznet.com.cn";
 //$url="http://www.sznet.com.cn/company_contact.php?userid=683";
 //http://yp.sz.net.cn/Enterprise/Enterprise_View.asp?MemberID=134156
-$site="yp.sz.net.cn";
-$url="http://yp.sz.net.cn/Enterprise/Enterprise_View.asp?MemberID=134156";
+//http://yp.sz.net.cn/Enterprise/Enterprise_View.asp?MemberID=134156
+$site="company.gdfz.com";
+$url="http://company.gdfz.com/CompanySearch.php?arzen_next_page=1&";
 
 $file_type = "GenericConf";
 
@@ -65,23 +66,28 @@ $filename = $PattenDataDir.date("Y_m_d_H_i").".txt";
 
 
 //createConfigFile($site,$file_type);
- 
-$data = readConfigFile($site,$file_type); 
 
-
-// write data
-$start=20000;
-$x=$start;
-$end=50000;
-for ($m=$start;$m<$end;$m++)
+function getListingUrl ($url,$patten,$data,&$x) 
 {
-	$url="http://yp.sz.net.cn/Enterprise/Enterprise_View.asp?MemberID=".$m;
+	global $site;
+	$content = getContent($url);
+	$url_arr = parseTagAll($patten,$content);
+	foreach($url_arr as $key=>$value)
+	{
+		echo $url = "http://".$site."/".$value;
+		parseContenDetail ($url,$data,&$x);
+	}
+}
+
+function parseContenDetail ($url,$data,&$x) 
+{
+	global $logger,$filename,$conf;
 	$content = getContent($url);
 	if ( $content != "" ) 
 	{
 		
 		$row_data=array();
-		foreach($data["root"] as $key=>$value)
+		foreach($data as $key=>$value)
 		{
 			$row_data[] = StringHelper::handleStrNewline(parseTag ($value,$content));
 		}
@@ -97,10 +103,49 @@ for ($m=$start;$m<$end;$m++)
 			echo "{$x} [Fail].\n";
 			$logger->log("Get {$url} content.[Fail]");
 		}
+		$x++;
 	}
-	$x++;
-	
 }
+ 
+$data = readConfigFile($site,$file_type); 
+//echo $data["root"]["company_listing_pattren"];
+$new_data=$data["root"];
+array_pop($new_data);
+$x=1;
+getListingUrl ($url,$data["root"]["company_listing_pattren"],$new_data,&$x);
+//
+//// write data
+//$start=20000;
+//$x=$start;
+//$end=50000;
+//for ($m=$start;$m<$end;$m++)
+//{
+//	$url="http://yp.sz.net.cn/Enterprise/Enterprise_View.asp?MemberID=".$m;
+//	$content = getContent($url);
+//	if ( $content != "" ) 
+//	{
+//		
+//		$row_data=array();
+//		foreach($data["root"] as $key=>$value)
+//		{
+//			$row_data[] = StringHelper::handleStrNewline(parseTag ($value,$content));
+//		}
+//		$row_data[]=$url;
+//		if (trim($row_data[0]) || trim($row_data[1]) || trim($row_data[2])) 
+//		{
+//	        File_CSV::write($filename, $row_data, $conf);
+//			echo "{$x} [Ok].\n";
+//			$logger->log("Get {$url} content.[Ok]");
+//		}
+//		else 
+//		{
+//			echo "{$x} [Fail].\n";
+//			$logger->log("Get {$url} content.[Fail]");
+//		}
+//	}
+//	$x++;
+//	
+//}
 
 // read data
 //$filename = $PattenDataDir."2006_10_19_05_52.txt";

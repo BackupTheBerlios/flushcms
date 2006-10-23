@@ -1,0 +1,16 @@
+#Search Company Info Configuration
+company_name_pattren:<td width=\"19%\" align=\"center\"  bgcolor=\"FEF7EC\" class=\"int-t\">企业名称：<\/td>\s+<td width=\"81%\" bgcolor=\"F9F9F9\" class=\"int-t\">(.*)<\/td>
+company_address_pattren:<td align=\"center\" bgcolor=\"FEF7EC\" class=\"int-t\">地　　址：<\/td>\s+<td bgcolor=\"F9F9F9\" class=\"int-t\">(.*)\s+<\/td>
+company_phone_pattren:
+company_fax_pattren:
+company_email_pattren:
+company_homepage_pattren:<td height=\"25\" align=\"center\" bgcolor=\"FEF7EC\" class=\"int-t\">网　　址：<\/td>\s+<td bgcolor=\"F9F9F9\" class=\"int-t\"><A HREF=\"(.*)\" target=\"_blank\">(.*)<\/A><\/td>
+company_employee_pattren:
+company_bankroll_pattren:
+company_link_man_pattren:<td align=\"center\" bgcolor=\"FEF7EC\" class=\"int-t\">联 系 人：<\/td>\s+<td bgcolor=\"F9F9F9\" class=\"int-t\"><p>(.*)<\/p><\/td>
+company_incorporator_pattren:
+company_industry_pattren:
+company_products_pattren:
+company_created_at_pattren:
+company_memo_pattren:<tr>\s+<td class=\"int-t\" style=\"word-break:break-all;\">(.*)\s+<\/td>\s+<\/tr>
+company_listing_pattren:<td colspan=\"2\" class=\"search-tbg\" ><A HREF=\"(.*)\" class=\"search-ct\" target=\"_blank\">(.*)<\/A> <\/td>
