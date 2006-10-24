@@ -1,0 +1,48 @@
+        
+<div id="admin_container">
+<h1>{lang_MailSender}</h1>
+<div id="admin_header">
+</div>
+<div id="admin_content">
+
+<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{WEBDIR}/news/apf_news/{DOACTION}">
+<input type="hidden" name="ID" id="ID" value="{ID}" />
+<fieldset id="fieldset_________" class="">
+<h2>{lang_GeneralInfo}</h2>
+<div class="form-row">
+  <label >{lang_To}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{CATEGORY_ID_ERROR_MSG}</div>
+  <input type="text" name="to" id="to" size="40" />     </div>
+</div>
+<div class="form-row">
+  <label ></label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name"></div>
+  {lang_AddCc} {lang_AddBcc} {lang_AddAttachFile}
+  </div>
+</div>
+<div class="form-row">
+  <label >{lang_Title}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{TITLE_ERROR_MSG}</div>
+  <input type="text" name="title" id="title" value="{TITLE}" size="40" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Content}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{CONTENT_ERROR_MSG}</div>
+  {TEXTAREACONTENT}  </div>
+</div>
+</fieldset>
+<ul class="admin_actions">
+  <li><input class="admin_action_list" value="{lang_List}" type="button" onclick="document.location.href='{WEBDIR}/news/apf_news/list';" /></li>
+  <li><input type="submit" name="save" value="{lang_Save}" class="admin_action_save" /></li>
+
+</ul>
+</form>
+
+<ul class="admin_actions">
+      <li class="float-left"></li>
+</ul>
+</div>
+
+<div id="admin_footer">
+</div>
+</div>
