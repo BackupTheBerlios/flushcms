@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: MailSender.class.php,v 1.2 2006/10/24 05:26:10 arzen Exp $
+ * @version    CVS: $Id: MailSender.class.php,v 1.3 2006/10/24 06:33:33 arzen Exp $
  */
 
 class MailSender
@@ -43,8 +43,15 @@ class MailSender
 		$body = trim($_POST['content']);
 		
 		$text = 'Text version of email';
-		$html = $body;
-
+		$html = <<<EOD
+<html><head>
+<meta http-equiv="Content-Language" content="zh-cn">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312"></head>
+<body>		
+{$body}
+</body>
+</html>
+EOD;
 		$mail = new PHPMailer();
 		
 		$mail->IsSMTP();                                      // set mailer to use SMTP
@@ -54,7 +61,7 @@ class MailSender
 		$mail->Password = "test123456"; // SMTP password
 		
 		$mail->CharSet = "gb2312";
-		$mail->Encoding = "8bit";
+		$mail->Encoding = "base64";
 		$mail->From = $headers['From'];
 		$mail->FromName = "AutoPHPFrameworkMailer";
 		$mail->AddAddress($headers['To']);
@@ -66,7 +73,7 @@ class MailSender
 		$mail->IsHTML(true);                                  // set email format to HTML
 		
 		$mail->Subject = $headers['Subject'];
-		$mail->Body    = $body;
+		$mail->Body    = $html;
 		$mail->AltBody = $text;
 		
 		if(!$error = $mail->Send())
