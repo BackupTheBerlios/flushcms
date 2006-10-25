@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: config.php,v 1.12 2006/10/24 10:36:00 arzen Exp $
+ * @version    CVS: $Id: config.php,v 1.13 2006/10/25 23:49:52 arzen Exp $
  */
  
 $DB_Type = "mysql";
@@ -20,6 +20,8 @@ $SMTP_Host = "mailsz.achievo.com";
 $SMTP_UserName = "john.meng";
 $SMTP_PassWord = "test123456";
 $SMTP_Auth = TRUE;
+
+$Tech_Mail = "arzen1013@gmail.com";
 
 $DefaultModule = "users";
 $DefaultPage = "apf_users";

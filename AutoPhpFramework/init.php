@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.37 2006/10/18 10:25:55 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.38 2006/10/25 23:49:52 arzen Exp $
  */
 define('CREATE', 3);
 
@@ -24,6 +24,16 @@ $WebBaseDir = getenv("SCRIPT_NAME");
 $WebTemplateFullPath = dirname(getenv("SCRIPT_NAME")) . "/" . $WebTemplateDir;
 $domain = 'general';
 $dir = $RootDir . 'lang/';
+$LogDir = $RootDir."log/";
+if (!file_exists($LogDir)) 
+{
+	mkdir($LogDir,0600);
+}
+$LogDir = $LogDir.date("Ym")."/";
+if (!file_exists($LogDir)) 
+{
+	mkdir($LogDir,0600);
+}
 
 ini_set('include_path', "." . PATH_SEPARATOR . $IncludeDir . "pear");
 
@@ -37,10 +47,16 @@ include_once ("DB/DataObject/Cast.php");
 include_once ($ControllerDir . "Controller.class.php");
 include_once ("HTML/Template/PHPLIB.php");
 include_once ($ClassDir . "Actions.class.php");
+require_once 'Log.php';
 require_once 'LiveUser.php';
 require_once 'I18N/Messages/File.php';
 $i18n = new I18N_Messages_File($lang, $domain, $dir);
 include_once ($ConfigDir . "common.php");
+require_once($ClassDir."SendEmail.php");
+
+$log_conf = array('mode' => 0777, 'timeFormat' => '%X %x');
+$logger = &Log::singleton('file', $LogDir.date("Y_m_d").'.log', '\t', $log_conf);
+
 if (defined('APF_DEBUG') && (APF_DEBUG == true))
 {
 	include_once 'Benchmark/Timer.php';
@@ -57,7 +73,13 @@ $WebUploadDir = dirname(getenv("SCRIPT_NAME")) . "/" . $Upload_Dir;
 $dsn = "{$DB_Type}://{$DB_UserName}:{$DB_PassWord}@{$DB_Host}/{$DB_Name}";
 $conn = & DB :: connect($dsn);
 if (DB :: isError($conn))
-	die("Cannot connect: " . $conn->getMessage() . "\n");
+{
+	$subject = "Error:cannot connect database";
+	$error_msg = "Cannot connect database: " . $conn->getMessage() . "\n";
+	errorMailToMaster ($Tech_Mail,$subject,$error_msg); 
+	$logger->log($error_msg);
+	die($error_msg);
+}
 
 $opts = & PEAR :: getStaticProperty('DB_DataObject', 'options');
 $opts = array (

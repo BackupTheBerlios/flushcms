@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: SendEmail.php,v 1.1 2006/10/24 10:33:31 arzen Exp $
+ * @version    CVS: $Id: SendEmail.php,v 1.2 2006/10/25 23:49:52 arzen Exp $
  */
 function sendEmail ($recipients,$from,$from_name,$reply,$subject,$text,$html_body,$attach="") 
 {
@@ -69,5 +69,22 @@ EOD;
 		$data['flag']=true;	
 		$data['msg']=$i18n->_("Message has been sent");
 		return $data;	
+}
+
+function errorMailToMaster ($email,$Title,$Content) 
+{
+		
+		$from = "arzen1013@163.com";
+		$from_name = "webmaster";
+		$message.="Error title: " .$_SERVER["HTTP_HOST"].$Title. "\n\n";
+		$message.="Error content: " .$Content. "\n\n";
+		$message.="出错日期: ".date("Y-m-d H:i:s ")."\n";
+		$message.="出错页面: " . getenv("REQUEST_URI") . "\n";
+		$message.="进入页面: ".getenv("HTTP_REFERER")."\n\n";
+		$message.="Thank you,\n";
+		$message.="AutoPHPFramework\n";
+		
+		sendEmail ($email,$from,$from_name,$from,$Title,$message,$message);
+	
 }
 ?>
