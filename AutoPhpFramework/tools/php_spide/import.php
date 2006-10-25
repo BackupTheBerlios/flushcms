@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: import.php,v 1.3 2006/10/23 11:51:39 arzen Exp $
+ * @version    CVS: $Id: import.php,v 1.4 2006/10/25 14:22:38 arzen Exp $
  */
 set_time_limit(0);
 define('APF_ROOT_DIR',    realpath(dirname(__FILE__).'/../..'));
@@ -36,7 +36,8 @@ $conf = array(
 //2006_10_19_07_10.txt
 //2006_10_20_08_42.txt
 //2006_10_20_12_42.txt
-$filename = "D:/data_temp/企业数据/2006_10_20_16_49.txt";
+//2006_10_20_16_49.txt
+$filename = "D:/data_temp/企业数据/2006_10_25_11_10.txt";
 $x=1;
 while ($fields = File_CSV::read($filename, $conf)) 
 {
