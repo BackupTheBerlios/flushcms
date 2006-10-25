@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: spide.php,v 1.7 2006/10/23 13:08:01 arzen Exp $
+ * @version    CVS: $Id: spide.php,v 1.8 2006/10/25 04:49:43 arzen Exp $
  */
 set_time_limit(0);
 define('APF_ROOT_DIR',    realpath(dirname(__FILE__).'/../..'));
@@ -74,7 +74,7 @@ function getListingUrl ($url,$patten,$data,&$x)
 	$url_arr = parseTagAll($patten,$content);
 	foreach($url_arr as $key=>$value)
 	{
-		echo $url = "http://".$site."/".$value;
+		$url = "http://".$site."/".$value;
 		parseContenDetail ($url,$data,&$x);
 	}
 }
@@ -112,7 +112,12 @@ $data = readConfigFile($site,$file_type);
 $new_data=$data["root"];
 array_pop($new_data);
 $x=1;
-getListingUrl ($url,$data["root"]["company_listing_pattren"],$new_data,&$x);
+for ($index = 1; $index <= 1388; $index++) 
+{
+	$url="http://company.gdfz.com/CompanySearch.php?arzen_next_page={$index}&";
+	getListingUrl ($url,$data["root"]["company_listing_pattren"],$new_data,&$x);
+	
+}
 //
 //// write data
 //$start=20000;

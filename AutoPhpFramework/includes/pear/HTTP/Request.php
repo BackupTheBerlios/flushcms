@@ -32,7 +32,7 @@
 // | Author: Richard Heyes <richard@phpguru.org>                           |
 // +-----------------------------------------------------------------------+
 //
-// $Id: Request.php,v 1.1 2006/10/25 04:49:43 arzen Exp $
+// $Id: Request.php,v 1.2 2006/10/25 04:50:50 arzen Exp $
 //
 // HTTP_Request Class
 //

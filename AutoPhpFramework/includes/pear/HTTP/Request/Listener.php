@@ -32,7 +32,7 @@
 // | Author: Alexey Borzov <avb@php.net>                                  |
 // +-----------------------------------------------------------------------+
 //
-// $Id: Listener.php,v 1.1 2006/10/25 04:49:43 arzen Exp $
+// $Id: Listener.php,v 1.2 2006/10/25 04:50:50 arzen Exp $
 //
 
 /**
@@ -42,7 +42,7 @@
  *
  * @package HTTP_Request
  * @author  Alexey Borzov <avb@php.net>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 class HTTP_Request_Listener 
 {
