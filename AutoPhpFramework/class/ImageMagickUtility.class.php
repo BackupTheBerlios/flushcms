@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: ImageMagickUtility.class.php,v 1.1 2006/10/25 10:33:23 arzen Exp $
+ * @version    CVS: $Id: ImageMagickUtility.class.php,v 1.2 2006/10/25 10:50:47 arzen Exp $
  */
 
 class ImageMagickUtility
@@ -59,6 +59,49 @@ class ImageMagickUtility
 		DestroyDrawingWand($drw_wnd);
 		DestroymagickWand($resource);
 	
+	}
+	
+	function resize ($source_name,$width="",$height="",$save_name="") 
+	{
+		$resource = NewMagickWand();
+		MagickReadImage( $resource, $source_name );
+		$src_image_x = MagickGetImageWidth($resource);
+		$src_image_y = MagickGetImageHeight($resource);
+		$src_image_scale = $src_image_x/$src_image_y;
+		
+		if ($width && $height ) 
+		{
+			$new_image_x = $width;
+			$new_image_y = $height;
+		}
+		else
+		{
+			if ($width) 
+			{
+				$new_image_x = $width;
+				$new_image_y = $src_image_y*($src_image_y/$src_image_x);
+			}
+			else
+			{
+				$new_image_x = $src_image_x*($src_image_x/$src_image_y);
+				$new_image_y = $height;
+			}
+		}
+		
+		MagickResizeImage( $resource, $new_image_x, $new_image_y ,MW_BoxFilter,1);
+
+		if ($save_name) 
+		{
+			MagickWriteImage($resource, $save_name);
+		}
+		else
+		{
+			header( 'Content-Type: image/jpeg' );
+			MagickEchoImageBlob( $resource );
+		}
+
+		DestroymagickWand($resource);
+		
 	}
 
 }
