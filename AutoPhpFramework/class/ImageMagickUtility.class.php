@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: ImageMagickUtility.class.php,v 1.2 2006/10/25 10:50:47 arzen Exp $
+ * @version    CVS: $Id: ImageMagickUtility.class.php,v 1.3 2006/10/25 10:55:02 arzen Exp $
  */
 
 class ImageMagickUtility
@@ -79,12 +79,12 @@ class ImageMagickUtility
 			if ($width) 
 			{
 				$new_image_x = $width;
-				$new_image_y = $src_image_y*($src_image_y/$src_image_x);
+				$new_image_y = $new_image_x*($src_image_y/$src_image_x);
 			}
 			else
 			{
-				$new_image_x = $src_image_x*($src_image_x/$src_image_y);
 				$new_image_y = $height;
+				$new_image_x = $new_image_y*($src_image_x/$src_image_y);
 			}
 		}
 		
