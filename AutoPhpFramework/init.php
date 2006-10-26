@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.38 2006/10/25 23:49:52 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.39 2006/10/26 23:49:34 arzen Exp $
  */
 define('CREATE', 3);
 
@@ -233,6 +233,15 @@ if (defined('APF_LOGIN_ACCESS') && (APF_LOGIN_ACCESS == "Y") )
 				'storage' => array (
 					'prefix' => '',
 					'dsn' => $dsn,
+                    'tables' => array(
+                        'users' => array(
+                            'fields' => array(
+                                'email' => false,
+                                'lastlogin' => false,
+								'is_active' => false,
+                            ),
+                        ),
+                    ),
 					'alias' => array (
 						'users' => $users_table,
 						'auth_user_id' => 'id',
@@ -240,12 +249,12 @@ if (defined('APF_LOGIN_ACCESS') && (APF_LOGIN_ACCESS == "Y") )
 						'passwd' => 'user_pwd',
 						'lastlogin' => 'update_at',
 						'is_active' => 'active',
-						
+                        'email' => 'email',
 					),
 					'fields' => array (
 						'lastlogin' => 'timestamp',
-						'is_active' => 'live',
-						
+						'is_active' => 'text',
+                        'email' => 'text',
 					),
 					
 				)
@@ -302,7 +311,7 @@ if (defined('APF_LOGIN_ACCESS') && (APF_LOGIN_ACCESS == "Y") )
 	     $LU->logout(true);
 	     header("location:".getenv("SCRIPT_NAME"));
 	} 
-	elseif(!$LU->isLoggedIn() || ($handle && $LU->getProperty('handle') != $handle)) 
+	elseif(!$LU->isLoggedIn() || ($handle && $LU->getProperty('handle') != $handle) ) 
 	{
 	    if (!$handle) {
 	        $LU->login(null, null, true);
@@ -316,7 +325,7 @@ if (defined('APF_LOGIN_ACCESS') && (APF_LOGIN_ACCESS == "Y") )
 	$luadmin =& LiveUser_Admin::factory($liveuserConfig);
 	$luadmin->init();
 	//Var_Dump::display($LU->readRememberCookie());
-	if (!$LU->isLoggedIn()) 
+	if (!$LU->isLoggedIn() || ($LU->getProperty('is_active') != "live" )) 
 	{
 		$template->setFile(array (
 			"MAIN" => "login_screen.html"
@@ -328,6 +337,8 @@ if (defined('APF_LOGIN_ACCESS') && (APF_LOGIN_ACCESS == "Y") )
 		$template->p("OUT");
 		exit();
 	}
+//	$LU->getProperty("auth_user_id")
+//	Var_Dump::display($LU->getProperty("is_active"));
 }
 
 ?>
