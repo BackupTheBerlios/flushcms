@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: Generator.php,v 1.13 2006/09/23 03:18:56 arzen Exp $
+ * @version    CVS: $Id: Generator.php,v 1.14 2006/10/27 03:15:14 arzen Exp $
  * @link       http://pear.php.net/package/DB_DataObject
  */
  
@@ -1097,23 +1097,27 @@ class {$camel_case_name}  extends Actions
 
 		\$template->setBlock("MAIN", "main_list", "list_block");
 
+		\$max_row = 10;
 		\${$outfilename} = DB_DataObject :: factory('{$camel_case_name}');
 
 		\${$outfilename}->orderBy('{$id_field_name} desc');
-		
+		\$ToltalNum = \${$outfilename}->count();
+		\$start_num = !isset(\$_GET['entrant'])?0:(\$_GET['entrant']-1)*\$max_row;
+		\${$outfilename}->limit(\$start_num,\$max_row);
+
 		\${$outfilename}->find();
 		
 		\$i=0;
+		\$myData=array();
 		while (\${$outfilename}->fetch())
 		{
 			\$myData[] = \${$outfilename}->toArray();
 			\$i++;
 		}
-		\$ToltalNum =\$i;
-		
+		\$tmpData = (\$ToltalNum>\$max_row)?array_pad(\$myData, \$ToltalNum, array()):\$myData;
 		\$params = array(
-		    'itemData' => \$myData,
-		    'perPage' => 10,
+		    'itemData' => \$tmpData,
+		    'perPage' => \$max_row,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
 		    'separator' => ' | ',
@@ -1133,7 +1137,7 @@ class {$camel_case_name}  extends Actions
 		
 		\$selectBox = \$pager->getPerPageSelectBox();
 		\$i = 0;
-		foreach(\$page_data as \$data)
+		foreach(\$myData as \$data)
 		{
 			((\$i % 2) == 0) ? \$list_td_class = "admin_row_0" : \$list_td_class = "admin_row_1";
 			
