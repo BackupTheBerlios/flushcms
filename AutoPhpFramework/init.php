@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.39 2006/10/26 23:49:34 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.40 2006/10/28 13:48:04 arzen Exp $
  */
 define('CREATE', 3);
 
@@ -325,7 +325,7 @@ if (defined('APF_LOGIN_ACCESS') && (APF_LOGIN_ACCESS == "Y") )
 	$luadmin =& LiveUser_Admin::factory($liveuserConfig);
 	$luadmin->init();
 	//Var_Dump::display($LU->readRememberCookie());
-	if (!$LU->isLoggedIn() || ($LU->getProperty('is_active') != "live" )) 
+	if (!$LU->isLoggedIn() || ($LU->getProperty('is_active') == "deleted" )) 
 	{
 		$template->setFile(array (
 			"MAIN" => "login_screen.html"

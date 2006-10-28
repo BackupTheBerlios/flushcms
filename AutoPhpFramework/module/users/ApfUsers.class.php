@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfUsers.class.php,v 1.12 2006/10/07 00:12:00 arzen Exp $
+ * @version    CVS: $Id: ApfUsers.class.php,v 1.13 2006/10/28 13:48:04 arzen Exp $
  */
 
 class ApfUsers  extends Actions
@@ -161,11 +161,14 @@ class ApfUsers  extends Actions
 				$apf_users->setUpdateAt(DB_DataObject_Cast::dateTime());
 				$apf_users->update();
 				$password = stripslashes(trim($_POST['user_pwd']))?stripslashes(trim($_POST['user_pwd'])):stripslashes(trim($_POST['old_password']));
-			    $data = array(
-			        'handle' => stripslashes(trim($_POST['user_name'])),
-			        'passwd' => $password,
-			    );
-			    $updated = $luadmin->updateUser($data, $_POST['ID']);
+			    if (stripslashes(trim($_POST['user_pwd']))) 
+				{
+				    $data = array(
+				        'handle' => stripslashes(trim($_POST['user_name'])),
+				        'passwd' => $password,
+				    );
+			    	$updated = $luadmin->updateUser($data, $_POST['ID']);
+				}
 
 				$this->forward("users/apf_users/update/".$_POST['ID']."/ok");
 			}
