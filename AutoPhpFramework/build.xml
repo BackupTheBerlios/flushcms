@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!-- ======================================================================
+     2006-8-2 上午07:35:44
+
+     AutoPHPFramework
+ 
+     John.meng
+     ====================================================================== -->
+<project name="Solution" default="default">
+    <description>
+    	AutoPHPFramework Build File
+    </description>
+	<property file="build.properties" />
+
+    <!-- =================================
+          target: default
+         ================================= -->
+    <target name="default" description="--> description">
+
+    </target>
+	
+	<!-- ================================= 
+          target: newproject              
+         ================================= -->
+    <target name="newproject" description="--> description">
+      	<property name="project.dir" value="${new.project.dir}/${new.project.name}/"/>
+    	<mkdir dir="${project.dir}/class"/>
+    	<mkdir dir="${project.dir}/controller"/>
+    	<mkdir dir="${project.dir}/dao"/>
+    	<mkdir dir="${project.dir}/generator"/>
+    	<mkdir dir="${project.dir}/includes"/>
+    	<mkdir dir="${project.dir}/lang"/>
+    	<mkdir dir="${project.dir}/log"/>
+    	<mkdir dir="${project.dir}/module"/>
+    	<mkdir dir="${project.dir}/sql"/>
+    	<mkdir dir="${project.dir}/web"/>
+    	
+    </target>
+
+
+</project>
