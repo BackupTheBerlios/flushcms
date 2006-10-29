@@ -6,26 +6,34 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.1 2006/10/29 09:21:15 arzen Exp $
+ * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.2 2006/10/29 10:28:34 arzen Exp $
  */
-
+include_once("ApfNews.class.php");
 class ApfNewsCategory  extends Actions
 {
 	function executeCreate()
 	{
-		global $template,$WebBaseDir,$ActiveOption;
+		global $template,$controller,$WebBaseDir,$ActiveOption,$i18n;
 
 		$template->setFile(array (
 			"MAIN" => "apf_news_category_edit.html"
 		));
 		$template->setBlock("MAIN", "add_block");
 		
+		$category_arr =array("0"=>$i18n->_("None"))+ApfNews::getCategory();
 		array_shift($ActiveOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"CATEGORYOPTION" => selectTag("pid",$category_arr,$controller->getID()),
 			"ACTIVEOPTION" => radioTag("active",$ActiveOption,"live"),
 			"DOACTION" => "addsubmit"
 		));
+		if (($pid = trim($controller->getID())) != "") 
+		{
+			$template->setVar(array (
+				"PID" => $pid
+			));
+		}
 
 	}
 	
@@ -54,10 +62,12 @@ class ApfNewsCategory  extends Actions
 			));
 		}
 
-		$template->setVar(array ("ID" => $apf_news_category->getId(),"CATEGORY_NAME" => $apf_news_category->getCategoryName(),"ORDERID" => $apf_news_category->getOrderid(),"ACTIVE" => $apf_news_category->getActive(),"ADD_IP" => $apf_news_category->getAddIp(),"CREATED_AT" => $apf_news_category->getCreatedAt(),"UPDATE_AT" => $apf_news_category->getUpdateAt(),));
+		$category_arr =array("0"=>$i18n->_("None"))+ApfNews::getCategory();
+		$template->setVar(array ("ID" => $apf_news_category->getId(),"PID" => $apf_news_category->getPid(),"CATEGORY_NAME" => $apf_news_category->getCategoryName(),"ORDERID" => $apf_news_category->getOrderid(),"ACTIVE" => $apf_news_category->getActive(),"ADD_IP" => $apf_news_category->getAddIp(),"CREATED_AT" => $apf_news_category->getCreatedAt(),"UPDATE_AT" => $apf_news_category->getUpdateAt(),));
 		array_shift($ActiveOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"CATEGORYOPTION" => selectTag("pid",$category_arr,$apf_news_category->getPid()),
 			"ACTIVEOPTION" => radioTag("active",$ActiveOption,$apf_news_category->getActive()),
 			"DOACTION" => "updatesubmit"
 		));
@@ -84,6 +94,7 @@ class ApfNewsCategory  extends Actions
 			$do_action = "addsubmit";
 		}
 
+		$apf_news_category->setPid(stripslashes(trim($_POST['pid'])));
 		$apf_news_category->setCategoryName(stripslashes(trim($_POST['category_name'])));
 		$apf_news_category->setOrderid(stripslashes(trim($_POST['orderid'])));
 		$apf_news_category->setActive(stripslashes(trim($_POST['active'])));
@@ -135,7 +146,7 @@ class ApfNewsCategory  extends Actions
 			}
 			$template->setVar(
 				array (
-				"ID" => $_POST['ID'],"CATEGORY_NAME" => $_POST['category_name'],"ORDERID" => $_POST['orderid'],"ACTIVE" => $_POST['active'],"ADD_IP" => $_POST['add_ip'],"CREATED_AT" => $_POST['created_at'],"UPDATE_AT" => $_POST['update_at'],
+				"ID" => $_POST['id'],"PID" => $_POST['pid'],"CATEGORY_NAME" => $_POST['category_name'],"ORDERID" => $_POST['orderid'],"ACTIVE" => $_POST['active'],"ADD_IP" => $_POST['add_ip'],"CREATED_AT" => $_POST['created_at'],"UPDATE_AT" => $_POST['update_at'],
 				)
 			 );
 
@@ -196,7 +207,7 @@ class ApfNewsCategory  extends Actions
 	
 	function executeList()
 	{
-		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir;
+		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$controller,$ActiveOption;
 
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
@@ -206,23 +217,39 @@ class ApfNewsCategory  extends Actions
 
 		$template->setBlock("MAIN", "main_list", "list_block");
 
+		$max_row = 10;
 		$apf_news_category = DB_DataObject :: factory('ApfNewsCategory');
-
-		$apf_news_category->orderBy('orderid ASC');
 		
+		if (($pid = trim($controller->getID())) != "") 
+		{
+			$apf_news_category->whereAdd("pid = '".$apf_news_category->escape($pid) . "' ");
+			$template->setVar(array (
+				"P_ID" => $pid
+			));
+		}
+		else 
+		{
+			$apf_news_category->whereAdd("pid = '0' ");
+		}
+
+		$apf_news_category->orderBy('id desc');
+		$ToltalNum = $apf_news_category->count();
+		$start_num = !isset($_GET['entrant'])?0:($_GET['entrant']-1)*$max_row;
+		$apf_news_category->limit($start_num,$max_row);
+
 		$apf_news_category->find();
 		
 		$i=0;
+		$myData=array();
 		while ($apf_news_category->fetch())
 		{
 			$myData[] = $apf_news_category->toArray();
 			$i++;
 		}
-		$ToltalNum =$i;
-		
+		$tmpData = ($ToltalNum>$max_row)?array_pad($myData, $ToltalNum, array()):$myData;
 		$params = array(
-		    'itemData' => $myData,
-		    'perPage' => 10,
+		    'itemData' => $tmpData,
+		    'perPage' => $max_row,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
 		    'separator' => ' | ',
@@ -242,7 +269,7 @@ class ApfNewsCategory  extends Actions
 		
 		$selectBox = $pager->getPerPageSelectBox();
 		$i = 0;
-		foreach($page_data as $data)
+		foreach($myData as $data)
 		{
 			(($i % 2) == 0) ? $list_td_class = "admin_row_0" : $list_td_class = "admin_row_1";
 			
@@ -250,7 +277,7 @@ class ApfNewsCategory  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 			
-			$template->setVar(array ("ID" => $data['id'],"CATEGORY_NAME" => $data['category_name'],"ORDERID" => $data['orderid'],"ACTIVE" => $data['active'],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
+			$template->setVar(array ("ID" => $data['id'],"PID" => $data['pid'],"CATEGORY_NAME" => $data['category_name'],"ORDERID" => $data['orderid'],"ACTIVE" => $ActiveOption[$data['active']],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
 
 			$template->parse("list_block", "main_list", TRUE);
 			$i++;

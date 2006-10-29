@@ -7,23 +7,23 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: common.php,v 1.1 2006/10/29 09:21:16 arzen Exp $
+ * @version    CVS: $Id: common.php,v 1.2 2006/10/29 10:28:34 arzen Exp $
  */
 $GenderOption = array(	
-			''=>'All',
+			''=>$i18n->_('All'),
 			'm'=>$i18n->_('Male'),
 			'f'=>$i18n->_('Female'),
 			);
 $DebitOption = array(	
-			''=>'All',
+			''=>$i18n->_('All'),
 			'I'=>$i18n->_('Income'),
 			'P'=>$i18n->_('Payout'),
 			);
 $ActiveOption = array(	
-			''=>'All',
-			'new'=>'new',
-			'live'=>'live',
-			'deleted'=>'deleted'
+			''=>$i18n->_('All'),
+			'new'=>$i18n->_('New'),
+			'live'=>$i18n->_('Live'),
+			'deleted'=>$i18n->_('Deleted')
 			);
 
 ?>

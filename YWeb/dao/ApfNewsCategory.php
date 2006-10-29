@@ -9,6 +9,7 @@ class DaoApfNewsCategory extends DB_DataObject
 
     var $__table = 'apf_news_category';               // table name
     var $id;                              // int(11)  not_null primary_key auto_increment
+    var $pid;                             // int(8)  not_null
     var $category_name;                   // string(60)  
     var $orderid;                         // int(11)  not_null
     var $active;                          // string(8)  not_null
@@ -35,6 +36,17 @@ class DaoApfNewsCategory extends DB_DataObject
     function getId() 
     {
         return $this->id;
+    }
+
+   /**
+    * Getter for $Pid
+    *
+    * @return   int
+    * @access   public
+    */
+    function getPid() 
+    {
+        return $this->pid;
     }
 
    /**
@@ -116,6 +128,17 @@ class DaoApfNewsCategory extends DB_DataObject
     }
 
    /**
+    * Setter for $Pid
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+    function setPid($value) 
+    {
+        $this->pid = $value;
+    }
+
+   /**
     * Setter for $CategoryName
     *
     * @param    mixed   input value
@@ -186,6 +209,7 @@ class DaoApfNewsCategory extends DB_DataObject
     {
          return array(
              'id' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+             'pid' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
              'category_name' =>  DB_DATAOBJECT_STR,
              'orderid' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
              'active' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
@@ -208,6 +232,7 @@ class DaoApfNewsCategory extends DB_DataObject
     function defaults() // column default values 
     {
          return array(
+             'pid' => 0,
              'category_name' => '',
              'orderid' => 0,
              'active' => 'new',

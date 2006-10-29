@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.1 2006/10/29 09:21:16 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.2 2006/10/29 10:28:34 arzen Exp $
  */
 define('CREATE', 3);
 
@@ -146,7 +146,7 @@ $opts = array (
 	'generate_setters' => '1',
 	'generate_getters' => '1',
 
-	'generator_include_regex' => '/^' . $users_table . '$/',
+	'generator_include_regex' => '/^' . $news_category_table . '$/',
 	'generator_no_ini' => '1',
 	
 );

@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.1 2006/10/29 09:21:16 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.2 2006/10/29 10:28:34 arzen Exp $
  */
 $this->setCharset('gb2312'); 
 $messages = array(
@@ -34,11 +34,15 @@ $messages = array(
 	'List' => '返回列表',
 	'Save' => '保存',
 	'All' => '所有',
+	'New' => '新增',
+	'Live' => '已公布',
+	'Deleted' => '已撤销',
 
 	'Male' => '男',
 	'Female' => '女',
 	'Category' => '类别',
 	'CategoryName' => '类别名',
+	'ParentCategory' => '父类别',
 
 	'Name' => '名称',
 	'Gender' => '性别',
@@ -51,17 +55,23 @@ $messages = array(
 	'Phone' => '电话',
 	'Email' => '电子邮箱',
 
+	'EditInfo' => '编辑信息',
+	'GeneralInfo' => '基本信息',
+
 	'Group' => '组',
+	'Groups' => '组',
 	'GroupUsers' => '组用户',
 	'Rights' => '权限',
 	'GroupRights' => '组权限',
+	'NotInGroup' => '不在组内',
+	'InGroup' => '在组内',
 	'Price' => '价格',
 	'Title' => '标题',
 
 	'Result' => '条记录',
 
-	'ALLOWDELETE' => 'ALLOW DELETE',
-	'ALLOWUPDATE' => 'ALLOW UPDATE',
+	'ALLOWDELETE' => '允许删除',
+	'ALLOWUPDATE' => '允许修改',
 
 	'Please check here' => '请检查此处',
 	'Your modifications have been saved' => '您的更改已保存',

@@ -7,7 +7,7 @@
 </div>
         
 <ul class="admin_actions">
-          <li><input class="admin_action_create" value="{lang_Create}" type="button" onclick="document.location.href='{WEBDIR}/news/apf_news_category/create';" /></li>
+          <li><input class="admin_action_create" value="{lang_Create}" type="button" onclick="document.location.href='{WEBDIR}/news/apf_news_category/create/{P_ID}';" /></li>
 </ul>
 
 <table cellspacing="0" class="admin_list">      
@@ -21,7 +21,7 @@
 <tbody>
 <!-- BEGIN main_list -->
 <tr class="{LIST_TD_CLASS}"><td>&nbsp;{ID}</td>
-<td>&nbsp;{CATEGORY_NAME}</td>
+<td>&nbsp;<a href="{WEBDIR}/news/apf_news_category/list/{ID}">{CATEGORY_NAME}</a></td>
 <td>&nbsp;{ACTIVE}</td>
 <td>
 <ul class="admin_td_actions">
@@ -36,7 +36,7 @@
 <!-- END main_list -->
 </tbody>
 <tfoot>
-<tr><th colspan="8">
+<tr><th colspan="9">
 <div class="float-right">
 {PAGINATION}
 </div>
