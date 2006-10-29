@@ -1,0 +1,63 @@
+        
+<div id="admin_container">
+<h1>{lang_Listing}</h1>
+<div id="admin_header">
+</div>
+<div id="admin_bar">
+</div>
+
+<div id="admin_filter">
+
+<FORM METHOD="POST" ACTION="" name="admin_filter">
+{KEYWORD} {CATEGORYOPTION} {ACTIVEOPTION} <INPUT TYPE="submit" value="{lang_Search}">
+</FORM>
+
+</div>
+
+        
+<ul class="admin_actions">
+          <li><input class="admin_action_create" value="{lang_Create}" type="button" onclick="document.location.href='{WEBDIR}/product/apf_product/create';" /></li>
+          <li><input class="admin_action_create" value="{lang_ProductCategory}" type="button" onclick="document.location.href='{WEBDIR}/product/apf_product_category';" /></li>
+</ul>
+
+<table cellspacing="0" class="admin_list">      
+<thead>
+<tr><th>&nbsp;{lang_Id}</th>
+<th>&nbsp;{lang_Category}</th>
+<th>&nbsp;{lang_CompanyId}</th>
+<th>&nbsp;{lang_Name}</th>
+<th>&nbsp;{lang_Price}</th>
+<th>&nbsp;{lang_Photo}</th>
+<th>&nbsp;{lang_Active}</th>
+<th>{lang_Action}</th>
+</tr>
+</thead>
+<tbody>
+<!-- BEGIN main_list -->
+<tr class="{LIST_TD_CLASS}"><td>&nbsp;{ID}</td>
+<td>&nbsp;{CATEGORY}</td>
+<td>&nbsp;{COMPANY_ID}</td>
+<td>&nbsp;{NAME}</td>
+<td>&nbsp;{PRICE}</td>
+<td>&nbsp;{PHOTO}</td>
+<td>&nbsp;{ACTIVE}</td>
+<td>
+<ul class="admin_td_actions">
+  <li><a href="{WEBDIR}/product/apf_product/update/{ID}"><img alt="{lang_Edit}" title="{lang_Edit}" src="{WEBTEMPLATEDIR}images/edit_icon.png" /></a></li>
+  <li><a onclick="if (confirm('Are you sure?')) { f = document.createElement('form'); document.body.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;" href="{WEBDIR}/product/apf_product/del/{ID}"><img alt="{lang_Delete}" title="{lang_Delete}" src="{WEBTEMPLATEDIR}images/delete_icon.png" /></a></li>
+  <li><a href="####" onclick="popOpenWindow('{WEBDIR}/product/apf_product_price/list/{ID}', '', '', 600, 600, 'yes')">{lang_HistoryPrice}</a></li>
+</ul>
+
+</td>
+         </tr>
+<!-- END main_list -->
+</tbody>
+<tfoot>
+<tr><th colspan="12">
+<div class="float-right">
+{PAGINATION}
+</div>
+{TOLTAL_NUM} {lang_Result} </th></tr>
+</tfoot>
+
+</table>

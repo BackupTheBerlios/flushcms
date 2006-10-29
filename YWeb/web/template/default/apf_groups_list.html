@@ -1,0 +1,54 @@
+        
+<div id="admin_container">
+<h1>{lang_Listing}</h1>
+<div id="admin_header">
+</div>
+<div id="admin_bar">
+</div>
+        
+<ul class="admin_actions">
+          <li><input class="admin_action_create" value="{lang_Create}" type="button" onclick="document.location.href='{WEBDIR}/users/apf_groups/create';" /></li>
+          <li><input class="admin_action_create" value="{lang_Group}" type="button" onclick="document.location.href='{WEBDIR}/users/apf_groups';" /></li>
+          <li><input class="admin_action_create" value="{lang_GroupUsers}" type="button" onclick="document.location.href='{WEBDIR}/users/apf_groupusers';" /></li>
+          <li><input class="admin_action_create" value="{lang_Rights}" type="button" onclick="document.location.href='{WEBDIR}/users/apf_rights';" /></li>
+          <li><input class="admin_action_create" value="{lang_GroupRights}" type="button" onclick="document.location.href='{WEBDIR}/users/apf_grouprights';" /></li>
+</ul>
+
+<table cellspacing="0" class="admin_list">      
+<thead>
+<tr><th>&nbsp;{lang_GroupId}</th>
+<th>&nbsp;{lang_GroupType}</th>
+<th>&nbsp;{lang_GroupDefineName}</th>
+<th>&nbsp;{lang_IsActive}</th>
+<th>&nbsp;{lang_OwnerUserId}</th>
+<th>&nbsp;{lang_OwnerGroupId}</th>
+<th>{lang_Action}</th>
+</tr>
+</thead>
+<tbody>
+<!-- BEGIN main_list -->
+<tr class="{LIST_TD_CLASS}"><td>&nbsp;{GROUP_ID}</td>
+<td>&nbsp;{GROUP_TYPE}</td>
+<td>&nbsp;{GROUP_DEFINE_NAME}</td>
+<td>&nbsp;{IS_ACTIVE}</td>
+<td>&nbsp;{OWNER_USER_ID}</td>
+<td>&nbsp;{OWNER_GROUP_ID}</td>
+<td>
+<ul class="admin_td_actions">
+  <li><a href="{WEBDIR}/users/apf_groups/update/{ID}"><img alt="{lang_Edit}" title="{lang_Edit}" src="{WEBTEMPLATEDIR}images/edit_icon.png" /></a></li>
+  <li><a onclick="if (confirm('Are you sure?')) { f = document.createElement('form'); document.body.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;" href="{WEBDIR}/users/apf_groups/del/{ID}"><img alt="{lang_Delete}" title="{lang_Delete}" src="{WEBTEMPLATEDIR}images/delete_icon.png" /></a></li>
+</ul>
+
+</td>
+         </tr>
+<!-- END main_list -->
+</tbody>
+<tfoot>
+<tr><th colspan="7">
+<div class="float-right">
+{PAGINATION}
+</div>
+{TOLTAL_NUM} {lang_Result} </th></tr>
+</tfoot>
+
+</table>

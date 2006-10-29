@@ -1,0 +1,128 @@
+<SCRIPT LANGUAGE="JavaScript" SRC="{WEBTEMPLATEDIR}js/selectbox.js"></SCRIPT>
+<script type="text/javascript" src="{WEBTEMPLATEDIR}CommonServer.php?client=all"></script>
+<script type="text/javascript" src="{WEBTEMPLATEDIR}CommonServer.php?stub=GroupUsers"></script>
+
+<script type="text/javascript">
+
+var callback = {
+	inGroupUsers: function(result) 
+	{
+		if(document.getElementById('ingrouplist[]').options.length>0)
+		{
+			removeAllOptions(document.getElementById('ingrouplist[]'));
+		}
+		
+		var i=0;
+		var ingroupusers="";
+		for ( var keyVar in result ) 
+		{
+			if(keyVar != "")
+//			alert(result[keyVar]);
+			document.getElementById('ingrouplist[]').options[i] = new Option( result[keyVar], keyVar, false, false);
+			ingroupusers +=keyVar+",";
+			i++;
+		}
+		document.getElementById('old_ingroup').value = ingroupusers;
+	},	
+	unInGroupUsers: function(result) 
+	{
+		if(document.getElementById('uningrouplist[]').options.length>0)
+		{
+			removeAllOptions(document.getElementById('uningrouplist[]'));
+		}
+
+		var i=0;
+		var uningroupusers="";
+		for ( var keyVar in result ) 
+		{
+			if(keyVar != "")
+			document.getElementById('uningrouplist[]').options[i] = new Option( result[keyVar], keyVar, false, false);
+			uningroupusers +=keyVar+",";
+			i++;
+		}
+		document.getElementById('old_uningroup').value = uningroupusers;
+	}
+		
+}
+
+var remoteGroupUsers = new GroupUsers(callback); // our php5/4 compat version
+
+function dosubmit(form) 
+{
+	selectAllOptions(document.getElementById('uningrouplist[]'));
+	selectAllOptions(document.getElementById('ingrouplist[]'));
+	form.submit();	
+}
+
+</script>
+        
+<div id="admin_container">
+<h1>{lang_GroupUsers}</h1>
+<div id="admin_header">
+</div>
+
+<ul class="admin_actions">
+          <li><input class="admin_action_create" value="{lang_Group}" type="button" onclick="document.location.href='{WEBDIR}/users/apf_groups';" /></li>
+          <li><input class="admin_action_create" value="{lang_GroupUsers}" type="button" onclick="document.location.href='{WEBDIR}/users/apf_groupusers';" /></li>
+          <li><input class="admin_action_create" value="{lang_Rights}" type="button" onclick="document.location.href='{WEBDIR}/users/apf_rights';" /></li>
+          <li><input class="admin_action_create" value="{lang_GroupRights}" type="button" onclick="document.location.href='{WEBDIR}/users/apf_grouprights';" /></li>
+</ul>
+
+<div id="admin_content">
+  <div class="{SUCCESS_CLASS}">
+	{SUCCESS_MSG}
+  </div>
+
+<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{WEBDIR}/users/apf_groupusers/{DOACTION}">
+<input type="hidden" name="ID" id="ID" value="{GROUP_ID}" />
+<fieldset id="fieldset_________" class="">
+<h2>{lang_GroupUsers}</h2>
+
+<div class="form-row">
+  <label >{lang_Groups}:</label>  <div class="content">
+  {GROUPOPTION}  </div>
+</div>
+
+<div class="form-row">
+<TABLE BORDER=0>
+<TR>
+	<TD>
+	{lang_NotInGroup}:<br/>
+	<SELECT ID="uningrouplist[]" NAME="uningrouplist[]" MULTIPLE SIZE=10 onDblClick="moveSelectedOptions(this.form['uningrouplist[]'],this.form['ingrouplist[]'],true)">
+
+	</SELECT>
+	<input type="hidden" name="old_uningroup" id="old_uningroup" />
+	</TD>
+	<TD VALIGN=MIDDLE ALIGN=CENTER>
+		<INPUT TYPE="button" NAME="right" VALUE="&gt;" ONCLICK="moveSelectedOptions(this.form['uningrouplist[]'],this.form['ingrouplist[]'],true)"><BR><BR>
+		<INPUT TYPE="button" NAME="right" VALUE="All &gt;&gt;" ONCLICK="moveAllOptions(this.form['uningrouplist[]'],this.form['ingrouplist[]'],true)"><BR><BR>
+		<INPUT TYPE="button" NAME="left" VALUE="&lt;" ONCLICK="moveSelectedOptions(this.form['ingrouplist[]'],this.form['uningrouplist[]'],true)"><BR><BR>
+		<INPUT TYPE="button" NAME="left" VALUE="All &lt;&lt;" ONCLICK="moveAllOptions(this.form['ingrouplist[]'],this.form['uningrouplist[]'],true)">
+	</TD>
+	<TD>
+	{lang_InGroup}:<br/>
+	<input type="hidden" name="old_ingroup" id="old_ingroup" />
+	<SELECT ID="ingrouplist[]" NAME="ingrouplist[]" MULTIPLE SIZE=10 onDblClick="moveSelectedOptions(this.form['ingrouplist[]'],this.form['uningrouplist[]'],true)">
+
+	</SELECT>
+	</TD>
+</TR>
+</TABLE>
+</div>
+
+</fieldset>
+<ul class="admin_actions">
+  <li><input class="admin_action_list" value="{lang_List}" type="button" onclick="document.location.href='{WEBDIR}/users/apf_groups/list';" /></li>
+  <li><input type="button" value="{lang_Save}" class="admin_action_save" onclick="dosubmit(document.admin_edit_form);" /></li>
+
+</ul>
+</form>
+
+<ul class="admin_actions">
+      <li class="float-left"></li>
+</ul>
+</div>
+
+<div id="admin_footer">
+</div>
+</div>

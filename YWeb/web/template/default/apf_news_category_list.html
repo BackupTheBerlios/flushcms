@@ -1,0 +1,46 @@
+        
+<div id="admin_container">
+<h1>{lang_Listing}</h1>
+<div id="admin_header">
+</div>
+<div id="admin_bar">
+</div>
+        
+<ul class="admin_actions">
+          <li><input class="admin_action_create" value="{lang_Create}" type="button" onclick="document.location.href='{WEBDIR}/news/apf_news_category/create';" /></li>
+</ul>
+
+<table cellspacing="0" class="admin_list">      
+<thead>
+<tr><th>&nbsp;{lang_Id}</th>
+<th>&nbsp;{lang_CategoryName}</th>
+<th>&nbsp;{lang_Active}</th>
+<th>{lang_Action}</th>
+</tr>
+</thead>
+<tbody>
+<!-- BEGIN main_list -->
+<tr class="{LIST_TD_CLASS}"><td>&nbsp;{ID}</td>
+<td>&nbsp;{CATEGORY_NAME}</td>
+<td>&nbsp;{ACTIVE}</td>
+<td>
+<ul class="admin_td_actions">
+  <li><a href="{WEBDIR}/news/apf_news_category/moveup/{ID}"><img alt="{lang_MoveUp}" title="{lang_MoveUp}" src="{WEBTEMPLATEDIR}images/move_up.png" /></a></li>
+  <li><a href="{WEBDIR}/news/apf_news_category/movedown/{ID}"><img alt="{lang_MoveDown}" title="{lang_MoveDown}" src="{WEBTEMPLATEDIR}images/move_down.png" /></a></li>
+  <li><a href="{WEBDIR}/news/apf_news_category/update/{ID}"><img alt="{lang_Edit}" title="{lang_Edit}" src="{WEBTEMPLATEDIR}images/edit_icon.png" /></a></li>
+  <li><a onclick="if (confirm('Are you sure?')) { f = document.createElement('form'); document.body.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;" href="{WEBDIR}/news/apf_news_category/del/{ID}"><img alt="{lang_Delete}" title="{lang_Delete}" src="{WEBTEMPLATEDIR}images/delete_icon.png" /></a></li>
+</ul>
+
+</td>
+         </tr>
+<!-- END main_list -->
+</tbody>
+<tfoot>
+<tr><th colspan="8">
+<div class="float-right">
+{PAGINATION}
+</div>
+{TOLTAL_NUM} {lang_Result} </th></tr>
+</tfoot>
+
+</table>
