@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfNews.class.php,v 1.2 2006/10/29 10:28:34 arzen Exp $
+ * @version    CVS: $Id: ApfNews.class.php,v 1.3 2006/10/29 12:28:41 arzen Exp $
  */
 
 class ApfNews  extends Actions
@@ -289,15 +289,25 @@ class ApfNews  extends Actions
 
 	}
 	
-	function getCategory () 
+	function getCategory ($pid="",$patten="-") 
 	{
+		$patten .=$patten;
 		$apf_news_category = DB_DataObject :: factory('ApfNewsCategory');
 		$apf_news_category->orderBy('orderid ASC');
+		if ($pid) 
+		{
+			$apf_news_category->setPid($pid);
+		}
+		else 
+		{
+			$apf_news_category->setPid(0);
+		}
 		$apf_news_category->find();
 		$myData = array();
 		while ($apf_news_category->fetch())
 		{
-			$myData[$apf_news_category->getId()] = $apf_news_category->getCategoryName();
+			$myData[$apf_news_category->getId()] = $patten.$apf_news_category->getCategoryName();
+			$myData +=ApfNews::getCategory ($apf_news_category->getId(),$patten);
 		}
 		return $myData;
 	}

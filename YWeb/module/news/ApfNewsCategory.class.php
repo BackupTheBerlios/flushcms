@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.2 2006/10/29 10:28:34 arzen Exp $
+ * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.3 2006/10/29 12:28:41 arzen Exp $
  */
 include_once("ApfNews.class.php");
 class ApfNewsCategory  extends Actions
@@ -63,10 +63,12 @@ class ApfNewsCategory  extends Actions
 		}
 
 		$category_arr =array("0"=>$i18n->_("None"))+ApfNews::getCategory();
+		unset($category_arr[$apf_news_category->getId()]);
 		$template->setVar(array ("ID" => $apf_news_category->getId(),"PID" => $apf_news_category->getPid(),"CATEGORY_NAME" => $apf_news_category->getCategoryName(),"ORDERID" => $apf_news_category->getOrderid(),"ACTIVE" => $apf_news_category->getActive(),"ADD_IP" => $apf_news_category->getAddIp(),"CREATED_AT" => $apf_news_category->getCreatedAt(),"UPDATE_AT" => $apf_news_category->getUpdateAt(),));
 		array_shift($ActiveOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"PID" => $apf_news_category->getPid(),
 			"CATEGORYOPTION" => selectTag("pid",$category_arr,$apf_news_category->getPid()),
 			"ACTIVEOPTION" => radioTag("active",$ActiveOption,$apf_news_category->getActive()),
 			"DOACTION" => "updatesubmit"
@@ -96,11 +98,8 @@ class ApfNewsCategory  extends Actions
 
 		$apf_news_category->setPid(stripslashes(trim($_POST['pid'])));
 		$apf_news_category->setCategoryName(stripslashes(trim($_POST['category_name'])));
-		$apf_news_category->setOrderid(stripslashes(trim($_POST['orderid'])));
 		$apf_news_category->setActive(stripslashes(trim($_POST['active'])));
 		$apf_news_category->setAddIp(stripslashes(trim($_POST['add_ip'])));
-		$apf_news_category->setCreatedAt(stripslashes(trim($_POST['created_at'])));
-		$apf_news_category->setUpdateAt(stripslashes(trim($_POST['update_at'])));
 
 				
 		$val = $apf_news_category->validate();
@@ -119,7 +118,7 @@ class ApfNewsCategory  extends Actions
 				$apf_news_category->get($insert_id);
 				$apf_news_category->setOrderid($insert_id);
 				$apf_news_category->update();
-				$this->forward("news/apf_news_category/");
+				$this->forward("news/apf_news_category/list/".$_POST['pid']);
 			}
 		}
 		else
@@ -172,6 +171,7 @@ class ApfNewsCategory  extends Actions
 		$apf_news_category->find();
 		
 		$pre_item = DB_DataObject :: factory('ApfNewsCategory');
+		$pre_item->setPid($apf_news_category->getPid());
 		$pre_item->whereAdd('orderid < '.$apf_news_category->getOrderid());
 		$pre_item->orderBy('orderid DESC ');
 		$pre_item->limit(1);
@@ -181,7 +181,7 @@ class ApfNewsCategory  extends Actions
 		{
 			$apf_news_category->swapWith($pre_item);
 		}
-		$this->forward("news/apf_news_category/");
+		$this->forward("news/apf_news_category/list/".$apf_news_category->getPid());
 	}
 	
 	function executeMovedown () 
@@ -193,21 +193,23 @@ class ApfNewsCategory  extends Actions
 		$apf_news_category->find();
 		
 		$next_item = DB_DataObject :: factory('ApfNewsCategory');
+		$next_item->setPid($apf_news_category->getPid());
 		$next_item->whereAdd('orderid > '.$apf_news_category->getOrderid());
 		$next_item->orderBy('orderid ASC ');
 		$next_item->limit(1);
+//		$next_item->debugLevel(4);
 		$next_item->find();
 		$next_item->fetch();
 		if ($next_item->getOrderid()>0) 
 		{
 			$apf_news_category->swapWith($next_item);
 		}
-		$this->forward("news/apf_news_category/");
+		$this->forward("news/apf_news_category/list/".$apf_news_category->getPid());
 	}
 	
 	function executeList()
 	{
-		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$controller,$ActiveOption;
+		global $template,$WebBaseDir,$WebTemplateDir,$i18n,$ClassDir,$controller,$ActiveOption;
 
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
@@ -232,7 +234,7 @@ class ApfNewsCategory  extends Actions
 			$apf_news_category->whereAdd("pid = '0' ");
 		}
 
-		$apf_news_category->orderBy('id desc');
+		$apf_news_category->orderBy('orderid ASC');
 		$ToltalNum = $apf_news_category->count();
 		$start_num = !isset($_GET['entrant'])?0:($_GET['entrant']-1)*$max_row;
 		$apf_news_category->limit($start_num,$max_row);
@@ -278,7 +280,7 @@ class ApfNewsCategory  extends Actions
 			));
 			
 			$template->setVar(array ("ID" => $data['id'],"PID" => $data['pid'],"CATEGORY_NAME" => $data['category_name'],"ORDERID" => $data['orderid'],"ACTIVE" => $ActiveOption[$data['active']],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
-
+			$parent_id = $data['pid'];
 			$template->parse("list_block", "main_list", TRUE);
 			$i++;
 		}
@@ -289,6 +291,21 @@ class ApfNewsCategory  extends Actions
 			"TOLTAL_NUM" => $ToltalNum,
 			"PAGINATION" => $links['all']
 		));
+		if ($parent_id) 
+		{
+			
+			$apf_news_category = DB_DataObject :: factory('ApfNewsCategory');
+			$apf_news_category->get($parent_id);
+			$template->setVar(array (
+				"PARENTLIST" => navButtonTag ("parent_id",$i18n->_("Parent Listing"),$WebBaseDir."/news/apf_news_category/list/".$apf_news_category->getPid())
+			));
+		}
+		else if($controller->getID())
+		{
+			$template->setVar(array (
+				"PARENTLIST" => navButtonTag ("parent_id",$i18n->_("Parent Listing"),$WebBaseDir."/news/apf_news_category/list")
+			));
+		}
 
 	}
 	

@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.2 2006/10/29 10:28:34 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.3 2006/10/29 12:28:41 arzen Exp $
  */
 $this->setCharset('gb2312'); 
 $messages = array(
@@ -22,6 +22,7 @@ $messages = array(
 	'Logout' => '退出',
 
 	'Listing' => '列表',
+	'Parent Listing' => '上级列表',
 	'Search' => '搜索',
 	'Create' => '新增',
 	'MoveUp' => '上移',
