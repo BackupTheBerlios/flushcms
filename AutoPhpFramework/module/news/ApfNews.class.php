@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfNews.class.php,v 1.8 2006/10/23 13:48:33 arzen Exp $
+ * @version    CVS: $Id: ApfNews.class.php,v 1.9 2006/10/29 10:26:55 arzen Exp $
  */
 
 class ApfNews  extends Actions
@@ -233,6 +233,7 @@ class ApfNews  extends Actions
 		$apf_news->find();
 		
 		$i=0;
+		$myData=array();
 		while ($apf_news->fetch())
 		{
 			$myData[] = $apf_news->toArray();

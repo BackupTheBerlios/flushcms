@@ -33,7 +33,29 @@
     	<mkdir dir="${project.dir}/log"/>
     	<mkdir dir="${project.dir}/module"/>
     	<mkdir dir="${project.dir}/sql"/>
+    	<mkdir dir="${project.dir}/config"/>
     	<mkdir dir="${project.dir}/web"/>
+    	
+    	<copy todir="${project.dir}/web">
+			<fileset dir="${framework.project.dir}/web">
+    			<exclude name="**/uploads/**"/>
+    		</fileset>
+		</copy>
+
+    	<copy todir="${project.dir}/config">
+			<fileset dir="${framework.project.dir}/config">
+				<exclude name="**/at.command.php"/>
+    		</fileset>
+		</copy>
+    	
+    	<copy todir="${project.dir}/">
+			<fileset dir="${framework.project.dir}">
+				<include name="controller/*.php"/>
+				<include name="generator/*.php"/>
+				<include name="init.php"/>
+				<include name="lang/**"/>
+    		</fileset>
+		</copy>
     	
     </target>
 
