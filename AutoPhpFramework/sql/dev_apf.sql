@@ -553,3 +553,27 @@ CREATE TABLE `apf_house` (
   KEY `company_id` (`company_id`),
   KEY `product_id` (`product_id`)
 ) TYPE=MyISAM;
+
+CREATE TABLE `apf_opportunity` (
+  `id` int(11) NOT NULL auto_increment,
+  `title` varchar(50) default NULL,
+  `addrees` varchar(150) default NULL,
+  `phone` varchar(80) default NULL,
+  `fax` varchar(80) default NULL,
+  `email` varchar(80) default NULL,
+  `photo` varchar(60) default NULL,
+  `homepage` varchar(90) default NULL,
+  `employee` int(5) default NULL,
+  `bankroll` decimal(10,2) default NULL,
+  `link_man` varchar(50) default NULL,
+  `incorporator` varchar(50) default NULL,
+  `industry` varchar(50) default NULL,
+  `products` text,
+  `memo` text,
+  `active` varchar(8) NOT NULL default 'new',
+  `add_ip` varchar(24) default NULL,
+  `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
+  `update_at` datetime NOT NULL default '0000-00-00 00:00:00',
+  PRIMARY KEY  (`id`),
+  KEY `name` (`name`)
+) TYPE=MyISAM AUTO_INCREMENT=2 ;
