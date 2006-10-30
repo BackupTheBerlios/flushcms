@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: MailSender.class.php,v 1.4 2006/10/24 10:33:31 arzen Exp $
+ * @version    CVS: $Id: MailSender.class.php,v 1.5 2006/10/30 09:54:29 arzen Exp $
  */
 
 class MailSender
@@ -23,6 +23,7 @@ class MailSender
 		$template->setBlock("MAIN", "edit_block");
 		
 		$template->setVar(array (
+			"TOADDR" => $controller->getID(),
 			"WEBDIR" => $WebBaseDir,
 			"TEXTAREACONTENT" => textareaTag ("content","",true),
 			"DOACTION" => "sendsubmit"
@@ -32,11 +33,11 @@ class MailSender
 	
 	function executeSendsubmit () 
 	{
-		global $template,$WebBaseDir,$ClassDir,$controller,$i18n,$ActiveOption;
+		global $template,$WebBaseDir,$ClassDir,$controller,$i18n,$ActiveOption,$LU;
 
 		require_once($ClassDir."SendEmail.php");
 		
-		$arr = sendEmail (trim($_POST['to']),'arzen1013@163.com','arzen1013','arzen1013@163.com',trim($_POST['title']),trim($_POST['content']),trim($_POST['content']));
+		$arr = sendEmail (trim($_POST['to']),$LU->getProperty("email"),$LU->getProperty("handle"),$LU->getProperty("email"),trim($_POST['title']),trim($_POST['content']),trim($_POST['content']));
 
 		$template->setFile(array (
 			"MAIN" => "apf_mail_write.html"

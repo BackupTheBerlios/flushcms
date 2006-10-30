@@ -5,7 +5,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: FormObject.php,v 1.10 2006/10/14 16:05:00 arzen Exp $
+ * @version    CVS: $Id: FormObject.php,v 1.11 2006/10/30 09:54:29 arzen Exp $
  */
 
 /**
@@ -227,6 +227,13 @@ function showFlash($url, $width, $heigth)
 function showImage($url, $width)
 {
 	return "<IMG SRC=\"{$url}\" WIDTH=\"$width\" BORDER=\"0\" >";
+}
+
+function showEmail ($email) 
+{
+	global $WebBaseDir;
+	return "<a href=\"".$WebBaseDir."/utility/MailSender/WriteMail/".$email."\" >".$email."</a>";
+	
 }
 
 ?>
