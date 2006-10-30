@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfProductCategory.class.php,v 1.1 2006/10/14 05:12:53 arzen Exp $
+ * @version    CVS: $Id: ApfProductCategory.class.php,v 1.2 2006/10/30 05:24:37 arzen Exp $
  */
 
 class ApfProductCategory  extends Actions
@@ -149,7 +149,7 @@ class ApfProductCategory  extends Actions
 	
 	function executeList()
 	{
-		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir;
+		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$ActiveOption;
 
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
@@ -203,7 +203,7 @@ class ApfProductCategory  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 			
-			$template->setVar(array ("ID" => $data['id'],"CATEGORY_NAME" => $data['category_name'],"ACTIVE" => $data['active'],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
+			$template->setVar(array ("ID" => $data['id'],"CATEGORY_NAME" => $data['category_name'],"ACTIVE" => $ActiveOption[$data['active']],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
 
 			$template->parse("list_block", "main_list", TRUE);
 			$i++;

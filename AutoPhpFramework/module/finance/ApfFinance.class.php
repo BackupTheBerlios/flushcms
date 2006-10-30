@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfFinance.class.php,v 1.4 2006/09/23 11:37:15 arzen Exp $
+ * @version    CVS: $Id: ApfFinance.class.php,v 1.5 2006/10/30 05:24:37 arzen Exp $
  */
 
 class ApfFinance  extends Actions
@@ -179,7 +179,7 @@ class ApfFinance  extends Actions
 	
 	function executeList()
 	{
-		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$CurrencyFormat,$DebitOption;
+		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$CurrencyFormat,$DebitOption,$ActiveOption;
 		
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
@@ -238,7 +238,7 @@ class ApfFinance  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 			
-			$template->setVar(array ("ID" => $data['id'],"CATEGORY" => $category_arr[$data['category']],"CREATE_DATE" => $data['create_date'],"AMOUNT" => $data['amount'],"DEBIT" => $DebitOption[$data['debit']],"MONEY" => $currency->format( $data['money'] ),"MEMO" => $data['memo'],"ACTIVE" => $data['active'],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
+			$template->setVar(array ("ID" => $data['id'],"CATEGORY" => $category_arr[$data['category']],"CREATE_DATE" => $data['create_date'],"AMOUNT" => $data['amount'],"DEBIT" => $DebitOption[$data['debit']],"MONEY" => $currency->format( $data['money'] ),"MEMO" => $data['memo'],"ACTIVE" => $ActiveOption[$data['active']],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
 
 			$template->parse("list_block", "main_list", TRUE);
 			$i++;

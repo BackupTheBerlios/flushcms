@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.10 2006/09/23 03:34:44 arzen Exp $
+ * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.11 2006/10/30 05:24:37 arzen Exp $
  */
 
 class ApfNewsCategory  extends Actions
@@ -196,7 +196,7 @@ class ApfNewsCategory  extends Actions
 	
 	function executeList()
 	{
-		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir;
+		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$ActiveOption;
 
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
@@ -250,7 +250,7 @@ class ApfNewsCategory  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 			
-			$template->setVar(array ("ID" => $data['id'],"CATEGORY_NAME" => $data['category_name'],"ORDERID" => $data['orderid'],"ACTIVE" => $data['active'],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
+			$template->setVar(array ("ID" => $data['id'],"CATEGORY_NAME" => $data['category_name'],"ORDERID" => $data['orderid'],"ACTIVE" => $ActiveOption[$data['active']],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
 
 			$template->parse("list_block", "main_list", TRUE);
 			$i++;

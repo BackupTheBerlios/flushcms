@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: Generator.php,v 1.14 2006/10/27 03:15:14 arzen Exp $
+ * @version    CVS: $Id: Generator.php,v 1.15 2006/10/30 05:24:37 arzen Exp $
  * @link       http://pear.php.net/package/DB_DataObject
  */
  
@@ -941,9 +941,19 @@ EOD;
 "{$field_upper_name}" => \$_POST['{$field_name}'],
 EOD;
 
-        	$list_code .= <<<EOD
+        	if ($field_name == "active") 
+			{
+        		$list_code .= <<<EOD
+"{$field_upper_name}" => \$ActiveOption[\$data['{$field_name}']],
+EOD;
+			}
+			else
+			{
+        		$list_code .= <<<EOD
 "{$field_upper_name}" => \$data['{$field_name}'],
 EOD;
+			}
+
         }
         
         $body .= <<<EOD
@@ -1087,7 +1097,7 @@ class {$camel_case_name}  extends Actions
 	
 	function executeList()
 	{
-		global \$template,\$WebBaseDir,\$WebTemplateDir,\$ClassDir;
+		global \$template,\$WebBaseDir,\$WebTemplateDir,\$ClassDir,\$ActiveOption;
 
 		include_once(\$ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';

@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContact.class.php,v 1.21 2006/10/23 13:48:33 arzen Exp $
+ * @version    CVS: $Id: ApfContact.class.php,v 1.22 2006/10/30 05:24:37 arzen Exp $
  */
 
 class ApfContact  extends Actions
@@ -780,7 +780,7 @@ class ApfContact  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 			
-			$template->setVar(array ("ID" => $data['id'],"CATEGORY" => $category_arr[$data['category']],"COMPANY_ID" => $data['company_id'],"NAME" => $data['name'],"GENDER" => $GenderOption[$data['gender']],"BIRTHDAY" => $data['birthday'],"ADDREES" => $data['addrees'],"OFFICE_PHONE" => $data['office_phone'],"PHONE" => $data['phone'].$this->getCallIco ($data['phone']),"FAX" => $data['fax'],"MOBILE" => $data['mobile'].$this->getCallIco ($data['mobile'],true),"EMAIL" => $data['email'],"PHOTO" => $data['photo'],"HOMEPAGE" => $data['homepage'],"ACTIVE" => $data['active'],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
+			$template->setVar(array ("ID" => $data['id'],"CATEGORY" => $category_arr[$data['category']],"COMPANY_ID" => $data['company_id'],"NAME" => $data['name'],"GENDER" => $GenderOption[$data['gender']],"BIRTHDAY" => $data['birthday'],"ADDREES" => $data['addrees'],"OFFICE_PHONE" => $data['office_phone'],"PHONE" => $data['phone'].$this->getCallIco ($data['phone']),"FAX" => $data['fax'],"MOBILE" => $data['mobile'].$this->getCallIco ($data['mobile'],true),"EMAIL" => $data['email'],"PHOTO" => $data['photo'],"HOMEPAGE" => $data['homepage'],"ACTIVE" => $ActiveOption[$data['active']],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
 
 			$template->parse("list_block", "main_list", TRUE);
 			$i++;
