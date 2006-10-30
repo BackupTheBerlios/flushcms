@@ -33,7 +33,7 @@
  * @author     Richard Heyes <richard@phpguru.org>,
  * @copyright  2003-2006 Lorenzo Alberton, Richard Heyes
  * @license    http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version    CVS: $Id: Jumping.php,v 1.1 2006/09/08 23:31:16 arzen Exp $
+ * @version    CVS: $Id: Jumping.php,v 1.2 2006/10/30 09:04:16 arzen Exp $
  * @link       http://pear.php.net/package/Pager
  */
 
@@ -267,7 +267,7 @@ class Pager_Jumping extends Pager_Common
                 $links .= $this->_renderLink($this->_altPage.' '.$i, $i);
             } else {
                 $this->range[$i] = true;
-                $links .= $this->_curPageSpanPre . $i . $this->_curPageSpanPost;
+                $links .= $this->_curPageSpanPre . "<FONT COLOR=\"#FF0000\">".$i."</FONT>"  . $this->_curPageSpanPost;
             }
             $links .= $this->_spacesBefore
                    . (($i != $this->_totalPages) ? $this->_separator.$this->_spacesAfter : '');
