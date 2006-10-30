@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfProductCategory.class.php,v 1.3 2006/10/30 03:28:15 arzen Exp $
+ * @version    CVS: $Id: ApfProductCategory.class.php,v 1.4 2006/10/30 04:26:16 arzen Exp $
  */
 
 include_once("ApfProduct.class.php");
@@ -132,7 +132,7 @@ class ApfProductCategory  extends Actions
 			array_shift($ActiveOption);
 			$template->setVar(array (
 				"CATEGORYOPTION" => selectTag("pid",$category_arr,$_POST['pid']),
-				"ACTIVEOPTION" => radioTag("active",$_POST['active']),
+				"ACTIVEOPTION" => radioTag("active",$ActiveOption,$_POST['active']),
 				"WEBDIR" => $WebBaseDir,
 				"DOACTION" => $do_action
 			));
@@ -282,7 +282,7 @@ class ApfProductCategory  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 			
-			$template->setVar(array ("ID" => $data['id'],"CATEGORY_NAME" => $data['category_name'],"ACTIVE" => $data['active'],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
+			$template->setVar(array ("ID" => $data['id'],"CATEGORY_NAME" => $data['category_name'],"ACTIVE" => $ActiveOption[$data['active']],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
 			$parent_id = $data['pid'];
 
 			$template->parse("list_block", "main_list", TRUE);

@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfProduct.class.php,v 1.2 2006/10/30 03:28:15 arzen Exp $
+ * @version    CVS: $Id: ApfProduct.class.php,v 1.3 2006/10/30 04:26:16 arzen Exp $
  */
 
 class ApfProduct  extends Actions
@@ -299,15 +299,25 @@ class ApfProduct  extends Actions
 
 	}
 	
-	function getCategory () 
+	function getCategory ($pid="",$patten="-") 
 	{
+		$patten .=$patten;
 		$apf_product_category = DB_DataObject :: factory('ApfProductCategory');
-		$apf_product_category->orderBy('id ASC');
+		$apf_product_category->orderBy('orderid ASC');
+		if ($pid) 
+		{
+			$apf_product_category->setPid($pid);
+		}
+		else 
+		{
+			$apf_product_category->setPid(0);
+		}
 		$apf_product_category->find();
 		$myData = array();
 		while ($apf_product_category->fetch())
 		{
-			$myData[$apf_product_category->getId()] = $apf_product_category->getCategoryName();
+			$myData[$apf_product_category->getId()] = $patten.$apf_product_category->getCategoryName();
+			$myData +=ApfProduct::getCategory ($apf_product_category->getId(),$patten);
 		}
 		return $myData;
 	}
