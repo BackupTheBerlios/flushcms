@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfProduct.class.php,v 1.4 2006/10/30 04:56:27 arzen Exp $
+ * @version    CVS: $Id: ApfProduct.class.php,v 1.5 2006/10/30 09:06:23 arzen Exp $
  */
 
 class ApfProduct  extends Actions
@@ -108,6 +108,11 @@ class ApfProduct  extends Actions
 			$apf_product->setPhoto("");
 			$_POST['photo_old']="";
 		}
+		if($_POST['upload_temp'])
+		{
+			$apf_product->setImage($_POST['upload_temp']);	
+			$apf_product->setImageStatus('new');
+		}
 
 		$allow_upload_file = TRUE;
 		if($_FILES['photo']['name'])
@@ -118,6 +123,7 @@ class ApfProduct  extends Actions
 			if ($allow_upload_file) 
 			{
 				$apf_product->setPhoto($upload_data["upload_msg"]);
+				$_POST['upload_temp'] = $upload_data["upload_msg"];
 			}
 			else
 			{
@@ -157,7 +163,8 @@ class ApfProduct  extends Actions
 			array_shift($ActiveOption);
 			$template->setVar(array (
 				"CATEGORYOPTION" => selectTag("category",$category_arr,$_POST['category']),
-				"FILEPHOTO" => fileTag("photo",$_POST['photo_old']),
+				"FILEPHOTO" => fileTag("photo",$_POST['upload_temp']?$_POST['upload_temp']:$_POST['photo_old']),
+				"UPLOAD_TEMP" => $_POST['upload_temp'],
 				"ACTIVEOPTION" => radioTag("active",$ActiveOption,$_POST['active']),
 			));
 
