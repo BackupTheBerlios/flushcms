@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 2.8.2
+-- version 2.6.4-pl4
 -- http://www.phpmyadmin.net
 -- 
 -- 主机: localhost
--- 生成日期: 2006 年 10 月 29 日 18:27
+-- 生成日期: 2006 年 10 月 30 日 11:13
 -- 服务器版本: 4.0.26
 -- PHP 版本: 4.4.2
 -- 
@@ -27,9 +27,9 @@ CREATE TABLE `apf_grouprights` (
 -- 导出表中的数据 `apf_grouprights`
 -- 
 
-INSERT INTO `apf_grouprights` (`group_id`, `right_id`, `right_level`) VALUES (1, 1, 3),
-(1, 2, 3),
-(1, 3, 3);
+INSERT INTO `apf_grouprights` VALUES (1, 1, 3);
+INSERT INTO `apf_grouprights` VALUES (1, 2, 3);
+INSERT INTO `apf_grouprights` VALUES (1, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -52,9 +52,9 @@ CREATE TABLE `apf_groups` (
 -- 导出表中的数据 `apf_groups`
 -- 
 
-INSERT INTO `apf_groups` (`group_id`, `group_type`, `group_define_name`, `is_active`, `owner_user_id`, `owner_group_id`) VALUES (2, 0, 'User', 1, 0, 0),
-(1, 0, 'SuperUser', 1, 0, 0),
-(3, 0, 'Customer', 1, 0, 0);
+INSERT INTO `apf_groups` VALUES (2, 0, 'User', 1, 0, 0);
+INSERT INTO `apf_groups` VALUES (1, 0, 'SuperUser', 1, 0, 0);
+INSERT INTO `apf_groups` VALUES (3, 0, 'Customer', 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -72,9 +72,9 @@ CREATE TABLE `apf_groupusers` (
 -- 导出表中的数据 `apf_groupusers`
 -- 
 
-INSERT INTO `apf_groupusers` (`perm_user_id`, `group_id`) VALUES (1, 1),
-(2, 2),
-(3, 3);
+INSERT INTO `apf_groupusers` VALUES (1, 1);
+INSERT INTO `apf_groupusers` VALUES (2, 2);
+INSERT INTO `apf_groupusers` VALUES (3, 3);
 
 -- --------------------------------------------------------
 
@@ -121,10 +121,10 @@ CREATE TABLE `apf_news_category` (
 -- 导出表中的数据 `apf_news_category`
 -- 
 
-INSERT INTO `apf_news_category` (`id`, `pid`, `category_name`, `orderid`, `active`, `add_ip`, `created_at`, `update_at`) VALUES (1, 0, 'local news', 0, 'deleted', '', '2006-09-22 22:08:59', '0000-00-00 00:00:00'),
-(2, 0, 'PHP Article', 2, 'new', '', '0000-00-00 00:00:00', '2006-10-16 17:37:12'),
-(3, 0, 'Symbian', 3, 'live', '', '2006-10-08 18:02:29', '0000-00-00 00:00:00'),
-(4, 1, '深圳新闻', 4, 'live', '', '2006-10-29 18:22:50', '0000-00-00 00:00:00');
+INSERT INTO `apf_news_category` VALUES (1, 0, 'local news', 0, 'deleted', '', '2006-09-22 22:08:59', '0000-00-00 00:00:00');
+INSERT INTO `apf_news_category` VALUES (2, 0, 'PHP Article', 2, 'new', '', '0000-00-00 00:00:00', '2006-10-16 17:37:12');
+INSERT INTO `apf_news_category` VALUES (3, 0, 'Symbian', 3, 'live', '', '2006-10-08 18:02:29', '0000-00-00 00:00:00');
+INSERT INTO `apf_news_category` VALUES (4, 1, '深圳新闻', 4, 'live', '', '2006-10-29 18:22:50', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -145,9 +145,9 @@ CREATE TABLE `apf_perm_users` (
 -- 导出表中的数据 `apf_perm_users`
 -- 
 
-INSERT INTO `apf_perm_users` (`perm_user_id`, `auth_user_id`, `auth_container_name`, `perm_type`) VALUES (1, '1', 'DB', 1),
-(2, '2', 'DB', 1),
-(3, '3', 'DB', 1);
+INSERT INTO `apf_perm_users` VALUES (1, '1', 'DB', 1);
+INSERT INTO `apf_perm_users` VALUES (2, '2', 'DB', 1);
+INSERT INTO `apf_perm_users` VALUES (3, '3', 'DB', 1);
 
 -- --------------------------------------------------------
 
@@ -174,8 +174,8 @@ CREATE TABLE `apf_product` (
 -- 导出表中的数据 `apf_product`
 -- 
 
-INSERT INTO `apf_product` (`id`, `category`, `company_id`, `name`, `price`, `photo`, `memo`, `active`, `add_ip`, `created_at`, `update_at`) VALUES (1, 1, 0, '油画', 200.00, 'product/20061014/3118645306f9c6fc89.jpg', '油画', 'live', '', '2006-10-14 05:03:24', '0000-00-00 00:00:00'),
-(2, 1, 0, '奶粉', 120.00, 'product/20061016/84164532bc0bdbefa.jpg', '奶粉奶粉', 'new', '', '0000-00-00 00:00:00', '2006-10-16 06:54:17');
+INSERT INTO `apf_product` VALUES (1, 1, 0, '油画', 200.00, 'product/20061014/3118645306f9c6fc89.jpg', '油画', 'live', '', '2006-10-14 05:03:24', '0000-00-00 00:00:00');
+INSERT INTO `apf_product` VALUES (2, 1, 0, '奶粉', 120.00, 'product/20061016/84164532bc0bdbefa.jpg', '奶粉奶粉', 'new', '', '0000-00-00 00:00:00', '2006-10-16 06:54:17');
 
 -- --------------------------------------------------------
 
@@ -185,7 +185,9 @@ INSERT INTO `apf_product` (`id`, `category`, `company_id`, `name`, `price`, `pho
 
 CREATE TABLE `apf_product_category` (
   `id` int(11) NOT NULL auto_increment,
+  `pid` int(8) NOT NULL default '0',
   `category_name` varchar(60) default NULL,
+  `orderid` int(11) NOT NULL default '0',
   `active` varchar(8) NOT NULL default 'new',
   `add_ip` varchar(24) default NULL,
   `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
@@ -197,7 +199,7 @@ CREATE TABLE `apf_product_category` (
 -- 导出表中的数据 `apf_product_category`
 -- 
 
-INSERT INTO `apf_product_category` (`id`, `category_name`, `active`, `add_ip`, `created_at`, `update_at`) VALUES (1, '农副产品1', 'live', '', '0000-00-00 00:00:00', '2006-10-14 04:48:55');
+INSERT INTO `apf_product_category` VALUES (1, 0, '农副产品1', 0, 'live', '', '0000-00-00 00:00:00', '2006-10-14 04:48:55');
 
 -- --------------------------------------------------------
 
@@ -222,9 +224,9 @@ CREATE TABLE `apf_product_price` (
 -- 导出表中的数据 `apf_product_price`
 -- 
 
-INSERT INTO `apf_product_price` (`id`, `company_id`, `product_id`, `price`, `add_ip`, `created_at`, `update_at`) VALUES (1, 1, 1, 200.00, NULL, '2006-10-18 06:50:26', '0000-00-00 00:00:00'),
-(2, 1, 2, 250.00, NULL, '2006-10-18 06:51:11', '0000-00-00 00:00:00'),
-(3, 1, 1, 320.00, NULL, '2006-10-18 07:09:54', '0000-00-00 00:00:00');
+INSERT INTO `apf_product_price` VALUES (1, 1, 1, 200.00, NULL, '2006-10-18 06:50:26', '0000-00-00 00:00:00');
+INSERT INTO `apf_product_price` VALUES (2, 1, 2, 250.00, NULL, '2006-10-18 06:51:11', '0000-00-00 00:00:00');
+INSERT INTO `apf_product_price` VALUES (3, 1, 1, 320.00, NULL, '2006-10-18 07:09:54', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -245,9 +247,9 @@ CREATE TABLE `apf_rights` (
 -- 导出表中的数据 `apf_rights`
 -- 
 
-INSERT INTO `apf_rights` (`right_id`, `area_id`, `right_define_name`, `has_implied`) VALUES (1, 0, 'ALLOWDELETE', 0),
-(2, 0, 'ALLOWUPDATE', 0),
-(3, 0, 'ALLOWCREATE', 0);
+INSERT INTO `apf_rights` VALUES (1, 0, 'ALLOWDELETE', 0);
+INSERT INTO `apf_rights` VALUES (2, 0, 'ALLOWUPDATE', 0);
+INSERT INTO `apf_rights` VALUES (3, 0, 'ALLOWCREATE', 0);
 
 -- --------------------------------------------------------
 
@@ -294,6 +296,6 @@ CREATE TABLE `apf_users` (
 -- 导出表中的数据 `apf_users`
 -- 
 
-INSERT INTO `apf_users` (`id`, `user_name`, `user_pwd`, `gender`, `addrees`, `phone`, `email`, `photo`, `role_id`, `active`, `add_ip`, `created_at`, `update_at`) VALUES (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'm', '广西贺州', '13684987661', 'arzen1013@gmail.com', '', 0, 'live', '', '0000-00-00 00:00:00', '2006-10-29 17:44:25'),
-(2, 'user', 'd6ed7ca0720aaba96e4674098d61aad9', 'm', 'dddd', 'dddd', 'dddd', '', 0, 'new', '', '0000-00-00 00:00:00', '2006-10-27 07:42:57'),
-(3, 'cust', '3aad3506aa11f05f265ea8304b8152b3', 'f', 'dddd', '13684987661', 'arzen1013@163.com', '', 0, 'deleted', '', '0000-00-00 00:00:00', '2006-10-28 16:08:03');
+INSERT INTO `apf_users` VALUES (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'm', '广西贺州', '13684987661', 'arzen1013@gmail.com', '', 0, 'live', '', '0000-00-00 00:00:00', '2006-10-30 11:10:19');
+INSERT INTO `apf_users` VALUES (2, 'user', 'd6ed7ca0720aaba96e4674098d61aad9', 'm', 'dddd', 'dddd', 'dddd', '', 0, 'new', '', '0000-00-00 00:00:00', '2006-10-27 07:42:57');
+INSERT INTO `apf_users` VALUES (3, 'cust', '3aad3506aa11f05f265ea8304b8152b3', 'f', 'dddd', '13684987661', 'arzen1013@163.com', '', 0, 'deleted', '', '0000-00-00 00:00:00', '2006-10-28 16:08:03');

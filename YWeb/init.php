@@ -8,14 +8,22 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.2 2006/10/29 10:28:34 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.3 2006/10/30 03:28:15 arzen Exp $
  */
 define('CREATE', 3);
 
 $RootDir = APF_ROOT_DIR . DIRECTORY_SEPARATOR;
 $ConfigDir = $RootDir . "config" . DIRECTORY_SEPARATOR;
-$IncludeDir = "D:/workspace/APF/"."includes" . DIRECTORY_SEPARATOR;//$RootDir . "includes" . DIRECTORY_SEPARATOR;
-$ClassDir = "D:/workspace/APF/". "class" . DIRECTORY_SEPARATOR;//$RootDir . "class" . DIRECTORY_SEPARATOR;
+if (!file_exists("D:/workspace/APF/")) 
+{
+	$tempRootDir = "D:/www/AutoPhpFramework/";
+}
+else
+{
+	$tempRootDir = "D:/workspace/APF/";
+}
+$IncludeDir = $tempRootDir."includes" . DIRECTORY_SEPARATOR;//$RootDir . "includes" . DIRECTORY_SEPARATOR;
+$ClassDir = $tempRootDir. "class" . DIRECTORY_SEPARATOR;//$RootDir . "class" . DIRECTORY_SEPARATOR;
 $ModuleDir = $RootDir . "module" . DIRECTORY_SEPARATOR;
 $ControllerDir = $RootDir . "controller" . DIRECTORY_SEPARATOR;
 $TemplateDir = $RootDir . "web/template/default/";

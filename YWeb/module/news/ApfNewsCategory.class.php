@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.3 2006/10/29 12:28:41 arzen Exp $
+ * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.4 2006/10/30 03:28:15 arzen Exp $
  */
 include_once("ApfNews.class.php");
 class ApfNewsCategory  extends Actions
@@ -127,9 +127,13 @@ class ApfNewsCategory  extends Actions
 				"MAIN" => "apf_news_category_edit.html"
 			));
 			$template->setBlock("MAIN", "edit_block");
+			
+			$category_arr =array("0"=>$i18n->_("None"))+ApfNews::getCategory();
+			unset($category_arr[$apf_news_category->getId()]);
 			array_shift($ActiveOption);
 			$template->setVar(array (
 				"WEBDIR" => $WebBaseDir,
+				"CATEGORYOPTION" => selectTag("pid",$category_arr,$_POST['pid']),
 				"ACTIVEOPTION" => radioTag("active",$ActiveOption,$_POST['active']),
 				"DOACTION" => $do_action
 			));

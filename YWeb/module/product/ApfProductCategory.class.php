@@ -6,26 +6,35 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfProductCategory.class.php,v 1.2 2006/10/29 13:56:59 arzen Exp $
+ * @version    CVS: $Id: ApfProductCategory.class.php,v 1.3 2006/10/30 03:28:15 arzen Exp $
  */
 
+include_once("ApfProduct.class.php");
 class ApfProductCategory  extends Actions
 {
 	function executeCreate()
 	{
-		global $template,$WebBaseDir,$ActiveOption;
+		global $template,$WebBaseDir,$ActiveOption,$i18n,$controller;
 
 		$template->setFile(array (
 			"MAIN" => "apf_product_category_edit.html"
 		));
 		$template->setBlock("MAIN", "add_block");
 		
+		$category_arr =array("0"=>$i18n->_("None"))+ApfProduct::getCategory();
 		array_shift($ActiveOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"CATEGORYOPTION" => selectTag("pid",$category_arr,$controller->getID()),
 			"ACTIVEOPTION" => radioTag("active",$ActiveOption,"live"),
 			"DOACTION" => "addsubmit"
 		));
+		if (($pid = trim($controller->getID())) != "") 
+		{
+			$template->setVar(array (
+				"PID" => $pid
+			));
+		}
 
 	}
 	
@@ -41,10 +50,6 @@ class ApfProductCategory  extends Actions
 			"MAIN" => "apf_product_category_edit.html"
 		));
 		$template->setBlock("MAIN", "edit_block");
-		$template->setVar(array (
-			"WEBDIR" => $WebBaseDir,
-			"DOACTION" => "updatesubmit"
-		));
 
 		$apf_product_category = DB_DataObject :: factory('ApfProductCategory');
 		$apf_product_category->get($apf_product_category->escape($controller->getID()));
@@ -57,10 +62,16 @@ class ApfProductCategory  extends Actions
 			));
 		}
 
+		$category_arr =array("0"=>$i18n->_("None"))+ApfProduct::getCategory();
+		unset($category_arr[$apf_product_category->getId()]);
 		$template->setVar(array ("ID" => $apf_product_category->getId(),"CATEGORY_NAME" => $apf_product_category->getCategoryName(),"ACTIVE" => $apf_product_category->getActive(),"ADD_IP" => $apf_product_category->getAddIp(),"CREATED_AT" => $apf_product_category->getCreatedAt(),"UPDATE_AT" => $apf_product_category->getUpdateAt(),));
 		array_shift($ActiveOption);
 		$template->setVar(array (
+			"PID" => $apf_product_category->getPid(),
+			"CATEGORYOPTION" => selectTag("pid",$category_arr,$apf_product_category->getPid()),
 			"ACTIVEOPTION" => radioTag("active",$ActiveOption,$apf_product_category->getActive()),
+			"WEBDIR" => $WebBaseDir,
+			"DOACTION" => "updatesubmit"
 		));
 		
 	}
@@ -72,7 +83,7 @@ class ApfProductCategory  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n;
+		global $template,$WebBaseDir,$i18n,$ActiveOption;
 		$apf_product_category = DB_DataObject :: factory('ApfProductCategory');
 
 		if ($edit_submit) 
@@ -85,6 +96,7 @@ class ApfProductCategory  extends Actions
 			$do_action = "addsubmit";
 		}
 
+		$apf_product_category->setPid(stripslashes(trim($_POST['pid'])));
 		$apf_product_category->setCategoryName(stripslashes(trim($_POST['category_name'])));
 		$apf_product_category->setActive(stripslashes(trim($_POST['active'])));
 		$apf_product_category->setAddIp(stripslashes(trim($_POST['add_ip'])));
@@ -115,7 +127,12 @@ class ApfProductCategory  extends Actions
 				"MAIN" => "apf_product_category_edit.html"
 			));
 			$template->setBlock("MAIN", "edit_block");
+			$category_arr =array("0"=>$i18n->_("None"))+ApfProduct::getCategory();
+			unset($category_arr[$_POST['ID']]);
+			array_shift($ActiveOption);
 			$template->setVar(array (
+				"CATEGORYOPTION" => selectTag("pid",$category_arr,$_POST['pid']),
+				"ACTIVEOPTION" => radioTag("active",$_POST['active']),
 				"WEBDIR" => $WebBaseDir,
 				"DOACTION" => $do_action
 			));
@@ -224,7 +241,7 @@ class ApfProductCategory  extends Actions
 		$ToltalNum = $apf_product_category->count();
 		$start_num = !isset($_GET['entrant'])?0:($_GET['entrant']-1)*$max_row;
 		$apf_product_category->limit($start_num,$max_row);
-		
+//		$apf_product_category->debugLevel(4);
 		$apf_product_category->find();
 		
 		$i=0;
