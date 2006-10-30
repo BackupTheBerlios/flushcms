@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContact.class.php,v 1.23 2006/10/30 09:54:29 arzen Exp $
+ * @version    CVS: $Id: ApfContact.class.php,v 1.24 2006/10/30 23:24:29 arzen Exp $
  */
 
 class ApfContact  extends Actions
@@ -739,6 +739,7 @@ class ApfContact  extends Actions
 		$apf_contact->find();
 		
 		$i=0;
+		$myData=array();
 		while ($apf_contact->fetch())
 		{
 			$myData[] = $apf_contact->toArray();

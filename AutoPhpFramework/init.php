@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.40 2006/10/28 13:48:04 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.41 2006/10/30 23:24:29 arzen Exp $
  */
 define('CREATE', 3);
 
@@ -181,13 +181,19 @@ $opts = array (
 	$product_price_table . '_except_fields' => 'id,add_ip,company_id,product_id,created_at,update_at',
 	$product_price_table.'_generator_add_validate_stubs' => 'price:empty',
 
+	$opportunity_table.'_modules_location' => $RootDir . '/module/opportunity/',
+	$opportunity_table.'_modules_name_location' => 'opportunity',
+	$opportunity_table . '_fields_list' => 'id,title,phone,link_man,state,addrees',
+	$opportunity_table . '_except_fields' => 'id,add_ip,created_at,update_at',
+	$opportunity_table.'_generator_add_validate_stubs' => 'title:empty,link_man:empty',
+
 	'require_prefix' => 'dataobjects/',
 	'class_prefix' => 'Dao',
 	'extends' => 'DB_DataObject',
 	'generate_setters' => '1',
 	'generate_getters' => '1',
 
-	'generator_include_regex' => '/' . $product_price_table . '/',
+	'generator_include_regex' => '/' . $opportunity_table . '/',
 	'generator_no_ini' => '1',
 	
 );
