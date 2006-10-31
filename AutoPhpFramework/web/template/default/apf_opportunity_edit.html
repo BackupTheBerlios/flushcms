@@ -12,14 +12,9 @@
 <input type="hidden" name="ID" id="ID" value="{ID}" />
 <fieldset id="fieldset_________" class="">
 <h2>{lang_GeneralInfo}</h2><div class="form-row">
-  <label >{lang_Title}:</label>  <div class="content">
+  <label >{lang_Title}:<FONT COLOR="#FF0000">*</FONT></label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{TITLE_ERROR_MSG}</div>
-  <input type="text" name="title" id="title" value="{TITLE}" size="20" />    </div>
-</div>
-<div class="form-row">
-  <label >{lang_Addrees}:</label>  <div class="content">
-  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ADDREES_ERROR_MSG}</div>
-  <input type="text" name="addrees" id="addrees" value="{ADDREES}" size="20" />    </div>
+  <input type="text" name="title" id="title" value="{TITLE}" size="40" />    </div>
 </div>
 <div class="form-row">
   <label >{lang_Phone}:</label>  <div class="content">
@@ -39,27 +34,32 @@
 <div class="form-row">
   <label >{lang_Homepage}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{HOMEPAGE_ERROR_MSG}</div>
-  <input type="text" name="homepage" id="homepage" value="{HOMEPAGE}" size="20" />    </div>
+  <input type="text" name="homepage" id="homepage" value="{HOMEPAGE}" size="40" />    </div>
 </div>
 <div class="form-row">
-  <label >{lang_LinkMan}:</label>  <div class="content">
+  <label >{lang_LinkMan}:<FONT COLOR="#FF0000">*</FONT></label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{LINK_MAN_ERROR_MSG}</div>
   <input type="text" name="link_man" id="link_man" value="{LINK_MAN}" size="20" />    </div>
 </div>
 <div class="form-row">
-  <label >{lang_Memo}:</label>  <div class="content">
-  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{MEMO_ERROR_MSG}</div>
-  <input type="text" name="memo" id="memo" value="{MEMO}" size="20" />    </div>
-</div>
-<div class="form-row">
   <label >{lang_State}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{STATE_ERROR_MSG}</div>
-  <input type="text" name="state" id="state" value="{STATE}" size="20" />    </div>
+  {STATE_OPTION}    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Addrees}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ADDREES_ERROR_MSG}</div>
+  <input type="text" name="addrees" id="addrees" value="{ADDREES}" size="40" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Memo}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{MEMO_ERROR_MSG}</div>
+  {MEMO_TEXT}    </div>
 </div>
 <div class="form-row">
   <label >{lang_Active}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ACTIVE_ERROR_MSG}</div>
-  <input type="text" name="active" id="active" value="{ACTIVE}" size="20" />    </div>
+  {ACTIVEOPTION}    </div>
 </div>
 </fieldset>
 <ul class="admin_actions">

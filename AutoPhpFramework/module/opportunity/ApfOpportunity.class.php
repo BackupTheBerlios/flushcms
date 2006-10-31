@@ -6,22 +6,26 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfOpportunity.class.php,v 1.1 2006/10/30 23:24:29 arzen Exp $
+ * @version    CVS: $Id: ApfOpportunity.class.php,v 1.2 2006/10/31 14:22:19 arzen Exp $
  */
 
 class ApfOpportunity  extends Actions
 {
 	function executeCreate()
 	{
-		global $template,$WebBaseDir;
+		global $template,$WebBaseDir,$ActiveOption,$StateOption;
 
 		$template->setFile(array (
 			"MAIN" => "apf_opportunity_edit.html"
 		));
 		$template->setBlock("MAIN", "add_block");
 		
+		array_shift($ActiveOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"ACTIVEOPTION" => radioTag("active",$ActiveOption,"new"),
+			"STATE_OPTION" => radioTag("state",$StateOption,"pending"),
+			"MEMO_TEXT" => textareaTag ("memo",null,false,"ROWS=\"15\" COLS=\"60\" "),
 			"DOACTION" => "addsubmit"
 		));
 
@@ -34,15 +38,12 @@ class ApfOpportunity  extends Actions
 	
 	function executeUpdate()
 	{
-		global $template,$WebBaseDir,$controller,$i18n;
+		global $template,$WebBaseDir,$controller,$i18n,$ActiveOption,$StateOption;
 		$template->setFile(array (
 			"MAIN" => "apf_opportunity_edit.html"
 		));
 		$template->setBlock("MAIN", "edit_block");
-		$template->setVar(array (
-			"WEBDIR" => $WebBaseDir,
-			"DOACTION" => "updatesubmit"
-		));
+
 
 		$apf_opportunity = DB_DataObject :: factory('ApfOpportunity');
 		$apf_opportunity->get($apf_opportunity->escape($controller->getID()));
@@ -56,6 +57,15 @@ class ApfOpportunity  extends Actions
 		}
 
 		$template->setVar(array ("ID" => $apf_opportunity->getId(),"TITLE" => $apf_opportunity->getTitle(),"ADDREES" => $apf_opportunity->getAddrees(),"PHONE" => $apf_opportunity->getPhone(),"FAX" => $apf_opportunity->getFax(),"EMAIL" => $apf_opportunity->getEmail(),"HOMEPAGE" => $apf_opportunity->getHomepage(),"LINK_MAN" => $apf_opportunity->getLinkMan(),"MEMO" => $apf_opportunity->getMemo(),"STATE" => $apf_opportunity->getState(),"ACTIVE" => $apf_opportunity->getActive(),"ADD_IP" => $apf_opportunity->getAddIp(),"CREATED_AT" => $apf_opportunity->getCreatedAt(),"UPDATE_AT" => $apf_opportunity->getUpdateAt(),));
+
+		array_shift($ActiveOption);
+		$template->setVar(array (
+			"WEBDIR" => $WebBaseDir,
+			"ACTIVEOPTION" => radioTag("active",$ActiveOption,$apf_opportunity->getActive()),
+			"STATE_OPTION" => radioTag("state",$StateOption,$apf_opportunity->getState()),
+			"MEMO_TEXT" => textareaTag ("memo",$apf_opportunity->getMemo(),false,"ROWS=\"15\" COLS=\"60\" "),
+			"DOACTION" => "updatesubmit"
+		));
 		
 	}
 	
@@ -66,7 +76,7 @@ class ApfOpportunity  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n;
+		global $template,$WebBaseDir,$i18n,$ActiveOption,$StateOption;
 		$apf_opportunity = DB_DataObject :: factory('ApfOpportunity');
 
 		if ($edit_submit) 
@@ -90,8 +100,6 @@ class ApfOpportunity  extends Actions
 		$apf_opportunity->setState(stripslashes(trim($_POST['state'])));
 		$apf_opportunity->setActive(stripslashes(trim($_POST['active'])));
 		$apf_opportunity->setAddIp(stripslashes(trim($_POST['add_ip'])));
-		$apf_opportunity->setCreatedAt(stripslashes(trim($_POST['created_at'])));
-		$apf_opportunity->setUpdateAt(stripslashes(trim($_POST['update_at'])));
 
 				
 		$val = $apf_opportunity->validate();
@@ -116,8 +124,12 @@ class ApfOpportunity  extends Actions
 				"MAIN" => "apf_opportunity_edit.html"
 			));
 			$template->setBlock("MAIN", "edit_block");
+			array_shift($ActiveOption);
 			$template->setVar(array (
 				"WEBDIR" => $WebBaseDir,
+				"ACTIVEOPTION" => radioTag("active",$ActiveOption,$_POST['active']),
+				"STATE_OPTION" => radioTag("state",$StateOption,$_POST['state']),
+				"MEMO_TEXT" => textareaTag ("memo",$_POST['memo'],false,"ROWS=\"15\" COLS=\"60\" "),
 				"DOACTION" => $do_action
 			));
 			foreach ($val as $k => $v)
@@ -151,7 +163,7 @@ class ApfOpportunity  extends Actions
 	
 	function executeList()
 	{
-		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$ActiveOption;
+		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$ActiveOption,$StateOption;
 
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
@@ -209,7 +221,7 @@ class ApfOpportunity  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 			
-			$template->setVar(array ("ID" => $data['id'],"TITLE" => $data['title'],"ADDREES" => $data['addrees'],"PHONE" => $data['phone'],"FAX" => $data['fax'],"EMAIL" => $data['email'],"HOMEPAGE" => $data['homepage'],"LINK_MAN" => $data['link_man'],"MEMO" => $data['memo'],"STATE" => $data['state'],"ACTIVE" => $ActiveOption[$data['active']],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
+			$template->setVar(array ("ID" => $data['id'],"TITLE" => $data['title'],"ADDREES" => $data['addrees'],"PHONE" => $data['phone'],"FAX" => $data['fax'],"EMAIL" => $data['email'],"HOMEPAGE" => $data['homepage'],"LINK_MAN" => $data['link_man'],"MEMO" => $data['memo'],"STATE" => $StateOption[$data['state']],"ACTIVE" => $ActiveOption[$data['active']],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
 
 			$template->parse("list_block", "main_list", TRUE);
 			$i++;
