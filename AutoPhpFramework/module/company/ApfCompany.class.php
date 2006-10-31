@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfCompany.class.php,v 1.21 2006/10/31 10:16:03 arzen Exp $
+ * @version    CVS: $Id: ApfCompany.class.php,v 1.22 2006/10/31 10:39:15 arzen Exp $
  */
 
 class ApfCompany  extends Actions
@@ -474,7 +474,7 @@ class ApfCompany  extends Actions
 	
 	function executeList()
 	{
-		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$ActiveOption;
+		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$ActiveOption,$i18n;
 
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
@@ -538,7 +538,7 @@ class ApfCompany  extends Actions
 		$links = $pager->getLinks();
 		
 		$page_exten = str_replace($pager->_url."?","",$pager->_getLinkTagUrl(null));
-		$id_header_url = showHeaderLink ("id","ID",$_REQUEST['orderfield'],$_GET['order'],$page_exten,$pager->_url);
+		$id_header_url = showHeaderLink ("id",$i18n->_("ID"),$_REQUEST['orderfield'],$_GET['order'],$page_exten,$pager->_url);
 		
 		$selectBox = $pager->getPerPageSelectBox();
 		$i = 0;

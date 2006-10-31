@@ -5,7 +5,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: FormObject.php,v 1.12 2006/10/31 10:16:03 arzen Exp $
+ * @version    CVS: $Id: FormObject.php,v 1.13 2006/10/31 10:43:43 arzen Exp $
  */
 
 /**
@@ -240,7 +240,7 @@ function showHeaderLink ($orderBy,$title,$getFieldName,$direction,$linkExten,$cu
 {
 	if ($direction && ($getFieldName==$orderBy)) 
 	{
-		$append_flag = $direction!="ASC"?"&uarr":"&darr";
+		$append_flag = $direction!="ASC"?"&uArr":"&dArr";
 		$direction= ($direction=="ASC")?"DESC":"ASC";
 	}
 	else 

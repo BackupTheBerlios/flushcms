@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfFinance.class.php,v 1.5 2006/10/30 05:24:37 arzen Exp $
+ * @version    CVS: $Id: ApfFinance.class.php,v 1.6 2006/10/31 10:39:15 arzen Exp $
  */
 
 class ApfFinance  extends Actions
@@ -179,7 +179,7 @@ class ApfFinance  extends Actions
 	
 	function executeList()
 	{
-		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$CurrencyFormat,$DebitOption,$ActiveOption;
+		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$CurrencyFormat,$DebitOption,$ActiveOption,$i18n;
 		
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
@@ -196,21 +196,28 @@ class ApfFinance  extends Actions
 
 		$apf_finance = DB_DataObject :: factory('ApfFinance');
 
-		$apf_finance->orderBy('id desc');
+		$order=($_GET['order'])?$_GET['order']:"DESC";
+		$orderfield = $_GET['orderfield']?$_GET['orderfield']:"id";
+		$apf_finance->orderBy($apf_finance->escape($orderfield)." ".$apf_finance->escape($order));
 		
+		$max_row = 30;
+		$ToltalNum = $apf_finance->count();
+		
+		$start_num = !isset($_GET['entrant'])?0:($_GET['entrant']-1)*$max_row;
+		$apf_finance->limit($start_num,$max_row);
 		$apf_finance->find();
 		
 		$i=0;
+		$myData=array();
 		while ($apf_finance->fetch())
 		{
 			$myData[] = $apf_finance->toArray();
 			$i++;
 		}
-		$ToltalNum =$i;
-		
+		$tmpData = ($ToltalNum>$max_row)?array_pad($myData, $ToltalNum, array()):$myData;
 		$params = array(
-		    'itemData' => $myData,
-		    'perPage' => 10,
+		    'itemData' => $tmpData,
+		    'perPage' => $max_row,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
 		    'separator' => ' | ',
@@ -221,6 +228,8 @@ class ApfFinance  extends Actions
 		    //'mode'  => 'Sliding',    //try switching modes
 		    'mode'  => 'Jumping',
 		    'extraVars' => array(
+		        'order'  => $_REQUEST['order'],
+		        'orderfield'  => $_REQUEST['orderfield'],
 		    ),
 		
 		);
@@ -228,9 +237,15 @@ class ApfFinance  extends Actions
 		$page_data = $pager->getPageData();
 		$links = $pager->getLinks();
 		
+		$page_exten = str_replace($pager->_url."?","",$pager->_getLinkTagUrl(null));
+		$id_header_url = showHeaderLink ("id",$i18n->_("ID"),$_REQUEST['orderfield'],$_GET['order'],$page_exten,$pager->_url);
+		$debit_header_url = showHeaderLink ("debit",$i18n->_("Debit"),$_REQUEST['orderfield'],$_GET['order'],$page_exten,$pager->_url);
+		$create_date_header_url = showHeaderLink ("create_date",$i18n->_("CreateDate"),$_REQUEST['orderfield'],$_GET['order'],$page_exten,$pager->_url);
+		$money_header_url = showHeaderLink ("money",$i18n->_("Money"),$_REQUEST['orderfield'],$_GET['order'],$page_exten,$pager->_url);
+		
 		$selectBox = $pager->getPerPageSelectBox();
 		$i = 0;
-		foreach($page_data as $data)
+		foreach($myData as $data)
 		{
 			(($i % 2) == 0) ? $list_td_class = "admin_row_0" : $list_td_class = "admin_row_1";
 			
@@ -248,6 +263,10 @@ class ApfFinance  extends Actions
 			"WEBDIR" => $WebBaseDir,
 			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().$WebTemplateDir,
 			"TOLTAL_NUM" => $ToltalNum,
+			"ID_HEADER_URL" => $id_header_url,
+			"DEBIT_HEADER_URL" => $debit_header_url,
+			"CREATE_DATE_HEADER_URL" => $create_date_header_url,
+			"MONEY_HEADER_URL" => $money_header_url,
 			"PAGINATION" => $links['all']
 		));
 
