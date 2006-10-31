@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfCompany.class.php,v 1.20 2006/10/30 09:54:29 arzen Exp $
+ * @version    CVS: $Id: ApfCompany.class.php,v 1.21 2006/10/31 10:16:03 arzen Exp $
  */
 
 class ApfCompany  extends Actions
@@ -487,7 +487,9 @@ class ApfCompany  extends Actions
 		$max_row = 30;
 		$apf_company = DB_DataObject :: factory('ApfCompany');
 
-		$apf_company->orderBy('id desc');
+		$order=($_GET['order'])?$_GET['order']:"DESC";
+		$orderfield = $_GET['orderfield']?$_GET['orderfield']:"id";
+		$apf_company->orderBy($apf_company->escape($orderfield)." ".$apf_company->escape($order));
 		
 		if (($keyword = trim($_REQUEST['q'])) != "") 
 		{
@@ -526,12 +528,17 @@ class ApfCompany  extends Actions
 		    'extraVars' => array(
 			    'q'  => $_REQUEST['q'],
 			    'active'  => $_REQUEST['active'],
+		        'order'  => $_REQUEST['order'],
+		        'orderfield'  => $_REQUEST['orderfield'],
 		    ),
 		
 		);
 		$pager = & Pager::factory($params);
 		$page_data = $pager->getPageData();
 		$links = $pager->getLinks();
+		
+		$page_exten = str_replace($pager->_url."?","",$pager->_getLinkTagUrl(null));
+		$id_header_url = showHeaderLink ("id","ID",$_REQUEST['orderfield'],$_GET['order'],$page_exten,$pager->_url);
 		
 		$selectBox = $pager->getPerPageSelectBox();
 		$i = 0;
@@ -555,6 +562,7 @@ class ApfCompany  extends Actions
 			"WEBDIR" => $WebBaseDir,
 			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().$WebTemplateDir,
 			"TOLTAL_NUM" => $ToltalNum,
+			"ID_HEAD_URL" => $id_header_url,
 			"PAGINATION" => $links['all']
 		));
 

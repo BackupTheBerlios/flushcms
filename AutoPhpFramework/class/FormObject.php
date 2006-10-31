@@ -5,7 +5,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: FormObject.php,v 1.11 2006/10/30 09:54:29 arzen Exp $
+ * @version    CVS: $Id: FormObject.php,v 1.12 2006/10/31 10:16:03 arzen Exp $
  */
 
 /**
@@ -234,6 +234,24 @@ function showEmail ($email)
 	global $WebBaseDir;
 	return "<a href=\"".$WebBaseDir."/utility/MailSender/WriteMail/".$email."\" >".$email."</a>";
 	
+}
+
+function showHeaderLink ($orderBy,$title,$getFieldName,$direction,$linkExten,$current_url) 
+{
+	if ($direction && ($getFieldName==$orderBy)) 
+	{
+		$append_flag = $direction!="ASC"?"&uarr":"&darr";
+		$direction= ($direction=="ASC")?"DESC":"ASC";
+	}
+	else 
+	{
+		$direction="ASC";
+	}
+	$patten = array("/orderfield=([^\&]*)/","/order=([^\&]*)/");
+	$replace = array("orderfield=$orderBy","order=$direction");
+	$url_string = preg_replace($patten,$replace,$linkExten);
+	$url =$current_url."?".$url_string;
+	return "<a href=".$url.">" .$title.$append_flag. "</a>";
 }
 
 ?>
