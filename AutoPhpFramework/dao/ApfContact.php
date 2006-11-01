@@ -22,6 +22,7 @@ class DaoApfContact extends DB_DataObject
     var $email;                           // string(80)  
     var $photo;                           // string(60)  
     var $homepage;                        // string(90)  
+    var $memo;                            // blob(65535)  blob
     var $active;                          // string(8)  not_null
     var $add_ip;                          // string(24)  
     var $created_at;                      // datetime(19)  not_null
@@ -189,6 +190,17 @@ class DaoApfContact extends DB_DataObject
     function getHomepage() 
     {
         return $this->homepage;
+    }
+
+   /**
+    * Getter for $Memo
+    *
+    * @return   blob
+    * @access   public
+    */
+    function getMemo() 
+    {
+        return $this->memo;
     }
 
    /**
@@ -391,6 +403,17 @@ class DaoApfContact extends DB_DataObject
     }
 
    /**
+    * Setter for $Memo
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+    function setMemo($value) 
+    {
+        $this->memo = $value;
+    }
+
+   /**
     * Setter for $Active
     *
     * @param    mixed   input value
@@ -452,6 +475,7 @@ class DaoApfContact extends DB_DataObject
              'email' =>  DB_DATAOBJECT_STR,
              'photo' =>  DB_DATAOBJECT_STR,
              'homepage' =>  DB_DATAOBJECT_STR,
+             'memo' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_BLOB,
              'active' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
              'add_ip' =>  DB_DATAOBJECT_STR,
              'created_at' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
@@ -482,6 +506,7 @@ class DaoApfContact extends DB_DataObject
              'email' => '',
              'photo' => '',
              'homepage' => '',
+             'memo' => '',
              'active' => 'new',
              'add_ip' => '',
          );

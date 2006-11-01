@@ -7,13 +7,13 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: config.php,v 1.14 2006/10/30 05:24:37 arzen Exp $
+ * @version    CVS: $Id: config.php,v 1.15 2006/11/01 15:12:24 arzen Exp $
  */
  
 $DB_Type = "mysql";
 $DB_Host = "localhost";
-$DB_UserName = "root";
-$DB_PassWord = "test1234";
+$DB_UserName = "dev";
+$DB_PassWord = "dev6543";
 $DB_Name = "dev_apf";
 
 $SMTP_Host = "mailsz.achievo.com";

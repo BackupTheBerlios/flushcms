@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContact.class.php,v 1.24 2006/10/30 23:24:29 arzen Exp $
+ * @version    CVS: $Id: ApfContact.class.php,v 1.25 2006/11/01 15:12:25 arzen Exp $
  */
 
 class ApfContact  extends Actions
@@ -65,7 +65,7 @@ class ApfContact  extends Actions
 			));
 		}
 
-		$template->setVar(array ("ID" => $apf_contact->getId(),"CATEGORY" => $apf_contact->getCategory(),"COMPANY_ID" => $apf_contact->getCompanyId(),"NAME" => $apf_contact->getName(),"GENDER" => $apf_contact->getGender(),"BIRTHDAY" => $apf_contact->getBirthday(),"ADDREES" => $apf_contact->getAddrees(),"OFFICE_PHONE" => $apf_contact->getOfficePhone(),"PHONE" => $apf_contact->getPhone(),"FAX" => $apf_contact->getFax(),"MOBILE" => $apf_contact->getMobile(),"EMAIL" => $apf_contact->getEmail(),"PHOTO" => $apf_contact->getPhoto(),"HOMEPAGE" => $apf_contact->getHomepage(),"ACTIVE" => $apf_contact->getActive(),"ADD_IP" => $apf_contact->getAddIp(),"CREATED_AT" => $apf_contact->getCreatedAt(),"UPDATE_AT" => $apf_contact->getUpdateAt(),));
+		$template->setVar(array ("ID" => $apf_contact->getId(),"CATEGORY" => $apf_contact->getCategory(),"COMPANY_ID" => $apf_contact->getCompanyId(),"NAME" => $apf_contact->getName(),"GENDER" => $apf_contact->getGender(),"BIRTHDAY" => $apf_contact->getBirthday(),"ADDREES" => $apf_contact->getAddrees(),"OFFICE_PHONE" => $apf_contact->getOfficePhone(),"PHONE" => $apf_contact->getPhone(),"FAX" => $apf_contact->getFax(),"MOBILE" => $apf_contact->getMobile(),"EMAIL" => $apf_contact->getEmail(),"PHOTO" => $apf_contact->getPhoto(),"HOMEPAGE" => $apf_contact->getHomepage(),"MEMO" => $apf_contact->getMemo(),"ACTIVE" => $apf_contact->getActive(),"ADD_IP" => $apf_contact->getAddIp(),"CREATED_AT" => $apf_contact->getCreatedAt(),"UPDATE_AT" => $apf_contact->getUpdateAt(),));
 		
 		$category_arr =$this->getCategory();
 		array_shift($GenderOption);
@@ -113,6 +113,7 @@ class ApfContact  extends Actions
 		$apf_contact->setMobile(stripslashes(trim($_POST['mobile'])));
 		$apf_contact->setEmail(stripslashes(trim($_POST['email'])));
 		$apf_contact->setHomepage(stripslashes(trim($_POST['homepage'])));
+		$apf_contact->setMemo(stripslashes(trim($_POST['memo'])));
 		$apf_contact->setActive(stripslashes(trim($_POST['active'])));
 		$apf_contact->setAddIp(stripslashes(trim($_POST['add_ip'])));
 		
