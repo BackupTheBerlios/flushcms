@@ -5,7 +5,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: FormObject.php,v 1.13 2006/10/31 10:43:43 arzen Exp $
+ * @version    CVS: $Id: FormObject.php,v 1.14 2006/11/02 02:22:09 arzen Exp $
  */
 
 /**
@@ -159,9 +159,9 @@ function fileTag ($name,$oldfile="", $delete=true, $ext="jpg")
 		}
 		
 		if ($delete) {
-			$html_code .= "<INPUT TYPE=\"checkbox\" NAME=\"{$name}_del\" value=\"Y\">Delete".
-				"<INPUT TYPE=\"hidden\" NAME=\"{$name}_old\" value=\"{$oldfile}\">" ;
+			$html_code .= "<INPUT TYPE=\"checkbox\" NAME=\"{$name}_del\" value=\"Y\">Delete";
 		}
+		$html_code .= "<INPUT TYPE=\"hidden\" NAME=\"{$name}_old\" value=\"{$oldfile}\">" ;
 		$html_code .= "<br/>";
 	}
 	
