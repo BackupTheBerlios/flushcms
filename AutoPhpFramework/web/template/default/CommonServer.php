@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: CommonServer.php,v 1.7 2006/10/23 23:36:56 arzen Exp $
+ * @version    CVS: $Id: CommonServer.php,v 1.8 2006/11/02 10:14:04 arzen Exp $
  */
 define('APF_ROOT_DIR',    realpath(dirname(__FILE__).'/../../..'));
 define('APF_LOGIN_ACCESS',       "Y");
@@ -67,6 +67,17 @@ class CommonServer extends HTML_AJAX_Server
 		// works in both php4 and 5 plus doing class name aliasing
 		$this->registerClass(new ProductPrice(), 'ProductPrice', array (
 			'doEditProductPrice'
+		));
+	}
+
+	function initUploadProgressMeterStatus() 
+	{
+		global $ClassDir,$WebTemplateDir,$ConfigDir,$CurrencyFormat;
+		include_once 'HTTP/UploadProgressMeterStatus.class.php';
+		$this->registerClass(new UploadProgressMeterStatus());
+		// works in both php4 and 5 plus doing class name aliasing
+		$this->registerClass(new UploadProgressMeterStatus(), 'UploadProgressMeterStatus', array (
+			'getStatus'
 		));
 	}
 	  

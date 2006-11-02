@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfUsers.class.php,v 1.15 2006/10/30 09:54:29 arzen Exp $
+ * @version    CVS: $Id: ApfUsers.class.php,v 1.16 2006/11/02 10:14:04 arzen Exp $
  */
 
 class ApfUsers  extends Actions
@@ -47,7 +47,9 @@ class ApfUsers  extends Actions
 	
 	function executeUpdate()
 	{
-		global $template,$WebBaseDir,$controller,$GenderOption,$ActiveOption;
+		global $template,$WebBaseDir,$ClassDir,$controller,$GenderOption,$ActiveOption,$WebTemplateDir;
+		
+		include_once($ClassDir."URLHelper.class.php");
 		$template->setFile(array (
 			"MAIN" => "apf_users_edit.html"
 		));
@@ -68,6 +70,8 @@ class ApfUsers  extends Actions
 		array_shift($ActiveOption);
 		$template->setVar(array ("ID" => $apf_users->getId(),"USER_NAME" => $apf_users->getUserName(),"OLD_PASSWORD" => $apf_users->getUserPwd(),"GENDER" => $apf_users->getGender(),"ADDREES" => $apf_users->getAddrees(),"PHONE" => $apf_users->getPhone(),"EMAIL" => $apf_users->getEmail(),"PHOTO" => $apf_users->getPhoto(),"ROLE_ID" => $apf_users->getRoleId(),"ACTIVE" => $apf_users->getActive(),"ADD_IP" => $apf_users->getAddIp(),"CREATED_AT" => $apf_users->getCreatedAt(),"UPDATE_AT" => $apf_users->getUpdateAt(),));
 		$template->setVar(array (
+			"WEBDIR" => $WebBaseDir,
+			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().$WebTemplateDir,
 			"GENDEROPTION" => radioTag("gender",$GenderOption,$apf_users->getGender()),
 			"ACTIVEOPTION" => radioTag("active",$ActiveOption,$apf_users->getActive()),
 			"FILEPHOTO" => fileTag("photo",$apf_users->getPhoto()),
@@ -85,6 +89,14 @@ class ApfUsers  extends Actions
 	function handleFormData($edit_submit=false)
 	{
 		global $template,$WebBaseDir,$i18n,$luadmin,$ClassDir,$AllowUploadFilesType,$UploadDir;
+		
+		include_once 'HTTP/UploadProgressMeter.class.php';
+		$fileWidget = new UploadProgressMeter();
+		$fileWidget->name='photo';
+		if ($fileWidget->uploadComplete()) 
+		{
+			$fileWidget->finalStatus();
+		}
 		$apf_users = DB_DataObject :: factory('ApfUsers');
 
 		if ($edit_submit) 
@@ -104,9 +116,6 @@ class ApfUsers  extends Actions
 		$apf_users->setPhoto(stripslashes(trim($_POST['photo'])));
 		$apf_users->setRoleId(stripslashes(trim($_POST['role_id'])));
 		$apf_users->setActive(stripslashes(trim($_POST['active'])));
-		$apf_users->setAddIp(stripslashes(trim($_POST['add_ip'])));
-		$apf_users->setCreatedAt(stripslashes(trim($_POST['created_at'])));
-		$apf_users->setUpdateAt(stripslashes(trim($_POST['update_at'])));
 
 		if ($_POST['photo_del']=='Y') 
 		{
