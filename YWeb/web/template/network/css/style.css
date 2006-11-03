@@ -13,12 +13,14 @@ body {
 	color: #000;
 }
 
+
 /** menu **/
 #mainmenu {
 	padding-left:100px;
 	text-align: center;
 	float: left; /*Set to "left" or "right" to position menu accordingly*/
-	/*border-bottom: 1px solid #999e87; uncomment this line to add bottom border*/
+	padding-bottom: 0px;	/*border-bottom: 1px solid #999e87; uncomment this line to add bottom border*/
+	height:45px;
 }
 #mainmenu ul {
 	display: block;
@@ -46,8 +48,41 @@ body {
 	text-decoration: none;
 }
 
+/** main-content **/
+#main-content
+{
+	margin-left:auto; 
+	margin-right:auto; 
+	clear:both;
+	position:relative; 
+	margin-top:0px; 
+	line-height:160%;
+	float: left;
+	padding-left:100px;
+	display: block;
+	font-size: 12px;
+	width:778px;
+}
+#main-content .left_nav span {
+	border-right:1px #cfcfcf solid;
+	border-left:1px #cfcfcf solid;
+	display: block;
+	height:350px;
+	width:180px;
+	float:left;
+}
+#main-content .center_content span {
+	display: block;
+	height:350px;
+	float:inherit;
+	border-right:1px #cfcfcf solid;
+	border-bottom:1px #cfcfcf solid;
+}
+
+
 /** bottom-line **/
 #bottom-line {
+	position:relative; 
 	display: block;
 	padding-left:100px;
 	float: left;
@@ -76,5 +111,3 @@ body {
 	padding-left:350px;
 	font-size: 12px;
 }
-
-
