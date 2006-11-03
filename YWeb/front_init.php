@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: front_init.php,v 1.1 2006/11/02 23:51:15 arzen Exp $
+ * @version    CVS: $Id: front_init.php,v 1.2 2006/11/03 00:01:58 arzen Exp $
  */
 $RootDir = APF_ROOT_DIR . DIRECTORY_SEPARATOR;
 $ConfigDir = $RootDir . "config" . DIRECTORY_SEPARATOR;
@@ -23,7 +23,7 @@ $IncludeDir = $tempRootDir."includes" . DIRECTORY_SEPARATOR;//$RootDir . "includ
 $ClassDir = $tempRootDir. "class" . DIRECTORY_SEPARATOR;//$RootDir . "class" . DIRECTORY_SEPARATOR;
 $ModuleDir = $RootDir . "module" . DIRECTORY_SEPARATOR;
 $ControllerDir = $RootDir . "controller" . DIRECTORY_SEPARATOR;
-$TemplateDir = $RootDir . "web/template/default/";
+$TemplateDir = $RootDir . "web/template/network/";
 $WebTemplateDir = "template/network/";
 $WebBaseDir = getenv("SCRIPT_NAME");
 $WebTemplateFullPath = dirname(getenv("SCRIPT_NAME")) . "/" . $WebTemplateDir;
@@ -110,12 +110,13 @@ $controller = new Controller();
 
 $template = new Template_PHPLIB($TemplateDir);
 $template->setFile(array (
+	"LAOUT" => "front_laout.html",
 	"HEADER" => "header.html",
 	"MENU" => "menu.html",
 	"FOOT" => "footer.html",
-	"FRONT_LAOUT" => "front_laout.html",
 ));
 
-$template->setBlock("FRONT_LAOUT", "front_laout");
+$template->setBlock("LAOUT", "front_laout");
+$template->setBlock("MENU", "menu");
 
 ?>
