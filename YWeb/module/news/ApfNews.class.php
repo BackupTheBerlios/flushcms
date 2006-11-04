@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfNews.class.php,v 1.4 2006/10/30 04:56:27 arzen Exp $
+ * @version    CVS: $Id: ApfNews.class.php,v 1.5 2006/11/04 10:13:59 arzen Exp $
  */
 
 class ApfNews  extends Actions
@@ -227,9 +227,6 @@ class ApfNews  extends Actions
 		
 		$start_num = !isset($_GET['entrant'])?0:($_GET['entrant']-1)*$max_row;
 		$apf_news->limit($start_num,$max_row);
-//		$apf_news->buildCategroyJoin();
-//		$apf_news->selectAs(array('id','active'), 'n_%s','apf_news');
-//		$apf_news->debugLevel(4);
 		$apf_news->find();
 		
 		$i=0;
