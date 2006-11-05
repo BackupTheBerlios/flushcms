@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfNews.class.php,v 1.5 2006/11/04 10:13:59 arzen Exp $
+ * @version    CVS: $Id: ApfNews.class.php,v 1.6 2006/11/05 02:33:17 arzen Exp $
  */
 
 class ApfNews  extends Actions
@@ -99,8 +99,6 @@ class ApfNews  extends Actions
 		$apf_news->setContent(stripslashes(trim($_POST['content'])));
 		$apf_news->setActive(stripslashes(trim($_POST['active'])));
 		$apf_news->setAddIp(stripslashes(trim($_POST['add_ip'])));
-		$apf_news->setCreatedAt(stripslashes(trim($_POST['created_at'])));
-		$apf_news->setUpdateAt(stripslashes(trim($_POST['update_at'])));
 
 				
 		$val = $apf_news->validate();
@@ -162,6 +160,31 @@ class ApfNews  extends Actions
 		$apf_news->setActive('deleted');
 		$apf_news->update();
 		$this->forward("news/apf_news/");
+	}
+
+	function executeUpdateSelected () 
+	{
+		global $ClassDir;
+		if (is_array($_POST['SelectID'])) 
+		{
+			$selected_id = implode(",",$_POST['SelectID']);
+			$status = $_POST['todo'];
+			
+			$apf_news = DB_DataObject :: factory('ApfNews');
+			$apf_news->whereAdd(" id IN (".$apf_news->escape($selected_id).") ");
+			$apf_news->find();
+			while ($apf_news->fetch())
+			{
+				$apf_news->setActive($apf_news->escape($status));
+				$apf_news->update();
+			}
+			
+
+			
+		}
+		
+		$this->forward("news/apf_news/");
+		
 	}
 	
 	function executeDetail () 

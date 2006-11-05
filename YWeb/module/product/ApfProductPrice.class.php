@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfProductPrice.class.php,v 1.1 2006/10/29 09:21:15 arzen Exp $
+ * @version    CVS: $Id: ApfProductPrice.class.php,v 1.2 2006/11/05 02:33:17 arzen Exp $
  */
 
 class ApfProductPrice  extends Actions
@@ -83,8 +83,6 @@ class ApfProductPrice  extends Actions
 		$apf_product_price->setProductId(stripslashes(trim($_POST['product_id'])));
 		$apf_product_price->setPrice(stripslashes(trim($_POST['price'])));
 		$apf_product_price->setAddIp(stripslashes(trim($_POST['add_ip'])));
-		$apf_product_price->setCreatedAt(stripslashes(trim($_POST['created_at'])));
-		$apf_product_price->setUpdateAt(stripslashes(trim($_POST['update_at'])));
 
 				
 		$val = $apf_product_price->validate();

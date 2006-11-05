@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfProduct.class.php,v 1.5 2006/10/30 09:06:23 arzen Exp $
+ * @version    CVS: $Id: ApfProduct.class.php,v 1.6 2006/11/05 02:33:17 arzen Exp $
  */
 
 class ApfProduct  extends Actions
@@ -99,8 +99,6 @@ class ApfProduct  extends Actions
 		$apf_product->setMemo(stripslashes(trim($_POST['memo'])));
 		$apf_product->setActive(stripslashes(trim($_POST['active'])));
 		$apf_product->setAddIp(stripslashes(trim($_POST['add_ip'])));
-		$apf_product->setCreatedAt(stripslashes(trim($_POST['created_at'])));
-		$apf_product->setUpdateAt(stripslashes(trim($_POST['update_at'])));
 
 		if ($_POST['photo_del']=='Y') 
 		{
@@ -195,6 +193,31 @@ class ApfProduct  extends Actions
 		$apf_product->setActive('deleted');
 		$apf_product->update();
 		$this->forward("product/apf_product/");
+	}
+
+	function executeUpdateSelected () 
+	{
+		global $ClassDir;
+		if (is_array($_POST['SelectID'])) 
+		{
+			$selected_id = implode(",",$_POST['SelectID']);
+			$status = $_POST['todo'];
+			
+			$apf_product = DB_DataObject :: factory('ApfProduct');
+			$apf_product->whereAdd(" id IN (".$apf_product->escape($selected_id).") ");
+			$apf_product->find();
+			while ($apf_product->fetch())
+			{
+				$apf_product->setActive($apf_product->escape($status));
+				$apf_product->update();
+			}
+			
+
+			
+		}
+		
+		$this->forward("product/apf_product/");
+		
 	}
 
 	function executeRelated () 

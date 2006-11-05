@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.4 2006/10/30 03:28:15 arzen Exp $
+ * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.5 2006/11/05 02:33:17 arzen Exp $
  */
 include_once("ApfNews.class.php");
 class ApfNewsCategory  extends Actions
@@ -164,6 +164,31 @@ class ApfNewsCategory  extends Actions
 		$apf_news_category->setActive('deleted');
 		$apf_news_category->update();
 		$this->forward("news/apf_news_category/");
+	}
+
+	function executeUpdateSelected () 
+	{
+		global $ClassDir;
+		if (is_array($_POST['SelectID'])) 
+		{
+			$selected_id = implode(",",$_POST['SelectID']);
+			$status = $_POST['todo'];
+			
+			$apf_news_category = DB_DataObject :: factory('ApfNewsCategory');
+			$apf_news_category->whereAdd(" id IN (".$apf_news_category->escape($selected_id).") ");
+			$apf_news_category->find();
+			while ($apf_news_category->fetch())
+			{
+				$apf_news_category->setActive($apf_news_category->escape($status));
+				$apf_news_category->update();
+			}
+			
+
+			
+		}
+		
+		$this->forward("news/apf_news_category/");
+		
 	}
 	
 	function executeMoveup () 

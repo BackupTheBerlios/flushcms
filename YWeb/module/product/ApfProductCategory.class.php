@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfProductCategory.class.php,v 1.4 2006/10/30 04:26:16 arzen Exp $
+ * @version    CVS: $Id: ApfProductCategory.class.php,v 1.5 2006/11/05 02:33:17 arzen Exp $
  */
 
 include_once("ApfProduct.class.php");
@@ -163,6 +163,28 @@ class ApfProductCategory  extends Actions
 		$apf_product_category->setActive('deleted');
 		$apf_product_category->update();
 		$this->forward("product/apf_product_category/");
+	}
+
+	function executeUpdateSelected () 
+	{
+		global $ClassDir;
+		if (is_array($_POST['SelectID'])) 
+		{
+			$selected_id = implode(",",$_POST['SelectID']);
+			$status = $_POST['todo'];
+			
+			$apf_product_category = DB_DataObject :: factory('ApfProductCategory');
+			$apf_product_category->whereAdd(" id IN (".$apf_product_category->escape($selected_id).") ");
+			$apf_product_category->find();
+			while ($apf_product_category->fetch())
+			{
+				$apf_product_category->setActive($apf_product_category->escape($status));
+				$apf_product_category->update();
+			}
+		}
+		
+		$this->forward("product/apf_product_category/");
+		
 	}
 	
 	function executeMoveup () 

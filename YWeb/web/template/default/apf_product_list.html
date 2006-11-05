@@ -16,14 +16,32 @@
 </div>
 
         
+<form id="admin_list_form" name="admin_list_form" method="post" action="{WEBDIR}/product/apf_product/UpdateSelected" >
 <ul class="admin_actions">
           <li><input class="admin_action_create" value="{lang_Create}" type="button" onclick="document.location.href='{WEBDIR}/product/apf_product/create';" /></li>
           <li><input class="admin_action_create" value="{lang_ProductCategory}" type="button" onclick="document.location.href='{WEBDIR}/product/apf_product_category';" /></li>
+		    <li>
+		      <input type="submit" name="save" value="{lang_StatusToNew}" class="admin_action_list" 
+				  onclick="if (confirm('Are you sure?')) { document.admin_list_form.todo.value='new';document.admin_list_form.submit(); };return false;"   
+				  />
+		    </li>
+		    <li>
+		      <input type="submit" name="save" value="{lang_StatusToLive}" class="admin_action_save" 
+				  onclick="if (confirm('Are you sure?')) { document.admin_list_form.todo.value='live';document.admin_list_form.submit(); };return false;" />
+		    </li>
+		    <li>
+		      <input type="submit" name="save" value="{lang_StatusToDelete}" class="admin_action_cancel" 
+				  onclick="if (confirm('Are you sure?')) { document.admin_list_form.todo.value='deleted';document.admin_list_form.submit(); };return false;"
+				  />
+		    </li>
+		    <input type="hidden" name="todo" value="" />
 </ul>
 
 <table cellspacing="0" class="admin_list">      
 <thead>
-<tr><th>&nbsp;{lang_Id}</th>
+<tr>
+<th>&nbsp;<input type="checkbox" onClick="selectAll(this.checked,'SelectID[]')"/></th>
+<th>&nbsp;{lang_Id}</th>
 <th>&nbsp;{lang_Category}</th>
 <!--<th>&nbsp;{lang_CompanyId}</th>-->
 <th>&nbsp;{lang_Name}</th>
@@ -35,7 +53,9 @@
 </thead>
 <tbody>
 <!-- BEGIN main_list -->
-<tr class="{LIST_TD_CLASS}"><td>&nbsp;{ID}</td>
+<tr class="{LIST_TD_CLASS}">
+<td>&nbsp;<INPUT TYPE="checkbox" NAME="SelectID[]" value="{ID}"></td>
+<td>&nbsp;{ID}</td>
 <td>&nbsp;{CATEGORY}</td>
 <!--<td>&nbsp;{COMPANY_ID}</td>-->
 <td>&nbsp;{NAME}</td>
@@ -62,3 +82,24 @@
 </tfoot>
 
 </table>
+<ul class="admin_actions">
+          <li><input class="admin_action_create" value="{lang_Create}" type="button" onclick="document.location.href='{WEBDIR}/product/apf_product/create';" /></li>
+          <li><input class="admin_action_create" value="{lang_ProductCategory}" type="button" onclick="document.location.href='{WEBDIR}/product/apf_product_category';" /></li>
+		    <li>
+		      <input type="submit" name="save" value="{lang_StatusToNew}" class="admin_action_list" 
+				  onclick="if (confirm('Are you sure?')) { document.admin_list_form.todo.value='new';document.admin_list_form.submit(); };return false;"   
+				  />
+		    </li>
+		    <li>
+		      <input type="submit" name="save" value="{lang_StatusToLive}" class="admin_action_save" 
+				  onclick="if (confirm('Are you sure?')) { document.admin_list_form.todo.value='live';document.admin_list_form.submit(); };return false;" />
+		    </li>
+		    <li>
+		      <input type="submit" name="save" value="{lang_StatusToDelete}" class="admin_action_cancel" 
+				  onclick="if (confirm('Are you sure?')) { document.admin_list_form.todo.value='deleted';document.admin_list_form.submit(); };return false;"
+				  />
+		    </li>
+</ul>
+
+</form>
+

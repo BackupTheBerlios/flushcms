@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: index.class.php,v 1.2 2006/11/04 10:13:59 arzen Exp $
+ * @version    CVS: $Id: Index.class.php,v 1.1 2006/11/05 02:33:17 arzen Exp $
  */
 
 class index
@@ -93,6 +93,7 @@ class index
 		$start_num = !isset($_GET['entrant'])?0:($_GET['entrant']-1)*$max_row;
 		$apf_news->limit($start_num,$max_row);
 		$apf_news->whereAdd(" category_id = '".$apf_news->escape("{$category}") . "'  ");
+		$apf_news->whereAdd(" active='live' ");
 		$ToltalNum = $apf_news->count();
 		$apf_news->find();
 		
