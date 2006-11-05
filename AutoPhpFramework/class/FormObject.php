@@ -5,7 +5,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: FormObject.php,v 1.15 2006/11/02 10:14:04 arzen Exp $
+ * @version    CVS: $Id: FormObject.php,v 1.16 2006/11/05 08:23:45 arzen Exp $
  */
 
 /**
@@ -34,24 +34,27 @@ function textareaTag ($name,$value="",$rich=false,$extend=" ROWS=\"30\" COLS=\"1
 <script language="javascript" type="text/javascript" src="{$tiny_mce_dir}tiny_mce.js"></script>
 <script language="javascript" type="text/javascript">
 	tinyMCE.init({
+		mode : "textareas",
 		theme : "advanced",
-		mode : "exact",
-		elements : "{$name}",
-		save_callback : "customSave",
+		plugins : "table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,zoom,flash,searchreplace,print,paste,directionality,fullscreen,noneditable,contextmenu",
+		theme_advanced_buttons1_add_before : "save,newdocument,separator",
+		theme_advanced_buttons1_add : "fontselect,fontsizeselect",
+		theme_advanced_buttons2_add : "separator,insertdate,inserttime,preview,zoom,separator,forecolor,backcolor,liststyle",
+		theme_advanced_buttons2_add_before: "cut,copy,paste,pastetext,pasteword,separator,search,replace,separator",
+		theme_advanced_buttons3_add_before : "tablecontrols,separator",
+		theme_advanced_buttons3_add : "emotions,iespell,flash,advhr,separator,print,separator,ltr,rtl,separator,fullscreen",
 		theme_advanced_toolbar_location : "top",
 		theme_advanced_toolbar_align : "left",
-		theme_advanced_path_location : "bottom",
-		extended_valid_elements : "a[href|target|name]",
-		plugins : "table,save,advhr,advimage,advlink,emotions,ibrowser,iespell,insertdatetime,preview,zoom,flash,searchreplace,print,contextmenu,paste,directionality,fullscreen",
-		theme_advanced_buttons1_add : "fontselect,fontsizeselect,ibrowser",
-		theme_advanced_buttons2_add_before: "cut,copy,paste,pastetext,pasteword,separator,search,replace,insertdate,inserttime",
-		theme_advanced_buttons3_add_before : "tablecontrols,separator,forecolor,backcolor",
-		//invalid_elements : "a",
-		theme_advanced_styles : "Header 1=header1;Header 2=header2;Header 3=header3;Table Row=tableRow1", // Theme specific setting CSS classes
-		//execcommand_callback : "myCustomExecCommandHandler",
-	    plugin_insertdate_dateFormat : "%Y-%m-%d",
-	    plugin_insertdate_timeFormat : "%H:%M:%S",
-		debug : false
+		theme_advanced_statusbar_location : "bottom",
+		plugin_insertdate_dateFormat : "%Y-%m-%d",
+		plugin_insertdate_timeFormat : "%H:%M:%S",
+		extended_valid_elements : "hr[class|width|size|noshade]",
+		file_browser_callback : "fileBrowserCallBack",
+		paste_use_dialog : false,
+		theme_advanced_resizing : true,
+		theme_advanced_resize_horizontal : false,
+		theme_advanced_link_targets : "_something=My somthing;_something2=My somthing2;_something3=My somthing3;",
+		apply_source_formatting : true
 	});
 
 	// Custom event handler
@@ -85,6 +88,33 @@ function textareaTag ($name,$value="",$rich=false,$extend=" ROWS=\"30\" COLS=\"1
 		return false; // Pass to next handler in chain
 	}
 
+	function fileBrowserCallBack(field_name, url, type, win) {
+		var connector = "../../filemanager/browser.html?Connector=connectors/php/connector.php";
+		var enableAutoTypeSelection = true;
+		
+		var cType;
+		tinyfck_field = field_name;
+		tinyfck = win;
+		
+		switch (type) {
+			case "image":
+				cType = "Image";
+				break;
+			case "flash":
+				cType = "Flash";
+				break;
+			case "file":
+				cType = "File";
+				break;
+		}
+		
+		if (enableAutoTypeSelection && cType) {
+			connector += "&Type=" + cType;
+		}
+		
+		window.open(connector, "tinyfck", "modal,width=600,height=400");
+	}
+	
 	// Custom save callback, gets called when the contents is to be submitted
 	function customSave(id, content) 
 	{
