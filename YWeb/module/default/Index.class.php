@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: Index.class.php,v 1.1 2006/11/05 02:33:17 arzen Exp $
+ * @version    CVS: $Id: Index.class.php,v 1.2 2006/11/06 14:05:27 arzen Exp $
  */
 
 class index
@@ -69,7 +69,8 @@ class index
 	
 	function executeTech () 
 	{
-		global $template,$WebBaseDir,$WebTemplateDir,$controller;
+		global $template,$WebBaseDir,$WebTemplateDir,$controller,$RootDir;
+		require_once $RootDir.'/connect.php';
 		require_once 'Pager/Pager.php';
 
 		$template->setFile(array (
@@ -154,7 +155,7 @@ class index
 	
 	function executeTechdetail () 
 	{
-		global $template,$WebBaseDir,$WebTemplateDir,$controller,$WebTemplateFullPath,$cache;
+		global $template,$WebBaseDir,$WebTemplateDir,$controller,$WebTemplateFullPath,$cache,$RootDir;
 		
 		$template->setFile(array (
 			"MENU_SUB" => "main_left_tech_category.html",
@@ -172,6 +173,7 @@ class index
 		} 
 		else 
 		{
+			require_once $RootDir.'/connect.php';
 			$apf_news = DB_DataObject :: factory('ApfNews');
 			$apf_news->get($apf_news->escape($controller->getID()));
 			$data = $apf_news->toArray();
