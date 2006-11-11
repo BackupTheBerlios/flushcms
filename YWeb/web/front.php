@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: front.php,v 1.4 2006/11/04 10:13:59 arzen Exp $
+ * @version    CVS: $Id: front.php,v 1.5 2006/11/11 04:28:49 arzen Exp $
  */
 define('APF_ROOT_DIR',    realpath(dirname(__FILE__).'/..'));
 define('APF_DEBUG',       false);
@@ -21,6 +21,7 @@ $site_menu = array(
 	"技术文档"=>"/default/index/tech",
 	"域名注册"=>"/default/index/domain",
 	"新闻事件"=>"/default/index/tech/4",
+	"即时反馈"=>"/default/index/feedback",
 	"关于我们"=>"/default/index/aboutus",
 );
 

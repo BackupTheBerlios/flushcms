@@ -1,0 +1,146 @@
+<script type="text/javascript"
+	src="{WEB_TEMPLATE_DIR}CommonServer.php?client=all"></script>
+<script type="text/javascript"
+	src="{WEB_TEMPLATE_DIR}CommonServer.php?stub=Feedback"></script>
+<script type="text/javascript">
+		/**
+		 * Basic page initialization
+		 */
+		function initPage() {
+			// Set up the labels so they know the associated input elements
+			var arrLabels = document.getElementsByTagName("label");
+			for (var i=0; i < arrLabels.length; i++) {
+				var objTemp = arrLabels[i];
+				var strFor = objTemp.getAttribute('for');
+
+				// Fix the attributes
+				if (strFor != '') {
+					// Set the ID of the label
+					objTemp.setAttribute('id', 'l' + strFor);
+
+					// Save the original class of the label (if any)
+					objTemp.setAttribute('classOrig', objTemp.getAttribute('class'));
+				}
+			}
+
+			// Set the focus on the first element
+			document.getElementById('mail_from').focus();
+		}
+
+		/**
+		 * Sets the class of an element (build for this example)
+		 */
+		function setElement(strElement, blnValidated) {
+			// Update the label
+			var objElem = document.getElementById('l' + strElement);
+			if (objElem) {
+				if (blnValidated == 1) {
+					strClass = objElem.getAttribute('classOrig');
+				} else {
+					strClass = 'error';
+				}
+				objElem.setAttribute('class', '' + strClass);
+			}
+
+			return false;
+		}
+
+		/**
+		 * Shows or hides an element
+		 */
+		function toggleElement(strElement, blnVisible) {
+			var objStyle = document.getElementById(strElement).style;
+			if (objStyle) {
+				objStyle.display = (blnVisible == 1) ? 'block' : 'none';
+			}
+		}
+
+		/**
+		 * Feedback function
+		 */
+		function doFeedback() {
+			// Create object with values of the form
+		    var objTemp = new Object();
+		    objTemp['mail_from'] = document.getElementById('mail_from').value;
+		    objTemp['mail_to'] = document.getElementById('mail_to').value;
+		    objTemp['value_550'] = document.getElementById('value_550').value;
+		    objTemp['key_550'] = document.getElementById('key_550').value;
+		    objTemp['value_551'] = document.getElementById('value_551').value;
+		    objTemp['key_551'] = document.getElementById('key_551').value;
+		    objTemp['value_552'] = document.getElementById('value_552').value;
+		    objTemp['key_552'] = document.getElementById('key_552').value;
+		    objTemp['value_553'] = document.getElementById('value_553').value;
+		    objTemp['key_553'] = document.getElementById('key_553').value;
+
+			// Create a dummy callback so the loading box will appear...
+			var objCallback = { validate: function() {} };
+
+			// Send the object to the remote class
+		    var objFeedback = new Feedback(objCallback);
+		    objFeedback.validate(objTemp);
+		}
+	</script>
+
+<table width="776" border="0" cellpadding="0" cellspacing="0"
+	align="center"
+	style="border-right:1px #cfcfcf solid;border-left:1px #cfcfcf solid">
+	<tr>
+		{MAIN_LEFT}
+		<td valign="top">
+		<div id="main">
+		<div class="tabs"><br />
+		<br />
+		</div>
+		<!-- begin content -->
+		<div class='view view-tech_php'>
+		<div id="messages" class="errorbox"></div>
+		<br />
+		<table>
+			<FORM METHOD="POST" onSubmit="doFeedback(); return false;">
+			<tr>
+				<td><label for="mail_from">您的Email:</label></td>
+				<td><input type="text" name="mail_from" id="mail_from"
+					tabindex="3"></td>
+			</tr>
+			<tr>
+				<td><label for="value_550">您的姓名:</label></td>
+				<td><INPUT TYPE="text" NAME="value_550" id="value_550"><INPUT
+					TYPE="hidden" NAME="key_550" id="key_550" VALUE="姓名"></td>
+			</tr>
+			<tr>
+				<td><label for="value_551">您的性别:</label></td>
+				<td><INPUT TYPE="radio" NAME="value_551" value="先生" checked>先生
+				<INPUT TYPE="radio" NAME="value_551" id="value_551" value="小姐">小姐<INPUT
+					TYPE="hidden" NAME="key_551" id="key_551" VALUE="性别"></td>
+			</tr>
+			<tr>
+				<td><label for="value_552">您反馈的主题:</label></td>
+				<td><INPUT TYPE="text" NAME="value_552" id="value_552"
+					size="30"><INPUT TYPE="hidden" NAME="key_552" id="key_552" VALUE="反馈主题"></td>
+			</tr>
+			<tr>
+				<td><label for="value_553">您反馈的内容:</label></td>
+				<td><TEXTAREA ROWS="8" COLS="30" NAME="value_553" id="value_553"></TEXTAREA> <INPUT
+					TYPE="hidden" NAME="key_553" id="key_553" VALUE="反馈内容"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="hidden" name="mail_to" id="mail_to"
+					value="arzen1013@163.com"><input name="submit"
+					type="submit" value="Submit"></td>
+			</tr>
+			</FORM>
+		</table>
+		</div>
+		<!-- end content --></div>
+		</td>
+	</tr>
+</table>
+<script type="text/javascript">
+		if (document.getElementsByTagName) {
+			initPage();
+		} else {
+			alert('This sample requires the DOM2 "getElementsByTagName" function.');
+		}
+</script>
+

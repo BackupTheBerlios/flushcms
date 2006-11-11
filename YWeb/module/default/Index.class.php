@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: Index.class.php,v 1.2 2006/11/06 14:05:27 arzen Exp $
+ * @version    CVS: $Id: Index.class.php,v 1.3 2006/11/11 04:28:49 arzen Exp $
  */
 
 class index
@@ -211,5 +211,22 @@ class index
 		$template->setBlock("MAIN", "main_list", "list_block");
 		$template->setBlock("MAIN_LEFT", "main_left", "left_block");
 	}
+	
+	function executeFeedback () 
+	{
+		global $template,$WebTemplateFullPath,$WebBaseDir;
+		$template->setFile(array (
+			"MAIN_LEFT" => "main_left.html",
+			"MAIN" => "main_feedback.html"
+		));
+
+		$template->setBlock("MAIN", "main_list", "list_block");
+		$template->setBlock("MAIN_LEFT", "main_left", "left_block");
+		$template->setVar(array (
+			"WEB_TEMPLATE_DIR" => $WebTemplateFullPath,
+			"WEB_DIR" => $WebBaseDir,
+			));
+	}
+
 }
 ?>
