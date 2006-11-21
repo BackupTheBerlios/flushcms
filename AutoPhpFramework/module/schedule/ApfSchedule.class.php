@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfSchedule.class.php,v 1.1 2006/11/21 16:00:22 arzen Exp $
+ * @version    CVS: $Id: ApfSchedule.class.php,v 1.2 2006/11/21 23:36:09 arzen Exp $
  */
 require_once 'Calendar'.DIRECTORY_SEPARATOR.'Calendar.php';
 require_once 'Calendar'.DIRECTORY_SEPARATOR.'Day.php';
@@ -45,9 +45,9 @@ class ApfSchedule  extends Actions
 
 		$apf_schedule->setTitle(stripslashes(trim($_POST['title'])));
 		$apf_schedule->setDescription(stripslashes(trim($_POST['description'])));
-		$apf_schedule->setPublishDate(stripslashes(trim($_POST['publish_date'])));
-		$apf_schedule->setPublishStarttime(stripslashes(trim($_POST['publish_starttime'])));
-		$apf_schedule->setPublishEndtime(stripslashes(trim($_POST['publish_endtime'])));
+		$apf_schedule->setPublishDate(DB_DataObject_Cast::date(stripslashes(trim($_POST['publish_date']))));
+		$apf_schedule->setPublishStarttime(DB_DataObject_Cast::time(stripslashes(trim($_POST['publish_starttime']))));
+		$apf_schedule->setPublishEndtime(DB_DataObject_Cast::time(stripslashes(trim($_POST['publish_endtime']))));
 		$apf_schedule->setImage(stripslashes(trim($_POST['image'])));
 		$apf_schedule->setActive(stripslashes(trim($_POST['active'])));
 		$apf_schedule->setAddIp(stripslashes(trim($_POST['add_ip'])));
@@ -62,7 +62,7 @@ class ApfSchedule  extends Actions
 			{
 				$apf_schedule->setUpdateAt(DB_DataObject_Cast::dateTime());
 				$apf_schedule->update();
-				$this->forward("schedule/apf_schedule/update/".$_POST['ID']."/ok");
+				$this->forward("schedule/apf_schedule/list/".$_POST['ID']."/ok");
 			}
 			else 
 			{
@@ -112,12 +112,13 @@ class ApfSchedule  extends Actions
 	
 	function executeList()
 	{
-		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$TemplateDir,$TimeOption,$ActiveOption;
+		global $template,$i18n,$WebBaseDir,$WebTemplateDir,$controller,$ClassDir,$TemplateDir,$TimeOption,$ActiveOption;
 
 		include_once($ClassDir."URLHelper.class.php");
 		$template->setFile(array (
 			"MAIN" => "apf_schedule_list.html"
 		));
+		$do_action = "AddSubmit";
 
 		$template->setBlock("MAIN", "main_list", "list_block");
 //		set default day or get select day
@@ -138,31 +139,30 @@ class ApfSchedule  extends Actions
 		$start_time = "";
 		$end_time = "";
 		$image_string = "";
-		$status = "new";
+		$active = "new";
 		$used_hours_arr=array();
 		$CalDailyView = $this->renderDayView($select_y,$select_m,$select_d,$used_hours_arr);
 		$un_use_hour_arr = array_diff($TimeOption,$used_hours_arr);
 		
-		if ($_REQUEST['act'] =="Update") 
+		if ($controller->getID()) 
 		{
 			$un_use_hour_arr = $TimeOption;
 			$apf_schedule = DB_DataObject :: factory('ApfSchedule');
-			$apf_schedule->get($apf_schedule->escape($_GET['ID']));
+			$apf_schedule->get($apf_schedule->escape($controller->getID()));
 			$do_action = "UpdateSubmit";
 	
-			if ($_GET['view_status']=="ok") 
+			if ($controller->getURLParam(1)=="ok") 
 			{
 				$template->setVar(array (
 					"SUCCESS_CLASS" => "save-ok",
-					"SUCCESS_MSG" => "<h2>Your modifications have been saved</h2>"
+					"SUCCESS_MSG" => "<h2>".$i18n->_("Your modifications have been saved")."</h2>"
 				));
 			}
 			
-			$template->setVar(array ("WEBCASTID" => $apf_schedule->getApfScheduleid(),"TITLE" => $apf_schedule->getTitle(),"DESCRIPTION" => $apf_schedule->getDescription(),"PUBLISH_DATE" => $apf_schedule->getPublishDate(),"PUBLISH_STARTTIME" => $apf_schedule->getPublishStarttime(),"PUBLISH_ENDTIME" => $apf_schedule->getPublishEndtime(),"IMAGE" => $apf_schedule->getImage(),"IMAGE_STATUS" => $apf_schedule->getImageStatus(),"IMAGEURL" => $apf_schedule->getImageurl(),"IMAGEX" => $apf_schedule->getImagex(),"IMAGEY" => $apf_schedule->getImagey(),"THUMBURL" => $apf_schedule->getThumburl(),"THUMBX" => $apf_schedule->getThumbx(),"THUMBY" => $apf_schedule->getThumby(),"CUBEURL" => $apf_schedule->getCubeurl(),"CUBEX" => $apf_schedule->getCubex(),"CUBEY" => $apf_schedule->getCubey(),"CREATE_TIME" => $apf_schedule->getCreateTime(),"LAST_UPDATED" => $apf_schedule->getLastUpdated(),"STATUS" => $apf_schedule->getStatus(),));
-			$start_time = $this->shorTimeFormat($apf_schedule->getPublishStarttime());
+			$template->setVar(array ("ID" => $apf_schedule->getId(),"TITLE" => $apf_schedule->getTitle(),"DESCRIPTION" => $apf_schedule->getDescription(),"PUBLISH_DATE" => $apf_schedule->getPublishDate(),"PUBLISH_STARTTIME" => $apf_schedule->getPublishStarttime(),"PUBLISH_ENDTIME" => $apf_schedule->getPublishEndtime(),"IMAGE" => $apf_schedule->getImage(),"ACTIVE" => $apf_schedule->getActive(),"ADD_IP" => $apf_schedule->getAddIp(),"CREATED_AT" => $apf_schedule->getCreatedAt(),"UPDATE_AT" => $apf_schedule->getUpdateAt(),));			$start_time = $this->shorTimeFormat($apf_schedule->getPublishStarttime());
 			$end_time = $this->shorTimeFormat($apf_schedule->getPublishEndtime());
 			$image_string= $apf_schedule->getImage();
-			$status = $webcast->getStatus();
+			$active = $apf_schedule->getActive();
 		}
 		else if ($_REQUEST['act'] =="ExportWeek") 
 		{
@@ -174,10 +174,10 @@ class ApfSchedule  extends Actions
 			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().$WebTemplateDir,
 			"PUBLISHDATE" => inputDateTag ("publish_date","{$select_y}-{$select_m}-{$select_d}"),
 			"IMAGES_FILE" => fileTag ('image',$image_string),
-			"STATUS_FIELD" => selectTag ('status',$ActiveOption,$status),
+			"STATUS_FIELD" => selectTag ('active',$ActiveOption,$active),
 			"PUBLISH_STARTTIME_OPTION" => selectTag ('publish_starttime',$un_use_hour_arr,$start_time),
 			"PUBLISH_ENDTIME_OPTION" => selectTag ('publish_endtime',$un_use_hour_arr,$end_time),
-			"DoAction" => $do_action,
+			"DOACTION" => $do_action,
 			"LEFT_CALENDAR" => $this->renderMonthView(),
 			"DAY_VIEW" => $CalDailyView,
 			"PUBLISH_DATE" => "{$select_y}-{$select_m}-{$select_d}",
@@ -189,8 +189,9 @@ class ApfSchedule  extends Actions
 	
 	function renderDayView ($y,$m,$d,&$used_hours_arr) 
 	{
-		global $TemplateDir,$template,$Upload_Dir,$CalStatusOption;
+		global $TemplateDir,$template,$Upload_Dir,$WebTemplateDir,$WebBaseDir,$ClassDir,$ActiveOption;
 		
+		include_once($ClassDir."URLHelper.class.php");
 		// Create a day to view the hours for
 		$Day = & new Calendar_Day($y,$m,$d);
 		$selection = array();
@@ -225,9 +226,9 @@ class ApfSchedule  extends Actions
 		    $DiaryEvent->setEndHour($end_hour);
 		    $DiaryEvent->setID($row['webcast_id']);
 		    $DiaryEvent->setItemNum($row['NUM']);
-		    $DiaryEvent->setStatu($row['status']);
+		    $DiaryEvent->setStatu($row['active']);
 		    $DiaryEvent->setImages($row['image']?popFile($Upload_Dir.$row['image']):"");
-		    $DiaryEvent->setEntry("<a href=\"webcast_items.php?webcastid=".$row['webcast_id']."\">".$apf_schedule->getTitle()."</a>");
+		    $DiaryEvent->setEntry("<a href=\"{$WebBaseDir}/schedule/apf_schedule/list/".$row['id']."\">".$apf_schedule->getTitle()."</a>");
 		
 		    // Add the decorator to the selection
 		    $selection[] = $DiaryEvent;
@@ -265,9 +266,9 @@ class ApfSchedule  extends Actions
 		            $temp_end_hour = $Hour->getEndHour();
 		            $merge_hour=$temp_end_hour-$hour+1;
 		            $css_class_name = "calentryfilled_".$Hour->getStatu();
-		            $Day_String .= ( "<td rowspan=\"{$merge_hour}\" class=\"{$css_class_name}\"><INPUT TYPE=\"checkbox\" NAME=\"SelectID[]\" value=\"".$Hour->getID()."\"></td><td class=\"{$css_class_name}\" rowspan=\"{$merge_hour}\">".$Hour->getEntry()."</td><td rowspan=\"{$merge_hour}\">&nbsp;".$Hour->getItemNum()."</td><td rowspan=\"{$merge_hour}\">&nbsp;".$Hour->getImages()."</td><td rowspan=\"{$merge_hour}\">&nbsp;".$CalStatusOption[$Hour->getStatu()]."</td><td rowspan=\"{$merge_hour}\"><ul class=\"admin_td_actions\">
-  <li><a href=\"webcast.php?act=Update&y={$y}&m={$m}&d={$d}&ID=".$Hour->getID()."\"><img alt=\"edit\" title=\"edit\" src=\"{$TemplateDir}/images/edit_icon.png\" /></a></li>
-  <li><a onclick=\"if (confirm('Are you sure?')) { f = document.createElement('form'); document.body.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;\" href=\"webcast.php?act=Del&y={$y}&m={$m}&d={$d}&ID=".$Hour->getID()."\"><img alt=\"delete\" title=\"delete\" src=\"{$TemplateDir}/images/delete_icon.png\" /></a></li>
+		            $Day_String .= ( "<td rowspan=\"{$merge_hour}\" class=\"{$css_class_name}\"><INPUT TYPE=\"checkbox\" NAME=\"SelectID[]\" value=\"".$Hour->getID()."\"></td><td class=\"{$css_class_name}\" rowspan=\"{$merge_hour}\">".$Hour->getEntry()."</td><td rowspan=\"{$merge_hour}\">&nbsp;".$Hour->getItemNum()."</td><td rowspan=\"{$merge_hour}\">&nbsp;".$Hour->getImages()."</td><td rowspan=\"{$merge_hour}\">&nbsp;".$ActiveOption[$Hour->getStatu()]."</td><td rowspan=\"{$merge_hour}\"><ul class=\"admin_td_actions\">
+  <li><a href=\"webcast.php?act=Update&y={$y}&m={$m}&d={$d}&ID=".$Hour->getID()."\"><img alt=\"edit\" title=\"edit\" src=\"".URLHelper::getWebBaseURL ().$WebTemplateDir."/images/edit_icon.png\" /></a></li>
+  <li><a onclick=\"if (confirm('Are you sure?')) { f = document.createElement('form'); document.body.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;\" href=\"webcast.php?act=Del&y={$y}&m={$m}&d={$d}&ID=".$Hour->getID()."\"><img alt=\"delete\" title=\"delete\" src=\"".URLHelper::getWebBaseURL ().$WebTemplateDir."/images/delete_icon.png\" /></a></li>
 </ul></td>\n" );
 		        } 
 		        else if ($temp_end_hour && $hour<=$temp_end_hour) 

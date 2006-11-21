@@ -442,7 +442,7 @@ table.month {
 .calentryfilled_ready {
 	background-color: #DCE9E1;
 }
-.calentryfilled_delete {
+.calentryfilled_deleted {
 	background-color: #FFECEC;
 }
 .calentryfilled_confirm {

@@ -25,9 +25,8 @@
 <div class="{SUCCESS_CLASS}">
 	{SUCCESS_MSG}
 </div>
-<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="webcast.php">
-<input type="hidden" name="ID" id="ID" value="{WEBCASTID}" />
-<input type="hidden" name="act" value="{DoAction}" />
+<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{WEBDIR}/schedule/apf_schedule/{DOACTION}">
+<input type="hidden" name="ID" id="ID" value="{ID}" />
 <input type="hidden" name="y" value="{Y}" />
 <input type="hidden" name="m" value="{M}" />
 <input type="hidden" name="d" value="{D}" />
