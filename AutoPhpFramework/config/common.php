@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: common.php,v 1.5 2006/10/31 14:22:19 arzen Exp $
+ * @version    CVS: $Id: common.php,v 1.6 2006/11/21 16:00:22 arzen Exp $
  */
  
 $GenderOption = array(	
@@ -43,5 +43,10 @@ $StateOption = array(
 			'90'=>"90%",
 			'close'=>"<FONT COLOR=\"#FF0000\">".$i18n->_('Close')."</FONT>",
 			);
+
+for ($index = 0; $index < 24; $index++) 
+{
+	$TimeOption[$index.":00:00"]=$index.":00";
+}			
 
 ?>

@@ -371,3 +371,119 @@ ul.admin_actions input
 	font-size: 12px;
 	color: #fff;
 }
+.admin_left_content {
+	float: left;
+	margin-left: 6px;
+	margin-bottom: 10px;
+	width: 300px;
+	padding: 0px 4px 4px 4px;
+	border-top: none;
+	border-left: none;
+}
+
+.admin_main_content {
+    margin-left: 320px;
+    height:820px;
+}
+
+caption.year {
+    font-weight: bold;
+    font-size: 120%;
+    font-color: navy;
+}
+caption.month {
+    font-size: 110%;
+    font-color: navy;
+}
+table.month {
+    border:  1px solid #CCCCCC
+}
+#prev {
+    float: left;
+    font-size: 70%;
+}
+#next {
+    float: right;
+    font-size: 70%;
+}
+.admin_footer {
+    float: left;
+}
+.calnone {
+	clear: both;
+	padding: 10px;
+	border-bottom: 1px solid #ddd;
+	background-color: #eef;
+	
+}
+.calheader {
+	clear: both;
+	border-bottom: 1px solid #ddd;
+	background-color: #eef;
+
+}
+.selected {
+	background-color: #CCCCFF;
+}
+.week {
+	background-color: #D7D7D7;
+}
+.calholiday {
+	color: #FF0000;
+}
+.calentryhead {
+	background-color: #ccf;
+}
+
+
+.calentryfilled_new {
+	background-color: #F4F3D7;
+}
+.calentryfilled_ready {
+	background-color: #DCE9E1;
+}
+.calentryfilled_delete {
+	background-color: #FFECEC;
+}
+.calentryfilled_confirm {
+	background-color: #8DBC8B;
+}
+
+td.calCell {
+    border: 1px solid #b5bece;
+    padding: 3px;
+}
+td.calCell a {
+	color: #0000FF;
+}
+td.calCellEmpty {
+    background-color: #f3f3f7;
+    border: 1px solid #b5bece;
+	color: #CCCCCC;
+}
+
+td.calCellBusy {
+	background-color: #666699;
+	border: 1px solid #b5bece;
+}
+td.calCellBusy a {
+	color: #FF0000;
+}
+
+div.dayNumber {
+	text-align: right;
+	background-color: #f8f8f8;
+	border-bottom: 1px solid #ccc;
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+}
+div.dayContents {
+	text-align: right;
+	color: #CCCCCC;
+}
+
+
+
+
+

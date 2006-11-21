@@ -1,0 +1,117 @@
+
+<link rel="stylesheet" type="text/css" media="all" href="{TEMPLATEDIR}calendar/calendar-win2k-cold-1.css" title="win2k-cold-1" />
+<script type="text/javascript" src="{TEMPLATEDIR}calendar/calendar.js"></script>
+<script type="text/javascript" src="{TEMPLATEDIR}calendar/lang/calendar-en.js"></script>
+<script type="text/javascript" src="{TEMPLATEDIR}calendar/calendar-setup.js"></script>
+        
+<div id="admin_container">
+<h1>{lang_Schedule}</h1>
+<div id="admin_header">
+</div>
+<div id="admin_bar">
+</div>
+
+<div class="admin_left_content">
+<form id="admin_left_cal" name="admin_left_cal" method="post" action="webcast.php">
+<input type="hidden" name="weekdays" />
+<input type="hidden" name="act"/>
+<input type="hidden" name="week" />
+<input type="hidden" name="y" value="{Y}" />
+<input type="hidden" name="m" value="{M}" />
+<input type="hidden" name="d" value="{D}" />
+{LEFT_CALENDAR}
+</form>
+<br/>
+<div class="{SUCCESS_CLASS}">
+	{SUCCESS_MSG}
+</div>
+<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="webcast.php">
+<input type="hidden" name="ID" id="ID" value="{WEBCASTID}" />
+<input type="hidden" name="act" value="{DoAction}" />
+<input type="hidden" name="y" value="{Y}" />
+<input type="hidden" name="m" value="{M}" />
+<input type="hidden" name="d" value="{D}" />
+<fieldset id="fieldset_________" class="">
+<h2>{lang_CreateSchedule}</h2><div class="form-row">
+  <label >Title:<FONT COLOR="#FF0000">*</FONT></label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{TITLE_ERROR_MSG}</div>
+  <input type="text" name="title" id="title" value="{TITLE}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_PublishDate}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{PUBLISH_DATE_ERROR_MSG}</div>
+  {PUBLISHDATE}    </div>
+</div>
+<div class="form-row">
+  <label >StartTime:<FONT COLOR="#FF0000">*</FONT></label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{PUBLISH_STARTTIME_ERROR_MSG}</div>
+  {PUBLISH_STARTTIME_OPTION}    </div>
+</div>
+<div class="form-row">
+  <label >EndTime:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{PUBLISH_ENDTIME_ERROR_MSG}</div>
+  {PUBLISH_ENDTIME_OPTION}   </div>
+</div>
+<div class="form-row">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{IMAGE_ERROR_MSG}</div>
+  {IMAGES_FILE}
+</div>
+<div class="form-row">
+  <label >Description:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{DESCRIPTION_ERROR_MSG}</div>
+  <TEXTAREA name="description" id="description" ROWS="5" COLS="20" />{DESCRIPTION}</TEXTAREA>     </div>
+</div>
+<div class="form-row">
+  <label >Status:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{STATUS_ERROR_MSG}</div>
+  {STATUS_FIELD}    </div>
+</div>
+</fieldset>
+<ul class="admin_actions">
+  <li><input type="submit" name="save" value="Save" class="admin_action_save" /></li>
+
+</ul>
+</form>
+<br/>
+<b>Warm Tips</b>:<br/>
+<img src="{TEMPLATEDIR}/images/xls_image_inline.gif" border="0" valign="middle" />Click it to export no file webcast items in selected week.
+</div>
+
+
+<div class="admin_main_content">
+<form id="admin_list_form" name="admin_list_form" method="post" >
+  <ul class="admin_actions">
+  	{CONFIRM_LINK}
+    <li>
+      <input type="submit" name="save" value="Status To New" class="admin_action_list" 
+		  onclick="if (confirm('Are you sure?')) { document.admin_list_form.todo.value='new';document.admin_list_form.submit(); };return false;"   
+		  />
+    </li>
+    <li>
+      <input type="submit" name="save" value="Status To Delete" class="admin_action_cancel" 
+		  onclick="if (confirm('Are you sure?')) { document.admin_list_form.todo.value='delete';document.admin_list_form.submit(); };return false;"
+		  />
+    </li>
+    <input type="hidden" name="act" value="UpdateSelected" />
+    <input type="hidden" name="todo" value="" />
+  </ul>
+{DAY_VIEW}
+<input type="hidden" name="y" value="{Y}" />
+<input type="hidden" name="m" value="{M}" />
+<input type="hidden" name="d" value="{D}" />
+  <ul class="admin_actions">
+  	{CONFIRM_LINK}
+    <li>
+      <input type="submit" name="save" value="Status To New" class="admin_action_list" 
+		  onclick="if (confirm('Are you sure?')) { document.admin_list_form.todo.value='new';document.admin_list_form.submit(); };return false;"   
+		  />
+    </li>
+    <li>
+      <input type="submit" name="save" value="Status To Delete" class="admin_action_cancel" 
+		  onclick="if (confirm('Are you sure?')) { document.admin_list_form.todo.value='delete';document.admin_list_form.submit(); };return false;"
+		  />
+    </li>
+  </ul>
+</form>
+
+</div>

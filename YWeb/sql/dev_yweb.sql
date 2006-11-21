@@ -302,3 +302,4 @@ CREATE TABLE `apf_users` (
 INSERT INTO `apf_users` (`id`, `user_name`, `user_pwd`, `gender`, `addrees`, `phone`, `email`, `photo`, `role_id`, `active`, `add_ip`, `created_at`, `update_at`) VALUES (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'm', '¹ãÎ÷ºØÖÝ', '13684987661', 'arzen1013@gmail.com', '', 0, 'live', '', '0000-00-00 00:00:00', '2006-11-04 14:31:50'),
 (2, 'user', 'd6ed7ca0720aaba96e4674098d61aad9', 'm', 'dddd', 'dddd', 'dddd', '', 0, 'new', '', '0000-00-00 00:00:00', '2006-10-27 07:42:57'),
 (3, 'cust', '3aad3506aa11f05f265ea8304b8152b3', 'f', 'dddd', '13684987661', 'arzen1013@163.com', '', 0, 'deleted', '', '0000-00-00 00:00:00', '2006-10-28 16:08:03');
+

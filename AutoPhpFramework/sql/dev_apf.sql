@@ -575,22 +575,20 @@ CREATE TABLE `APF_OPPORTUNITY` (
   KEY `LINK_MAN` (`LINK_MAN`)
 ) TYPE=MYISAM;
 
-CREATE TABLE `schedule` (
-  `ID` INT(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `apf_schedule` (
+  `id` int(11) unsigned NOT NULL auto_increment,
   `title` varchar(255) NOT NULL default '',
-  `description` text NOT NULL,
+  `description` text,
   `publish_date` date NOT NULL default '0000-00-00',
   `publish_starttime` time NOT NULL default '00:00:00',
   `publish_endtime` time NOT NULL default '00:00:00',
-  `PHOTO` VARCHAR(80) DEFAULT NULL,
-  `STATE` VARCHAR(50) DEFAULT NULL,
-  `ACTIVE` VARCHAR(8) NOT NULL DEFAULT 'new',
-  `ADD_IP` VARCHAR(24) DEFAULT NULL,
-  `CREATED_AT` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `UPDATE_AT` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY  (`webcastid`),
+  `image` varchar(255) NOT NULL default '',
+  `active` varchar(8) NOT NULL default 'live',
+  `add_ip` varchar(24) default NULL,
+  `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
+  `update_at` datetime NOT NULL default '0000-00-00 00:00:00',
+  PRIMARY KEY  (`id`),
   KEY `publish_date` (`publish_date`),
-  KEY `publish_starttime` (`publish_starttime`),
-  KEY `status` (`status`),
-  KEY `image_status` (`image_status`)
+  KEY `publish_starttime` (`publish_starttime`)
 ) TYPE=MyISAM;
+

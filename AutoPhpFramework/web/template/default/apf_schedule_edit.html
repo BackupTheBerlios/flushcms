@@ -1,0 +1,64 @@
+        
+<div id="admin_container">
+<h1>{lang_EditInfo}</h1>
+<div id="admin_header">
+</div>
+<div id="admin_content">
+  <div class="{SUCCESS_CLASS}">
+	{SUCCESS_MSG}
+  </div>
+
+<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{WEBDIR}/schedule/apf_schedule/{DOACTION}">
+<input type="hidden" name="ID" id="ID" value="{ID}" />
+<fieldset id="fieldset_________" class="">
+<h2>{lang_GeneralInfo}</h2><div class="form-row">
+  <label >{lang_Title}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{TITLE_ERROR_MSG}</div>
+  <input type="text" name="title" id="title" value="{TITLE}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Description}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{DESCRIPTION_ERROR_MSG}</div>
+  <input type="text" name="description" id="description" value="{DESCRIPTION}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_PublishDate}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{PUBLISH_DATE_ERROR_MSG}</div>
+  <input type="text" name="publish_date" id="publish_date" value="{PUBLISH_DATE}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_PublishStarttime}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{PUBLISH_STARTTIME_ERROR_MSG}</div>
+  <input type="text" name="publish_starttime" id="publish_starttime" value="{PUBLISH_STARTTIME}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_PublishEndtime}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{PUBLISH_ENDTIME_ERROR_MSG}</div>
+  <input type="text" name="publish_endtime" id="publish_endtime" value="{PUBLISH_ENDTIME}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Image}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{IMAGE_ERROR_MSG}</div>
+  <input type="text" name="image" id="image" value="{IMAGE}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Active}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ACTIVE_ERROR_MSG}</div>
+  <input type="text" name="active" id="active" value="{ACTIVE}" size="20" />    </div>
+</div>
+</fieldset>
+<ul class="admin_actions">
+  <li><input class="admin_action_list" value="{lang_List}" type="button" onclick="document.location.href='{WEBDIR}/schedule/apf_schedule/list';" /></li>
+  <li><input type="submit" name="save" value="{lang_Save}" class="admin_action_save" /></li>
+
+</ul>
+</form>
+
+<ul class="admin_actions">
+      <li class="float-left"></li>
+</ul>
+</div>
+
+<div id="admin_footer">
+</div>
+</div>

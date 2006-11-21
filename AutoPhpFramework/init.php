@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.41 2006/10/30 23:24:29 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.42 2006/11/21 16:00:22 arzen Exp $
  */
 define('CREATE', 3);
 
@@ -187,13 +187,19 @@ $opts = array (
 	$opportunity_table . '_except_fields' => 'id,add_ip,created_at,update_at',
 	$opportunity_table.'_generator_add_validate_stubs' => 'title:empty,link_man:empty',
 
+	$schedule_table.'_modules_location' => $RootDir . '/module/schedule/',
+	$schedule_table.'_modules_name_location' => 'schedule',
+	$schedule_table . '_fields_list' => 'id,title,phone,link_man,state,addrees',
+	$schedule_table . '_except_fields' => 'id,add_ip,created_at,update_at',
+	$schedule_table.'_generator_add_validate_stubs' => 'title:empty',
+
 	'require_prefix' => 'dataobjects/',
 	'class_prefix' => 'Dao',
 	'extends' => 'DB_DataObject',
 	'generate_setters' => '1',
 	'generate_getters' => '1',
 
-	'generator_include_regex' => '/' . $opportunity_table . '/',
+	'generator_include_regex' => '/' . $schedule_table . '/',
 	'generator_no_ini' => '1',
 	
 );

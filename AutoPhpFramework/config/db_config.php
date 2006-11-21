@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: db_config.php,v 1.9 2006/10/30 23:24:30 arzen Exp $
+ * @version    CVS: $Id: db_config.php,v 1.10 2006/11/21 16:00:22 arzen Exp $
  */
 $users_table = $DbPrefix."users";
 $groups_table = $DbPrefix."groups";
@@ -33,5 +33,6 @@ $company_product_table = $DbPrefix."company_product";
 $product_price_table = $DbPrefix."product_price";
 
 $opportunity_table = $DbPrefix."opportunity";
+$schedule_table = $DbPrefix."schedule";
 
 ?>
