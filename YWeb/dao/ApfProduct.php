@@ -13,6 +13,7 @@ class DaoApfProduct extends DB_DataObject
     var $company_id;                      // int(5)  
     var $name;                            // string(60)  
     var $price;                           // real(12)  
+    var $ico;                           // string(60)  
     var $photo;                           // string(60)  
     var $memo;                            // blob(65535)  blob
     var $active;                          // string(8)  not_null
@@ -82,6 +83,16 @@ class DaoApfProduct extends DB_DataObject
         return $this->price;
     }
 
+   /**
+    * Getter for $Ico
+    *
+    * @return   string
+    * @access   public
+    */
+    function getIco() 
+    {
+        return $this->ico;
+    }
    /**
     * Getter for $Photo
     *
@@ -205,6 +216,16 @@ class DaoApfProduct extends DB_DataObject
     }
 
    /**
+    * Setter for $Ico
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+     function setIco($value) 
+    {
+        $this->ico = $value;
+    }
+   /**
     * Setter for $Photo
     *
     * @param    mixed   input value
@@ -279,6 +300,7 @@ class DaoApfProduct extends DB_DataObject
              'company_id' =>  DB_DATAOBJECT_INT,
              'name' =>  DB_DATAOBJECT_STR,
              'price' =>  DB_DATAOBJECT_INT,
+             'ico' =>  DB_DATAOBJECT_STR,
              'photo' =>  DB_DATAOBJECT_STR,
              'memo' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_BLOB,
              'active' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
@@ -302,6 +324,7 @@ class DaoApfProduct extends DB_DataObject
     {
          return array(
              'name' => '',
+             'ico' => '',
              'photo' => '',
              'memo' => '',
              'active' => 'new',

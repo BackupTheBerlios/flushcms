@@ -5,7 +5,7 @@
  *
  * @package    core
  * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: FormObject.php,v 1.16 2006/11/05 08:23:45 arzen Exp $
+ * @version    CVS: $Id: FormObject.php,v 1.17 2006/11/21 10:56:41 arzen Exp $
  */
 
 /**
@@ -175,9 +175,9 @@ function selectTag ($name,$options,$selected="",$extend="")
 function fileTag ($name,$oldfile="", $delete=true, $ext="jpg") 
 {
 	global $WebUploadDir;
-	include_once 'HTTP/UploadProgressMeter.class.php';
-	$fileWidget = new UploadProgressMeter();
-	$fileWidget->name=$name;
+//	include_once 'HTTP/UploadProgressMeter.class.php';
+//	$fileWidget = new UploadProgressMeter();
+//	$fileWidget->name=$name;
 	
 	if ($oldfile) 
 	{
@@ -197,13 +197,14 @@ function fileTag ($name,$oldfile="", $delete=true, $ext="jpg")
 		$html_code .= "<INPUT TYPE=\"hidden\" NAME=\"{$name}_old\" value=\"{$oldfile}\">" ;
 		$html_code .= "<br/>";
 	}
-	if ($fileWidget->uploadComplete()) 
-	{
-		$html_code .= $fileWidget->finalStatus();
-	}
-	$html_code .= $fileWidget->renderHidden();
-	$html_code .= $fileWidget->render();//"<INPUT TYPE=\"file\" NAME=\"{$name}\" > &nbsp;\n";
-	$html_code .= $fileWidget->renderProgressBar();
+	$html_code .= "<INPUT TYPE=\"file\" NAME=\"{$name}\" > &nbsp;\n";
+//	if ($fileWidget->uploadComplete()) 
+//	{
+//		$html_code .= $fileWidget->finalStatus();
+//	}
+//	$html_code .= $fileWidget->renderHidden();
+//	$html_code .= $fileWidget->render();//"<INPUT TYPE=\"file\" NAME=\"{$name}\" > &nbsp;\n";
+//	$html_code .= $fileWidget->renderProgressBar();
 	return $html_code;
 	
 }

@@ -11,6 +11,7 @@
 <form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{WEBDIR}/product/apf_product/{DOACTION}">
 <input type="hidden" name="ID" id="ID" value="{ID}" />
 <input type="hidden" name="upload_temp" id="upload_temp" value="{UPLOAD_TEMP}" />
+<input type="hidden" name="upload_ico_temp" id="upload_ico_temp" value="{UPLOAD_TEMP}" />
 <fieldset id="fieldset_________" class="">
 <h2>{lang_GeneralInfo}</h2><div class="form-row">
   <label >{lang_Category}:</label>  <div class="content">
@@ -31,6 +32,11 @@
   <label >{lang_Price}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{PRICE_ERROR_MSG}</div>
   <input type="text" name="price" id="price" value="{PRICE}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Ico}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ICO_ERROR_MSG}</div>
+  {FILEICO}    </div>
 </div>
 <div class="form-row">
   <label >{lang_Photo}:</label>  <div class="content">

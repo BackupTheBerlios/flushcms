@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfProduct.class.php,v 1.6 2006/11/05 02:33:17 arzen Exp $
+ * @version    CVS: $Id: ApfProduct.class.php,v 1.7 2006/11/21 10:57:49 arzen Exp $
  */
 
 class ApfProduct  extends Actions
@@ -24,6 +24,7 @@ class ApfProduct  extends Actions
 		array_shift($ActiveOption);
 		$template->setVar(array (
 			"CATEGORYOPTION" => selectTag("category",$category_arr),
+			"FILEICO" => fileTag("ico"),
 			"FILEPHOTO" => fileTag("photo"),
 			"ACTIVEOPTION" => radioTag("active",$ActiveOption,"new"),
 			"WEBDIR" => $WebBaseDir,
@@ -66,6 +67,7 @@ class ApfProduct  extends Actions
 		array_shift($ActiveOption);
 		$template->setVar(array (
 			"CATEGORYOPTION" => selectTag("category",$category_arr,$apf_product->getCategory()),
+			"FILEICO" => fileTag("ico",$apf_product->getIco()),
 			"FILEPHOTO" => fileTag("photo",$apf_product->getPhoto()),
 			"ACTIVEOPTION" => radioTag("active",$ActiveOption,$apf_product->getActive()),
 		));
@@ -100,6 +102,17 @@ class ApfProduct  extends Actions
 		$apf_product->setActive(stripslashes(trim($_POST['active'])));
 		$apf_product->setAddIp(stripslashes(trim($_POST['add_ip'])));
 
+		if ($_POST['ico_del']=='Y') 
+		{
+			unlink($UploadDir.$_POST['ico_old']);
+			$apf_product->setIco("");
+			$_POST['ico_old']="";
+		}
+		if($_POST['upload_ico_temp'])
+		{
+			$apf_product->setIco($_POST['upload_ico_temp']);	
+		}
+
 		if ($_POST['photo_del']=='Y') 
 		{
 			unlink($UploadDir.$_POST['photo_old']);
@@ -113,15 +126,24 @@ class ApfProduct  extends Actions
 		}
 
 		$allow_upload_file = TRUE;
-		if($_FILES['photo']['name'])
+		if($_FILES['photo']['name'] || $_FILES['ico']['name'])
 		{
 			require_once ($ClassDir."FileHelper.class.php");
-			$upload_data = FileHelper::uploadFile ('photo',"product");
+			$upload_data = FileHelper::uploadFile ("product");
 			$allow_upload_file = $upload_data["upload_state"];
 			if ($allow_upload_file) 
 			{
-				$apf_product->setPhoto($upload_data["upload_msg"]);
-				$_POST['upload_temp'] = $upload_data["upload_msg"];
+				$images_arr = $upload_data["upload_msg"];
+				if ($ico_pic = $images_arr['ico']) 
+				{
+					$apf_product->setIco($ico_pic);
+					$_POST['upload_ico_temp'] = $ico_pic;
+				}
+				if ($photo_pic = $images_arr['photo']) 
+				{
+					$apf_product->setPhoto($photo_pic);
+					$_POST['upload_temp'] = $photo_pic;
+				}
 			}
 			else
 			{
@@ -129,13 +151,16 @@ class ApfProduct  extends Actions
 			}
 
 		}
-
+		
+		
+		
 		$val = $apf_product->validate();
 		if (($val === TRUE) && ($allow_upload_file === TRUE))
 		{
 			if ($edit_submit) 
 			{
 				$apf_product->setUpdateAt(DB_DataObject_Cast::dateTime());
+//				$apf_product->debugLevel(4);
 				$apf_product->update();
 				$this->forward("product/apf_product/update/".$_POST['ID']."/ok");
 			}
@@ -161,21 +186,26 @@ class ApfProduct  extends Actions
 			array_shift($ActiveOption);
 			$template->setVar(array (
 				"CATEGORYOPTION" => selectTag("category",$category_arr,$_POST['category']),
+				"FILEICO" => fileTag("ico",$_POST['upload_ico_temp']?$_POST['upload_ico_temp']:$_POST['ico_old']),
 				"FILEPHOTO" => fileTag("photo",$_POST['upload_temp']?$_POST['upload_temp']:$_POST['photo_old']),
 				"UPLOAD_TEMP" => $_POST['upload_temp'],
+				"UPLOAD_ICO_TEMP" => $_POST['upload_ico_temp'],
 				"ACTIVEOPTION" => radioTag("active",$ActiveOption,$_POST['active']),
 			));
-
-			foreach ($val as $k => $v)
+			if (is_array($val)) 
 			{
-				if ($v == false)
+				foreach ($val as $k => $v)
 				{
-					$template->setVar(array (
-						strtoupper($k)."_ERROR_MSG" => " &darr; ".$i18n->_("Please check here")." &darr; "
-					));
-
-				}
+					if ($v == false)
+					{
+						$template->setVar(array (
+							strtoupper($k)."_ERROR_MSG" => " &darr; ".$i18n->_("Please check here")." &darr; "
+						));
+	
+					}
+				}				
 			}
+
 			$template->setVar(
 				array (
 				"ID" => $_POST['id'],"CATEGORY" => $_POST['category'],"COMPANY_ID" => $_POST['company_id'],"NAME" => $_POST['name'],"PRICE" => $_POST['price'],"PHOTO" => $_POST['photo'],"MEMO" => $_POST['memo'],"ACTIVE" => $_POST['active'],"ADD_IP" => $_POST['add_ip'],"CREATED_AT" => $_POST['created_at'],"UPDATE_AT" => $_POST['update_at'],
