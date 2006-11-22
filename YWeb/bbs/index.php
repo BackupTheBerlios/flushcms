@@ -6,7 +6,7 @@
  *   copyright            : (C) 2001 The phpBB Group
  *   email                : support@phpbb.com
  *
- *   $Id: index.php,v 1.1 2006/11/20 08:46:28 arzen Exp $
+ *   $Id: index.php,v 1.2 2006/11/22 09:19:18 arzen Exp $
  *
  *
  ***************************************************************************/
@@ -47,6 +47,44 @@ else
 {
 	$mark_read = '';
 }
+
+//
+// Generate relevant output
+//
+if( isset($HTTP_GET_VARS['pane']) && $HTTP_GET_VARS['pane'] == 'left' )
+{
+	$template->set_filenames(array(
+		"body" => "index_navigate.tpl")
+	);
+	$template->pparse("body");
+	exit;
+}
+elseif( isset($HTTP_GET_VARS['pane']) && $HTTP_GET_VARS['pane'] == 'right' )
+{
+
+}
+else
+{
+	//
+	// Generate frameset
+	//
+	$template->set_filenames(array(
+		"body" => "index_frameset.tpl")
+	);
+
+	$template->assign_vars(array(
+		"S_FRAME_NAV" => append_sid("index.$phpEx?pane=left"),
+		"S_FRAME_MAIN" => append_sid("index.$phpEx?pane=right"))
+	);
+
+
+	$template->pparse("body");
+
+	$db->sql_close();
+	exit;
+
+}
+
 
 //
 // Handle marking posts
