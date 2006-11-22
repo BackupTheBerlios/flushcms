@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfUsers.class.php,v 1.1 2006/10/29 09:21:15 arzen Exp $
+ * @version    CVS: $Id: ApfUsers.class.php,v 1.2 2006/11/22 05:45:34 arzen Exp $
  */
 
 class ApfUsers  extends Actions
@@ -84,7 +84,7 @@ class ApfUsers  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n,$luadmin,$ClassDir,$AllowUploadFilesType,$UploadDir;
+		global $template,$WebBaseDir,$PhpbbDir,$i18n,$luadmin,$ClassDir,$AllowUploadFilesType,$UploadDir;
 		$apf_users = DB_DataObject :: factory('ApfUsers');
 
 		if ($edit_submit) 
@@ -97,6 +97,7 @@ class ApfUsers  extends Actions
 			$do_action = "addsubmit";
 		}
 
+		$apf_users->setUserName(stripslashes(trim($_POST['user_name'])));
 		$apf_users->setGender(stripslashes(trim($_POST['gender'])));
 		$apf_users->setAddrees(stripslashes(trim($_POST['addrees'])));
 		$apf_users->setPhone(stripslashes(trim($_POST['phone'])));
@@ -153,6 +154,7 @@ class ApfUsers  extends Actions
 		}
 				
 		$val = $apf_users->validate();
+//		Var_Dump($val);
 		if ( ($val === TRUE) && ($allow_upload_file === TRUE) )
 		{
 			if ($edit_submit) 
@@ -183,7 +185,13 @@ class ApfUsers  extends Actions
 				$apf_users->get($apf_users->escape($user_id));
 //				$apf_users->debugLevel(4);
 				$apf_users->update();
-
+				include_once($PhpbbDir.'/hook.php');
+				$phpbb_action = 'insert';
+				$phpbb_user['user_id'] = $user_id; // $uid变量是您要整合的系统中用户ID变量，根据系统不同自行修改，下同
+				$phpbb_user['username'] = stripslashes(trim($_POST['user_name'])); // 用户名
+				$phpbb_user['user_password'] = md5(stripslashes(trim($_POST['user_pwd']))); // 密码，注意必须是已经经过md5加密的密码
+				$phpbb_user['user_email'] = stripslashes(trim($_POST['email'])); // email
+				phpbb_user($phpbb_action, $phpbb_user);
 
 				$this->forward("users/apf_users/");
 			}

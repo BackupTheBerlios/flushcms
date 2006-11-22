@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.3 2006/10/30 03:28:15 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.4 2006/11/22 05:45:34 arzen Exp $
  */
 define('CREATE', 3);
 
@@ -27,6 +27,7 @@ $ClassDir = $tempRootDir. "class" . DIRECTORY_SEPARATOR;//$RootDir . "class" . D
 $ModuleDir = $RootDir . "module" . DIRECTORY_SEPARATOR;
 $ControllerDir = $RootDir . "controller" . DIRECTORY_SEPARATOR;
 $TemplateDir = $RootDir . "web/template/default/";
+$PhpbbDir = $RootDir .'bbs/';
 $WebTemplateDir = "template/default/";
 $WebBaseDir = getenv("SCRIPT_NAME");
 $WebTemplateFullPath = dirname(getenv("SCRIPT_NAME")) . "/" . $WebTemplateDir;

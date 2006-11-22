@@ -4,7 +4,7 @@
  * 作者: FlyingHail
  */
 
-if( isset($phpbb_root_path) && !defined('IN_PHPBB'))
+if( isset($PhpbbDir) && !defined('IN_PHPBB'))
 {
 	/**
 	 * 用户整合函数
@@ -172,8 +172,8 @@ if( isset($phpbb_root_path) && !defined('IN_PHPBB'))
 	 */
 	function phpbb_set()
 	{
-		global $phpbb_root_path;
-		include($phpbb_root_path.'config.php');
+		global $PhpbbDir;
+		include_once($PhpbbDir.'config.php');
 
 		if (!strstr($dbms, 'mysql'))
 		{
