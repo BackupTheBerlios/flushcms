@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: spide.php,v 1.8 2006/10/25 04:49:43 arzen Exp $
+ * @version    CVS: $Id: spide.php,v 1.9 2006/11/22 09:26:48 arzen Exp $
  */
 set_time_limit(0);
 define('APF_ROOT_DIR',    realpath(dirname(__FILE__).'/../..'));
@@ -47,8 +47,9 @@ if (!file_exists($PattenDataDir))
 //$url="http://www.sznet.com.cn/company_contact.php?userid=683";
 //http://yp.sz.net.cn/Enterprise/Enterprise_View.asp?MemberID=134156
 //http://yp.sz.net.cn/Enterprise/Enterprise_View.asp?MemberID=134156
-$site="company.gdfz.com";
-$url="http://company.gdfz.com/CompanySearch.php?arzen_next_page=1&";
+//http://company.gdfz.com/CompanySearch.php?arzen_next_page=1&
+$site="www.chaqiye.com";
+$url="http://www.chaqiye.com/guangxi/1/1001.htm";
 
 $file_type = "GenericConf";
 
@@ -65,8 +66,8 @@ $conf = array(
 $filename = $PattenDataDir.date("Y_m_d_H_i").".txt";
 
 
-//createConfigFile($site,$file_type);
-
+createConfigFile($site,$file_type);
+exit;
 function getListingUrl ($url,$patten,$data,&$x) 
 {
 	global $site;

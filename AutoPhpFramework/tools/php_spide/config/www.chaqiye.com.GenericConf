@@ -1,0 +1,15 @@
+#Search Company Info Configuration
+company_name_pattren:
+company_address_pattren:
+company_phone_pattren:
+company_fax_pattren:
+company_email_pattren:
+company_homepage_pattren:
+company_employee_pattren:
+company_bankroll_pattren:
+company_link_man_pattren:
+company_incorporator_pattren:
+company_industry_pattren:
+company_products_pattren:
+company_created_at_pattren:
+company_memo_pattren:
