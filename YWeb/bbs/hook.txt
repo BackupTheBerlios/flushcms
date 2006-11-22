@@ -1,0 +1,29 @@
+hook.php用于将phpBB2.0.*整合在其他系统中
+
+hook.php放在phpBB2.0.*的根目录下
+
+在整合之前，请保证两个系统的用户表资料一致（即用户的ID一一对应）
+注意用户ID为2的会员是phpBB默认管理员，这个用户将不允许在非phpBB系统中操作。
+
+文件使用方法：
+首先你要了解你打算整合进的系统用户资料的管理，hook.php包含以下几个部分：注册用户、更新用户资料、删除用户、登录和注销。
+
+在要整合的系统中进行以上操作的页面，适当的位置填写代码：
+$phpbb_root_path = 'phpBB2/'; // phpBB安装目录的相对位置，phpBB2/指phpBB安装目录是本文件所处目录的下一级目录phpBB2中，最后必须有"/"
+include($phpbb_root_path.'hook.php');
+$phpbb_action = 'insert'; //insert指注册用户，更新用户资料是update，删除用户是delete，登录是login，注销是logout
+
+$phpbb_user['user_id'] = $uid; // $uid变量是您要整合的系统中用户ID变量，根据系统不同自行修改，下同
+$phpbb_user['user_name'] = $name; // 用户名
+$phpbb_user['user_password'] = $pass; // 密码，注意必须是已经经过md5加密的密码
+$phpbb_user['user_email'] = $mail; // email
+
+/**
+ * user_id是所有操作都必须要有的，user_name、user_password、user_email在注册的时候必须要有
+ * 安全注意！hook.php中没有对$phpbb_user传递过去的字符串作任何过滤，请小心使用，不要直接传递$_POST中的变量
+ * 其他phpBB中个人用户的设置资料也可以以“$phpbb_user['phpBB用户表字段名'] = 整合系统对应变量;”这样的形式添加，只在insert和update时有用，例如需要更新ICQ号码：$phpbb_user['user_icq'] = $icq;
+ */
+
+phpbb_user($phpbb_action, $phpbb_user);
+
+整合后不要再使用phpBB的用户注册和删除功能
