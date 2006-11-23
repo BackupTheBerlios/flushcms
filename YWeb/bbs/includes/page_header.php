@@ -6,7 +6,7 @@
  *   copyright            : (C) 2001 The phpBB Group
  *   email                : support@phpbb.com
  *
- *   $Id: page_header.php,v 1.1 2006/11/20 08:46:27 arzen Exp $
+ *   $Id: page_header.php,v 1.2 2006/11/23 04:29:59 arzen Exp $
  *
  *
  ***************************************************************************/
@@ -437,7 +437,7 @@ $template->assign_vars(array(
 	'U_SEARCH_UNANSWERED' => append_sid('search.'.$phpEx.'?search_id=unanswered'),
 	'U_SEARCH_SELF' => append_sid('search.'.$phpEx.'?search_id=egosearch'),
 	'U_SEARCH_NEW' => append_sid('search.'.$phpEx.'?search_id=newposts'),
-	'U_INDEX' => append_sid('index.'.$phpEx),
+	'U_INDEX' => append_sid('index.'.$phpEx."?pane=right"),
 	'U_REGISTER' => append_sid('profile.'.$phpEx.'?mode=register'),
 	'U_PROFILE' => append_sid('profile.'.$phpEx.'?mode=editprofile'),
 	'U_PRIVATEMSGS' => append_sid('privmsg.'.$phpEx.'?folder=inbox'),

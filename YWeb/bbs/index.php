@@ -6,7 +6,7 @@
  *   copyright            : (C) 2001 The phpBB Group
  *   email                : support@phpbb.com
  *
- *   $Id: index.php,v 1.2 2006/11/22 09:19:18 arzen Exp $
+ *   $Id: index.php,v 1.3 2006/11/23 04:29:59 arzen Exp $
  *
  *
  ***************************************************************************/
@@ -25,7 +25,7 @@ $phpbb_root_path = './';
 include($phpbb_root_path . 'extension.inc');
 include($phpbb_root_path . 'common.'.$phpEx);
 include($phpbb_root_path . 'includes/functions_selects.'.$phpEx);
-
+//header("location:index.php");
 //
 // Start session management
 //
