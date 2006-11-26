@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: Index.class.php,v 1.3 2006/11/11 04:28:49 arzen Exp $
+ * @version    CVS: $Id: Index.class.php,v 1.4 2006/11/26 23:39:59 arzen Exp $
  */
 
 class index
@@ -16,38 +16,83 @@ class index
 
 	function executeList()
 	{
-		global $template;
+		global $template,$web_base_name;
 		$template->setFile(array (
-			"MAIN_LEFT" => "main_left.html",
-			"MAIN" => "main_index.html",
+			"MAIN_LEFT" => $this->getMenuLeftTemplate (),
+			"MAIN" => "main_news_detail.html",
 		));
-
 		$template->setBlock("MAIN", "main_list", "list_block");
 		$template->setBlock("MAIN_LEFT", "main_left", "left_block");
+		if ($web_base_name=="front_en.php") 
+		{
+			$data = $this->getNewsDetailByID (8) ;
+		} 
+		else 
+		{
+			$data = $this->getNewsDetailByID (7) ;
+		}
+		$template->setVar(array (
+			"CONTENT" => $data["content"],
+		));
+
 	
 	}
 	
-	function executeDevelop () 
+	function executeDownload () 
 	{
-		global $template,$WebBaseDir;
+		global $template,$WebBaseDir,$web_base_name;
 		$template->setFile(array (
-			"MAIN_LEFT" => "main_left.html",
-			"MAIN" => "main_develop.html"
+			"MAIN_LEFT" => $this->getMenuLeftTemplate (),
+			"MAIN" => "main_news_detail.html"
 		));
 
 		$template->setBlock("MAIN", "main_list", "list_block");
 		$template->setBlock("MAIN_LEFT", "main_left", "left_block");
 	
+		if ($web_base_name=="front_en.php") 
+		{
+			$data = $this->getNewsDetailByID (10) ;
+		} 
+		else 
+		{
+			$data = $this->getNewsDetailByID (9) ;
+		}
 		$template->setVar(array (
-			"WEB_DIR" => $WebBaseDir,
+			"CONTENT" => $data["content"],
 		));
+		
+	}
+
+	function executeDevelop () 
+	{
+		global $template,$WebBaseDir,$web_base_name;
+		$template->setFile(array (
+			"MAIN_LEFT" => $this->getMenuLeftTemplate (),
+			"MAIN" => "main_news_detail.html"
+		));
+
+		$template->setBlock("MAIN", "main_list", "list_block");
+		$template->setBlock("MAIN_LEFT", "main_left", "left_block");
+	
+		if ($web_base_name=="front_en.php") 
+		{
+			$data = $this->getNewsDetailByID (10) ;
+		} 
+		else 
+		{
+			$data = $this->getNewsDetailByID (9) ;
+		}
+		$template->setVar(array (
+			"CONTENT" => $data["content"],
+		));
+		
 	}
 
 	function executeAboutus () 
 	{
 		global $template;
 		$template->setFile(array (
-			"MAIN_LEFT" => "main_left.html",
+			"MAIN_LEFT" => $this->getMenuLeftTemplate (),
 			"MAIN" => "main_aboutus.html"
 		));
 
@@ -59,7 +104,7 @@ class index
 	{
 		global $template;
 		$template->setFile(array (
-			"MAIN_LEFT" => "main_left.html",
+			"MAIN_LEFT" => $this->getMenuLeftTemplate (),
 			"MAIN" => "main_domain.html"
 		));
 
@@ -75,7 +120,7 @@ class index
 
 		$template->setFile(array (
 			"MENU_SUB" => "main_left_tech_category.html",
-			"MAIN_LEFT" => "main_left.html",
+			"MAIN_LEFT" => $this->getMenuLeftTemplate (),
 			"MAIN" => "main_tech.html"
 		));
 
@@ -159,7 +204,7 @@ class index
 		
 		$template->setFile(array (
 			"MENU_SUB" => "main_left_tech_category.html",
-			"MAIN_LEFT" => "main_left.html",
+			"MAIN_LEFT" => $this->getMenuLeftTemplate (),
 			"MAIN" => "main_tech_detail.html"
 		));
 		$template->setBlock("MAIN", "main_list", "list_block");
@@ -192,7 +237,7 @@ class index
 	{
 		global $template;
 		$template->setFile(array (
-			"MAIN_LEFT" => "main_left.html",
+			"MAIN_LEFT" => $this->getMenuLeftTemplate (),
 			"MAIN" => "main_solution.html"
 		));
 
@@ -204,7 +249,7 @@ class index
 	{
 		global $template;
 		$template->setFile(array (
-			"MAIN_LEFT" => "main_left.html",
+			"MAIN_LEFT" => $this->getMenuLeftTemplate (),
 			"MAIN" => "main_money.html"
 		));
 
@@ -216,7 +261,7 @@ class index
 	{
 		global $template,$WebTemplateFullPath,$WebBaseDir;
 		$template->setFile(array (
-			"MAIN_LEFT" => "main_left.html",
+			"MAIN_LEFT" => $this->getMenuLeftTemplate (),
 			"MAIN" => "main_feedback.html"
 		));
 
@@ -226,6 +271,39 @@ class index
 			"WEB_TEMPLATE_DIR" => $WebTemplateFullPath,
 			"WEB_DIR" => $WebBaseDir,
 			));
+	}
+	
+	function getMenuLeftTemplate () 
+	{
+		global $web_base_name;
+		if ($web_base_name=="front_en.php") 
+		{
+			$menu_left = "main_left_en.html";
+		} 
+		else 
+		{
+			$menu_left = "main_left.html";
+		}
+		return $menu_left;
+	}
+	
+	function getNewsDetailByID ($id) 
+	{
+		global $RootDir,$cache;
+		$cache_key = $id."_tech_detail";
+		if ($cache_data=$cache->get($cache_key)) 
+		{
+			$data = unserialize($cache_data);
+		} 
+		else 
+		{
+			require_once $RootDir.'/connect.php';
+			$apf_news = DB_DataObject :: factory('ApfNews');
+			$apf_news->get($apf_news->escape($id));
+			$data = $apf_news->toArray();
+			$cache->save(serialize($data),$cache_key);
+		}
+		return $data;
 	}
 
 }

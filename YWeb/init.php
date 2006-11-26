@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.4 2006/11/22 05:45:34 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.5 2006/11/26 23:39:58 arzen Exp $
  */
 define('CREATE', 3);
 
@@ -170,7 +170,8 @@ $template->setFile(array (
 ));
 
 $template->setBlock("LAOUT", "laout");
-if (defined('APF_LOGIN_ACCESS') && (APF_LOGIN_ACCESS == "Y") ) 
+//&& (APF_LOGIN_ACCESS == "Y")
+if (defined('APF_LOGIN_ACCESS')  ) 
 {
 	
 	$liveuserConfig = array (
@@ -274,6 +275,7 @@ if (defined('APF_LOGIN_ACCESS') && (APF_LOGIN_ACCESS == "Y") )
 	$passwd = (array_key_exists('passwd', $_REQUEST)) ? $_REQUEST['passwd'] : null;
 	$logout = (array_key_exists('logout', $_REQUEST)) ? $_REQUEST['logout'] : false;
 	$remember = (array_key_exists('remember', $_REQUEST)) ? $_REQUEST['remember'] : false;
+//	Var_Dump::display($LU->isLoggedIn());
 	if ($logout) 
 	{
 	     $LU->logout(true);

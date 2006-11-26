@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: front_init.php,v 1.4 2006/11/06 14:05:27 arzen Exp $
+ * @version    CVS: $Id: front_init.php,v 1.5 2006/11/26 23:39:58 arzen Exp $
  */
 $RootDir = APF_ROOT_DIR . DIRECTORY_SEPARATOR;
 $ConfigDir = $RootDir . "config" . DIRECTORY_SEPARATOR;
@@ -27,6 +27,7 @@ $TemplateDir = $RootDir . "web/template/network/";
 $CacheDir = $RootDir . "cache_data/";
 $WebTemplateDir = "template/network/";
 $WebBaseDir = getenv("SCRIPT_NAME");
+$WebBaseDirName = dirname(getenv("SCRIPT_NAME")). "/"  ;
 $WebTemplateFullPath = dirname(getenv("SCRIPT_NAME")) . "/" . $WebTemplateDir;
 $domain = 'general';
 $dir = $RootDir . 'lang/';
@@ -60,6 +61,30 @@ include_once ($ClassDir . "Actions.class.php");
 require_once 'Log.php';
 require_once 'LiveUser.php';
 require_once 'I18N/Messages/File.php';
+$template = new Template_PHPLIB($TemplateDir);
+$path_arr = pathinfo($WebBaseDir);
+$web_base_name = $path_arr['basename'];
+if ($web_base_name=="front_en.php") 
+{
+	$lang="en";
+	$template->setFile(array (
+		"LAOUT" => "front_laout.html",
+		"HEADER" => "header.html",
+		"MENU" => "menu.html",
+		"FOOT" => "footer_en.html",
+	));
+} 
+else 
+{
+	$lang="zh";
+	$template->setFile(array (
+		"LAOUT" => "front_laout.html",
+		"HEADER" => "header.html",
+		"MENU" => "menu.html",
+		"FOOT" => "footer.html",
+	));
+}
+
 $i18n = new I18N_Messages_File($lang, $domain, $dir);
 include_once ($ConfigDir . "common.php");
 require_once($ClassDir."SendEmail.php");
@@ -92,25 +117,9 @@ if (defined('APF_DEBUG') && (APF_DEBUG == true))
 $UploadDir = $RootDir."web/".$Upload_Dir;
 $WebUploadDir = dirname(getenv("SCRIPT_NAME")) . "/" . $Upload_Dir;
 $dsn = "{$DB_Type}://{$DB_UserName}:{$DB_PassWord}@{$DB_Host}/{$DB_Name}";
-//$conn = & DB :: connect($dsn);
-//if (DB :: isError($conn))
-//{
-//	$subject = "Error:cannot connect database";
-//	$error_msg = "Cannot connect database: " . $conn->getMessage() . "\n";
-//	errorMailToMaster ($Tech_Mail,$subject,$error_msg); 
-//	$logger->log($error_msg);
-//	die($error_msg);
-//}
 
 $controller = new Controller();
 
-$template = new Template_PHPLIB($TemplateDir);
-$template->setFile(array (
-	"LAOUT" => "front_laout.html",
-	"HEADER" => "header.html",
-	"MENU" => "menu.html",
-	"FOOT" => "footer.html",
-));
 
 $template->setBlock("FOOT", "foot");
 $template->setBlock("LAOUT", "front_laout");

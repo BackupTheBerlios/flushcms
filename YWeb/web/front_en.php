@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: front.php,v 1.6 2006/11/26 23:39:59 arzen Exp $
+ * @version    CVS: $Id: front_en.php,v 1.1 2006/11/26 23:39:59 arzen Exp $
  */
 define('APF_ROOT_DIR',    realpath(dirname(__FILE__).'/..'));
 define('APF_DEBUG',       false);
@@ -15,14 +15,14 @@ require_once(APF_ROOT_DIR.DIRECTORY_SEPARATOR.'front_init.php');
 $DefaultModule = "default";
 $DefaultPage = "index";
 $site_menu = array(
-	"首页"=>"front.php",
-	"下载"=>"front.php/default/index/download",
-	"新闻事件"=>"front.php/default/index/tech/4",
-	"应用指南"=>"front.php/default/index/tech",
-	"开发产品"=>"front.php/default/index/develop",
-	"即时反馈"=>"front.php/default/index/feedback",
-	"论坛"=>"../bbs",
-	"English"=>"front_en.php",
+	"Home"=>"front_en.php",
+	"Download"=>"front_en.php/default/index/download",
+	"News"=>"front_en.php/default/index/tech/4",
+	"Tutorial"=>"front_en.php/default/index/tech",
+	"Product"=>"front_en.php/default/index/develop",
+	"Feedback"=>"front_en.php/default/index/feedback",
+	"Forum"=>"../bbs",
+	"Chinese"=>"front.php",
 );
 
 $site_menu_str = "";

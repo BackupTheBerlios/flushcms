@@ -8,8 +8,8 @@ $dbms = 'mysql4';
 
 $dbhost = 'localhost';
 $dbname = 'phpbb2mod';
-$dbuser = 'root';
-$dbpasswd = 'test1234';
+$dbuser = 'dev';
+$dbpasswd = 'dev6543';
 
 $table_prefix = 'phpbb_';
 
