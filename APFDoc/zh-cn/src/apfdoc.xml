@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE book SYSTEM "../../tools/dtd/dblite.dtd"
+[
+
+]>
+
+<book id="svn">
+  <title>AutoPHPFramework框架</title>
+
+  <!-- Using revnumber would be more appropriate, but our stylesheets -->
+  <!-- don't seem to render it. -->
+  <subtitle>For AutoPHPFramework 1.0</subtitle>
+
+  <bookinfo>
+
+    <edition>First</edition>
+    <isbn>0-59600-448-6</isbn>
+    <authorgroup>
+
+      <author>
+        <firstname>孟</firstname>
+        <surname>远螓</surname>
+      </author>
+
+   </authorgroup>
+
+    <editor>
+      <firstname>孟</firstname>
+      <surname>远螓</surname>
+    </editor>
+
+    <copyright>
+       <year>2006</year>
+      <holder>AutoPHPFramework 团队</holder>
+    </copyright>
+
+    <legalnotice><para>This work is licensed under the Creative
+      Commons Attribution License. 中国.广东.深圳</para></legalnotice>
+
+  </bookinfo>
+
+  <!-- External entity refs -->
+
+
+</book>
