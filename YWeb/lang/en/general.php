@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.2 2006/11/26 23:39:59 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.3 2006/11/27 05:05:13 arzen Exp $
  */
 $this->setCharset('iso-8859-1'); 
 $messages = array(
@@ -55,9 +55,18 @@ $messages = array(
 	'Photo' => 'Photo',
 	'Phone' => 'Phone',
 	'Email' => 'Email',
+	'Miss' => 'Miss',
+	'Sir' => 'Sir',
 
 	'EditInfo' => 'Edit Info',
 	'GeneralInfo' => 'General Info',
+//feedback
+	'YourMail' => 'Your Email',
+	'YourName' => 'Your Name',
+	'YourSex' => 'Gender',
+	'YourTitle' => 'Feedback Title',
+	'Content' => 'Feedback Content',
+	'Submit' => 'Submit',
 
 	'Group' => 'Group',
 	'Groups' => 'Groups',

@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.3 2006/10/29 12:28:41 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.4 2006/11/27 05:05:13 arzen Exp $
  */
 $this->setCharset('gb2312'); 
 $messages = array(
@@ -55,6 +55,8 @@ $messages = array(
 	'Photo' => '图片',
 	'Phone' => '电话',
 	'Email' => '电子邮箱',
+	'Miss' => '小姐',
+	'Sir' => '先生',
 
 	'EditInfo' => '编辑信息',
 	'GeneralInfo' => '基本信息',
@@ -68,6 +70,13 @@ $messages = array(
 	'InGroup' => '在组内',
 	'Price' => '价格',
 	'Title' => '标题',
+//feedback
+	'YourMail' => '您的Email',
+	'YourName' => '您的姓名',
+	'YourSex' => '您的性别',
+	'YourTitle' => '您反馈的主题',
+	'Content' => '您反馈的内容',
+	'Submit' => '提交',
 
 	'Result' => '条记录',
 

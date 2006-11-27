@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: Index.class.php,v 1.4 2006/11/26 23:39:59 arzen Exp $
+ * @version    CVS: $Id: Index.class.php,v 1.5 2006/11/27 05:05:13 arzen Exp $
  */
 
 class index
@@ -114,12 +114,20 @@ class index
 	
 	function executeTech () 
 	{
-		global $template,$WebBaseDir,$WebTemplateDir,$controller,$RootDir;
+		global $template,$WebBaseDir,$WebTemplateDir,$controller,$RootDir,$web_base_name;
 		require_once $RootDir.'/connect.php';
 		require_once 'Pager/Pager.php';
 
+		if ($web_base_name=="front_en.php") 
+		{
+			$menu_left_category = "main_left_tech_category_en.html";
+		} 
+		else 
+		{
+			$menu_left_category = "main_left_tech_category.html";
+		}
 		$template->setFile(array (
-			"MENU_SUB" => "main_left_tech_category.html",
+			"MENU_SUB" => $menu_left_category,
 			"MAIN_LEFT" => $this->getMenuLeftTemplate (),
 			"MAIN" => "main_tech.html"
 		));
