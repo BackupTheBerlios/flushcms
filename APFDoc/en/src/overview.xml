@@ -1,16 +1,18 @@
 <preface id="overview">
   <title>Overview</title>
 
-  <simplesect>
 
-    
-	<para><emphasis role="bold">Introduction</emphasis></para>
+    <sect1 id="Introduction">
+	<title>Introduction</title>
 	<para>
 	AutoPHPFramework is a rapid development framework for PHP . Base on PEAR--(Php Extension and Application Repository).It auto generate DAO--(Data Access Object) and auto generate template ,so it ensure you quickly develop your php web application. AutoPHPFramework can work well under php5 and php4.So,recommend you to download and try it.
 	</para>
+	</sect1>
 	
+	<sect1 id="Features">
+	<title>Features</title>
 	 <para>
-	  <emphasis role="bold">Features</emphasis> 
+	   
 	
 		<orderedlist>
 		<listitem>
@@ -34,10 +36,10 @@
 		</orderedlist>
 		
     </para>
-
-	<para>
-		<emphasis role="bold">License</emphasis>
-	</para>
+	</sect1>
+	
+	<sect1  id="License">
+	<title>License</title>
 	
 	<para>
 	The AutoPHPFramework is licensed under BSD and is free to use in Open Source and closed commercial projects. You must however maintain the original copyright notice as described in the license. The BSD license gives the enduser much greater freedom to use the software than any of the GPL family and its derivatives.
@@ -47,8 +49,9 @@
     <para> 
     	<author><firstname>John</firstname><surname>Meng</surname></author>, ShenZhen GuangDong, China. Nov 27, 2006
     </para>
+    
+    </sect1>
 
-  </simplesect>
-
+ 
 </preface>
 
