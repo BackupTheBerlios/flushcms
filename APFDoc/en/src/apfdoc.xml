@@ -2,6 +2,9 @@
 <!DOCTYPE book SYSTEM "../../tools/dtd/dblite.dtd"
 [
 <!ENTITY overview SYSTEM "overview.xml">
+<!ENTITY installing SYSTEM "installing.xml">
+<!ENTITY controller SYSTEM "controller.xml">
+<!ENTITY examples SYSTEM "examples.xml">
 ]>
 
 <book id="svn">
@@ -42,5 +45,8 @@
   <!-- External entity refs -->
 
   &overview;
+  &installing;
+  &controller;
+  &examples;
 
 </book>
