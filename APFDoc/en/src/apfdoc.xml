@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE book SYSTEM "../../tools/dtd/dblite.dtd"
 [
-
+<!ENTITY overview SYSTEM "overview.xml">
 ]>
 
 <book id="svn">
@@ -41,5 +41,6 @@
 
   <!-- External entity refs -->
 
+  &overview;
 
 </book>
