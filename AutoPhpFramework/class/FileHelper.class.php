@@ -5,8 +5,8 @@
  * FileHelper.class.php class.
  *
  * @package    core
- * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: FileHelper.class.php,v 1.4 2006/11/21 10:56:41 arzen Exp $
+ * @author     John.meng <arzen1013@gmail.com>
+ * @version    CVS: $Id: FileHelper.class.php,v 1.5 2006/11/28 14:48:48 arzen Exp $
  */
 
 class FileHelper

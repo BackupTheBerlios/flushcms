@@ -5,8 +5,8 @@
  * DiaryEvent.class.php class.
  *
  * @package    core
- * @author     John.meng <john.meng@achievo.com>
- * @version    SVN: $Id: DiaryEvent.class.php,v 1.1 2006/11/21 16:00:22 arzen Exp $
+ * @author     John.meng <arzen1013@gmail.com>
+ * @version    SVN: $Id: DiaryEvent.class.php,v 1.2 2006/11/28 14:48:48 arzen Exp $
  */
 
 class DiaryEvent extends Calendar_Decorator

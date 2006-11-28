@@ -4,8 +4,8 @@
  * FormObject.php class.
  *
  * @package    core
- * @author     John.meng <john.meng@achievo.com>
- * @version    CVS: $Id: FormObject.php,v 1.17 2006/11/21 10:56:41 arzen Exp $
+ * @author     John.meng <arzen1013@gmail.com>
+ * @version    CVS: $Id: FormObject.php,v 1.18 2006/11/28 14:48:48 arzen Exp $
  */
 
 /**
