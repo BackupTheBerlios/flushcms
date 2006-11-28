@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: Index.class.php,v 1.5 2006/11/27 05:05:13 arzen Exp $
+ * @version    CVS: $Id: Index.class.php,v 1.6 2006/11/28 14:49:42 arzen Exp $
  */
 
 class index
@@ -63,6 +63,31 @@ class index
 		
 	}
 
+	function executeManual () 
+	{
+		global $template,$WebBaseDir,$web_base_name;
+		$template->setFile(array (
+			"MAIN_LEFT" => $this->getMenuLeftTemplate (),
+			"MAIN" => "main_news_detail.html"
+		));
+
+		$template->setBlock("MAIN", "main_list", "list_block");
+		$template->setBlock("MAIN_LEFT", "main_left", "left_block");
+	
+		if ($web_base_name=="front_en.php") 
+		{
+			$data = $this->getNewsDetailByID (13) ;
+		} 
+		else 
+		{
+			$data = $this->getNewsDetailByID (11) ;
+		}
+		$template->setVar(array (
+			"CONTENT" => $data["content"],
+		));
+		
+	}
+
 	function executeDevelop () 
 	{
 		global $template,$WebBaseDir,$web_base_name;
@@ -76,11 +101,11 @@ class index
 	
 		if ($web_base_name=="front_en.php") 
 		{
-			$data = $this->getNewsDetailByID (10) ;
+			$data = $this->getNewsDetailByID (14) ;
 		} 
 		else 
 		{
-			$data = $this->getNewsDetailByID (9) ;
+			$data = $this->getNewsDetailByID (12) ;
 		}
 		$template->setVar(array (
 			"CONTENT" => $data["content"],
@@ -121,10 +146,12 @@ class index
 		if ($web_base_name=="front_en.php") 
 		{
 			$menu_left_category = "main_left_tech_category_en.html";
+			$category = 6;
 		} 
 		else 
 		{
 			$menu_left_category = "main_left_tech_category.html";
+			$category = 1;
 		}
 		$template->setFile(array (
 			"MENU_SUB" => $menu_left_category,
@@ -135,8 +162,7 @@ class index
 		$template->setBlock("MAIN", "main_list", "list_block");
 		$template->setBlock("MAIN_LEFT", "main_left", "left_block");
 
-		$category = $controller->getID()?$controller->getID():1;
-		if($category != 4 )		
+		if( !in_array($category,array(1,6)) )		
 			$template->setBlock("MENU_SUB", "main_left_sub", "left_sub_block");
 		
 		$max_row = 30;

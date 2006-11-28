@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: front_en.php,v 1.1 2006/11/26 23:39:59 arzen Exp $
+ * @version    CVS: $Id: front_en.php,v 1.2 2006/11/28 14:49:42 arzen Exp $
  */
 define('APF_ROOT_DIR',    realpath(dirname(__FILE__).'/..'));
 define('APF_DEBUG',       false);
@@ -17,8 +17,9 @@ $DefaultPage = "index";
 $site_menu = array(
 	"Home"=>"front_en.php",
 	"Download"=>"front_en.php/default/index/download",
+	"Manual"=>"front_en.php/default/index/manual",
 	"News"=>"front_en.php/default/index/tech/4",
-	"Tutorial"=>"front_en.php/default/index/tech",
+//	"Tutorial"=>"front_en.php/default/index/tech",
 	"Product"=>"front_en.php/default/index/develop",
 	"Feedback"=>"front_en.php/default/index/feedback",
 	"Forum"=>"../bbs",
