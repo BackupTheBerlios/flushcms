@@ -60,9 +60,9 @@
     </target>
 	
 	<!-- - - - - - - - - - - - - - - - - - 
-          target: release                      
+          target: release.Yweb                      
          - - - - - - - - - - - - - - - - - -->
-    <target name="release">
+    <target name="release.Yweb">
       	<property name="project.release.name" value="${dev.name}${dev.version}"/>
       	<property name="project.release.dir" value="${relase.dir}/${project.release.name}"/>
      	<property name="project.source.dir" value="${new.project.dir}/${new.project.name}"/>
@@ -81,9 +81,57 @@
 				<exclude name="cache_data/**"/>
     		</fileset>
 		</copy>
-
+    	
+    	<zip destfile="${relase.dir}/${project.release.name}.zip"
+    	       basedir="${project.release.dir}"
+    	  /> 
+    	<tar tarfile="${relase.dir}/${project.release.name}.tar" basedir="${project.release.dir}"/>
+    	<gzip zipfile="${relase.dir}/${project.release.name}.tar.gz" src="${relase.dir}/${project.release.name}.tar"/>    	
+    	<delete file="${relase.dir}/${project.release.name}.tar"/>
     	
     </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: release.framework                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="release.framework">
+      	<property name="project.framework.release.name" value="${framework.name}${dev.version}"/>
+      	<property name="project.framework.release.dir" value="${framework.relase.dir}/${project.framework.release.name}"/>
+     	<property name="project.framework.dir" value="${framework.project.dir}"/>
+     	<property name="project.source.dir" value="${new.project.dir}/${new.project.name}"/>
+    	<mkdir dir="${project.framework.release.dir}"/>
+    	
+    	<copy todir="${project.framework.release.dir}/">
+			<fileset dir="${project.framework.dir}">
+				<include name="class/**"/>
+				<include name="includes/**"/>
+    		</fileset>
+		</copy>
+    	
+    	<copy todir="${project.framework.release.dir}/">
+			<fileset dir="${project.source.dir}">
+				<include name="*.php"/>
+				<include name="lang/**"/>
+				<include name="generator/**"/>
+				<include name="doc/**"/>
+				<include name="controller/**"/>
+				<include name="config/**"/>
+				<include name="module/users/**"/>
+				<include name="dao/*Users*"/>
+				<include name="sql/dev_yweb.sql"/>
+				<include name="web/*.php"/>
+				<include name="web/template/default/**"/>
+    		</fileset>
+		</copy>
+    	<zip destfile="${framework.relase.dir}/${project.framework.release.name}.zip"
+    	       basedir="${project.framework.release.dir}"
+    	  /> 
+    	<tar tarfile="${framework.relase.dir}/${project.framework.release.name}.tar" basedir="${project.framework.release.dir}"/>
+    	<gzip zipfile="${framework.relase.dir}/${project.framework.release.name}.tar.gz" src="${framework.relase.dir}/${project.framework.release.name}.tar"/>    	
+    	<delete file="${framework.relase.dir}/${project.framework.release.name}.tar"/>
+    	
+    </target>
+
 
 
 
