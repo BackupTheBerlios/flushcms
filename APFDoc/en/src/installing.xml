@@ -2,16 +2,17 @@
   <title>Installing</title>
   
     <sect1 id="getting">
-    <title>Getting the AutoPHPFramework</title>
-      <screen>
-http://web.518ic.com
-</screen> 
-   
-    </sect1>
+	    <title>Getting the AutoPHPFramework</title>
+		<para>
+		<ulink url="http://web.518ic.com">http://web.518ic.com</ulink>
+		</para>
+   	</sect1>
     
-    <sect1 id="installing">
-    <title>Installation</title>
-          
+    <sect1 id="install">
+	    <title>Installation</title>
+	    <para>
+	      <command>tar xvfz AutoPhpFrameworkXXX.XX.tar.gz </command>    
+		</para>
     </sect1>
 
 </preface>

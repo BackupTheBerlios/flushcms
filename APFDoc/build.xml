@@ -26,12 +26,13 @@
     	<exec dir="${CDBE.home.dir}" executable="${CDBE.home.dir}${CDBE.multi.html.bin}" >
     	  <arg line=" ${APF.doc.name} en"/>
     	</exec>
+    	<!--
     	<exec dir="${CDBE.home.dir}" executable="${CDBE.home.dir}${CDBE.bd_fo.bin}" >
     	  <arg line=" ${APF.doc.name} en"/>
     	</exec>
     	<exec dir="${CDBE.home.dir}" executable="${CDBE.home.dir}${CDBE.bdj_pdf.bin}" >
     	  <arg line=" ${APF.doc.name} en"/>
-    	</exec>
+    	</exec> -->
     	<copy todir="${framework.doc.dir}/en">
 			<fileset dir="${CDBE.multi.html.output}/en/chunk/">
     			<include name="**"/>
