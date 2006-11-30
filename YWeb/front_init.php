@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: front_init.php,v 1.5 2006/11/26 23:39:58 arzen Exp $
+ * @version    CVS: $Id: front_init.php,v 1.6 2006/11/30 05:07:13 arzen Exp $
  */
 $RootDir = APF_ROOT_DIR . DIRECTORY_SEPARATOR;
 $ConfigDir = $RootDir . "config" . DIRECTORY_SEPARATOR;
@@ -17,7 +17,7 @@ if (!file_exists("D:/workspace/APF/"))
 }
 else
 {
-	$tempRootDir = "D:/workspace/APF/";
+	$tempRootDir = $RootDir;
 }
 $IncludeDir = $tempRootDir."includes" . DIRECTORY_SEPARATOR;//$RootDir . "includes" . DIRECTORY_SEPARATOR;
 $ClassDir = $tempRootDir. "class" . DIRECTORY_SEPARATOR;//$RootDir . "class" . DIRECTORY_SEPARATOR;
