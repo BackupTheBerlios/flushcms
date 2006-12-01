@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.42 2006/11/21 16:00:22 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.43 2006/12/01 08:12:26 arzen Exp $
  */
 define('CREATE', 3);
 
@@ -209,11 +209,13 @@ $controller = new Controller();
 $template = new Template_PHPLIB($TemplateDir);
 $template->setFile(array (
 	"LAOUT" => "laout.html",
+	"LEFT" => "left.html",
 	"FOOT" => "foot.html",
 	
 ));
 
 $template->setBlock("LAOUT", "laout");
+$template->setBlock("LEFT", "left");
 if (defined('APF_LOGIN_ACCESS') && (APF_LOGIN_ACCESS == "Y") ) 
 {
 	

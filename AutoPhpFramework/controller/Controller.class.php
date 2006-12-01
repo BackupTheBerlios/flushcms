@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: Controller.class.php,v 1.16 2006/10/17 23:45:45 arzen Exp $
+ * @version    CVS: $Id: Controller.class.php,v 1.17 2006/12/01 08:12:26 arzen Exp $
  */
 
 class Controller
@@ -49,10 +49,10 @@ class Controller
 		}
 		
 //		printf("module %s/ page %s/ action %s/ ",$module_name,$page_name,$action_name);
-		$template->setFile(array (
-			"TAB" => "tab.html",
-		));
-		$template->setBlock("TAB", "tab");
+//		$template->setFile(array (
+//			"TAB" => "tab.html",
+//		));
+//		$template->setBlock("TAB", "tab");
 		
 		$this->parseTemplateLang(true);
 		
@@ -72,7 +72,7 @@ class Controller
 	function parseTemplateLang ($parse_tab=false) 
 	{
 		global $template,$i18n,$WebTemplateFullPath,$WebBaseDir;
-		$lang_arr = array_merge($template->getUndefined("MAIN"),$parse_tab?$template->getUndefined("TAB"):array(),
+		$lang_arr = array_merge($template->getUndefined("MAIN"),$parse_tab?$template->getUndefined("LEFT"):array(),
 			is_array($template->getUndefined("list_block"))?$template->getUndefined("list_block"):array(),is_array($template->getUndefined("product_list_block"))?$template->getUndefined("product_list_block"):array(),$template->getUndefined("FOOT")
 			);
 		foreach($lang_arr as $key=>$value)
