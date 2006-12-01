@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfFinance.class.php,v 1.6 2006/10/31 10:39:15 arzen Exp $
+ * @version    CVS: $Id: ApfFinance.class.php,v 1.7 2006/12/01 15:13:36 arzen Exp $
  */
 
 class ApfFinance  extends Actions
@@ -213,11 +213,10 @@ class ApfFinance  extends Actions
 		{
 			$myData[] = $apf_finance->toArray();
 			$i++;
-		}
-		$tmpData = ($ToltalNum>$max_row)?array_pad($myData, $ToltalNum, array()):$myData;
+		}		
 		$params = array(
-		    'itemData' => $tmpData,
-		    'perPage' => $max_row,
+		    'totalItems' => $ToltalNum,
+			'perPage' => $max_row,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
 		    'separator' => ' | ',

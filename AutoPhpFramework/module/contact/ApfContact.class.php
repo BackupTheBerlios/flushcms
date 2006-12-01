@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContact.class.php,v 1.25 2006/11/01 15:12:25 arzen Exp $
+ * @version    CVS: $Id: ApfContact.class.php,v 1.26 2006/12/01 15:13:36 arzen Exp $
  */
 
 class ApfContact  extends Actions
@@ -745,12 +745,10 @@ class ApfContact  extends Actions
 		{
 			$myData[] = $apf_contact->toArray();
 			$i++;
-		}
-		
-		$tmpData = ($ToltalNum>$max_row)?array_pad($myData, $ToltalNum, array()):$myData;
+		}		
 		$params = array(
-		    'itemData' => $tmpData,
-		    'perPage' => $max_row,
+		    'totalItems' => $ToltalNum,
+			'perPage' => $max_row,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
 		    'separator' => ' | ',

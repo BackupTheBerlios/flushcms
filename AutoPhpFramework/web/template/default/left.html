@@ -47,6 +47,8 @@ body {font-family: Arial, Tahoma, Verdana;}
 }
 
 </style>
+<body style="background-color: #fff; color: black; padding: 0; margin: 0">
+
 <div>
      <div id="accordionExample">
      		<div >
@@ -85,14 +87,61 @@ body {font-family: Arial, Tahoma, Verdana;}
     			<a href="{WEBBASEDIR}/finance/apf_finance" target="main"><span>{lang_Finance}</span></a><br>
           		</div>
     		</div>
+
+    		<div>
+    		  <div class="panelheader">
+    		  	{lang_Contact}
+    		  </div>
+    			<div class="panelContent">
+    			<a href="{WEBBASEDIR}/contact/apf_contact" target="main"><span>{lang_Contact}</span></a><br>
+          		</div>
+    		</div>
+
+    		<div>
+    		  <div class="panelheader">
+    		  	{lang_Company}
+    		  </div>
+    			<div class="panelContent">
+    			<a href="{WEBBASEDIR}/company/apf_company" target="main"><span>{lang_Company}</span></a><br>
+          		</div>
+    		</div>
+
+    		<div>
+    		  <div class="panelheader">
+    		  	{lang_Product}
+    		  </div>
+    			<div class="panelContent">
+    			<a href="{WEBBASEDIR}/product/apf_product" target="main"><span>{lang_Product}</span></a><br>
+          		</div>
+    		</div>
+
+    		<div>
+    		  <div class="panelheader">
+    		  	{lang_Opportunity}
+    		  </div>
+    			<div class="panelContent">
+    			<a href="{WEBBASEDIR}/opportunity/apf_opportunity" target="main"><span>{lang_Opportunity}</span></a><br>
+          		</div>
+    		</div>
+
+    		<div>
+    		  <div class="panelheader">
+    		  	{lang_Schedule}
+    		  </div>
+    			<div class="panelContent">
+    			<a href="{WEBBASEDIR}/schedule/apf_schedule" target="main"><span>{lang_Schedule}</span></a><br>
+          		</div>
+    		</div>
     		
     		
       </div>
 
 	<script> new Rico.Accordion( $$('div.panelheader'), $$('div.panelContent'), 
-								{panelHeight:200,
+								{panelHeight:250,
 								 hoverClass: 'panelHover',
 								 selectedClass: 'panelSelected'});
 	</script>
 
 </div>
+
+  </body>

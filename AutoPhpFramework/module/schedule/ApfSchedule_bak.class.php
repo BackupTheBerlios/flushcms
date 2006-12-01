@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfSchedule_bak.class.php,v 1.1 2006/11/21 16:00:22 arzen Exp $
+ * @version    CVS: $Id: ApfSchedule_bak.class.php,v 1.2 2006/12/01 15:13:36 arzen Exp $
  */
 
 class ApfSchedule  extends Actions
@@ -174,11 +174,9 @@ class ApfSchedule  extends Actions
 		{
 			$myData[] = $apf_schedule->toArray();
 			$i++;
-		}
-		$tmpData = ($ToltalNum>$max_row)?array_pad($myData, $ToltalNum, array()):$myData;
-		$params = array(
-		    'itemData' => $tmpData,
-		    'perPage' => $max_row,
+		}		$params = array(
+		    'totalItems' => $ToltalNum,
+'perPage' => $max_row,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
 		    'separator' => ' | ',

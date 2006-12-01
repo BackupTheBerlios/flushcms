@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfOpportunity.class.php,v 1.2 2006/10/31 14:22:19 arzen Exp $
+ * @version    CVS: $Id: ApfOpportunity.class.php,v 1.3 2006/12/01 15:13:36 arzen Exp $
  */
 
 class ApfOpportunity  extends Actions
@@ -189,11 +189,10 @@ class ApfOpportunity  extends Actions
 		{
 			$myData[] = $apf_opportunity->toArray();
 			$i++;
-		}
-		$tmpData = ($ToltalNum>$max_row)?array_pad($myData, $ToltalNum, array()):$myData;
+		}		
 		$params = array(
-		    'itemData' => $tmpData,
-		    'perPage' => $max_row,
+		    'totalItems' => $ToltalNum,
+			'perPage' => $max_row,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
 		    'separator' => ' | ',

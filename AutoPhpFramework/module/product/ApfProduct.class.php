@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfProduct.class.php,v 1.7 2006/11/01 04:30:13 arzen Exp $
+ * @version    CVS: $Id: ApfProduct.class.php,v 1.8 2006/12/01 15:13:35 arzen Exp $
  */
 
 class ApfProduct  extends Actions
@@ -269,12 +269,10 @@ class ApfProduct  extends Actions
 		{
 			$myData[] = $apf_product->toArray();
 			$i++;
-		}
-		
-		$tmpData = ($ToltalNum>$max_row)?array_pad($myData, $ToltalNum, array()):$myData;
+		}		
 		$params = array(
-		    'itemData' => $tmpData,
-		    'perPage' => $max_row,
+		    'totalItems' => $ToltalNum,
+			'perPage' => $max_row,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
 		    'separator' => ' | ',

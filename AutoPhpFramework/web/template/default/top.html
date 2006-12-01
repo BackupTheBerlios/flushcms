@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+	<title>Toolbar Test</title>
+	
+	<script type="text/javascript">
+	var djConfig = {
+		isDebug: true,
+		ieClobberMinimal : true
+	};
+	</script>
+	<script type="text/javascript" src="{TEMPLATEDIR}dojo/dojo.js"></script>
+	<script type="text/javascript">
+		dojo.require("dojo.widget.Toolbar");
+	</script>
+	
+	<script type="text/javascript">
+	
+	function img(name) {
+		return dojo.uri.dojoUri("{TEMPLATEDIR}dojo/src/widget/templates/buttons/" + name + ".gif").toString();
+	}
+
+	</script>
+</head>
+
+<body style="background-color: #fff; color: black; padding: 0; margin: 0">
+
+    <div dojo:type="ToolbarContainer">
+        <div dojo:type="toolbar">
+            <img dojo:type="ToolbarButton" dojo:icon="{TEMPLATEDIR}dojo/src/widget/templates/buttons/cut.gif" onClick="window.parent.location='{WEBBASEDIR}?logout=1'" />
+            <img dojo:type="ToolbarButton" dojo:icon="{TEMPLATEDIR}dojo/src/widget/templates/buttons/copy.gif"/>
+            <img dojo:type="ToolbarButton" dojo:icon="{TEMPLATEDIR}dojo/src/widget/templates/buttons/paste.gif"/>
+            <img dojo:type="ToolbarButton" dojo:icon="{TEMPLATEDIR}dojo/src/widget/templates/buttons/paste.gif"/>
+            <span unselectable="on" class="toolbarButtonGroup" dojoAttachPoint="containerNode"><b>YCRM</b></span>
+        </div>
+        
+    </div>
+
+  </body>
+</html>

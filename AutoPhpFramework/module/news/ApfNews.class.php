@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfNews.class.php,v 1.10 2006/10/30 05:24:37 arzen Exp $
+ * @version    CVS: $Id: ApfNews.class.php,v 1.11 2006/12/01 15:13:36 arzen Exp $
  */
 
 class ApfNews  extends Actions
@@ -238,12 +238,10 @@ class ApfNews  extends Actions
 		{
 			$myData[] = $apf_news->toArray();
 			$i++;
-		}
-		
-		$tmpData = ($ToltalNum>$max_row)?array_pad($myData, $ToltalNum, array()):$myData;
+		}		
 		$params = array(
-		    'itemData' => $tmpData,
-		    'perPage' => $max_row,
+		    'totalItems' => $ToltalNum,
+			'perPage' => $max_row,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
 		    'separator' => ' | ',

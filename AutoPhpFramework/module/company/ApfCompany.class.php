@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfCompany.class.php,v 1.22 2006/10/31 10:39:15 arzen Exp $
+ * @version    CVS: $Id: ApfCompany.class.php,v 1.23 2006/12/01 15:13:36 arzen Exp $
  */
 
 class ApfCompany  extends Actions
@@ -512,9 +512,8 @@ class ApfCompany  extends Actions
 			$myData[] = $apf_company->toArray();
 			$i++;
 		}
-		$tmpData = ($ToltalNum>$max_row)?array_pad($myData, $ToltalNum, array()):$myData;
 		$params = array(
-		    'itemData' => $tmpData,
+		    'totalItems' => $ToltalNum,
 		    'perPage' => $max_row,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
