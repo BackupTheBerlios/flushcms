@@ -13,6 +13,8 @@ class DaoApfNews extends DB_DataObject
     var $title;                           // string(60)  
     var $content;                         // blob(65535)  blob
     var $active;                          // string(8)  not_null
+    var $groupid;                         // string(11)  not_null
+    var $userid;                          // int(11)  not_null
     var $add_ip;                          // string(24)  
     var $created_at;                      // datetime(19)  not_null
     var $update_at;                       // datetime(19)  not_null
@@ -80,6 +82,28 @@ class DaoApfNews extends DB_DataObject
     function getActive() 
     {
         return $this->active;
+    }
+
+   /**
+    * Getter for $Groupid
+    *
+    * @return   string
+    * @access   public
+    */
+    function getGroupid() 
+    {
+        return $this->groupid;
+    }
+
+   /**
+    * Getter for $Userid
+    *
+    * @return   int
+    * @access   public
+    */
+    function getUserid() 
+    {
+        return $this->userid;
     }
 
    /**
@@ -172,6 +196,28 @@ class DaoApfNews extends DB_DataObject
     }
 
    /**
+    * Setter for $Groupid
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+    function setGroupid($value) 
+    {
+        $this->groupid = $value;
+    }
+
+   /**
+    * Setter for $Userid
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+    function setUserid($value) 
+    {
+        $this->userid = $value;
+    }
+
+   /**
     * Setter for $AddIp
     *
     * @param    mixed   input value
@@ -213,6 +259,8 @@ class DaoApfNews extends DB_DataObject
              'title' =>  DB_DATAOBJECT_STR,
              'content' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_BLOB,
              'active' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+             'groupid' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+             'userid' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
              'add_ip' =>  DB_DATAOBJECT_STR,
              'created_at' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
              'update_at' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
@@ -236,6 +284,8 @@ class DaoApfNews extends DB_DataObject
              'title' => '',
              'content' => '',
              'active' => 'new',
+             'groupid' => '0',
+             'userid' => 0,
              'add_ip' => '',
          );
     }

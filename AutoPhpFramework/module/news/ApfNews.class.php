@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfNews.class.php,v 1.11 2006/12/01 15:13:36 arzen Exp $
+ * @version    CVS: $Id: ApfNews.class.php,v 1.12 2006/12/02 02:16:02 arzen Exp $
  */
 
 class ApfNews  extends Actions
@@ -81,7 +81,7 @@ class ApfNews  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n,$ActiveOption;
+		global $template,$WebBaseDir,$i18n,$ActiveOption,$AddIP,$userid,$group_ids;
 		$apf_news = DB_DataObject :: factory('ApfNews');
 
 		if ($edit_submit) 
@@ -98,9 +98,12 @@ class ApfNews  extends Actions
 		$apf_news->setTitle(stripslashes(trim($_POST['title'])));
 		$apf_news->setContent(stripslashes(trim($_POST['content'])));
 		$apf_news->setActive(stripslashes(trim($_POST['active'])));
-		$apf_news->setAddIp(stripslashes(trim($_POST['add_ip'])));
-		$apf_news->setCreatedAt(stripslashes(trim($_POST['created_at'])));
-		$apf_news->setUpdateAt(stripslashes(trim($_POST['update_at'])));
+
+
+		$apf_finance->setAddIp($AddIP);
+		$apf_finance->setGroupid($group_ids);
+		$apf_finance->setUserid($userid);
+
 
 				
 		$val = $apf_news->validate();

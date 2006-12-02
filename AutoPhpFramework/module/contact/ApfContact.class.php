@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContact.class.php,v 1.26 2006/12/01 15:13:36 arzen Exp $
+ * @version    CVS: $Id: ApfContact.class.php,v 1.27 2006/12/02 02:16:02 arzen Exp $
  */
 
 class ApfContact  extends Actions
@@ -87,7 +87,7 @@ class ApfContact  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n,$GenderOption,$ActiveOption,$ClassDir,$UploadDir,$AllowUploadFilesType;
+		global $template,$WebBaseDir,$i18n,$GenderOption,$ActiveOption,$ClassDir,$UploadDir,$AllowUploadFilesType,$AddIP,$userid,$group_ids;
 		
 		$apf_contact = DB_DataObject :: factory('ApfContact');
 
@@ -115,7 +115,10 @@ class ApfContact  extends Actions
 		$apf_contact->setHomepage(stripslashes(trim($_POST['homepage'])));
 		$apf_contact->setMemo(stripslashes(trim($_POST['memo'])));
 		$apf_contact->setActive(stripslashes(trim($_POST['active'])));
-		$apf_contact->setAddIp(stripslashes(trim($_POST['add_ip'])));
+
+		$apf_contact->setAddIp($AddIP);
+		$apf_contact->setGroupid($group_ids);
+		$apf_contact->setUserid($userid);
 		
 		if ($_POST['photo_del']=='Y') 
 		{
@@ -700,7 +703,7 @@ class ApfContact  extends Actions
 	
 	function executeList($is_related=false)
 	{
-		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$GenderOption,$ActiveOption,$i18n;
+		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$GenderOption,$ActiveOption,$i18n,$userid;
 
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
@@ -732,6 +735,7 @@ class ApfContact  extends Actions
 		}
 
 		$apf_contact->orderBy('id desc');
+		$apf_contact->setUserid($userid);
 		$ToltalNum = $apf_contact->count();
 		
 		$start_num = !isset($_GET['entrant'])?0:($_GET['entrant']-1)*$max_row;

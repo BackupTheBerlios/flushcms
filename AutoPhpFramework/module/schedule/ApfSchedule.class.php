@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfSchedule.class.php,v 1.2 2006/11/21 23:36:09 arzen Exp $
+ * @version    CVS: $Id: ApfSchedule.class.php,v 1.3 2006/12/02 02:16:01 arzen Exp $
  */
 require_once 'Calendar'.DIRECTORY_SEPARATOR.'Calendar.php';
 require_once 'Calendar'.DIRECTORY_SEPARATOR.'Day.php';
@@ -30,7 +30,7 @@ class ApfSchedule  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n;
+		global $template,$WebBaseDir,$i18n,$AddIP,$userid,$group_ids;
 		$apf_schedule = DB_DataObject :: factory('ApfSchedule');
 
 		if ($edit_submit) 
@@ -50,10 +50,10 @@ class ApfSchedule  extends Actions
 		$apf_schedule->setPublishEndtime(DB_DataObject_Cast::time(stripslashes(trim($_POST['publish_endtime']))));
 		$apf_schedule->setImage(stripslashes(trim($_POST['image'])));
 		$apf_schedule->setActive(stripslashes(trim($_POST['active'])));
-		$apf_schedule->setAddIp(stripslashes(trim($_POST['add_ip'])));
-		$apf_schedule->setCreatedAt(stripslashes(trim($_POST['created_at'])));
-		$apf_schedule->setUpdateAt(stripslashes(trim($_POST['update_at'])));
 
+		$apf_schedule->setAddIp($AddIP);
+		$apf_schedule->setGroupid($group_ids);
+		$apf_schedule->setUserid($userid);
 				
 		$val = $apf_schedule->validate();
 		if ($val === TRUE)
@@ -189,7 +189,7 @@ class ApfSchedule  extends Actions
 	
 	function renderDayView ($y,$m,$d,&$used_hours_arr) 
 	{
-		global $TemplateDir,$template,$Upload_Dir,$WebTemplateDir,$WebBaseDir,$ClassDir,$ActiveOption;
+		global $TemplateDir,$template,$Upload_Dir,$WebTemplateDir,$WebBaseDir,$ClassDir,$ActiveOption,$userid;
 		
 		include_once($ClassDir."URLHelper.class.php");
 		// Create a day to view the hours for
@@ -199,6 +199,7 @@ class ApfSchedule  extends Actions
 		$apf_schedule = DB_DataObject :: factory('ApfSchedule');
 		$apf_schedule->setPublishDate(DB_DataObject_Cast::date($y,$m,$d));
 //		$apf_schedule->debugLevel(4);
+		$apf_schedule->setUserid($userid);
 		$apf_schedule->find();
 		$result=array();
 		$SHOW_CONFIRM_BUTTON = true;
@@ -302,7 +303,7 @@ EOD;
 	
 	function renderMonthView () 
 	{
-		global $TemplateDir,$ClassDir,$WebTemplateDir;
+		global $TemplateDir,$ClassDir,$WebTemplateDir,$userid;
 		require_once 'Calendar'.DIRECTORY_SEPARATOR.'Month/Weeks.php';
 		require_once 'Calendar'.DIRECTORY_SEPARATOR.'Util'.DIRECTORY_SEPARATOR.'Textual.php';
 		include_once($ClassDir."URLHelper.class.php");
@@ -319,15 +320,17 @@ EOD;
 		$apf_schedule = DB_DataObject :: factory('ApfSchedule');
 		$apf_schedule->selectAdd('publish_date , COUNT(*) AS NUM');
 		$apf_schedule->whereAdd(" DATE_FORMAT(publish_date,'%Y-%m') = '{$_GET['y']}-{$_GET['m']}' ");
+//		$apf_schedule->whereAdd("userid='{$userid}'");
+		$apf_schedule->setUserid($userid);
 		$apf_schedule->groupBy('publish_date');
 //		$apf_schedule->debugLevel(4);
 		$apf_schedule->find();
 		$month_webcast=array();
 		while ($apf_schedule->fetch())
 		{
-			$month_webcast[$apf_schedule->getPublishDate()]=$apf_schedule->NUM;
+			$month_webcast[date("Y-m-j",strtotime($apf_schedule->getPublishDate()))]=$apf_schedule->NUM;
 		}
-		
+//		Var_Dump::display($month_webcast);
 		// Used for Week::build() below
 		$selectedDays = array (
 		    new Calendar_Day(date('Y'), date('m'), date('d')),

@@ -7,9 +7,9 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.1 2006/10/30 05:24:37 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.2 2006/12/02 02:16:01 arzen Exp $
  */
-$this->setCharset('gb2312'); 
+$this->setCharset('iso-8859-1'); 
 $messages = array(
 	'site_title' => 'AutoPhpFramework',
 	'Copyright' => '&copy; 2006 Copyright Arzen Inc.',

@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.44 2006/12/01 11:14:45 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.45 2006/12/02 02:16:01 arzen Exp $
  */
 define('CREATE', 3);
 
@@ -199,7 +199,7 @@ $opts = array (
 	'generate_setters' => '1',
 	'generate_getters' => '1',
 
-	'generator_include_regex' => '/' . $schedule_table . '/',
+	'generator_include_regex' => '/^' . $news_table . '$/',
 	'generator_no_ini' => '1',
 	
 );
@@ -351,8 +351,15 @@ if (defined('APF_LOGIN_ACCESS') && (APF_LOGIN_ACCESS == "Y") )
 		$template->p("OUT");
 		exit();
 	}
+	$userid=$LU->getProperty("auth_user_id");
+	$group_arr=$LU->getProperty('group_ids','perm');
+	$group_ids=is_array($group_arr)?implode(",",$group_arr):$group_arr;
+	
+	require_once $ClassDir."ClientEnv.class.php";
+	$AddIP=ClientEnv::getTrueIP();
+	
 //	$LU->getProperty("auth_user_id")
-//	Var_Dump::display($LU->getProperty("is_active"));
+//	Var_Dump::display($LU->getProperty('group_ids','perm'));
 }
 
 ?>

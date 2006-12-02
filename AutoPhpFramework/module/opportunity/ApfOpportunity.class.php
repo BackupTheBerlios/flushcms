@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfOpportunity.class.php,v 1.3 2006/12/01 15:13:36 arzen Exp $
+ * @version    CVS: $Id: ApfOpportunity.class.php,v 1.4 2006/12/02 02:16:01 arzen Exp $
  */
 
 class ApfOpportunity  extends Actions
@@ -76,7 +76,7 @@ class ApfOpportunity  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n,$ActiveOption,$StateOption;
+		global $template,$WebBaseDir,$i18n,$ActiveOption,$StateOption,$AddIP,$userid,$group_ids;
 		$apf_opportunity = DB_DataObject :: factory('ApfOpportunity');
 
 		if ($edit_submit) 
@@ -99,7 +99,10 @@ class ApfOpportunity  extends Actions
 		$apf_opportunity->setMemo(stripslashes(trim($_POST['memo'])));
 		$apf_opportunity->setState(stripslashes(trim($_POST['state'])));
 		$apf_opportunity->setActive(stripslashes(trim($_POST['active'])));
-		$apf_opportunity->setAddIp(stripslashes(trim($_POST['add_ip'])));
+
+		$apf_opportunity->setAddIp($AddIP);
+		$apf_opportunity->setGroupid($group_ids);
+		$apf_opportunity->setUserid($userid);
 
 				
 		$val = $apf_opportunity->validate();
@@ -163,7 +166,7 @@ class ApfOpportunity  extends Actions
 	
 	function executeList()
 	{
-		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$ActiveOption,$StateOption;
+		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$ActiveOption,$StateOption,$userid;
 
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
@@ -177,6 +180,7 @@ class ApfOpportunity  extends Actions
 		$apf_opportunity = DB_DataObject :: factory('ApfOpportunity');
 
 		$apf_opportunity->orderBy('id desc');
+		$apf_opportunity->setUserid($userid);
 		$ToltalNum = $apf_opportunity->count();
 		$start_num = !isset($_GET['entrant'])?0:($_GET['entrant']-1)*$max_row;
 		$apf_opportunity->limit($start_num,$max_row);

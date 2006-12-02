@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfCompany.class.php,v 1.23 2006/12/01 15:13:36 arzen Exp $
+ * @version    CVS: $Id: ApfCompany.class.php,v 1.24 2006/12/02 02:16:02 arzen Exp $
  */
 
 class ApfCompany  extends Actions
@@ -72,7 +72,7 @@ class ApfCompany  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n,$ActiveOption,$UploadDir,$ClassDir,$AllowUploadFilesType;
+		global $template,$WebBaseDir,$i18n,$ActiveOption,$UploadDir,$ClassDir,$AllowUploadFilesType,$AddIP,$userid,$group_ids;
 		$apf_company = DB_DataObject :: factory('ApfCompany');
 
 		if ($edit_submit) 
@@ -100,7 +100,10 @@ class ApfCompany  extends Actions
 		$apf_company->setProducts(stripslashes(trim($_POST['products'])));
 		$apf_company->setMemo(stripslashes(trim($_POST['memo'])));
 		$apf_company->setActive(stripslashes(trim($_POST['active'])));
-		$apf_company->setAddIp(stripslashes(trim($_POST['add_ip'])));
+
+		$apf_company->setAddIp($AddIP);
+		$apf_company->setGroupid($group_ids);
+		$apf_company->setUserid($userid);
 
 		if ($_POST['photo_del']=='Y') 
 		{
@@ -474,7 +477,7 @@ class ApfCompany  extends Actions
 	
 	function executeList()
 	{
-		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$ActiveOption,$i18n;
+		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$ActiveOption,$i18n,$userid;
 
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
@@ -499,6 +502,7 @@ class ApfCompany  extends Actions
 		{
 			$apf_company->whereAdd(" active = '".$apf_company->escape("{$active}") . "'  ");
 		}
+		$apf_company->setUserid($userid);
 		$ToltalNum = $apf_company->count();
 		
 		$start_num = !isset($_GET['entrant'])?0:($_GET['entrant']-1)*$max_row;

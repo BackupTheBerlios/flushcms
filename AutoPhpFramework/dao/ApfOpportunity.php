@@ -19,6 +19,8 @@ class DaoApfOpportunity extends DB_DataObject
     var $memo;                            // blob(65535)  blob
     var $state;                           // string(50)  
     var $active;                          // string(8)  not_null
+    var $groupid;                         // string(11)  not_null
+    var $userid;                          // int(11)  not_null
     var $add_ip;                          // string(24)  
     var $created_at;                      // datetime(19)  not_null
     var $update_at;                       // datetime(19)  not_null
@@ -152,6 +154,28 @@ class DaoApfOpportunity extends DB_DataObject
     function getActive() 
     {
         return $this->active;
+    }
+
+   /**
+    * Getter for $Groupid
+    *
+    * @return   string
+    * @access   public
+    */
+    function getGroupid() 
+    {
+        return $this->groupid;
+    }
+
+   /**
+    * Getter for $Userid
+    *
+    * @return   int
+    * @access   public
+    */
+    function getUserid() 
+    {
+        return $this->userid;
     }
 
    /**
@@ -310,6 +334,28 @@ class DaoApfOpportunity extends DB_DataObject
     }
 
    /**
+    * Setter for $Groupid
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+    function setGroupid($value) 
+    {
+        $this->groupid = $value;
+    }
+
+   /**
+    * Setter for $Userid
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+    function setUserid($value) 
+    {
+        $this->userid = $value;
+    }
+
+   /**
     * Setter for $AddIp
     *
     * @param    mixed   input value
@@ -357,6 +403,8 @@ class DaoApfOpportunity extends DB_DataObject
              'memo' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_BLOB,
              'state' =>  DB_DATAOBJECT_STR,
              'active' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+             'groupid' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+             'userid' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
              'add_ip' =>  DB_DATAOBJECT_STR,
              'created_at' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
              'update_at' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
@@ -386,6 +434,8 @@ class DaoApfOpportunity extends DB_DataObject
              'memo' => '',
              'state' => '',
              'active' => 'new',
+             'groupid' => '0',
+             'userid' => 0,
              'add_ip' => '',
          );
     }

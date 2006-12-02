@@ -7,12 +7,12 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.10 2006/10/30 05:24:37 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.11 2006/12/02 02:16:02 arzen Exp $
  */
 $this->setCharset('gb2312'); 
 $messages = array(
-	'site_title' => 'AutoPhpFramework',
-	'Copyright' => '&copy; 2006 Copyright Arzen Inc.',
+	'site_title' => 'YCRM客户关系管理系统',
+	'Copyright' => '&copy; 2006 Copyright AutoPHPFramework Group.',
 	'Home' => '首页',
 	'Users' => '管理员',
 	'News' => '新闻',
@@ -56,6 +56,9 @@ $messages = array(
 	'Phone' => '电话',
 	'Email' => '电子邮箱',
 
+	'Remember' => '记住',
+	'Login' => '登录',
+
 	'EditInfo' => '编辑信息',
 	'GeneralInfo' => '基本信息',
 
@@ -73,6 +76,18 @@ $messages = array(
 
 	'ALLOWDELETE' => '允许删除',
 	'ALLOWUPDATE' => '允许修改',
+	'Memo' => '备注',
+
+// finance
+	'Finance' => '财务',
+	'FinanceCategory' => '财务分类',
+	'Amount' => '张数',
+	'Debit' => '借/贷',
+	'Money' => '金额',
+	'CreateDate' => '日期',
+	'Income' => '收入',
+	'Payout' => '支出',
+
 
 	'Please check here' => '请检查此处',
 	'Your modifications have been saved' => '您的更改已保存',

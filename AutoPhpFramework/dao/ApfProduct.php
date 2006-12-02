@@ -16,9 +16,14 @@ class DaoApfProduct extends DB_DataObject
     var $photo;                           // string(60)  
     var $memo;                            // blob(65535)  blob
     var $active;                          // string(8)  not_null
+    var $groupid;                         // string(11)  not_null
+    var $userid;                          // int(11)  not_null
     var $add_ip;                          // string(24)  
     var $created_at;                      // datetime(19)  not_null
     var $update_at;                       // datetime(19)  not_null
+
+    /* ZE2 compatibility trick*/
+    function __clone() { return $this;}
 
     /* Static get */
     function staticGet($k,$v=NULL) 
@@ -116,6 +121,28 @@ class DaoApfProduct extends DB_DataObject
     }
 
    /**
+    * Getter for $Groupid
+    *
+    * @return   string
+    * @access   public
+    */
+    function getGroupid() 
+    {
+        return $this->groupid;
+    }
+
+   /**
+    * Getter for $Userid
+    *
+    * @return   int
+    * @access   public
+    */
+    function getUserid() 
+    {
+        return $this->userid;
+    }
+
+   /**
     * Getter for $AddIp
     *
     * @return   string
@@ -155,7 +182,7 @@ class DaoApfProduct extends DB_DataObject
     * @param    mixed   input value
     * @access   public
     */
-     function setId($value) 
+    function setId($value) 
     {
         $this->id = $value;
     }
@@ -166,7 +193,7 @@ class DaoApfProduct extends DB_DataObject
     * @param    mixed   input value
     * @access   public
     */
-     function setCategory($value) 
+    function setCategory($value) 
     {
         $this->category = $value;
     }
@@ -177,7 +204,7 @@ class DaoApfProduct extends DB_DataObject
     * @param    mixed   input value
     * @access   public
     */
-     function setCompanyId($value) 
+    function setCompanyId($value) 
     {
         $this->company_id = $value;
     }
@@ -188,7 +215,7 @@ class DaoApfProduct extends DB_DataObject
     * @param    mixed   input value
     * @access   public
     */
-     function setName($value) 
+    function setName($value) 
     {
         $this->name = $value;
     }
@@ -199,7 +226,7 @@ class DaoApfProduct extends DB_DataObject
     * @param    mixed   input value
     * @access   public
     */
-     function setPrice($value) 
+    function setPrice($value) 
     {
         $this->price = $value;
     }
@@ -210,7 +237,7 @@ class DaoApfProduct extends DB_DataObject
     * @param    mixed   input value
     * @access   public
     */
-     function setPhoto($value) 
+    function setPhoto($value) 
     {
         $this->photo = $value;
     }
@@ -221,7 +248,7 @@ class DaoApfProduct extends DB_DataObject
     * @param    mixed   input value
     * @access   public
     */
-     function setMemo($value) 
+    function setMemo($value) 
     {
         $this->memo = $value;
     }
@@ -232,9 +259,31 @@ class DaoApfProduct extends DB_DataObject
     * @param    mixed   input value
     * @access   public
     */
-     function setActive($value) 
+    function setActive($value) 
     {
         $this->active = $value;
+    }
+
+   /**
+    * Setter for $Groupid
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+    function setGroupid($value) 
+    {
+        $this->groupid = $value;
+    }
+
+   /**
+    * Setter for $Userid
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+    function setUserid($value) 
+    {
+        $this->userid = $value;
     }
 
    /**
@@ -243,7 +292,7 @@ class DaoApfProduct extends DB_DataObject
     * @param    mixed   input value
     * @access   public
     */
-     function setAddIp($value) 
+    function setAddIp($value) 
     {
         $this->add_ip = $value;
     }
@@ -254,7 +303,7 @@ class DaoApfProduct extends DB_DataObject
     * @param    mixed   input value
     * @access   public
     */
-     function setCreatedAt($value) 
+    function setCreatedAt($value) 
     {
         $this->created_at = $value;
     }
@@ -265,7 +314,7 @@ class DaoApfProduct extends DB_DataObject
     * @param    mixed   input value
     * @access   public
     */
-     function setUpdateAt($value) 
+    function setUpdateAt($value) 
     {
         $this->update_at = $value;
     }
@@ -282,6 +331,8 @@ class DaoApfProduct extends DB_DataObject
              'photo' =>  DB_DATAOBJECT_STR,
              'memo' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_BLOB,
              'active' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+             'groupid' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+             'userid' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
              'add_ip' =>  DB_DATAOBJECT_STR,
              'created_at' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
              'update_at' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
@@ -305,6 +356,8 @@ class DaoApfProduct extends DB_DataObject
              'photo' => '',
              'memo' => '',
              'active' => 'new',
+             'groupid' => '0',
+             'userid' => 0,
              'add_ip' => '',
          );
     }

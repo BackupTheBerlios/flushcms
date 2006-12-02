@@ -9,7 +9,7 @@ class DaoApfContact extends DB_DataObject
 
     var $__table = 'apf_contact';                     // table name
     var $id;                              // int(11)  not_null primary_key auto_increment
-    var $category;                        // int(5)  
+    var $category;                        // int(5)  multiple_key
     var $company_id;                      // int(5)  
     var $name;                            // string(50)  
     var $gender;                          // string(2)  
@@ -22,8 +22,10 @@ class DaoApfContact extends DB_DataObject
     var $email;                           // string(80)  
     var $photo;                           // string(60)  
     var $homepage;                        // string(90)  
-    var $memo;                            // blob(65535)  blob
+    var $memo;                            // blob(65535)  not_null blob
     var $active;                          // string(8)  not_null
+    var $groupid;                         // string(11)  not_null
+    var $userid;                          // int(11)  not_null
     var $add_ip;                          // string(24)  
     var $created_at;                      // datetime(19)  not_null
     var $update_at;                       // datetime(19)  not_null
@@ -52,7 +54,7 @@ class DaoApfContact extends DB_DataObject
    /**
     * Getter for $Category
     *
-    * @return   int
+    * @return   object
     * @access   public
     */
     function getCategory() 
@@ -212,6 +214,28 @@ class DaoApfContact extends DB_DataObject
     function getActive() 
     {
         return $this->active;
+    }
+
+   /**
+    * Getter for $Groupid
+    *
+    * @return   string
+    * @access   public
+    */
+    function getGroupid() 
+    {
+        return $this->groupid;
+    }
+
+   /**
+    * Getter for $Userid
+    *
+    * @return   int
+    * @access   public
+    */
+    function getUserid() 
+    {
+        return $this->userid;
     }
 
    /**
@@ -425,6 +449,28 @@ class DaoApfContact extends DB_DataObject
     }
 
    /**
+    * Setter for $Groupid
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+    function setGroupid($value) 
+    {
+        $this->groupid = $value;
+    }
+
+   /**
+    * Setter for $Userid
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+    function setUserid($value) 
+    {
+        $this->userid = $value;
+    }
+
+   /**
     * Setter for $AddIp
     *
     * @param    mixed   input value
@@ -475,8 +521,10 @@ class DaoApfContact extends DB_DataObject
              'email' =>  DB_DATAOBJECT_STR,
              'photo' =>  DB_DATAOBJECT_STR,
              'homepage' =>  DB_DATAOBJECT_STR,
-             'memo' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_BLOB,
+             'memo' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_BLOB + DB_DATAOBJECT_NOTNULL,
              'active' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+             'groupid' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+             'userid' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
              'add_ip' =>  DB_DATAOBJECT_STR,
              'created_at' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
              'update_at' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
@@ -508,6 +556,8 @@ class DaoApfContact extends DB_DataObject
              'homepage' => '',
              'memo' => '',
              'active' => 'new',
+             'groupid' => '0',
+             'userid' => 0,
              'add_ip' => '',
          );
     }

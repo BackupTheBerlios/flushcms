@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfProduct.class.php,v 1.8 2006/12/01 15:13:35 arzen Exp $
+ * @version    CVS: $Id: ApfProduct.class.php,v 1.9 2006/12/02 02:16:02 arzen Exp $
  */
 
 class ApfProduct  extends Actions
@@ -79,7 +79,7 @@ class ApfProduct  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n,$ActiveOption,$ClassDir,$UploadDir,$AllowUploadFilesType;
+		global $template,$WebBaseDir,$i18n,$ActiveOption,$ClassDir,$UploadDir,$AllowUploadFilesType,$AddIP,$userid,$group_ids;
 		$apf_product = DB_DataObject :: factory('ApfProduct');
 
 		if ($edit_submit) 
@@ -98,9 +98,10 @@ class ApfProduct  extends Actions
 		$apf_product->setPrice(stripslashes(trim($_POST['price'])));
 		$apf_product->setMemo(stripslashes(trim($_POST['memo'])));
 		$apf_product->setActive(stripslashes(trim($_POST['active'])));
-		$apf_product->setAddIp(stripslashes(trim($_POST['add_ip'])));
-		$apf_product->setCreatedAt(stripslashes(trim($_POST['created_at'])));
-		$apf_product->setUpdateAt(stripslashes(trim($_POST['update_at'])));
+
+		$apf_product->setAddIp($AddIP);
+		$apf_product->setGroupid($group_ids);
+		$apf_product->setUserid($userid);
 
 		if ($_POST['photo_del']=='Y') 
 		{
@@ -224,7 +225,7 @@ class ApfProduct  extends Actions
 	
 	function executeList($is_related=false)
 	{
-		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$i18n,$WebUploadDir,$CurrencyFormat,$ActiveOption;
+		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$i18n,$WebUploadDir,$CurrencyFormat,$ActiveOption,$userid;
 
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
@@ -256,6 +257,7 @@ class ApfProduct  extends Actions
 		{
 			$apf_product->whereAdd(" active = '".$apf_product->escape("{$active}") . "'  ");
 		}
+		$apf_product->setUserid($userid);
 		
 		$ToltalNum = $apf_product->count();
 		

@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfFinance.class.php,v 1.7 2006/12/01 15:13:36 arzen Exp $
+ * @version    CVS: $Id: ApfFinance.class.php,v 1.8 2006/12/02 02:16:02 arzen Exp $
  */
 
 class ApfFinance  extends Actions
@@ -87,7 +87,7 @@ class ApfFinance  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n,$ActiveOption,$DebitOption;
+		global $template,$WebBaseDir,$i18n,$ActiveOption,$DebitOption,$AddIP,$userid,$group_ids;
 		$apf_finance = DB_DataObject :: factory('ApfFinance');
 
 		if ($edit_submit) 
@@ -107,7 +107,10 @@ class ApfFinance  extends Actions
 		$apf_finance->setMoney(stripslashes(trim($_POST['money'])));
 		$apf_finance->setMemo(stripslashes(trim($_POST['memo'])));
 		$apf_finance->setActive(stripslashes(trim($_POST['active'])));
-		$apf_finance->setAddIp(stripslashes(trim($_POST['add_ip'])));
+
+		$apf_finance->setAddIp($AddIP);
+		$apf_finance->setGroupid($group_ids);
+		$apf_finance->setUserid($userid);
 
 				
 		$val = $apf_finance->validate();
@@ -179,7 +182,7 @@ class ApfFinance  extends Actions
 	
 	function executeList()
 	{
-		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$CurrencyFormat,$DebitOption,$ActiveOption,$i18n;
+		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$CurrencyFormat,$DebitOption,$ActiveOption,$i18n,$userid;
 		
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
@@ -199,7 +202,8 @@ class ApfFinance  extends Actions
 		$order=($_GET['order'])?$_GET['order']:"DESC";
 		$orderfield = $_GET['orderfield']?$_GET['orderfield']:"id";
 		$apf_finance->orderBy($apf_finance->escape($orderfield)." ".$apf_finance->escape($order));
-		
+		$apf_finance->setUserid($userid);
+			
 		$max_row = 30;
 		$ToltalNum = $apf_finance->count();
 		
