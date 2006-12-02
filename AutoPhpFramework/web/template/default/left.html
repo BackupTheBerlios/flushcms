@@ -11,38 +11,47 @@
 body {font-family: Arial, Tahoma, Verdana;}
 #accordionExample {
   	float: left;
-    border : 1px solid #4f4f4f;
+    border : 1px solid #CCCCCC;
     width: 150px;
 }
 
 .panelheader{
-	background-image: url('{TEMPLATEDIR}images/example1_panelBG.png');
-    height: 22px;-+
-	color : #ECECEC;
-	font-weight : 'normal';
-    padding-left: 5px;
+	background-image: url('{TEMPLATEDIR}images/panel_right.gif');
+    height: 25px;-+
+	color : #616161;
+	font-weight : 'bold';
+	padding: 2px !important;¡¡/****¼æÈÝFirefoxä¯ÀÀÆ÷*****/
+	padding: 8px; margin: 0 auto; 
 }
 
 .panelHover {
-    background-image: url('{TEMPLATEDIR}images/example1_panelBGHover.png');
-    height: 22px;
-	color : #ffffff;
-    padding-left: 5px;
+    background-image: url('{TEMPLATEDIR}images/panel_right.gif');
+    height: 25px;-+
+	color : #000000;
+	font-weight : 'bold';
+	padding: 2px !important;¡¡/****¼æÈÝFirefoxä¯ÀÀÆ÷*****/
+	padding: 8px; margin: 0 auto; 
+
 }
 
 .panelClicked {
-   background-image: url('{TEMPLATEDIR}images/example1_panelBGClick.png');
-   height: 22px;
-   color : #ffffff;
-   padding-left: 5px;
+   background-image: url('{TEMPLATEDIR}images/panel_right.gif');
+   height: 25px;-+
+   color : #000000;
+	font-weight : 'bold';
+	padding: 2px !important;¡¡/****¼æÈÝFirefoxä¯ÀÀÆ÷*****/
+	padding: 8px; margin: 0 auto; 
+
 }
 
 .panelSelected {
-	background-image: url('{TEMPLATEDIR}images/example1_panelBGSelected.png');
-    height: 22px;
-	color : #494949;
+	background-image: url('{TEMPLATEDIR}images/panel_right.gif');
+    height: 25px;-+
+	color : #0000FF;
 	font-weight : 'bold';
-    padding-left: 5px;
+	padding: 2px !important;¡¡/****¼æÈÝFirefoxä¯ÀÀÆ÷*****/
+	padding: 8px; margin: 0 auto; 
+
 }
 .panelContent {
     background-image: url('{TEMPLATEDIR}images/example1_contentBG');
@@ -57,84 +66,99 @@ body {font-family: Arial, Tahoma, Verdana;}
 <div>
      <div id="accordionExample">
      		<div >
-     		  <div  class="panelheader">
+     		  <div  class="panelheader" align="center">
      		  	{lang_Home}
      		  </div>
-     		  <div class="panelContent">
-     		  	<a href="{WEBBASEDIR}" target="_parent"><span>{lang_Home}</span></a><br>
+     		  <div class="panelContent" align="center">
+     		  	<a href="{WEBBASEDIR}" target="_parent"><span>
+				<img src="{TEMPLATEDIR}images/home_mid_button.gif" /><br/>
+				{lang_Home}</span></a><br>
      		  </div>
      		</div>
 
      		<div >
-     		  <div class="panelheader">
+     		  <div class="panelheader" align="center">
      		  	{lang_Users}
      		  </div>
-     			<div class="panelContent">
-     			<a href="{WEBBASEDIR}/users/apf_users" target="main"><span>{lang_Users}</span></a><br>
+     			<div class="panelContent" align="center">
+     			<a href="{WEBBASEDIR}/users/apf_users" target="main"><span>
+				<img src="{TEMPLATEDIR}images/admin_mid_button.gif" /><br/>
+				{lang_Users}</span></a><br>
      		  </div>
      		  </div>
 
      		<div>
-     		  <div class="panelheader">
+     		  <div class="panelheader" align="center">
      		  	{lang_News}
      		  </div>
-     			<div class="panelContent">
-     			<a href="{WEBBASEDIR}/news/apf_news" target="main"><span>{lang_News}</span></a><br>
+     			<div class="panelContent" align="center">
+     			<a href="{WEBBASEDIR}/news/apf_news" target="main"><span>
+				<img src="{TEMPLATEDIR}images/news_mid_button.gif" /><br/>{lang_News}</span></a><br>
      		  </div>
      		</div>
 
 
     		<div>
-    		  <div class="panelheader">
+    		  <div class="panelheader" align="center">
     		  	{lang_Finance}
     		  </div>
-    			<div class="panelContent">
-    			<a href="{WEBBASEDIR}/finance/apf_finance" target="main"><span>{lang_Finance}</span></a><br>
+    			<div class="panelContent" align="center">
+    			<a href="{WEBBASEDIR}/finance/apf_finance" target="main"><span>
+				<img src="{TEMPLATEDIR}images/finance_mid_button.gif" /><br/>{lang_Finance}</span></a><br>
           		</div>
     		</div>
 
     		<div>
-    		  <div class="panelheader">
+    		  <div class="panelheader" align="center">
     		  	{lang_Contact}
     		  </div>
-    			<div class="panelContent">
-    			<a href="{WEBBASEDIR}/contact/apf_contact" target="main"><span>{lang_Contact}</span></a><br>
+    			<div class="panelContent" align="center">
+    			<a href="{WEBBASEDIR}/contact/apf_contact" target="main"><span>
+				<img src="{TEMPLATEDIR}images/contact_mid_button.gif" /><br/>
+				{lang_Contact}</span></a><br>
           		</div>
     		</div>
 
     		<div>
-    		  <div class="panelheader">
+    		  <div class="panelheader" align="center">
     		  	{lang_Company}
     		  </div>
-    			<div class="panelContent">
-    			<a href="{WEBBASEDIR}/company/apf_company" target="main"><span>{lang_Company}</span></a><br>
+    			<div class="panelContent" align="center">
+    			<a href="{WEBBASEDIR}/company/apf_company" target="main"><span>
+				<img src="{TEMPLATEDIR}images/company_mid_button.gif" /><br/>
+				{lang_Company}</span></a><br>
           		</div>
     		</div>
 
     		<div>
-    		  <div class="panelheader">
+    		  <div class="panelheader" align="center">
     		  	{lang_Product}
     		  </div>
-    			<div class="panelContent">
-    			<a href="{WEBBASEDIR}/product/apf_product" target="main"><span>{lang_Product}</span></a><br>
+    			<div class="panelContent" align="center">
+    			<a href="{WEBBASEDIR}/product/apf_product" target="main"><span>
+				<img src="{TEMPLATEDIR}images/products_mid_button.gif" /><br/>
+				{lang_Product}</span></a><br>
           		</div>
     		</div>
 
     		<div>
-    		  <div class="panelheader">
+    		  <div class="panelheader" align="center">
     		  	{lang_Opportunity}
     		  </div>
-    			<div class="panelContent">
-    			<a href="{WEBBASEDIR}/opportunity/apf_opportunity" target="main"><span>{lang_Opportunity}</span></a><br>
+    			<div class="panelContent" align="center">
+    			<a href="{WEBBASEDIR}/opportunity/apf_opportunity" target="main"><span>
+				<img src="{TEMPLATEDIR}images/opportunity_mid_button.gif" /><br/>{lang_Opportunity}</span></a><br>
           		</div>
     		</div>
 
     		<div>
-    		  <div class="panelheader">
+    		  <div class="panelheader" align="center">
     		  	{lang_Schedule}
     		  </div>
-    			<div class="panelContent">
-    			<a href="{WEBBASEDIR}/schedule/apf_schedule" target="main"><span>{lang_Schedule}</span></a><br>
+    			<div class="panelContent" align="center">
+    			<a href="{WEBBASEDIR}/schedule/apf_schedule" target="main"><span>
+				<img src="{TEMPLATEDIR}images/schedule_mid_button.gif" /><br/>
+				{lang_Schedule}</span></a><br>
           		</div>
     		</div>
     		
