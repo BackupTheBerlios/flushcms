@@ -32,7 +32,7 @@
 <input type="hidden" name="d" value="{D}" />
 <fieldset id="fieldset_________" class="">
 <h2>{lang_CreateSchedule}</h2><div class="form-row">
-  <label >Title:<FONT COLOR="#FF0000">*</FONT></label>  <div class="content">
+  <label >{lang_Title}:<FONT COLOR="#FF0000">*</FONT></label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{TITLE_ERROR_MSG}</div>
   <input type="text" name="title" id="title" value="{TITLE}" size="20" />    </div>
 </div>
@@ -42,12 +42,12 @@
   {PUBLISHDATE}    </div>
 </div>
 <div class="form-row">
-  <label >StartTime:<FONT COLOR="#FF0000">*</FONT></label>  <div class="content">
+  <label >{lang_StartTime}:<FONT COLOR="#FF0000">*</FONT></label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{PUBLISH_STARTTIME_ERROR_MSG}</div>
   {PUBLISH_STARTTIME_OPTION}    </div>
 </div>
 <div class="form-row">
-  <label >EndTime:</label>  <div class="content">
+  <label >{lang_EndTime}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{PUBLISH_ENDTIME_ERROR_MSG}</div>
   {PUBLISH_ENDTIME_OPTION}   </div>
 </div>
@@ -56,24 +56,24 @@
   {IMAGES_FILE}
 </div>
 <div class="form-row">
-  <label >Description:</label>  <div class="content">
+  <label >{lang_Description}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{DESCRIPTION_ERROR_MSG}</div>
   <TEXTAREA name="description" id="description" ROWS="5" COLS="20" />{DESCRIPTION}</TEXTAREA>     </div>
 </div>
 <div class="form-row">
-  <label >Status:</label>  <div class="content">
+  <label >{lang_Status}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{STATUS_ERROR_MSG}</div>
   {STATUS_FIELD}    </div>
 </div>
 </fieldset>
 <ul class="admin_actions">
-  <li><input type="submit" name="save" value="Save" class="admin_action_save" /></li>
+  <li><input type="submit" name="save" value="{lang_Save}" class="admin_action_save" /></li>
 
 </ul>
 </form>
 <br/>
-<b>Warm Tips</b>:<br/>
-<img src="{TEMPLATEDIR}/images/xls_image_inline.gif" border="0" valign="middle" />Click it to export no file webcast items in selected week.
+<b>{lang_WarmTips}</b>:<br/>
+<img src="{TEMPLATEDIR}/images/xls_image_inline.gif" border="0" valign="middle" />{lang_WarmTipsString}
 </div>
 
 

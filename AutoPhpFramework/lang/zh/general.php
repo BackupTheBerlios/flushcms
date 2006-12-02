@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.11 2006/12/02 02:16:02 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.12 2006/12/02 07:27:17 arzen Exp $
  */
 $this->setCharset('gb2312'); 
 $messages = array(
@@ -31,7 +31,7 @@ $messages = array(
 	'Active' => '状态',
 	'Edit' => '修改',
 	'Delete' => '删除',
-	'Close' => '关闭窗口',
+	'Close' => '关闭',
 	'List' => '返回列表',
 	'Save' => '保存',
 	'All' => '所有',
@@ -42,6 +42,7 @@ $messages = array(
 	'Male' => '男',
 	'Female' => '女',
 	'Category' => '类别',
+	'CategoryId' => '类别',
 	'CategoryName' => '类别名',
 	'ParentCategory' => '父类别',
 
@@ -87,7 +88,52 @@ $messages = array(
 	'CreateDate' => '日期',
 	'Income' => '收入',
 	'Payout' => '支出',
-
+//contact
+	'Contact' => '联系人',
+	'CompanyId' => '公司',
+	'Id' => 'ID',
+	'Mobile' => '手机',
+	'OfficePhone' => '公司电话',
+	'Fax' => '传真',
+	'Homepage' => '主页',
+	'ContactCategory' => '联系人分类',
+//company
+	'Company' => '公司',
+	'LinkMan' => '联系人',
+	'Employee' => '雇员',
+	'Bankroll' => '固定资金',
+	'Incorporator' => '法人代表',
+	'Industry' => '所属行业',
+	'Products' => '产品',
+//opportunity
+	'Opportunity' => '机会',
+	'State' => '状态',
+	'Pending' => '未决定',
+	'Start' => '开始',
+//Schedule
+	'Schedule' => '计划事件',
+	'CreateSchedule' => '新增计划事件',
+	'Title' => '标题',
+	'PublishDate' => '预定日期',
+	'StartTime' => '起始时间',
+	'EndTime' => '结束时间',
+	'Description' => '描述',
+	'Status' => '状态',
+	'WarmTips' => '温馨提示',
+	'WarmTipsString' => '点击日历上的图标,将导出当周的事件.',
+	'Today' => '今日',
+	'Time' => '时间',
+	'Entry' => '条目',
+	'Image' => '图片',
+	'YourScheduleFor' => '你的计划事件于',
+	'Sun' => '日',
+	'Mon' => '一',
+	'Tue' => '二',
+	'Wed' => '三',
+	'Thu' => '四',
+	'Fri' => '五',
+	'Sat' => '六',
+	'wk' => '周',
 
 	'Please check here' => '请检查此处',
 	'Your modifications have been saved' => '您的更改已保存',

@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfSchedule.class.php,v 1.3 2006/12/02 02:16:01 arzen Exp $
+ * @version    CVS: $Id: ApfSchedule.class.php,v 1.4 2006/12/02 07:27:16 arzen Exp $
  */
 require_once 'Calendar'.DIRECTORY_SEPARATOR.'Calendar.php';
 require_once 'Calendar'.DIRECTORY_SEPARATOR.'Day.php';
@@ -189,7 +189,7 @@ class ApfSchedule  extends Actions
 	
 	function renderDayView ($y,$m,$d,&$used_hours_arr) 
 	{
-		global $TemplateDir,$template,$Upload_Dir,$WebTemplateDir,$WebBaseDir,$ClassDir,$ActiveOption,$userid;
+		global $TemplateDir,$template,$Upload_Dir,$WebTemplateDir,$WebBaseDir,$ClassDir,$i18n,$ActiveOption,$userid;
 		
 		include_once($ClassDir."URLHelper.class.php");
 		// Create a day to view the hours for
@@ -226,10 +226,9 @@ class ApfSchedule  extends Actions
 		    // Attach the payload
 		    $DiaryEvent->setEndHour($end_hour);
 		    $DiaryEvent->setID($row['webcast_id']);
-		    $DiaryEvent->setItemNum($row['NUM']);
 		    $DiaryEvent->setStatu($row['active']);
 		    $DiaryEvent->setImages($row['image']?popFile($Upload_Dir.$row['image']):"");
-		    $DiaryEvent->setEntry("<a href=\"{$WebBaseDir}/schedule/apf_schedule/list/".$row['id']."\">".$apf_schedule->getTitle()."</a>");
+		    $DiaryEvent->setEntry("<a href=\"{$WebBaseDir}/schedule/apf_schedule/list/".$row['id']."?y={$y}&m={$m}&d={$d}\">".$apf_schedule->getTitle()."</a>");
 		
 		    // Add the decorator to the selection
 		    $selection[] = $DiaryEvent;
@@ -267,8 +266,7 @@ class ApfSchedule  extends Actions
 		            $temp_end_hour = $Hour->getEndHour();
 		            $merge_hour=$temp_end_hour-$hour+1;
 		            $css_class_name = "calentryfilled_".$Hour->getStatu();
-		            $Day_String .= ( "<td rowspan=\"{$merge_hour}\" class=\"{$css_class_name}\"><INPUT TYPE=\"checkbox\" NAME=\"SelectID[]\" value=\"".$Hour->getID()."\"></td><td class=\"{$css_class_name}\" rowspan=\"{$merge_hour}\">".$Hour->getEntry()."</td><td rowspan=\"{$merge_hour}\">&nbsp;".$Hour->getItemNum()."</td><td rowspan=\"{$merge_hour}\">&nbsp;".$Hour->getImages()."</td><td rowspan=\"{$merge_hour}\">&nbsp;".$ActiveOption[$Hour->getStatu()]."</td><td rowspan=\"{$merge_hour}\"><ul class=\"admin_td_actions\">
-  <li><a href=\"webcast.php?act=Update&y={$y}&m={$m}&d={$d}&ID=".$Hour->getID()."\"><img alt=\"edit\" title=\"edit\" src=\"".URLHelper::getWebBaseURL ().$WebTemplateDir."/images/edit_icon.png\" /></a></li>
+		            $Day_String .= ( "<td rowspan=\"{$merge_hour}\" class=\"{$css_class_name}\"><INPUT TYPE=\"checkbox\" NAME=\"SelectID[]\" value=\"".$Hour->getID()."\"></td><td class=\"{$css_class_name}\" rowspan=\"{$merge_hour}\">".$Hour->getEntry()."</td><td rowspan=\"{$merge_hour}\">&nbsp;".$Hour->getImages()."</td><td rowspan=\"{$merge_hour}\">&nbsp;".$ActiveOption[$Hour->getStatu()]."</td><td rowspan=\"{$merge_hour}\"><ul class=\"admin_td_actions\">
   <li><a onclick=\"if (confirm('Are you sure?')) { f = document.createElement('form'); document.body.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;\" href=\"webcast.php?act=Del&y={$y}&m={$m}&d={$d}&ID=".$Hour->getID()."\"><img alt=\"delete\" title=\"delete\" src=\"".URLHelper::getWebBaseURL ().$WebTemplateDir."/images/delete_icon.png\" /></a></li>
 </ul></td>\n" );
 		        } 
@@ -278,22 +276,27 @@ class ApfSchedule  extends Actions
 				} 
 		        else
 		        {
-		            $Day_String .= ( "<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>\n" );
+		            $Day_String .= ( "<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>\n" );
 		        }
 		        $Day_String .= ( "</tr>\n" );
 		    }
 		}
+		$header_time=$i18n->_("Time");
+		$header_entry=$i18n->_("Entry");
+		$header_image=$i18n->_("Image");
+		$header_status=$i18n->_("Status");
+		$header_action=$i18n->_("Action");
+		$header_schedule_for=$i18n->_("YourScheduleFor");
 		$calendar_str = <<<EOD
 <table>
-<caption><b>Your Schedule for {$DayViewTitle} </b></caption>
+<caption><b>{$header_schedule_for}{$DayViewTitle} </b></caption>
 <tr class="calentryhead">
-<th width="5%">Time</th>
+<th width="8%">{$header_time}</th>
 <th width="1%">&nbsp;<input type="checkbox" onClick="selectAll(this.checked,'SelectID[]')"/></th>
-<th>Entry</th>
-<th width="3%">Items</th>
-<th width="10%">Image</th>
-<th width="5%">Status</th>
-<th width="5%">Action</th>
+<th>{$header_entry}</th>
+<th width="10%">{$header_image}</th>
+<th width="10%">{$header_status}</th>
+<th width="10%">{$header_action}</th>
 </tr>
 {$Day_String}
 </table>
@@ -303,7 +306,7 @@ EOD;
 	
 	function renderMonthView () 
 	{
-		global $TemplateDir,$ClassDir,$WebTemplateDir,$userid;
+		global $TemplateDir,$ClassDir,$WebTemplateDir,$i18n,$userid;
 		require_once 'Calendar'.DIRECTORY_SEPARATOR.'Month/Weeks.php';
 		require_once 'Calendar'.DIRECTORY_SEPARATOR.'Util'.DIRECTORY_SEPARATOR.'Textual.php';
 		include_once($ClassDir."URLHelper.class.php");
@@ -383,10 +386,17 @@ EOD;
 		}
 		
 		$cal_header_string = "";
-		$dayheaders = Calendar_Util_Textual::orderedWeekdays($Month,'short');
-	    $cal_header_string .= '<th class="week">wk</th>';
-	    $i=0;
-		foreach ($dayheaders as $dayheader) 
+	    $cal_header_string .= '<th class="week">'.$i18n->_("wk").'</th>';
+	    $week_day_string = array(
+	    	'0'=>$i18n->_("Sun"),
+	    	'1'=>$i18n->_("Mon"),
+	    	'2'=>$i18n->_("Tue"),
+	    	'3'=>$i18n->_("Wed"),
+	    	'4'=>$i18n->_("Thu"),
+	    	'5'=>$i18n->_("Fri"),
+	    	'6'=>$i18n->_("Sat"),
+	    );
+		for ($i=0;$i<=6;$i++) 
 		{
 		    if ($i==0 || $i==6) 
 			{
@@ -396,14 +406,13 @@ EOD;
 			{
 				$head_class="";
 			}
-		    $cal_header_string .= '<th '.$head_class.'>'.$dayheader.'</th>';
-		    $i++;
+		    $cal_header_string .= '<th '.$head_class.'>'.$week_day_string[$i].'</th>';
 		}
-		
+		$header_today = $i18n->_("Today");
 		$calendar_str = <<<EOD
 <table class="month" cellspacing="0" cellpadding="0">
 <caption>
-<a href="{$prev}" > << </a> <b>{$calendar_title} <A href="{$today_link}" class="calholiday">Today</a> </b> <a href="{$next}"> >> </a>
+<a href="{$prev}" > << </a> <b>{$calendar_title} <A href="{$today_link}" class="calholiday">{$header_today}</a> </b> <a href="{$next}"> >> </a>
 </caption>
 <tr class="calheader">
 {$cal_header_string}
