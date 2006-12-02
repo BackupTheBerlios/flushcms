@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContact.class.php,v 1.27 2006/12/02 02:16:02 arzen Exp $
+ * @version    CVS: $Id: ApfContact.class.php,v 1.28 2006/12/02 08:00:30 arzen Exp $
  */
 
 class ApfContact  extends Actions
@@ -824,7 +824,7 @@ class ApfContact  extends Actions
 		include_once($ClassDir."StringHelper.class.php");
 		$phone_num = StringHelper::handleStrNewline ($phone_num);
 		$icon = $mobile_phone?"<A HREF='###' ONCLICK=\"remoteCellPhoneSMS.callMobilePhone('{$phone_num}');\" ><IMG SRC='".URLHelper::getWebBaseURL ().$WebTemplateDir."images/cellphone.gif' /></A><A HREF='###' ONCLICK=\"remoteCellPhoneSMS.sendSMS('{$phone_num}');\" ><IMG SRC='".URLHelper::getWebBaseURL ().$WebTemplateDir."images/sms.png' /></A><DIV ID=\"{$phone_num}mobile\" style=\"z-index:10; position:absolute;color:#FFFFFF;\" /><DIV ID=\"{$phone_num}sms\" style=\"z-index:10; position:absolute;color:#FFFFFF;\" />":"<A HREF='###' ONCLICK=\"remoteCellPhoneSMS.callPhone('{$phone_num}');\" ><IMG SRC='".URLHelper::getWebBaseURL ().$WebTemplateDir."images/call.png' /></A><DIV ID=\"{$phone_num}phone\" style=\"z-index:10; position:absolute;\" />";
-		if(trim($phone_num))
+		if(trim($phone_num) && SHOW_SMS)
 			return $icon;
 		return;
 	}

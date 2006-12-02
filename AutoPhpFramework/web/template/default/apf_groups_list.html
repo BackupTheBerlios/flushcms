@@ -1,6 +1,6 @@
         
 <div id="admin_container">
-<h1>{lang_Listing}</h1>
+<h1>{lang_Group}{lang_Listing}</h1>
 <div id="admin_header">
 </div>
 <div id="admin_bar">
@@ -17,22 +17,16 @@
 <table cellspacing="0" class="admin_list">      
 <thead>
 <tr><th>&nbsp;{lang_GroupId}</th>
-<th>&nbsp;{lang_GroupType}</th>
 <th>&nbsp;{lang_GroupDefineName}</th>
 <th>&nbsp;{lang_IsActive}</th>
-<th>&nbsp;{lang_OwnerUserId}</th>
-<th>&nbsp;{lang_OwnerGroupId}</th>
 <th>{lang_Action}</th>
 </tr>
 </thead>
 <tbody>
 <!-- BEGIN main_list -->
 <tr class="{LIST_TD_CLASS}"><td>&nbsp;{GROUP_ID}</td>
-<td>&nbsp;{GROUP_TYPE}</td>
 <td>&nbsp;{GROUP_DEFINE_NAME}</td>
 <td>&nbsp;{IS_ACTIVE}</td>
-<td>&nbsp;{OWNER_USER_ID}</td>
-<td>&nbsp;{OWNER_GROUP_ID}</td>
 <td>
 <ul class="admin_td_actions">
   <li><a href="{WEBDIR}/users/apf_groups/update/{ID}"><img alt="{lang_Edit}" title="{lang_Edit}" src="{WEBTEMPLATEDIR}images/edit_icon.png" /></a></li>

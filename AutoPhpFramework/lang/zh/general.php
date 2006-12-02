@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.12 2006/12/02 07:27:17 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.13 2006/12/02 08:00:30 arzen Exp $
  */
 $this->setCharset('gb2312'); 
 $messages = array(
@@ -45,11 +45,21 @@ $messages = array(
 	'CategoryId' => '类别',
 	'CategoryName' => '类别名',
 	'ParentCategory' => '父类别',
+//news	
+	'Content' => '内容',
 
+//contact
+	'ExportAll' => '导出所有',
+	'Export' => '导出',
+	'Import' => '导入',
+	'File' => '文件',
+	
+//users
 	'Name' => '名称',
 	'Gender' => '性别',
 	'Birthday' => '生日',
 	'Phone' => '电话',
+	'User' => '用户',
 	'UserName' => '用户名',
 	'UserPwd' => '用户密码',
 	'Addrees' => '地址',
@@ -62,6 +72,13 @@ $messages = array(
 
 	'EditInfo' => '编辑信息',
 	'GeneralInfo' => '基本信息',
+//group
+	'GroupId' => 'ID',
+	'GroupDefineName' => '组名',
+	'IsActive' => '是/否激活',
+	'Rights' => '权限',
+	'RightId' => 'ID',
+	'RightDefineName' => '权限名',
 
 	'Group' => '组',
 	'Groups' => '组',
@@ -88,6 +105,7 @@ $messages = array(
 	'CreateDate' => '日期',
 	'Income' => '收入',
 	'Payout' => '支出',
+	'DayMoneyRecord' => '现金日记帐',
 //contact
 	'Contact' => '联系人',
 	'CompanyId' => '公司',

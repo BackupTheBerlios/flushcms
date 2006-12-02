@@ -44,7 +44,7 @@ var remoteCellPhoneSMS = new CellPhoneSMS(callback); // our php5/4 compat versio
 </script>   
      
 <div id="admin_container">
-<h1>{lang_Listing}</h1>
+<h1>{lang_Contact}{lang_Listing}</h1>
 <div id="admin_header">
 </div>
 <div id="admin_bar">
@@ -63,8 +63,10 @@ var remoteCellPhoneSMS = new CellPhoneSMS(callback); // our php5/4 compat versio
           <li><input class="admin_action_create" value="{lang_ContactCategory}" type="button" onclick="document.location.href='{WEBDIR}/contact/apf_contact_category';" /></li>
           <li><input class="admin_action_create" value="{lang_ExportAll}" type="button" onclick="document.location.href='{WEBDIR}/contact/apf_contact/export';" /></li>
           <li><input class="admin_action_create" value="{lang_Import}" type="button" onclick="document.location.href='{WEBDIR}/contact/apf_contact/import';" /></li>
-          <li><input class="admin_action_create" value="{lang_ConnectCOM}" type="button" onclick="remoteCellPhoneSMS.connectCOM();" /></li>
+<!--
+		  <li><input class="admin_action_create" value="{lang_ConnectCOM}" type="button" onclick="remoteCellPhoneSMS.connectCOM();" /></li>
           <li><input class="admin_action_create" value="{lang_DisconnectCOM}" type="button" onclick="remoteCellPhoneSMS.disconnectCOM();" /></li>
+ -->  
 </ul>
 
 <pre id="target">
