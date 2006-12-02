@@ -7,18 +7,18 @@ class DaoApfSchedule extends DB_DataObject
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
 
-    public $__table = 'apf_schedule';                    // table name
-    public $id;                              // int(11)  not_null primary_key unsigned auto_increment
-    public $title;                           // string(255)  not_null
-    public $description;                     // blob(65535)  blob
-    public $publish_date;                    // date(10)  not_null multiple_key
-    public $publish_starttime;               // time(8)  not_null multiple_key
-    public $publish_endtime;                 // time(8)  not_null
-    public $image;                           // string(255)  not_null
-    public $active;                          // string(8)  not_null
-    public $add_ip;                          // string(24)  
-    public $created_at;                      // datetime(19)  not_null
-    public $update_at;                       // datetime(19)  not_null
+    var $__table = 'apf_schedule';                    // table name
+    var $id;                              // int(11)  not_null primary_key unsigned auto_increment
+    var $title;                           // string(255)  not_null
+    var $description;                     // blob(65535)  blob
+    var $publish_date;                    // date(10)  not_null multiple_key
+    var $publish_starttime;               // time(8)  not_null multiple_key
+    var $publish_endtime;                 // time(8)  not_null
+    var $image;                           // string(255)  not_null
+    var $active;                          // string(8)  not_null
+    var $add_ip;                          // string(24)  
+    var $created_at;                      // datetime(19)  not_null
+    var $update_at;                       // datetime(19)  not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) 

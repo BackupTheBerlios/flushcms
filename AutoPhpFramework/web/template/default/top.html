@@ -29,11 +29,15 @@
 
     <div dojo:type="ToolbarContainer">
         <div dojo:type="toolbar">
+            <img dojo:type="ToolbarButton" dojo:icon="{TEMPLATEDIR}images/frontpage.png" onClick="window.parent.location='{WEBBASEDIR}'"/>
+
+            <span dojo:type="ToolbarSeparator">&nbsp;</span>
+
+            <img dojo:type="ToolbarButton" dojo:icon="{TEMPLATEDIR}images/users.png" onClick="window.top.main.location='{WEBBASEDIR}/users/apf_users'"/>
+
+            <span dojo:type="ToolbarSeparator">&nbsp;</span>
+
             <img dojo:type="ToolbarButton" dojo:icon="{TEMPLATEDIR}images/exit_small.png" onClick="window.parent.location='{WEBBASEDIR}?logout=1'" />
-            <img dojo:type="ToolbarButton" dojo:icon="{TEMPLATEDIR}dojo/src/widget/templates/buttons/copy.gif"/>
-            <img dojo:type="ToolbarButton" dojo:icon="{TEMPLATEDIR}dojo/src/widget/templates/buttons/paste.gif"/>
-            <img dojo:type="ToolbarButton" dojo:icon="{TEMPLATEDIR}dojo/src/widget/templates/buttons/paste.gif"/>
-            <span unselectable="on" class="toolbarButtonGroup" dojoAttachPoint="containerNode"><b>YCRM</b></span>
         </div>
         
     </div>
