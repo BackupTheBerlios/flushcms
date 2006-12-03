@@ -7,10 +7,10 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: backend.php,v 1.7 2006/12/01 15:13:36 arzen Exp $
+ * @version    CVS: $Id: backend.php,v 1.8 2006/12/03 05:19:10 arzen Exp $
  */
 define('APF_ROOT_DIR',    realpath(dirname(__FILE__).'/..'));
-define('APF_DEBUG',       true);
+define('APF_DEBUG',       false);
 define('APF_LOGIN_ACCESS',       "Y");
 require_once(APF_ROOT_DIR.DIRECTORY_SEPARATOR.'init.php');
 if( isset($HTTP_GET_VARS['pane']) && $HTTP_GET_VARS['pane'] == 'top' )

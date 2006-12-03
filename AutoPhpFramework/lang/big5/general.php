@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟遠螓
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.2 2006/12/02 07:27:17 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.3 2006/12/03 05:19:10 arzen Exp $
  */
 $this->setCharset('big5'); 
 $messages = array(
@@ -45,11 +45,21 @@ $messages = array(
 	'CategoryId' => '類別',
 	'CategoryName' => '類別名',
 	'ParentCategory' => '父類別',
+//news	
+	'Content' => '內容',
 
+//contact
+	'ExportAll' => '導出所有',
+	'Export' => '導出',
+	'Import' => '導入',
+	'File' => '文件',
+	
+//users
 	'Name' => '名稱',
 	'Gender' => '性別',
 	'Birthday' => '生日',
 	'Phone' => '電話',
+	'User' => '用戶',
 	'UserName' => '用戶名',
 	'UserPwd' => '用戶密碼',
 	'Addrees' => '地址',
@@ -62,6 +72,13 @@ $messages = array(
 
 	'EditInfo' => '編輯信息',
 	'GeneralInfo' => '基本信息',
+//group
+	'GroupId' => 'ID',
+	'GroupDefineName' => '組名',
+	'IsActive' => '是/否激活',
+	'Rights' => '權限',
+	'RightId' => 'ID',
+	'RightDefineName' => '權限名',
 
 	'Group' => '組',
 	'Groups' => '組',
@@ -88,6 +105,7 @@ $messages = array(
 	'CreateDate' => '日期',
 	'Income' => '收入',
 	'Payout' => '支出',
+	'DayMoneyRecord' => '現金日記帳',
 //contact
 	'Contact' => '聯系人',
 	'CompanyId' => '公司',
@@ -134,6 +152,12 @@ $messages = array(
 	'Fri' => '五',
 	'Sat' => '六',
 	'wk' => '周',
+//send mail
+	'MailSender' => '郵件發送',
+	'WriteMail' => '寫郵件',
+	'To' => '到',
+	'Send' => '發送',
+
 
 	'Please check here' => '請檢查此處',
 	'Your modifications have been saved' => '您的更改已保存',

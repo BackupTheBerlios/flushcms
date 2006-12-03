@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.13 2006/12/02 08:00:30 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.14 2006/12/03 05:19:10 arzen Exp $
  */
 $this->setCharset('gb2312'); 
 $messages = array(
@@ -152,6 +152,12 @@ $messages = array(
 	'Fri' => '五',
 	'Sat' => '六',
 	'wk' => '周',
+//send mail
+	'MailSender' => '邮件发送',
+	'WriteMail' => '写邮件',
+	'To' => '到',
+	'Send' => '发送',
+
 
 	'Please check here' => '请检查此处',
 	'Your modifications have been saved' => '您的更改已保存',

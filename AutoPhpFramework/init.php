@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.45 2006/12/02 02:16:01 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.46 2006/12/03 05:19:10 arzen Exp $
  */
 define('CREATE', 3);
 
@@ -232,7 +232,7 @@ if (defined('APF_LOGIN_ACCESS') && (APF_LOGIN_ACCESS == "Y") )
 			'path' => null,
 			'domain' => null,
 			'secure' => false,
-			'lifetime' => 30,
+			'lifetime' => 120,
 			'secret' => 'mysecretkey',
 			'savedir' => $RootDir.'cookies',
 			
@@ -240,8 +240,8 @@ if (defined('APF_LOGIN_ACCESS') && (APF_LOGIN_ACCESS == "Y") )
 		'authContainers' => array (
 			'DB' => array (
 				'type' => 'DB',
-				'expireTime' => 60*60,
-				'idleTime' => 60*60,
+				'expireTime' => 60*60*5,
+				'idleTime' => 60*60*5,
 				'prefix' => 'apf_',
 				'passwordEncryptionMode' => 'md5',
 				'storage' => array (
