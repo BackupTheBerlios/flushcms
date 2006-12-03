@@ -14,6 +14,7 @@
 	<script type="text/javascript" src="{TEMPLATEDIR}dojo/dojo.js"></script>
 	<script type="text/javascript">
 		dojo.require("dojo.widget.Toolbar");
+
 	</script>
 	
 	<script type="text/javascript">
@@ -29,11 +30,28 @@
 
     <div dojo:type="ToolbarContainer">
         <div dojo:type="toolbar">
+            <span unselectable="on" class="toolbarItem"><img src="{TEMPLATEDIR}images/logo.gif" /></span>
+			<span unselectable="on" class="toolbarItem">&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <img dojo:type="ToolbarButton" dojo:icon="{TEMPLATEDIR}images/frontpage.png" onClick="window.parent.location='{WEBBASEDIR}'"/>
 
             <span dojo:type="ToolbarSeparator">&nbsp;</span>
 
             <img dojo:type="ToolbarButton" dojo:icon="{TEMPLATEDIR}images/users.png" onClick="window.top.main.location='{WEBBASEDIR}/users/apf_users'"/>
+
+            <img dojo:type="ToolbarButton" dojo:icon="{TEMPLATEDIR}images/admin_small_button.gif" onClick="window.top.main.location='{WEBBASEDIR}/users/apf_users'"/>
+            <img dojo:type="ToolbarButton" dojo:icon="{TEMPLATEDIR}images/news_small_button.gif" onClick="window.top.main.location='{WEBBASEDIR}/news/apf_news'"/>
+            <span dojo:type="ToolbarSeparator">&nbsp;</span>
+
+            <img dojo:type="ToolbarButton" dojo:icon="{TEMPLATEDIR}images/finance_small_button.gif" onClick="window.top.main.location='{WEBBASEDIR}/finance/apf_finance'"/>
+            <span dojo:type="ToolbarSeparator">&nbsp;</span>
+
+            <img dojo:type="ToolbarButton" dojo:icon="{TEMPLATEDIR}images/contact_small_button.gif" onClick="window.top.main.location='{WEBBASEDIR}/contact/apf_contact'"/>
+            <img dojo:type="ToolbarButton" dojo:icon="{TEMPLATEDIR}images/products_small_button.gif" onClick="window.top.main.location='{WEBBASEDIR}/product/apf_product'"/>
+            <img dojo:type="ToolbarButton" dojo:icon="{TEMPLATEDIR}images/company_small_button.gif" onClick="window.top.main.location='{WEBBASEDIR}/company/apf_company'"/>
+            <span dojo:type="ToolbarSeparator">&nbsp;</span>
+
+            <img dojo:type="ToolbarButton" dojo:icon="{TEMPLATEDIR}images/opportunity_small_button.gif" onClick="window.top.main.location='{WEBBASEDIR}/opportunity/apf_opportunity'"/>
+            <img dojo:type="ToolbarButton" dojo:icon="{TEMPLATEDIR}images/schedule_small_button.gif" onClick="window.top.main.location='{WEBBASEDIR}/schedule/apf_schedule'"/>
 
             <span dojo:type="ToolbarSeparator">&nbsp;</span>
 
