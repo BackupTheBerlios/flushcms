@@ -12,7 +12,7 @@
 </div>
 
 <div class="admin_left_content">
-<form id="admin_left_cal" name="admin_left_cal" method="post" action="webcast.php">
+<form id="admin_left_cal" name="admin_left_cal" method="post" action="{WEBDIR}/schedule/apf_schedule/list">
 <input type="hidden" name="weekdays" />
 <input type="hidden" name="act"/>
 <input type="hidden" name="week" />
@@ -78,35 +78,22 @@
 
 
 <div class="admin_main_content">
-<form id="admin_list_form" name="admin_list_form" method="post" >
+<form id="admin_list_form" name="admin_list_form" method="post" action="{WEBDIR}/schedule/apf_schedule/Updateselected" >
   <ul class="admin_actions">
-  	{CONFIRM_LINK}
     <li>
-      <input type="submit" name="save" value="Status To New" class="admin_action_list" 
-		  onclick="if (confirm('Are you sure?')) { document.admin_list_form.todo.value='new';document.admin_list_form.submit(); };return false;"   
-		  />
-    </li>
-    <li>
-      <input type="submit" name="save" value="Status To Delete" class="admin_action_cancel" 
+      <input type="submit" name="save" value="{lang_DeleteSelected}" class="admin_action_cancel" 
 		  onclick="if (confirm('Are you sure?')) { document.admin_list_form.todo.value='delete';document.admin_list_form.submit(); };return false;"
 		  />
     </li>
-    <input type="hidden" name="act" value="UpdateSelected" />
-    <input type="hidden" name="todo" value="" />
+     <input type="hidden" name="todo" value="" />
   </ul>
 {DAY_VIEW}
 <input type="hidden" name="y" value="{Y}" />
 <input type="hidden" name="m" value="{M}" />
 <input type="hidden" name="d" value="{D}" />
   <ul class="admin_actions">
-  	{CONFIRM_LINK}
     <li>
-      <input type="submit" name="save" value="Status To New" class="admin_action_list" 
-		  onclick="if (confirm('Are you sure?')) { document.admin_list_form.todo.value='new';document.admin_list_form.submit(); };return false;"   
-		  />
-    </li>
-    <li>
-      <input type="submit" name="save" value="Status To Delete" class="admin_action_cancel" 
+      <input type="submit" name="save" value="{lang_DeleteSelected}" class="admin_action_cancel" 
 		  onclick="if (confirm('Are you sure?')) { document.admin_list_form.todo.value='delete';document.admin_list_form.submit(); };return false;"
 		  />
     </li>

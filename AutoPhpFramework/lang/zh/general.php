@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.14 2006/12/03 05:19:10 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.15 2006/12/03 11:31:58 arzen Exp $
  */
 $this->setCharset('gb2312'); 
 $messages = array(
@@ -45,6 +45,7 @@ $messages = array(
 	'CategoryId' => '类别',
 	'CategoryName' => '类别名',
 	'ParentCategory' => '父类别',
+	'DeleteSelected' => '删除所选',
 //news	
 	'Content' => '内容',
 

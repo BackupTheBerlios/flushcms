@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.46 2006/12/03 05:19:10 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.47 2006/12/03 11:31:58 arzen Exp $
  */
 define('CREATE', 3);
 
@@ -50,6 +50,23 @@ include_once ($ClassDir . "Actions.class.php");
 require_once 'Log.php';
 require_once 'LiveUser.php';
 require_once 'I18N/Messages/File.php';
+$language_string = $_SERVER["HTTP_ACCEPT_LANGUAGE"];
+$language_arr = explode(",",$language_string);
+$this_language = $language_arr[0];
+switch ($this_language) {
+	case "zh":
+	case "zh-cn":
+		$lang='zh';
+		break;
+	case "zh-tw":
+	case "zh-hk":
+		$lang='big5';
+		break;
+	default:
+		$lang="en";
+		break;
+}
+
 $i18n = new I18N_Messages_File($lang, $domain, $dir);
 include_once ($ConfigDir . "common.php");
 require_once($ClassDir."SendEmail.php");

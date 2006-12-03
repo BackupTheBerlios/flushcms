@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfSchedule.class.php,v 1.4 2006/12/02 07:27:16 arzen Exp $
+ * @version    CVS: $Id: ApfSchedule.class.php,v 1.5 2006/12/03 11:31:58 arzen Exp $
  */
 require_once 'Calendar'.DIRECTORY_SEPARATOR.'Calendar.php';
 require_once 'Calendar'.DIRECTORY_SEPARATOR.'Day.php';
@@ -30,7 +30,7 @@ class ApfSchedule  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n,$AddIP,$userid,$group_ids;
+		global $template,$WebBaseDir,$i18n,$TimeOption,$ActiveOption,$AddIP,$userid,$group_ids,$ClassDir,$UploadDir;
 		$apf_schedule = DB_DataObject :: factory('ApfSchedule');
 
 		if ($edit_submit) 
@@ -54,33 +54,110 @@ class ApfSchedule  extends Actions
 		$apf_schedule->setAddIp($AddIP);
 		$apf_schedule->setGroupid($group_ids);
 		$apf_schedule->setUserid($userid);
+
+		if ($_POST['image_del']=='Y') 
+		{
+			unlink($UploadDir.$_POST['image_old']);
+			$apf_schedule->setImage("");
+			$_POST['image_old']="";
+		}
+		if($_POST['upload_temp'])
+		{
+			$apf_schedule->setImage($_POST['upload_temp']);	
+		}
+		$allow_upload_file = TRUE;
+		if($_FILES['image']['name'])
+		{
+			require_once ($ClassDir."FileHelper.class.php");
+			$upload_data = FileHelper::uploadFile ("schedule");
+			$allow_upload_file = $upload_data["upload_state"];
+			if ($allow_upload_file) 
+			{
+				$images_arr = $upload_data["upload_msg"];
+				if ($image_pic = $images_arr['image']) 
+				{
+					$apf_schedule->setImage($image_pic);
+					$_POST['upload_temp'] = $image_pic;
+				}
+			}
+			else
+			{
+				$upload_error_msg = $upload_data["upload_msg"];
+			}
+
+		}
+
 				
 		$val = $apf_schedule->validate();
-		if ($val === TRUE)
+		if ( ($val === TRUE) && ($allow_upload_file === TRUE) )
 		{
 			if ($edit_submit) 
 			{
 				$apf_schedule->setUpdateAt(DB_DataObject_Cast::dateTime());
 				$apf_schedule->update();
-				$this->forward("schedule/apf_schedule/list/".$_POST['ID']."/ok");
+				$this->forward("schedule/apf_schedule/list/".$_POST['ID']."/ok/?y=".$_REQUEST['y']."&m=".$_REQUEST['m']."&d=".$_REQUEST['d']."");
 			}
 			else 
 			{
 				$apf_schedule->setCreatedAt(DB_DataObject_Cast::dateTime());
 				$apf_schedule->insert();
-				$this->forward("schedule/apf_schedule/");
+				$this->forward("schedule/apf_schedule/list/?y=".$_REQUEST['y']."&m=".$_REQUEST['m']."&d=".$_REQUEST['d']."");
 			}
 		}
 		else
 		{
 			$template->setFile(array (
-				"MAIN" => "apf_schedule_edit.html"
+				"MAIN" => "apf_schedule_list.html"
 			));
 			$template->setBlock("MAIN", "edit_block");
+
+			if ($_REQUEST['y'] && $_REQUEST['m'] && $_REQUEST['d']) 
+			{
+				$select_y=$_REQUEST['y'];
+				$select_m=$_REQUEST['m'];
+				$select_d=$_REQUEST['d'];
+			}
+			else
+			{
+				$next_week_time = $this->getDefaultDate ();
+				$select_y=date("Y",$next_week_time);
+				$select_m=date("m",$next_week_time);
+				$select_d=date("d",$next_week_time);
+			}
+			
+			$used_hours_arr=array();
+			$CalDailyView = $this->renderDayView($select_y,$select_m,$select_d,$used_hours_arr);
+			$un_use_hour_arr = array_diff($TimeOption,$used_hours_arr);
+
+			array_shift($ActiveOption);
 			$template->setVar(array (
 				"WEBDIR" => $WebBaseDir,
-				"DOACTION" => $do_action
+				"IMAGES_FILE" => fileTag ('image',$_POST['upload_temp']?$_POST['upload_temp']:$_POST['image_old']),
+				"STATUS_FIELD" => selectTag ('status',$ActiveOption,$_POST['status']),
+				"LEFT_CALENDAR" => $this->renderMonthView(),
+				"DAY_VIEW" => $CalDailyView,
+				"PUBLISH_STARTTIME_OPTION" => selectTag ('publish_starttime',$un_use_hour_arr,$_POST['publish_starttime']),
+				"PUBLISH_ENDTIME_OPTION" => selectTag ('publish_endtime',$un_use_hour_arr,$_POST['publish_endtime']),
+				"DOACTION" => $do_action,
+				"PUBLISH_DATE" => "{$select_y}-{$select_m}-{$select_d}",
+				"Y" => $select_y,
+				"M" => $select_m,
+				"D" => $select_d,
 			));
+			if (is_array($val)) 
+			{
+				foreach ($val as $k => $v)
+				{
+					if ($v == false)
+					{
+						$template->setVar(array (
+							strtoupper($k)."_ERROR_MSG" => " &darr; Please check here &darr; "
+						));
+	
+					}
+				}
+			}
+
 			foreach ($val as $k => $v)
 			{
 				if ($v == false)
@@ -105,9 +182,115 @@ class ApfSchedule  extends Actions
 		global $controller;
 		$apf_schedule = DB_DataObject :: factory('ApfSchedule');
 		$apf_schedule->get($apf_schedule->escape($controller->getID()));
-		$apf_schedule->setActive('deleted');
-		$apf_schedule->update();
+		$apf_schedule->delete();
 		$this->forward("schedule/apf_schedule/");
+	}
+
+	function executeUpdateselected () 
+	{
+		global $ClassDir;
+		if (is_array($_POST['SelectID'])) 
+		{
+			$selected_id = implode(",",$_POST['SelectID']);
+			
+			$apf_schedule = DB_DataObject :: factory('ApfSchedule');
+			$apf_schedule->whereAdd(" id IN (".$apf_schedule->escape($selected_id).") ");
+//			$apf_schedule->debugLevel(4);
+			$apf_schedule->find();
+			while ($apf_schedule->fetch())
+			{
+				$apf_schedule->delete();
+			}
+	
+		}
+		
+		$this->forward('schedule/apf_schedule/list/',"y=".$_REQUEST['y']."&m=".$_REQUEST['m']."&d=".$_REQUEST['d']."");
+		
+	}
+
+	function exportWeek () 
+	{
+		global $userid,$i18n;
+		$week_days_format = $this->formatWeekDays ($_POST['weekdays']);
+		$apf_schedule = DB_DataObject :: factory('ApfSchedule');
+		$apf_schedule->setUserid($userid);
+		$apf_schedule->whereAdd("DATE_FORMAT(publish_date,'%Y-%m-%e') IN ({$week_days_format}) ");
+//		$apf_schedule->debugLevel(4);
+		$apf_schedule->find();
+		$i=0;
+		$export_data = array();
+		while ($apf_schedule->fetch())
+		{
+			$row = $apf_schedule->toArray();
+			$export_data[]=array(
+				'Title'=>$row['title'],
+				'PublishDate'=>$row['publish_date'],
+				'StartTime'=>$row['publish_starttime'],
+				'EndTime'=>$row['publish_endtime'],
+				'Description'=>$row['description']
+				);//songname $this->stringUtf8ToBig5 ($row['title'])
+			$i++;
+		}
+		if ($i==0) 
+		{
+			echo "<SCRIPT LANGUAGE=\"JavaScript\">alert('Sorry,not data to export ');</SCRIPT>";
+		}
+		else
+		{
+			// export to save as
+			require_once 'Spreadsheet/Excel/Writer.php';
+			$header = array(
+				"Title"=>"30",
+				"PublishDate"=>"20",
+				"StartTime"=>"15",
+				"EndTime"=>"15",
+				"Description"=>"50",
+				);
+			
+			// Creating a workbook
+			$workbook = new Spreadsheet_Excel_Writer();
+			// sending HTTP headers
+			$file_basename = $_POST['y']."_".$_POST['week'].'th_week';
+			$filename = $file_basename."_schedule_".date("Y_m_d")."export.xls";
+			$workbook->send($filename);
+			// Creating a worksheet
+			$worksheet =& $workbook->addWorksheet($file_basename);
+			
+			// Write header
+			$i=0;
+			foreach($header as $title=>$lenght)
+			{
+				$format_title =& $workbook->addFormat(array('right' => 5, 'top' => 20, 'size' => 14,
+	                                                      'pattern' => 1, 'bordercolor' => 'blue',
+	                                                      'Bold '=>1,'Color'=>'yellow','Align'=>'center',
+	                                                      'fgcolor' => 'blue'));
+				$coloum_title = $i18n->_($title);
+				$worksheet->setInputEncoding('utf-8');
+				$worksheet->write(0, $i, $coloum_title,$format_title);
+				$worksheet->setColumn($i,$i,$lenght);
+				$i++;
+			}
+			//		Write contact record
+			$x=1;
+			foreach ($export_data as $data_arr)
+			{
+				$y=0;
+				foreach($header as $title=>$lenght)
+				{
+					$coloum_data = $data_arr[$title];
+					$worksheet->setInputEncoding('utf-8');
+					$worksheet->write($x, $y, $coloum_data);
+					$y++;
+				}
+				$x++;
+			}
+					
+			$worksheet->freezePanes(array(1, 1));
+					
+			$workbook->close();
+			exit;
+		}
+		
 	}
 	
 	function executeList()
@@ -189,7 +372,7 @@ class ApfSchedule  extends Actions
 	
 	function renderDayView ($y,$m,$d,&$used_hours_arr) 
 	{
-		global $TemplateDir,$template,$Upload_Dir,$WebTemplateDir,$WebBaseDir,$ClassDir,$i18n,$ActiveOption,$userid;
+		global $TemplateDir,$template,$WebUploadDir,$WebTemplateDir,$WebBaseDir,$ClassDir,$i18n,$ActiveOption,$userid;
 		
 		include_once($ClassDir."URLHelper.class.php");
 		// Create a day to view the hours for
@@ -207,6 +390,7 @@ class ApfSchedule  extends Actions
 		while ($apf_schedule->fetch())
 		{
 		    $row = $apf_schedule->toArray();
+//		    Var_Dump::display($row);
 		    $start_hour=$this->getHourByTime($apf_schedule->getPublishStarttime());
 		    $end_hour=$this->getHourByTime($apf_schedule->getPublishEndtime());
 		    if ($row['webcast_status']!='file' && !$row['webcast_file']) 
@@ -225,9 +409,9 @@ class ApfSchedule  extends Actions
 		    $DiaryEvent = new DiaryEvent($Hour);
 		    // Attach the payload
 		    $DiaryEvent->setEndHour($end_hour);
-		    $DiaryEvent->setID($row['webcast_id']);
+		    $DiaryEvent->setID($row['id']);
 		    $DiaryEvent->setStatu($row['active']);
-		    $DiaryEvent->setImages($row['image']?popFile($Upload_Dir.$row['image']):"");
+		    $DiaryEvent->setImages($row['image']?popFile($WebUploadDir.$row['image']):"");
 		    $DiaryEvent->setEntry("<a href=\"{$WebBaseDir}/schedule/apf_schedule/list/".$row['id']."?y={$y}&m={$m}&d={$d}\">".$apf_schedule->getTitle()."</a>");
 		
 		    // Add the decorator to the selection
@@ -267,7 +451,7 @@ class ApfSchedule  extends Actions
 		            $merge_hour=$temp_end_hour-$hour+1;
 		            $css_class_name = "calentryfilled_".$Hour->getStatu();
 		            $Day_String .= ( "<td rowspan=\"{$merge_hour}\" class=\"{$css_class_name}\"><INPUT TYPE=\"checkbox\" NAME=\"SelectID[]\" value=\"".$Hour->getID()."\"></td><td class=\"{$css_class_name}\" rowspan=\"{$merge_hour}\">".$Hour->getEntry()."</td><td rowspan=\"{$merge_hour}\">&nbsp;".$Hour->getImages()."</td><td rowspan=\"{$merge_hour}\">&nbsp;".$ActiveOption[$Hour->getStatu()]."</td><td rowspan=\"{$merge_hour}\"><ul class=\"admin_td_actions\">
-  <li><a onclick=\"if (confirm('Are you sure?')) { f = document.createElement('form'); document.body.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;\" href=\"webcast.php?act=Del&y={$y}&m={$m}&d={$d}&ID=".$Hour->getID()."\"><img alt=\"delete\" title=\"delete\" src=\"".URLHelper::getWebBaseURL ().$WebTemplateDir."/images/delete_icon.png\" /></a></li>
+  <li><a onclick=\"if (confirm('Are you sure?')) { f = document.createElement('form'); document.body.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;\" href=\"{$WebBaseDir}/schedule/apf_schedule/del/".$Hour->getID()."?y={$y}&m={$m}&d={$d}\"><img alt=\"delete\" title=\"delete\" src=\"".URLHelper::getWebBaseURL ().$WebTemplateDir."/images/delete_icon.png\" /></a></li>
 </ul></td>\n" );
 		        } 
 		        else if ($temp_end_hour && $hour<=$temp_end_hour) 
@@ -306,7 +490,7 @@ EOD;
 	
 	function renderMonthView () 
 	{
-		global $TemplateDir,$ClassDir,$WebTemplateDir,$i18n,$userid;
+		global $TemplateDir,$ClassDir,$WebBaseDir,$WebTemplateDir,$i18n,$userid;
 		require_once 'Calendar'.DIRECTORY_SEPARATOR.'Month/Weeks.php';
 		require_once 'Calendar'.DIRECTORY_SEPARATOR.'Util'.DIRECTORY_SEPARATOR.'Textual.php';
 		include_once($ClassDir."URLHelper.class.php");
@@ -344,10 +528,11 @@ EOD;
 		
 		// Construct strings for next/previous links
 		$PMonth = $Month->prevMonth('object'); // Get previous month as object
-		$prev = $_SERVER['PHP_SELF'].'?y='.$PMonth->thisYear().'&m='.$PMonth->thisMonth().'&d='.$PMonth->thisDay();
+		$base_url = $WebBaseDir."/schedule/apf_schedule/list/";
+		$prev = $base_url.'?y='.$PMonth->thisYear().'&m='.$PMonth->thisMonth().'&d='.$PMonth->thisDay();
 		$NMonth = $Month->nextMonth('object');
-		$next = $_SERVER['PHP_SELF'].'?y='.$NMonth->thisYear().'&m='.$NMonth->thisMonth().'&d='.$NMonth->thisDay();
-		$today_link = $_SERVER['PHP_SELF'].'?y='.date("Y").'&m='.date("m").'&d='.date("d");
+		$next = $base_url.'?y='.$NMonth->thisYear().'&m='.$NMonth->thisMonth().'&d='.$NMonth->thisDay();
+		$today_link = $base_url.'?y='.date("Y").'&m='.date("m").'&d='.date("d");
 		
 		$calendar_title = date('F Y', $Month->getTimeStamp());
 		$main_calendar = "";
@@ -361,7 +546,7 @@ EOD;
 		    while ($Day = $Week->fetch()) {
 		
 		        // Build a link string for each day
-		        $link = $_SERVER['PHP_SELF'].
+		        $link = $base_url.
 		                    '?y='.$Day->thisYear().
 		                    '&m='.$Day->thisMonth().
 		                    '&d='.$Day->thisDay();
