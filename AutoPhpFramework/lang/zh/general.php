@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.15 2006/12/03 11:31:58 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.16 2006/12/04 12:08:42 arzen Exp $
  */
 $this->setCharset('gb2312'); 
 $messages = array(
@@ -124,6 +124,7 @@ $messages = array(
 	'Incorporator' => '法人代表',
 	'Industry' => '所属行业',
 	'Products' => '产品',
+	'DetailInfo' => '详细信息',
 //opportunity
 	'Opportunity' => '机会',
 	'State' => '状态',
