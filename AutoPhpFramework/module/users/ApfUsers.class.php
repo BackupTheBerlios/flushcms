@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfUsers.class.php,v 1.16 2006/11/02 10:14:04 arzen Exp $
+ * @version    CVS: $Id: ApfUsers.class.php,v 1.17 2006/12/04 04:36:18 arzen Exp $
  */
 
 class ApfUsers  extends Actions
@@ -109,6 +109,7 @@ class ApfUsers  extends Actions
 			$do_action = "addsubmit";
 		}
 
+		$apf_users->setUserName(stripslashes(trim($_POST['user_name'])));
 		$apf_users->setGender(stripslashes(trim($_POST['gender'])));
 		$apf_users->setAddrees(stripslashes(trim($_POST['addrees'])));
 		$apf_users->setPhone(stripslashes(trim($_POST['phone'])));
