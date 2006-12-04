@@ -7,17 +7,17 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: common.php,v 1.6 2006/11/21 16:00:22 arzen Exp $
+ * @version    CVS: $Id: common.php,v 1.7 2006/12/04 13:15:30 arzen Exp $
  */
  
 $GenderOption = array(	
-			''=>'All',
+			''=>$i18n->_('All'),
 			'm'=>"<FONT COLOR=\"#6600FF\">".$i18n->_('Male')."</FONT>",
 			'f'=>"<FONT COLOR=\"#FF0000\">".$i18n->_('Female')."</FONT>",
 			);
 			
 $DebitOption = array(	
-			''=>'All',
+			''=>$i18n->_('All'),
 			'I'=>"<FONT COLOR=\"#6600FF\">".$i18n->_('Income')."</FONT>",
 			'P'=>"<FONT COLOR=\"#FF0000\">".$i18n->_('Payout')."</FONT>",
 			);

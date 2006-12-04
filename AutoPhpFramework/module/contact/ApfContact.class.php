@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContact.class.php,v 1.28 2006/12/02 08:00:30 arzen Exp $
+ * @version    CVS: $Id: ApfContact.class.php,v 1.29 2006/12/04 13:15:30 arzen Exp $
  */
 
 class ApfContact  extends Actions
@@ -126,42 +126,30 @@ class ApfContact  extends Actions
 			$apf_contact->setPhoto("");
 			$_POST['photo_old']="";
 		}
-
+		if($_POST['upload_temp'])
+		{
+			$apf_contact->setPhoto($_POST['upload_temp']);	
+		}
 		$allow_upload_file = TRUE;
 		if($_FILES['photo']['name'])
 		{
-			require_once 'HTTP/Upload.php';
 			require_once ($ClassDir."FileHelper.class.php");
-			$upload = new http_upload();
-			$file = $upload->getFiles('photo');
-			$file->setValidExtensions($AllowUploadFilesType,'accept');
-			if (PEAR::isError($file)) 
+			$upload_data = FileHelper::uploadFile ("contact");
+			$allow_upload_file = $upload_data["upload_state"];
+			if ($allow_upload_file) 
 			{
-				$allow_upload_file = FALSE;
-				$upload_error_msg = $file->getMessage();
+				$photos_arr = $upload_data["upload_msg"];
+				if ($photo_pic = $photos_arr['photo']) 
+				{
+					$apf_contact->setPhoto($photo_pic);
+					$_POST['upload_temp'] = $photo_pic;
+				}
 			}
-			if ($file->isValid()) 
+			else
 			{
-				$file->setName('uniq');
-				$current_date = FileHelper::createCategoryDir($UploadDir,"photo");
-				$date_photo_dir = $UploadDir.$current_date;
-				$dest_name = $file->moveTo($date_photo_dir);
-				if (PEAR::isError($dest_name)) 
-				{
-					$allow_upload_file = FALSE;
-					$upload_error_msg = $dest_name->getMessage();
-				}
-				else 
-				{
-					$real = $file->getProp('real');
-					$apf_contact->setPhoto($current_date.$dest_name);
-				}
-			} 
-			elseif ($file->isError()) 
-			{
-				$allow_upload_file = FALSE;
-				$upload_error_msg = $file->errorMsg();
-			}			
+				$upload_error_msg = $upload_data["upload_msg"];
+			}
+
 		}
 				
 		$val = $apf_contact->validate();

@@ -7,16 +7,16 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.16 2006/12/04 12:08:42 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.17 2006/12/04 13:15:30 arzen Exp $
  */
 $this->setCharset('gb2312'); 
 $messages = array(
 	'site_title' => 'YCRM客户关系管理系统',
-	'Copyright' => '&copy; 2006 Copyright AutoPHPFramework Group.',
+	'Copyright' => '&copy; 2006 版权所有 AutoPHPFramework 团队。',
 	'Home' => '首页',
 	'Users' => '管理员',
-	'News' => '新闻',
-	'NewsCategory' => '新闻类别',
+	'News' => '公司活动',
+	'NewsCategory' => '公司活动类别',
 	'Product' => '产品',
 	'ProductCategory' => '产品类别',
 	'Logout' => '退出',
@@ -159,7 +159,9 @@ $messages = array(
 	'WriteMail' => '写邮件',
 	'To' => '到',
 	'Send' => '发送',
-
+//Permit
+	'NotPermit' => '权限不足',
+	'NotPermitMessage' => '对不起，你的权限不足，无法进行此操作。',
 
 	'Please check here' => '请检查此处',
 	'Your modifications have been saved' => '您的更改已保存',

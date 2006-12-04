@@ -1,5 +1,10 @@
 ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,body,html,p,blockquote,fieldset,input
-{ margin: 0; padding: 0; }
+{ 
+	margin: 0; 
+	padding: 0;
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+}
 a img,:link img,:visited img { border: none; }
 
 a:link, a:visited
@@ -81,7 +86,7 @@ input, textarea, select
 {
   padding: 3px;
   font-family: Arial, sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   border: 1px solid #ddd;
   vertical-align:middle;
 }
@@ -113,7 +118,7 @@ label.required
 .save-ok h2
 {
   padding: 5px 20px 5px 25px;
-  font-size: 11px;
+  font-size: 12px;
   color: #fff;
   background: #73B65A url(../images/admin/ok.png) no-repeat 5px 2px;
 }
@@ -128,7 +133,7 @@ label.required
 .not-permit h2
 {
   padding: 5px 20px 5px 25px;
-  font-size: 11px;
+  font-size: 12px;
   color: #fff;
   background: #FF0000 url(../images/admin/ok.png) no-repeat 5px 2px;
 }
@@ -155,7 +160,7 @@ label.required
 .form-errors h2
 {
   padding: 5px 20px 5px 25px;
-  font-size: 11px;
+  font-size: 12px;
   color: #fff;
   background: #f33 url(../images/admin/error.png) no-repeat 5px 2px;
 }
@@ -239,7 +244,7 @@ ul.admin_actions input
 {
   padding: 3px 3px 3px 3px;
   color: #333;
-  font-size: 11px;
+  font-size: 12px;
   font-family: Arial, sans-serif;
   border: 1px solid #ffc;
   border-right: 4px solid #999;
@@ -476,7 +481,7 @@ div.dayNumber {
 	background-color: #f8f8f8;
 	border-bottom: 1px solid #ccc;
 	font-family: Arial, sans-serif;
-	font-size: 14px;
+	font-size: 12px;
 	font-weight: bold;
 }
 div.dayContents {

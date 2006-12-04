@@ -7,16 +7,16 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟遠螓
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.3 2006/12/03 05:19:10 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.4 2006/12/04 13:15:30 arzen Exp $
  */
 $this->setCharset('big5'); 
 $messages = array(
 	'site_title' => 'YCRM客戶關系管理系統',
-	'Copyright' => '&copy; 2006 Copyright AutoPHPFramework Group.',
+	'Copyright' => '&copy; 2006 版權所有 AutoPHPFramework 團隊。',
 	'Home' => '首頁',
 	'Users' => '管理員',
-	'News' => '新聞',
-	'NewsCategory' => '新聞類別',
+	'News' => '公司活動',
+	'NewsCategory' => '公司活動類別',
 	'Product' => '產品',
 	'ProductCategory' => '產品類別',
 	'Logout' => '退出',
@@ -45,6 +45,7 @@ $messages = array(
 	'CategoryId' => '類別',
 	'CategoryName' => '類別名',
 	'ParentCategory' => '父類別',
+	'DeleteSelected' => '刪除所選',
 //news	
 	'Content' => '內容',
 
@@ -123,6 +124,7 @@ $messages = array(
 	'Incorporator' => '法人代表',
 	'Industry' => '所屬行業',
 	'Products' => '產品',
+	'DetailInfo' => '詳細信息',
 //opportunity
 	'Opportunity' => '機會',
 	'State' => '狀態',
@@ -157,7 +159,9 @@ $messages = array(
 	'WriteMail' => '寫郵件',
 	'To' => '到',
 	'Send' => '發送',
-
+//Permit
+	'NotPermit' => '權限不足',
+	'NotPermitMessage' => '對不起，你的權限不足，無法進行此操作。',
 
 	'Please check here' => '請檢查此處',
 	'Your modifications have been saved' => '您的更改已保存',
