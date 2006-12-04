@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContact.class.php,v 1.29 2006/12/04 13:15:30 arzen Exp $
+ * @version    CVS: $Id: ApfContact.class.php,v 1.30 2006/12/04 23:31:41 arzen Exp $
  */
 
 class ApfContact  extends Actions
@@ -748,6 +748,8 @@ class ApfContact  extends Actions
 		    'urlVar' => 'entrant',
 		    'useSessions' => true,
 		    'closeSession' => true,
+		    'prevImg'=>$i18n->_("PrevPage"),
+		    'nextImg'=>$i18n->_("NextPage"),
 		    //'mode'  => 'Sliding',    //try switching modes
 		    'mode'  => 'Jumping',
 		    'extraVars' => array(
@@ -759,10 +761,9 @@ class ApfContact  extends Actions
 		
 		);
 		$pager = & Pager::factory($params);
-		$page_data = $pager->getPageData();
 		$links = $pager->getLinks();
-		
-		$selectBox = $pager->getPerPageSelectBox();
+		$current_page = $pager->getCurrentPageID();		
+		$selectBox = $pager->getPageSelectBox(array('autoSubmit'=>true));
 		$i = 0;
 		foreach($myData as $data)
 		{
@@ -786,6 +787,8 @@ class ApfContact  extends Actions
 			"ACTIVEOPTION" => selectTag("active",$ActiveOption,$_REQUEST['active']),
 			"GENDEROPTION" => selectTag("gender",$GenderOption,$_REQUEST['gender']),
 			"TOLTAL_NUM" => $ToltalNum,
+			"CURRENT_PAGE" => $current_page,
+			"SELECT_BOX" => $selectBox,
 			"PAGINATION" => $links['all']
 		));
 

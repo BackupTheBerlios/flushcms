@@ -47,7 +47,7 @@ p
 
 #admin_content
 {
-  margin-right: 270px;
+  margin-right: 10px;
 }
 
 h1
@@ -59,7 +59,8 @@ h1
   font-size: 16px;
   border: 1px solid #ddd;
   border-left: 4px solid #66f;
-  background-color: #ffc;
+  /*background-color: #ffc;*/
+  background-image: url('../images/panel_right.gif');
 }
 
 h3
@@ -71,7 +72,7 @@ h3
   font-size: 12px;
   border: 1px solid #ddd;
   border-left: 4px solid green;
-  background-color: #ffc;
+  background-color: #EEEEEE;
 }
 
 fieldset h2
@@ -80,6 +81,7 @@ fieldset h2
   color: #333;
   background-color: #ccf;
   font-size: 12px;
+  background-image: url('../images/panel_right.gif');
 }
 
 input, textarea, select
@@ -246,9 +248,9 @@ ul.admin_actions input
   color: #333;
   font-size: 12px;
   font-family: Arial, sans-serif;
-  border: 1px solid #ffc;
+  border: 1px solid #f9f9f9;
   border-right: 4px solid #999;
-  background-color: #ffc;
+  background-color: #EEEEEE;
   cursor: hand;
   cursor: pointer;
 }
@@ -311,7 +313,8 @@ ul.admin_actions input
 .admin_list th
 {
   padding: 2px;
-  background-color: #ccf;
+  /*background-color: #ccf;*/
+  background-image: url('../images/panel_right.gif');
   text-align: left;
   font-size: 12px;
 }
@@ -335,12 +338,13 @@ ul.admin_actions input
 
 .admin_row_0 td
 {
-  
+  background-color: #FFFFFF;/*#eef*/
+
 }
 
 .admin_row_1 td
 {
-  background-color: #eef;
+  background-color: #EEEEEE;/*#eef*/
 }
 
 .admin_edit_help
@@ -419,13 +423,13 @@ table.month {
 	clear: both;
 	padding: 10px;
 	border-bottom: 1px solid #ddd;
-	background-color: #eef;
+	background-color: #eeeeee;
 	
 }
 .calheader {
 	clear: both;
 	border-bottom: 1px solid #ddd;
-	background-color: #eef;
+	background-color: #eeeeee;
 
 }
 .selected {
@@ -438,7 +442,9 @@ table.month {
 	color: #FF0000;
 }
 .calentryhead {
-	background-color: #ccf;
+  background-color: #ccf;
+  height: 25px;
+  background-image: url('../images/panel_right.gif');
 }
 
 

@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.17 2006/12/04 13:15:30 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.18 2006/12/04 23:31:41 arzen Exp $
  */
 $this->setCharset('gb2312'); 
 $messages = array(
@@ -21,6 +21,10 @@ $messages = array(
 	'ProductCategory' => '产品类别',
 	'Logout' => '退出',
 
+	'PrevPage' => '上页',
+	'NextPage' => '下页',
+	'Page' => '页',
+	'JumpTo' => '跳到',
 	'Listing' => '列表',
 	'Parent Listing' => '上级列表',
 	'Search' => '搜索',
@@ -125,6 +129,10 @@ $messages = array(
 	'Industry' => '所属行业',
 	'Products' => '产品',
 	'DetailInfo' => '详细信息',
+	'Relationship' => '关系',
+	'Manage' => '管理',
+	'Company Contact Relation' => '公司联系人关系管理',
+	'Company Products Relation' => '公司产品关系管理',
 //opportunity
 	'Opportunity' => '机会',
 	'State' => '状态',
