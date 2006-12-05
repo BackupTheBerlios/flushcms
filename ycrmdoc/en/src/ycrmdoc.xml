@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE book SYSTEM "../../tools/dtd/dblite.dtd"
+[
+<!ENTITY overview SYSTEM "overview.xml">
+<!ENTITY installing SYSTEM "installing.xml">
+<!ENTITY controller SYSTEM "controller.xml">
+<!ENTITY examples SYSTEM "examples.xml">
+]>
+
+<book id="svn">
+  <title>AutoPHPFramework</title>
+
+  <!-- Using revnumber would be more appropriate, but our stylesheets -->
+  <!-- don't seem to render it. -->
+  <subtitle>For AutoPHPFramework 1.0</subtitle>
+
+  <bookinfo>
+
+    <edition>First</edition>
+    <isbn>0-59600-448-6</isbn>
+    <authorgroup>
+
+      <author>
+        <firstname>John</firstname>
+        <surname>Meng</surname>
+      </author>
+
+   </authorgroup>
+
+    <editor>
+      <firstname>John</firstname>
+      <surname>Meng</surname>
+    </editor>
+
+    <copyright>
+       <year>2006</year>
+      <holder>AutoPHPFramework Group</holder>
+    </copyright>
+
+    <legalnotice><para>This work is licensed under the Creative
+      Commons Attribution License. ShenZhen GuangDong, China.</para></legalnotice>
+
+  </bookinfo>
+
+  <!-- External entity refs -->
+
+  &overview;
+  &installing;
+  &controller;
+  &examples;
+
+</book>

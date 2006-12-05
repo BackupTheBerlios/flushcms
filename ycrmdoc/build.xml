@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!-- ======================================================================
+     2006-8-2 上午07:35:44
+
+     AutoPHPFramework Document Build File
+ 
+     John.meng
+     ====================================================================== -->
+<project name="Solution" default="default">
+    <description>
+    	AutoPHPFramework Document Build File
+    </description>
+	<property file="build.properties" />
+
+    <!-- =================================
+          target: default
+         ================================= -->
+    <target name="default" description="--> description">
+
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: build.multi.html                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="build.en.multi.html">
+    	<exec dir="${CDBE.home.dir}" executable="${CDBE.home.dir}${CDBE.multi.html.bin}" >
+    	  <arg line=" ${APF.doc.name} en"/>
+    	</exec>
+    	<!--
+    	<exec dir="${CDBE.home.dir}" executable="${CDBE.home.dir}${CDBE.bd_fo.bin}" >
+    	  <arg line=" ${APF.doc.name} en"/>
+    	</exec>
+    	<exec dir="${CDBE.home.dir}" executable="${CDBE.home.dir}${CDBE.bdj_pdf.bin}" >
+    	  <arg line=" ${APF.doc.name} en"/>
+    	</exec>
+    	<copy todir="${framework.doc.dir}/en">
+			<fileset dir="${CDBE.multi.html.output}/en/chunk/">
+    			<include name="**"/>
+    		</fileset>
+		</copy>
+    	<copy todir="${YWeb.doc.name}/en">
+			<fileset dir="${CDBE.multi.html.output}/en/chunk/">
+    			<include name="**"/>
+    		</fileset>
+		</copy> -->
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: build.zh-cn.multi.html                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="build.zh-cn.multi.html">
+    	<exec dir="${CDBE.home.dir}" executable="${CDBE.home.dir}${CDBE.multi.html.bin}" >
+    	  <arg line=" ${APF.doc.name} zh-cn"/>
+    	</exec>
+    </target>
+
+
+
+
+
+</project>
