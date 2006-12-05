@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.48 2006/12/05 07:36:16 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.49 2006/12/05 09:01:11 arzen Exp $
  */
 define('CREATE', 3);
 
@@ -211,13 +211,25 @@ $opts = array (
 	$schedule_table . '_except_fields' => 'id,add_ip,created_at,update_at',
 	$schedule_table.'_generator_add_validate_stubs' => 'title:empty',
 
+	$folders_table.'_modules_location' => $RootDir . '/module/document/',
+	$folders_table.'_modules_name_location' => 'document',
+	$folders_table . '_fields_list' => 'id,name,description,password,state',
+	$folders_table . '_except_fields' => 'id,add_ip,created_at,update_at',
+	$folders_table.'_generator_add_validate_stubs' => 'name:empty',
+
+	$files_table.'_modules_location' => $RootDir . '/module/document/',
+	$files_table.'_modules_name_location' => 'document',
+	$files_table . '_fields_list' => 'id,name,description,password,state',
+	$files_table . '_except_fields' => 'id,add_ip,created_at,update_at',
+	$files_table.'_generator_add_validate_stubs' => 'name:empty',
+
 	'require_prefix' => 'dataobjects/',
 	'class_prefix' => 'Dao',
 	'extends' => 'DB_DataObject',
 	'generate_setters' => '1',
 	'generate_getters' => '1',
 
-	'generator_include_regex' => '/^' . $news_table . '$/',
+	'generator_include_regex' => '/^' . $files_table . '$/',
 	'generator_no_ini' => '1',
 	
 );

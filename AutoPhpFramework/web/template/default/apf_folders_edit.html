@@ -1,0 +1,64 @@
+        
+<div id="admin_container">
+<h1>{lang_EditInfo}</h1>
+<div id="admin_header">
+</div>
+<div id="admin_content">
+  <div class="{SUCCESS_CLASS}">
+	{SUCCESS_MSG}
+  </div>
+
+<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{WEBDIR}/document/apf_folders/{DOACTION}">
+<input type="hidden" name="ID" id="ID" value="{ID}" />
+<fieldset id="fieldset_________" class="">
+<h2>{lang_GeneralInfo}</h2><div class="form-row">
+  <label >{lang_Name}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{NAME_ERROR_MSG}</div>
+  <input type="text" name="name" id="name" value="{NAME}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Parent}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{PARENT_ERROR_MSG}</div>
+  <input type="text" name="parent" id="parent" value="{PARENT}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Description}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{DESCRIPTION_ERROR_MSG}</div>
+  <input type="text" name="description" id="description" value="{DESCRIPTION}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Password}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{PASSWORD_ERROR_MSG}</div>
+  <input type="text" name="password" id="password" value="{PASSWORD}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Groupid}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{GROUPID_ERROR_MSG}</div>
+  <input type="text" name="groupid" id="groupid" value="{GROUPID}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Userid}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{USERID_ERROR_MSG}</div>
+  <input type="text" name="userid" id="userid" value="{USERID}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Active}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ACTIVE_ERROR_MSG}</div>
+  <input type="text" name="active" id="active" value="{ACTIVE}" size="20" />    </div>
+</div>
+</fieldset>
+<ul class="admin_actions">
+  <li><input class="admin_action_list" value="{lang_List}" type="button" onclick="document.location.href='{WEBDIR}/document/apf_folders/list';" /></li>
+  <li><input type="submit" name="save" value="{lang_Save}" class="admin_action_save" /></li>
+
+</ul>
+</form>
+
+<ul class="admin_actions">
+      <li class="float-left"></li>
+</ul>
+</div>
+
+<div id="admin_footer">
+</div>
+</div>
