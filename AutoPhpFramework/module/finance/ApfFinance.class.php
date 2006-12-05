@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfFinance.class.php,v 1.9 2006/12/05 05:04:48 arzen Exp $
+ * @version    CVS: $Id: ApfFinance.class.php,v 1.10 2006/12/05 05:21:13 arzen Exp $
  */
 
 class ApfFinance  extends Actions
@@ -249,7 +249,6 @@ class ApfFinance  extends Actions
 		$create_date_header_url = showHeaderLink ("create_date",$i18n->_("CreateDate"),$_REQUEST['orderfield'],$_GET['order'],$page_exten,$pager->_url);
 		$money_header_url = showHeaderLink ("money",$i18n->_("Money"),$_REQUEST['orderfield'],$_GET['order'],$page_exten,$pager->_url);
 		
-		$selectBox = $pager->getPerPageSelectBox();
 		$i = 0;
 		foreach($myData as $data)
 		{
