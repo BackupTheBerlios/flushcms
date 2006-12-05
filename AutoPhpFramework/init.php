@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.47 2006/12/03 11:31:58 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.48 2006/12/05 07:36:16 arzen Exp $
  */
 define('CREATE', 3);
 
@@ -22,6 +22,7 @@ $TemplateDir = $RootDir . "web/template/default/";
 $WebTemplateDir = "template/default/";
 $WebBaseDir = getenv("SCRIPT_NAME");
 $WebTemplateFullPath = dirname(getenv("SCRIPT_NAME")) . "/" . $WebTemplateDir;
+$WebJSToolkitPath = dirname(getenv("SCRIPT_NAME")) . "/jstoolkit/";
 $domain = 'general';
 $dir = $RootDir . 'lang/';
 $LogDir = $RootDir."log/";

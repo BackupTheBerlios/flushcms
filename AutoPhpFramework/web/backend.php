@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: backend.php,v 1.9 2006/12/03 11:31:57 arzen Exp $
+ * @version    CVS: $Id: backend.php,v 1.10 2006/12/05 07:36:16 arzen Exp $
  */
 define('APF_ROOT_DIR',    realpath(dirname(__FILE__).'/..'));
 define('APF_DEBUG',       true);
@@ -32,6 +32,7 @@ if( isset($HTTP_GET_VARS['pane']) && $HTTP_GET_VARS['pane'] == 'top' )
 		}
 	}
 	$template->setVar(array (
+		"JSTOOLKIT_DIR" => $WebJSToolkitPath, 
 		"TEMPLATEDIR" => $WebTemplateFullPath, 
 		"WEBBASEDIR" => $WebBaseDir, "SITETITLE" => $i18n->_('site_title'), "CHARSET" => $i18n->getCharset(),));
 	$template->parse("OUT", array (

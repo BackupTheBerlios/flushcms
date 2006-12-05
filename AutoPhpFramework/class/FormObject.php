@@ -5,7 +5,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: FormObject.php,v 1.18 2006/11/28 14:48:48 arzen Exp $
+ * @version    CVS: $Id: FormObject.php,v 1.19 2006/12/05 07:36:16 arzen Exp $
  */
 
 /**
@@ -24,11 +24,11 @@ function textTag ($name,$value="",$extend="")
 
 function textareaTag ($name,$value="",$rich=false,$extend=" ROWS=\"30\" COLS=\"110\" ") 
 {
-	global $WebTemplateFullPath;
+	global $WebJSToolkitPath;
 	$html_code = "";
 	if ($rich) 
 	{
-		$tiny_mce_dir = $WebTemplateFullPath."tiny_mce/";
+		$tiny_mce_dir = $WebJSToolkitPath."tiny_mce/";
 		$html_code .= <<<EOD
 <!-- tinyMCE -->
 <script language="javascript" type="text/javascript" src="{$tiny_mce_dir}tiny_mce.js"></script>
@@ -217,9 +217,14 @@ function imageTag ($filename)
 
 function inputDateTag ($name, $value="") 
 {
-	global $WebTemplateFullPath;
+	global $WebJSToolkitPath;
 	$html_code = "";
-	$html_code .="  <input type=\"text\" name=\"{$name}\" id=\"{$name}\" value=\"{$value}\" calendar_button_img=\"{$WebTemplateFullPath}images/date.png\" date_format=\"yyyy-MM-dd\" size=\"9\" /><img id=\"trigger_{$name}\" style=\"cursor: pointer; vertical-align: middle\" src=\"{$WebTemplateFullPath}images/date.png\" alt=\"Date\" /><script type=\"text/javascript\">
+	$html_code .= "
+<link rel=\"stylesheet\" type=\"text/css\" media=\"all\" href=\"{$WebJSToolkitPath}calendar/calendar-win2k-cold-1.css\" title=\"win2k-cold-1\" />
+<script type=\"text/javascript\" src=\"{$WebJSToolkitPath}calendar/calendar.js\"></script>
+<script type=\"text/javascript\" src=\"{$WebJSToolkitPath}calendar/lang/calendar-en.js\"></script>
+<script type=\"text/javascript\" src=\"{$WebJSToolkitPath}calendar/calendar-setup.js\"></script>
+	<input type=\"text\" name=\"{$name}\" id=\"{$name}\" value=\"{$value}\" calendar_button_img=\"{$WebJSToolkitPath}calendar/images/date.png\" date_format=\"yyyy-MM-dd\" size=\"9\" /><img id=\"trigger_{$name}\" style=\"cursor: pointer; vertical-align: middle\" src=\"{$WebJSToolkitPath}calendar/images/date.png\" alt=\"Date\" /><script type=\"text/javascript\">
     document.getElementById(\"trigger_{$name}\").disabled = false;
     Calendar.setup({
       inputField : \"{$name}\",
