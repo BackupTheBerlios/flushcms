@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfCompany.class.php,v 1.25 2006/12/04 13:15:30 arzen Exp $
+ * @version    CVS: $Id: ApfCompany.class.php,v 1.26 2006/12/05 05:04:48 arzen Exp $
  */
 
 class ApfCompany  extends Actions
@@ -494,19 +494,18 @@ class ApfCompany  extends Actions
 		$ToltalNum = $apf_company->count();
 		
 		$start_num = !isset($_GET['entrant'])?0:($_GET['entrant']-1)*$max_row;
-		$apf_company->limit($start_num,$max_row);
+		$apf_company->limit($start_num,($start_num+$max_row));
 		$apf_company->find();
 		
-		$i=0;
 		$myData=array();
 		while ($apf_company->fetch())
 		{
 			$myData[] = $apf_company->toArray();
-			$i++;
 		}
-		$params = array(
+		
+		$params = array(		    
 		    'totalItems' => $ToltalNum,
-		    'perPage' => $max_row,
+			'perPage' => $max_row,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
 		    'separator' => ' | ',
@@ -514,24 +513,27 @@ class ApfCompany  extends Actions
 		    'urlVar' => 'entrant',
 		    'useSessions' => true,
 		    'closeSession' => true,
+		    'prevImg'=>$i18n->_("PrevPage"),
+		    'nextImg'=>$i18n->_("NextPage"),
 		    //'mode'  => 'Sliding',    //try switching modes
 		    'mode'  => 'Jumping',
-		    'extraVars' => array(
+			'extraVars' => array(
 			    'q'  => $_REQUEST['q'],
 			    'active'  => $_REQUEST['active'],
 		        'order'  => $_REQUEST['order'],
 		        'orderfield'  => $_REQUEST['orderfield'],
 		    ),
 		
-		);
-		$pager = & Pager::factory($params);
-		$page_data = $pager->getPageData();
-		$links = $pager->getLinks();
+		);		
 		
+		$pager = & Pager::factory($params);
+		$links = $pager->getLinks();
+		$current_page = $pager->getCurrentPageID();		
+		$selectBox = $pager->getPageSelectBox(array('autoSubmit'=>true));
+
 		$page_exten = str_replace($pager->_url."?","",$pager->_getLinkTagUrl(null));
 		$id_header_url = showHeaderLink ("id",$i18n->_("ID"),$_REQUEST['orderfield'],$_GET['order'],$page_exten,$pager->_url);
-		
-		$selectBox = $pager->getPerPageSelectBox();
+
 		$i = 0;
 		foreach($myData as $data)
 		{
@@ -553,6 +555,8 @@ class ApfCompany  extends Actions
 			"WEBDIR" => $WebBaseDir,
 			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().$WebTemplateDir,
 			"TOLTAL_NUM" => $ToltalNum,
+			"CURRENT_PAGE" => $current_page,
+			"SELECT_BOX" => $selectBox,
 			"ID_HEAD_URL" => $id_header_url,
 			"PAGINATION" => $links['all']
 		));

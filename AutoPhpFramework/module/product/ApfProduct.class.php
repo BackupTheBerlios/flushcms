@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfProduct.class.php,v 1.10 2006/12/04 13:15:30 arzen Exp $
+ * @version    CVS: $Id: ApfProduct.class.php,v 1.11 2006/12/05 05:04:48 arzen Exp $
  */
 
 class ApfProduct  extends Actions
@@ -253,15 +253,14 @@ class ApfProduct  extends Actions
 		$apf_product->limit($start_num,$max_row);
 		$apf_product->find();
 		
-		$i=0;
 		$myData=array();
 		while ($apf_product->fetch())
 		{
 			$myData[] = $apf_product->toArray();
-			$i++;
-		}		
-		$params = array(
-		    'totalItems' => $ToltalNum,
+		}	
+			
+		$params = array(		    
+			'totalItems' => $ToltalNum,
 			'perPage' => $max_row,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
@@ -270,17 +269,19 @@ class ApfProduct  extends Actions
 		    'urlVar' => 'entrant',
 		    'useSessions' => true,
 		    'closeSession' => true,
+		    'prevImg'=>$i18n->_("PrevPage"),
+		    'nextImg'=>$i18n->_("NextPage"),
 		    //'mode'  => 'Sliding',    //try switching modes
 		    'mode'  => 'Jumping',
-		    'extraVars' => array(
+			'extraVars' => array(
 		    ),
 		
-		);
+		);		
 		$pager = & Pager::factory($params);
-		$page_data = $pager->getPageData();
 		$links = $pager->getLinks();
-		
-		$selectBox = $pager->getPerPageSelectBox();
+		$current_page = $pager->getCurrentPageID();		
+		$selectBox = $pager->getPageSelectBox(array('autoSubmit'=>true));
+
 		$i = 0;
 		foreach($myData as $data)
 		{
@@ -303,6 +304,8 @@ class ApfProduct  extends Actions
 			"WEBDIR" => $WebBaseDir,
 			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().$WebTemplateDir,
 			"TOLTAL_NUM" => $ToltalNum,
+			"CURRENT_PAGE" => $current_page,
+			"SELECT_BOX" => $selectBox,
 			"PAGINATION" => $links['all']
 		));
 

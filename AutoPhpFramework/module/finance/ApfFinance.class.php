@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfFinance.class.php,v 1.8 2006/12/02 02:16:02 arzen Exp $
+ * @version    CVS: $Id: ApfFinance.class.php,v 1.9 2006/12/05 05:04:48 arzen Exp $
  */
 
 class ApfFinance  extends Actions
@@ -218,8 +218,8 @@ class ApfFinance  extends Actions
 			$myData[] = $apf_finance->toArray();
 			$i++;
 		}		
-		$params = array(
-		    'totalItems' => $ToltalNum,
+		$params = array(		    
+			'totalItems' => $ToltalNum,
 			'perPage' => $max_row,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
@@ -228,17 +228,20 @@ class ApfFinance  extends Actions
 		    'urlVar' => 'entrant',
 		    'useSessions' => true,
 		    'closeSession' => true,
+		    'prevImg'=>$i18n->_("PrevPage"),
+		    'nextImg'=>$i18n->_("NextPage"),
 		    //'mode'  => 'Sliding',    //try switching modes
 		    'mode'  => 'Jumping',
-		    'extraVars' => array(
+			'extraVars' => array(
 		        'order'  => $_REQUEST['order'],
 		        'orderfield'  => $_REQUEST['orderfield'],
 		    ),
 		
-		);
+		);		
 		$pager = & Pager::factory($params);
-		$page_data = $pager->getPageData();
 		$links = $pager->getLinks();
+		$current_page = $pager->getCurrentPageID();		
+		$selectBox = $pager->getPageSelectBox(array('autoSubmit'=>true));
 		
 		$page_exten = str_replace($pager->_url."?","",$pager->_getLinkTagUrl(null));
 		$id_header_url = showHeaderLink ("id",$i18n->_("ID"),$_REQUEST['orderfield'],$_GET['order'],$page_exten,$pager->_url);
@@ -266,6 +269,8 @@ class ApfFinance  extends Actions
 			"WEBDIR" => $WebBaseDir,
 			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().$WebTemplateDir,
 			"TOLTAL_NUM" => $ToltalNum,
+			"CURRENT_PAGE" => $current_page,
+			"SELECT_BOX" => $selectBox,
 			"ID_HEADER_URL" => $id_header_url,
 			"DEBIT_HEADER_URL" => $debit_header_url,
 			"CREATE_DATE_HEADER_URL" => $create_date_header_url,

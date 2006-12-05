@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfOpportunity.class.php,v 1.4 2006/12/02 02:16:01 arzen Exp $
+ * @version    CVS: $Id: ApfOpportunity.class.php,v 1.5 2006/12/05 05:04:48 arzen Exp $
  */
 
 class ApfOpportunity  extends Actions
@@ -166,7 +166,7 @@ class ApfOpportunity  extends Actions
 	
 	function executeList()
 	{
-		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$ActiveOption,$StateOption,$userid;
+		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$i18n,$ActiveOption,$StateOption,$userid;
 
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
@@ -187,15 +187,13 @@ class ApfOpportunity  extends Actions
 
 		$apf_opportunity->find();
 		
-		$i=0;
 		$myData=array();
 		while ($apf_opportunity->fetch())
 		{
 			$myData[] = $apf_opportunity->toArray();
-			$i++;
 		}		
-		$params = array(
-		    'totalItems' => $ToltalNum,
+		$params = array(		    
+			'totalItems' => $ToltalNum,
 			'perPage' => $max_row,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
@@ -204,17 +202,19 @@ class ApfOpportunity  extends Actions
 		    'urlVar' => 'entrant',
 		    'useSessions' => true,
 		    'closeSession' => true,
+		    'prevImg'=>$i18n->_("PrevPage"),
+		    'nextImg'=>$i18n->_("NextPage"),
 		    //'mode'  => 'Sliding',    //try switching modes
 		    'mode'  => 'Jumping',
-		    'extraVars' => array(
+			'extraVars' => array(
 		    ),
 		
-		);
+		);		
 		$pager = & Pager::factory($params);
-		$page_data = $pager->getPageData();
 		$links = $pager->getLinks();
-		
-		$selectBox = $pager->getPerPageSelectBox();
+		$current_page = $pager->getCurrentPageID();		
+		$selectBox = $pager->getPageSelectBox(array('autoSubmit'=>true));
+
 		$i = 0;
 		foreach($myData as $data)
 		{
@@ -234,6 +234,8 @@ class ApfOpportunity  extends Actions
 			"WEBDIR" => $WebBaseDir,
 			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().$WebTemplateDir,
 			"TOLTAL_NUM" => $ToltalNum,
+			"CURRENT_PAGE" => $current_page,
+			"SELECT_BOX" => $selectBox,
 			"PAGINATION" => $links['all']
 		));
 

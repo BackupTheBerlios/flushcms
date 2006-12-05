@@ -592,3 +592,41 @@ CREATE TABLE `apf_schedule` (
   KEY `publish_starttime` (`publish_starttime`)
 ) TYPE=MyISAM;
 
+CREATE TABLE `apf_folders` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL default '',
+  `parent` INT(4) DEFAULT NULL,
+  `description` text,
+  `password` varchar(50) NOT NULL default '',
+  `groupid` varchar(11) NOT NULL default '',
+  `userid` int(4) NOT NULL default '0',
+
+  `active` varchar(8) NOT NULL default 'live',
+  `add_ip` varchar(24) default NULL,
+  `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
+  `update_at` datetime NOT NULL default '0000-00-00 00:00:00',
+  PRIMARY KEY  (`id`),
+  KEY `name` (`name`)
+) TYPE=MyISAM;
+
+CREATE TABLE `apf_files` (
+  `id` int(4) NOT NULL auto_increment,
+  `name` varchar(255) default NULL,
+  `parent` int(4) NOT NULL default '0',
+  `filename` varchar(255) NOT NULL default '',
+  `f_size` bigint(20) NOT NULL default '0',
+  `userid` int(4) NOT NULL default '0',
+  `created` datetime NOT NULL default '0000-00-00 00:00:00',
+  `description` text NOT NULL,
+  `metadata` text NOT NULL,
+  `groupid` varchar(11) NOT NULL default '',
+  `checked_out` int(4) NOT NULL default '0',
+  `major_revision` int(4) NOT NULL default '0',
+  `minor_revision` int(4) NOT NULL default '1',
+  `url` int(4) NOT NULL default '0',
+  `password` varchar(50) NOT NULL default '',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `fileid_index` (`id`),
+  KEY `parentid_index` (`parent`),
+  KEY `files_filetype` (`url`)
+) TYPE=MyISAM;

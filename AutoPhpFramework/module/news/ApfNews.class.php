@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfNews.class.php,v 1.12 2006/12/02 02:16:02 arzen Exp $
+ * @version    CVS: $Id: ApfNews.class.php,v 1.13 2006/12/05 05:04:48 arzen Exp $
  */
 
 class ApfNews  extends Actions
@@ -235,15 +235,13 @@ class ApfNews  extends Actions
 //		$apf_news->debugLevel(4);
 		$apf_news->find();
 		
-		$i=0;
 		$myData=array();
 		while ($apf_news->fetch())
 		{
 			$myData[] = $apf_news->toArray();
-			$i++;
 		}		
-		$params = array(
-		    'totalItems' => $ToltalNum,
+		$params = array(		    
+			'totalItems' => $ToltalNum,
 			'perPage' => $max_row,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
@@ -252,17 +250,19 @@ class ApfNews  extends Actions
 		    'urlVar' => 'entrant',
 		    'useSessions' => true,
 		    'closeSession' => true,
+		    'prevImg'=>$i18n->_("PrevPage"),
+		    'nextImg'=>$i18n->_("NextPage"),
 		    //'mode'  => 'Sliding',    //try switching modes
 		    'mode'  => 'Jumping',
-		    'extraVars' => array(
+			'extraVars' => array(
 		    ),
 		
-		);
+		);		
 		$pager = & Pager::factory($params);
-		$page_data = $pager->getPageData();
 		$links = $pager->getLinks();
-		
-		$selectBox = $pager->getPerPageSelectBox();
+		$current_page = $pager->getCurrentPageID();		
+		$selectBox = $pager->getPageSelectBox(array('autoSubmit'=>true));
+
 		$i = 0;
 		foreach($myData as $data)
 		{
@@ -285,6 +285,8 @@ class ApfNews  extends Actions
 			"WEBDIR" => $WebBaseDir,
 			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().$WebTemplateDir,
 			"TOLTAL_NUM" => $ToltalNum,
+			"CURRENT_PAGE" => $current_page,
+			"SELECT_BOX" => $selectBox,
 			"PAGINATION" => $links['all']
 		));
 

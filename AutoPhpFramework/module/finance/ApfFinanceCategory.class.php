@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfFinanceCategory.class.php,v 1.3 2006/10/30 05:24:37 arzen Exp $
+ * @version    CVS: $Id: ApfFinanceCategory.class.php,v 1.4 2006/12/05 05:04:48 arzen Exp $
  */
 
 class ApfFinanceCategory  extends Actions
@@ -164,19 +164,23 @@ class ApfFinanceCategory  extends Actions
 		$apf_finance_category = DB_DataObject :: factory('ApfFinanceCategory');
 
 		$apf_finance_category->orderBy('id desc');
+
+		$max_row = 30;
+		$ToltalNum = $apf_finance_category->count();
+		
+		$start_num = !isset($_GET['entrant'])?0:($_GET['entrant']-1)*$max_row;
+		$apf_finance_category->limit($start_num,$max_row);
 		
 		$apf_finance_category->find();
 		
-		$i=0;
+		$myData=array();
 		while ($apf_finance_category->fetch())
 		{
 			$myData[] = $apf_finance_category->toArray();
-			$i++;
 		}
-		$ToltalNum =$i;
 		
 		$params = array(
-		    'itemData' => $myData,
+		    'totalItems' => $ToltalNum,
 		    'perPage' => 10,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
@@ -190,14 +194,14 @@ class ApfFinanceCategory  extends Actions
 		    'extraVars' => array(
 		    ),
 		
-		);
+		);		
 		$pager = & Pager::factory($params);
-		$page_data = $pager->getPageData();
 		$links = $pager->getLinks();
-		
-		$selectBox = $pager->getPerPageSelectBox();
+		$current_page = $pager->getCurrentPageID();		
+		$selectBox = $pager->getPageSelectBox(array('autoSubmit'=>true));
+
 		$i = 0;
-		foreach($page_data as $data)
+		foreach($myData as $data)
 		{
 			(($i % 2) == 0) ? $list_td_class = "admin_row_0" : $list_td_class = "admin_row_1";
 			
@@ -215,6 +219,8 @@ class ApfFinanceCategory  extends Actions
 			"WEBDIR" => $WebBaseDir,
 			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().$WebTemplateDir,
 			"TOLTAL_NUM" => $ToltalNum,
+			"CURRENT_PAGE" => $current_page,
+			"SELECT_BOX" => $selectBox,
 			"PAGINATION" => $links['all']
 		));
 

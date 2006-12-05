@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfProductPrice.class.php,v 1.3 2006/10/18 02:13:24 arzen Exp $
+ * @version    CVS: $Id: ApfProductPrice.class.php,v 1.4 2006/12/05 05:04:48 arzen Exp $
  */
 
 class ApfProductPrice  extends Actions
@@ -170,20 +170,22 @@ class ApfProductPrice  extends Actions
 		$apf_product_price->selectAs(array("id","price","created_at"), 'p_%s');
 		$apf_product_price->selectAdd('apf_company.name AS company_name,apf_product.name AS product_name ');
 
+		$max_row = 30;
+		$ToltalNum = $apf_product_price->count();
+		
+		$start_num = !isset($_GET['entrant'])?0:($_GET['entrant']-1)*$max_row;
+		$apf_product_price->limit($start_num,$max_row);
 //		$apf_product_price->debugLevel(4);
 		$apf_product_price->find();
 		
-		$i=0;
 		while ($apf_product_price->fetch())
 		{
 			$myData[] = $apf_product_price->toArray();
-			$i++;
 		}
-		$ToltalNum =$i;
 		
 		$params = array(
-		    'itemData' => $myData,
-		    'perPage' => 15,
+			'totalItems' => $ToltalNum,
+		    'perPage' => $max_row,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
 		    'separator' => ' | ',
@@ -191,19 +193,21 @@ class ApfProductPrice  extends Actions
 		    'urlVar' => 'entrant',
 		    'useSessions' => true,
 		    'closeSession' => true,
+		    'prevImg'=>$i18n->_("PrevPage"),
+		    'nextImg'=>$i18n->_("NextPage"),
 		    //'mode'  => 'Sliding',    //try switching modes
 		    'mode'  => 'Jumping',
 		    'extraVars' => array(
 		    ),
 		
-		);
+		);		
 		$pager = & Pager::factory($params);
-		$page_data = $pager->getPageData();
 		$links = $pager->getLinks();
-		
-		$selectBox = $pager->getPerPageSelectBox();
+		$current_page = $pager->getCurrentPageID();		
+		$selectBox = $pager->getPageSelectBox(array('autoSubmit'=>true));
+
 		$i = 0;
-		foreach($page_data as $data)
+		foreach($myData as $data)
 		{
 //			Var_Dump::display($data);
 			(($i % 2) == 0) ? $list_td_class = "admin_row_0" : $list_td_class = "admin_row_1";
@@ -222,6 +226,8 @@ class ApfProductPrice  extends Actions
 			"WEBDIR" => $WebBaseDir,
 			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().$WebTemplateDir,
 			"TOLTAL_NUM" => $ToltalNum,
+			"CURRENT_PAGE" => $current_page,
+			"SELECT_BOX" => $selectBox,
 			"PAGINATION" => $links['all']
 		));
 
