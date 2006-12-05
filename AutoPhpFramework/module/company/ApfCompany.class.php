@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfCompany.class.php,v 1.26 2006/12/05 05:04:48 arzen Exp $
+ * @version    CVS: $Id: ApfCompany.class.php,v 1.27 2006/12/05 23:26:35 arzen Exp $
  */
 
 class ApfCompany  extends Actions
@@ -494,7 +494,7 @@ class ApfCompany  extends Actions
 		$ToltalNum = $apf_company->count();
 		
 		$start_num = !isset($_GET['entrant'])?0:($_GET['entrant']-1)*$max_row;
-		$apf_company->limit($start_num,($start_num+$max_row));
+		$apf_company->limit($start_num,$max_row);
 		$apf_company->find();
 		
 		$myData=array();
@@ -502,7 +502,7 @@ class ApfCompany  extends Actions
 		{
 			$myData[] = $apf_company->toArray();
 		}
-		
+
 		$params = array(		    
 		    'totalItems' => $ToltalNum,
 			'perPage' => $max_row,

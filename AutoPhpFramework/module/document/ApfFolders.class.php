@@ -6,30 +6,35 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfFolders.class.php,v 1.1 2006/12/05 09:01:11 arzen Exp $
+ * @version    CVS: $Id: ApfFolders.class.php,v 1.2 2006/12/05 23:26:35 arzen Exp $
  */
 
 class ApfFolders  extends Actions
 {
-	function executeCreate()
+	function executeAddsubmit()
 	{
-		global $template,$WebBaseDir;
+		$this->handleFormData();
+	}
+	
+	function executeCreatefolder () 
+	{
+		global $template,$WebBaseDir,$controller,$ActiveOption;
 
 		$template->setFile(array (
 			"MAIN" => "apf_folders_edit.html"
 		));
 		$template->setBlock("MAIN", "add_block");
-		
+
+		$params_id=$controller->getID();
+		$PID = $params_id;
+				
+		array_shift($ActiveOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
-			"DOACTION" => "addsubmit"
+			"DOACTION" => "addsubmit",
+			"ACTIVEOPTION" => radioTag("active",$ActiveOption,"new"),
+			"PID" => $PID,
 		));
-
-	}
-	
-	function executeAddsubmit()
-	{
-		$this->handleFormData();
 	}
 	
 	function executeUpdate()
@@ -66,7 +71,7 @@ class ApfFolders  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n;
+		global $template,$WebBaseDir,$i18n,$AddIP,$userid,$group_ids;
 		$apf_folders = DB_DataObject :: factory('ApfFolders');
 
 		if ($edit_submit) 
@@ -83,13 +88,13 @@ class ApfFolders  extends Actions
 		$apf_folders->setParent(stripslashes(trim($_POST['parent'])));
 		$apf_folders->setDescription(stripslashes(trim($_POST['description'])));
 		$apf_folders->setPassword(stripslashes(trim($_POST['password'])));
-		$apf_folders->setGroupid(stripslashes(trim($_POST['groupid'])));
-		$apf_folders->setUserid(stripslashes(trim($_POST['userid'])));
 		$apf_folders->setActive(stripslashes(trim($_POST['active'])));
-		$apf_folders->setAddIp(stripslashes(trim($_POST['add_ip'])));
-		$apf_folders->setCreatedAt(stripslashes(trim($_POST['created_at'])));
-		$apf_folders->setUpdateAt(stripslashes(trim($_POST['update_at'])));
 
+		$apf_folders->setAddIp($AddIP);
+		$apf_folders->setGroupid($group_ids);
+		$apf_folders->setUserid($userid);
+
+		$this->createFolderByPID ($_POST['parent'],$_POST['name']);
 				
 		$val = $apf_folders->validate();
 		if ($val === TRUE)
@@ -148,7 +153,7 @@ class ApfFolders  extends Actions
 	
 	function executeList()
 	{
-		global $template,$WebBaseDir,$WebTemplateDir,$ClassDir,$ActiveOption;
+		global $template,$controller,$WebBaseDir,$WebTemplateDir,$ClassDir,$ActiveOption;
 
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
@@ -157,46 +162,23 @@ class ApfFolders  extends Actions
 		));
 
 		$template->setBlock("MAIN", "main_list", "list_block");
-
-		$max_row = 10;
+		
+		$params_id=$controller->getID();
+		$PID = $params_id?$params_id:0;
+		
 		$apf_folders = DB_DataObject :: factory('ApfFolders');
-
 		$apf_folders->orderBy('id desc');
 		$ToltalNum = $apf_folders->count();
-		$start_num = !isset($_GET['entrant'])?0:($_GET['entrant']-1)*$max_row;
-		$apf_folders->limit($start_num,$max_row);
-
 		$apf_folders->find();
 		
-		$i=0;
 		$myData=array();
 		while ($apf_folders->fetch())
 		{
-			$myData[] = $apf_folders->toArray();
-			$i++;
+			$row = $apf_folders->toArray();
+			$row['name']=$this->getFolderIco().$row['name'];
+			$myData[] = $row;
 		}
-		$tmpData = ($ToltalNum>$max_row)?array_pad($myData, $ToltalNum, array()):$myData;
-		$params = array(
-		    'itemData' => $tmpData,
-		    'perPage' => $max_row,
-		    'delta' => 8,             // for 'Jumping'-style a lower number is better
-		    'append' => true,
-		    'separator' => ' | ',
-		    'clearIfVoid' => false,
-		    'urlVar' => 'entrant',
-		    'useSessions' => true,
-		    'closeSession' => true,
-		    //'mode'  => 'Sliding',    //try switching modes
-		    'mode'  => 'Jumping',
-		    'extraVars' => array(
-		    ),
-		
-		);
-		$pager = & Pager::factory($params);
-		$page_data = $pager->getPageData();
-		$links = $pager->getLinks();
-		
-		$selectBox = $pager->getPerPageSelectBox();
+
 		$i = 0;
 		foreach($myData as $data)
 		{
@@ -216,9 +198,35 @@ class ApfFolders  extends Actions
 			"WEBDIR" => $WebBaseDir,
 			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().$WebTemplateDir,
 			"TOLTAL_NUM" => $ToltalNum,
-			"PAGINATION" => $links['all']
+			"PID" => $PID,
 		));
 
+	}
+	
+	function createFolderByPID ($pid,$name) 
+	{
+		global $DocumentDir;
+		if (!file_exists($DocumentDir)) 
+		{
+			@mkdir($DocumentDir,0777);
+		}
+		if ($pid==0) 
+		{
+			$new_folder_name = $DocumentDir.$name;
+			@mkdir($new_folder_name,0777);
+			
+		} 
+		else 
+		{
+			
+		}
+	}
+	
+	function getFolderIco () 
+	{
+		global $WebTemplateFullPath;
+		
+		return "<img src=\"".$WebTemplateFullPath."images/fileico/folder_closed.gif\" />";
 	}
 	
 }

@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContact.class.php,v 1.30 2006/12/04 23:31:41 arzen Exp $
+ * @version    CVS: $Id: ApfContact.class.php,v 1.31 2006/12/05 23:26:35 arzen Exp $
  */
 
 class ApfContact  extends Actions
@@ -727,17 +727,15 @@ class ApfContact  extends Actions
 		$ToltalNum = $apf_contact->count();
 		
 		$start_num = !isset($_GET['entrant'])?0:($_GET['entrant']-1)*$max_row;
-		$apf_contact->limit($start_num,($start_num+$max_row));
-//		$apf_contact->debugLevel(4);
+		$apf_contact->limit($start_num,$max_row);
 		$apf_contact->find();
 		
-		$i=0;
 		$myData=array();
 		while ($apf_contact->fetch())
 		{
 			$myData[] = $apf_contact->toArray();
-			$i++;
-		}		
+		}	
+			
 		$params = array(
 		    'totalItems' => $ToltalNum,
 			'perPage' => $max_row,

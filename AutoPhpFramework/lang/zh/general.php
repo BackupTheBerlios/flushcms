@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.18 2006/12/04 23:31:41 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.19 2006/12/05 23:26:35 arzen Exp $
  */
 $this->setCharset('gb2312'); 
 $messages = array(
@@ -67,6 +67,7 @@ $messages = array(
 	'User' => '用户',
 	'UserName' => '用户名',
 	'UserPwd' => '用户密码',
+	'Password' => '密码',
 	'Addrees' => '地址',
 	'Photo' => '图片',
 	'Phone' => '电话',
@@ -167,6 +168,12 @@ $messages = array(
 	'WriteMail' => '写邮件',
 	'To' => '到',
 	'Send' => '发送',
+//document
+	'Document' => '文档',
+	'CreateFolder' => '创建目录',
+	'CreateFile' => '创建文件',
+
+	
 //Permit
 	'NotPermit' => '权限不足',
 	'NotPermitMessage' => '对不起，你的权限不足，无法进行此操作。',

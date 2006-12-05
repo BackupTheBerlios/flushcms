@@ -1,18 +1,20 @@
         
 <div id="admin_container">
-<h1>{lang_Listing}</h1>
+<h1>{lang_Document}{lang_Listing}</h1>
 <div id="admin_header">
 </div>
 <div id="admin_bar">
 </div>
         
 <ul class="admin_actions">
-          <li><input class="admin_action_create" value="{lang_Create}" type="button" onclick="document.location.href='{WEBDIR}/document/apf_folders/create';" /></li>
+          <li><input class="admin_action_create" value="{lang_CreateFolder}" type="button" onclick="document.location.href='{WEBDIR}/document/apf_folders/createfolder/{PID}';" /></li>
+          <li><input class="admin_action_create" value="{lang_CreateFile}" type="button" onclick="document.location.href='{WEBDIR}/document/apf_folders/createfile/{PID}';" /></li>
 </ul>
 
 <table cellspacing="0" class="admin_list">      
 <thead>
-<tr><th>&nbsp;{lang_Id}</th>
+<tr>
+<!-- <th>&nbsp;{lang_Id}</th> -->
 <th>&nbsp;{lang_Name}</th>
 <th>&nbsp;{lang_Description}</th>
 <th>&nbsp;{lang_Password}</th>
@@ -21,7 +23,8 @@
 </thead>
 <tbody>
 <!-- BEGIN main_list -->
-<tr class="{LIST_TD_CLASS}"><td>&nbsp;{ID}</td>
+<tr class="{LIST_TD_CLASS}">
+<!-- <td>&nbsp;{ID}</td> -->
 <td>&nbsp;{NAME}</td>
 <td>&nbsp;{DESCRIPTION}</td>
 <td>&nbsp;{PASSWORD}</td>

@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.49 2006/12/05 09:01:11 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.50 2006/12/05 23:26:35 arzen Exp $
  */
 define('CREATE', 3);
 
@@ -87,6 +87,7 @@ if (defined('APF_DEBUG') && (APF_DEBUG == true))
 }
 
 $UploadDir = $RootDir."web/".$Upload_Dir;
+$DocumentDir = $UploadDir.$Document_Dir;
 $WebUploadDir = dirname(getenv("SCRIPT_NAME")) . "/" . $Upload_Dir;
 $dsn = "{$DB_Type}://{$DB_UserName}:{$DB_PassWord}@{$DB_Host}/{$DB_Name}";
 $conn = & DB :: connect($dsn);
