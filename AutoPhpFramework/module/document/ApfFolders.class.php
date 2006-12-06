@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfFolders.class.php,v 1.4 2006/12/06 05:51:01 arzen Exp $
+ * @version    CVS: $Id: ApfFolders.class.php,v 1.5 2006/12/06 10:27:38 arzen Exp $
  */
 
 class ApfFolders  extends Actions
@@ -181,6 +181,20 @@ class ApfFolders  extends Actions
 		$this->forward("document/apf_folders/");
 	}
 	
+	function executeDownloadfile () 
+	{
+		global $controller;
+		$fid = $controller->getID();
+		$this->downloadFileByID($fid);
+	}
+
+	function executeDownloadfolder () 
+	{
+		global $controller;
+		$fid = $controller->getID();
+		$this->downloadFolderByID($fid);
+	}
+	
 	function handleFileFormData($edit_submit=false)
 	{
 		global $template,$WebBaseDir,$i18n,$DocumentDir,$ClassDir,$AddIP,$userid,$group_ids;
@@ -314,12 +328,11 @@ class ApfFolders  extends Actions
 		$template->setBlock("MAIN", "main_list", "list_block");
 		
 		$params_id=$controller->getID();
-		echo $PID = $params_id?$params_id:0;
+		$PID = $params_id?$params_id:0;
 //		list folder		
 		$apf_folders = DB_DataObject :: factory('ApfFolders');
 		$apf_folders->setParent($PID);
 		$apf_folders->orderBy('id desc');
-		$ToltalNum = $apf_folders->count();
 		$apf_folders->find();
 		
 		$myData=array();
@@ -327,6 +340,7 @@ class ApfFolders  extends Actions
 		{
 			$row = $apf_folders->toArray();
 			$row['name']="<a href=\"{$WebBaseDir}/document/apf_folders/list/{$row['id']}\">".$this->getFolderIco().$row['name']."</a>";
+			$row['download_link']=$this->getFolderDownloadLink ($row['id']);
 			$myData[] = $row;
 		}
 //		lsit files
@@ -338,6 +352,7 @@ class ApfFolders  extends Actions
 		{
 			$row = $apf_files->toArray();
 			$row['name']=$this->getFileIco($row['ext']).$row['name'];
+			$row['download_link']=$this->getFileDownloadLink ($row['id']);
 			$myData[] = $row;
 		}
 		$i = 0;
@@ -349,11 +364,12 @@ class ApfFolders  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 			
-			$template->setVar(array ("ID" => $data['id'],"NAME" => $data['name'],"PARENT" => $data['parent'],"DESCRIPTION" => $data['description'],"PASSWORD" => $data['password'],"GROUPID" => $data['groupid'],"USERID" => $data['userid'],"ACTIVE" => $ActiveOption[$data['active']],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
+			$template->setVar(array ("DOWNLOAD_LINK" => $data['download_link'],"ID" => $data['id'],"NAME" => $data['name'],"PARENT" => $data['parent'],"DESCRIPTION" => $data['description'],"PASSWORD" => $data['password'],"GROUPID" => $data['groupid'],"USERID" => $data['userid'],"ACTIVE" => $ActiveOption[$data['active']],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
 
 			$template->parse("list_block", "main_list", TRUE);
 			$i++;
 		}
+		$ToltalNum = $i;
 		
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
@@ -415,5 +431,52 @@ class ApfFolders  extends Actions
 		return "<img src=\"".$WebTemplateFullPath."images/fileico/{$ext}.gif\" />";
 	}
 	
+	function getFileDownloadLink ($id) 
+	{
+		global $WebTemplateFullPath,$WebBaseDir;
+		return "<a href=\"{$WebBaseDir}/document/apf_folders/downloadfile/{$id}\"><img src=\"".$WebTemplateFullPath."images/download.gif\" /></a>";
+	}
+	
+	function getFolderDownloadLink ($id) 
+	{
+		global $WebTemplateFullPath,$WebBaseDir;
+		return "<a href=\"{$WebBaseDir}/document/apf_folders/downloadfolder/{$id}\"><img src=\"".$WebTemplateFullPath."images/zip.gif\" /></a>";
+	}
+	
+	function downloadFileByID ($id) 
+	{
+		global $DocumentDir;
+		require_once 'HTTP/Download.php';
+		$apf_files = DB_DataObject :: factory('ApfFiles');
+		$apf_files->setId($id);
+		$apf_files->orderBy('id desc');
+		$apf_files->find();
+		$apf_files->fetch();
+		
+		$filename = $apf_files->getFilename();
+		$real_file_path = $DocumentDir.$this->getFolderByPID ($apf_files->getParent())."/{$filename}";
+
+		$dl = &new HTTP_Download();
+		$dl->setFile($real_file_path);
+		$dl->setBufferSize(25 * 1024); // 25 K
+		$dl->setThrottleDelay(1);   // 1 sec
+		$dl->send();
+	}
+
+	function downloadFolderByID ($id) 
+	{
+		global $DocumentDir;
+		require_once 'HTTP/Download.php';
+		$apf_folders = DB_DataObject :: factory('ApfFolders');
+		$apf_folders->setId($id);
+		$apf_folders->find();
+		$apf_folders->fetch();
+		
+		$filename = $apf_folders->getName().".tar.gz";
+		$foldername = $apf_folders->getDirpath();
+		$real_folder_path = $DocumentDir.$foldername;
+		HTTP_Download::sendArchive($filename,$real_folder_path,HTTP_DOWNLOAD_TGZ,"",$DocumentDir); 
+	}
+
 }
 ?>
