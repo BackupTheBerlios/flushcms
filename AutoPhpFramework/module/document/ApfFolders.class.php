@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfFolders.class.php,v 1.5 2006/12/06 10:27:38 arzen Exp $
+ * @version    CVS: $Id: ApfFolders.class.php,v 1.6 2006/12/06 10:36:30 arzen Exp $
  */
 
 class ApfFolders  extends Actions
@@ -459,7 +459,7 @@ class ApfFolders  extends Actions
 		$dl = &new HTTP_Download();
 		$dl->setFile($real_file_path);
 		$dl->setBufferSize(25 * 1024); // 25 K
-		$dl->setThrottleDelay(1);   // 1 sec
+		$dl->setThrottleDelay(5);   // 1 sec
 		$dl->send();
 	}
 
