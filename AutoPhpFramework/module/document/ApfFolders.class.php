@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfFolders.class.php,v 1.3 2006/12/06 05:35:25 arzen Exp $
+ * @version    CVS: $Id: ApfFolders.class.php,v 1.4 2006/12/06 05:51:01 arzen Exp $
  */
 
 class ApfFolders  extends Actions
@@ -183,7 +183,7 @@ class ApfFolders  extends Actions
 	
 	function handleFileFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n,$DocumentDir,$ClassDir;
+		global $template,$WebBaseDir,$i18n,$DocumentDir,$ClassDir,$AddIP,$userid,$group_ids;
 		$apf_files = DB_DataObject :: factory('ApfFiles');
 
 		if ($edit_submit) 
@@ -203,6 +203,10 @@ class ApfFolders  extends Actions
 		$apf_files->setMinorRevision(stripslashes(trim($_POST['minor_revision'])));
 		$apf_files->setPassword(stripslashes(trim($_POST['password'])));
 		$apf_files->setActive(stripslashes(trim($_POST['active'])));
+
+		$apf_files->setAddIp($AddIP);
+		$apf_files->setGroupid($group_ids);
+		$apf_files->setUserid($userid);
 
 		$UploadDocumentDir = $DocumentDir.$this->getFolderByPID ($_POST['parent']);
 		if ($_POST['filename_del']=='Y') 
