@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfFolders.class.php,v 1.7 2006/12/06 10:41:58 arzen Exp $
+ * @version    CVS: $Id: ApfFolders.class.php,v 1.8 2006/12/06 23:45:48 arzen Exp $
  */
 
 class ApfFolders  extends Actions
@@ -373,6 +373,7 @@ class ApfFolders  extends Actions
 		
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"NAVIGATOR" => $this->getNavigatorByID ($PID),
 			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().$WebTemplateDir,
 			"TOLTAL_NUM" => $ToltalNum,
 			"PID" => $PID,
@@ -416,6 +417,37 @@ class ApfFolders  extends Actions
 			$apf_folders->find();
 			$apf_folders->fetch();
 			return $apf_folders->getDirpath();
+		}
+	}
+	
+	function getNavigatorByID ($id) 
+	{
+		global $WebBaseDir,$i18n;
+		$navigator_url = "{$WebBaseDir}/document/apf_folders/list/";
+		$root_nav_str = "<a href=\"{$navigator_url}\">".$i18n->_("Root")."</a>";
+		if ($id==0) 
+		{
+			return $root_nav_str;
+		} 
+		else 
+		{
+			$apf_folders = DB_DataObject :: factory('ApfFolders');
+			$apf_folders->setId($id);
+			$apf_folders->find();
+			$apf_folders->fetch();
+			
+			$dir_path = $apf_folders->getDirpath();
+			$dir_path_arr = explode("/",$dir_path);
+			$temp_nav_str = "";
+			foreach($dir_path_arr as $key=>$value)
+			{
+				$tmp_folders = DB_DataObject :: factory('ApfFolders');
+				$tmp_folders->setName($value);
+				$tmp_folders->find();
+				$tmp_folders->fetch();
+				$temp_nav_str .= "<a href=\"{$navigator_url}".$tmp_folders->getId()."\">".$value."</a>/";
+			}
+			return $root_nav_str."/".$temp_nav_str;
 		}
 	}
 	

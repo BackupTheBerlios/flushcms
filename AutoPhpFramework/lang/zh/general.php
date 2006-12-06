@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.19 2006/12/05 23:26:35 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.20 2006/12/06 23:45:48 arzen Exp $
  */
 $this->setCharset('gb2312'); 
 $messages = array(
@@ -171,7 +171,12 @@ $messages = array(
 //document
 	'Document' => '文档',
 	'CreateFolder' => '创建目录',
-	'CreateFile' => '创建文件',
+	'CreateFile' => '上传文件',
+	'Position' => '目录位置',
+	'Root' => '根目录',
+	'Filename' => '文件',
+	'MajorRevision' => '主版本号',
+	'MinorRevision' => '副版本号',
 
 	
 //Permit

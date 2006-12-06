@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟遠螓
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.4 2006/12/04 13:15:30 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.5 2006/12/06 23:45:48 arzen Exp $
  */
 $this->setCharset('big5'); 
 $messages = array(
@@ -21,6 +21,10 @@ $messages = array(
 	'ProductCategory' => '產品類別',
 	'Logout' => '退出',
 
+	'PrevPage' => '上頁',
+	'NextPage' => '下頁',
+	'Page' => '頁',
+	'JumpTo' => '跳到',
 	'Listing' => '列表',
 	'Parent Listing' => '上級列表',
 	'Search' => '搜索',
@@ -63,6 +67,7 @@ $messages = array(
 	'User' => '用戶',
 	'UserName' => '用戶名',
 	'UserPwd' => '用戶密碼',
+	'Password' => '密碼',
 	'Addrees' => '地址',
 	'Photo' => '圖片',
 	'Phone' => '電話',
@@ -125,6 +130,10 @@ $messages = array(
 	'Industry' => '所屬行業',
 	'Products' => '產品',
 	'DetailInfo' => '詳細信息',
+	'Relationship' => '關系',
+	'Manage' => '管理',
+	'Company Contact Relation' => '公司聯系人關系管理',
+	'Company Products Relation' => '公司產品關系管理',
 //opportunity
 	'Opportunity' => '機會',
 	'State' => '狀態',
@@ -159,6 +168,17 @@ $messages = array(
 	'WriteMail' => '寫郵件',
 	'To' => '到',
 	'Send' => '發送',
+//document
+	'Document' => '文檔',
+	'CreateFolder' => '創建目錄',
+	'CreateFile' => '上傳文件',
+	'Position' => '目錄位置',
+	'Root' => '根目錄',
+	'Filename' => '文件',
+	'MajorRevision' => '主版本號',
+	'MinorRevision' => '副版本號',
+
+	
 //Permit
 	'NotPermit' => '權限不足',
 	'NotPermitMessage' => '對不起，你的權限不足，無法進行此操作。',
