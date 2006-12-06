@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: config.php,v 1.20 2006/12/05 23:26:35 arzen Exp $
+ * @version    CVS: $Id: config.php,v 1.21 2006/12/06 05:35:24 arzen Exp $
  */
  
 $DB_Type = "mysql";
@@ -32,9 +32,12 @@ $lang   = 'big5';
 $CurrencyFormat = "zh_CN";
 
 $AllowUploadFilesType = array('jpg','gif','png','xls');
-$Upload_Dir = "uploads/";
-$Document_Dir = "documents/";
 $MaxFileSize = 2097152;//2M 2097152
+$Upload_Dir = "uploads/";
+
+$Document_Dir = "documents/";
+$AllowUploadDocumentFilesType = array('jpg','gif','png','xls','zip','doc','rar','ppt','html','htm');
+$DocumentMaxFileSize = 2097152;//2M 2097152
 
 // Send SMS SIP num
 define("SMS_SMSC","8613800755500");

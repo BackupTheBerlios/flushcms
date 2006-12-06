@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.50 2006/12/05 23:26:35 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.51 2006/12/06 05:35:24 arzen Exp $
  */
 define('CREATE', 3);
 
@@ -221,7 +221,7 @@ $opts = array (
 	$files_table.'_modules_location' => $RootDir . '/module/document/',
 	$files_table.'_modules_name_location' => 'document',
 	$files_table . '_fields_list' => 'id,name,description,password,state',
-	$files_table . '_except_fields' => 'id,add_ip,created_at,update_at',
+	$files_table . '_except_fields' => 'id,parent,checked_out,f_size,add_ip,groupid,userid,created_at,update_at',
 	$files_table.'_generator_add_validate_stubs' => 'name:empty',
 
 	'require_prefix' => 'dataobjects/',

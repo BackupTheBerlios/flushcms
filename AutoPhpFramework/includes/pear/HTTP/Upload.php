@@ -7,7 +7,7 @@
 //
 // **********************************************
 //
-// $Id: Upload.php,v 1.2 2006/10/25 04:49:43 arzen Exp $
+// $Id: Upload.php,v 1.3 2006/12/06 05:35:24 arzen Exp $
 
 /*
  * Pear File Uploader class. Easy and secure managment of files
@@ -614,7 +614,7 @@ class HTTP_Upload_File extends HTTP_Upload_Error
         switch ($mode) {
             case 'uniq':
                 $name = $this->nameToUniq();
-                $this->upload['ext'] = $this->nameToSafe($this->upload['ext'], 10);
+                $this->upload['ext'] = strtolower($this->nameToSafe($this->upload['ext'], 10));
                 $name .= '.' . $this->upload['ext'];
                 break;
             case 'safe':
@@ -846,7 +846,7 @@ class HTTP_Upload_File extends HTTP_Upload_Error
             }
         // mode == 'accept'
         } else {
-            if (!in_array($this->getProp('ext'), $exts)) {
+            if (!in_array(strtolower($this->getProp('ext')), $exts)) {
                 return false;
             }
         }

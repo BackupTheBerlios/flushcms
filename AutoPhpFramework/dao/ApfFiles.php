@@ -12,17 +12,20 @@ class DaoApfFiles extends DB_DataObject
     var $name;                            // string(255)  
     var $parent;                          // int(4)  not_null multiple_key
     var $filename;                        // string(255)  not_null
+    var $ext;                             // string(10)  not_null
     var $f_size;                          // int(20)  not_null
-    var $userid;                          // int(4)  not_null
-    var $created;                         // datetime(19)  not_null
     var $description;                     // blob(65535)  not_null blob
-    var $metadata;                        // blob(65535)  not_null blob
-    var $groupid;                         // string(11)  not_null
     var $checked_out;                     // int(4)  not_null
     var $major_revision;                  // int(4)  not_null
     var $minor_revision;                  // int(4)  not_null
     var $url;                             // int(4)  not_null multiple_key
     var $password;                        // string(50)  not_null
+    var $userid;                          // int(4)  not_null
+    var $groupid;                         // string(11)  not_null
+    var $active;                          // string(8)  not_null
+    var $add_ip;                          // string(24)  
+    var $created_at;                      // datetime(19)  not_null
+    var $update_at;                       // datetime(19)  not_null
 
     /* ZE2 compatibility trick*/
     function __clone() { return $this;}
@@ -79,6 +82,17 @@ class DaoApfFiles extends DB_DataObject
     }
 
    /**
+    * Getter for $Ext
+    *
+    * @return   string
+    * @access   public
+    */
+    function getExt() 
+    {
+        return $this->ext;
+    }
+
+   /**
     * Getter for $FSize
     *
     * @return   int
@@ -90,28 +104,6 @@ class DaoApfFiles extends DB_DataObject
     }
 
    /**
-    * Getter for $Userid
-    *
-    * @return   int
-    * @access   public
-    */
-    function getUserid() 
-    {
-        return $this->userid;
-    }
-
-   /**
-    * Getter for $Created
-    *
-    * @return   datetime
-    * @access   public
-    */
-    function getCreated() 
-    {
-        return $this->created;
-    }
-
-   /**
     * Getter for $Description
     *
     * @return   blob
@@ -120,28 +112,6 @@ class DaoApfFiles extends DB_DataObject
     function getDescription() 
     {
         return $this->description;
-    }
-
-   /**
-    * Getter for $Metadata
-    *
-    * @return   blob
-    * @access   public
-    */
-    function getMetadata() 
-    {
-        return $this->metadata;
-    }
-
-   /**
-    * Getter for $Groupid
-    *
-    * @return   string
-    * @access   public
-    */
-    function getGroupid() 
-    {
-        return $this->groupid;
     }
 
    /**
@@ -199,6 +169,72 @@ class DaoApfFiles extends DB_DataObject
         return $this->password;
     }
 
+   /**
+    * Getter for $Userid
+    *
+    * @return   int
+    * @access   public
+    */
+    function getUserid() 
+    {
+        return $this->userid;
+    }
+
+   /**
+    * Getter for $Groupid
+    *
+    * @return   string
+    * @access   public
+    */
+    function getGroupid() 
+    {
+        return $this->groupid;
+    }
+
+   /**
+    * Getter for $Active
+    *
+    * @return   string
+    * @access   public
+    */
+    function getActive() 
+    {
+        return $this->active;
+    }
+
+   /**
+    * Getter for $AddIp
+    *
+    * @return   string
+    * @access   public
+    */
+    function getAddIp() 
+    {
+        return $this->add_ip;
+    }
+
+   /**
+    * Getter for $CreatedAt
+    *
+    * @return   datetime
+    * @access   public
+    */
+    function getCreatedAt() 
+    {
+        return $this->created_at;
+    }
+
+   /**
+    * Getter for $UpdateAt
+    *
+    * @return   datetime
+    * @access   public
+    */
+    function getUpdateAt() 
+    {
+        return $this->update_at;
+    }
+
 
    /**
     * Setter for $Id
@@ -245,6 +281,17 @@ class DaoApfFiles extends DB_DataObject
     }
 
    /**
+    * Setter for $Ext
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+    function setExt($value) 
+    {
+        $this->ext = $value;
+    }
+
+   /**
     * Setter for $FSize
     *
     * @param    mixed   input value
@@ -256,28 +303,6 @@ class DaoApfFiles extends DB_DataObject
     }
 
    /**
-    * Setter for $Userid
-    *
-    * @param    mixed   input value
-    * @access   public
-    */
-    function setUserid($value) 
-    {
-        $this->userid = $value;
-    }
-
-   /**
-    * Setter for $Created
-    *
-    * @param    mixed   input value
-    * @access   public
-    */
-    function setCreated($value) 
-    {
-        $this->created = $value;
-    }
-
-   /**
     * Setter for $Description
     *
     * @param    mixed   input value
@@ -286,28 +311,6 @@ class DaoApfFiles extends DB_DataObject
     function setDescription($value) 
     {
         $this->description = $value;
-    }
-
-   /**
-    * Setter for $Metadata
-    *
-    * @param    mixed   input value
-    * @access   public
-    */
-    function setMetadata($value) 
-    {
-        $this->metadata = $value;
-    }
-
-   /**
-    * Setter for $Groupid
-    *
-    * @param    mixed   input value
-    * @access   public
-    */
-    function setGroupid($value) 
-    {
-        $this->groupid = $value;
     }
 
    /**
@@ -365,6 +368,72 @@ class DaoApfFiles extends DB_DataObject
         $this->password = $value;
     }
 
+   /**
+    * Setter for $Userid
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+    function setUserid($value) 
+    {
+        $this->userid = $value;
+    }
+
+   /**
+    * Setter for $Groupid
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+    function setGroupid($value) 
+    {
+        $this->groupid = $value;
+    }
+
+   /**
+    * Setter for $Active
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+    function setActive($value) 
+    {
+        $this->active = $value;
+    }
+
+   /**
+    * Setter for $AddIp
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+    function setAddIp($value) 
+    {
+        $this->add_ip = $value;
+    }
+
+   /**
+    * Setter for $CreatedAt
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+    function setCreatedAt($value) 
+    {
+        $this->created_at = $value;
+    }
+
+   /**
+    * Setter for $UpdateAt
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+    function setUpdateAt($value) 
+    {
+        $this->update_at = $value;
+    }
+
 
     function table()
     {
@@ -373,17 +442,20 @@ class DaoApfFiles extends DB_DataObject
              'name' =>  DB_DATAOBJECT_STR,
              'parent' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
              'filename' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+             'ext' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
              'f_size' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
-             'userid' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
-             'created' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
              'description' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_BLOB + DB_DATAOBJECT_NOTNULL,
-             'metadata' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_BLOB + DB_DATAOBJECT_NOTNULL,
-             'groupid' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
              'checked_out' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
              'major_revision' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
              'minor_revision' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
              'url' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
              'password' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+             'userid' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+             'groupid' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+             'active' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+             'add_ip' =>  DB_DATAOBJECT_STR,
+             'created_at' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
+             'update_at' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
          );
     }
 
@@ -403,16 +475,18 @@ class DaoApfFiles extends DB_DataObject
              'name' => '',
              'parent' => 0,
              'filename' => '',
+             'ext' => '',
              'f_size' => 0,
-             'userid' => 0,
              'description' => '',
-             'metadata' => '',
-             'groupid' => '',
              'checked_out' => 0,
              'major_revision' => 0,
              'minor_revision' => 1,
              'url' => 0,
              'password' => '',
+             'userid' => 0,
+             'groupid' => '',
+             'active' => 'live',
+             'add_ip' => '',
          );
     }
 

@@ -10,6 +10,7 @@ class DaoApfFolders extends DB_DataObject
     var $__table = 'apf_folders';                     // table name
     var $id;                              // int(11)  not_null primary_key unsigned auto_increment
     var $name;                            // string(255)  not_null multiple_key
+    var $dirpath;                         // string(255)  not_null
     var $parent;                          // int(4)  
     var $description;                     // blob(65535)  blob
     var $password;                        // string(50)  not_null
@@ -50,6 +51,17 @@ class DaoApfFolders extends DB_DataObject
     function getName() 
     {
         return $this->name;
+    }
+
+   /**
+    * Getter for $Dirpath
+    *
+    * @return   string
+    * @access   public
+    */
+    function getDirpath() 
+    {
+        return $this->dirpath;
     }
 
    /**
@@ -175,6 +187,17 @@ class DaoApfFolders extends DB_DataObject
     }
 
    /**
+    * Setter for $Dirpath
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+    function setDirpath($value) 
+    {
+        $this->dirpath = $value;
+    }
+
+   /**
     * Setter for $Parent
     *
     * @param    mixed   input value
@@ -279,6 +302,7 @@ class DaoApfFolders extends DB_DataObject
          return array(
              'id' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
              'name' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+             'dirpath' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
              'parent' =>  DB_DATAOBJECT_INT,
              'description' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_BLOB,
              'password' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
@@ -305,6 +329,7 @@ class DaoApfFolders extends DB_DataObject
     {
          return array(
              'name' => '',
+             'dirpath' => '',
              'description' => '',
              'password' => '',
              'groupid' => '',
