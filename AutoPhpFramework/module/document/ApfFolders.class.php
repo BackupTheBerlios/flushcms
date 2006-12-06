@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfFolders.class.php,v 1.6 2006/12/06 10:36:30 arzen Exp $
+ * @version    CVS: $Id: ApfFolders.class.php,v 1.7 2006/12/06 10:41:58 arzen Exp $
  */
 
 class ApfFolders  extends Actions
@@ -475,7 +475,7 @@ class ApfFolders  extends Actions
 		$filename = $apf_folders->getName().".tar.gz";
 		$foldername = $apf_folders->getDirpath();
 		$real_folder_path = $DocumentDir.$foldername;
-		HTTP_Download::sendArchive($filename,$real_folder_path,HTTP_DOWNLOAD_TGZ,"",$DocumentDir); 
+		HTTP_Download::sendArchive($filename,$real_folder_path,HTTP_DOWNLOAD_TGZ,"",$real_folder_path); 
 	}
 
 }
