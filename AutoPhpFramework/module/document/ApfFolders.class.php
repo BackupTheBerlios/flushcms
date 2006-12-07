@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfFolders.class.php,v 1.10 2006/12/07 10:34:24 arzen Exp $
+ * @version    CVS: $Id: ApfFolders.class.php,v 1.11 2006/12/07 23:45:19 arzen Exp $
  */
 
 class ApfFolders  extends Actions
@@ -125,10 +125,6 @@ class ApfFolders  extends Actions
 		$apf_folders->setGroupid($group_ids);
 		$apf_folders->setUserid($userid);
 		
-		$log_format = $i18n->_("CreateFolder")."\t{$_POST['name']}\t{$AddIP}\t$user_name\t{$userid}";
-		$logger->log($log_format);
-
-				
 		$val = $apf_folders->validate();
 		if ($val === TRUE)
 		{
@@ -142,6 +138,10 @@ class ApfFolders  extends Actions
 			{
 				$apf_folders->setCreatedAt(DB_DataObject_Cast::dateTime());
 				$apf_folders->insert();
+				
+				$log_string = $i18n->_("CreateFolder")."\t{$_POST['name']}";
+				logFileString ($log_string);
+				
 				$this->forward("document/apf_folders/list/{$_POST['parent']}");
 			}
 		}
@@ -176,7 +176,7 @@ class ApfFolders  extends Actions
 	
 	function executeDelfolder()
 	{
-		global $controller,$DocumentDir,$ClassDir;
+		global $controller,$DocumentDir,$ClassDir,$i18n,$AddIP,$userid,$group_ids,$logger,$user_name;
 		require_once ($ClassDir."FileHelper.class.php");
 		
 		$apf_folders = DB_DataObject :: factory('ApfFolders');
@@ -194,16 +194,24 @@ class ApfFolders  extends Actions
 		$apf_files->find();
 		while ($apf_files->fetch()) 
 		{
+			$filename = $apf_files->getFilename();
 			$apf_files->delete();
+			
+			$log_string = $i18n->_("Delete").$i18n->_("File")."\t{$foldername}";
+			logFileString ($log_string);
 		}
 		
 		FileHelper::deleteDir($real_folder_path);
+		
+		$log_string = $i18n->_("Delete").$i18n->_("Folder")."\t{$foldername}";
+		logFileString ($log_string);
 
 		$this->forward("document/apf_folders/list/".$apf_folders->getParent());
 	}
 	
 	function delFolderAndFileByFID ($fid) 
 	{
+		global $i18n;
 		$apf_folders = DB_DataObject :: factory('ApfFolders');
 		$apf_folders->setParent($apf_folders->escape($fid));
 		$apf_folders->find();
@@ -214,17 +222,26 @@ class ApfFolders  extends Actions
 			$apf_files->find();
 			while ($apf_files->fetch()) 
 			{
+				$filename = $apf_files->getFilename();
 				$apf_files->delete();
+	
+				$log_string = $i18n->_("Delete").$i18n->_("File")."\t{$filename}";
+				logFileString ($log_string);
 			}
 			$this->delFolderAndFileByFID ($apf_folders->getId());
+			$foldername = $apf_folders->getName();
 			$apf_folders->delete();
+			
+			$log_string = $i18n->_("Delete").$i18n->_("Folder")."\t{$foldername}";
+			logFileString ($log_string);
+			
 		}
 		
 	}
 	
 	function executeDelfile () 
 	{
-		global $controller,$DocumentDir;
+		global $controller,$DocumentDir,$i18n,$AddIP,$userid,$group_ids,$logger,$user_name;
 		$apf_files = DB_DataObject :: factory('ApfFiles');
 		$apf_files->get($apf_files->escape($controller->getID()));
 		$apf_files->find();
@@ -234,6 +251,9 @@ class ApfFolders  extends Actions
 		$real_file_path = $DocumentDir.$this->getFolderByPID ($apf_files->getParent())."/{$filename}";
 		@unlink($real_file_path);
 		$apf_files->delete();
+		
+		$log_string = $i18n->_("Delete").$i18n->_("File")."\t{$filename}";
+		logFileString ($log_string);
 		
 		$this->forward("document/apf_folders/list/".$apf_files->getParent());
 	}
@@ -330,6 +350,9 @@ class ApfFolders  extends Actions
 			{
 				$apf_files->setCreatedAt(DB_DataObject_Cast::dateTime());
 				$apf_files->insert();
+				$log_string = $i18n->_("Create").$i18n->_("File")."\t{$_POST['name']}";
+				logFileString ($log_string);
+				
 				$this->forward("document/apf_folders/list/{$_POST['parent']}");
 			}
 		}

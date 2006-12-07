@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: common.php,v 1.7 2006/12/04 13:15:30 arzen Exp $
+ * @version    CVS: $Id: common.php,v 1.8 2006/12/07 23:45:19 arzen Exp $
  */
  
 $GenderOption = array(	
@@ -49,4 +49,12 @@ for ($index = 0; $index < 24; $index++)
 	$TimeOption[$index.":00:00"]=$index.":00";
 }			
 
+function logFileString ($string) 
+{
+	global $i18n,$AddIP,$userid,$group_ids,$logger,$user_name;
+	
+	$log_format = "{$string}\t{$AddIP}\t$user_name\t{$userid}";
+	$logger->log($log_format);
+	
+}
 ?>
