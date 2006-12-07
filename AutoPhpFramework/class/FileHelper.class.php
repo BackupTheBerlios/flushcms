@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: FileHelper.class.php,v 1.7 2006/12/07 09:08:25 arzen Exp $
+ * @version    CVS: $Id: FileHelper.class.php,v 1.8 2006/12/07 10:34:24 arzen Exp $
  */
 
 class FileHelper
@@ -147,6 +147,39 @@ class FileHelper
 		$data["upload_state"] = $allow_upload_file;
 		$data["upload_msg"] = $allow_upload_file?$new_name:$upload_error_msg;
 		return $data;
+	}
+
+	function deleteDir($dir)
+	{
+	   if (substr($dir, strlen($dir)-1, 1) != '/')
+	       $dir .= '/';
+	
+	   if ($handle = opendir($dir))
+	   {
+	       while ($obj = readdir($handle))
+	       {
+	           if ($obj != '.' && $obj != '..')
+	           {
+	               if (is_dir($dir.$obj))
+	               {
+	                   if (!FileHelper::deleteDir($dir.$obj))
+	                       return false;
+	               }
+	               elseif (is_file($dir.$obj))
+	               {
+	                   if (!unlink($dir.$obj))
+	                       return false;
+	               }
+	           }
+	       }
+	
+	       closedir($handle);
+	
+	       if (!@rmdir($dir))
+	           return false;
+	       return true;
+	   }
+	   return false;
 	}
 		
 }

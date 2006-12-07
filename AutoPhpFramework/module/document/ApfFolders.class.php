@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfFolders.class.php,v 1.9 2006/12/07 09:08:25 arzen Exp $
+ * @version    CVS: $Id: ApfFolders.class.php,v 1.10 2006/12/07 10:34:24 arzen Exp $
  */
 
 class ApfFolders  extends Actions
@@ -176,18 +176,28 @@ class ApfFolders  extends Actions
 	
 	function executeDelfolder()
 	{
-		global $controller,$DocumentDir;
+		global $controller,$DocumentDir,$ClassDir;
+		require_once ($ClassDir."FileHelper.class.php");
+		
 		$apf_folders = DB_DataObject :: factory('ApfFolders');
 		$apf_folders->get($apf_folders->escape($controller->getID()));
 		$apf_folders->find();
 		$apf_folders->fetch();
 
-		$filename = $apf_folders->getName().".tar.gz";
 		$foldername = $apf_folders->getDirpath();
 		$real_folder_path = $DocumentDir.$foldername;
 		$this->delFolderAndFileByFID ($controller->getID());
-		@rmdir($real_folder_path);
 		$apf_folders->delete();
+		
+		$apf_files = DB_DataObject :: factory('ApfFiles');
+		$apf_files->setParent($apf_folders->escape($controller->getID()));
+		$apf_files->find();
+		while ($apf_files->fetch()) 
+		{
+			$apf_files->delete();
+		}
+		
+		FileHelper::deleteDir($real_folder_path);
 
 		$this->forward("document/apf_folders/list/".$apf_folders->getParent());
 	}
@@ -200,10 +210,14 @@ class ApfFolders  extends Actions
 		while ($apf_folders->fetch()) 
 		{
 			$apf_files = DB_DataObject :: factory('ApfFiles');
-			$apf_files->setParent($apf_folders->escape($fid));
+			$apf_files->setParent($apf_folders->getId());
 			$apf_files->find();
-			$apf_files->delete();
-			$this->delFolderAndFileByFID ($apf_folders->getParent());
+			while ($apf_files->fetch()) 
+			{
+				$apf_files->delete();
+			}
+			$this->delFolderAndFileByFID ($apf_folders->getId());
+			$apf_folders->delete();
 		}
 		
 	}
