@@ -36,9 +36,9 @@
 <td>&nbsp;{PASSWORD}</td>
 <td>
 <ul class="admin_td_actions">
-  <li><a href="{WEBDIR}/document/apf_folders/update/{ID}"><img alt="{lang_Edit}" title="{lang_Edit}" src="{WEBTEMPLATEDIR}images/edit_icon.png" /></a></li>
-  <li><a onclick="if (confirm('Are you sure?')) { f = document.createElement('form'); document.body.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;" href="{WEBDIR}/document/apf_folders/del/{ID}"><img alt="{lang_Delete}" title="{lang_Delete}" src="{WEBTEMPLATEDIR}images/delete_icon.png" /></a></li>
   <li>{DOWNLOAD_LINK}</li>
+  <li><a onclick="if (confirm('Are you sure?')) { f = document.createElement('form'); document.body.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;" href="{WEBDIR}/document/apf_folders/{DEL_ACTION}/{ID}"><img alt="{lang_Delete}" title="{lang_Delete}" src="{WEBTEMPLATEDIR}images/delete_icon.png" /></a></li>
+  <li>{EDIT_LINK}</li>
 </ul>
 
 </td>

@@ -6,14 +6,14 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfFolders.class.php,v 1.8 2006/12/06 23:45:48 arzen Exp $
+ * @version    CVS: $Id: ApfFolders.class.php,v 1.9 2006/12/07 09:08:25 arzen Exp $
  */
 
 class ApfFolders  extends Actions
 {
 	function executeCreatefolder () 
 	{
-		global $template,$WebBaseDir,$controller,$ActiveOption;
+		global $template,$WebBaseDir,$controller,$ActiveOption,$logger;
 
 		$template->setFile(array (
 			"MAIN" => "apf_folders_edit.html"
@@ -99,7 +99,7 @@ class ApfFolders  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n,$AddIP,$userid,$group_ids;
+		global $template,$WebBaseDir,$i18n,$AddIP,$userid,$group_ids,$logger,$user_name;
 		$apf_folders = DB_DataObject :: factory('ApfFolders');
 
 		if ($edit_submit) 
@@ -124,6 +124,9 @@ class ApfFolders  extends Actions
 		$apf_folders->setAddIp($AddIP);
 		$apf_folders->setGroupid($group_ids);
 		$apf_folders->setUserid($userid);
+		
+		$log_format = $i18n->_("CreateFolder")."\t{$_POST['name']}\t{$AddIP}\t$user_name\t{$userid}";
+		$logger->log($log_format);
 
 				
 		$val = $apf_folders->validate();
@@ -171,14 +174,54 @@ class ApfFolders  extends Actions
 		}
 	}
 	
-	function executeDel()
+	function executeDelfolder()
 	{
-		global $controller;
+		global $controller,$DocumentDir;
 		$apf_folders = DB_DataObject :: factory('ApfFolders');
 		$apf_folders->get($apf_folders->escape($controller->getID()));
-		$apf_folders->setActive('deleted');
-		$apf_folders->update();
-		$this->forward("document/apf_folders/");
+		$apf_folders->find();
+		$apf_folders->fetch();
+
+		$filename = $apf_folders->getName().".tar.gz";
+		$foldername = $apf_folders->getDirpath();
+		$real_folder_path = $DocumentDir.$foldername;
+		$this->delFolderAndFileByFID ($controller->getID());
+		@rmdir($real_folder_path);
+		$apf_folders->delete();
+
+		$this->forward("document/apf_folders/list/".$apf_folders->getParent());
+	}
+	
+	function delFolderAndFileByFID ($fid) 
+	{
+		$apf_folders = DB_DataObject :: factory('ApfFolders');
+		$apf_folders->setParent($apf_folders->escape($fid));
+		$apf_folders->find();
+		while ($apf_folders->fetch()) 
+		{
+			$apf_files = DB_DataObject :: factory('ApfFiles');
+			$apf_files->setParent($apf_folders->escape($fid));
+			$apf_files->find();
+			$apf_files->delete();
+			$this->delFolderAndFileByFID ($apf_folders->getParent());
+		}
+		
+	}
+	
+	function executeDelfile () 
+	{
+		global $controller,$DocumentDir;
+		$apf_files = DB_DataObject :: factory('ApfFiles');
+		$apf_files->get($apf_files->escape($controller->getID()));
+		$apf_files->find();
+		$apf_files->fetch();
+		
+		$filename = $apf_files->getFilename();
+		$real_file_path = $DocumentDir.$this->getFolderByPID ($apf_files->getParent())."/{$filename}";
+		@unlink($real_file_path);
+		$apf_files->delete();
+		
+		$this->forward("document/apf_folders/list/".$apf_files->getParent());
 	}
 	
 	function executeDownloadfile () 
@@ -186,6 +229,7 @@ class ApfFolders  extends Actions
 		global $controller;
 		$fid = $controller->getID();
 		$this->downloadFileByID($fid);
+		exit;
 	}
 
 	function executeDownloadfolder () 
@@ -193,6 +237,7 @@ class ApfFolders  extends Actions
 		global $controller;
 		$fid = $controller->getID();
 		$this->downloadFolderByID($fid);
+		exit;
 	}
 	
 	function handleFileFormData($edit_submit=false)
@@ -317,7 +362,7 @@ class ApfFolders  extends Actions
 	
 	function executeList()
 	{
-		global $template,$controller,$WebBaseDir,$WebTemplateDir,$ClassDir,$ActiveOption;
+		global $template,$controller,$WebBaseDir,$WebTemplateDir,$WebTemplateFullPath,$ClassDir,$ActiveOption,$i18n;
 
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
@@ -341,6 +386,8 @@ class ApfFolders  extends Actions
 			$row = $apf_folders->toArray();
 			$row['name']="<a href=\"{$WebBaseDir}/document/apf_folders/list/{$row['id']}\">".$this->getFolderIco().$row['name']."</a>";
 			$row['download_link']=$this->getFolderDownloadLink ($row['id']);
+			$row['edit_link']="<a href=\"{$WebBaseDir}/document/apf_folders/update/{$row['id']}\"><img alt=\"".$i18n->_("Edit")."\" title=\"".$i18n->_("Edit")."\" src=\"{$WebTemplateFullPath}images/edit_icon.png\" /></a>";
+			$row['del_action']="delfolder";
 			$myData[] = $row;
 		}
 //		lsit files
@@ -353,6 +400,8 @@ class ApfFolders  extends Actions
 			$row = $apf_files->toArray();
 			$row['name']=$this->getFileIco($row['ext']).$row['name'];
 			$row['download_link']=$this->getFileDownloadLink ($row['id']);
+			$row['edit_link']="";
+			$row['del_action']="delfile";
 			$myData[] = $row;
 		}
 		$i = 0;
@@ -364,7 +413,7 @@ class ApfFolders  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 			
-			$template->setVar(array ("DOWNLOAD_LINK" => $data['download_link'],"ID" => $data['id'],"NAME" => $data['name'],"PARENT" => $data['parent'],"DESCRIPTION" => $data['description'],"PASSWORD" => $data['password'],"GROUPID" => $data['groupid'],"USERID" => $data['userid'],"ACTIVE" => $ActiveOption[$data['active']],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
+			$template->setVar(array ("DOWNLOAD_LINK" => $data['download_link'],"EDIT_LINK" => $data['edit_link'],"DEL_ACTION" => $data['del_action'],"ID" => $data['id'],"NAME" => $data['name'],"PARENT" => $data['parent'],"DESCRIPTION" => $data['description'],"PASSWORD" => $data['password'],"GROUPID" => $data['groupid'],"USERID" => $data['userid'],"ACTIVE" => $ActiveOption[$data['active']],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
 
 			$template->parse("list_block", "main_list", TRUE);
 			$i++;
@@ -490,8 +539,9 @@ class ApfFolders  extends Actions
 
 		$dl = &new HTTP_Download();
 		$dl->setFile($real_file_path);
-		$dl->setBufferSize(25 * 1024); // 25 K
-		$dl->setThrottleDelay(5);   // 1 sec
+		$dl->setContentDisposition (HTTP_DOWNLOAD_ATTACHMENT, $filename);
+		$dl->setBufferSize(50 * 1024); // 25 K
+		$dl->setThrottleDelay(2);   // 1 sec
 		$dl->send();
 	}
 

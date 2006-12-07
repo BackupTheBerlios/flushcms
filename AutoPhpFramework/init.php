@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.51 2006/12/06 05:35:24 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.52 2006/12/07 09:08:25 arzen Exp $
  */
 define('CREATE', 3);
 
@@ -73,7 +73,7 @@ include_once ($ConfigDir . "common.php");
 require_once($ClassDir."SendEmail.php");
 
 $log_conf = array('mode' => 0777, 'timeFormat' => '%X %x');
-$logger = &Log::singleton('file', $LogDir.date("Y_m_d").'.log', '\t', $log_conf);
+$logger = &Log::singleton('file', $LogDir.date("Y_m_d").'.log', 'apf', $log_conf);
 
 if (defined('APF_DEBUG') && (APF_DEBUG == true))
 {
@@ -382,6 +382,7 @@ if (defined('APF_LOGIN_ACCESS') && (APF_LOGIN_ACCESS == "Y") )
 		$template->p("OUT");
 		exit();
 	}
+	$user_name=$LU->getProperty("handle");
 	$userid=$LU->getProperty("auth_user_id");
 	$group_arr=$LU->getProperty('group_ids','perm');
 	$group_ids=is_array($group_arr)?implode(",",$group_arr):$group_arr;

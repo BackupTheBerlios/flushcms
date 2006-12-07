@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: FileHelper.class.php,v 1.6 2006/12/06 05:35:25 arzen Exp $
+ * @version    CVS: $Id: FileHelper.class.php,v 1.7 2006/12/07 09:08:25 arzen Exp $
  */
 
 class FileHelper
@@ -119,7 +119,7 @@ class FileHelper
 			{
 				if ($file->isValid()) 
 				{
-					$file->setName('uniq');
+					$file->setName('real');
 					$date_image_dir = $UploadDir;
 					$dest_name = $file->moveTo($date_image_dir);
 					if (PEAR::isError($dest_name)) 
