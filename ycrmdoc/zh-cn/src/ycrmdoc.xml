@@ -2,6 +2,7 @@
 <!DOCTYPE book SYSTEM "../../tools/dtd/dblite.dtd"
 [
 <!ENTITY overview SYSTEM "overview.xml">
+<!ENTITY documentmodule SYSTEM "document-module.xml">
 
 ]>
 
@@ -42,6 +43,6 @@
 
   <!-- External entity refs -->
   &overview;
-
+  &documentmodule;
 
 </book>
