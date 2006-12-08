@@ -16,6 +16,7 @@ class DaoApfFolders extends DB_DataObject
     var $password;                        // string(50)  not_null
     var $groupid;                         // string(11)  not_null
     var $userid;                          // int(4)  not_null
+    var $accessing;                       // string(8)  not_null
     var $active;                          // string(8)  not_null
     var $add_ip;                          // string(24)  
     var $created_at;                      // datetime(19)  not_null
@@ -117,6 +118,17 @@ class DaoApfFolders extends DB_DataObject
     function getUserid() 
     {
         return $this->userid;
+    }
+
+   /**
+    * Getter for $Accessing
+    *
+    * @return   string
+    * @access   public
+    */
+    function getAccessing() 
+    {
+        return $this->accessing;
     }
 
    /**
@@ -253,6 +265,17 @@ class DaoApfFolders extends DB_DataObject
     }
 
    /**
+    * Setter for $Accessing
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+    function setAccessing($value) 
+    {
+        $this->accessing = $value;
+    }
+
+   /**
     * Setter for $Active
     *
     * @param    mixed   input value
@@ -308,6 +331,7 @@ class DaoApfFolders extends DB_DataObject
              'password' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
              'groupid' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
              'userid' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+             'accessing' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
              'active' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
              'add_ip' =>  DB_DATAOBJECT_STR,
              'created_at' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
@@ -334,6 +358,7 @@ class DaoApfFolders extends DB_DataObject
              'password' => '',
              'groupid' => '',
              'userid' => 0,
+             'accessing' => '',
              'active' => 'live',
              'add_ip' => '',
          );

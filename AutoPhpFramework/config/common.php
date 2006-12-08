@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: common.php,v 1.8 2006/12/07 23:45:19 arzen Exp $
+ * @version    CVS: $Id: common.php,v 1.9 2006/12/08 05:35:51 arzen Exp $
  */
  
 $GenderOption = array(	
@@ -27,6 +27,12 @@ $ActiveOption = array(
 			'new'=>"<FONT COLOR=\"#6600FF\">".$i18n->_('New')."</FONT>",
 			'live'=>"<FONT COLOR=\"#006600\">".$i18n->_('Live')."</FONT>",
 			'deleted'=>"<FONT COLOR=\"#FF0000\">".$i18n->_('Deleted')."</FONT>",
+			);
+
+$AccessOption = array(	
+			''=>$i18n->_('All'),
+			'public'=>"<FONT COLOR=\"#6600FF\">".$i18n->_('Public')."</FONT>",
+			'private'=>"<FONT COLOR=\"#006600\">".$i18n->_('Private')."</FONT>",
 			);
 			
 $StateOption = array(	

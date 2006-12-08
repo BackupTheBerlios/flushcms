@@ -27,6 +27,7 @@
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{DESCRIPTION_ERROR_MSG}</div>
   <input type="text" name="description" id="description" value="{DESCRIPTION}" size="20" />    </div>
 </div>
+<!-- 
 <div class="form-row">
   <label >{lang_MajorRevision}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{MAJOR_REVISION_ERROR_MSG}</div>
@@ -47,9 +48,16 @@
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ACTIVE_ERROR_MSG}</div>
   {ACTIVEOPTION}    </div>
 </div>
+ -->
+<div class="form-row">
+  <label >{lang_Access}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ACCESS_ERROR_MSG}</div>
+  {ACCESSOPTION}    </div>
+</div>
+ 
 </fieldset>
 <ul class="admin_actions">
-  <li><input class="admin_action_list" value="{lang_List}" type="button" onclick="document.location.href='{WEBDIR}/document/apf_files/list';" /></li>
+  <li><input class="admin_action_list" value="{lang_List}" type="button" onclick="document.location.href='{WEBDIR}/document/apf_folders/list/{PID}';" /></li>
   <li><input type="submit" name="save" value="{lang_Save}" class="admin_action_save" /></li>
 
 </ul>

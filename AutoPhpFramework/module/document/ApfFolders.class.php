@@ -6,14 +6,14 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfFolders.class.php,v 1.11 2006/12/07 23:45:19 arzen Exp $
+ * @version    CVS: $Id: ApfFolders.class.php,v 1.12 2006/12/08 05:35:51 arzen Exp $
  */
 
 class ApfFolders  extends Actions
 {
 	function executeCreatefolder () 
 	{
-		global $template,$WebBaseDir,$controller,$ActiveOption,$logger;
+		global $template,$WebBaseDir,$controller,$AccessOption,$logger;
 
 		$template->setFile(array (
 			"MAIN" => "apf_folders_edit.html"
@@ -23,11 +23,11 @@ class ApfFolders  extends Actions
 		$params_id=$controller->getID();
 		$PID = $params_id;
 				
-		array_shift($ActiveOption);
+		array_shift($AccessOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
 			"DOACTION" => "addsubmit",
-			"ACTIVEOPTION" => radioTag("active",$ActiveOption,"new"),
+			"ACCESSOPTION" => radioTag("access",$AccessOption,"public"),
 			"PID" => $PID,
 		));
 	}
@@ -40,7 +40,7 @@ class ApfFolders  extends Actions
 	
 	function executeCreatefile () 
 	{
-		global $template,$WebBaseDir,$controller,$ActiveOption;
+		global $template,$WebBaseDir,$controller,$AccessOption;
 
 		$template->setFile(array (
 			"MAIN" => "apf_files_edit.html"
@@ -50,12 +50,12 @@ class ApfFolders  extends Actions
 		$params_id=$controller->getID();
 		$PID = $params_id;
 				
-		array_shift($ActiveOption);
+		array_shift($AccessOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
 			"DOACTION" => "addfilesubmit",
 			"FILE_NAME" => fileTag("filename"),
-			"ACTIVEOPTION" => radioTag("active",$ActiveOption,"new"),
+			"ACCESSOPTION" => radioTag("access",$AccessOption,"public"),
 			"PID" => $PID,
 		));
 	}
@@ -67,16 +67,11 @@ class ApfFolders  extends Actions
 	
 	function executeUpdate()
 	{
-		global $template,$WebBaseDir,$controller,$i18n;
+		global $template,$WebBaseDir,$AccessOption,$controller,$i18n;
 		$template->setFile(array (
 			"MAIN" => "apf_folders_edit.html"
 		));
 		$template->setBlock("MAIN", "edit_block");
-		$template->setVar(array (
-			"WEBDIR" => $WebBaseDir,
-			"DOACTION" => "updatesubmit"
-		));
-
 		$apf_folders = DB_DataObject :: factory('ApfFolders');
 		$apf_folders->get($apf_folders->escape($controller->getID()));
 
@@ -88,7 +83,14 @@ class ApfFolders  extends Actions
 			));
 		}
 
-		$template->setVar(array ("ID" => $apf_folders->getId(),"NAME" => $apf_folders->getName(),"PARENT" => $apf_folders->getParent(),"DESCRIPTION" => $apf_folders->getDescription(),"PASSWORD" => $apf_folders->getPassword(),"GROUPID" => $apf_folders->getGroupid(),"USERID" => $apf_folders->getUserid(),"ACTIVE" => $apf_folders->getActive(),"ADD_IP" => $apf_folders->getAddIp(),"CREATED_AT" => $apf_folders->getCreatedAt(),"UPDATE_AT" => $apf_folders->getUpdateAt(),));
+		$template->setVar(array ("ID" => $apf_folders->getId(),"NAME" => $apf_folders->getName(),"PARENT" => $apf_folders->getParent(),"DIRPATH" => $apf_folders->getDirpath(),"DESCRIPTION" => $apf_folders->getDescription(),"PASSWORD" => $apf_folders->getPassword(),"GROUPID" => $apf_folders->getGroupid(),"USERID" => $apf_folders->getUserid(),"ACTIVE" => $apf_folders->getActive(),"ADD_IP" => $apf_folders->getAddIp(),"CREATED_AT" => $apf_folders->getCreatedAt(),"UPDATE_AT" => $apf_folders->getUpdateAt(),));
+		array_shift($AccessOption);
+		$template->setVar(array (
+			"WEBDIR" => $WebBaseDir,
+			"ACCESSOPTION" => radioTag("access",$AccessOption,$apf_folders->getAccessing()),
+			"DOACTION" => "updatesubmit"
+		));
+
 		
 	}
 	
@@ -99,7 +101,7 @@ class ApfFolders  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n,$AddIP,$userid,$group_ids,$logger,$user_name;
+		global $template,$WebBaseDir,$i18n,$AddIP,$userid,$group_ids,$logger,$user_name,$DocumentDir;
 		$apf_folders = DB_DataObject :: factory('ApfFolders');
 
 		if ($edit_submit) 
@@ -111,15 +113,13 @@ class ApfFolders  extends Actions
 		{
 			$do_action = "addsubmit";
 		}
-		$parent_dir = $this->getFolderByPID($_POST['parent']);
-		$dir_path = $this->createFolderByPID ($_POST['parent'],$_POST['name']);
 		
 		$apf_folders->setName(stripslashes(trim($_POST['name'])));
 		$apf_folders->setParent(stripslashes(trim($_POST['parent'])));
 		$apf_folders->setDescription(stripslashes(trim($_POST['description'])));
 		$apf_folders->setPassword(stripslashes(trim($_POST['password'])));
 		$apf_folders->setActive(stripslashes(trim($_POST['active'])));
-		$apf_folders->setDirpath($dir_path);
+		$apf_folders->setAccessing(stripslashes(trim($_POST['access'])));
 
 		$apf_folders->setAddIp($AddIP);
 		$apf_folders->setGroupid($group_ids);
@@ -130,12 +130,25 @@ class ApfFolders  extends Actions
 		{
 			if ($edit_submit) 
 			{
+				$parent_dir = $this->getFolderByPID($_POST['parent']);
+				$old_folder_name = $DocumentDir.$parent_dir."/".$_POST['old_folder'];
+				$new_folder_name = $DocumentDir.$parent_dir."/".$_POST['name'];
+				rename($old_folder_name,$new_folder_name);
+				
+				$log_string = $i18n->_("Rename").$i18n->_("Folder")."\t{$old_folder_name}=>{$new_folder_name}";
+				logFileString ($log_string);
+				
 				$apf_folders->setUpdateAt(DB_DataObject_Cast::dateTime());
+				$apf_folders->setDirpath($parent_dir."/".$_POST['name']);
 				$apf_folders->update();
 				$this->forward("document/apf_folders/update/".$_POST['ID']."/ok");
 			}
 			else 
 			{
+				$parent_dir = $this->getFolderByPID($_POST['parent']);
+				$dir_path = $this->createFolderByPID ($_POST['parent'],$_POST['name']);
+				$apf_folders->setDirpath($dir_path);
+				
 				$apf_folders->setCreatedAt(DB_DataObject_Cast::dateTime());
 				$apf_folders->insert();
 				
@@ -296,6 +309,7 @@ class ApfFolders  extends Actions
 		$apf_files->setMinorRevision(stripslashes(trim($_POST['minor_revision'])));
 		$apf_files->setPassword(stripslashes(trim($_POST['password'])));
 		$apf_files->setActive(stripslashes(trim($_POST['active'])));
+		$apf_files->setAccessing(stripslashes(trim($_POST['access'])));
 
 		$apf_files->setAddIp($AddIP);
 		$apf_files->setGroupid($group_ids);
