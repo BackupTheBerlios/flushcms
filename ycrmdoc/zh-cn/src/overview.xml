@@ -1,0 +1,68 @@
+<preface id="overview">
+  <title>概述</title>
+
+
+    <sect1 id="Introduction">
+	<title>简介</title>
+	<para>
+	YCRM客户关系管理系统是一套基于B/S结构的客户关系管理系统.
+	</para>
+	</sect1>
+	
+	<sect1 id="Features">
+	<title>功能特色</title>
+	 <para>
+	   
+	
+		<orderedlist>
+		<listitem>
+		<para>公司雇员管理</para>
+		</listitem>
+		<listitem>
+		<para>联系人管理</para>
+		</listitem>
+		<listitem>
+		<para>公司管理</para>
+		</listitem>
+		<listitem>
+		<para>产品管理</para>
+		</listitem>
+		
+		<listitem>
+		<para>公司活动管理</para>
+		</listitem>
+
+		<listitem>
+		<para>计划事件安排</para>
+		</listitem>
+
+		<listitem>
+		<para>文档管理</para>
+		</listitem>
+		
+		<listitem>
+		<para>更多... </para>
+		</listitem>
+		
+		</orderedlist>
+		
+    </para>
+	</sect1>
+	
+	<sect1  id="License">
+	<title>License</title>
+	
+	<para>
+	The AutoPHPFramework is licensed under BSD and is free to use in Open Source and closed commercial projects. You must however maintain the original copyright notice as described in the license. The BSD license gives the enduser much greater freedom to use the software than any of the GPL family and its derivatives.
+	</para>
+
+
+    <para> 
+    	<author><firstname>John</firstname><surname>Meng</surname></author>, ShenZhen GuangDong, China. Nov 27, 2006
+    </para>
+    
+    </sect1>
+
+ 
+</preface>
+

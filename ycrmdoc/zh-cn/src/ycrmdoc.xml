@@ -1,15 +1,16 @@
 <?xml version="1.0"?>
 <!DOCTYPE book SYSTEM "../../tools/dtd/dblite.dtd"
 [
+<!ENTITY overview SYSTEM "overview.xml">
 
 ]>
 
 <book id="svn">
-  <title>AutoPHPFramework框架</title>
+  <title>YCRM客户关系管理系统</title>
 
   <!-- Using revnumber would be more appropriate, but our stylesheets -->
   <!-- don't seem to render it. -->
-  <subtitle>For AutoPHPFramework 1.0</subtitle>
+  <subtitle>For YCRM客户关系管理系统 1.0</subtitle>
 
   <bookinfo>
 
@@ -40,6 +41,7 @@
   </bookinfo>
 
   <!-- External entity refs -->
+  &overview;
 
 
 </book>
