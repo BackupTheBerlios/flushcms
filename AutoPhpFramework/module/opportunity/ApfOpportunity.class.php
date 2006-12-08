@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfOpportunity.class.php,v 1.5 2006/12/05 05:04:48 arzen Exp $
+ * @version    CVS: $Id: ApfOpportunity.class.php,v 1.6 2006/12/08 10:10:55 arzen Exp $
  */
 
 class ApfOpportunity  extends Actions
@@ -112,12 +112,20 @@ class ApfOpportunity  extends Actions
 			{
 				$apf_opportunity->setUpdateAt(DB_DataObject_Cast::dateTime());
 				$apf_opportunity->update();
+
+				$log_string = $i18n->_("Update").$i18n->_("Opportunity")."\t{$_POST['title']}=>{$_POST['ID']}";
+				logFileString ($log_string);
+
 				$this->forward("opportunity/apf_opportunity/update/".$_POST['ID']."/ok");
 			}
 			else 
 			{
 				$apf_opportunity->setCreatedAt(DB_DataObject_Cast::dateTime());
 				$apf_opportunity->insert();
+	
+				$log_string = $i18n->_("Create").$i18n->_("Opportunity")."\t{$_POST['title']}";
+				logFileString ($log_string);
+				
 				$this->forward("opportunity/apf_opportunity/");
 			}
 		}

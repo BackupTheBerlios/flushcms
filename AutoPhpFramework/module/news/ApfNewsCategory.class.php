@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.12 2006/12/05 05:04:48 arzen Exp $
+ * @version    CVS: $Id: ApfNewsCategory.class.php,v 1.13 2006/12/08 10:10:55 arzen Exp $
  */
 
 class ApfNewsCategory  extends Actions
@@ -99,12 +99,20 @@ class ApfNewsCategory  extends Actions
 			{
 				$apf_news_category->setUpdateAt(DB_DataObject_Cast::dateTime());
 				$apf_news_category->update();
+
+				$log_string = $i18n->_("Update").$i18n->_("NewsCategory")."\t{$_POST['category_name']}=>{$_POST['ID']}";
+				logFileString ($log_string);
+
 				$this->forward("news/apf_news_category/update/".$_POST['ID']."/ok");
 			}
 			else 
 			{
 				$apf_news_category->setCreatedAt(DB_DataObject_Cast::dateTime());
 				$insert_id = $apf_news_category->insert();
+				
+				$log_string = $i18n->_("Create").$i18n->_("NewsCategory")."\t{$_POST['category_name']}";
+				logFileString ($log_string);
+				
 				$apf_news_category->get($insert_id);
 				$apf_news_category->setOrderid($insert_id);
 				$apf_news_category->update();

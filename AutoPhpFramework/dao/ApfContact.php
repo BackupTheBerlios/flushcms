@@ -24,6 +24,7 @@ class DaoApfContact extends DB_DataObject
     var $homepage;                        // string(90)  
     var $memo;                            // blob(65535)  not_null blob
     var $active;                          // string(8)  not_null
+    var $access;                          // string(8)  not_null
     var $groupid;                         // string(11)  not_null
     var $userid;                          // int(11)  not_null
     var $add_ip;                          // string(24)  
@@ -215,6 +216,18 @@ class DaoApfContact extends DB_DataObject
     {
         return $this->active;
     }
+
+   /**
+    * Getter for $Access
+    *
+    * @return   string
+    * @access   public
+    */
+    function getAccess() 
+    {
+        return $this->access;
+    }
+
 
    /**
     * Getter for $Groupid
@@ -447,6 +460,17 @@ class DaoApfContact extends DB_DataObject
     {
         $this->active = $value;
     }
+   /**
+    * Setter for $Access
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+    function setAccess($value) 
+    {
+        $this->access = $value;
+    }
+
 
    /**
     * Setter for $Groupid
@@ -523,6 +547,7 @@ class DaoApfContact extends DB_DataObject
              'homepage' =>  DB_DATAOBJECT_STR,
              'memo' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_BLOB + DB_DATAOBJECT_NOTNULL,
              'active' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+             'access' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
              'groupid' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
              'userid' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
              'add_ip' =>  DB_DATAOBJECT_STR,
@@ -556,6 +581,7 @@ class DaoApfContact extends DB_DataObject
              'homepage' => '',
              'memo' => '',
              'active' => 'new',
+             'access' => '',
              'groupid' => '0',
              'userid' => 0,
              'add_ip' => '',

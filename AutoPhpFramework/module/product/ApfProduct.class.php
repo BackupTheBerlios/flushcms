@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfProduct.class.php,v 1.11 2006/12/05 05:04:48 arzen Exp $
+ * @version    CVS: $Id: ApfProduct.class.php,v 1.12 2006/12/08 10:10:55 arzen Exp $
  */
 
 class ApfProduct  extends Actions
@@ -142,12 +142,20 @@ class ApfProduct  extends Actions
 			{
 				$apf_product->setUpdateAt(DB_DataObject_Cast::dateTime());
 				$apf_product->update();
+
+				$log_string = $i18n->_("Update").$i18n->_("Product")."\t{$_POST['name']}=>{$_POST['ID']}";
+				logFileString ($log_string);
+
 				$this->forward("product/apf_product/update/".$_POST['ID']."/ok");
 			}
 			else 
 			{
 				$apf_product->setCreatedAt(DB_DataObject_Cast::dateTime());
 				$apf_product->insert();
+
+				$log_string = $i18n->_("Create").$i18n->_("Product")."\t{$_POST['name']}";
+				logFileString ($log_string);
+
 				$this->forward("product/apf_product/");
 			}
 		}

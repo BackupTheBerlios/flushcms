@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfNews.class.php,v 1.13 2006/12/05 05:04:48 arzen Exp $
+ * @version    CVS: $Id: ApfNews.class.php,v 1.14 2006/12/08 10:10:55 arzen Exp $
  */
 
 class ApfNews  extends Actions
@@ -113,12 +113,20 @@ class ApfNews  extends Actions
 			{
 				$apf_news->setUpdateAt(DB_DataObject_Cast::dateTime());
 				$apf_news->update();
+
+				$log_string = $i18n->_("Update").$i18n->_("News")."\t{$_POST['title']}=>{$_POST['ID']}";
+				logFileString ($log_string);
+
 				$this->forward("news/apf_news/update/".$_POST['ID']."/ok");
 			}
 			else 
 			{
 				$apf_news->setCreatedAt(DB_DataObject_Cast::dateTime());
 				$apf_news->insert();
+
+				$log_string = $i18n->_("Create").$i18n->_("News")."\t{$_POST['title']}";
+				logFileString ($log_string);
+
 				$this->forward("news/apf_news/");
 			}
 		}

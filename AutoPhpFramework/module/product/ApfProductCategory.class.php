@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfProductCategory.class.php,v 1.3 2006/12/05 05:04:48 arzen Exp $
+ * @version    CVS: $Id: ApfProductCategory.class.php,v 1.4 2006/12/08 10:10:55 arzen Exp $
  */
 
 class ApfProductCategory  extends Actions
@@ -99,12 +99,20 @@ class ApfProductCategory  extends Actions
 			{
 				$apf_product_category->setUpdateAt(DB_DataObject_Cast::dateTime());
 				$apf_product_category->update();
+
+				$log_string = $i18n->_("Update").$i18n->_("ProductCategory")."\t{$_POST['category_name']}=>{$_POST['ID']}";
+				logFileString ($log_string);
+				
 				$this->forward("product/apf_product_category/update/".$_POST['ID']."/ok");
 			}
 			else 
 			{
 				$apf_product_category->setCreatedAt(DB_DataObject_Cast::dateTime());
 				$apf_product_category->insert();
+
+				$log_string = $i18n->_("Create").$i18n->_("ProductCategory")."\t{$_POST['category_name']}";
+				logFileString ($log_string);
+
 				$this->forward("product/apf_product_category/");
 			}
 		}

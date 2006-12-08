@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfFolders.class.php,v 1.12 2006/12/08 05:35:51 arzen Exp $
+ * @version    CVS: $Id: ApfFolders.class.php,v 1.13 2006/12/08 10:10:55 arzen Exp $
  */
 
 class ApfFolders  extends Actions
@@ -87,7 +87,7 @@ class ApfFolders  extends Actions
 		array_shift($AccessOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
-			"ACCESSOPTION" => radioTag("access",$AccessOption,$apf_folders->getAccessing()),
+			"ACCESSOPTION" => radioTag("access",$AccessOption,$apf_folders->getAccess()),
 			"DOACTION" => "updatesubmit"
 		));
 
@@ -119,7 +119,7 @@ class ApfFolders  extends Actions
 		$apf_folders->setDescription(stripslashes(trim($_POST['description'])));
 		$apf_folders->setPassword(stripslashes(trim($_POST['password'])));
 		$apf_folders->setActive(stripslashes(trim($_POST['active'])));
-		$apf_folders->setAccessing(stripslashes(trim($_POST['access'])));
+		$apf_folders->setAccess(stripslashes(trim($_POST['access'])));
 
 		$apf_folders->setAddIp($AddIP);
 		$apf_folders->setGroupid($group_ids);
@@ -309,7 +309,7 @@ class ApfFolders  extends Actions
 		$apf_files->setMinorRevision(stripslashes(trim($_POST['minor_revision'])));
 		$apf_files->setPassword(stripslashes(trim($_POST['password'])));
 		$apf_files->setActive(stripslashes(trim($_POST['active'])));
-		$apf_files->setAccessing(stripslashes(trim($_POST['access'])));
+		$apf_files->setAccess(stripslashes(trim($_POST['access'])));
 
 		$apf_files->setAddIp($AddIP);
 		$apf_files->setGroupid($group_ids);
@@ -413,7 +413,7 @@ class ApfFolders  extends Actions
 	
 	function executeList()
 	{
-		global $template,$controller,$WebBaseDir,$WebTemplateDir,$WebTemplateFullPath,$ClassDir,$ActiveOption,$i18n;
+		global $template,$controller,$WebBaseDir,$WebTemplateDir,$WebTemplateFullPath,$userid,$ClassDir,$ActiveOption,$i18n;
 
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
@@ -428,6 +428,7 @@ class ApfFolders  extends Actions
 //		list folder		
 		$apf_folders = DB_DataObject :: factory('ApfFolders');
 		$apf_folders->setParent($PID);
+		$apf_folders->whereAdd(" userid = '$userid' OR access = 'public' ");
 		$apf_folders->orderBy('id desc');
 		$apf_folders->find();
 		
@@ -444,6 +445,7 @@ class ApfFolders  extends Actions
 //		lsit files
 		$apf_files = DB_DataObject :: factory('ApfFiles');
 		$apf_files->setParent($PID);
+		$apf_files->whereAdd(" userid = '$userid' OR access = 'public' ");
 		$apf_files->orderBy('id desc');
 		$apf_files->find();
 		while ($apf_files->fetch())

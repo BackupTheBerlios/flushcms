@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfFinance.class.php,v 1.10 2006/12/05 05:21:13 arzen Exp $
+ * @version    CVS: $Id: ApfFinance.class.php,v 1.11 2006/12/08 10:10:55 arzen Exp $
  */
 
 class ApfFinance  extends Actions
@@ -120,12 +120,20 @@ class ApfFinance  extends Actions
 			{
 				$apf_finance->setUpdateAt(DB_DataObject_Cast::dateTime());
 				$apf_finance->update();
+
+				$log_string = $i18n->_("Update").$i18n->_("Finance")."\t{$_POST['money']}=>{$_POST['ID']}";
+				logFileString ($log_string);
+
 				$this->forward("finance/apf_finance/update/".$_POST['ID']."/ok");
 			}
 			else 
 			{
 				$apf_finance->setCreatedAt(DB_DataObject_Cast::dateTime());
 				$apf_finance->insert();
+
+				$log_string = $i18n->_("Create").$i18n->_("Finance")."\t{$_POST['money']}=>{$_POST['create_date']}";
+				logFileString ($log_string);
+
 				$this->forward("finance/apf_finance/");
 			}
 		}

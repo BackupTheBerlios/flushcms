@@ -602,7 +602,7 @@ CREATE TABLE `apf_folders` (
   `groupid` varchar(11) NOT NULL default '',
   `userid` int(4) NOT NULL default '0',
 
-  `accessing` varchar(8) NOT NULL default 'public',
+  `access` varchar(8) NOT NULL default 'public',
   `active` varchar(8) NOT NULL default 'live',
   `add_ip` varchar(24) default NULL,
   `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
@@ -627,7 +627,7 @@ CREATE TABLE `apf_files` (
   `userid` int(4) NOT NULL default '0',
   `groupid` varchar(11) NOT NULL default '',
  
-  `accessing` varchar(8) NOT NULL default 'public',
+  `access` varchar(8) NOT NULL default 'public',
   `active` varchar(8) NOT NULL default 'live',
   `add_ip` varchar(24) default NULL,
   `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
@@ -637,3 +637,7 @@ CREATE TABLE `apf_files` (
   KEY `parentid_index` (`parent`),
   KEY `files_filetype` (`url`)
 ) TYPE=MyISAM;
+
+ALTER TABLE `apf_contact` ADD `access` VARCHAR( 8 ) NOT NULL AFTER `active` ;
+ALTER TABLE `apf_company` ADD `access` VARCHAR( 8 ) NOT NULL AFTER `active` ;
+ALTER TABLE `apf_finance` ADD `access` VARCHAR( 8 ) NOT NULL AFTER `active` ;

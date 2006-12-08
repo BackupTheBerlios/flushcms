@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfFinanceCategory.class.php,v 1.4 2006/12/05 05:04:48 arzen Exp $
+ * @version    CVS: $Id: ApfFinanceCategory.class.php,v 1.5 2006/12/08 10:10:55 arzen Exp $
  */
 
 class ApfFinanceCategory  extends Actions
@@ -99,12 +99,20 @@ class ApfFinanceCategory  extends Actions
 			{
 				$apf_finance_category->setUpdateAt(DB_DataObject_Cast::dateTime());
 				$apf_finance_category->update();
+
+				$log_string = $i18n->_("Update").$i18n->_("FinanceCategory")."\t{$_POST['category_name']}=>{$_POST['ID']}";
+				logFileString ($log_string);
+
 				$this->forward("finance/apf_finance_category/update/".$_POST['ID']."/ok");
 			}
 			else 
 			{
 				$apf_finance_category->setCreatedAt(DB_DataObject_Cast::dateTime());
 				$apf_finance_category->insert();
+
+				$log_string = $i18n->_("Create").$i18n->_("FinanceCategory")."\t{$_POST['category_name']}";
+				logFileString ($log_string);
+
 				$this->forward("finance/apf_finance_category/");
 			}
 		}

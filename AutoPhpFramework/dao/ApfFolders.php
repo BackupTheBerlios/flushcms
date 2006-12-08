@@ -16,7 +16,7 @@ class DaoApfFolders extends DB_DataObject
     var $password;                        // string(50)  not_null
     var $groupid;                         // string(11)  not_null
     var $userid;                          // int(4)  not_null
-    var $accessing;                       // string(8)  not_null
+    var $access;                          // string(8)  not_null
     var $active;                          // string(8)  not_null
     var $add_ip;                          // string(24)  
     var $created_at;                      // datetime(19)  not_null
@@ -121,14 +121,14 @@ class DaoApfFolders extends DB_DataObject
     }
 
    /**
-    * Getter for $Accessing
+    * Getter for $Access
     *
     * @return   string
     * @access   public
     */
-    function getAccessing() 
+    function getAccess() 
     {
-        return $this->accessing;
+        return $this->access;
     }
 
    /**
@@ -265,14 +265,14 @@ class DaoApfFolders extends DB_DataObject
     }
 
    /**
-    * Setter for $Accessing
+    * Setter for $Access
     *
     * @param    mixed   input value
     * @access   public
     */
-    function setAccessing($value) 
+    function setAccess($value) 
     {
-        $this->accessing = $value;
+        $this->access = $value;
     }
 
    /**
@@ -331,7 +331,7 @@ class DaoApfFolders extends DB_DataObject
              'password' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
              'groupid' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
              'userid' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
-             'accessing' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+             'access' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
              'active' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
              'add_ip' =>  DB_DATAOBJECT_STR,
              'created_at' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
@@ -358,7 +358,7 @@ class DaoApfFolders extends DB_DataObject
              'password' => '',
              'groupid' => '',
              'userid' => 0,
-             'accessing' => '',
+             'access' => '',
              'active' => 'live',
              'add_ip' => '',
          );

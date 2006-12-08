@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContactCategory.class.php,v 1.5 2006/12/05 05:04:48 arzen Exp $
+ * @version    CVS: $Id: ApfContactCategory.class.php,v 1.6 2006/12/08 10:10:55 arzen Exp $
  */
 
 class ApfContactCategory  extends Actions
@@ -99,12 +99,20 @@ class ApfContactCategory  extends Actions
 			{
 				$apf_contact_category->setUpdateAt(DB_DataObject_Cast::dateTime());
 				$apf_contact_category->update();
+
+				$log_string = $i18n->_("Update").$i18n->_("ContactCategory")."\t{$_POST['category_name']}=>{$_POST['ID']}";
+				logFileString ($log_string);
+
 				$this->forward("contact/apf_contact_category/update/".$_POST['ID']."/ok");
 			}
 			else 
 			{
 				$apf_contact_category->setCreatedAt(DB_DataObject_Cast::dateTime());
 				$apf_contact_category->insert();
+
+				$log_string = $i18n->_("Create").$i18n->_("ContactCategory")."\t{$_POST['category_name']}";
+				logFileString ($log_string);
+
 				$this->forward("contact/apf_contact_category/");
 			}
 		}

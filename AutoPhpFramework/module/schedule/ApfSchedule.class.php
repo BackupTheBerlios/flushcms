@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfSchedule.class.php,v 1.5 2006/12/03 11:31:58 arzen Exp $
+ * @version    CVS: $Id: ApfSchedule.class.php,v 1.6 2006/12/08 10:10:55 arzen Exp $
  */
 require_once 'Calendar'.DIRECTORY_SEPARATOR.'Calendar.php';
 require_once 'Calendar'.DIRECTORY_SEPARATOR.'Day.php';
@@ -95,12 +95,20 @@ class ApfSchedule  extends Actions
 			{
 				$apf_schedule->setUpdateAt(DB_DataObject_Cast::dateTime());
 				$apf_schedule->update();
+
+				$log_string = $i18n->_("Update").$i18n->_("Schedule")."\t{$_POST['title']}=>{$_POST['ID']}";
+				logFileString ($log_string);
+
 				$this->forward("schedule/apf_schedule/list/".$_POST['ID']."/ok/?y=".$_REQUEST['y']."&m=".$_REQUEST['m']."&d=".$_REQUEST['d']."");
 			}
 			else 
 			{
 				$apf_schedule->setCreatedAt(DB_DataObject_Cast::dateTime());
 				$apf_schedule->insert();
+				
+				$log_string = $i18n->_("Create").$i18n->_("Schedule")."\t{$_POST['title']}";
+				logFileString ($log_string);
+				
 				$this->forward("schedule/apf_schedule/list/?y=".$_REQUEST['y']."&m=".$_REQUEST['m']."&d=".$_REQUEST['d']."");
 			}
 		}
