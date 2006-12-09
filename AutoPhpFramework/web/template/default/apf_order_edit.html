@@ -1,0 +1,99 @@
+        
+<div id="admin_container">
+<h1>{lang_EditInfo}</h1>
+<div id="admin_header">
+</div>
+<div id="admin_content">
+  <div class="{SUCCESS_CLASS}">
+	{SUCCESS_MSG}
+  </div>
+
+<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{WEBDIR}/order/apf_order/{DOACTION}">
+<input type="hidden" name="ID" id="ID" value="{ID}" />
+<fieldset id="fieldset_________" class="">
+<h2>{lang_GeneralInfo}</h2><div class="form-row">
+  <label >{lang_Noid}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{NOID_ERROR_MSG}</div>
+  <input type="text" name="noid" id="noid" value="{NOID}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Category}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{CATEGORY_ERROR_MSG}</div>
+  <input type="text" name="category" id="category" value="{CATEGORY}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Contactid}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{CONTACTID_ERROR_MSG}</div>
+  <input type="text" name="contactid" id="contactid" value="{CONTACTID}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Product}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{PRODUCT_ERROR_MSG}</div>
+  <input type="text" name="product" id="product" value="{PRODUCT}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Amount}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{AMOUNT_ERROR_MSG}</div>
+  <input type="text" name="amount" id="amount" value="{AMOUNT}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Money}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{MONEY_ERROR_MSG}</div>
+  <input type="text" name="money" id="money" value="{MONEY}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Discount}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{DISCOUNT_ERROR_MSG}</div>
+  <input type="text" name="discount" id="discount" value="{DISCOUNT}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Payway}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{PAYWAY_ERROR_MSG}</div>
+  <input type="text" name="payway" id="payway" value="{PAYWAY}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Deliveryway}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{DELIVERYWAY_ERROR_MSG}</div>
+  <input type="text" name="deliveryway" id="deliveryway" value="{DELIVERYWAY}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Deliverydatetime}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{DELIVERYDATETIME_ERROR_MSG}</div>
+  <input type="text" name="deliverydatetime" id="deliverydatetime" value="{DELIVERYDATETIME}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_State}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{STATE_ERROR_MSG}</div>
+  <input type="text" name="state" id="state" value="{STATE}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Memo}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{MEMO_ERROR_MSG}</div>
+  <input type="text" name="memo" id="memo" value="{MEMO}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Access}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ACCESS_ERROR_MSG}</div>
+  <input type="text" name="access" id="access" value="{ACCESS}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Active}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ACTIVE_ERROR_MSG}</div>
+  <input type="text" name="active" id="active" value="{ACTIVE}" size="20" />    </div>
+</div>
+</fieldset>
+<ul class="admin_actions">
+  <li><input class="admin_action_list" value="{lang_List}" type="button" onclick="document.location.href='{WEBDIR}/order/apf_order/list';" /></li>
+  <li><input type="submit" name="save" value="{lang_Save}" class="admin_action_save" /></li>
+
+</ul>
+</form>
+
+<ul class="admin_actions">
+      <li class="float-left"></li>
+</ul>
+</div>
+
+<div id="admin_footer">
+</div>
+</div>

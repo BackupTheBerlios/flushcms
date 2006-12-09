@@ -7,19 +7,23 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.22 2006/12/08 05:35:51 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.23 2006/12/09 04:17:36 arzen Exp $
  */
 $this->setCharset('gb2312'); 
 $messages = array(
 	'site_title' => 'YCRM客户关系管理系统',
 	'Copyright' => '&copy; 2006 版权所有 AutoPHPFramework 团队。',
 	'Home' => '首页',
-	'Users' => '管理员',
+	'Users' => '公司员工',
 	'News' => '公司活动',
 	'NewsCategory' => '公司活动类别',
 	'Product' => '产品',
 	'ProductCategory' => '产品类别',
 	'Logout' => '退出',
+	'Sale' => '销售',
+	'Costs' => '费用',
+	'Customer' => '客户',
+	'Workbench' => '工作台',
 
 	'PrevPage' => '上页',
 	'NextPage' => '下页',
@@ -182,7 +186,42 @@ $messages = array(
 	'Filename' => '文件',
 	'MajorRevision' => '主版本号',
 	'MinorRevision' => '副版本号',
+//order
+	'Order' => '订单',
+	'Noid' => '编号',
+	'Contactid' => '联系人',
+	'Discount' => '折扣',
+	'Payway' => '付款方式',
+	'Deliveryway' => '交货方式',
+	'Deliverydatetime' => '交货日期',
+	'OrderCategory' => '订单分类',
+	'Userid' => '拥有者',
+	'CreatedAt' => '创建日期',
+//agreement
+	'Agreement' => '合同',
+	'Effectdate' => '生效日期',
+	'Expireddate' => '失效日期',
+	'Buyer' => '甲方',
+	'Vender' => '乙方',
+	'Buyersignature' => '甲方签约人',
+	'Vendersignature' => '乙方签约人',
 
+//afterService
+	'AfterService' => '售后',
+//Complaints
+	'Complaints' => '投诉',
+	'Complainanter' => '投诉人',
+	'Reply' => '回复',
+	'Handleman' => '处理人',
+	'Handledate' => '处理日期',
+//Refundment
+	'Refundment' => '退货',
+	'Refundmenter' => '退货人',
+	'Reasons' => '退货原因',
+//Review
+	'Review' => '回访',
+	'Linkman' => '接待人',
+	'Reviewdate' => '回访日期',
 	
 //Permit
 	'NotPermit' => '权限不足',

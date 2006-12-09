@@ -1,0 +1,79 @@
+        
+<div id="admin_container">
+<h1>{lang_EditInfo}</h1>
+<div id="admin_header">
+</div>
+<div id="admin_content">
+  <div class="{SUCCESS_CLASS}">
+	{SUCCESS_MSG}
+  </div>
+
+<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{WEBDIR}/complaints/apf_complaints/{DOACTION}">
+<input type="hidden" name="ID" id="ID" value="{ID}" />
+<fieldset id="fieldset_________" class="">
+<h2>{lang_GeneralInfo}</h2><div class="form-row">
+  <label >{lang_Category}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{CATEGORY_ERROR_MSG}</div>
+  <input type="text" name="category" id="category" value="{CATEGORY}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Complainanter}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{COMPLAINANTER_ERROR_MSG}</div>
+  <input type="text" name="complainanter" id="complainanter" value="{COMPLAINANTER}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Title}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{TITLE_ERROR_MSG}</div>
+  <input type="text" name="TITLE" id="TITLE" value="{TITLE}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Content}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{CONTENT_ERROR_MSG}</div>
+  <input type="text" name="CONTENT" id="CONTENT" value="{CONTENT}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Reply}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{REPLY_ERROR_MSG}</div>
+  <input type="text" name="reply" id="reply" value="{REPLY}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Handleman}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{HANDLEMAN_ERROR_MSG}</div>
+  <input type="text" name="handleman" id="handleman" value="{HANDLEMAN}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Handledate}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{HANDLEDATE_ERROR_MSG}</div>
+  <input type="text" name="handledate" id="handledate" value="{HANDLEDATE}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_State}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{STATE_ERROR_MSG}</div>
+  <input type="text" name="state" id="state" value="{STATE}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Access}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ACCESS_ERROR_MSG}</div>
+  <input type="text" name="access" id="access" value="{ACCESS}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Active}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ACTIVE_ERROR_MSG}</div>
+  <input type="text" name="active" id="active" value="{ACTIVE}" size="20" />    </div>
+</div>
+</fieldset>
+<ul class="admin_actions">
+  <li><input class="admin_action_list" value="{lang_List}" type="button" onclick="document.location.href='{WEBDIR}/complaints/apf_complaints/list';" /></li>
+  <li><input type="submit" name="save" value="{lang_Save}" class="admin_action_save" /></li>
+
+</ul>
+</form>
+
+<ul class="admin_actions">
+      <li class="float-left"></li>
+</ul>
+</div>
+
+<div id="admin_footer">
+</div>
+</div>

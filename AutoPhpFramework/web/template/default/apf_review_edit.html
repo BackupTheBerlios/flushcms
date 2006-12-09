@@ -1,0 +1,59 @@
+        
+<div id="admin_container">
+<h1>{lang_EditInfo}</h1>
+<div id="admin_header">
+</div>
+<div id="admin_content">
+  <div class="{SUCCESS_CLASS}">
+	{SUCCESS_MSG}
+  </div>
+
+<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{WEBDIR}/review/apf_review/{DOACTION}">
+<input type="hidden" name="ID" id="ID" value="{ID}" />
+<fieldset id="fieldset_________" class="">
+<h2>{lang_GeneralInfo}</h2><div class="form-row">
+  <label >{lang_Company}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{COMPANY_ERROR_MSG}</div>
+  <input type="text" name="company" id="company" value="{COMPANY}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Linkman}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{LINKMAN_ERROR_MSG}</div>
+  <input type="text" name="linkman" id="linkman" value="{LINKMAN}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Reviewdate}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{REVIEWDATE_ERROR_MSG}</div>
+  <input type="text" name="reviewdate" id="reviewdate" value="{REVIEWDATE}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Content}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{CONTENT_ERROR_MSG}</div>
+  <input type="text" name="CONTENT" id="CONTENT" value="{CONTENT}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Access}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ACCESS_ERROR_MSG}</div>
+  <input type="text" name="access" id="access" value="{ACCESS}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Active}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ACTIVE_ERROR_MSG}</div>
+  <input type="text" name="active" id="active" value="{ACTIVE}" size="20" />    </div>
+</div>
+</fieldset>
+<ul class="admin_actions">
+  <li><input class="admin_action_list" value="{lang_List}" type="button" onclick="document.location.href='{WEBDIR}/review/apf_review/list';" /></li>
+  <li><input type="submit" name="save" value="{lang_Save}" class="admin_action_save" /></li>
+
+</ul>
+</form>
+
+<ul class="admin_actions">
+      <li class="float-left"></li>
+</ul>
+</div>
+
+<div id="admin_footer">
+</div>
+</div>

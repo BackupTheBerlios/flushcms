@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: Generator.php,v 1.16 2006/12/02 02:16:02 arzen Exp $
+ * @version    CVS: $Id: Generator.php,v 1.17 2006/12/09 04:17:35 arzen Exp $
  * @link       http://pear.php.net/package/DB_DataObject
  */
  
@@ -600,90 +600,90 @@ class DB_DataObject_Generator extends DB_DataObject
      * building the template files
      * for each of the tables output a file!
      */
-//    function generateTemplates()
-//    {
-//        //echo "Generating Class files:        \n";
-//        $options = &PEAR::getStaticProperty('DB_DataObject','options');
-//        $base = $options['template_location'];
-//        if (strpos($base,'%s') !== false) {
-//            $base = dirname($base);
-//        } 
-//        
-//        
-//        if (!file_exists($base)) {
-//            require_once 'System.php';
-//            System::mkdir(array('-p',$base));
-//        }
-//
-//        foreach($this->tables as $this->table) {
-//            $this->table = trim($this->table);
-//            $i = '';
-//            
-//            if (strpos($options['template_location'],'%s') !== false) {
-//                $outfilename   = sprintf($options['template_location'], preg_replace('/[^A-Z0-9]/i','_',$this->table));
-//            } else { 
-//                $outfilename = "{$base}/".preg_replace('/[^A-Z0-9]/i','_',$this->table)."";//.php
-//            }
-//            $oldcontents = '';
-//            if (file_exists($outfilename)) {
-//                // file_get_contents???
-//                $oldcontents = implode('',file($outfilename));
-//            }
-//            $out = $this->_generateListTemplate($oldcontents,$this->table);
-//            $edit_out = $this->_generateEditTemplate($oldcontents,$this->table);
-//            $this->debug( "writing $this->classname\n");
-//            $fh = fopen($outfilename."_list.html", "w");
-//            fputs($fh,$out);
-//            fclose($fh);
-//            
-//            $fh = fopen($outfilename."_edit.html", "w");
-//            fputs($fh,$edit_out);
-//            fclose($fh);
-//        }
-//        //echo $out;
-//    }
-//    
-//	
-//	function generateModuleFile () 
-//	{
-//        //echo "Generating Class files:        \n";
-//        $options = &PEAR::getStaticProperty('DB_DataObject','options');
-//        $base = $options['modules_location'];
-//        if (strpos($base,'%s') !== false) {
-//            $base = dirname($base);
-//        } 
-//        
-//        
-//        if (!file_exists($base)) {
-//            require_once 'System.php';
-//            System::mkdir(array('-p',$base));
-//        }
-//
-//        foreach($this->tables as $this->table) {
-//            $this->table = trim($this->table);
-//	        if (!file_exists($options["{$this->table}_modules_location"])) {
-//	            require_once 'System.php';
-//	            System::mkdir(array('-p',$options["{$this->table}_modules_location"]));
-//	        }
-//            $i = '';
-//             if (strpos($options["{$this->table}_modules_location"],'%s') !== false) {
-//                $outfilename   = sprintf($options["{$this->table}_modules_location"], preg_replace('/[^A-Z0-9]/i','_',$this->CamelCaseFromUnderscore($this->table)));
-//            } else { 
-//                $outfilename = $options["{$this->table}_modules_location"].preg_replace('/[^A-Z0-9]/i','_',$this->CamelCaseFromUnderscore($this->table))."";//.php
-//            }
-//            $oldcontents = '';
-//            if (file_exists($outfilename)) {
-//                // file_get_contents???
-//                $oldcontents = implode('',file($outfilename));
-//            }
-//            $out = $this->_generateModuleFile($oldcontents,$this->table);
-//            $this->debug( "writing $this->classname\n");
-//            $fh = fopen($outfilename.".class.php", "w");
-//            fputs($fh,$out);
-//            fclose($fh);
-//        }
-//        //echo $out;
-//	}
+    function generateTemplates()
+    {
+        //echo "Generating Class files:        \n";
+        $options = &PEAR::getStaticProperty('DB_DataObject','options');
+        $base = $options['template_location'];
+        if (strpos($base,'%s') !== false) {
+            $base = dirname($base);
+        } 
+        
+        
+        if (!file_exists($base)) {
+            require_once 'System.php';
+            System::mkdir(array('-p',$base));
+        }
+
+        foreach($this->tables as $this->table) {
+            $this->table = trim($this->table);
+            $i = '';
+            
+            if (strpos($options['template_location'],'%s') !== false) {
+                $outfilename   = sprintf($options['template_location'], preg_replace('/[^A-Z0-9]/i','_',$this->table));
+            } else { 
+                $outfilename = "{$base}/".preg_replace('/[^A-Z0-9]/i','_',$this->table)."";//.php
+            }
+            $oldcontents = '';
+            if (file_exists($outfilename)) {
+                // file_get_contents???
+                $oldcontents = implode('',file($outfilename));
+            }
+            $out = $this->_generateListTemplate($oldcontents,$this->table);
+            $edit_out = $this->_generateEditTemplate($oldcontents,$this->table);
+            $this->debug( "writing $this->classname\n");
+            $fh = fopen($outfilename."_list.html", "w");
+            fputs($fh,$out);
+            fclose($fh);
+            
+            $fh = fopen($outfilename."_edit.html", "w");
+            fputs($fh,$edit_out);
+            fclose($fh);
+        }
+        //echo $out;
+    }
+    
+	
+	function generateModuleFile () 
+	{
+        //echo "Generating Class files:        \n";
+        $options = &PEAR::getStaticProperty('DB_DataObject','options');
+        $base = $options['modules_location'];
+        if (strpos($base,'%s') !== false) {
+            $base = dirname($base);
+        } 
+        
+        
+        if (!file_exists($base)) {
+            require_once 'System.php';
+            System::mkdir(array('-p',$base));
+        }
+
+        foreach($this->tables as $this->table) {
+            $this->table = trim($this->table);
+	        if (!file_exists($options["{$this->table}_modules_location"])) {
+	            require_once 'System.php';
+	            System::mkdir(array('-p',$options["{$this->table}_modules_location"]));
+	        }
+            $i = '';
+             if (strpos($options["{$this->table}_modules_location"],'%s') !== false) {
+                $outfilename   = sprintf($options["{$this->table}_modules_location"], preg_replace('/[^A-Z0-9]/i','_',$this->CamelCaseFromUnderscore($this->table)));
+            } else { 
+                $outfilename = $options["{$this->table}_modules_location"].preg_replace('/[^A-Z0-9]/i','_',$this->CamelCaseFromUnderscore($this->table))."";//.php
+            }
+            $oldcontents = '';
+            if (file_exists($outfilename)) {
+                // file_get_contents???
+                $oldcontents = implode('',file($outfilename));
+            }
+            $out = $this->_generateModuleFile($oldcontents,$this->table);
+            $this->debug( "writing $this->classname\n");
+            $fh = fopen($outfilename.".class.php", "w");
+            fputs($fh,$out);
+            fclose($fh);
+        }
+        //echo $out;
+	}
 
     /**
      * class being extended (can be overridden by [DB_DataObject_Generator] extends=xxxx
@@ -1047,12 +1047,20 @@ class {$camel_case_name}  extends Actions
 			{
 				\${$outfilename}->setUpdateAt(DB_DataObject_Cast::dateTime());
 				\${$outfilename}->update();
+
+				\$log_string = \$i18n->_("Update").\$i18n->_("ModuleName")."\t{\$_POST['name']}=>{\$_POST['ID']}";
+				logFileString (\$log_string);
+				
 				\$this->forward("{$module_name}/{$outfilename}/update/".\$_POST['ID']."/ok");
 			}
 			else 
 			{
 				\${$outfilename}->setCreatedAt(DB_DataObject_Cast::dateTime());
 				\${$outfilename}->insert();
+
+				\$log_string = \$i18n->_("Create").\$i18n->_("ModuleName")."\t{\$_POST['name']}=>{\$_POST['create_date']}";
+				logFileString (\$log_string);
+
 				\$this->forward("{$module_name}/{$outfilename}/");
 			}
 		}
@@ -1087,17 +1095,21 @@ class {$camel_case_name}  extends Actions
 	
 	function executeDel()
 	{
-		global \$controller;
+		global \$controller,\$i18n;
 		\${$outfilename} = DB_DataObject :: factory('{$camel_case_name}');
 		\${$outfilename}->get(\${$outfilename}->escape(\$controller->getID()));
 		\${$outfilename}->setActive('deleted');
 		\${$outfilename}->update();
+
+		\$log_string = \$i18n->_("Delete").\$i18n->_("File")."\t{\$filename}";
+		logFileString (\$log_string);
+
 		\$this->forward("{$module_name}/{$outfilename}/");
 	}
 	
 	function executeList()
 	{
-		global \$template,\$WebBaseDir,\$WebTemplateDir,\$ClassDir,\$ActiveOption;
+		global \$template,\$WebBaseDir,\$i18n,\$WebTemplateDir,\$ClassDir,\$userid,\$ActiveOption;
 
 		include_once(\$ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
@@ -1107,26 +1119,24 @@ class {$camel_case_name}  extends Actions
 
 		\$template->setBlock("MAIN", "main_list", "list_block");
 
-		\$max_row = 10;
 		\${$outfilename} = DB_DataObject :: factory('{$camel_case_name}');
-
 		\${$outfilename}->orderBy('{$id_field_name} desc');
+
+		\$max_row = 10;
 		\$ToltalNum = \${$outfilename}->count();
 		\$start_num = !isset(\$_GET['entrant'])?0:(\$_GET['entrant']-1)*\$max_row;
 		\${$outfilename}->limit(\$start_num,\$max_row);
+		\${$outfilename}->whereAdd(" userid = '\$userid' OR access = 'public' ");
 
 		\${$outfilename}->find();
 		
-		\$i=0;
 		\$myData=array();
 		while (\${$outfilename}->fetch())
 		{
 			\$myData[] = \${$outfilename}->toArray();
-			\$i++;
 		}
-		\$tmpData = (\$ToltalNum>\$max_row)?array_pad(\$myData, \$ToltalNum, array()):\$myData;
 		\$params = array(
-		    'itemData' => \$tmpData,
+		    'totalItems' => \$ToltalNum,
 		    'perPage' => \$max_row,
 		    'delta' => 8,             // for 'Jumping'-style a lower number is better
 		    'append' => true,
@@ -1135,6 +1145,8 @@ class {$camel_case_name}  extends Actions
 		    'urlVar' => 'entrant',
 		    'useSessions' => true,
 		    'closeSession' => true,
+		    'prevImg'=>\$i18n->_("PrevPage"),
+		    'nextImg'=>\$i18n->_("NextPage"),
 		    //'mode'  => 'Sliding',    //try switching modes
 		    'mode'  => 'Jumping',
 		    'extraVars' => array(
@@ -1142,10 +1154,9 @@ class {$camel_case_name}  extends Actions
 		
 		);
 		\$pager = & Pager::factory(\$params);
-		\$page_data = \$pager->getPageData();
 		\$links = \$pager->getLinks();
-		
-		\$selectBox = \$pager->getPerPageSelectBox();
+		\$current_page = \$pager->getCurrentPageID();		
+		\$selectBox = \$pager->getPageSelectBox(array('autoSubmit'=>true));
 		\$i = 0;
 		foreach(\$myData as \$data)
 		{

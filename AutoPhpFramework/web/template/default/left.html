@@ -65,40 +65,40 @@ body {font-family: Arial, Tahoma, Verdana;}
 
 <div>
      <div id="accordionExample">
-     		<div >
-     		  <div  class="panelheader" align="center">
-     		  	{lang_Home}
-     		  </div>
-     		  <div class="panelContent" align="center">
-     		  	<a href="{WEBBASEDIR}" target="_parent"><span>
-				<img src="{TEMPLATEDIR}images/home_mid_button.gif" /><br/>
-				{lang_Home}</span></a><br>
-
+			<!-- 公司工作台 -->
+    		<div>
+    		  <div class="panelheader" align="center">
+    		  	{lang_Company}{lang_Workbench}
+    		  </div>
+    			<div class="panelContent" align="center">
+ 
 				<a href="{WEBBASEDIR}/users/apf_users" target="main"><span>
 				<img src="{TEMPLATEDIR}images/admin_mid_button.gif" /><br/>
 				{lang_Users}</span></a><br>
 
+
+				<a href="{WEBBASEDIR}/news/apf_news" target="main"><span>
+				<img src="{TEMPLATEDIR}images/news_mid_button.gif" /><br/>{lang_News}</span></a><br>
+
+    			<a href="{WEBBASEDIR}/schedule/apf_schedule" target="main"><span>
+				<img src="{TEMPLATEDIR}images/schedule_mid_button.gif" /><br/>
+				{lang_Schedule}</span></a><br>
+
+    			<a href="{WEBBASEDIR}/document/apf_folders" target="main"><span>
+				<img src="{TEMPLATEDIR}images/dms.gif" /><br/>
+				{lang_Document}</span></a><br>
+
 			  </div>
-     		</div>
 
+			</div>
+
+			<!-- 客户管理 -->
     		<div>
     		  <div class="panelheader" align="center">
-    		  	{lang_Finance}
-    		  </div>
-    			<div class="panelContent" align="center">
-    			<a href="{WEBBASEDIR}/finance/apf_finance" target="main"><span>
-				<img src="{TEMPLATEDIR}images/finance_mid_button.gif" /><br/>{lang_Finance}</span></a><br>
-          		</div>
-    		</div>
-
-    		<div>
-    		  <div class="panelheader" align="center">
-    		  	{lang_Company}
+    		  	{lang_Customer}{lang_Manage}
     		  </div>
     			<div class="panelContent" align="center">
  
-				<a href="{WEBBASEDIR}/news/apf_news" target="main"><span>
-				<img src="{TEMPLATEDIR}images/news_mid_button.gif" /><br/>{lang_News}</span></a><br>
 
 				<a href="{WEBBASEDIR}/contact/apf_contact" target="main"><span>
 			    <img src="{TEMPLATEDIR}images/contact_mid_button.gif" /><br/>
@@ -111,43 +111,60 @@ body {font-family: Arial, Tahoma, Verdana;}
     			<a href="{WEBBASEDIR}/product/apf_product" target="main"><span>
 				<img src="{TEMPLATEDIR}images/products_mid_button.gif" /><br/>
 				{lang_Product}</span></a><br>
-
-			  </div>
-
-			</div>
-
+	
+				</div>
+    		</div>
+			<!-- 销售管理 -->
     		<div>
     		  <div class="panelheader" align="center">
-    		  	{lang_Opportunity}
+    		  	{lang_Sale}{lang_Manage}
     		  </div>
     			<div class="panelContent" align="center">
-    			<a href="{WEBBASEDIR}/opportunity/apf_opportunity" target="main"><span>
+
+				<a href="{WEBBASEDIR}/opportunity/apf_opportunity" target="main"><span>
 				<img src="{TEMPLATEDIR}images/opportunity_mid_button.gif" /><br/>{lang_Opportunity}</span></a><br>
+
+				<a href="{WEBBASEDIR}/order/apf_order" target="main"><span>
+				<img src="{TEMPLATEDIR}images/order_mid_button.gif" /><br/>{lang_Order}</span></a><br>
+
+				<a href="{WEBBASEDIR}/agreement/apf_agreement" target="main"><span>
+				<img src="{TEMPLATEDIR}images/agreement_mid_button.gif" /><br/>{lang_Agreement}</span></a><br>
+
           		</div>
     		</div>
-
+			<!-- 售后管理 -->
     		<div>
     		  <div class="panelheader" align="center">
-    		  	{lang_Schedule}
+    		  	{lang_AfterService}{lang_Manage}
     		  </div>
     			<div class="panelContent" align="center">
-    			<a href="{WEBBASEDIR}/schedule/apf_schedule" target="main"><span>
-				<img src="{TEMPLATEDIR}images/schedule_mid_button.gif" /><br/>
-				{lang_Schedule}</span></a><br>
+
+				<a href="{WEBBASEDIR}/complaints/apf_complaints" target="main"><span>
+				<img src="{TEMPLATEDIR}images/complaints_mid_button.gif" /><br/>{lang_Complaints}</span></a><br>
+
+				<a href="{WEBBASEDIR}/refundment/apf_refundment" target="main"><span>
+				<img src="{TEMPLATEDIR}images/refundment_mid_button.gif" /><br/>{lang_Refundment}</span></a><br>
+
+				<a href="{WEBBASEDIR}/review/apf_review" target="main"><span>
+				<img src="{TEMPLATEDIR}images/review_mid_button.gif" /><br/>{lang_Review}</span></a><br>
+
           		</div>
     		</div>
 
-     		<div >
-     		  <div class="panelheader" align="center">
-     		  	{lang_Document}
-     		  </div>
-     			<div class="panelContent" align="center">
-    			<a href="{WEBBASEDIR}/document/apf_folders" target="main"><span>
-				<img src="{TEMPLATEDIR}images/dms.gif" /><br/>
-				{lang_Document}</span></a><br>
-     		  </div>
-     		</div>
-			
+			<!-- 费用管理 -->
+    		<div>
+    		  <div class="panelheader" align="center">
+    		  	{lang_Costs}{lang_Manage}
+    		  </div>
+    			<div class="panelContent" align="center">
+    			
+				<a href="{WEBBASEDIR}/finance/apf_finance" target="main"><span>
+				<img src="{TEMPLATEDIR}images/finance_mid_button.gif" /><br/>{lang_Finance}</span></a><br>
+          		
+				</div>
+    		</div>
+
+
     		
       </div>
 

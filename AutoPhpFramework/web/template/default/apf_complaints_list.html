@@ -1,0 +1,57 @@
+        
+<div id="admin_container">
+<h1>{lang_Complaints}{lang_Listing}</h1>
+<div id="admin_header">
+</div>
+<div id="admin_bar">
+</div>
+        
+<ul class="admin_actions">
+          <li><input class="admin_action_create" value="{lang_Create}" type="button" onclick="document.location.href='{WEBDIR}/complaints/apf_complaints/create';" /></li>
+          <li><input class="admin_action_create" value="{lang_Complaints}{lang_Category}" type="button" onclick="document.location.href='{WEBDIR}/complaints/apf_complaints_category';" /></li>
+</ul>
+
+<table cellspacing="0" class="admin_list">      
+<thead>
+<tr><th>&nbsp;{lang_Id}</th>
+<th>&nbsp;{lang_Category}</th>
+<th>&nbsp;{lang_Complainanter}</th>
+<th>&nbsp;{lang_Reply}</th>
+<th>&nbsp;{lang_Handleman}</th>
+<th>&nbsp;{lang_Handledate}</th>
+<th>&nbsp;{lang_State}</th>
+<th>&nbsp;{lang_Userid}</th>
+<th>&nbsp;{lang_CreatedAt}</th>
+<th>{lang_Action}</th>
+</tr>
+</thead>
+<tbody>
+<!-- BEGIN main_list -->
+<tr class="{LIST_TD_CLASS}"><td>&nbsp;{ID}</td>
+<td>&nbsp;{CATEGORY}</td>
+<td>&nbsp;{COMPLAINANTER}</td>
+<td>&nbsp;{REPLY}</td>
+<td>&nbsp;{HANDLEMAN}</td>
+<td>&nbsp;{HANDLEDATE}</td>
+<td>&nbsp;{STATE}</td>
+<td>&nbsp;{USERID}</td>
+<td>&nbsp;{CREATED_AT}</td>
+<td>
+<ul class="admin_td_actions">
+  <li><a href="{WEBDIR}/complaints/apf_complaints/update/{ID}"><img alt="{lang_Edit}" title="{lang_Edit}" src="{WEBTEMPLATEDIR}images/edit_icon.png" /></a></li>
+  <li><a onclick="if (confirm('Are you sure?')) { f = document.createElement('form'); document.body.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;" href="{WEBDIR}/complaints/apf_complaints/del/{ID}"><img alt="{lang_Delete}" title="{lang_Delete}" src="{WEBTEMPLATEDIR}images/delete_icon.png" /></a></li>
+</ul>
+
+</td>
+         </tr>
+<!-- END main_list -->
+</tbody>
+<tfoot>
+<tr><th colspan="17">
+<div class="float-right">
+{PAGINATION}
+</div>
+{TOLTAL_NUM} {lang_Result} </th></tr>
+</tfoot>
+
+</table>

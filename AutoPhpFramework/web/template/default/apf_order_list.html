@@ -1,0 +1,61 @@
+        
+<div id="admin_container">
+<h1>{lang_Order}{lang_Listing}</h1>
+<div id="admin_header">
+</div>
+<div id="admin_bar">
+</div>
+        
+<ul class="admin_actions">
+          <li><input class="admin_action_create" value="{lang_Create}" type="button" onclick="document.location.href='{WEBDIR}/order/apf_order/create';" /></li>
+          <li><input class="admin_action_create" value="{lang_Order}{lang_Category}" type="button" onclick="document.location.href='{WEBDIR}/order/apf_order_category';" /></li>
+</ul>
+
+<table cellspacing="0" class="admin_list">      
+<thead>
+<tr><th>&nbsp;{lang_Id}</th>
+<th>&nbsp;{lang_Noid}</th>
+<th>&nbsp;{lang_Category}</th>
+<th>&nbsp;{lang_Contactid}</th>
+<th>&nbsp;{lang_Amount}</th>
+<th>&nbsp;{lang_Money}</th>
+<th>&nbsp;{lang_Discount}</th>
+<th>&nbsp;{lang_Deliverydatetime}</th>
+<th>&nbsp;{lang_State}</th>
+<th>&nbsp;{lang_Userid}</th>
+<th>&nbsp;{lang_CreatedAt}</th>
+<th>{lang_Action}</th>
+</tr>
+</thead>
+<tbody>
+<!-- BEGIN main_list -->
+<tr class="{LIST_TD_CLASS}"><td>&nbsp;{ID}</td>
+<td>&nbsp;{NOID}</td>
+<td>&nbsp;{CATEGORY}</td>
+<td>&nbsp;{CONTACTID}</td>
+<td>&nbsp;{AMOUNT}</td>
+<td>&nbsp;{MONEY}</td>
+<td>&nbsp;{DISCOUNT}</td>
+<td>&nbsp;{DELIVERYDATETIME}</td>
+<td>&nbsp;{STATE}</td>
+<td>&nbsp;{USERID}</td>
+<td>&nbsp;{CREATED_AT}</td>
+<td>
+<ul class="admin_td_actions">
+  <li><a href="{WEBDIR}/order/apf_order/update/{ID}"><img alt="{lang_Edit}" title="{lang_Edit}" src="{WEBTEMPLATEDIR}images/edit_icon.png" /></a></li>
+  <li><a onclick="if (confirm('Are you sure?')) { f = document.createElement('form'); document.body.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;" href="{WEBDIR}/order/apf_order/del/{ID}"><img alt="{lang_Delete}" title="{lang_Delete}" src="{WEBTEMPLATEDIR}images/delete_icon.png" /></a></li>
+</ul>
+
+</td>
+         </tr>
+<!-- END main_list -->
+</tbody>
+<tfoot>
+<tr><th colspan="21">
+<div class="float-right">
+{PAGINATION}
+</div>
+{TOLTAL_NUM} {lang_Result} </th></tr>
+</tfoot>
+
+</table>
