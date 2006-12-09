@@ -6,22 +6,26 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfOrder.class.php,v 1.1 2006/12/09 04:17:35 arzen Exp $
+ * @version    CVS: $Id: ApfOrder.class.php,v 1.2 2006/12/09 08:27:00 arzen Exp $
  */
 
 class ApfOrder  extends Actions
 {
 	function executeCreate()
 	{
-		global $template,$WebBaseDir;
+		global $template,$WebBaseDir,$AccessOption;
 
 		$template->setFile(array (
 			"MAIN" => "apf_order_edit.html"
 		));
 		$template->setBlock("MAIN", "add_block");
 		
+		array_shift($AccessOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"ACCESSOPTION" => radioTag("access",$AccessOption,"public"),
+			"DELIVERYDATE" => inputDateTag ("deliverydatetime"),
+			"MEMOTEXT" => textareaTag ('memo',"",false,"ROWS=\"8\" COLS=\"40\""),
 			"DOACTION" => "addsubmit"
 		));
 
@@ -34,16 +38,11 @@ class ApfOrder  extends Actions
 	
 	function executeUpdate()
 	{
-		global $template,$WebBaseDir,$controller,$i18n;
+		global $template,$WebBaseDir,$controller,$i18n,$AccessOption;
 		$template->setFile(array (
 			"MAIN" => "apf_order_edit.html"
 		));
 		$template->setBlock("MAIN", "edit_block");
-		$template->setVar(array (
-			"WEBDIR" => $WebBaseDir,
-			"DOACTION" => "updatesubmit"
-		));
-
 		$apf_order = DB_DataObject :: factory('ApfOrder');
 		$apf_order->get($apf_order->escape($controller->getID()));
 
@@ -57,6 +56,15 @@ class ApfOrder  extends Actions
 
 		$template->setVar(array ("ID" => $apf_order->getId(),"NOID" => $apf_order->getNoid(),"CATEGORY" => $apf_order->getCategory(),"CONTACTID" => $apf_order->getContactid(),"PRODUCT" => $apf_order->getProduct(),"AMOUNT" => $apf_order->getAmount(),"MONEY" => $apf_order->getMoney(),"DISCOUNT" => $apf_order->getDiscount(),"PAYWAY" => $apf_order->getPayway(),"DELIVERYWAY" => $apf_order->getDeliveryway(),"DELIVERYDATETIME" => $apf_order->getDeliverydatetime(),"STATE" => $apf_order->getState(),"MEMO" => $apf_order->getMemo(),"GROUPID" => $apf_order->getGroupid(),"USERID" => $apf_order->getUserid(),"ACCESS" => $apf_order->getAccess(),"ACTIVE" => $apf_order->getActive(),"ADD_IP" => $apf_order->getAddIp(),"CREATED_AT" => $apf_order->getCreatedAt(),"UPDATE_AT" => $apf_order->getUpdateAt(),));
 		
+		array_shift($AccessOption);
+		$template->setVar(array (
+			"WEBDIR" => $WebBaseDir,
+			"ACCESSOPTION" => radioTag("access",$AccessOption,$apf_order->getAccess()),
+			"DELIVERYDATE" => inputDateTag ("deliverydatetime",$apf_order->getDeliverydatetime()),
+			"MEMOTEXT" => textareaTag ('memo',$apf_order->getMemo(),false,"ROWS=\"8\" COLS=\"40\""),
+			"DOACTION" => "updatesubmit"
+		));
+
 	}
 	
 	function executeUpdatesubmit () 
@@ -66,7 +74,7 @@ class ApfOrder  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n;
+		global $template,$WebBaseDir,$i18n,$AddIP,$userid,$group_ids;
 		$apf_order = DB_DataObject :: factory('ApfOrder');
 
 		if ($edit_submit) 
@@ -95,9 +103,10 @@ class ApfOrder  extends Actions
 		$apf_order->setUserid(stripslashes(trim($_POST['userid'])));
 		$apf_order->setAccess(stripslashes(trim($_POST['access'])));
 		$apf_order->setActive(stripslashes(trim($_POST['active'])));
-		$apf_order->setAddIp(stripslashes(trim($_POST['add_ip'])));
-		$apf_order->setCreatedAt(stripslashes(trim($_POST['created_at'])));
-		$apf_order->setUpdateAt(stripslashes(trim($_POST['update_at'])));
+
+		$apf_order->setAddIp($AddIP);
+		$apf_order->setGroupid($group_ids);
+		$apf_order->setUserid($userid);
 
 				
 		$val = $apf_order->validate();
@@ -183,10 +192,10 @@ class ApfOrder  extends Actions
 		$apf_order->orderBy('id desc');
 
 		$max_row = 10;
-		$ToltalNum = $apf_order->count();
 		$start_num = !isset($_GET['entrant'])?0:($_GET['entrant']-1)*$max_row;
 		$apf_order->limit($start_num,$max_row);
 		$apf_order->whereAdd(" userid = '$userid' OR access = 'public' ");
+		$ToltalNum = $apf_order->count();
 
 		$apf_order->find();
 		

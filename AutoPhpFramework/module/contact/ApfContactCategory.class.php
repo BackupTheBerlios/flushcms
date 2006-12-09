@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfContactCategory.class.php,v 1.6 2006/12/08 10:10:55 arzen Exp $
+ * @version    CVS: $Id: ApfContactCategory.class.php,v 1.7 2006/12/09 08:27:00 arzen Exp $
  */
 
 class ApfContactCategory  extends Actions
@@ -41,6 +41,7 @@ class ApfContactCategory  extends Actions
 			"MAIN" => "apf_contact_category_edit.html"
 		));
 		$template->setBlock("MAIN", "edit_block");
+		array_shift($ActiveOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
 			"DOACTION" => "updatesubmit"

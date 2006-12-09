@@ -6,22 +6,24 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfAgreementCategory.class.php,v 1.1 2006/12/09 04:17:35 arzen Exp $
+ * @version    CVS: $Id: ApfAgreementCategory.class.php,v 1.2 2006/12/09 08:27:00 arzen Exp $
  */
 
 class ApfAgreementCategory  extends Actions
 {
 	function executeCreate()
 	{
-		global $template,$WebBaseDir;
+		global $template,$WebBaseDir,$ActiveOption;
 
 		$template->setFile(array (
 			"MAIN" => "apf_agreement_category_edit.html"
 		));
 		$template->setBlock("MAIN", "add_block");
 		
+		array_shift($ActiveOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"ACTIVEOPTION" => radioTag("active",$ActiveOption,"live"),
 			"DOACTION" => "addsubmit"
 		));
 
@@ -34,16 +36,11 @@ class ApfAgreementCategory  extends Actions
 	
 	function executeUpdate()
 	{
-		global $template,$WebBaseDir,$controller,$i18n;
+		global $template,$WebBaseDir,$controller,$i18n,$ActiveOption;
 		$template->setFile(array (
 			"MAIN" => "apf_agreement_category_edit.html"
 		));
 		$template->setBlock("MAIN", "edit_block");
-		$template->setVar(array (
-			"WEBDIR" => $WebBaseDir,
-			"DOACTION" => "updatesubmit"
-		));
-
 		$apf_agreement_category = DB_DataObject :: factory('ApfAgreementCategory');
 		$apf_agreement_category->get($apf_agreement_category->escape($controller->getID()));
 
@@ -57,6 +54,13 @@ class ApfAgreementCategory  extends Actions
 
 		$template->setVar(array ("ID" => $apf_agreement_category->getId(),"CATEGORY_NAME" => $apf_agreement_category->getCategoryName(),"ACTIVE" => $apf_agreement_category->getActive(),"ADD_IP" => $apf_agreement_category->getAddIp(),"CREATED_AT" => $apf_agreement_category->getCreatedAt(),"UPDATE_AT" => $apf_agreement_category->getUpdateAt(),));
 		
+		array_shift($ActiveOption);
+		$template->setVar(array (
+			"WEBDIR" => $WebBaseDir,
+			"ACTIVEOPTION" => radioTag("active",$ActiveOption,$apf_agreement_category->getActive()),
+			"DOACTION" => "updatesubmit"
+		));
+
 	}
 	
 	function executeUpdatesubmit () 
@@ -66,7 +70,7 @@ class ApfAgreementCategory  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n;
+		global $template,$WebBaseDir,$i18n,$AddIP;
 		$apf_agreement_category = DB_DataObject :: factory('ApfAgreementCategory');
 
 		if ($edit_submit) 
@@ -81,9 +85,7 @@ class ApfAgreementCategory  extends Actions
 
 		$apf_agreement_category->setCategoryName(stripslashes(trim($_POST['category_name'])));
 		$apf_agreement_category->setActive(stripslashes(trim($_POST['active'])));
-		$apf_agreement_category->setAddIp(stripslashes(trim($_POST['add_ip'])));
-		$apf_agreement_category->setCreatedAt(stripslashes(trim($_POST['created_at'])));
-		$apf_agreement_category->setUpdateAt(stripslashes(trim($_POST['update_at'])));
+		$apf_agreement_category->setAddIp($AddIP);
 
 				
 		$val = $apf_agreement_category->validate();
@@ -94,7 +96,7 @@ class ApfAgreementCategory  extends Actions
 				$apf_agreement_category->setUpdateAt(DB_DataObject_Cast::dateTime());
 				$apf_agreement_category->update();
 
-				$log_string = $i18n->_("Update").$i18n->_("ModuleName")."	{$_POST['name']}=>{$_POST['ID']}";
+				$log_string = $i18n->_("Update").$i18n->_("Agreement").$i18n->_("Category")."	{$_POST['category_name']}=>{$_POST['ID']}";
 				logFileString ($log_string);
 				
 				$this->forward("agreement/apf_agreement_category/update/".$_POST['ID']."/ok");
@@ -104,7 +106,7 @@ class ApfAgreementCategory  extends Actions
 				$apf_agreement_category->setCreatedAt(DB_DataObject_Cast::dateTime());
 				$apf_agreement_category->insert();
 
-				$log_string = $i18n->_("Create").$i18n->_("ModuleName")."	{$_POST['name']}=>{$_POST['create_date']}";
+				$log_string = $i18n->_("Create").$i18n->_("Agreement").$i18n->_("Category")."	{$_POST['category_name']}=>{$_POST['create_date']}";
 				logFileString ($log_string);
 
 				$this->forward("agreement/apf_agreement_category/");
@@ -172,7 +174,6 @@ class ApfAgreementCategory  extends Actions
 		$ToltalNum = $apf_agreement_category->count();
 		$start_num = !isset($_GET['entrant'])?0:($_GET['entrant']-1)*$max_row;
 		$apf_agreement_category->limit($start_num,$max_row);
-		$apf_agreement_category->whereAdd(" userid = '$userid' OR access = 'public' ");
 
 		$apf_agreement_category->find();
 		

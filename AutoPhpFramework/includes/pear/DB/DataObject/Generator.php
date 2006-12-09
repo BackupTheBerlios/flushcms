@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: Generator.php,v 1.17 2006/12/09 04:17:35 arzen Exp $
+ * @version    CVS: $Id: Generator.php,v 1.18 2006/12/09 08:27:00 arzen Exp $
  * @link       http://pear.php.net/package/DB_DataObject
  */
  
@@ -997,12 +997,6 @@ class {$camel_case_name}  extends Actions
 		\$template->setFile(array (
 			"MAIN" => "{$outfilename}_edit.html"
 		));
-		\$template->setBlock("MAIN", "edit_block");
-		\$template->setVar(array (
-			"WEBDIR" => \$WebBaseDir,
-			"DOACTION" => "updatesubmit"
-		));
-
 		\${$outfilename} = DB_DataObject :: factory('{$camel_case_name}');
 		\${$outfilename}->get(\${$outfilename}->escape(\$controller->getID()));
 
@@ -1016,6 +1010,12 @@ class {$camel_case_name}  extends Actions
 
 		\$template->setVar(array ({$update_code}));
 		
+		\$template->setBlock("MAIN", "edit_block");
+		\$template->setVar(array (
+			"WEBDIR" => \$WebBaseDir,
+			"DOACTION" => "updatesubmit"
+		));
+
 	}
 	
 	function executeUpdatesubmit () 
@@ -1123,10 +1123,10 @@ class {$camel_case_name}  extends Actions
 		\${$outfilename}->orderBy('{$id_field_name} desc');
 
 		\$max_row = 10;
-		\$ToltalNum = \${$outfilename}->count();
 		\$start_num = !isset(\$_GET['entrant'])?0:(\$_GET['entrant']-1)*\$max_row;
 		\${$outfilename}->limit(\$start_num,\$max_row);
 		\${$outfilename}->whereAdd(" userid = '\$userid' OR access = 'public' ");
+		\$ToltalNum = \${$outfilename}->count();
 
 		\${$outfilename}->find();
 		

@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfAgreement.class.php,v 1.1 2006/12/09 04:17:35 arzen Exp $
+ * @version    CVS: $Id: ApfAgreement.class.php,v 1.2 2006/12/09 08:27:00 arzen Exp $
  */
 
 class ApfAgreement  extends Actions
@@ -22,6 +22,8 @@ class ApfAgreement  extends Actions
 		
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"EFFECT_DATE" => inputDateTag ("effectdate"),
+			"EXPIRED_DATE" => inputDateTag ("expireddate"),
 			"DOACTION" => "addsubmit"
 		));
 
@@ -66,7 +68,7 @@ class ApfAgreement  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n;
+		global $template,$WebBaseDir,$i18n,$AddIP,$userid,$group_ids;
 		$apf_agreement = DB_DataObject :: factory('ApfAgreement');
 
 		if ($edit_submit) 
@@ -92,9 +94,10 @@ class ApfAgreement  extends Actions
 		$apf_agreement->setUserid(stripslashes(trim($_POST['userid'])));
 		$apf_agreement->setAccess(stripslashes(trim($_POST['access'])));
 		$apf_agreement->setActive(stripslashes(trim($_POST['active'])));
-		$apf_agreement->setAddIp(stripslashes(trim($_POST['add_ip'])));
-		$apf_agreement->setCreatedAt(stripslashes(trim($_POST['created_at'])));
-		$apf_agreement->setUpdateAt(stripslashes(trim($_POST['update_at'])));
+
+		$apf_agreement->setAddIp($AddIP);
+		$apf_agreement->setGroupid($group_ids);
+		$apf_agreement->setUserid($userid);
 
 				
 		$val = $apf_agreement->validate();
@@ -180,10 +183,10 @@ class ApfAgreement  extends Actions
 		$apf_agreement->orderBy('id desc');
 
 		$max_row = 10;
-		$ToltalNum = $apf_agreement->count();
 		$start_num = !isset($_GET['entrant'])?0:($_GET['entrant']-1)*$max_row;
 		$apf_agreement->limit($start_num,$max_row);
 		$apf_agreement->whereAdd(" userid = '$userid' OR access = 'public' ");
+		$ToltalNum = $apf_agreement->count();
 
 		$apf_agreement->find();
 		
