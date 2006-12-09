@@ -8,7 +8,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: init.php,v 1.54 2006/12/09 04:17:35 arzen Exp $
+ * @version    CVS: $Id: init.php,v 1.55 2006/12/09 14:31:35 arzen Exp $
  */
 define('CREATE', 3);
 
@@ -68,6 +68,7 @@ switch ($this_language) {
 		break;
 }
 
+$global_arr = array();
 $i18n = new I18N_Messages_File($lang, $domain, $dir);
 include_once ($ConfigDir . "common.php");
 require_once($ClassDir."SendEmail.php");

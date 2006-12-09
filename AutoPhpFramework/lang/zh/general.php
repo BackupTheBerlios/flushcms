@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.23 2006/12/09 04:17:36 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.24 2006/12/09 14:31:35 arzen Exp $
  */
 $this->setCharset('gb2312'); 
 $messages = array(
@@ -115,7 +115,7 @@ $messages = array(
 	'FinanceCategory' => '财务分类',
 	'Amount' => '张数',
 	'Debit' => '借/贷',
-	'Money' => '金额',
+	'Money' => '金额(元)',
 	'CreateDate' => '日期',
 	'Income' => '收入',
 	'Payout' => '支出',
@@ -188,9 +188,29 @@ $messages = array(
 	'MinorRevision' => '副版本号',
 //order
 	'Order' => '订单',
+	
+	'StateHandling' => '处理中',
+	'StateDelivery' => '已发货',
+	'StateCancel' => '已取消',
+	'StateFinish' => '已完成',
+	'StatePrepay' => '已预付',
+	'StateWaitpay' => '等款到',
+
+	'PaywayCash' => '现金',
+	'PaywayWeek' => '周结',
+	'PaywayMonth' => '月结',
+	'PaywayQuarter' => '季度结',
+	'PaywayYear' => '年结',
+
+	'DeliverywayVisiting' => '上门提货',
+	'DeliverywayNetwork' => '通过网络',
+	'DeliverywayLand' => '陆运',
+	'DeliverywayOcean' => '海运',
+	'DeliverywayAir' => '空运',
+	
 	'Noid' => '编号',
 	'Contactid' => '联系人',
-	'Discount' => '折扣',
+	'Discount' => '折扣(%)',
 	'Payway' => '付款方式',
 	'Deliveryway' => '交货方式',
 	'Deliverydatetime' => '交货日期',

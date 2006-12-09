@@ -6,14 +6,14 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfOrder.class.php,v 1.2 2006/12/09 08:27:00 arzen Exp $
+ * @version    CVS: $Id: ApfOrder.class.php,v 1.3 2006/12/09 14:31:35 arzen Exp $
  */
 
 class ApfOrder  extends Actions
 {
 	function executeCreate()
 	{
-		global $template,$WebBaseDir,$AccessOption;
+		global $template,$WebBaseDir,$AccessOption,$OrderStateOption,$PaywayOption,$DeliverywayOption;
 
 		$template->setFile(array (
 			"MAIN" => "apf_order_edit.html"
@@ -21,10 +21,16 @@ class ApfOrder  extends Actions
 		$template->setBlock("MAIN", "add_block");
 		
 		array_shift($AccessOption);
+		array_shift($OrderStateOption);
+		array_shift($PaywayOption);
+		array_shift($DeliverywayOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
 			"ACCESSOPTION" => radioTag("access",$AccessOption,"public"),
-			"DELIVERYDATE" => inputDateTag ("deliverydatetime"),
+			"DELIVERYDATE" => inputDateTag ("deliverydatetime",date("Y-m-d")),
+			"PAYWAY_OPTION" => radioTag("payway",$PaywayOption,"cash"),
+			"DELIVERY_OPTION" => radioTag("deliveryway",$DeliverywayOption,"land"),
+			"STATE_OPTION" => radioTag("state",$OrderStateOption,"handling"),
 			"MEMOTEXT" => textareaTag ('memo',"",false,"ROWS=\"8\" COLS=\"40\""),
 			"DOACTION" => "addsubmit"
 		));
@@ -38,7 +44,7 @@ class ApfOrder  extends Actions
 	
 	function executeUpdate()
 	{
-		global $template,$WebBaseDir,$controller,$i18n,$AccessOption;
+		global $template,$WebBaseDir,$controller,$i18n,$OrderStateOption,$AccessOption,$PaywayOption,$DeliverywayOption;
 		$template->setFile(array (
 			"MAIN" => "apf_order_edit.html"
 		));
@@ -57,11 +63,17 @@ class ApfOrder  extends Actions
 		$template->setVar(array ("ID" => $apf_order->getId(),"NOID" => $apf_order->getNoid(),"CATEGORY" => $apf_order->getCategory(),"CONTACTID" => $apf_order->getContactid(),"PRODUCT" => $apf_order->getProduct(),"AMOUNT" => $apf_order->getAmount(),"MONEY" => $apf_order->getMoney(),"DISCOUNT" => $apf_order->getDiscount(),"PAYWAY" => $apf_order->getPayway(),"DELIVERYWAY" => $apf_order->getDeliveryway(),"DELIVERYDATETIME" => $apf_order->getDeliverydatetime(),"STATE" => $apf_order->getState(),"MEMO" => $apf_order->getMemo(),"GROUPID" => $apf_order->getGroupid(),"USERID" => $apf_order->getUserid(),"ACCESS" => $apf_order->getAccess(),"ACTIVE" => $apf_order->getActive(),"ADD_IP" => $apf_order->getAddIp(),"CREATED_AT" => $apf_order->getCreatedAt(),"UPDATE_AT" => $apf_order->getUpdateAt(),));
 		
 		array_shift($AccessOption);
+		array_shift($OrderStateOption);
+		array_shift($PaywayOption);
+		array_shift($DeliverywayOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
 			"ACCESSOPTION" => radioTag("access",$AccessOption,$apf_order->getAccess()),
 			"DELIVERYDATE" => inputDateTag ("deliverydatetime",$apf_order->getDeliverydatetime()),
 			"MEMOTEXT" => textareaTag ('memo',$apf_order->getMemo(),false,"ROWS=\"8\" COLS=\"40\""),
+			"PAYWAY_OPTION" => radioTag("payway",$PaywayOption,$apf_order->getPayway()),
+			"DELIVERY_OPTION" => radioTag("deliveryway",$DeliverywayOption,$apf_order->getDeliveryway()),
+			"STATE_OPTION" => radioTag("state",$OrderStateOption,$apf_order->getState()),
 			"DOACTION" => "updatesubmit"
 		));
 
@@ -74,7 +86,7 @@ class ApfOrder  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n,$AddIP,$userid,$group_ids;
+		global $template,$WebBaseDir,$i18n,$AddIP,$userid,$group_ids,$OrderStateOption,$AccessOption,$PaywayOption,$DeliverywayOption;
 		$apf_order = DB_DataObject :: factory('ApfOrder');
 
 		if ($edit_submit) 
@@ -99,8 +111,6 @@ class ApfOrder  extends Actions
 		$apf_order->setDeliverydatetime(stripslashes(trim($_POST['deliverydatetime'])));
 		$apf_order->setState(stripslashes(trim($_POST['state'])));
 		$apf_order->setMemo(stripslashes(trim($_POST['memo'])));
-		$apf_order->setGroupid(stripslashes(trim($_POST['groupid'])));
-		$apf_order->setUserid(stripslashes(trim($_POST['userid'])));
 		$apf_order->setAccess(stripslashes(trim($_POST['access'])));
 		$apf_order->setActive(stripslashes(trim($_POST['active'])));
 
@@ -139,10 +149,6 @@ class ApfOrder  extends Actions
 				"MAIN" => "apf_order_edit.html"
 			));
 			$template->setBlock("MAIN", "edit_block");
-			$template->setVar(array (
-				"WEBDIR" => $WebBaseDir,
-				"DOACTION" => $do_action
-			));
 			foreach ($val as $k => $v)
 			{
 				if ($v == false)
@@ -158,6 +164,21 @@ class ApfOrder  extends Actions
 				"ID" => $_POST['id'],"NOID" => $_POST['noid'],"CATEGORY" => $_POST['category'],"CONTACTID" => $_POST['contactid'],"PRODUCT" => $_POST['product'],"AMOUNT" => $_POST['amount'],"MONEY" => $_POST['money'],"DISCOUNT" => $_POST['discount'],"PAYWAY" => $_POST['payway'],"DELIVERYWAY" => $_POST['deliveryway'],"DELIVERYDATETIME" => $_POST['deliverydatetime'],"STATE" => $_POST['state'],"MEMO" => $_POST['memo'],"GROUPID" => $_POST['groupid'],"USERID" => $_POST['userid'],"ACCESS" => $_POST['access'],"ACTIVE" => $_POST['active'],"ADD_IP" => $_POST['add_ip'],"CREATED_AT" => $_POST['created_at'],"UPDATE_AT" => $_POST['update_at'],
 				)
 			 );
+			 
+			array_shift($AccessOption);
+			array_shift($OrderStateOption);
+			array_shift($PaywayOption);
+			array_shift($DeliverywayOption);
+			$template->setVar(array (
+				"WEBDIR" => $WebBaseDir,
+				"ACCESSOPTION" => radioTag("access",$AccessOption,$_POST['access']),
+				"DELIVERYDATE" => inputDateTag ("deliverydatetime",$_POST['deliverydatetime']),
+				"MEMOTEXT" => textareaTag ('memo',$_POST['memo'],false,"ROWS=\"8\" COLS=\"40\""),
+				"PAYWAY_OPTION" => radioTag("payway",$PaywayOption,$_POST['payway']),
+				"DELIVERY_OPTION" => radioTag("deliveryway",$DeliverywayOption,$_POST['deliveryway']),
+				"STATE_OPTION" => radioTag("state",$OrderStateOption,$_POST['state']),
+				"DOACTION" => $do_action
+			));
 
 		}
 	}
@@ -178,7 +199,7 @@ class ApfOrder  extends Actions
 	
 	function executeList()
 	{
-		global $template,$WebBaseDir,$i18n,$WebTemplateDir,$ClassDir,$userid,$ActiveOption;
+		global $template,$WebBaseDir,$i18n,$WebTemplateDir,$ClassDir,$userid,$ActiveOption,$OrderStateOption;
 
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
@@ -235,7 +256,7 @@ class ApfOrder  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 			
-			$template->setVar(array ("ID" => $data['id'],"NOID" => $data['noid'],"CATEGORY" => $data['category'],"CONTACTID" => $data['contactid'],"PRODUCT" => $data['product'],"AMOUNT" => $data['amount'],"MONEY" => $data['money'],"DISCOUNT" => $data['discount'],"PAYWAY" => $data['payway'],"DELIVERYWAY" => $data['deliveryway'],"DELIVERYDATETIME" => $data['deliverydatetime'],"STATE" => $data['state'],"MEMO" => $data['memo'],"GROUPID" => $data['groupid'],"USERID" => $data['userid'],"ACCESS" => $data['access'],"ACTIVE" => $ActiveOption[$data['active']],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
+			$template->setVar(array ("ID" => $data['id'],"NOID" => $data['noid'],"CATEGORY" => $data['category'],"CONTACTID" => $data['contactid'],"PRODUCT" => $data['product'],"AMOUNT" => $data['amount'],"MONEY" => $data['money'],"DISCOUNT" => $data['discount'],"PAYWAY" => $data['payway'],"DELIVERYWAY" => $data['deliveryway'],"DELIVERYDATETIME" => $data['deliverydatetime'],"STATE" => $OrderStateOption[$data['state']],"MEMO" => $data['memo'],"GROUPID" => $data['groupid'],"USERID" => $data['userid'],"ACCESS" => $data['access'],"ACTIVE" => $ActiveOption[$data['active']],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
 
 			$template->parse("list_block", "main_list", TRUE);
 			$i++;

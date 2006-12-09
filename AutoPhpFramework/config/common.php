@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: common.php,v 1.9 2006/12/08 05:35:51 arzen Exp $
+ * @version    CVS: $Id: common.php,v 1.10 2006/12/09 14:31:35 arzen Exp $
  */
  
 $GenderOption = array(	
@@ -50,6 +50,41 @@ $StateOption = array(
 			'close'=>"<FONT COLOR=\"#FF0000\">".$i18n->_('Close')."</FONT>",
 			);
 
+$OrderStateOption = array(	
+			''=>$i18n->_('All'),
+			'handling'=>"<FONT COLOR=\"#6600FF\">".$i18n->_('StateHandling')."</FONT>",
+			'delivery'=>"<FONT COLOR=\"#3399CC\">".$i18n->_('StateDelivery')."</FONT>",
+			'cancel'=>"<FONT COLOR=\"#FF0000\">".$i18n->_('StateCancel')."</FONT>",
+			'finish'=>"<FONT COLOR=\"#336633\">".$i18n->_('StateFinish')."</FONT>",
+			'prepay'=>"<FONT COLOR=\"#FF9900\">".$i18n->_('StatePrepay')."</FONT>",
+			'waitpay'=>"<FONT COLOR=\"#996600\">".$i18n->_('StateWaitpay')."</FONT>",
+			);
+
+$ComplaintsStateOption = array(	
+			''=>$i18n->_('All'),
+			'handling'=>"<FONT COLOR=\"#6600FF\">".$i18n->_('StateHandling')."</FONT>",
+			'cancel'=>"<FONT COLOR=\"#FF0000\">".$i18n->_('StateCancel')."</FONT>",
+			'finish'=>"<FONT COLOR=\"#336633\">".$i18n->_('StateFinish')."</FONT>",
+			);
+
+$PaywayOption = array(	
+			''=>$i18n->_('All'),
+			'cash'=>"<FONT COLOR=\"#336633\">".$i18n->_('PaywayCash')."</FONT>",
+			'week'=>"<FONT COLOR=\"#FF0000\">".$i18n->_('PaywayWeek')."</FONT>",
+			'month'=>"<FONT COLOR=\"#CCCC00\">".$i18n->_('PaywayMonth')."</FONT>",
+			'quarter'=>"<FONT COLOR=\"#FF9900\">".$i18n->_('PaywayQuarter')."</FONT>",
+			'year'=>"<FONT COLOR=\"#3399CC\">".$i18n->_('PaywayYear')."</FONT>",
+			);
+
+$DeliverywayOption = array(	
+			''=>$i18n->_('All'),
+			'visiting'=>"<FONT COLOR=\"#3399CC\">".$i18n->_('DeliverywayVisiting')."</FONT>",
+			'network'=>"<FONT COLOR=\"#996600\">".$i18n->_('DeliverywayNetwork')."</FONT>",
+			'land'=>"<FONT COLOR=\"#6600FF\">".$i18n->_('DeliverywayLand')."</FONT>",
+			'ocean'=>"<FONT COLOR=\"#CCCC00\">".$i18n->_('DeliverywayOcean')."</FONT>",
+			'air'=>"<FONT COLOR=\"#FF0000\">".$i18n->_('DeliverywayAir')."</FONT>",
+			);
+
 for ($index = 0; $index < 24; $index++) 
 {
 	$TimeOption[$index.":00:00"]=$index.":00";
@@ -61,6 +96,27 @@ function logFileString ($string)
 	
 	$log_format = "{$string}\t{$AddIP}\t$user_name\t{$userid}";
 	$logger->log($log_format);
+	
+}
+
+function registerGlobalVar ($key,$value) 
+{
+	global $global_arr;
+	$global_arr[$key]=$value;
+}
+
+function isGlobalVarRegisted ($key) 
+{
+	global $global_arr;
+	
+	if (array_key_exists($key, $global_arr)) 
+	{
+		return true;
+	}
+	else 
+	{
+		return false;
+	}
 	
 }
 ?>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 -- 
 -- 主机: localhost
--- 生成日期: 2006 年 12 月 09 日 12:02
+-- 生成日期: 2006 年 12 月 09 日 22:27
 -- 服务器版本: 4.0.26
 -- PHP 版本: 4.4.2
 -- 
@@ -36,7 +36,7 @@ CREATE TABLE `apf_agreement` (
   `update_at` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`),
   KEY `noid` (`noid`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
+) TYPE=MyISAM AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -52,7 +52,7 @@ CREATE TABLE `apf_agreement_category` (
   `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
   `update_at` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
+) TYPE=MyISAM AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -138,8 +138,8 @@ CREATE TABLE `apf_complaints` (
   `id` int(11) unsigned NOT NULL auto_increment,
   `category` int(5) default NULL,
   `complainanter` varchar(120) default NULL,
-  `TITLE` varchar(120) NOT NULL default '',
-  `CONTENT` text,
+  `title` varchar(120) NOT NULL default '',
+  `content` text,
   `reply` char(2) NOT NULL default 'n',
   `handleman` varchar(40) NOT NULL default '',
   `handledate` datetime NOT NULL default '0000-00-00 00:00:00',
@@ -152,7 +152,7 @@ CREATE TABLE `apf_complaints` (
   `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
   `update_at` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
+) TYPE=MyISAM AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -168,7 +168,7 @@ CREATE TABLE `apf_complaints_category` (
   `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
   `update_at` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
+) TYPE=MyISAM AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -464,7 +464,7 @@ CREATE TABLE `apf_order` (
   `update_at` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`),
   KEY `noid` (`noid`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
+) TYPE=MyISAM AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -480,7 +480,7 @@ CREATE TABLE `apf_order_category` (
   `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
   `update_at` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
+) TYPE=MyISAM AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 

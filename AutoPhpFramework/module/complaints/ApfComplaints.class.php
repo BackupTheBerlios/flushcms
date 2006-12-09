@@ -6,22 +6,28 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfComplaints.class.php,v 1.1 2006/12/09 04:17:35 arzen Exp $
+ * @version    CVS: $Id: ApfComplaints.class.php,v 1.2 2006/12/09 14:31:35 arzen Exp $
  */
 
 class ApfComplaints  extends Actions
 {
 	function executeCreate()
 	{
-		global $template,$WebBaseDir;
+		global $template,$WebBaseDir,$AccessOption,$ComplaintsStateOption;
 
 		$template->setFile(array (
 			"MAIN" => "apf_complaints_edit.html"
 		));
 		$template->setBlock("MAIN", "add_block");
 		
+		array_shift($AccessOption);
+		array_shift($ComplaintsStateOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"HANDLE_DATE" => inputDateTag ("handledate",date("Y-m-d")),
+			"ACCESSOPTION" => radioTag("access",$AccessOption,"public"),
+			"STATE_OPTION" => radioTag("state",$ComplaintsStateOption,"handling"),
+			"CONTENT_TEXT" => textareaTag ('content',"",false,"ROWS=\"8\" COLS=\"40\""),
 			"DOACTION" => "addsubmit"
 		));
 
@@ -34,15 +40,11 @@ class ApfComplaints  extends Actions
 	
 	function executeUpdate()
 	{
-		global $template,$WebBaseDir,$controller,$i18n;
+		global $template,$WebBaseDir,$controller,$i18n,$AccessOption,$ComplaintsStateOption;
 		$template->setFile(array (
 			"MAIN" => "apf_complaints_edit.html"
 		));
 		$template->setBlock("MAIN", "edit_block");
-		$template->setVar(array (
-			"WEBDIR" => $WebBaseDir,
-			"DOACTION" => "updatesubmit"
-		));
 
 		$apf_complaints = DB_DataObject :: factory('ApfComplaints');
 		$apf_complaints->get($apf_complaints->escape($controller->getID()));
@@ -57,6 +59,18 @@ class ApfComplaints  extends Actions
 
 		$template->setVar(array ("ID" => $apf_complaints->getId(),"CATEGORY" => $apf_complaints->getCategory(),"COMPLAINANTER" => $apf_complaints->getComplainanter(),"TITLE" => $apf_complaints->getTitle(),"CONTENT" => $apf_complaints->getContent(),"REPLY" => $apf_complaints->getReply(),"HANDLEMAN" => $apf_complaints->getHandleman(),"HANDLEDATE" => $apf_complaints->getHandledate(),"STATE" => $apf_complaints->getState(),"GROUPID" => $apf_complaints->getGroupid(),"USERID" => $apf_complaints->getUserid(),"ACCESS" => $apf_complaints->getAccess(),"ACTIVE" => $apf_complaints->getActive(),"ADD_IP" => $apf_complaints->getAddIp(),"CREATED_AT" => $apf_complaints->getCreatedAt(),"UPDATE_AT" => $apf_complaints->getUpdateAt(),));
 		
+		array_shift($AccessOption);
+		array_shift($ComplaintsStateOption);
+		$template->setVar(array (
+			"WEBDIR" => $WebBaseDir,
+			"ACCESSOPTION" => radioTag("access",$AccessOption,$apf_complaints->getAccess()),
+			"STATE_OPTION" => radioTag("state",$ComplaintsStateOption,$apf_complaints->getState()),
+			"HANDLE_DATE" => inputDateTag ("handledate",$apf_complaints->getHandledate()),
+			"CONTENT_TEXT" => textareaTag ('content',$apf_complaints->getContent(),false,"ROWS=\"8\" COLS=\"40\""),
+			"DOACTION" => "updatesubmit"
+		));
+
+		
 	}
 	
 	function executeUpdatesubmit () 
@@ -66,7 +80,7 @@ class ApfComplaints  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n;
+		global $template,$WebBaseDir,$i18n,$AddIP,$userid,$group_ids;
 		$apf_complaints = DB_DataObject :: factory('ApfComplaints');
 
 		if ($edit_submit) 
@@ -81,20 +95,19 @@ class ApfComplaints  extends Actions
 
 		$apf_complaints->setCategory(stripslashes(trim($_POST['category'])));
 		$apf_complaints->setComplainanter(stripslashes(trim($_POST['complainanter'])));
-		$apf_complaints->setTitle(stripslashes(trim($_POST['TITLE'])));
-		$apf_complaints->setContent(stripslashes(trim($_POST['CONTENT'])));
+		$apf_complaints->setTitle(stripslashes(trim($_POST['title'])));
+		$apf_complaints->setContent(stripslashes(trim($_POST['content'])));
 		$apf_complaints->setReply(stripslashes(trim($_POST['reply'])));
 		$apf_complaints->setHandleman(stripslashes(trim($_POST['handleman'])));
 		$apf_complaints->setHandledate(stripslashes(trim($_POST['handledate'])));
 		$apf_complaints->setState(stripslashes(trim($_POST['state'])));
-		$apf_complaints->setGroupid(stripslashes(trim($_POST['groupid'])));
-		$apf_complaints->setUserid(stripslashes(trim($_POST['userid'])));
+
 		$apf_complaints->setAccess(stripslashes(trim($_POST['access'])));
 		$apf_complaints->setActive(stripslashes(trim($_POST['active'])));
-		$apf_complaints->setAddIp(stripslashes(trim($_POST['add_ip'])));
-		$apf_complaints->setCreatedAt(stripslashes(trim($_POST['created_at'])));
-		$apf_complaints->setUpdateAt(stripslashes(trim($_POST['update_at'])));
 
+		$apf_complaints->setAddIp($AddIP);
+		$apf_complaints->setGroupid($group_ids);
+		$apf_complaints->setUserid($userid);
 				
 		$val = $apf_complaints->validate();
 		if ($val === TRUE)
@@ -142,7 +155,7 @@ class ApfComplaints  extends Actions
 			}
 			$template->setVar(
 				array (
-				"ID" => $_POST['id'],"CATEGORY" => $_POST['category'],"COMPLAINANTER" => $_POST['complainanter'],"TITLE" => $_POST['TITLE'],"CONTENT" => $_POST['CONTENT'],"REPLY" => $_POST['reply'],"HANDLEMAN" => $_POST['handleman'],"HANDLEDATE" => $_POST['handledate'],"STATE" => $_POST['state'],"GROUPID" => $_POST['groupid'],"USERID" => $_POST['userid'],"ACCESS" => $_POST['access'],"ACTIVE" => $_POST['active'],"ADD_IP" => $_POST['add_ip'],"CREATED_AT" => $_POST['created_at'],"UPDATE_AT" => $_POST['update_at'],
+				"ID" => $_POST['id'],"CATEGORY" => $_POST['category'],"COMPLAINANTER" => $_POST['complainanter'],"TITLE" => $_POST['title'],"content" => $_POST['content'],"REPLY" => $_POST['reply'],"HANDLEMAN" => $_POST['handleman'],"HANDLEDATE" => $_POST['handledate'],"STATE" => $_POST['state'],"GROUPID" => $_POST['groupid'],"USERID" => $_POST['userid'],"ACCESS" => $_POST['access'],"ACTIVE" => $_POST['active'],"ADD_IP" => $_POST['add_ip'],"CREATED_AT" => $_POST['created_at'],"UPDATE_AT" => $_POST['update_at'],
 				)
 			 );
 
@@ -165,7 +178,7 @@ class ApfComplaints  extends Actions
 	
 	function executeList()
 	{
-		global $template,$WebBaseDir,$i18n,$WebTemplateDir,$ClassDir,$userid,$ActiveOption;
+		global $template,$WebBaseDir,$i18n,$WebTemplateDir,$ClassDir,$userid,$ActiveOption,$ComplaintsStateOption;
 
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
@@ -222,7 +235,7 @@ class ApfComplaints  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 			
-			$template->setVar(array ("ID" => $data['id'],"CATEGORY" => $data['category'],"COMPLAINANTER" => $data['complainanter'],"TITLE" => $data['TITLE'],"CONTENT" => $data['CONTENT'],"REPLY" => $data['reply'],"HANDLEMAN" => $data['handleman'],"HANDLEDATE" => $data['handledate'],"STATE" => $data['state'],"GROUPID" => $data['groupid'],"USERID" => $data['userid'],"ACCESS" => $data['access'],"ACTIVE" => $ActiveOption[$data['active']],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
+			$template->setVar(array ("ID" => $data['id'],"CATEGORY" => $data['category'],"COMPLAINANTER" => $data['complainanter'],"TITLE" => $data['title'],"content" => $data['content'],"REPLY" => $data['reply'],"HANDLEMAN" => $data['handleman'],"HANDLEDATE" => $data['handledate'],"STATE" => $ComplaintsStateOption[$data['state']],"GROUPID" => $data['groupid'],"USERID" => $data['userid'],"ACCESS" => $data['access'],"ACTIVE" => $ActiveOption[$data['active']],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
 
 			$template->parse("list_block", "main_list", TRUE);
 			$i++;

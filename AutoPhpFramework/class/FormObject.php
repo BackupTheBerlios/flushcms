@@ -5,7 +5,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: FormObject.php,v 1.19 2006/12/05 07:36:16 arzen Exp $
+ * @version    CVS: $Id: FormObject.php,v 1.20 2006/12/09 14:31:35 arzen Exp $
  */
 
 /**
@@ -219,11 +219,18 @@ function inputDateTag ($name, $value="")
 {
 	global $WebJSToolkitPath;
 	$html_code = "";
+	$js_key="DATA_INPUT_JS";
+	if (!isGlobalVarRegisted ($js_key)) 
+	{
+		$html_code .= "
+	<link rel=\"stylesheet\" type=\"text/css\" media=\"all\" href=\"{$WebJSToolkitPath}calendar/calendar-win2k-cold-1.css\" title=\"win2k-cold-1\" />
+	<script type=\"text/javascript\" src=\"{$WebJSToolkitPath}calendar/calendar.js\"></script>
+	<script type=\"text/javascript\" src=\"{$WebJSToolkitPath}calendar/lang/calendar-en.js\"></script>
+	<script type=\"text/javascript\" src=\"{$WebJSToolkitPath}calendar/calendar-setup.js\"></script>
+		";
+		registerGlobalVar ($js_key,true);	
+	} 
 	$html_code .= "
-<link rel=\"stylesheet\" type=\"text/css\" media=\"all\" href=\"{$WebJSToolkitPath}calendar/calendar-win2k-cold-1.css\" title=\"win2k-cold-1\" />
-<script type=\"text/javascript\" src=\"{$WebJSToolkitPath}calendar/calendar.js\"></script>
-<script type=\"text/javascript\" src=\"{$WebJSToolkitPath}calendar/lang/calendar-en.js\"></script>
-<script type=\"text/javascript\" src=\"{$WebJSToolkitPath}calendar/calendar-setup.js\"></script>
 	<input type=\"text\" name=\"{$name}\" id=\"{$name}\" value=\"{$value}\" calendar_button_img=\"{$WebJSToolkitPath}calendar/images/date.png\" date_format=\"yyyy-MM-dd\" size=\"9\" /><img id=\"trigger_{$name}\" style=\"cursor: pointer; vertical-align: middle\" src=\"{$WebJSToolkitPath}calendar/images/date.png\" alt=\"Date\" /><script type=\"text/javascript\">
     document.getElementById(\"trigger_{$name}\").disabled = false;
     Calendar.setup({

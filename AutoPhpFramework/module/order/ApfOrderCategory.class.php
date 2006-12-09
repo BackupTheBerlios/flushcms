@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfOrderCategory.class.php,v 1.2 2006/12/09 08:27:00 arzen Exp $
+ * @version    CVS: $Id: ApfOrderCategory.class.php,v 1.3 2006/12/09 14:31:35 arzen Exp $
  */
 
 class ApfOrderCategory  extends Actions
@@ -70,7 +70,7 @@ class ApfOrderCategory  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n,$AddIP;
+		global $template,$WebBaseDir,$i18n,$AddIP,$ActiveOption;
 		$apf_order_category = DB_DataObject :: factory('ApfOrderCategory');
 
 		if ($edit_submit) 
@@ -118,10 +118,6 @@ class ApfOrderCategory  extends Actions
 				"MAIN" => "apf_order_category_edit.html"
 			));
 			$template->setBlock("MAIN", "edit_block");
-			$template->setVar(array (
-				"WEBDIR" => $WebBaseDir,
-				"DOACTION" => $do_action
-			));
 			foreach ($val as $k => $v)
 			{
 				if ($v == false)
@@ -137,6 +133,12 @@ class ApfOrderCategory  extends Actions
 				"ID" => $_POST['id'],"CATEGORY_NAME" => $_POST['category_name'],"ACTIVE" => $_POST['active'],"ADD_IP" => $_POST['add_ip'],"CREATED_AT" => $_POST['created_at'],"UPDATE_AT" => $_POST['update_at'],
 				)
 			 );
+			array_shift($ActiveOption);
+			$template->setVar(array (
+				"WEBDIR" => $WebBaseDir,
+				"ACTIVEOPTION" => radioTag("active",$ActiveOption,$_POST['active']),
+				"DOACTION" => $do_action
+			));
 
 		}
 	}

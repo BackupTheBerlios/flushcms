@@ -11,8 +11,8 @@ class DaoApfComplaints extends DB_DataObject
     var $id;                              // int(11)  not_null primary_key unsigned auto_increment
     var $category;                        // int(5)  
     var $complainanter;                   // string(120)  
-    var $TITLE;                           // string(120)  not_null
-    var $CONTENT;                         // blob(65535)  blob
+    var $title;                           // string(120)  not_null
+    var $content;                         // blob(65535)  blob
     var $reply;                           // string(2)  not_null
     var $handleman;                       // string(40)  not_null
     var $handledate;                      // datetime(19)  not_null
@@ -76,7 +76,7 @@ class DaoApfComplaints extends DB_DataObject
     */
     function getTitle() 
     {
-        return $this->TITLE;
+        return $this->title;
     }
 
    /**
@@ -87,7 +87,7 @@ class DaoApfComplaints extends DB_DataObject
     */
     function getContent() 
     {
-        return $this->CONTENT;
+        return $this->content;
     }
 
    /**
@@ -253,7 +253,7 @@ class DaoApfComplaints extends DB_DataObject
     */
     function setTitle($value) 
     {
-        $this->TITLE = $value;
+        $this->title = $value;
     }
 
    /**
@@ -264,7 +264,7 @@ class DaoApfComplaints extends DB_DataObject
     */
     function setContent($value) 
     {
-        $this->CONTENT = $value;
+        $this->content = $value;
     }
 
    /**
@@ -395,8 +395,8 @@ class DaoApfComplaints extends DB_DataObject
              'id' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
              'category' =>  DB_DATAOBJECT_INT,
              'complainanter' =>  DB_DATAOBJECT_STR,
-             'TITLE' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
-             'CONTENT' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_BLOB,
+             'title' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+             'content' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_BLOB,
              'reply' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
              'handleman' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
              'handledate' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
@@ -425,8 +425,8 @@ class DaoApfComplaints extends DB_DataObject
     {
          return array(
              'complainanter' => '',
-             'TITLE' => '',
-             'CONTENT' => '',
+             'title' => '',
+             'content' => '',
              'reply' => 'n',
              'handleman' => '',
              'state' => 'new',
@@ -443,6 +443,6 @@ class DaoApfComplaints extends DB_DataObject
 
     function validateTitle()
     {
-        return empty($this->TITLE)?false:true;
+        return empty($this->title)?false:true;
     }
 }

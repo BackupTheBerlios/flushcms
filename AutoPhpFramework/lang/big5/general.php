@@ -7,19 +7,23 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟遠螓
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.5 2006/12/06 23:45:48 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.6 2006/12/09 14:31:35 arzen Exp $
  */
 $this->setCharset('big5'); 
 $messages = array(
 	'site_title' => 'YCRM客戶關系管理系統',
 	'Copyright' => '&copy; 2006 版權所有 AutoPHPFramework 團隊。',
 	'Home' => '首頁',
-	'Users' => '管理員',
+	'Users' => '公司員工',
 	'News' => '公司活動',
 	'NewsCategory' => '公司活動類別',
 	'Product' => '產品',
 	'ProductCategory' => '產品類別',
 	'Logout' => '退出',
+	'Sale' => '銷售',
+	'Costs' => '費用',
+	'Customer' => '客戶',
+	'Workbench' => '工作台',
 
 	'PrevPage' => '上頁',
 	'NextPage' => '下頁',
@@ -42,6 +46,10 @@ $messages = array(
 	'New' => '新增',
 	'Live' => '已公布',
 	'Deleted' => '已撤銷',
+	'Access' => '訪問',
+	'Public' => '公共',
+	'Private' => '私有',
+	'Rename' => '重命名',
 
 	'Male' => '男',
 	'Female' => '女',
@@ -107,7 +115,7 @@ $messages = array(
 	'FinanceCategory' => '財務分類',
 	'Amount' => '張數',
 	'Debit' => '借/貸',
-	'Money' => '金額',
+	'Money' => '金額(元)',
 	'CreateDate' => '日期',
 	'Income' => '收入',
 	'Payout' => '支出',
@@ -171,13 +179,69 @@ $messages = array(
 //document
 	'Document' => '文檔',
 	'CreateFolder' => '創建目錄',
+	'Folder' => '文件夾',
 	'CreateFile' => '上傳文件',
 	'Position' => '目錄位置',
 	'Root' => '根目錄',
 	'Filename' => '文件',
 	'MajorRevision' => '主版本號',
 	'MinorRevision' => '副版本號',
+//order
+	'Order' => '訂單',
+	
+	'StateHandling' => '處理中',
+	'StateDelivery' => '已發貨',
+	'StateCancel' => '已取消',
+	'StateFinish' => '已完成',
+	'StatePrepay' => '已預付',
+	'StateWaitpay' => '等款到',
 
+	'PaywayCash' => '現金',
+	'PaywayWeek' => '周結',
+	'PaywayMonth' => '月結',
+	'PaywayQuarter' => '季度結',
+	'PaywayYear' => '年結',
+
+	'DeliverywayVisiting' => '上門提貨',
+	'DeliverywayNetwork' => '通過網絡',
+	'DeliverywayLand' => '陸運',
+	'DeliverywayOcean' => '海運',
+	'DeliverywayAir' => '空運',
+	
+	'Noid' => '編號',
+	'Contactid' => '聯系人',
+	'Discount' => '折扣(%)',
+	'Payway' => '付款方式',
+	'Deliveryway' => '交貨方式',
+	'Deliverydatetime' => '交貨日期',
+	'OrderCategory' => '訂單分類',
+	'Userid' => '擁有者',
+	'CreatedAt' => '創建日期',
+//agreement
+	'Agreement' => '合同',
+	'Effectdate' => '生效日期',
+	'Expireddate' => '失效日期',
+	'Buyer' => '甲方',
+	'Vender' => '乙方',
+	'Buyersignature' => '甲方簽約人',
+	'Vendersignature' => '乙方簽約人',
+
+//afterService
+	'AfterService' => '售後',
+//Complaints
+	'Complaints' => '投訴',
+	'Complainanter' => '投訴人',
+	'Reply' => '回復',
+	'Handleman' => '處理人',
+	'Handledate' => '處理日期',
+//Refundment
+	'Refundment' => '退貨',
+	'Refundmenter' => '退貨人',
+	'Reasons' => '退貨原因',
+//Review
+	'Review' => '回訪',
+	'Linkman' => '接待人',
+	'Reviewdate' => '回訪日期',
 	
 //Permit
 	'NotPermit' => '權限不足',

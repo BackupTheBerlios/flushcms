@@ -6,22 +6,24 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfComplaintsCategory.class.php,v 1.1 2006/12/09 04:17:35 arzen Exp $
+ * @version    CVS: $Id: ApfComplaintsCategory.class.php,v 1.2 2006/12/09 14:31:35 arzen Exp $
  */
 
 class ApfComplaintsCategory  extends Actions
 {
 	function executeCreate()
 	{
-		global $template,$WebBaseDir;
+		global $template,$WebBaseDir,$ActiveOption;
 
 		$template->setFile(array (
 			"MAIN" => "apf_complaints_category_edit.html"
 		));
 		$template->setBlock("MAIN", "add_block");
 		
+		array_shift($ActiveOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"ACTIVEOPTION" => radioTag("active",$ActiveOption,"live"),
 			"DOACTION" => "addsubmit"
 		));
 
@@ -34,15 +36,11 @@ class ApfComplaintsCategory  extends Actions
 	
 	function executeUpdate()
 	{
-		global $template,$WebBaseDir,$controller,$i18n;
+		global $template,$WebBaseDir,$controller,$i18n,$ActiveOption;
 		$template->setFile(array (
 			"MAIN" => "apf_complaints_category_edit.html"
 		));
 		$template->setBlock("MAIN", "edit_block");
-		$template->setVar(array (
-			"WEBDIR" => $WebBaseDir,
-			"DOACTION" => "updatesubmit"
-		));
 
 		$apf_complaints_category = DB_DataObject :: factory('ApfComplaintsCategory');
 		$apf_complaints_category->get($apf_complaints_category->escape($controller->getID()));
@@ -57,6 +55,13 @@ class ApfComplaintsCategory  extends Actions
 
 		$template->setVar(array ("ID" => $apf_complaints_category->getId(),"CATEGORY_NAME" => $apf_complaints_category->getCategoryName(),"ACTIVE" => $apf_complaints_category->getActive(),"ADD_IP" => $apf_complaints_category->getAddIp(),"CREATED_AT" => $apf_complaints_category->getCreatedAt(),"UPDATE_AT" => $apf_complaints_category->getUpdateAt(),));
 		
+		array_shift($ActiveOption);
+		$template->setVar(array (
+			"WEBDIR" => $WebBaseDir,
+			"ACTIVEOPTION" => radioTag("active",$ActiveOption,$apf_complaints_category->getActive()),
+			"DOACTION" => "updatesubmit"
+		));
+
 	}
 	
 	function executeUpdatesubmit () 
@@ -66,7 +71,7 @@ class ApfComplaintsCategory  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n;
+		global $template,$WebBaseDir,$i18n,$ActiveOption;
 		$apf_complaints_category = DB_DataObject :: factory('ApfComplaintsCategory');
 
 		if ($edit_submit) 
@@ -116,8 +121,10 @@ class ApfComplaintsCategory  extends Actions
 				"MAIN" => "apf_complaints_category_edit.html"
 			));
 			$template->setBlock("MAIN", "edit_block");
+			array_shift($ActiveOption);
 			$template->setVar(array (
 				"WEBDIR" => $WebBaseDir,
+				"ACTIVEOPTION" => radioTag("active",$ActiveOption,$_POST['active']),
 				"DOACTION" => $do_action
 			));
 			foreach ($val as $k => $v)
@@ -169,10 +176,9 @@ class ApfComplaintsCategory  extends Actions
 		$apf_complaints_category->orderBy('id desc');
 
 		$max_row = 10;
-		$ToltalNum = $apf_complaints_category->count();
 		$start_num = !isset($_GET['entrant'])?0:($_GET['entrant']-1)*$max_row;
 		$apf_complaints_category->limit($start_num,$max_row);
-		$apf_complaints_category->whereAdd(" userid = '$userid' OR access = 'public' ");
+		$ToltalNum = $apf_complaints_category->count();
 
 		$apf_complaints_category->find();
 		

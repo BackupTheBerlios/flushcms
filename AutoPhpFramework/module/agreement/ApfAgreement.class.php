@@ -6,24 +6,27 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfAgreement.class.php,v 1.2 2006/12/09 08:27:00 arzen Exp $
+ * @version    CVS: $Id: ApfAgreement.class.php,v 1.3 2006/12/09 14:31:35 arzen Exp $
  */
 
 class ApfAgreement  extends Actions
 {
 	function executeCreate()
 	{
-		global $template,$WebBaseDir;
+		global $template,$WebBaseDir,$AccessOption;
 
 		$template->setFile(array (
 			"MAIN" => "apf_agreement_edit.html"
 		));
 		$template->setBlock("MAIN", "add_block");
 		
+		array_shift($AccessOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
 			"EFFECT_DATE" => inputDateTag ("effectdate"),
 			"EXPIRED_DATE" => inputDateTag ("expireddate"),
+			"ACCESSOPTION" => radioTag("access",$AccessOption,"public"),
+			"DESCRIPTION_TEXT" => textareaTag ('description',"",false,"ROWS=\"8\" COLS=\"40\""),
 			"DOACTION" => "addsubmit"
 		));
 
@@ -36,15 +39,11 @@ class ApfAgreement  extends Actions
 	
 	function executeUpdate()
 	{
-		global $template,$WebBaseDir,$controller,$i18n;
+		global $template,$WebBaseDir,$controller,$i18n,$AccessOption;
 		$template->setFile(array (
 			"MAIN" => "apf_agreement_edit.html"
 		));
 		$template->setBlock("MAIN", "edit_block");
-		$template->setVar(array (
-			"WEBDIR" => $WebBaseDir,
-			"DOACTION" => "updatesubmit"
-		));
 
 		$apf_agreement = DB_DataObject :: factory('ApfAgreement');
 		$apf_agreement->get($apf_agreement->escape($controller->getID()));
@@ -58,6 +57,17 @@ class ApfAgreement  extends Actions
 		}
 
 		$template->setVar(array ("ID" => $apf_agreement->getId(),"NOID" => $apf_agreement->getNoid(),"CATEGORY" => $apf_agreement->getCategory(),"EFFECTDATE" => $apf_agreement->getEffectdate(),"EXPIREDDATE" => $apf_agreement->getExpireddate(),"BUYER" => $apf_agreement->getBuyer(),"VENDER" => $apf_agreement->getVender(),"BUYERSIGNATURE" => $apf_agreement->getBuyersignature(),"VENDERSIGNATURE" => $apf_agreement->getVendersignature(),"DESCRIPTION" => $apf_agreement->getDescription(),"GROUPID" => $apf_agreement->getGroupid(),"USERID" => $apf_agreement->getUserid(),"ACCESS" => $apf_agreement->getAccess(),"ACTIVE" => $apf_agreement->getActive(),"ADD_IP" => $apf_agreement->getAddIp(),"CREATED_AT" => $apf_agreement->getCreatedAt(),"UPDATE_AT" => $apf_agreement->getUpdateAt(),));
+	
+		array_shift($AccessOption);
+		$template->setVar(array (
+			"WEBDIR" => $WebBaseDir,
+			"EFFECT_DATE" => inputDateTag ("effectdate",$apf_agreement->getEffectdate()),
+			"EXPIRED_DATE" => inputDateTag ("expireddate",$apf_agreement->getExpireddate()),
+			"ACCESSOPTION" => radioTag("access",$AccessOption,$apf_agreement->getAccess()),
+			"DESCRIPTION_TEXT" => textareaTag ('description',$apf_agreement->getDescription(),false,"ROWS=\"8\" COLS=\"40\""),
+			"DOACTION" => "updatesubmit"
+		));
+
 		
 	}
 	
@@ -68,7 +78,7 @@ class ApfAgreement  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n,$AddIP,$userid,$group_ids;
+		global $template,$WebBaseDir,$i18n,$AddIP,$userid,$group_ids,$AccessOption;
 		$apf_agreement = DB_DataObject :: factory('ApfAgreement');
 
 		if ($edit_submit) 
@@ -90,8 +100,7 @@ class ApfAgreement  extends Actions
 		$apf_agreement->setBuyersignature(stripslashes(trim($_POST['buyersignature'])));
 		$apf_agreement->setVendersignature(stripslashes(trim($_POST['vendersignature'])));
 		$apf_agreement->setDescription(stripslashes(trim($_POST['description'])));
-		$apf_agreement->setGroupid(stripslashes(trim($_POST['groupid'])));
-		$apf_agreement->setUserid(stripslashes(trim($_POST['userid'])));
+
 		$apf_agreement->setAccess(stripslashes(trim($_POST['access'])));
 		$apf_agreement->setActive(stripslashes(trim($_POST['active'])));
 
@@ -130,8 +139,13 @@ class ApfAgreement  extends Actions
 				"MAIN" => "apf_agreement_edit.html"
 			));
 			$template->setBlock("MAIN", "edit_block");
+			array_shift($AccessOption);
 			$template->setVar(array (
 				"WEBDIR" => $WebBaseDir,
+				"EFFECT_DATE" => inputDateTag ("effectdate",$_POST['effectdate']),
+				"EXPIRED_DATE" => inputDateTag ("expireddate",$_POST['expireddate']),
+				"ACCESSOPTION" => radioTag("access",$AccessOption,$_POST['access']),
+				"DESCRIPTION_TEXT" => textareaTag ('description',$_POST['description'],false,"ROWS=\"8\" COLS=\"40\""),
 				"DOACTION" => $do_action
 			));
 			foreach ($val as $k => $v)
