@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: dao_option.php,v 1.4 2006/12/10 12:09:33 arzen Exp $
+ * @version    CVS: $Id: dao_option.php,v 1.5 2006/12/10 23:23:34 arzen Exp $
  */
 $opts = & PEAR :: getStaticProperty('DB_DataObject', 'options');
 $opts = array (
@@ -152,6 +152,18 @@ $opts = array (
 	$product_table . '_except_fields' => 'id,add_ip,created_at,update_at',
 	$product_table.'_generator_add_validate_stubs' => 'name:empty',
 
+	$selfproduct_table.'_modules_location' => $RootDir . '/module/selfproduct/',
+	$selfproduct_table.'_modules_name_location' => 'selfproduct',
+	$selfproduct_table . '_fields_list' => 'id,productname,retailprice,wholesaleprice,costprice,releasedate,photo,active',
+	$selfproduct_table . '_except_fields' => 'id,add_ip,groupid,userid,created_at,update_at',
+	$selfproduct_table.'_generator_add_validate_stubs' => 'productname:empty',
+
+	$selfcompany_table.'_modules_location' => $RootDir . '/module/selfcompany/',
+	$selfcompany_table.'_modules_name_location' => 'selfcompany',
+	$selfcompany_table . '_fields_list' => 'id,productname,retailprice,wholesaleprice,costprice,releasedate,photo,active',
+	$selfcompany_table . '_except_fields' => 'id,add_ip,groupid,userid,created_at,update_at',
+	$selfcompany_table.'_generator_add_validate_stubs' => 'productname:empty',
+
 	$company_product_table.'_modules_location' => $RootDir . '/module/company_product/',
 	$company_product_table.'_modules_name_location' => 'company_product',
 	$company_product_table . '_fields_list' => 'id,category,company_id,name,price,photo,active',
@@ -200,7 +212,7 @@ $opts = array (
 	'generate_setters' => '1',
 	'generate_getters' => '1',
 
-	'generator_include_regex' => '/^' . $dailyreport_table . '$/',
+	'generator_include_regex' => '/^' . $selfproduct_table . '$/',
 	'generator_no_ini' => '1',
 	
 );

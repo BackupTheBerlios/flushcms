@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.26 2006/12/10 12:09:33 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.27 2006/12/10 23:23:34 arzen Exp $
  */
 $this->setCharset('gb2312'); 
 $messages = array(
@@ -253,6 +253,12 @@ $messages = array(
 	'Profile' => '个人资料',
 	'DailyReport' => '日工作报告',
 	'Filldate' => '填写时间',
+//selfproduct
+	'Productname' => '产品名称',
+	'Retailprice' => '零售价格',
+	'Wholesaleprice' => '批发价格',
+	'Costprice' => '成本价格',
+	'Releasedate' => '上市日期',
 	
 //Permit
 	'NotPermit' => '权限不足',

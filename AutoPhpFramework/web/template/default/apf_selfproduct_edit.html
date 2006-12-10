@@ -1,0 +1,76 @@
+        
+<div id="admin_container">
+<h1>{lang_EditInfo}</h1>
+<div id="admin_header">
+</div>
+<div id="admin_content">
+  <div class="{SUCCESS_CLASS}">
+	{SUCCESS_MSG}
+  </div>
+
+<form id="admin_edit_form" name="admin_edit_form" method="post" enctype="multipart/form-data" action="{WEBDIR}/selfproduct/apf_selfproduct/{DOACTION}">
+<input type="hidden" name="ID" id="ID" value="{ID}" />
+<fieldset id="fieldset_________" class="">
+<h2>{lang_GeneralInfo}</h2><div class="form-row">
+  <label >{lang_Productname}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{PRODUCTNAME_ERROR_MSG}</div>
+  <input type="text" name="productname" id="productname" value="{PRODUCTNAME}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Retailprice}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{RETAILPRICE_ERROR_MSG}</div>
+  <input type="text" name="retailprice" id="retailprice" value="{RETAILPRICE}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Wholesaleprice}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{WHOLESALEPRICE_ERROR_MSG}</div>
+  <input type="text" name="wholesaleprice" id="wholesaleprice" value="{WHOLESALEPRICE}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Costprice}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{COSTPRICE_ERROR_MSG}</div>
+  <input type="text" name="costprice" id="costprice" value="{COSTPRICE}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Photo}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{PHOTO_ERROR_MSG}</div>
+  {FILEPHOTO}    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Releasedate}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{RELEASEDATE_ERROR_MSG}</div>
+  {RELEASE_DATE}   </div>
+</div>
+<div class="form-row">
+  <label >{lang_Memo}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{MEMO_ERROR_MSG}</div>
+  {MEMOTEXT}   </div>
+</div>
+<!-- 
+<div class="form-row">
+  <label >{lang_Access}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ACCESS_ERROR_MSG}</div>
+  <input type="text" name="access" id="access" value="{ACCESS}" size="20" />    </div>
+</div>
+<div class="form-row">
+  <label >{lang_Active}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ACTIVE_ERROR_MSG}</div>
+  <input type="text" name="active" id="active" value="{ACTIVE}" size="20" />    </div>
+</div>
+ -->
+</fieldset>
+<ul class="admin_actions">
+  <li><input class="admin_action_list" value="{lang_List}" type="button" onclick="document.location.href='{WEBDIR}/selfproduct/apf_selfproduct/list';" /></li>
+  <li><input type="submit" name="save" value="{lang_Save}" class="admin_action_save" /></li>
+
+</ul>
+</form>
+
+<ul class="admin_actions">
+      <li class="float-left"></li>
+</ul>
+</div>
+
+<div id="admin_footer">
+</div>
+</div>

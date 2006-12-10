@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 -- 
 -- 主机: localhost
--- 生成日期: 2006 年 12 月 09 日 22:27
+-- 生成日期: 2006 年 12 月 11 日 07:22
 -- 服务器版本: 4.0.26
 -- PHP 版本: 4.4.2
 -- 
@@ -223,6 +223,26 @@ CREATE TABLE `apf_contact_category` (
 -- --------------------------------------------------------
 
 -- 
+-- 表的结构 `apf_dailyreport`
+-- 
+
+CREATE TABLE `apf_dailyreport` (
+  `id` int(11) NOT NULL auto_increment,
+  `title` varchar(60) default NULL,
+  `content` text,
+  `filldate` datetime NOT NULL default '0000-00-00 00:00:00',
+  `active` varchar(8) NOT NULL default 'new',
+  `groupid` varchar(11) NOT NULL default '0',
+  `userid` int(11) NOT NULL default '0',
+  `add_ip` varchar(24) default NULL,
+  `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
+  `update_at` datetime NOT NULL default '0000-00-00 00:00:00',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
+
+-- 
 -- 表的结构 `apf_files`
 -- 
 
@@ -388,26 +408,6 @@ CREATE TABLE `apf_news` (
   `update_at` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM AUTO_INCREMENT=17 ;
-
--- 
--- 表的结构 `apf_dailyreport`
--- 
-
-CREATE TABLE `apf_dailyreport` (
-  `id` int(11) NOT NULL auto_increment,
-  `title` varchar(60) default NULL,
-  `content` text,
-  `filldate` datetime NOT NULL default '0000-00-00 00:00:00',
-  
-  `active` varchar(8) NOT NULL default 'new',
-  
-  `groupid` varchar(11) NOT NULL default '0',
-  `userid` int(11) NOT NULL default '0',
-  `add_ip` varchar(24) default NULL,
-  `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
-  `update_at` datetime NOT NULL default '0000-00-00 00:00:00',
-  PRIMARY KEY  (`id`)
-) TYPE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -610,7 +610,7 @@ CREATE TABLE `apf_refundment` (
   `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
   `update_at` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
+) TYPE=MyISAM AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -626,7 +626,7 @@ CREATE TABLE `apf_refundment_category` (
   `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
   `update_at` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
+) TYPE=MyISAM AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -649,7 +649,7 @@ CREATE TABLE `apf_review` (
   `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
   `update_at` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM;
+) TYPE=MyISAM AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -691,6 +691,66 @@ CREATE TABLE `apf_schedule` (
   KEY `publish_date` (`publish_date`),
   KEY `publish_starttime` (`publish_starttime`)
 ) TYPE=MyISAM AUTO_INCREMENT=10 ;
+
+-- --------------------------------------------------------
+
+-- 
+-- 表的结构 `apf_selfcompany`
+-- 
+
+CREATE TABLE `apf_selfcompany` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(50) default NULL,
+  `addrees` varchar(150) default NULL,
+  `phone` varchar(80) default NULL,
+  `fax` varchar(80) default NULL,
+  `email` varchar(80) default NULL,
+  `photo` varchar(60) default NULL,
+  `homepage` varchar(90) default NULL,
+  `employee` int(5) default NULL,
+  `bankroll` decimal(10,2) default NULL,
+  `link_man` varchar(50) default NULL,
+  `incorporator` varchar(50) default NULL,
+  `industry` varchar(50) default NULL,
+  `taxaccounts` varchar(120) default NULL,
+  `bankaccounts` text,
+  `products` text,
+  `memo` text,
+  `active` varchar(8) NOT NULL default 'new',
+  `access` varchar(8) NOT NULL default '',
+  `groupid` varchar(11) NOT NULL default '0',
+  `userid` int(11) NOT NULL default '0',
+  `add_ip` varchar(24) default NULL,
+  `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
+  `update_at` datetime NOT NULL default '0000-00-00 00:00:00',
+  PRIMARY KEY  (`id`),
+  KEY `name` (`name`)
+) TYPE=MyISAM AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+-- 
+-- 表的结构 `apf_selfproduct`
+-- 
+
+CREATE TABLE `apf_selfproduct` (
+  `id` int(11) NOT NULL auto_increment,
+  `productname` varchar(60) default NULL,
+  `retailprice` decimal(10,2) default NULL,
+  `wholesaleprice` decimal(10,2) default NULL,
+  `costprice` decimal(10,2) default NULL,
+  `photo` varchar(60) default NULL,
+  `releasedate` datetime NOT NULL default '0000-00-00 00:00:00',
+  `memo` text,
+  `access` varchar(8) NOT NULL default 'public',
+  `active` varchar(8) NOT NULL default 'new',
+  `groupid` varchar(11) NOT NULL default '0',
+  `userid` int(11) NOT NULL default '0',
+  `add_ip` varchar(24) default NULL,
+  `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
+  `update_at` datetime NOT NULL default '0000-00-00 00:00:00',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
