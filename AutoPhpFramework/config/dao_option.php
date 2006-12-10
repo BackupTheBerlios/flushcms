@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: dao_option.php,v 1.3 2006/12/10 00:29:56 arzen Exp $
+ * @version    CVS: $Id: dao_option.php,v 1.4 2006/12/10 12:09:33 arzen Exp $
  */
 $opts = & PEAR :: getStaticProperty('DB_DataObject', 'options');
 $opts = array (
@@ -48,6 +48,12 @@ $opts = array (
 	$news_table . '_fields_list' => 'id,title,category_id,active',
 	$news_table . '_except_fields' => 'id,add_ip,created_at,update_at',
 	$news_table.'_generator_add_validate_stubs' => 'title:empty',
+
+	$dailyreport_table.'_modules_location' => $RootDir . '/module/dailyreport/',
+	$dailyreport_table.'_modules_name_location' => 'dailyreport',
+	$dailyreport_table . '_fields_list' => 'id,title,filldate,created_at',
+	$dailyreport_table . '_except_fields' => 'id,add_ip,active,groupid,userid,created_at,update_at',
+	$dailyreport_table.'_generator_add_validate_stubs' => 'title:empty',
 
 	$finance_category_table.'_modules_location' => $RootDir . '/module/finance/',
 	$finance_category_table.'_modules_name_location' => 'finance',
@@ -194,7 +200,7 @@ $opts = array (
 	'generate_setters' => '1',
 	'generate_getters' => '1',
 
-	'generator_include_regex' => '/^' . $review_table . 'none$/',
+	'generator_include_regex' => '/^' . $dailyreport_table . '$/',
 	'generator_no_ini' => '1',
 	
 );

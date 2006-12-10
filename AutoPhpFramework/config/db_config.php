@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: db_config.php,v 1.12 2006/12/09 04:17:35 arzen Exp $
+ * @version    CVS: $Id: db_config.php,v 1.13 2006/12/10 12:09:33 arzen Exp $
  */
 $users_table = $DbPrefix."users";
 $groups_table = $DbPrefix."groups";
@@ -15,6 +15,8 @@ $rights_table = $DbPrefix."rights";
 
 $news_category_table = $DbPrefix."news_category";
 $news_table = $DbPrefix."news";
+
+$dailyreport_table = $DbPrefix."dailyreport";
 
 $finance_category_table = $DbPrefix."finance_category";
 $finance_table = $DbPrefix."finance";

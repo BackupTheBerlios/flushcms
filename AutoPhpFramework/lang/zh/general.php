@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.25 2006/12/10 00:29:56 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.26 2006/12/10 12:09:33 arzen Exp $
  */
 $this->setCharset('gb2312'); 
 $messages = array(
@@ -131,6 +131,7 @@ $messages = array(
 	'ContactCategory' => '联系人分类',
 //company
 	'Company' => '公司',
+	'BaseInfo' => '基本信息',
 	'LinkMan' => '联系人',
 	'Employee' => '雇员',
 	'Bankroll' => '固定资金',
@@ -247,6 +248,11 @@ $messages = array(
 	'ReviewwayPhone' => '电话',
 	'ReviewwayNetwork' => '网上',
 	'ReviewwayVisit' => '上门',
+//Profile
+	'My' => '我的',
+	'Profile' => '个人资料',
+	'DailyReport' => '日工作报告',
+	'Filldate' => '填写时间',
 	
 //Permit
 	'NotPermit' => '权限不足',

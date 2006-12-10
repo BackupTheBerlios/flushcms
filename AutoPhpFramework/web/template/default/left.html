@@ -65,20 +65,20 @@ body {font-family: Arial, Tahoma, Verdana;}
 
 <div>
      <div id="accordionExample">
-			<!-- 公司工作台 -->
+			<!-- 我的工作台 -->
     		<div>
     		  <div class="panelheader" align="center">
-    		  	{lang_Company}{lang_Workbench}
+    		  	{lang_My}{lang_Workbench}
     		  </div>
     			<div class="panelContent" align="center">
  
-				<a href="{WEBBASEDIR}/users/apf_users" target="main"><span>
-				<img src="{TEMPLATEDIR}images/admin_mid_button.gif" /><br/>
-				{lang_Users}</span></a><br>
+				<a href="{WEBBASEDIR}/users/apf_users/update/{USERID}" target="main"><span>
+				<img src="{TEMPLATEDIR}images/profile_mid_button.gif" /><br/>
+				{lang_Profile}</span></a><br>
 
 
-				<a href="{WEBBASEDIR}/news/apf_news" target="main"><span>
-				<img src="{TEMPLATEDIR}images/news_mid_button.gif" /><br/>{lang_News}</span></a><br>
+				<a href="{WEBBASEDIR}/dailyreport/apf_dailyreport" target="main"><span>
+				<img src="{TEMPLATEDIR}images/dailyreport_mid_button.gif" /><br/>{lang_DailyReport}</span></a><br>
 
     			<a href="{WEBBASEDIR}/schedule/apf_schedule" target="main"><span>
 				<img src="{TEMPLATEDIR}images/schedule_mid_button.gif" /><br/>
@@ -87,6 +87,31 @@ body {font-family: Arial, Tahoma, Verdana;}
     			<a href="{WEBBASEDIR}/document/apf_folders" target="main"><span>
 				<img src="{TEMPLATEDIR}images/dms.gif" /><br/>
 				{lang_Document}</span></a><br>
+
+			  </div>
+
+			</div>
+
+			<!-- 公司工作台 -->
+    		<div>
+    		  <div class="panelheader" align="center">
+    		  	{lang_Company}{lang_Workbench}
+    		  </div>
+    			<div class="panelContent" align="center">
+ 
+				<a href="{WEBBASEDIR}/news/apf_news" target="main"><span>
+				<img src="{TEMPLATEDIR}images/announce_mid_button.gif" /><br/>{lang_News}</span></a><br>
+
+				<a href="{WEBBASEDIR}/users/apf_users" target="main"><span>
+				<img src="{TEMPLATEDIR}images/employee_mid_button.gif" /><br/>
+				{lang_Users}</span></a><br>
+
+
+				<a href="{WEBBASEDIR}/news/apf_news" target="main"><span>
+				<img src="{TEMPLATEDIR}images/baseinfo_mid_button.gif" /><br/>{lang_BaseInfo}</span></a><br>
+
+				<a href="{WEBBASEDIR}/news/apf_news" target="main"><span>
+				<img src="{TEMPLATEDIR}images/company_pro_mid_button.gif" /><br/>{lang_Company}{lang_Product}</span></a><br>
 
 			  </div>
 

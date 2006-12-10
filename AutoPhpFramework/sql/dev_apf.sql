@@ -389,6 +389,26 @@ CREATE TABLE `apf_news` (
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM AUTO_INCREMENT=17 ;
 
+-- 
+-- 表的结构 `apf_dailyreport`
+-- 
+
+CREATE TABLE `apf_dailyreport` (
+  `id` int(11) NOT NULL auto_increment,
+  `title` varchar(60) default NULL,
+  `content` text,
+  `filldate` datetime NOT NULL default '0000-00-00 00:00:00',
+  
+  `active` varchar(8) NOT NULL default 'new',
+  
+  `groupid` varchar(11) NOT NULL default '0',
+  `userid` int(11) NOT NULL default '0',
+  `add_ip` varchar(24) default NULL,
+  `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
+  `update_at` datetime NOT NULL default '0000-00-00 00:00:00',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM;
+
 -- --------------------------------------------------------
 
 -- 
