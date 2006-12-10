@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfComplaints.class.php,v 1.2 2006/12/09 14:31:35 arzen Exp $
+ * @version    CVS: $Id: ApfComplaints.class.php,v 1.3 2006/12/10 00:29:56 arzen Exp $
  */
 
 class ApfComplaints  extends Actions
@@ -80,7 +80,7 @@ class ApfComplaints  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n,$AddIP,$userid,$group_ids;
+		global $template,$WebBaseDir,$i18n,$AddIP,$userid,$group_ids,$AccessOption,$ComplaintsStateOption;
 		$apf_complaints = DB_DataObject :: factory('ApfComplaints');
 
 		if ($edit_submit) 
@@ -139,8 +139,14 @@ class ApfComplaints  extends Actions
 				"MAIN" => "apf_complaints_edit.html"
 			));
 			$template->setBlock("MAIN", "edit_block");
+			array_shift($AccessOption);
+			array_shift($ComplaintsStateOption);
 			$template->setVar(array (
 				"WEBDIR" => $WebBaseDir,
+				"ACCESSOPTION" => radioTag("access",$AccessOption,$_POST['access']),
+				"STATE_OPTION" => radioTag("state",$ComplaintsStateOption,$_POST['state']),
+				"HANDLE_DATE" => inputDateTag ("handledate",$_POST['handledate']),
+				"CONTENT_TEXT" => textareaTag ('content',$_POST['content'],false,"ROWS=\"8\" COLS=\"40\""),
 				"DOACTION" => $do_action
 			));
 			foreach ($val as $k => $v)

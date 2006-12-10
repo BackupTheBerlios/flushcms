@@ -6,22 +6,28 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfRefundment.class.php,v 1.1 2006/12/09 04:17:35 arzen Exp $
+ * @version    CVS: $Id: ApfRefundment.class.php,v 1.2 2006/12/10 00:29:56 arzen Exp $
  */
 
 class ApfRefundment  extends Actions
 {
 	function executeCreate()
 	{
-		global $template,$WebBaseDir;
+		global $template,$WebBaseDir,$AccessOption,$ComplaintsStateOption;
 
 		$template->setFile(array (
 			"MAIN" => "apf_refundment_edit.html"
 		));
 		$template->setBlock("MAIN", "add_block");
 		
+		array_shift($AccessOption);
+		array_shift($ComplaintsStateOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"ACCESSOPTION" => radioTag("access",$AccessOption,"public"),
+			"STATE_OPTION" => radioTag("state",$ComplaintsStateOption,"handling"),
+			"HANDLE_DATE" => inputDateTag ("handledate",date("Y-m-d")),
+			"REASONS_TEXT" => textareaTag ('reasons',"",false,"ROWS=\"8\" COLS=\"40\""),
 			"DOACTION" => "addsubmit"
 		));
 
@@ -34,16 +40,11 @@ class ApfRefundment  extends Actions
 	
 	function executeUpdate()
 	{
-		global $template,$WebBaseDir,$controller,$i18n;
+		global $template,$WebBaseDir,$controller,$i18n,$AccessOption,$ComplaintsStateOption;
 		$template->setFile(array (
 			"MAIN" => "apf_refundment_edit.html"
 		));
 		$template->setBlock("MAIN", "edit_block");
-		$template->setVar(array (
-			"WEBDIR" => $WebBaseDir,
-			"DOACTION" => "updatesubmit"
-		));
-
 		$apf_refundment = DB_DataObject :: factory('ApfRefundment');
 		$apf_refundment->get($apf_refundment->escape($controller->getID()));
 
@@ -57,6 +58,17 @@ class ApfRefundment  extends Actions
 
 		$template->setVar(array ("ID" => $apf_refundment->getId(),"CATEGORY" => $apf_refundment->getCategory(),"COMPANY" => $apf_refundment->getCompany(),"REFUNDMENTER" => $apf_refundment->getRefundmenter(),"REASONS" => $apf_refundment->getReasons(),"REPLY" => $apf_refundment->getReply(),"HANDLEMAN" => $apf_refundment->getHandleman(),"HANDLEDATE" => $apf_refundment->getHandledate(),"STATE" => $apf_refundment->getState(),"GROUPID" => $apf_refundment->getGroupid(),"USERID" => $apf_refundment->getUserid(),"ACCESS" => $apf_refundment->getAccess(),"ACTIVE" => $apf_refundment->getActive(),"ADD_IP" => $apf_refundment->getAddIp(),"CREATED_AT" => $apf_refundment->getCreatedAt(),"UPDATE_AT" => $apf_refundment->getUpdateAt(),));
 		
+		array_shift($AccessOption);
+		array_shift($ComplaintsStateOption);
+		$template->setVar(array (
+			"WEBDIR" => $WebBaseDir,
+			"ACCESSOPTION" => radioTag("access",$AccessOption,$apf_refundment->getAccess()),
+			"STATE_OPTION" => radioTag("state",$ComplaintsStateOption,$apf_refundment->getState()),
+			"HANDLE_DATE" => inputDateTag ("handledate",$apf_refundment->getHandledate()),
+			"REASONS_TEXT" => textareaTag ('reasons',$apf_refundment->getReasons(),false,"ROWS=\"8\" COLS=\"40\""),
+			"DOACTION" => "updatesubmit"
+		));
+
 	}
 	
 	function executeUpdatesubmit () 
@@ -66,7 +78,7 @@ class ApfRefundment  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n;
+		global $template,$WebBaseDir,$i18n,$AddIP,$userid,$group_ids,$AccessOption,$ComplaintsStateOption;
 		$apf_refundment = DB_DataObject :: factory('ApfRefundment');
 
 		if ($edit_submit) 
@@ -87,13 +99,12 @@ class ApfRefundment  extends Actions
 		$apf_refundment->setHandleman(stripslashes(trim($_POST['handleman'])));
 		$apf_refundment->setHandledate(stripslashes(trim($_POST['handledate'])));
 		$apf_refundment->setState(stripslashes(trim($_POST['state'])));
-		$apf_refundment->setGroupid(stripslashes(trim($_POST['groupid'])));
-		$apf_refundment->setUserid(stripslashes(trim($_POST['userid'])));
 		$apf_refundment->setAccess(stripslashes(trim($_POST['access'])));
 		$apf_refundment->setActive(stripslashes(trim($_POST['active'])));
-		$apf_refundment->setAddIp(stripslashes(trim($_POST['add_ip'])));
-		$apf_refundment->setCreatedAt(stripslashes(trim($_POST['created_at'])));
-		$apf_refundment->setUpdateAt(stripslashes(trim($_POST['update_at'])));
+
+		$apf_refundment->setAddIp($AddIP);
+		$apf_refundment->setGroupid($group_ids);
+		$apf_refundment->setUserid($userid);
 
 				
 		$val = $apf_refundment->validate();
@@ -126,8 +137,14 @@ class ApfRefundment  extends Actions
 				"MAIN" => "apf_refundment_edit.html"
 			));
 			$template->setBlock("MAIN", "edit_block");
+			array_shift($AccessOption);
+			array_shift($ComplaintsStateOption);
 			$template->setVar(array (
 				"WEBDIR" => $WebBaseDir,
+				"ACCESSOPTION" => radioTag("access",$AccessOption,$_POST['access']),
+				"STATE_OPTION" => radioTag("state",$ComplaintsStateOption,$_POST['state']),
+				"HANDLE_DATE" => inputDateTag ("handledate",$_POST['handledate']),
+				"REASONS_TEXT" => textareaTag ('reasons',$_POST['reasons'],false,"ROWS=\"8\" COLS=\"40\""),
 				"DOACTION" => $do_action
 			));
 			foreach ($val as $k => $v)
@@ -165,7 +182,7 @@ class ApfRefundment  extends Actions
 	
 	function executeList()
 	{
-		global $template,$WebBaseDir,$i18n,$WebTemplateDir,$ClassDir,$userid,$ActiveOption;
+		global $template,$WebBaseDir,$i18n,$WebTemplateDir,$ClassDir,$userid,$ActiveOption,$ComplaintsStateOption;
 
 		include_once($ClassDir."URLHelper.class.php");
 		require_once 'Pager/Pager.php';
@@ -222,7 +239,7 @@ class ApfRefundment  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 			
-			$template->setVar(array ("ID" => $data['id'],"CATEGORY" => $data['category'],"COMPANY" => $data['company'],"REFUNDMENTER" => $data['refundmenter'],"REASONS" => $data['reasons'],"REPLY" => $data['reply'],"HANDLEMAN" => $data['handleman'],"HANDLEDATE" => $data['handledate'],"STATE" => $data['state'],"GROUPID" => $data['groupid'],"USERID" => $data['userid'],"ACCESS" => $data['access'],"ACTIVE" => $ActiveOption[$data['active']],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
+			$template->setVar(array ("ID" => $data['id'],"CATEGORY" => $data['category'],"COMPANY" => $data['company'],"REFUNDMENTER" => $data['refundmenter'],"REASONS" => $data['reasons'],"REPLY" => $data['reply'],"HANDLEMAN" => $data['handleman'],"HANDLEDATE" => $data['handledate'],"STATE" => $ComplaintsStateOption[$data['state']],"GROUPID" => $data['groupid'],"USERID" => $data['userid'],"ACCESS" => $data['access'],"ACTIVE" => $ActiveOption[$data['active']],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
 
 			$template->parse("list_block", "main_list", TRUE);
 			$i++;

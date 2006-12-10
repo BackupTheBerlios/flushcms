@@ -6,22 +6,24 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfRefundmentCategory.class.php,v 1.1 2006/12/09 04:17:35 arzen Exp $
+ * @version    CVS: $Id: ApfRefundmentCategory.class.php,v 1.2 2006/12/10 00:29:56 arzen Exp $
  */
 
 class ApfRefundmentCategory  extends Actions
 {
 	function executeCreate()
 	{
-		global $template,$WebBaseDir;
+		global $template,$WebBaseDir,$ActiveOption;
 
 		$template->setFile(array (
 			"MAIN" => "apf_refundment_category_edit.html"
 		));
 		$template->setBlock("MAIN", "add_block");
 		
+		array_shift($ActiveOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"ACTIVEOPTION" => radioTag("active",$ActiveOption,"live"),
 			"DOACTION" => "addsubmit"
 		));
 
@@ -34,16 +36,11 @@ class ApfRefundmentCategory  extends Actions
 	
 	function executeUpdate()
 	{
-		global $template,$WebBaseDir,$controller,$i18n;
+		global $template,$WebBaseDir,$controller,$i18n,$ActiveOption;
 		$template->setFile(array (
 			"MAIN" => "apf_refundment_category_edit.html"
 		));
 		$template->setBlock("MAIN", "edit_block");
-		$template->setVar(array (
-			"WEBDIR" => $WebBaseDir,
-			"DOACTION" => "updatesubmit"
-		));
-
 		$apf_refundment_category = DB_DataObject :: factory('ApfRefundmentCategory');
 		$apf_refundment_category->get($apf_refundment_category->escape($controller->getID()));
 
@@ -56,6 +53,14 @@ class ApfRefundmentCategory  extends Actions
 		}
 
 		$template->setVar(array ("ID" => $apf_refundment_category->getId(),"CATEGORY_NAME" => $apf_refundment_category->getCategoryName(),"ACTIVE" => $apf_refundment_category->getActive(),"ADD_IP" => $apf_refundment_category->getAddIp(),"CREATED_AT" => $apf_refundment_category->getCreatedAt(),"UPDATE_AT" => $apf_refundment_category->getUpdateAt(),));
+
+		array_shift($ActiveOption);
+		$template->setVar(array (
+			"WEBDIR" => $WebBaseDir,
+			"ACTIVEOPTION" => radioTag("active",$ActiveOption,$apf_refundment_category->getActive()),
+			"DOACTION" => "updatesubmit"
+		));
+
 		
 	}
 	
@@ -66,7 +71,7 @@ class ApfRefundmentCategory  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n;
+		global $template,$WebBaseDir,$i18n,$AddIP,$ActiveOption;
 		$apf_refundment_category = DB_DataObject :: factory('ApfRefundmentCategory');
 
 		if ($edit_submit) 
@@ -81,9 +86,7 @@ class ApfRefundmentCategory  extends Actions
 
 		$apf_refundment_category->setCategoryName(stripslashes(trim($_POST['category_name'])));
 		$apf_refundment_category->setActive(stripslashes(trim($_POST['active'])));
-		$apf_refundment_category->setAddIp(stripslashes(trim($_POST['add_ip'])));
-		$apf_refundment_category->setCreatedAt(stripslashes(trim($_POST['created_at'])));
-		$apf_refundment_category->setUpdateAt(stripslashes(trim($_POST['update_at'])));
+		$apf_refundment_category->setAddIp($AddIP);
 
 				
 		$val = $apf_refundment_category->validate();
@@ -116,8 +119,10 @@ class ApfRefundmentCategory  extends Actions
 				"MAIN" => "apf_refundment_category_edit.html"
 			));
 			$template->setBlock("MAIN", "edit_block");
+			array_shift($ActiveOption);
 			$template->setVar(array (
 				"WEBDIR" => $WebBaseDir,
+				"ACTIVEOPTION" => radioTag("active",$ActiveOption,$_POST['active']),
 				"DOACTION" => $do_action
 			));
 			foreach ($val as $k => $v)
@@ -169,10 +174,9 @@ class ApfRefundmentCategory  extends Actions
 		$apf_refundment_category->orderBy('id desc');
 
 		$max_row = 10;
-		$ToltalNum = $apf_refundment_category->count();
 		$start_num = !isset($_GET['entrant'])?0:($_GET['entrant']-1)*$max_row;
 		$apf_refundment_category->limit($start_num,$max_row);
-		$apf_refundment_category->whereAdd(" userid = '$userid' OR access = 'public' ");
+		$ToltalNum = $apf_refundment_category->count();
 
 		$apf_refundment_category->find();
 		

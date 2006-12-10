@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: Generator.php,v 1.19 2006/12/09 14:31:35 arzen Exp $
+ * @version    CVS: $Id: Generator.php,v 1.20 2006/12/10 00:29:56 arzen Exp $
  * @link       http://pear.php.net/package/DB_DataObject
  */
  
@@ -997,6 +997,8 @@ class {$camel_case_name}  extends Actions
 		\$template->setFile(array (
 			"MAIN" => "{$outfilename}_edit.html"
 		));
+		\$template->setBlock("MAIN", "edit_block");
+
 		\${$outfilename} = DB_DataObject :: factory('{$camel_case_name}');
 		\${$outfilename}->get(\${$outfilename}->escape(\$controller->getID()));
 
@@ -1010,7 +1012,6 @@ class {$camel_case_name}  extends Actions
 
 		\$template->setVar(array ({$update_code}));
 		
-		\$template->setBlock("MAIN", "edit_block");
 		\$template->setVar(array (
 			"WEBDIR" => \$WebBaseDir,
 			"DOACTION" => "updatesubmit"

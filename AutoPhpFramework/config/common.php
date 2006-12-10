@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: common.php,v 1.10 2006/12/09 14:31:35 arzen Exp $
+ * @version    CVS: $Id: common.php,v 1.11 2006/12/10 00:29:56 arzen Exp $
  */
  
 $GenderOption = array(	
@@ -84,6 +84,14 @@ $DeliverywayOption = array(
 			'ocean'=>"<FONT COLOR=\"#CCCC00\">".$i18n->_('DeliverywayOcean')."</FONT>",
 			'air'=>"<FONT COLOR=\"#FF0000\">".$i18n->_('DeliverywayAir')."</FONT>",
 			);
+
+$ReviewwayOption = array(	
+			''=>$i18n->_('All'),
+			'phone'=>"<FONT COLOR=\"#6600FF\">".$i18n->_('ReviewwayPhone')."</FONT>",
+			'network'=>"<FONT COLOR=\"#FF0000\">".$i18n->_('ReviewwayNetwork')."</FONT>",
+			'visit'=>"<FONT COLOR=\"#336633\">".$i18n->_('ReviewwayVisit')."</FONT>",
+			);
+
 
 for ($index = 0; $index < 24; $index++) 
 {

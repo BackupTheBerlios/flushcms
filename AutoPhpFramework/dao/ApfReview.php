@@ -12,7 +12,8 @@ class DaoApfReview extends DB_DataObject
     var $company;                         // string(120)  
     var $linkman;                         // string(120)  
     var $reviewdate;                      // datetime(19)  not_null
-    var $CONTENT;                         // blob(65535)  blob
+    var $category;                        // string(10)  
+    var $content;                         // blob(65535)  blob
     var $groupid;                         // string(11)  not_null
     var $userid;                          // int(4)  not_null
     var $access;                          // string(8)  not_null
@@ -76,6 +77,17 @@ class DaoApfReview extends DB_DataObject
     }
 
    /**
+    * Getter for $Category
+    *
+    * @return   string
+    * @access   public
+    */
+    function getCategory() 
+    {
+        return $this->category;
+    }
+
+   /**
     * Getter for $Content
     *
     * @return   blob
@@ -83,7 +95,7 @@ class DaoApfReview extends DB_DataObject
     */
     function getContent() 
     {
-        return $this->CONTENT;
+        return $this->content;
     }
 
    /**
@@ -209,6 +221,17 @@ class DaoApfReview extends DB_DataObject
     }
 
    /**
+    * Setter for $Category
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+    function setCategory($value) 
+    {
+        $this->category = $value;
+    }
+
+   /**
     * Setter for $Content
     *
     * @param    mixed   input value
@@ -216,7 +239,7 @@ class DaoApfReview extends DB_DataObject
     */
     function setContent($value) 
     {
-        $this->CONTENT = $value;
+        $this->content = $value;
     }
 
    /**
@@ -304,7 +327,8 @@ class DaoApfReview extends DB_DataObject
              'company' =>  DB_DATAOBJECT_STR,
              'linkman' =>  DB_DATAOBJECT_STR,
              'reviewdate' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
-             'CONTENT' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_BLOB,
+             'category' =>  DB_DATAOBJECT_STR,
+             'content' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_BLOB,
              'groupid' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
              'userid' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
              'access' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
@@ -330,7 +354,8 @@ class DaoApfReview extends DB_DataObject
          return array(
              'company' => '',
              'linkman' => '',
-             'CONTENT' => '',
+             'category' => '',
+             'content' => '',
              'groupid' => '',
              'userid' => 0,
              'access' => 'public',
@@ -344,6 +369,6 @@ class DaoApfReview extends DB_DataObject
 
     function validateContent()
     {
-        return empty($this->CONTENT)?false:true;
+        return empty($this->content)?false:true;
     }
 }

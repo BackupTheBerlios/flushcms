@@ -29,7 +29,7 @@
 <div class="form-row">
   <label >{lang_Reasons}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{REASONS_ERROR_MSG}</div>
-  <input type="text" name="reasons" id="reasons" value="{REASONS}" size="20" />    </div>
+  {REASONS_TEXT}    </div>
 </div>
 <div class="form-row">
   <label >{lang_Reply}:</label>  <div class="content">
@@ -44,23 +44,25 @@
 <div class="form-row">
   <label >{lang_Handledate}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{HANDLEDATE_ERROR_MSG}</div>
-  <input type="text" name="handledate" id="handledate" value="{HANDLEDATE}" size="20" />    </div>
+  {HANDLE_DATE}   </div>
 </div>
 <div class="form-row">
   <label >{lang_State}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{STATE_ERROR_MSG}</div>
-  <input type="text" name="state" id="state" value="{STATE}" size="20" />    </div>
+  {STATE_OPTION}   </div>
 </div>
 <div class="form-row">
   <label >{lang_Access}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ACCESS_ERROR_MSG}</div>
-  <input type="text" name="access" id="access" value="{ACCESS}" size="20" />    </div>
+  {ACCESSOPTION}   </div>
 </div>
+<!--
 <div class="form-row">
   <label >{lang_Active}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ACTIVE_ERROR_MSG}</div>
   <input type="text" name="active" id="active" value="{ACTIVE}" size="20" />    </div>
 </div>
+ -->
 </fieldset>
 <ul class="admin_actions">
   <li><input class="admin_action_list" value="{lang_List}" type="button" onclick="document.location.href='{WEBDIR}/refundment/apf_refundment/list';" /></li>

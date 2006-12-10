@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfComplaintsCategory.class.php,v 1.2 2006/12/09 14:31:35 arzen Exp $
+ * @version    CVS: $Id: ApfComplaintsCategory.class.php,v 1.3 2006/12/10 00:29:56 arzen Exp $
  */
 
 class ApfComplaintsCategory  extends Actions
@@ -71,7 +71,7 @@ class ApfComplaintsCategory  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n,$ActiveOption;
+		global $template,$WebBaseDir,$i18n,$ActiveOption,$AddIP,$ActiveOption;
 		$apf_complaints_category = DB_DataObject :: factory('ApfComplaintsCategory');
 
 		if ($edit_submit) 
@@ -86,9 +86,7 @@ class ApfComplaintsCategory  extends Actions
 
 		$apf_complaints_category->setCategoryName(stripslashes(trim($_POST['category_name'])));
 		$apf_complaints_category->setActive(stripslashes(trim($_POST['active'])));
-		$apf_complaints_category->setAddIp(stripslashes(trim($_POST['add_ip'])));
-		$apf_complaints_category->setCreatedAt(stripslashes(trim($_POST['created_at'])));
-		$apf_complaints_category->setUpdateAt(stripslashes(trim($_POST['update_at'])));
+		$apf_complaints_category->setAddIp($AddIP);
 
 				
 		$val = $apf_complaints_category->validate();

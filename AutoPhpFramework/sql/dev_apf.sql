@@ -619,7 +619,8 @@ CREATE TABLE `apf_review` (
   `company` varchar(120) default NULL,
   `linkman` varchar(120) default NULL,
   `reviewdate` datetime NOT NULL default '0000-00-00 00:00:00',
-  `CONTENT` text,
+  `category` varchar(10) default NULL,
+  `content` text,
   `groupid` varchar(11) NOT NULL default '',
   `userid` int(4) NOT NULL default '0',
   `access` varchar(8) NOT NULL default 'public',
@@ -628,7 +629,7 @@ CREATE TABLE `apf_review` (
   `created_at` datetime NOT NULL default '0000-00-00 00:00:00',
   `update_at` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM AUTO_INCREMENT=1 ;
+) TYPE=MyISAM;
 
 -- --------------------------------------------------------
 

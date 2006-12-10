@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: dao_option.php,v 1.2 2006/12/09 14:31:35 arzen Exp $
+ * @version    CVS: $Id: dao_option.php,v 1.3 2006/12/10 00:29:56 arzen Exp $
  */
 $opts = & PEAR :: getStaticProperty('DB_DataObject', 'options');
 $opts = array (
@@ -194,7 +194,7 @@ $opts = array (
 	'generate_setters' => '1',
 	'generate_getters' => '1',
 
-	'generator_include_regex' => '/^' . $complaints_table . '$/',
+	'generator_include_regex' => '/^' . $review_table . 'none$/',
 	'generator_no_ini' => '1',
 	
 );

@@ -24,23 +24,30 @@
 <div class="form-row">
   <label >{lang_Reviewdate}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{REVIEWDATE_ERROR_MSG}</div>
-  <input type="text" name="reviewdate" id="reviewdate" value="{REVIEWDATE}" size="20" />    </div>
+  {REVIEW_DATE}    </div>
 </div>
 <div class="form-row">
-  <label >{lang_Content}:</label>  <div class="content">
+  <label >{lang_Category}:</label>  <div class="content">
+  <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{CATEGORY_ERROR_MSG}</div>
+  {CATEGORY_OPTION}    </div>
+</div>
+<div class="form-row">
+  <label >{lang_ReviewNote}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{CONTENT_ERROR_MSG}</div>
-  <input type="text" name="CONTENT" id="CONTENT" value="{CONTENT}" size="20" />    </div>
+  {CONTENT_TEXT}    </div>
 </div>
 <div class="form-row">
   <label >{lang_Access}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ACCESS_ERROR_MSG}</div>
-  <input type="text" name="access" id="access" value="{ACCESS}" size="20" />    </div>
+  {ACCESSOPTION}    </div>
 </div>
+<!-- 
 <div class="form-row">
   <label >{lang_Active}:</label>  <div class="content">
   <div class="form-error-msg" style="color: #ff0000;" id="error_for_users_user_name">{ACTIVE_ERROR_MSG}</div>
   <input type="text" name="active" id="active" value="{ACTIVE}" size="20" />    </div>
 </div>
+ -->
 </fieldset>
 <ul class="admin_actions">
   <li><input class="admin_action_list" value="{lang_List}" type="button" onclick="document.location.href='{WEBDIR}/review/apf_review/list';" /></li>

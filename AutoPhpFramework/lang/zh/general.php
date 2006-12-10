@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.24 2006/12/09 14:31:35 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.25 2006/12/10 00:29:56 arzen Exp $
  */
 $this->setCharset('gb2312'); 
 $messages = array(
@@ -240,8 +240,13 @@ $messages = array(
 	'Reasons' => '退货原因',
 //Review
 	'Review' => '回访',
+	'ReviewNote' => '回访记录',
 	'Linkman' => '接待人',
 	'Reviewdate' => '回访日期',
+	
+	'ReviewwayPhone' => '电话',
+	'ReviewwayNetwork' => '网上',
+	'ReviewwayVisit' => '上门',
 	
 //Permit
 	'NotPermit' => '权限不足',
