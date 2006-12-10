@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.27 2006/12/10 23:23:34 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.28 2006/12/10 23:33:07 arzen Exp $
  */
 $this->setCharset('gb2312'); 
 $messages = array(
@@ -15,7 +15,7 @@ $messages = array(
 	'Copyright' => '&copy; 2006 版权所有 AutoPHPFramework 团队。',
 	'Home' => '首页',
 	'Users' => '公司员工',
-	'News' => '公司活动',
+	'News' => '公司公告',
 	'NewsCategory' => '公司活动类别',
 	'Product' => '产品',
 	'ProductCategory' => '产品类别',
@@ -254,6 +254,8 @@ $messages = array(
 	'DailyReport' => '日工作报告',
 	'Filldate' => '填写时间',
 //selfproduct
+	'Taxaccounts' => '税号',
+	'Bankaccounts' => '银行帐号',
 	'Productname' => '产品名称',
 	'Retailprice' => '零售价格',
 	'Wholesaleprice' => '批发价格',

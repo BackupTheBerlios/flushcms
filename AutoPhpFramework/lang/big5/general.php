@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟遠螓
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.6 2006/12/09 14:31:35 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.7 2006/12/10 23:33:07 arzen Exp $
  */
 $this->setCharset('big5'); 
 $messages = array(
@@ -15,7 +15,7 @@ $messages = array(
 	'Copyright' => '&copy; 2006 版權所有 AutoPHPFramework 團隊。',
 	'Home' => '首頁',
 	'Users' => '公司員工',
-	'News' => '公司活動',
+	'News' => '公司公告',
 	'NewsCategory' => '公司活動類別',
 	'Product' => '產品',
 	'ProductCategory' => '產品類別',
@@ -131,6 +131,7 @@ $messages = array(
 	'ContactCategory' => '聯系人分類',
 //company
 	'Company' => '公司',
+	'BaseInfo' => '基本信息',
 	'LinkMan' => '聯系人',
 	'Employee' => '雇員',
 	'Bankroll' => '固定資金',
@@ -240,8 +241,26 @@ $messages = array(
 	'Reasons' => '退貨原因',
 //Review
 	'Review' => '回訪',
+	'ReviewNote' => '回訪記錄',
 	'Linkman' => '接待人',
 	'Reviewdate' => '回訪日期',
+	
+	'ReviewwayPhone' => '電話',
+	'ReviewwayNetwork' => '網上',
+	'ReviewwayVisit' => '上門',
+//Profile
+	'My' => '我的',
+	'Profile' => '個人資料',
+	'DailyReport' => '日工作報告',
+	'Filldate' => '填寫時間',
+//selfproduct
+	'Taxaccounts' => '稅號',
+	'Bankaccounts' => '銀行帳號',
+	'Productname' => '產品名稱',
+	'Retailprice' => '零售價格',
+	'Wholesaleprice' => '批發價格',
+	'Costprice' => '成本價格',
+	'Releasedate' => '上市日期',
 	
 //Permit
 	'NotPermit' => '權限不足',
