@@ -1,99 +1,77 @@
 <preface id="overview">
-  <title>概述</title>
+	<title>概述</title>
 
 
-    <sect1 id="Introduction">
-	<title>简介</title>
-	<para>
-	YCRM客户关系管理系统是一套基于B/S结构的客户关系管理系统.为企业提供了一个完整的客户关系管理解决方案，帮助企业管理与客户的第一次接触到实现交易到售后服务的整个客户管理过程，更好的理解客户需求，并对客户需求做出及时地响应，最终改善客户关系，提高企业竞争力。
-	</para>
+	<sect1 id="Introduction">
+		<title>简介</title>
+		<para>
+			YCRM客户关系管理系统是一套基于B/S结构的客户关系管理系统.为企业提供了一个完整的客户关系管理解决方案，帮助企业管理与客户的第一次接触到实现交易到售后服务的整个客户管理过程，更好的理解客户需求，并对客户需求做出及时地响应，最终改善客户关系，提高企业竞争力。
+		</para>
 	</sect1>
-	
+
 	<sect1 id="Features">
-	<title>功能特色</title>
-	 <para>
-	   
-	
-		<orderedlist>
-		<listitem>
-		<para>我的工作台</para>
+		<title>功能特色</title>
 		<para>
-		   1. 我的资料
-		   2. 日工作报告
-		   3. 计划安排
-		   4. 文档管理 		
-		</para>
-		</listitem>
-		<listitem>
-		<para>公司工作台</para>
-		<para>
-		   1. 公司员工
-		   2. 公司公告
-		   3. 基本信息
-		   4. 公司产品 		
-		</para>
-		</listitem>
-		<listitem>
-		<para>客户管理</para>
-		<para>
-		   1. 客户
-		   2. 联系人 		
-		</para>
-		</listitem>
-		<listitem>
-		<para>销售管理</para>
-		<para>
-		   1. 机会
-		   2. 售前项目
-		   3. 合同
-		   4. 订单 		
-		</para>
-		</listitem>
-		
-		<listitem>
-		<para>售后管理</para>
-		<para>
-		   1. 投诉
-		   2. 退货
-		   3. 回访 		
-		</para>
-		</listitem>
 
-		<listitem>
-		<para>费用管理</para>
-		<para>
-   			1. 现金日记帐 		
+
+			<orderedlist>
+				<listitem>
+					<para>我的工作台</para>
+					<para> 1. 我的资料 2. 日工作报告 3. 计划安排 4. 文档管理 </para>
+				</listitem>
+				<listitem>
+					<para>公司工作台</para>
+					<para> 1. 公司员工 2. 公司公告 3. 基本信息 4. 公司产品 </para>
+				</listitem>
+				<listitem>
+					<para>客户管理</para>
+					<para> 1. 客户 2. 联系人 </para>
+				</listitem>
+				<listitem>
+					<para>销售管理</para>
+					<para> 1. 机会 2. 售前项目 3. 合同 4. 订单 </para>
+				</listitem>
+
+				<listitem>
+					<para>售后管理</para>
+					<para> 1. 投诉 2. 退货 3. 回访 </para>
+				</listitem>
+
+				<listitem>
+					<para>费用管理</para>
+					<para> 1. 现金日记帐 </para>
+				</listitem>
+
+				<listitem>
+					<para>操作Log日志</para>
+				</listitem>
+
+				<listitem>
+					<para>更多... </para>
+				</listitem>
+
+			</orderedlist>
+
+
 		</para>
-		</listitem>
-
-		<listitem>
-		<para>操作Log日志</para>
-		</listitem>
-		
-		<listitem>
-		<para>更多... </para>
-		</listitem>
-		
-		</orderedlist>
-
-	
-    </para>
 	</sect1>
-	
-	<sect1  id="License">
-	<title>License</title>
-	
-	<para>
-	The AutoPHPFramework is licensed under BSD and is free to use in Open Source and closed commercial projects. You must however maintain the original copyright notice as described in the license. The BSD license gives the enduser much greater freedom to use the software than any of the GPL family and its derivatives.
-	</para>
+
+	<sect1 id="License">
+		<title>License</title>
+
+		<para> The AutoPHPFramework is licensed under BSD and is free to use in Open Source and
+			closed commercial projects. You must however maintain the original copyright notice as
+			described in the license. The BSD license gives the enduser much greater freedom to use
+			the software than any of the GPL family and its derivatives. </para>
 
 
-    <para> 
-    	<author><firstname>John</firstname><surname>Meng</surname></author>, ShenZhen GuangDong, China. Nov 27, 2006
-    </para>
-    
-    </sect1>
+		<para>
+			<author>
+				<firstname>John</firstname>
+				<surname>Meng</surname>
+			</author>, ShenZhen GuangDong, China. Nov 27, 2006 </para>
 
- 
+	</sect1>
+
+
 </preface>
-
