@@ -7,7 +7,6 @@
 <!ENTITY sale SYSTEM "sale.xml">
 <!ENTITY aftersale SYSTEM "aftersale.xml">
 <!ENTITY costs SYSTEM "costs.xml">
-<!ENTITY documentmodule SYSTEM "document-module.xml">
 
 ]>
 
@@ -50,5 +49,4 @@
   &sale;
   &aftersale;
   &costs;
-  &documentmodule;
 </book>
