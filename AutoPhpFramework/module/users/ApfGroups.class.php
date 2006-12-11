@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfGroups.class.php,v 1.1 2006/10/01 12:04:52 arzen Exp $
+ * @version    CVS: $Id: ApfGroups.class.php,v 1.2 2006/12/11 14:47:37 arzen Exp $
  */
 
 class ApfGroups  extends Actions
@@ -90,20 +90,17 @@ class ApfGroups  extends Actions
 		$apf_groups->setIsActive(stripslashes(trim($_POST['is_active'])));
 		$apf_groups->setOwnerUserId(stripslashes(trim($_POST['owner_user_id'])));
 		$apf_groups->setOwnerGroupId(stripslashes(trim($_POST['owner_group_id'])));
-
 				
 		$val = $apf_groups->validate();
 		if ($val === TRUE)
 		{
 			if ($edit_submit) 
 			{
-				$apf_groups->setUpdateAt(DB_DataObject_Cast::dateTime());
 				$apf_groups->update();
 				$this->forward("users/apf_groups/update/".$_POST['ID']."/ok");
 			}
 			else 
 			{
-				$apf_groups->setCreatedAt(DB_DataObject_Cast::dateTime());
 				$apf_groups->insert();
 				$this->forward("users/apf_groups/");
 			}

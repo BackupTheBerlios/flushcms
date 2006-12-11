@@ -173,7 +173,7 @@ class DaoApfGroups extends DB_DataObject
 
     function keys()
     {
-         return array();
+         return array('group_id');
     }
 
     function sequenceKey() // keyname, use native, native name

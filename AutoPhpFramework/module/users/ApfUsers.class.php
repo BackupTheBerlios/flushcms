@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfUsers.class.php,v 1.19 2006/12/05 05:04:48 arzen Exp $
+ * @version    CVS: $Id: ApfUsers.class.php,v 1.20 2006/12/11 14:47:37 arzen Exp $
  */
 
 class ApfUsers  extends Actions
@@ -28,6 +28,7 @@ class ApfUsers  extends Actions
 				"GENDEROPTION" => radioTag("gender",$GenderOption,"m"),
 				"ACTIVEOPTION" => radioTag("active",$ActiveOption,"new"),
 				"FILEPHOTO" => fileTag("photo"),
+				"MEMO_TEXT" => textareaTag ('memo','',false,"ROWS=\"8\" COLS=\"40\""),
 				"WEBDIR" => $WebBaseDir,
 				"DOACTION" => "addsubmit"
 			));
@@ -68,13 +69,14 @@ class ApfUsers  extends Actions
 
 		array_shift($GenderOption);
 		array_shift($ActiveOption);
-		$template->setVar(array ("ID" => $apf_users->getId(),"USER_NAME" => $apf_users->getUserName(),"OLD_PASSWORD" => $apf_users->getUserPwd(),"GENDER" => $apf_users->getGender(),"ADDREES" => $apf_users->getAddrees(),"PHONE" => $apf_users->getPhone(),"EMAIL" => $apf_users->getEmail(),"PHOTO" => $apf_users->getPhoto(),"ROLE_ID" => $apf_users->getRoleId(),"ACTIVE" => $apf_users->getActive(),"ADD_IP" => $apf_users->getAddIp(),"CREATED_AT" => $apf_users->getCreatedAt(),"UPDATE_AT" => $apf_users->getUpdateAt(),));
+		$template->setVar(array ("ID" => $apf_users->getId(),"USER_NAME" => $apf_users->getUserName(),"REALNAME" => $apf_users->getRealname(),"OLD_PASSWORD" => $apf_users->getUserPwd(),"GENDER" => $apf_users->getGender(),"ADDREES" => $apf_users->getAddrees(),"PHONE" => $apf_users->getPhone(),"EMAIL" => $apf_users->getEmail(),"PHOTO" => $apf_users->getPhoto(),"ROLE_ID" => $apf_users->getRoleId(),"ACTIVE" => $apf_users->getActive(),"ADD_IP" => $apf_users->getAddIp(),"CREATED_AT" => $apf_users->getCreatedAt(),"UPDATE_AT" => $apf_users->getUpdateAt(),));
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
 			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().$WebTemplateDir,
 			"GENDEROPTION" => radioTag("gender",$GenderOption,$apf_users->getGender()),
 			"ACTIVEOPTION" => radioTag("active",$ActiveOption,$apf_users->getActive()),
 			"FILEPHOTO" => fileTag("photo",$apf_users->getPhoto()),
+			"MEMO_TEXT" => textareaTag ('memo',$apf_users->getMemo(),false,"ROWS=\"8\" COLS=\"40\""),
 			"WEBDIR" => $WebBaseDir,
 			"DOACTION" => "updatesubmit"
 		));
@@ -110,11 +112,12 @@ class ApfUsers  extends Actions
 		}
 
 		$apf_users->setUserName(stripslashes(trim($_POST['user_name'])));
+		$apf_users->setRealname(stripslashes(trim($_POST['realname'])));
+		$apf_users->setMemo(stripslashes(trim($_POST['memo'])));
 		$apf_users->setGender(stripslashes(trim($_POST['gender'])));
 		$apf_users->setAddrees(stripslashes(trim($_POST['addrees'])));
 		$apf_users->setPhone(stripslashes(trim($_POST['phone'])));
 		$apf_users->setEmail(stripslashes(trim($_POST['email'])));
-		$apf_users->setPhoto(stripslashes(trim($_POST['photo'])));
 		$apf_users->setRoleId(stripslashes(trim($_POST['role_id'])));
 		$apf_users->setActive(stripslashes(trim($_POST['active'])));
 
@@ -294,7 +297,7 @@ class ApfUsers  extends Actions
 				"LIST_TD_CLASS" => $list_td_class
 			));
 			
-			$template->setVar(array ("ID" => $data['id'],"USER_NAME" => $data['user_name'],"USER_PWD" => $data['user_pwd'],"GENDER" => $GenderOption[$data['gender']],"ADDREES" => $data['addrees'],"PHONE" => $data['phone'],"EMAIL" => showEmail ($data['email']),"PHOTO" => $data['photo'],"ROLE_ID" => $data['role_id'],"ACTIVE" => $ActiveOption[$data['active']],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
+			$template->setVar(array ("ID" => $data['id'],"USER_NAME" => $data['user_name'],"REALNAME" => $data['realname'],"USER_PWD" => $data['user_pwd'],"GENDER" => $GenderOption[$data['gender']],"ADDREES" => $data['addrees'],"PHONE" => $data['phone'],"EMAIL" => showEmail ($data['email']),"PHOTO" => $data['photo'],"ROLE_ID" => $data['role_id'],"ACTIVE" => $ActiveOption[$data['active']],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
 
 			$template->parse("list_block", "main_list", TRUE);
 			$i++;

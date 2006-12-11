@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: dao_option.php,v 1.5 2006/12/10 23:23:34 arzen Exp $
+ * @version    CVS: $Id: dao_option.php,v 1.6 2006/12/11 14:47:37 arzen Exp $
  */
 $opts = & PEAR :: getStaticProperty('DB_DataObject', 'options');
 $opts = array (
@@ -25,14 +25,14 @@ $opts = array (
 	$users_table . '_except_fields' => 'id,add_ip,created_at,update_at',
 	$users_table.'_generator_add_validate_stubs' => 'user_name:empty',
 
-	$groups_table.'_modules_location' => $RootDir . '/module/users/',
-	$groups_table.'_modules_name_location' => 'users',
+	$groups_table.'_modules_location' => $RootDir . '/module/groups/',
+	$groups_table.'_modules_name_location' => 'groups',
 	$groups_table . '_fields_list' => 'group_id,group_type,group_define_name,is_active,owner_user_id,owner_group_id',
 	$groups_table . '_except_fields' => '',
 	$groups_table.'_generator_add_validate_stubs' => 'group_define_name:empty',
 
-	$rights_table.'_modules_location' => $RootDir . '/module/users/',
-	$rights_table.'_modules_name_location' => 'users',
+	$rights_table.'_modules_location' => $RootDir . '/module/rights/',
+	$rights_table.'_modules_name_location' => 'rights',
 	$rights_table . '_fields_list' => 'right_id,right_define_name',
 	$rights_table . '_except_fields' => 'area_id,has_implied',
 	$rights_table.'_generator_add_validate_stubs' => 'right_define_name:empty',
@@ -212,7 +212,7 @@ $opts = array (
 	'generate_setters' => '1',
 	'generate_getters' => '1',
 
-	'generator_include_regex' => '/^' . $selfproduct_table . '$/',
+	'generator_include_regex' => '/^' . $users_table . '$/',
 	'generator_no_ini' => '1',
 	
 );

@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: Generator.php,v 1.21 2006/12/10 12:09:33 arzen Exp $
+ * @version    CVS: $Id: Generator.php,v 1.22 2006/12/11 14:47:37 arzen Exp $
  * @link       http://pear.php.net/package/DB_DataObject
  */
  
@@ -600,90 +600,90 @@ class DB_DataObject_Generator extends DB_DataObject
      * building the template files
      * for each of the tables output a file!
      */
-    function generateTemplates()
-    {
-        //echo "Generating Class files:        \n";
-        $options = &PEAR::getStaticProperty('DB_DataObject','options');
-        $base = $options['template_location'];
-        if (strpos($base,'%s') !== false) {
-            $base = dirname($base);
-        } 
-        
-        
-        if (!file_exists($base)) {
-            require_once 'System.php';
-            System::mkdir(array('-p',$base));
-        }
-
-        foreach($this->tables as $this->table) {
-            $this->table = trim($this->table);
-            $i = '';
-            
-            if (strpos($options['template_location'],'%s') !== false) {
-                $outfilename   = sprintf($options['template_location'], preg_replace('/[^A-Z0-9]/i','_',$this->table));
-            } else { 
-                $outfilename = "{$base}/".preg_replace('/[^A-Z0-9]/i','_',$this->table)."";//.php
-            }
-            $oldcontents = '';
-            if (file_exists($outfilename)) {
-                // file_get_contents???
-                $oldcontents = implode('',file($outfilename));
-            }
-            $out = $this->_generateListTemplate($oldcontents,$this->table);
-            $edit_out = $this->_generateEditTemplate($oldcontents,$this->table);
-            $this->debug( "writing $this->classname\n");
-            $fh = fopen($outfilename."_list.html", "w");
-            fputs($fh,$out);
-            fclose($fh);
-            
-            $fh = fopen($outfilename."_edit.html", "w");
-            fputs($fh,$edit_out);
-            fclose($fh);
-        }
-        //echo $out;
-    }
-    
-	
-	function generateModuleFile () 
-	{
-        //echo "Generating Class files:        \n";
-        $options = &PEAR::getStaticProperty('DB_DataObject','options');
-        $base = $options['modules_location'];
-        if (strpos($base,'%s') !== false) {
-            $base = dirname($base);
-        } 
-        
-        
-        if (!file_exists($base)) {
-            require_once 'System.php';
-            System::mkdir(array('-p',$base));
-        }
-
-        foreach($this->tables as $this->table) {
-            $this->table = trim($this->table);
-	        if (!file_exists($options["{$this->table}_modules_location"])) {
-	            require_once 'System.php';
-	            System::mkdir(array('-p',$options["{$this->table}_modules_location"]));
-	        }
-            $i = '';
-             if (strpos($options["{$this->table}_modules_location"],'%s') !== false) {
-                $outfilename   = sprintf($options["{$this->table}_modules_location"], preg_replace('/[^A-Z0-9]/i','_',$this->CamelCaseFromUnderscore($this->table)));
-            } else { 
-                $outfilename = $options["{$this->table}_modules_location"].preg_replace('/[^A-Z0-9]/i','_',$this->CamelCaseFromUnderscore($this->table))."";//.php
-            }
-            $oldcontents = '';
-            if (file_exists($outfilename)) {
-                // file_get_contents???
-                $oldcontents = implode('',file($outfilename));
-            }
-            $out = $this->_generateModuleFile($oldcontents,$this->table);
-            $this->debug( "writing $this->classname\n");
-            $fh = fopen($outfilename.".class.php", "w");
-            fputs($fh,$out);
-            fclose($fh);
-        }
-        //echo $out;
-	}
+//    function generateTemplates()
+//    {
+//        //echo "Generating Class files:        \n";
+//        $options = &PEAR::getStaticProperty('DB_DataObject','options');
+//        $base = $options['template_location'];
+//        if (strpos($base,'%s') !== false) {
+//            $base = dirname($base);
+//        } 
+//        
+//        
+//        if (!file_exists($base)) {
+//            require_once 'System.php';
+//            System::mkdir(array('-p',$base));
+//        }
+//
+//        foreach($this->tables as $this->table) {
+//            $this->table = trim($this->table);
+//            $i = '';
+//            
+//            if (strpos($options['template_location'],'%s') !== false) {
+//                $outfilename   = sprintf($options['template_location'], preg_replace('/[^A-Z0-9]/i','_',$this->table));
+//            } else { 
+//                $outfilename = "{$base}/".preg_replace('/[^A-Z0-9]/i','_',$this->table)."";//.php
+//            }
+//            $oldcontents = '';
+//            if (file_exists($outfilename)) {
+//                // file_get_contents???
+//                $oldcontents = implode('',file($outfilename));
+//            }
+//            $out = $this->_generateListTemplate($oldcontents,$this->table);
+//            $edit_out = $this->_generateEditTemplate($oldcontents,$this->table);
+//            $this->debug( "writing $this->classname\n");
+//            $fh = fopen($outfilename."_list.html", "w");
+//            fputs($fh,$out);
+//            fclose($fh);
+//            
+//            $fh = fopen($outfilename."_edit.html", "w");
+//            fputs($fh,$edit_out);
+//            fclose($fh);
+//        }
+//        //echo $out;
+//    }
+//    
+//	
+//	function generateModuleFile () 
+//	{
+//        //echo "Generating Class files:        \n";
+//        $options = &PEAR::getStaticProperty('DB_DataObject','options');
+//        $base = $options['modules_location'];
+//        if (strpos($base,'%s') !== false) {
+//            $base = dirname($base);
+//        } 
+//        
+//        
+//        if (!file_exists($base)) {
+//            require_once 'System.php';
+//            System::mkdir(array('-p',$base));
+//        }
+//
+//        foreach($this->tables as $this->table) {
+//            $this->table = trim($this->table);
+//	        if (!file_exists($options["{$this->table}_modules_location"])) {
+//	            require_once 'System.php';
+//	            System::mkdir(array('-p',$options["{$this->table}_modules_location"]));
+//	        }
+//            $i = '';
+//             if (strpos($options["{$this->table}_modules_location"],'%s') !== false) {
+//                $outfilename   = sprintf($options["{$this->table}_modules_location"], preg_replace('/[^A-Z0-9]/i','_',$this->CamelCaseFromUnderscore($this->table)));
+//            } else { 
+//                $outfilename = $options["{$this->table}_modules_location"].preg_replace('/[^A-Z0-9]/i','_',$this->CamelCaseFromUnderscore($this->table))."";//.php
+//            }
+//            $oldcontents = '';
+//            if (file_exists($outfilename)) {
+//                // file_get_contents???
+//                $oldcontents = implode('',file($outfilename));
+//            }
+//            $out = $this->_generateModuleFile($oldcontents,$this->table);
+//            $this->debug( "writing $this->classname\n");
+//            $fh = fopen($outfilename.".class.php", "w");
+//            fputs($fh,$out);
+//            fclose($fh);
+//        }
+//        //echo $out;
+//	}
 
     /**
      * class being extended (can be overridden by [DB_DataObject_Generator] extends=xxxx

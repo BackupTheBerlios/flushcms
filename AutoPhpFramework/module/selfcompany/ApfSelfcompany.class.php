@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfSelfcompany.class.php,v 1.1 2006/12/10 23:23:34 arzen Exp $
+ * @version    CVS: $Id: ApfSelfcompany.class.php,v 1.2 2006/12/11 14:47:37 arzen Exp $
  */
 
 class ApfSelfcompany  extends Actions
@@ -22,6 +22,10 @@ class ApfSelfcompany  extends Actions
 		
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"FILEPHOTO" => fileTag("photo"),
+			"BANKACCOUNTS_TEXT" => textareaTag ('bankaccounts','',false,"ROWS=\"4\" COLS=\"40\""),
+			"PRODUCTS_TEXT" => textareaTag ('products','',false,"ROWS=\"4\" COLS=\"40\""),
+			"MEMO_TEXT" => textareaTag ('memo','',false,"ROWS=\"8\" COLS=\"40\""),
 			"DOACTION" => "addsubmit"
 		));
 
@@ -41,7 +45,9 @@ class ApfSelfcompany  extends Actions
 		$template->setBlock("MAIN", "edit_block");
 
 		$apf_selfcompany = DB_DataObject :: factory('ApfSelfcompany');
-		$apf_selfcompany->get($apf_selfcompany->escape($controller->getID()));
+//		$apf_selfcompany->get($apf_selfcompany->escape($controller->getID()));
+		$apf_selfcompany->find();
+		$apf_selfcompany->fetch();
 
 		if ($controller->getURLParam(1)=="ok") 
 		{
@@ -55,6 +61,10 @@ class ApfSelfcompany  extends Actions
 		
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"FILEPHOTO" => fileTag("photo",$apf_selfcompany->getPhoto()),
+			"BANKACCOUNTS_TEXT" => textareaTag ('bankaccounts',$apf_selfcompany->getBankaccounts(),false,"ROWS=\"4\" COLS=\"40\""),
+			"PRODUCTS_TEXT" => textareaTag ('products',$apf_selfcompany->getProducts(),false,"ROWS=\"4\" COLS=\"40\""),
+			"MEMO_TEXT" => textareaTag ('memo',$apf_selfcompany->getMemo(),false,"ROWS=\"8\" COLS=\"40\""),
 			"DOACTION" => "updatesubmit"
 		));
 
@@ -67,7 +77,7 @@ class ApfSelfcompany  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n;
+		global $template,$WebBaseDir,$i18n,$AddIP,$userid,$group_ids;
 		$apf_selfcompany = DB_DataObject :: factory('ApfSelfcompany');
 
 		if ($edit_submit) 
@@ -98,11 +108,10 @@ class ApfSelfcompany  extends Actions
 		$apf_selfcompany->setMemo(stripslashes(trim($_POST['memo'])));
 		$apf_selfcompany->setActive(stripslashes(trim($_POST['active'])));
 		$apf_selfcompany->setAccess(stripslashes(trim($_POST['access'])));
-		$apf_selfcompany->setGroupid(stripslashes(trim($_POST['groupid'])));
-		$apf_selfcompany->setUserid(stripslashes(trim($_POST['userid'])));
-		$apf_selfcompany->setAddIp(stripslashes(trim($_POST['add_ip'])));
-		$apf_selfcompany->setCreatedAt(stripslashes(trim($_POST['created_at'])));
-		$apf_selfcompany->setUpdateAt(stripslashes(trim($_POST['update_at'])));
+
+		$apf_selfcompany->setAddIp($AddIP);
+		$apf_selfcompany->setGroupid($group_ids);
+		$apf_selfcompany->setUserid($userid);
 
 				
 		$val = $apf_selfcompany->validate();
@@ -174,7 +183,19 @@ class ApfSelfcompany  extends Actions
 	
 	function executeList()
 	{
-		$this->executeUpdate();
+		
+		$apf_selfcompany = DB_DataObject :: factory('ApfSelfcompany');
+//		$apf_selfcompany->debugLevel(4);
+		$apf_selfcompany->find();
+		$apf_selfcompany->fetch();
+		if ($apf_selfcompany->getId()) 
+		{
+			$this->executeUpdate();
+		} 
+		else 
+		{
+			$this->executeCreate();
+		}
 	}
 	
 }

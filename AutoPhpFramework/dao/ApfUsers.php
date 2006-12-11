@@ -10,12 +10,14 @@ class DaoApfUsers extends DB_DataObject
     var $__table = 'apf_users';                       // table name
     var $id;                              // int(11)  not_null primary_key auto_increment
     var $user_name;                       // string(60)  
+    var $realname;                        // string(40)  not_null
     var $user_pwd;                        // string(50)  
     var $gender;                          // string(8)  
     var $addrees;                         // string(150)  
     var $phone;                           // string(80)  
     var $email;                           // string(80)  
     var $photo;                           // string(80)  
+    var $memo;                            // blob(65535)  not_null blob
     var $role_id;                         // int(8)  
     var $active;                          // string(8)  not_null
     var $add_ip;                          // string(24)  
@@ -52,6 +54,17 @@ class DaoApfUsers extends DB_DataObject
     function getUserName() 
     {
         return $this->user_name;
+    }
+
+   /**
+    * Getter for $Realname
+    *
+    * @return   string
+    * @access   public
+    */
+    function getRealname() 
+    {
+        return $this->realname;
     }
 
    /**
@@ -118,6 +131,17 @@ class DaoApfUsers extends DB_DataObject
     function getPhoto() 
     {
         return $this->photo;
+    }
+
+   /**
+    * Getter for $Memo
+    *
+    * @return   blob
+    * @access   public
+    */
+    function getMemo() 
+    {
+        return $this->memo;
     }
 
    /**
@@ -199,6 +223,17 @@ class DaoApfUsers extends DB_DataObject
     }
 
    /**
+    * Setter for $Realname
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+    function setRealname($value) 
+    {
+        $this->realname = $value;
+    }
+
+   /**
     * Setter for $UserPwd
     *
     * @param    mixed   input value
@@ -265,6 +300,17 @@ class DaoApfUsers extends DB_DataObject
     }
 
    /**
+    * Setter for $Memo
+    *
+    * @param    mixed   input value
+    * @access   public
+    */
+    function setMemo($value) 
+    {
+        $this->memo = $value;
+    }
+
+   /**
     * Setter for $RoleId
     *
     * @param    mixed   input value
@@ -325,12 +371,14 @@ class DaoApfUsers extends DB_DataObject
          return array(
              'id' =>  DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
              'user_name' =>  DB_DATAOBJECT_STR,
+             'realname' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
              'user_pwd' =>  DB_DATAOBJECT_STR,
              'gender' =>  DB_DATAOBJECT_STR,
              'addrees' =>  DB_DATAOBJECT_STR,
              'phone' =>  DB_DATAOBJECT_STR,
              'email' =>  DB_DATAOBJECT_STR,
              'photo' =>  DB_DATAOBJECT_STR,
+             'memo' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_BLOB + DB_DATAOBJECT_NOTNULL,
              'role_id' =>  DB_DATAOBJECT_INT,
              'active' =>  DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
              'add_ip' =>  DB_DATAOBJECT_STR,
@@ -353,13 +401,15 @@ class DaoApfUsers extends DB_DataObject
     {
          return array(
              'user_name' => '',
+             'realname' => '',
              'user_pwd' => '',
              'gender' => '',
              'addrees' => '',
              'phone' => '',
              'email' => '',
              'photo' => '',
-             'active' => 'new',
+             'memo' => '',
+             'active' => 'live',
              'add_ip' => '',
          );
     }
