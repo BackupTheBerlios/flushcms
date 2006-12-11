@@ -5,7 +5,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: FormObject.php,v 1.20 2006/12/09 14:31:35 arzen Exp $
+ * @version    CVS: $Id: FormObject.php,v 1.21 2006/12/11 23:40:53 arzen Exp $
  */
 
 /**
@@ -215,7 +215,7 @@ function imageTag ($filename)
 	return $filename?"<a target='_blank' href={$WebUploadDir}{$filename}><IMG SRC=\"{$WebUploadDir}{$filename}\" WIDTH=\"80\" BORDER=\"0\" ></a> &nbsp;":"";
 }
 
-function inputDateTag ($name, $value="") 
+function inputDateTag ($name, $value="",$show_time=false) 
 {
 	global $WebJSToolkitPath;
 	$html_code = "";
@@ -230,14 +230,35 @@ function inputDateTag ($name, $value="")
 		";
 		registerGlobalVar ($js_key,true);	
 	} 
+	if ($show_time) 
+	{
+		$input_size="16";
+		$date_format="yyyy-MM-dd";
+		$cal_setup = "
+	    Calendar.setup({
+	      inputField : \"{$name}\",
+	      ifFormat : \"%Y-%m-%d  %H:%M\",
+	      showsTime      :    true,
+	      timeFormat     :    '24',
+	      showsTime      :    true,button : \"trigger_{$name}\"
+	    });";
+	} 
+	else 
+	{
+		$input_size="9";
+		$date_format="yyyy-MM-dd";
+		$cal_setup = "
+	    Calendar.setup({
+	      inputField : \"{$name}\",
+	      ifFormat : \"%Y-%m-%d\",
+	      button : \"trigger_{$name}\"
+	    });";
+		
+	}
 	$html_code .= "
-	<input type=\"text\" name=\"{$name}\" id=\"{$name}\" value=\"{$value}\" calendar_button_img=\"{$WebJSToolkitPath}calendar/images/date.png\" date_format=\"yyyy-MM-dd\" size=\"9\" /><img id=\"trigger_{$name}\" style=\"cursor: pointer; vertical-align: middle\" src=\"{$WebJSToolkitPath}calendar/images/date.png\" alt=\"Date\" /><script type=\"text/javascript\">
+	<input type=\"text\" name=\"{$name}\" id=\"{$name}\" value=\"{$value}\" calendar_button_img=\"{$WebJSToolkitPath}calendar/images/date.png\" date_format=\"{$date_format}\" size=\"{$input_size}\" /><img id=\"trigger_{$name}\" style=\"cursor: pointer; vertical-align: middle\" src=\"{$WebJSToolkitPath}calendar/images/date.png\" alt=\"Date\" /><script type=\"text/javascript\">
     document.getElementById(\"trigger_{$name}\").disabled = false;
-    Calendar.setup({
-      inputField : \"{$name}\",
-      ifFormat : \"%Y-%m-%d\",
-      button : \"trigger_{$name}\"
-    });
+	{$cal_setup}
   	</script>";
 	return $html_code;
 }

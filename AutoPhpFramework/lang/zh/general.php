@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: general.php,v 1.29 2006/12/11 14:47:37 arzen Exp $
+ * @version    CVS: $Id: general.php,v 1.30 2006/12/11 23:40:53 arzen Exp $
  */
 $this->setCharset('gb2312'); 
 $messages = array(
@@ -95,9 +95,9 @@ $messages = array(
 	'RightId' => 'ID',
 	'RightDefineName' => '权限名',
 
-	'Group' => '组',
-	'Groups' => '组',
-	'GroupUsers' => '组用户',
+	'Group' => '部门',
+	'Groups' => '部门',
+	'GroupUsers' => '部门员工',
 	'Rights' => '权限',
 	'GroupRights' => '组权限',
 	'NotInGroup' => '不在组内',

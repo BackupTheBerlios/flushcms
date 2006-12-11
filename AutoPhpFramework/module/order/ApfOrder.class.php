@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfOrder.class.php,v 1.3 2006/12/09 14:31:35 arzen Exp $
+ * @version    CVS: $Id: ApfOrder.class.php,v 1.4 2006/12/11 23:40:53 arzen Exp $
  */
 
 class ApfOrder  extends Actions
@@ -27,7 +27,7 @@ class ApfOrder  extends Actions
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
 			"ACCESSOPTION" => radioTag("access",$AccessOption,"public"),
-			"DELIVERYDATE" => inputDateTag ("deliverydatetime",date("Y-m-d")),
+			"DELIVERYDATE" => inputDateTag ("deliverydatetime",date("Y-m-d H:i"),true),
 			"PAYWAY_OPTION" => radioTag("payway",$PaywayOption,"cash"),
 			"DELIVERY_OPTION" => radioTag("deliveryway",$DeliverywayOption,"land"),
 			"STATE_OPTION" => radioTag("state",$OrderStateOption,"handling"),
@@ -69,7 +69,7 @@ class ApfOrder  extends Actions
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
 			"ACCESSOPTION" => radioTag("access",$AccessOption,$apf_order->getAccess()),
-			"DELIVERYDATE" => inputDateTag ("deliverydatetime",$apf_order->getDeliverydatetime()),
+			"DELIVERYDATE" => inputDateTag ("deliverydatetime",$apf_order->getDeliverydatetime(),true),
 			"MEMOTEXT" => textareaTag ('memo',$apf_order->getMemo(),false,"ROWS=\"8\" COLS=\"40\""),
 			"PAYWAY_OPTION" => radioTag("payway",$PaywayOption,$apf_order->getPayway()),
 			"DELIVERY_OPTION" => radioTag("deliveryway",$DeliverywayOption,$apf_order->getDeliveryway()),
