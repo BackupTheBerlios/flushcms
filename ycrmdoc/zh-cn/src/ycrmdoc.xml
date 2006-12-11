@@ -2,14 +2,17 @@
 <!DOCTYPE book SYSTEM "../../tools/dtd/dblite.dtd"[
 <!ENTITY overview SYSTEM "overview.xml">
 <!ENTITY myworkbench SYSTEM "my-workbench.xml">
+<!ENTITY companyworkbench SYSTEM "company-workbench.xml">
+<!ENTITY customer SYSTEM "customer.xml">
+<!ENTITY sale SYSTEM "sale.xml">
+<!ENTITY aftersale SYSTEM "aftersale.xml">
+<!ENTITY costs SYSTEM "costs.xml">
 <!ENTITY documentmodule SYSTEM "document-module.xml">
 
 ]>
 
 <book id="ycrm">
   <title>YCRM客户关系管理系统</title>
-  <!-- Using revnumber would be more appropriate, but our stylesheets -->
-  <!-- don't seem to render it. -->
   <subtitle>For YCRM客户关系管理系统 1.0</subtitle>
   <bookinfo>
 
@@ -42,5 +45,10 @@
   <!-- External entity refs --> 
   &overview; 
   &myworkbench; 
+  &companyworkbench;
+  &customer;
+  &sale;
+  &aftersale;
+  &costs;
   &documentmodule;
 </book>
