@@ -1,19 +1,6 @@
 <?php
 
-/*******************************************************************************
 
- WINBINDER - A native Windows binding for PHP
-
- Copyright © 2004-2006 Hypervisual - see LICENSE.TXT for details
- Author: Rubem Pechansky (http://www.hypervisual.com/winbinder/contact.php)
-
- Code sample: A simple digital clock with scrolling text
-
-*******************************************************************************/
-
-//------------------------------------------------------------ SYSTEM PARAMETERS
-
-//----------------------------------------------------------------- DEPENDENCIES
 
 include_once "include/winbinder.php";
 
@@ -66,7 +53,7 @@ function process_main($window, $id)
 
 			// Show the current time in hours, minutes and seconds
 
-			wb_set_text($label, getTimeShotFormat (date("h:i:s")));
+			wb_set_text($label, getTimeShotFormat (date("h:i:s A")));
 
 			// Truncate text
 
