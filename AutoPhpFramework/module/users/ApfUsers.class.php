@@ -6,14 +6,14 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfUsers.class.php,v 1.20 2006/12/11 14:47:37 arzen Exp $
+ * @version    CVS: $Id: ApfUsers.class.php,v 1.21 2006/12/12 23:35:42 arzen Exp $
  */
 
 class ApfUsers  extends Actions
 {
 	function executeCreate()
 	{
-		global $template,$WebBaseDir,$LU,$GenderOption,$ActiveOption;
+		global $template,$WebBaseDir,$LU,$GenderOption,$ActiveOption,$luadmin,$i18n;
 		
 		if ($LU->checkRight(array(CREATE))) 
 		{
@@ -22,6 +22,12 @@ class ApfUsers  extends Actions
 			));
 			$template->setBlock("MAIN", "add_block");
 			
+			$groups = $luadmin->perm->getGroups();
+			foreach($groups as $data)
+			{
+				$category_arr[$data['group_id']] = $data['group_define_name'];
+			}
+			
 			array_shift($GenderOption);
 			array_shift($ActiveOption);
 			$template->setVar(array (
@@ -29,6 +35,7 @@ class ApfUsers  extends Actions
 				"ACTIVEOPTION" => radioTag("active",$ActiveOption,"new"),
 				"FILEPHOTO" => fileTag("photo"),
 				"MEMO_TEXT" => textareaTag ('memo','',false,"ROWS=\"8\" COLS=\"40\""),
+				"GROUPOPTION" => selectTag("group",$category_arr,""),
 				"WEBDIR" => $WebBaseDir,
 				"DOACTION" => "addsubmit"
 			));
@@ -48,7 +55,7 @@ class ApfUsers  extends Actions
 	
 	function executeUpdate()
 	{
-		global $template,$WebBaseDir,$ClassDir,$controller,$GenderOption,$ActiveOption,$WebTemplateDir;
+		global $template,$liveuserConfig,$userid,$luadmin,$LU,$i18n,$WebBaseDir,$ClassDir,$controller,$GenderOption,$ActiveOption,$WebTemplateDir;
 		
 		include_once($ClassDir."URLHelper.class.php");
 		$template->setFile(array (
@@ -66,7 +73,24 @@ class ApfUsers  extends Actions
 				"SUCCESS_MSG" => "<h2>Your modifications have been saved</h2>"
 			));
 		}
+		$groups = $luadmin->perm->getGroups();
+		foreach($groups as $data)
+		{
+			$category_arr[$data['group_id']] = $data['group_define_name'];
+		}
 
+		$admin = LiveUser_Admin::factory($liveuserConfig);
+		$admin->init($controller->getID());
+		$filters = array(
+			'group' => true,
+//			'fields' => array('auth_user_id','group_id'),
+//		    'filters' => array(
+//		        'group_id' => 2
+//		    ),
+		);
+		
+		Var_Dump::display($luadmin->getUsers($filters));	
+		
 		array_shift($GenderOption);
 		array_shift($ActiveOption);
 		$template->setVar(array ("ID" => $apf_users->getId(),"USER_NAME" => $apf_users->getUserName(),"REALNAME" => $apf_users->getRealname(),"OLD_PASSWORD" => $apf_users->getUserPwd(),"GENDER" => $apf_users->getGender(),"ADDREES" => $apf_users->getAddrees(),"PHONE" => $apf_users->getPhone(),"EMAIL" => $apf_users->getEmail(),"PHOTO" => $apf_users->getPhoto(),"ROLE_ID" => $apf_users->getRoleId(),"ACTIVE" => $apf_users->getActive(),"ADD_IP" => $apf_users->getAddIp(),"CREATED_AT" => $apf_users->getCreatedAt(),"UPDATE_AT" => $apf_users->getUpdateAt(),));
@@ -77,6 +101,7 @@ class ApfUsers  extends Actions
 			"ACTIVEOPTION" => radioTag("active",$ActiveOption,$apf_users->getActive()),
 			"FILEPHOTO" => fileTag("photo",$apf_users->getPhoto()),
 			"MEMO_TEXT" => textareaTag ('memo',$apf_users->getMemo(),false,"ROWS=\"8\" COLS=\"40\""),
+			"GROUPOPTION" => selectTag("group",$category_arr,""),
 			"WEBDIR" => $WebBaseDir,
 			"DOACTION" => "updatesubmit"
 		));
