@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: digiclock.php,v 1.3 2006/12/12 09:21:32 arzen Exp $
+ * @version    CVS: $Id: digiclock.php,v 1.4 2006/12/12 09:50:16 arzen Exp $
  */
 
 include_once "include/winbinder.php";
@@ -74,7 +74,7 @@ function process_main($window, $id)
 			{
 					$text = "中午休息时间      ";
 			}
-			if(ereg("17:([4-5][0-9])",date("H:i")))
+			if(ereg("17:([2-3][0-9])",date("H:i")))
 			{
 					$text = "记得写每日工作报告      ";
 			}
