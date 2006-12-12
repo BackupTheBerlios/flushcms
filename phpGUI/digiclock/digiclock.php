@@ -1,6 +1,14 @@
 <?php
-
-
+/**
+ *
+ * digiclock.php
+ *
+ * @package    core
+ * @author     John.meng <arzen1013@gmail.com>
+ * @author     √œ‘∂Ú˚
+ * @author     QQ:3440895
+ * @version    CVS: $Id: digiclock.php,v 1.3 2006/12/12 09:21:32 arzen Exp $
+ */
 
 include_once "include/winbinder.php";
 
@@ -28,14 +36,14 @@ wb_set_font($label, wb_create_font("Tahoma", 11, null, FTA_BOLD));
 // Create status bar
 
 $statusbar = wb_create_control($mainwin, StatusBar, formatLocalDate (date("Y-m-d H:i:s")));
-wb_set_font($statusbar, wb_create_font("Courier New", 8));
+wb_set_font($statusbar, wb_create_font("Simsun", 10));
 
 // Create the timer
 
 wb_create_timer($mainwin, ID_APP_TIMER, 520);
 
 // Enter application loop
-
+wb_set_image($mainwin,"resource/time.ico");
 wb_main_loop();
 
 //-------------------------------------------------------------------- FUNCTIONS

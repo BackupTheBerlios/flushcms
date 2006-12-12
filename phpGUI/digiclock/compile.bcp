@@ -1,6 +1,6 @@
 ; Bamcompile example project file
 ; exe Icon
-icon resource\TIME1.ICO
+icon resource\time.ico
 
 mainfile digiclock.php
 outfile ..\bin\digiclock.exe
@@ -8,3 +8,4 @@ compress
 windowed
 embed ..\digiclock
 extension ..\dll\php_winbinder.dll
+destination ..\digiclock
