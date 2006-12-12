@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!-- ======================================================================
+     2006-8-2 上午07:35:44
+
+     PHPGUI
+ 
+     John.meng
+     ====================================================================== -->
+<project name="PHPGUI" default="default">
+    <description>
+    	PHPGUI Build File
+    </description>
+	<property file="build.properties" />
+
+    <!-- =================================
+          target: default
+         ================================= -->
+    <target name="default" description="--> description">
+
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: build_clock                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="build_clock">
+    	<exec dir="${clock.src.dir}" executable="${build.bin.home}/${build.bin.name}" >
+    	  <arg line=" ${clock.src.dir}/compile.bcp"/>
+    	</exec>
+     </target>
+
+
+</project>
