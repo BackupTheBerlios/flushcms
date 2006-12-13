@@ -7,9 +7,8 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: digiclock.php,v 1.4 2006/12/12 09:50:16 arzen Exp $
+ * @version    CVS: $Id: digiclock.php,v 1.5 2006/12/13 11:09:07 arzen Exp $
  */
-
 include_once "include/winbinder.php";
 
 //-------------------------------------------------------------------- CONSTANTS
@@ -40,12 +39,11 @@ wb_set_font($statusbar, wb_create_font("Simsun", 10));
 
 // Create the timer
 
-wb_create_timer($mainwin, ID_APP_TIMER, 520);
+wb_create_timer($mainwin, ID_APP_TIMER, 500);
 
 // Enter application loop
 wb_set_image($mainwin,"resource/time.ico");
 wb_main_loop();
-
 //-------------------------------------------------------------------- FUNCTIONS
 
 /* Process main window commands */
@@ -54,7 +52,13 @@ function process_main($window, $id)
 {
 	global $label, $statusbar;
 	static $pos;
-
+	$news_str="";
+	if (ereg("([0-5]0)",date("i"))) 
+	{
+		$news_str="滚动新闻:".getNews ();
+	}
+	$news_str=$news_str?$news_str:"滚动新闻:".getNews ();
+	
 	switch($id) {
 
 		case ID_APP_TIMER:
@@ -64,8 +68,7 @@ function process_main($window, $id)
 			wb_set_text($label, getTimeShotFormat (date("h:i:s A")));
 
 			// Truncate text
-
-			$text = formatLocalDate (date("Y-m-d H:i:s"));//date(LONG_FMT);
+			$text = formatLocalDate (date("Y-m-d H:i:s")).$news_str;//.$news_str;//date(LONG_FMT);
 			if(ereg("11:4([0-9])",date("H:i")))
 			{
 					$text = "吃中午饭时间      ";
@@ -79,10 +82,9 @@ function process_main($window, $id)
 					$text = "记得写每日工作报告      ";
 			}
 			$len = strlen($text);
-			wb_set_text($statusbar, substr($text . $text, $pos, $len));//substr($text . $text, $pos, $len)
+			wb_set_text($statusbar, mb_substr($text . $text, $pos, $len,"gb2312"));//substr($text . $text, $pos, $len) mb_substr($text . $text, $pos, $len,"gb2312")
 			$pos = $pos < $len ? $pos + 2 : 0;
 			break;
-
 		case IDCLOSE:
 
 			wb_destroy_window($window);
@@ -91,6 +93,56 @@ function process_main($window, $id)
 }
 
 //------------------------------------------------------------------ END OF FILE
+
+function getNews () 
+{
+	$news_arr = array(
+		'http://rss.sina.com.cn/news/marquee/ddt.xml'=>'新浪新闻',
+		'http://rss.sina.com.cn/news/china/focus15.xml'=>'新浪国内',
+	);
+	$news_str = "";
+	foreach ($news_arr as $rss_url=>$pervider)
+	{
+		$rss_content=mb_convert_encoding(getContentByCURL($rss_url), "GB2312", "UTF-8");;
+		$news_str .=parseRssXML($rss_content,$pervider)  ;
+
+	}
+	return $news_str;
+}
+
+function getContentByCURL($request)
+{
+//	$session = curl_init($request);
+//	curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+//	$response = curl_exec($session);
+//	curl_close($session);
+
+	$response = file_get_contents($request);
+	return $response;
+}
+
+function parseRssXML($rss_content,$pervider)
+{
+	$match = array();
+	$patten ="/<title>(.*)<\/title>/i";	
+	preg_match_all ($patten,$rss_content, $match);
+	$title_arr = $match[1];
+
+	$patten ="/<pubDate>(.*)<\/pubDate>/i";	
+	preg_match_all ($patten,$rss_content, $match_date);
+	$date_arr = $match_date[1];
+
+	$data = "";
+	$i=0;
+	foreach($title_arr as $key=>$value)
+	{
+		$data .=$value."(".date("Y-m-d H:i:s",strtotime($date_arr[$i]))."[{$pervider}])   ";
+		$i++;
+	}
+
+
+	return $data;
+}
 
 function getTimeShotFormat ($source_time,$en=false) 
 {
