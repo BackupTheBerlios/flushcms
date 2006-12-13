@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfUsers.class.php,v 1.21 2006/12/12 23:35:42 arzen Exp $
+ * @version    CVS: $Id: ApfUsers.class.php,v 1.22 2006/12/13 02:23:51 arzen Exp $
  */
 
 class ApfUsers  extends Actions
@@ -55,7 +55,7 @@ class ApfUsers  extends Actions
 	
 	function executeUpdate()
 	{
-		global $template,$liveuserConfig,$userid,$luadmin,$LU,$i18n,$WebBaseDir,$ClassDir,$controller,$GenderOption,$ActiveOption,$WebTemplateDir;
+		global $template,$userid,$luadmin,$LU,$i18n,$WebBaseDir,$ClassDir,$controller,$GenderOption,$ActiveOption,$WebTemplateDir;
 		
 		include_once($ClassDir."URLHelper.class.php");
 		$template->setFile(array (
@@ -79,17 +79,20 @@ class ApfUsers  extends Actions
 			$category_arr[$data['group_id']] = $data['group_define_name'];
 		}
 
-		$admin = LiveUser_Admin::factory($liveuserConfig);
-		$admin->init($controller->getID());
-		$filters = array(
-			'group' => true,
-//			'fields' => array('auth_user_id','group_id'),
-//		    'filters' => array(
-//		        'group_id' => 2
-//		    ),
-		);
-		
-		Var_Dump::display($luadmin->getUsers($filters));	
+		$params = array('fields' => array('perm_user_id',
+										  'auth_user_id',
+										  'group_id'),
+						'filters'=> array('auth_user_id'=>$controller->getID()),
+										  
+						);
+		$users = $luadmin->perm->getUsers($params);
+		$group_id = 0;
+
+		if ($users && is_array($users)) 
+		{
+			$group_id=$users[0]['group_id'];
+		}
+//		Var_Dump::display($users[0]['group_id']);	
 		
 		array_shift($GenderOption);
 		array_shift($ActiveOption);
@@ -101,7 +104,7 @@ class ApfUsers  extends Actions
 			"ACTIVEOPTION" => radioTag("active",$ActiveOption,$apf_users->getActive()),
 			"FILEPHOTO" => fileTag("photo",$apf_users->getPhoto()),
 			"MEMO_TEXT" => textareaTag ('memo',$apf_users->getMemo(),false,"ROWS=\"8\" COLS=\"40\""),
-			"GROUPOPTION" => selectTag("group",$category_arr,""),
+			"GROUPOPTION" => selectTag("group",$category_arr,$group_id),
 			"WEBDIR" => $WebBaseDir,
 			"DOACTION" => "updatesubmit"
 		));
