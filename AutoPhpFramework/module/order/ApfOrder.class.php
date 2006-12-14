@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfOrder.class.php,v 1.4 2006/12/11 23:40:53 arzen Exp $
+ * @version    CVS: $Id: ApfOrder.class.php,v 1.5 2006/12/14 10:18:07 arzen Exp $
  */
 
 class ApfOrder  extends Actions
@@ -20,12 +20,14 @@ class ApfOrder  extends Actions
 		));
 		$template->setBlock("MAIN", "add_block");
 		
+		$category_arr =$this->getCategory();
 		array_shift($AccessOption);
 		array_shift($OrderStateOption);
 		array_shift($PaywayOption);
 		array_shift($DeliverywayOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"CATEGORYOPTION" => selectTag("category",$category_arr),
 			"ACCESSOPTION" => radioTag("access",$AccessOption,"public"),
 			"DELIVERYDATE" => inputDateTag ("deliverydatetime",date("Y-m-d H:i"),true),
 			"PAYWAY_OPTION" => radioTag("payway",$PaywayOption,"cash"),
@@ -62,12 +64,14 @@ class ApfOrder  extends Actions
 
 		$template->setVar(array ("ID" => $apf_order->getId(),"NOID" => $apf_order->getNoid(),"CATEGORY" => $apf_order->getCategory(),"CONTACTID" => $apf_order->getContactid(),"PRODUCT" => $apf_order->getProduct(),"AMOUNT" => $apf_order->getAmount(),"MONEY" => $apf_order->getMoney(),"DISCOUNT" => $apf_order->getDiscount(),"PAYWAY" => $apf_order->getPayway(),"DELIVERYWAY" => $apf_order->getDeliveryway(),"DELIVERYDATETIME" => $apf_order->getDeliverydatetime(),"STATE" => $apf_order->getState(),"MEMO" => $apf_order->getMemo(),"GROUPID" => $apf_order->getGroupid(),"USERID" => $apf_order->getUserid(),"ACCESS" => $apf_order->getAccess(),"ACTIVE" => $apf_order->getActive(),"ADD_IP" => $apf_order->getAddIp(),"CREATED_AT" => $apf_order->getCreatedAt(),"UPDATE_AT" => $apf_order->getUpdateAt(),));
 		
+		$category_arr =$this->getCategory();
 		array_shift($AccessOption);
 		array_shift($OrderStateOption);
 		array_shift($PaywayOption);
 		array_shift($DeliverywayOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"CATEGORYOPTION" => selectTag("category",$category_arr,$apf_order->getCategory()),
 			"ACCESSOPTION" => radioTag("access",$AccessOption,$apf_order->getAccess()),
 			"DELIVERYDATE" => inputDateTag ("deliverydatetime",$apf_order->getDeliverydatetime(),true),
 			"MEMOTEXT" => textareaTag ('memo',$apf_order->getMemo(),false,"ROWS=\"8\" COLS=\"40\""),
@@ -165,12 +169,14 @@ class ApfOrder  extends Actions
 				)
 			 );
 			 
+			$category_arr =$this->getCategory();
 			array_shift($AccessOption);
 			array_shift($OrderStateOption);
 			array_shift($PaywayOption);
 			array_shift($DeliverywayOption);
 			$template->setVar(array (
 				"WEBDIR" => $WebBaseDir,
+				"CATEGORYOPTION" => selectTag("category",$category_arr,$_POST['category']),
 				"ACCESSOPTION" => radioTag("access",$AccessOption,$_POST['access']),
 				"DELIVERYDATE" => inputDateTag ("deliverydatetime",$_POST['deliverydatetime']),
 				"MEMOTEXT" => textareaTag ('memo',$_POST['memo'],false,"ROWS=\"8\" COLS=\"40\""),
@@ -269,6 +275,19 @@ class ApfOrder  extends Actions
 			"PAGINATION" => $links['all']
 		));
 
+	}
+	
+	function getCategory () 
+	{
+		$apf_order_category = DB_DataObject :: factory('ApfOrderCategory');
+		$apf_order_category->orderBy('id ASC');
+		$apf_order_category->find();
+		$myData = array();
+		while ($apf_order_category->fetch())
+		{
+			$myData[$apf_order_category->getId()] = $apf_order_category->getCategoryName();
+		}
+		return $myData;
 	}
 	
 }

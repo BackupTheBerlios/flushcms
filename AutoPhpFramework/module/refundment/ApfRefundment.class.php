@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfRefundment.class.php,v 1.2 2006/12/10 00:29:56 arzen Exp $
+ * @version    CVS: $Id: ApfRefundment.class.php,v 1.3 2006/12/14 10:18:07 arzen Exp $
  */
 
 class ApfRefundment  extends Actions
@@ -20,10 +20,12 @@ class ApfRefundment  extends Actions
 		));
 		$template->setBlock("MAIN", "add_block");
 		
+		$category_arr =$this->getCategory();
 		array_shift($AccessOption);
 		array_shift($ComplaintsStateOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"CATEGORYOPTION" => selectTag("category",$category_arr),
 			"ACCESSOPTION" => radioTag("access",$AccessOption,"public"),
 			"STATE_OPTION" => radioTag("state",$ComplaintsStateOption,"handling"),
 			"HANDLE_DATE" => inputDateTag ("handledate",date("Y-m-d")),
@@ -58,10 +60,12 @@ class ApfRefundment  extends Actions
 
 		$template->setVar(array ("ID" => $apf_refundment->getId(),"CATEGORY" => $apf_refundment->getCategory(),"COMPANY" => $apf_refundment->getCompany(),"REFUNDMENTER" => $apf_refundment->getRefundmenter(),"REASONS" => $apf_refundment->getReasons(),"REPLY" => $apf_refundment->getReply(),"HANDLEMAN" => $apf_refundment->getHandleman(),"HANDLEDATE" => $apf_refundment->getHandledate(),"STATE" => $apf_refundment->getState(),"GROUPID" => $apf_refundment->getGroupid(),"USERID" => $apf_refundment->getUserid(),"ACCESS" => $apf_refundment->getAccess(),"ACTIVE" => $apf_refundment->getActive(),"ADD_IP" => $apf_refundment->getAddIp(),"CREATED_AT" => $apf_refundment->getCreatedAt(),"UPDATE_AT" => $apf_refundment->getUpdateAt(),));
 		
+		$category_arr =$this->getCategory();
 		array_shift($AccessOption);
 		array_shift($ComplaintsStateOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"CATEGORYOPTION" => selectTag("category",$category_arr,$apf_refundment->getCategory()),
 			"ACCESSOPTION" => radioTag("access",$AccessOption,$apf_refundment->getAccess()),
 			"STATE_OPTION" => radioTag("state",$ComplaintsStateOption,$apf_refundment->getState()),
 			"HANDLE_DATE" => inputDateTag ("handledate",$apf_refundment->getHandledate()),
@@ -137,10 +141,12 @@ class ApfRefundment  extends Actions
 				"MAIN" => "apf_refundment_edit.html"
 			));
 			$template->setBlock("MAIN", "edit_block");
+			$category_arr =$this->getCategory();
 			array_shift($AccessOption);
 			array_shift($ComplaintsStateOption);
 			$template->setVar(array (
 				"WEBDIR" => $WebBaseDir,
+				"CATEGORYOPTION" => selectTag("category",$category_arr,$_POST['category']),
 				"ACCESSOPTION" => radioTag("access",$AccessOption,$_POST['access']),
 				"STATE_OPTION" => radioTag("state",$ComplaintsStateOption,$_POST['state']),
 				"HANDLE_DATE" => inputDateTag ("handledate",$_POST['handledate']),
@@ -253,6 +259,20 @@ class ApfRefundment  extends Actions
 		));
 
 	}
+	
+	function getCategory () 
+	{
+		$apf_refundment_category = DB_DataObject :: factory('ApfRefundmentCategory');
+		$apf_refundment_category->orderBy('id ASC');
+		$apf_refundment_category->find();
+		$myData = array();
+		while ($apf_refundment_category->fetch())
+		{
+			$myData[$apf_refundment_category->getId()] = $apf_refundment_category->getCategoryName();
+		}
+		return $myData;
+	}
+	
 	
 }
 ?>

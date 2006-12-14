@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfUsers.class.php,v 1.22 2006/12/13 02:23:51 arzen Exp $
+ * @version    CVS: $Id: ApfUsers.class.php,v 1.23 2006/12/14 10:18:07 arzen Exp $
  */
 
 class ApfUsers  extends Actions
@@ -200,6 +200,14 @@ class ApfUsers  extends Actions
 				    );
 			    	$updated = $luadmin->updateUser($data, $_POST['ID']);
 				}
+//				update group according userid
+			    $filter = array(
+			        'perm_user_id' => $_POST['ID'],
+			       );
+			    $data = array(
+			        'group_id' => $_POST['group'],
+			       );
+			    $luadmin->perm->updateGroup($data,$filter);
 
 				$this->forward("users/apf_users/update/".$_POST['ID']."/ok");
 			}
@@ -211,6 +219,13 @@ class ApfUsers  extends Actions
 			        'perm_type'  => 1,
 			    );
 			    $user_id = $luadmin->addUser($data);
+//			    add new group
+			    $data = array(
+			        'perm_user_id' => $user_id,
+			        'group_id' => $_POST['group'],
+			       );
+			    $luadmin->perm->addUserToGroup($data);
+
 				$apf_users->get($apf_users->escape($user_id));
 //				$apf_users->debugLevel(4);
 				$apf_users->update();

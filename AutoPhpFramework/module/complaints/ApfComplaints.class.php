@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfComplaints.class.php,v 1.3 2006/12/10 00:29:56 arzen Exp $
+ * @version    CVS: $Id: ApfComplaints.class.php,v 1.4 2006/12/14 10:18:07 arzen Exp $
  */
 
 class ApfComplaints  extends Actions
@@ -20,10 +20,12 @@ class ApfComplaints  extends Actions
 		));
 		$template->setBlock("MAIN", "add_block");
 		
+		$category_arr =$this->getCategory();
 		array_shift($AccessOption);
 		array_shift($ComplaintsStateOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"CATEGORYOPTION" => selectTag("category",$category_arr),
 			"HANDLE_DATE" => inputDateTag ("handledate",date("Y-m-d")),
 			"ACCESSOPTION" => radioTag("access",$AccessOption,"public"),
 			"STATE_OPTION" => radioTag("state",$ComplaintsStateOption,"handling"),
@@ -59,10 +61,12 @@ class ApfComplaints  extends Actions
 
 		$template->setVar(array ("ID" => $apf_complaints->getId(),"CATEGORY" => $apf_complaints->getCategory(),"COMPLAINANTER" => $apf_complaints->getComplainanter(),"TITLE" => $apf_complaints->getTitle(),"CONTENT" => $apf_complaints->getContent(),"REPLY" => $apf_complaints->getReply(),"HANDLEMAN" => $apf_complaints->getHandleman(),"HANDLEDATE" => $apf_complaints->getHandledate(),"STATE" => $apf_complaints->getState(),"GROUPID" => $apf_complaints->getGroupid(),"USERID" => $apf_complaints->getUserid(),"ACCESS" => $apf_complaints->getAccess(),"ACTIVE" => $apf_complaints->getActive(),"ADD_IP" => $apf_complaints->getAddIp(),"CREATED_AT" => $apf_complaints->getCreatedAt(),"UPDATE_AT" => $apf_complaints->getUpdateAt(),));
 		
+		$category_arr =$this->getCategory();
 		array_shift($AccessOption);
 		array_shift($ComplaintsStateOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"CATEGORYOPTION" => selectTag("category",$category_arr,$apf_complaints->getCategory()),
 			"ACCESSOPTION" => radioTag("access",$AccessOption,$apf_complaints->getAccess()),
 			"STATE_OPTION" => radioTag("state",$ComplaintsStateOption,$apf_complaints->getState()),
 			"HANDLE_DATE" => inputDateTag ("handledate",$apf_complaints->getHandledate()),
@@ -139,10 +143,12 @@ class ApfComplaints  extends Actions
 				"MAIN" => "apf_complaints_edit.html"
 			));
 			$template->setBlock("MAIN", "edit_block");
+			$category_arr =$this->getCategory();
 			array_shift($AccessOption);
 			array_shift($ComplaintsStateOption);
 			$template->setVar(array (
 				"WEBDIR" => $WebBaseDir,
+				"CATEGORYOPTION" => selectTag("category",$category_arr,$_POST['category']),
 				"ACCESSOPTION" => radioTag("access",$AccessOption,$_POST['access']),
 				"STATE_OPTION" => radioTag("state",$ComplaintsStateOption,$_POST['state']),
 				"HANDLE_DATE" => inputDateTag ("handledate",$_POST['handledate']),
@@ -254,6 +260,19 @@ class ApfComplaints  extends Actions
 			"PAGINATION" => $links['all']
 		));
 
+	}
+	
+	function getCategory () 
+	{
+		$apf_complaints_category = DB_DataObject :: factory('ApfComplaintsCategory');
+		$apf_complaints_category->orderBy('id ASC');
+		$apf_complaints_category->find();
+		$myData = array();
+		while ($apf_complaints_category->fetch())
+		{
+			$myData[$apf_complaints_category->getId()] = $apf_complaints_category->getCategoryName();
+		}
+		return $myData;
 	}
 	
 }

@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfAgreement.class.php,v 1.3 2006/12/09 14:31:35 arzen Exp $
+ * @version    CVS: $Id: ApfAgreement.class.php,v 1.4 2006/12/14 10:18:07 arzen Exp $
  */
 
 class ApfAgreement  extends Actions
@@ -20,9 +20,11 @@ class ApfAgreement  extends Actions
 		));
 		$template->setBlock("MAIN", "add_block");
 		
+		$category_arr =$this->getCategory();
 		array_shift($AccessOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"CATEGORYOPTION" => selectTag("category",$category_arr),
 			"EFFECT_DATE" => inputDateTag ("effectdate"),
 			"EXPIRED_DATE" => inputDateTag ("expireddate"),
 			"ACCESSOPTION" => radioTag("access",$AccessOption,"public"),
@@ -58,9 +60,11 @@ class ApfAgreement  extends Actions
 
 		$template->setVar(array ("ID" => $apf_agreement->getId(),"NOID" => $apf_agreement->getNoid(),"CATEGORY" => $apf_agreement->getCategory(),"EFFECTDATE" => $apf_agreement->getEffectdate(),"EXPIREDDATE" => $apf_agreement->getExpireddate(),"BUYER" => $apf_agreement->getBuyer(),"VENDER" => $apf_agreement->getVender(),"BUYERSIGNATURE" => $apf_agreement->getBuyersignature(),"VENDERSIGNATURE" => $apf_agreement->getVendersignature(),"DESCRIPTION" => $apf_agreement->getDescription(),"GROUPID" => $apf_agreement->getGroupid(),"USERID" => $apf_agreement->getUserid(),"ACCESS" => $apf_agreement->getAccess(),"ACTIVE" => $apf_agreement->getActive(),"ADD_IP" => $apf_agreement->getAddIp(),"CREATED_AT" => $apf_agreement->getCreatedAt(),"UPDATE_AT" => $apf_agreement->getUpdateAt(),));
 	
+		$category_arr =$this->getCategory();
 		array_shift($AccessOption);
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"CATEGORYOPTION" => selectTag("category",$category_arr,$apf_agreement->getCategory()),
 			"EFFECT_DATE" => inputDateTag ("effectdate",$apf_agreement->getEffectdate()),
 			"EXPIRED_DATE" => inputDateTag ("expireddate",$apf_agreement->getExpireddate()),
 			"ACCESSOPTION" => radioTag("access",$AccessOption,$apf_agreement->getAccess()),
@@ -139,9 +143,11 @@ class ApfAgreement  extends Actions
 				"MAIN" => "apf_agreement_edit.html"
 			));
 			$template->setBlock("MAIN", "edit_block");
+			$category_arr =$this->getCategory();
 			array_shift($AccessOption);
 			$template->setVar(array (
 				"WEBDIR" => $WebBaseDir,
+				"CATEGORYOPTION" => selectTag("category",$category_arr,$_POST['category']),
 				"EFFECT_DATE" => inputDateTag ("effectdate",$_POST['effectdate']),
 				"EXPIRED_DATE" => inputDateTag ("expireddate",$_POST['expireddate']),
 				"ACCESSOPTION" => radioTag("access",$AccessOption,$_POST['access']),
@@ -253,6 +259,19 @@ class ApfAgreement  extends Actions
 			"PAGINATION" => $links['all']
 		));
 
+	}
+	
+	function getCategory () 
+	{
+		$apf_agreement_category = DB_DataObject :: factory('ApfAgreementCategory');
+		$apf_agreement_category->orderBy('id ASC');
+		$apf_agreement_category->find();
+		$myData = array();
+		while ($apf_agreement_category->fetch())
+		{
+			$myData[$apf_agreement_category->getId()] = $apf_agreement_category->getCategoryName();
+		}
+		return $myData;
 	}
 	
 }
