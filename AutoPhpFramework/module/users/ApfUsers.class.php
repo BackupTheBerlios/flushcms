@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfUsers.class.php,v 1.23 2006/12/14 10:18:07 arzen Exp $
+ * @version    CVS: $Id: ApfUsers.class.php,v 1.24 2006/12/14 23:37:25 arzen Exp $
  */
 
 class ApfUsers  extends Actions
@@ -78,27 +78,15 @@ class ApfUsers  extends Actions
 		{
 			$category_arr[$data['group_id']] = $data['group_define_name'];
 		}
-
-		$params = array('fields' => array('perm_user_id',
-										  'auth_user_id',
-										  'group_id'),
-						'filters'=> array('auth_user_id'=>$controller->getID()),
-										  
-						);
-		$users = $luadmin->perm->getUsers($params);
-		$group_id = 0;
-
-		if ($users && is_array($users)) 
-		{
-			$group_id=$users[0]['group_id'];
-		}
-//		Var_Dump::display($users[0]['group_id']);	
+		$user_group=$this->getGroupByUserid ($controller->getID());
+		$group_id = $user_group['group_id'];
 		
 		array_shift($GenderOption);
 		array_shift($ActiveOption);
 		$template->setVar(array ("ID" => $apf_users->getId(),"USER_NAME" => $apf_users->getUserName(),"REALNAME" => $apf_users->getRealname(),"OLD_PASSWORD" => $apf_users->getUserPwd(),"GENDER" => $apf_users->getGender(),"ADDREES" => $apf_users->getAddrees(),"PHONE" => $apf_users->getPhone(),"EMAIL" => $apf_users->getEmail(),"PHOTO" => $apf_users->getPhoto(),"ROLE_ID" => $apf_users->getRoleId(),"ACTIVE" => $apf_users->getActive(),"ADD_IP" => $apf_users->getAddIp(),"CREATED_AT" => $apf_users->getCreatedAt(),"UPDATE_AT" => $apf_users->getUpdateAt(),));
 		$template->setVar(array (
 			"WEBDIR" => $WebBaseDir,
+			"OLD_GROUP" => $group_id,
 			"WEBTEMPLATEDIR" => URLHelper::getWebBaseURL ().$WebTemplateDir,
 			"GENDEROPTION" => radioTag("gender",$GenderOption,$apf_users->getGender()),
 			"ACTIVEOPTION" => radioTag("active",$ActiveOption,$apf_users->getActive()),
@@ -200,14 +188,19 @@ class ApfUsers  extends Actions
 				    );
 			    	$updated = $luadmin->updateUser($data, $_POST['ID']);
 				}
-//				update group according userid
+//remove from group			       
 			    $filter = array(
 			        'perm_user_id' => $_POST['ID'],
+			        'group_id' => $_POST['old_group'],
 			       );
+			    $luadmin->perm->removeUserFromGroup($filter);
+//add from group
 			    $data = array(
+			        'perm_user_id' => $_POST['ID'],
 			        'group_id' => $_POST['group'],
 			       );
-			    $luadmin->perm->updateGroup($data,$filter);
+			    $luadmin->perm->addUserToGroup($data);
+			    
 
 				$this->forward("users/apf_users/update/".$_POST['ID']."/ok");
 			}
@@ -339,8 +332,8 @@ class ApfUsers  extends Actions
 			$template->setVar(array (
 				"LIST_TD_CLASS" => $list_td_class
 			));
-			
-			$template->setVar(array ("ID" => $data['id'],"USER_NAME" => $data['user_name'],"REALNAME" => $data['realname'],"USER_PWD" => $data['user_pwd'],"GENDER" => $GenderOption[$data['gender']],"ADDREES" => $data['addrees'],"PHONE" => $data['phone'],"EMAIL" => showEmail ($data['email']),"PHOTO" => $data['photo'],"ROLE_ID" => $data['role_id'],"ACTIVE" => $ActiveOption[$data['active']],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
+			$user_group=$this->getGroupByUserid ($data['id']);
+			$template->setVar(array ("ID" => $data['id'],"GROUP_NAME" => $user_group['group_define_name'],"USER_NAME" => $data['user_name'],"REALNAME" => $data['realname'],"USER_PWD" => $data['user_pwd'],"GENDER" => $GenderOption[$data['gender']],"ADDREES" => $data['addrees'],"PHONE" => $data['phone'],"EMAIL" => showEmail ($data['email']),"PHOTO" => imageTag ($data['photo']),"ROLE_ID" => $data['role_id'],"ACTIVE" => $ActiveOption[$data['active']],"ADD_IP" => $data['add_ip'],"CREATED_AT" => $data['created_at'],"UPDATE_AT" => $data['update_at'],));
 
 			$template->parse("list_block", "main_list", TRUE);
 			$i++;
@@ -355,6 +348,29 @@ class ApfUsers  extends Actions
 			"PAGINATION" => $links['all']
 		));
 
+	}
+	
+	function getGroupByUserid ($userid) 
+	{
+		global $luadmin;
+		$params = array('fields' => array('perm_user_id',
+										  'auth_user_id',
+										  'group_id',
+						),
+						'filters'=> array('auth_user_id'=>$userid),
+										  
+						);
+		$users = $luadmin->perm->getUsers($params);
+		$data = array();
+		if ($users && is_array($users)) 
+		{
+			$group_id=$users[0]['group_id'];
+		    $filter = array('filters' => array('group_id' => $group_id));
+		    $groups = $luadmin->perm->getGroups($filter);
+		    $data = $groups[0];
+//		Var_Dump::display($groups);
+		}
+		return $data;
 	}
 	
 	

@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfSelfcompany.class.php,v 1.2 2006/12/11 14:47:37 arzen Exp $
+ * @version    CVS: $Id: ApfSelfcompany.class.php,v 1.3 2006/12/14 23:37:25 arzen Exp $
  */
 
 class ApfSelfcompany  extends Actions
@@ -77,7 +77,7 @@ class ApfSelfcompany  extends Actions
 
 	function handleFormData($edit_submit=false)
 	{
-		global $template,$WebBaseDir,$i18n,$AddIP,$userid,$group_ids;
+		global $template,$WebBaseDir,$i18n,$UploadDir,$ClassDir,$AddIP,$userid,$group_ids;
 		$apf_selfcompany = DB_DataObject :: factory('ApfSelfcompany');
 
 		if ($edit_submit) 
@@ -95,7 +95,6 @@ class ApfSelfcompany  extends Actions
 		$apf_selfcompany->setPhone(stripslashes(trim($_POST['phone'])));
 		$apf_selfcompany->setFax(stripslashes(trim($_POST['fax'])));
 		$apf_selfcompany->setEmail(stripslashes(trim($_POST['email'])));
-		$apf_selfcompany->setPhoto(stripslashes(trim($_POST['photo'])));
 		$apf_selfcompany->setHomepage(stripslashes(trim($_POST['homepage'])));
 		$apf_selfcompany->setEmployee(stripslashes(trim($_POST['employee'])));
 		$apf_selfcompany->setBankroll(stripslashes(trim($_POST['bankroll'])));
@@ -113,9 +112,40 @@ class ApfSelfcompany  extends Actions
 		$apf_selfcompany->setGroupid($group_ids);
 		$apf_selfcompany->setUserid($userid);
 
+		if ($_POST['photo_del']=='Y') 
+		{
+			unlink($UploadDir.$_POST['photo_old']);
+			$apf_selfcompany->setPhoto("");
+			$_POST['photo_old']="";
+		}
+		if($_POST['upload_temp'])
+		{
+			$apf_selfcompany->setPhoto($_POST['upload_temp']);	
+		}
+		$allow_upload_file = TRUE;
+		if($_FILES['photo']['name'])
+		{
+			require_once ($ClassDir."FileHelper.class.php");
+			$upload_data = FileHelper::uploadFile ("product");
+			$allow_upload_file = $upload_data["upload_state"];
+			if ($allow_upload_file) 
+			{
+				$photos_arr = $upload_data["upload_msg"];
+				if ($photo_pic = $photos_arr['photo']) 
+				{
+					$apf_selfcompany->setPhoto($photo_pic);
+					$_POST['upload_temp'] = $photo_pic;
+				}
+			}
+			else
+			{
+				$upload_error_msg = $upload_data["upload_msg"];
+			}
+
+		}
 				
 		$val = $apf_selfcompany->validate();
-		if ($val === TRUE)
+		if (($val === TRUE) && ($allow_upload_file === TRUE))
 		{
 			if ($edit_submit) 
 			{
