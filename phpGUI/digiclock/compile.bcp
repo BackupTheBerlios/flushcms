@@ -9,5 +9,4 @@ windowed
 embed ..\digiclock
 extension ..\dll\php_winbinder.dll
 extension ..\dll\php_mbstring.dll
-extension ..\dll\php_sockets.dll
 destination ..\digiclock

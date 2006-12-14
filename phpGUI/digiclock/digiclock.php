@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: digiclock.php,v 1.5 2006/12/13 11:09:07 arzen Exp $
+ * @version    CVS: $Id: digiclock.php,v 1.6 2006/12/14 04:11:36 arzen Exp $
  */
 include_once "include/winbinder.php";
 
@@ -96,53 +96,11 @@ function process_main($window, $id)
 
 function getNews () 
 {
-	$news_arr = array(
-		'http://rss.sina.com.cn/news/marquee/ddt.xml'=>'新浪新闻',
-		'http://rss.sina.com.cn/news/china/focus15.xml'=>'新浪国内',
-	);
-	$news_str = "";
-	foreach ($news_arr as $rss_url=>$pervider)
-	{
-		$rss_content=mb_convert_encoding(getContentByCURL($rss_url), "GB2312", "UTF-8");;
-		$news_str .=parseRssXML($rss_content,$pervider)  ;
-
-	}
+	$news_str = file_get_contents("news.txt");
 	return $news_str;
 }
 
-function getContentByCURL($request)
-{
-//	$session = curl_init($request);
-//	curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-//	$response = curl_exec($session);
-//	curl_close($session);
 
-	$response = file_get_contents($request);
-	return $response;
-}
-
-function parseRssXML($rss_content,$pervider)
-{
-	$match = array();
-	$patten ="/<title>(.*)<\/title>/i";	
-	preg_match_all ($patten,$rss_content, $match);
-	$title_arr = $match[1];
-
-	$patten ="/<pubDate>(.*)<\/pubDate>/i";	
-	preg_match_all ($patten,$rss_content, $match_date);
-	$date_arr = $match_date[1];
-
-	$data = "";
-	$i=0;
-	foreach($title_arr as $key=>$value)
-	{
-		$data .=$value."(".date("Y-m-d H:i:s",strtotime($date_arr[$i]))."[{$pervider}])   ";
-		$i++;
-	}
-
-
-	return $data;
-}
 
 function getTimeShotFormat ($source_time,$en=false) 
 {
