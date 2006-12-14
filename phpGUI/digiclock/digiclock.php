@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: digiclock.php,v 1.7 2006/12/14 05:17:04 arzen Exp $
+ * @version    CVS: $Id: digiclock.php,v 1.8 2006/12/14 09:39:56 arzen Exp $
  */
 include_once "include/winbinder.php";
 
@@ -59,10 +59,9 @@ wb_main_loop();
 
 function process_main($window, $id)
 {
-	global $label, $statusbar,$top_bar;
+	global $label, $statusbar,$top_bar,$news_str;
 	static $pos,$top_pos;
-	$news_str="";
-	if (ereg("([0-5]0)",date("i"))) 
+	if ((date("H")/2)==0) 
 	{
 		$news_str="¹ö¶¯ÐÂÎÅ:".getNews ();
 	}
@@ -81,7 +80,7 @@ function process_main($window, $id)
 //			$text = formatLocalDate (date("Y-m-d H:i:s")).$news_str;//.$news_str;//date(LONG_FMT);
 			$len = strlen($text);
 			wb_set_text($statusbar, mb_substr($text . $text, $pos, $len,"gb2312"));//substr($text . $text, $pos, $len) mb_substr($text . $text, $pos, $len,"gb2312")
-			$pos = $pos < $len ? $pos + 1 : 0;
+			$pos = $pos < $len ? $pos + 2 : 0;
 			$top_text="....>........";
 			if(ereg("11:4([0-9])",date("H:i")))
 			{
