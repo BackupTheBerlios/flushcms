@@ -92,6 +92,12 @@ function process_main($window, $id, $ctrl)
 //		play position
 		if($fmod->fmod_GetLenght(false))
 			wb_set_value(wb_get_control($mainwin,ID_PLAY_POS),round($fmod->fmod_GetTime(false)/$fmod->fmod_GetLenght(false),2)*100 );
+		
+		if (($fmod->fmod_GetTime(false)==$fmod->fmod_GetLenght(false))) 
+		{
+            $fmod->fmod_StreamOpen( $fmod->fmodStreamUrl );
+            $fmod->fmod_StreamPlay();
+		}
 		              
       break;
       

@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: digiclock.php,v 1.9 2006/12/15 02:39:53 arzen Exp $
+ * @version    CVS: $Id: digiclock.php,v 1.10 2006/12/15 08:47:32 arzen Exp $
  */
 include_once "include/winbinder.php";
 
@@ -70,11 +70,11 @@ function process_main($window, $id)
 	{
 		$news_str="滚动新闻:".getNews ();
 		
-		$disks = explode(" ", wb_get_system_info("diskdrives"));
-		for ($index = 0; $index < sizeof($disks); $index++) 
-		{
-			$disks_str .= getTotalDiskSpace ($disks[$index]);
-		}
+//		$disks = explode(" ", wb_get_system_info("diskdrives"));
+//		for ($index = 0; $index < sizeof($disks); $index++) 
+//		{
+//			$disks_str .= getTotalDiskSpace ($disks[$index]);
+//		}
 		
 	}
 	$news_str=$news_str?$news_str:"滚动新闻:".getNews ();
@@ -111,9 +111,9 @@ function process_main($window, $id)
 			wb_set_text($top_bar, mb_substr($top_text . $top_text, $top_pos, $top_len,"gb2312"));//substr($text . $text, $pos, $len) mb_substr($text . $text, $pos, $len,"gb2312")
 			$top_pos = $top_pos > 0 ? $top_pos - 1 : $top_len;
 
-			$foot_len = strlen($disks_str);
-			wb_set_text($foot_bar, mb_substr($disks_str . $disks_str, $foot_pos, $foot_len,"gb2312"));//substr($text . $text, $pos, $len) mb_substr($text . $text, $pos, $len,"gb2312")
-			$foot_pos = $foot_pos < $foot_len  ? $foot_pos +1 : 0;
+//			$foot_len = strlen($disks_str);
+//			wb_set_text($foot_bar, mb_substr($disks_str . $disks_str, $foot_pos, $foot_len,"gb2312"));//substr($text . $text, $pos, $len) mb_substr($text . $text, $pos, $len,"gb2312")
+//			$foot_pos = $foot_pos < $foot_len  ? $foot_pos +1 : 0;
 			
 			break;
 		case IDCLOSE:
