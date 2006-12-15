@@ -82,7 +82,7 @@ function process_main($window, $id, $ctrl)
       case ID_INFOTIMER:
          $status = "Driver: ".$fmod->fmod_GetOutputName()." / ";
          $status.= "Lengh: ".$fmod->fmod_GetLenght()." min / ";
-//         $status.= "Position: ".$fmod->GetPosition()." min ";
+//         $status.= "Position: ".$fmod->fmod_GetTime()." min ";
          
          wb_set_text($statusbar, $status);         
       break;
