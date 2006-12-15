@@ -28,5 +28,14 @@
     	</exec>
      </target>
 
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: build_media_player                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="build_media_player">
+    	<exec dir="${media_player.src.dir}" executable="${build.bin.home}/${build.bin.name}" >
+    	  <arg line=" ${media_player.src.dir}/compile.bcp"/>
+    	</exec>
+    </target>
+	
 
 </project>

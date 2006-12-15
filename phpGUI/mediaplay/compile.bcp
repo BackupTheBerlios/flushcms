@@ -1,0 +1,11 @@
+; Bamcompile example project file
+; exe Icon
+icon resource\musicm.ico
+
+mainfile php_media_player.php
+outfile ..\bin\media_player.exe
+compress
+windowed
+embed ..\mediaplay
+extension ..\dll\php_winbinder.dll
+destination ..\mediaplay

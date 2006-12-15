@@ -1,11 +1,6 @@
 <?php
-//------------------------------------------------------------ SYSTEM PARAMETERS
-set_time_limit(0);
-define("PATH_SCRIPT",      dirname(__FILE__) . "/");
-
 //----------------------------------------------------------------- DEPENDENCIES
-
-include_once "../include/winbinder.php";
+include_once "include/winbinder.php";
 include "class.fmod.php";
 
 //------------------------------------------------------------------- AUDIO INIT
@@ -14,7 +9,7 @@ $fmod = new FmodAudio; // create fmod object
 
 if(!$fmod->fmod_SoundInit()) // init system
 {
-  wb_message_box(NULL,"Soundsystem couldn't be initialized!\n".$fmod->lasterror, APPNAME, WBC_STOP);
+  wb_message_box(NULL,"Soundsystem couldn't be initialized!\n".$fmod->fmodLastErrorMsg, APPNAME, WBC_STOP);
 }
 
 //-------------------------------------------------------------------- CONSTANTS
@@ -68,6 +63,7 @@ wb_set_value(wb_get_control($mainwin,ID_BALANCE),127);
 wb_create_timer($mainwin, ID_INFOTIMER, 1000);
 
 // run application
+wb_set_image($mainwin,"resource/musicm.ico");
 wb_set_handler($mainwin, "process_main");
 wb_main_loop();
 
@@ -81,8 +77,8 @@ function process_main($window, $id, $ctrl)
    {
       case ID_INFOTIMER:
          $status = "Driver: ".$fmod->fmod_GetOutputName()." / ";
-         $status.= "Lengh: ".$fmod->fmod_GetLenght()." min / ";
-//         $status.= "Position: ".$fmod->fmod_GetTime()." min ";
+         $status.= "Lengh: ".$fmod->fmod_GetLenght(true)." min / ";
+         $status.= "Position: ".(round($fmod->fmod_GetTime(true)/1000))." sec ";
          
          wb_set_text($statusbar, $status);         
       break;
@@ -115,16 +111,16 @@ function process_main($window, $id, $ctrl)
       break;
 
       case ID_PAUSE:
-         if($fmod->playstatus == 1)
+         if($fmod->fmodStreamState == 1)
          {
-            switch($fmod->paused)
+            switch($fmod->fmodIsPaused)
             {
                case 0:
-                  $fmod->StreamControl('pause');
+                  $fmod->fmod_SoundPause(true);
                   wb_set_text($ctrl, "Resume..");
                   break;
                case 1:         
-                  $fmod->StreamControl('unpause');
+                   $fmod->fmod_SoundPause(false);
                   wb_set_text($ctrl, "Pause");
                   break;
             }
@@ -132,16 +128,16 @@ function process_main($window, $id, $ctrl)
       break;
 
       case ID_MUTE:
-         if($fmod->playstatus == 1)
+         if($fmod->fmodStreamState == 1)
          {
-            switch($fmod->muted)
+            switch($fmod->fmodIsMuted)
             {
                case 0:
-                  $fmod->StreamControl('mute');
+                  $fmod->fmod_SoundMute(true);
                   wb_set_text($ctrl, "UnMute");
                   break;
                case 1:         
-                  $fmod->StreamControl('unmute');
+                  $fmod->fmod_SoundMute(false);
                   wb_set_text($ctrl, "Mute");
                   break;
             }
@@ -149,25 +145,25 @@ function process_main($window, $id, $ctrl)
       break;
 
       case ID_SURROUND:
-         $fmod->SetSurround();
+         $fmod->fmod_SetSurround(true);
       break;
 
       case ID_VOLUMEN:
-         $fmod->SetVolumen(wb_get_value($ctrl));
+         $fmod->fmod_SetVolumen(wb_get_value($ctrl));
          wb_set_text($statusbar, "Volumen: ".$fmod->GetVolumen());
       break;
       
       case ID_BALANCE:
-         $fmod->SetPanning(wb_get_value($ctrl));
+         $fmod->fmod_SetPanning(wb_get_value($ctrl));
       break;
       
       case ID_BALCENTER:
-         $fmod->SetPanning(127);
+         $fmod->fmod_SetPanning(127);
          wb_set_value(wb_get_control($window,ID_BALANCE),127);
       break;
       
       case IDCLOSE:
-         $fmod->CloseSound();
+         $fmod->fmod_SoundClose();
          wb_release_library($fmod->fmodlib);
          wb_destroy_window($window);
       break;

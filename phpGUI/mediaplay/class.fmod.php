@@ -133,8 +133,8 @@ define( "FSOUND_NONBLOCKING", 16777216 ); // For FSOUND_Stream_Open - Causes str
 define( "FSOUND_STREAM_NET", 2147483648 ); // Specifies an internet stream
 
 define( "FSOUND_NORMAL", ( FSOUND_16BITS | FSOUND_SIGNED | FSOUND_MONO ) );
-?>
-<?php
+
+
 /**
  * FMOD Library Wrapper for WinBinder
  *
@@ -144,8 +144,8 @@ define( "FSOUND_NORMAL", ( FSOUND_16BITS | FSOUND_SIGNED | FSOUND_MONO ) );
 */
 class FmodLibrary
 {
-    private $fmodLibFunc; // Fmod functions-address array
-    public $fmodLastErrorMsg; // contains the last error message on function failure
+    var $fmodLibFunc; // Fmod functions-address array
+    var $fmodLastErrorMsg; // contains the last error message on function failure
 
     /**
      * fmod_LoadLibrary
@@ -155,7 +155,7 @@ class FmodLibrary
      *
      * @access protected
     */
-    protected function fmodlib_LoadLibrary()
+    function fmodlib_LoadLibrary()
     {
         $fmodLib = wb_load_library( "fmod.dll" );
 
@@ -234,152 +234,152 @@ class FmodLibrary
         }
     }
 
-    protected function fmodlib_SoundInit($mixrate, $softchannels, $flags)
+    function fmodlib_SoundInit($mixrate, $softchannels, $flags)
     {
         return wb_call_function( $this->fmodLibFunc['init'], array( $mixrate, $softchannels, $flags ) );
     }
 
-    protected function fmodlib_CloseStream( $stream )
+    function fmodlib_CloseStream( $stream )
     {
         return wb_call_function( $this->fmodLibFunc['strm_close'], array( $stream ) );
     }
 
-    protected function fmodlib_OpenStream( $streamUrl, $modes )
+    function fmodlib_OpenStream( $streamUrl, $modes )
     {
         return wb_call_function( $this->fmodLibFunc['strm_open'], array( $streamUrl, $modes, 0, 0 ) );
     }
 
-    protected function fmodlib_SoundClose()
+    function fmodlib_SoundClose()
     {
         return wb_call_function( $this->fmodLibFunc['close'], array() );
     }
 
-    protected function fmodlib_StreamBuffer( $buffersize )
+    function fmodlib_StreamBuffer( $buffersize )
     {
         return wb_call_function( $this->fmodLibFunc['strm_bsize'], array( $buffersize ) );
     }
 
-    protected function fmodlib_StreamNetBuffer( $buffersize, $prebuffer, $rebuffer )
+    function fmodlib_StreamNetBuffer( $buffersize, $prebuffer, $rebuffer )
     {
         return wb_call_function( $this->fmodLibFunc['strm_netbuf'], array( $buffersize, $prebuffer, $rebuffer ) );
     }
 
-    protected function fmodlib_SetDriver( $driverid )
+    function fmodlib_SetDriver( $driverid )
     {
         return wb_call_function( $this->fmodLibFunc['setdrv'], array( $driverid ) );
     }
 
-    protected function fmodlib_SetOutput( $outputid )
+    function fmodlib_SetOutput( $outputid )
     {
         return wb_call_function( $this->fmodLibFunc['setoutput'], array( $outputid ) );
     }
 
-    protected function fmodlib_SetMixer( $mixertype )
+    function fmodlib_SetMixer( $mixertype )
     {
         return wb_call_function( $this->fmodLibFunc['setmixer'], array( $mixertype ) );
     }
 
-    protected function fmodlib_SetBuffer( $buffersize )
+    function fmodlib_SetBuffer( $buffersize )
     {
         return wb_call_function( $this->fmodLibFunc['setbuffer'], array( $buffersize ) );
     }
 
-    protected function fmodlib_StreamGetState( $stream )
+    function fmodlib_StreamGetState( $stream )
     {
         return wb_call_function( $this->fmodLibFunc['strm_getstate'], array(  $stream ) );
     }
 
-    protected function fmodlib_StreamPlayEx( $channel, $stream, $dspunit, $paused )
+    function fmodlib_StreamPlayEx( $channel, $stream, $dspunit, $paused )
     {
         return wb_call_function( $this->fmodLibFunc['strm_play'], array( $channel, $stream, $dspunit, $paused ) );
     }
 
-    protected function fmodlib_StreamStop( $stream )
+    function fmodlib_StreamStop( $stream )
     {
         return wb_call_function( $this->fmodLibFunc['strm_stop'], array( $stream ) );
     }
 
-    protected function fmodlib_ChannelPause( $channel, $state )
+    function fmodlib_ChannelPause( $channel, $state )
     {
         return wb_call_function( $this->fmodLibFunc['setpaused'], array( $channel, $state ) );
     }
 
-    protected function fmodlib_ChannelMute( $channel, $state )
+    function fmodlib_ChannelMute( $channel, $state )
     {
          return wb_call_function( $this->fmodLibFunc['setmute'], array( $channel, $state ) );
     }
 
-    protected function fmodlib_FxEnable( $channel, $fxFlag )
+    function fmodlib_FxEnable( $channel, $fxFlag )
     {
         return wb_call_function( $this->fmodLibFunc['fx_enable'], array( $channel, $fxFlag ) );
     }
 
-    protected function fmodlib_GetNetStatus( $stream, $status, $buffer, $bitrate, $flags )
+    function fmodlib_GetNetStatus( $stream, $status, $buffer, $bitrate, $flags )
     {
         return wb_call_function( $this->fmodLibFunc['strm_netstat'], array( $stream, $status, $buffer, $bitrate, $flags ) );
     }
 
-    protected function fmodlib_FxSetParamEQ( $fxid, $band, $bandwidth, $gain )
+    function fmodlib_FxSetParamEQ( $fxid, $band, $bandwidth, $gain )
     {
         return wb_call_function( $this->fmodLibFunc['fx_seteq'], array( $fxid, $band, $bandwidth, $gain ) );
     }
 
-    protected function fmodlib_ChannelPan( $channel, $value )
+    function fmodlib_ChannelPan( $channel, $value )
     {
         return wb_call_function( $this->fmodLibFunc['setpan'], array( $channel, $value ) );
     }
 
-    protected function fmodlib_SetChannelVolumen( $channel, $value )
+    function fmodlib_SetChannelVolumen( $channel, $value )
     {
         return wb_call_function( $this->fmodLibFunc['setvol'], array( $channel, $value ) );
     }
 
-    protected function fmodlib_PseudoSurround( $channel, $state )
+    function fmodlib_PseudoSurround( $channel, $state )
     {
         return wb_call_function( $this->fmodLibFunc['sourround'], array( $channel, $state ) );
     }
 
-    protected function fmodlib_GetOutputType()
+    function fmodlib_GetOutputType()
     {
         return wb_call_function( $this->fmodLibFunc['getoutput'], array() );
     }
 
-    protected function fmodlib_GetNumDrivers()
+    function fmodlib_GetNumDrivers()
     {
         return wb_call_function( $this->fmodLibFunc['getnumdrv'], array() );
     }
 
-    protected function fmodlib_GetNumTags( $stream, $valuepointer )
+    function fmodlib_GetNumTags( $stream, $valuepointer )
     {
         return wb_call_function( $this->fmodLibFunc['strm_gettags'], array( $stream, $valuepointer ) );
     }
 
-    protected function fmodlib_GetPositionBytes( $stream )
+    function fmodlib_GetPositionBytes( $stream )
     {
         return wb_call_function( $this->fmodLibFunc['strm_getpos'], array( $stream ) );
     }
 
-    protected function fmodlib_GetPositionMs( $stream )
+    function fmodlib_GetPositionMs( $stream )
     {
         return wb_call_function( $this->fmodLibFunc['strm_gettime'], array( $stream ) );
     }
 
-    protected function fmodlib_GetLenghtMs( $stream )
+    function fmodlib_GetLenghtMs( $stream )
     {
         return wb_call_function( $this->fmodLibFunc['strm_getlen'], array( $stream ) );
     }
 
-    protected function fmodlib_GetLenght( $stream )
+    function fmodlib_GetLenght( $stream )
     {
         return wb_call_function( $this->fmodLibFunc['strm_getbytes'], array( $stream ) );
     }
 
-    protected function fmodlib_GetChannelVolumen( $channel )
+    function fmodlib_GetChannelVolumen( $channel )
     {
         return wb_call_function( $this->fmodLibFunc['getvol'], array( $channel ) );
     }
 
-    protected function fmodlib_GetStreamTag( $stream, $tagIndex,  $type_ptr, $name_ptr, $value_ptr, $lenght_ptr )
+    function fmodlib_GetStreamTag( $stream, $tagIndex,  $type_ptr, $name_ptr, $value_ptr, $lenght_ptr )
     {
         return wb_call_function( $this->fmodLibFunc['strm_gettag'], array( $stream, $tagIndex, $type_ptr, $name_ptr, $value_ptr, $lenght_ptr ) );
     }
@@ -393,7 +393,7 @@ class FmodLibrary
      * @return string Error Message
      * @access private
     */
-    protected function fmodlib_GetErrorMessage()
+    function fmodlib_GetErrorMessage()
     {
         $fmoderr = wb_call_function( $this->fmodLibFunc['geterr'], array() );
 
@@ -425,9 +425,7 @@ class FmodLibrary
     }
 
 }
-?>
 
-<?php
 /**
  * FMOD Audio Class for WinBinder
  *
@@ -437,22 +435,22 @@ class FmodLibrary
 */
 class FmodAudio extends FmodLibrary
 {
-    private $fmodStream; // Stream handler
-    private $fmodOutputType; // output driver integer or string.
-    private $fmodChannel; // Internal Channel-ID
-    private $fmodSurroundEnabled; // bool: 1 means fake sourround is active
-    private $fmodFxId; // Internal FX-ID
-    private $fmodDriver;
+    var $fmodStream; // Stream handler
+    var $fmodOutputType; // output driver integer or string.
+    var $fmodChannel; // Internal Channel-ID
+    var $fmodSurroundEnabled; // bool: 1 means fake sourround is active
+    var $fmodFxId; // Internal FX-ID
+    var $fmodDriver;
 
-    public $fmodStreamUrl; // Filepath or URI to media
-    public $fmodStreamState; // 1 means playing, 0 means stopped, -1 means closed
-    public $fmodStreamOpen; // 1 means fmodStreamUrl could be opened/loaded
-    public $fmodIsPaused; // bool: 1 means paused
-    public $fmodIsMuted; // bool: 1 means muted
-    public $fmodNetStatus; // array containing some data about the network status
+    var $fmodStreamUrl; // Filepath or URI to media
+    var $fmodStreamState; // 1 means playing, 0 means stopped, -1 means closed
+    var $fmodStreamOpen; // 1 means fmodStreamUrl could be opened/loaded
+    var $fmodIsPaused; // bool: 1 means paused
+    var $fmodIsMuted; // bool: 1 means muted
+    var $fmodNetStatus; // array containing some data about the network status
 
 
-    public function __construct()
+    function FmodAudio()
     {
         $this->fmodStream = STREAM_FAILED;
         $this->fmodIsPaused = false;
@@ -477,7 +475,7 @@ class FmodAudio extends FmodLibrary
      * @return bool TRUE on success, FALSE on failure (while filling $fmodLastErrorMsg)
      * @access public
     */
-    public function fmod_SoundInit( $mixrate = 44100, $softchannels = 16, $flags = 0 )
+    function fmod_SoundInit( $mixrate = 44100, $softchannels = 16, $flags = 0 )
     {
         $this->fmodlib_SetOutput( $this->fmodOutputType );
         $this->fmodlib_SetDriver( $this->fmodDriver );
@@ -502,7 +500,7 @@ class FmodAudio extends FmodLibrary
      * @return bool True on success, False on failure
      * @access public
     */
-    public function fmod_SoundClose()
+    function fmod_SoundClose()
     {
         return $this->fmodlib_SoundClose();
     }
@@ -515,7 +513,7 @@ class FmodAudio extends FmodLibrary
      * @return bool TRUE on success, FALSE on failure (while filling $fmodLastErrorMsg)
      * @access public
     */
-    public function fmod_StreamOpen( $url = '' )
+    function fmod_StreamOpen( $url = '' )
     {
         $result = false;
         $this->fmodStreamOpen = STREAM_NOT_LOADED;
@@ -544,7 +542,7 @@ class FmodAudio extends FmodLibrary
      * @return bool TRUE on success, changes fmodStreamState
      * @access public
     */
-    public function fmod_StreamClose()
+    function fmod_StreamClose()
     {
         $result = $this->fmodlib_CloseStream( $this->fmodStream );
 
@@ -563,7 +561,7 @@ class FmodAudio extends FmodLibrary
      * @return bool TRUE on success, changes fmodStreamState, FALSE on failure
      * @access public
     */
-    public function fmod_StreamPlay()
+    function fmod_StreamPlay()
     {
         $result = $this->fmodlib_StreamPlayEx(FSOUND_FREE, $this->fmodStream, 0, true);
 
@@ -594,7 +592,7 @@ class FmodAudio extends FmodLibrary
      * @return bool TRUE on success, changes fmodStreamState, FALSE on failure
      * @access public
     */
-    public function fmod_StreamStop()
+    function fmod_StreamStop()
     {
 
         $this->fmodStreamState = STREAM_STATE_STOPPED;
@@ -613,7 +611,7 @@ class FmodAudio extends FmodLibrary
      *
      * @access public
     */
-    public function fmod_StreamReload() {
+    function fmod_StreamReload() {
 
         $this->fmod_StreamStop();
 
@@ -630,7 +628,7 @@ class FmodAudio extends FmodLibrary
      * @param bool $state True pauses, False unpauses
      * @access public
     */
-    public function fmod_SoundPause( $state )
+    function fmod_SoundPause( $state )
     {
         $this->fmodIsPaused = true;
 
@@ -650,7 +648,7 @@ class FmodAudio extends FmodLibrary
      * @param bool $state True mutes, False unmutes
      * @access public
     */
-    public function fmod_SoundMute( $state )
+    function fmod_SoundMute( $state )
     {
         $this->fmodIsMuted = true;
 
@@ -670,7 +668,7 @@ class FmodAudio extends FmodLibrary
      * @param bool $state True pauses, False unpauses
      * @access public
     */
-    public function fmod_SetSurround( $state )
+    function fmod_SetSurround( $state )
     {
         $this->fmodSurroundEnabled = true;
 
@@ -690,7 +688,7 @@ class FmodAudio extends FmodLibrary
      * @return bool True on success, False on failure (filling $fmodLastErrorMsg)
      * @access public
      */
-    public function fmod_SetEqLevel( $band = '', $gain = '0', $bandwidth = '18' )
+    function fmod_SetEqLevel( $band = '', $gain = '0', $bandwidth = '18' )
     {
         $result = $this->fmodlib_FxSetParamEQ( $this->fmodFxId, $band, $bandwidth, $gain );
 
@@ -708,7 +706,7 @@ class FmodAudio extends FmodLibrary
      * @return bool True on success, False on Failure
      * @access public
     */
-    public function fmod_SetPanning( $pos = '127' )
+    function fmod_SetPanning( $pos = '127' )
     {
         return $this->fmodlib_ChannelPan( $this->fmodChannel, $pos );
     }
@@ -720,7 +718,7 @@ class FmodAudio extends FmodLibrary
      * @return bool True on success, False on Failure
      * @access public
     */
-    public function fmod_SetVolumen( $vol )
+    function fmod_SetVolumen( $vol )
     {
         return $this->fmodlib_SetChannelVolumen( $this->fmodChannel, $vol );
     }
@@ -731,7 +729,7 @@ class FmodAudio extends FmodLibrary
      * @return int Current volumen level (From 0 to 255);
      * @access public
     */
-    public function fmod_GetVolumen()
+    function fmod_GetVolumen()
     {
         return $this->fmodlib_GetChannelVolumen( $this->fmodChannel );
     }
@@ -744,7 +742,7 @@ class FmodAudio extends FmodLibrary
      * @return On success, the current stream's position in BYTES is returned. On failure, 0 is returned.
      * @access public
     */
-    public function fmod_GetBytes()
+    function fmod_GetBytes()
     {
         return $this->fmodlib_GetPositionBytes( $this->fmodStream );
     }
@@ -755,7 +753,7 @@ class FmodAudio extends FmodLibrary
      * @return bool On success, the size of the stream in BYTES is returned.
      * @access public
     */
-    public function fmod_GetLenghtBytes()
+    function fmod_GetLenghtBytes()
     {
         return $this->fmodlib_GetLenght( $this->fmodStream );
     }
@@ -767,7 +765,7 @@ class FmodAudio extends FmodLibrary
      * @return bool On success, the current stream's position in milliseconds is returned.
      * @access public
     */
-    public function fmod_GetTime( $return_time = true )
+    function fmod_GetTime( $return_time = true )
     {
 
         if( $return_time ) {
@@ -787,7 +785,7 @@ class FmodAudio extends FmodLibrary
      * @return bool On success, the size of the stream in MILLISECONDS is returned.
      * @access public
     */
-    public function fmod_GetLenght( $return_time = true )
+    function fmod_GetLenght( $return_time = true )
     {
         if( $return_time ) {
             $result = $this->fmod_Msec2Time( $this->fmodlib_GetLenghtMs( $this->fmodStream ) );
@@ -804,7 +802,7 @@ class FmodAudio extends FmodLibrary
      * @return string Name of current used output
      * @access public
     */
-    public function fmod_GetOutputName()
+    function fmod_GetOutputName()
     {
         switch ( $this->fmodlib_GetOutputType() )
         {
@@ -828,7 +826,7 @@ class FmodAudio extends FmodLibrary
      * @return int The Typeid for use with TagFunctions
      * @access private
     */
-    private function fmod_TagType( $typestr ){
+    function fmod_TagType( $typestr ){
 
          switch ( $typestr ) {
             case "vorbis": $typeval = 0; // A vorbis comment
@@ -861,7 +859,7 @@ class FmodAudio extends FmodLibrary
      * @return int Number of current stream availble tags
      * @access public
     */
-    public function fmod_GetNumTagFields()
+    function fmod_GetNumTagFields()
     {
         $intval = pack('i', 0);
         $valptr = wb_get_address( $intval );
@@ -882,7 +880,7 @@ class FmodAudio extends FmodLibrary
      * @return bool FALSE on failure, Array on success (TagName as key, TagValue as val)
      * @access public
     */
-    public function fmod_GetTag( $tagIndex, $typestr = "shoutcast" )
+    function fmod_GetTag( $tagIndex, $typestr = "shoutcast" )
     {
 
         $typeval = $this->fmod_TagType( $typestr );
@@ -921,7 +919,7 @@ class FmodAudio extends FmodLibrary
      * @return array All Tags and their values as Array
      * @access public
     */
-    public function fmod_GetTags( $type = "shoutcast" )
+    function fmod_GetTags( $type = "shoutcast" )
     {
         if ( $this->fmodStreamState != STREAM_STATE_STOPPED )
         {
@@ -955,7 +953,7 @@ class FmodAudio extends FmodLibrary
      * @return string Message describing current opening state
      * @access public
     */
-    public function fmod_StreamOpenState()
+    function fmod_StreamOpenState()
     {
         switch($this->fmodlib_StreamGetState())
         {
@@ -979,7 +977,7 @@ class FmodAudio extends FmodLibrary
      * @return bool
      * @access public
      */
-    public function fmod_StreamNetState()
+    function fmod_StreamNetState()
     {
         $statusstr = pack('i', 0);
         $status = wb_get_address( $statusstr );
@@ -1070,7 +1068,7 @@ class FmodAudio extends FmodLibrary
      * @return string Time in the format MM:SS
      * @access private
     */
-    private function fmod_Msec2Time( $ms )
+    function fmod_Msec2Time( $ms )
     {
         $seconds = floor( $ms / 1000 );
         $mins = floor( $seconds / 60 );
