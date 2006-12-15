@@ -1,7 +1,11 @@
 <?xml version="1.0"?>
 <!DOCTYPE book SYSTEM "../../tools/dtd/dblite.dtd"
 [
-
+<!ENTITY overview SYSTEM "overview.xml">
+<!ENTITY installing SYSTEM "installing.xml">
+<!ENTITY controller SYSTEM "controller.xml">
+<!ENTITY phplib_template SYSTEM "phplib_template.xml">
+<!ENTITY examples SYSTEM "examples.xml">
 ]>
 
 <book id="svn">
@@ -40,6 +44,10 @@
   </bookinfo>
 
   <!-- External entity refs -->
-
+  &overview;
+  &installing;
+  &controller;
+  &examples;
+  &phplib_template;
 
 </book>

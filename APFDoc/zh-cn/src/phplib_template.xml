@@ -1,0 +1,36 @@
+<chapter >
+    <title>Template模板</title>
+    <sect1>
+        <title>PHPLIB Template 模板</title>  
+        <para>
+            如何进行带条件判断显示块在模板里
+            模板文件
+            <screen><![CDATA[
+                <ul class="admin_actions">
+                    <!-- BEGIN filter_block -->
+                    <li>
+                        <input class="admin_action_create" value="Create" type="button" onclick="document.location.href='?act=Add';" />
+                    </li>
+                    <!-- END filter_block -->
+                    <li>
+                        <input type="submit" name="save" value="Status To New" class="admin_action_list" 
+                            onclick="if (confirm('Are you sure?')) { document.admin_list_form.todo.value='new';document.admin_list_form.submit(); };return false;"   
+                        />
+                    </li>
+                    <li>
+                        <input type="submit" name="save" value="Status To Live" class="admin_action_save" 
+                            onclick="if (confirm('Are you sure?')) { document.admin_list_form.todo.value='live';document.admin_list_form.submit(); };return false;" />
+                    </li>
+                </ul>
+                ]]>
+            </screen>
+            程序文件
+            <screen>
+                if(!CREATE_DENY)
+                {
+                $template->setBlock("Main", "filter_block", "filter_block_name");
+                }
+            </screen>            
+        </para>
+    </sect1>
+</chapter>
