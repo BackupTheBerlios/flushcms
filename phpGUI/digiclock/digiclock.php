@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: digiclock.php,v 1.8 2006/12/14 09:39:56 arzen Exp $
+ * @version    CVS: $Id: digiclock.php,v 1.9 2006/12/15 02:39:53 arzen Exp $
  */
 include_once "include/winbinder.php";
 
@@ -43,6 +43,9 @@ wb_set_font($label_year, wb_create_font("Tahoma", 8));
 $top_bar = wb_create_control($mainwin, Label, "", 10, 2, 100, 10, 0, WBC_CENTER);
 wb_set_font($top_bar, wb_create_font("Simsun", 8));
 
+$foot_bar = wb_create_control($mainwin, Label, '', 0, 35, 100, 10, 0, WBC_CENTER);
+wb_set_font($foot_bar, wb_create_font("Simsun", 8));
+
 $statusbar = wb_create_control($mainwin, StatusBar, "");
 wb_set_font($statusbar, wb_create_font("Simsun", 10));
 
@@ -59,11 +62,20 @@ wb_main_loop();
 
 function process_main($window, $id)
 {
-	global $label, $statusbar,$top_bar,$news_str;
-	static $pos,$top_pos;
+	global $label, $statusbar,$top_bar,$foot_bar,$news_str;
+	static $pos,$top_pos,$foot_pos;
+
+	$disks_str = "";
 	if ((date("H")/2)==0) 
 	{
 		$news_str="滚动新闻:".getNews ();
+		
+		$disks = explode(" ", wb_get_system_info("diskdrives"));
+		for ($index = 0; $index < sizeof($disks); $index++) 
+		{
+			$disks_str .= getTotalDiskSpace ($disks[$index]);
+		}
+		
 	}
 	$news_str=$news_str?$news_str:"滚动新闻:".getNews ();
 	
@@ -81,6 +93,7 @@ function process_main($window, $id)
 			$len = strlen($text);
 			wb_set_text($statusbar, mb_substr($text . $text, $pos, $len,"gb2312"));//substr($text . $text, $pos, $len) mb_substr($text . $text, $pos, $len,"gb2312")
 			$pos = $pos < $len ? $pos + 2 : 0;
+	
 			$top_text="....>........";
 			if(ereg("11:4([0-9])",date("H:i")))
 			{
@@ -97,6 +110,10 @@ function process_main($window, $id)
 			$top_len = strlen($top_text);
 			wb_set_text($top_bar, mb_substr($top_text . $top_text, $top_pos, $top_len,"gb2312"));//substr($text . $text, $pos, $len) mb_substr($text . $text, $pos, $len,"gb2312")
 			$top_pos = $top_pos > 0 ? $top_pos - 1 : $top_len;
+
+			$foot_len = strlen($disks_str);
+			wb_set_text($foot_bar, mb_substr($disks_str . $disks_str, $foot_pos, $foot_len,"gb2312"));//substr($text . $text, $pos, $len) mb_substr($text . $text, $pos, $len,"gb2312")
+			$foot_pos = $foot_pos < $foot_len  ? $foot_pos +1 : 0;
 			
 			break;
 		case IDCLOSE:
@@ -107,6 +124,14 @@ function process_main($window, $id)
 }
 
 //------------------------------------------------------------------ END OF FILE
+
+function getTotalDiskSpace ($disk) 
+{
+	$M = 1024*1024*1024;
+	$total = round(disk_total_space($disk)/$M, 2);
+	$free = round(disk_free_space($disk)/$M, 2);
+	return "$disk{$free}/$totalG";
+}
 
 function getNews () 
 {
