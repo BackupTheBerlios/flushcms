@@ -13,7 +13,7 @@ if(!defined('IDC_TREEVIEW')) define('IDC_TREEVIEW', 1001);
 // Create window
 $dim = explode(" ", wb_get_system_info("workarea"));
 
-$wb->mainwin = wb_create_window(null, AppWindow|ResizableWindow, $wb->vars["Lang"]["system_name"], 0, 0, $dim[2], $dim[3],  WBC_NOTIFY, WBC_RESIZE | WBC_REDRAW);
+$wb->mainwin = wb_create_window(null, AppWindow|ResizableWindow, $wb->vars["Lang"]["system_name"], 0, 0, $dim[2], $dim[3],  0x00000200 | WBC_NOTIFY, WBC_RESIZE | WBC_REDRAW);
 
 $dim = wb_get_size($wb->mainwin, true);
 $wb->winwidth = $dim[0];
