@@ -8,7 +8,7 @@ set_time_limit(0);
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: main.php,v 1.3 2006/12/17 09:14:02 arzen Exp $
+ * @version    CVS: $Id: main.php,v 1.4 2006/12/17 23:14:53 arzen Exp $
  */
 include_once "include/winbinder.php";
 define("PATH_RES",		"resource/");
@@ -16,6 +16,7 @@ define("PATH_INI",		"ini/");
 define("PATH_LANG",		PATH_INI."lang/");
 define("PATH_FORM",		"form/");
 define("PATH_CLASS",		"class/");
+define("PATH_CONFIG",		"config/");
 
 //----------------------------------------------------------- CLASS DECLARATIONS
 

@@ -18,6 +18,8 @@ if(!defined('IDC_CATEGORY_NAV_LAST')) define('IDC_CATEGORY_NAV_LAST', 2108);
 
 if(!defined('IDC_CATEGORY_KEYWORD')) define('IDC_CATEGORY_KEYWORD', 2109);
 if(!defined('IDC_CATEGORY_SEARCH_SUBMIT')) define('IDC_CATEGORY_SEARCH_SUBMIT', 2110);
+if(!defined('IDC_CATEGORY_NAME')) define('IDC_CATEGORY_NAME', 2111);
+if(!defined('IDC_CATEGORY_ACTIVE')) define('IDC_CATEGORY_ACTIVE', 2112);
 
 /**
  *
@@ -25,7 +27,7 @@ if(!defined('IDC_CATEGORY_SEARCH_SUBMIT')) define('IDC_CATEGORY_SEARCH_SUBMIT', 
  *
  * @package    symfony.runtime.plugin
  * @author     John.meng <arzen1013@gmail.com>
- * @version    SVN: $Id: Contact.form.php,v 1.4 2006/12/17 10:28:17 arzen Exp $
+ * @version    SVN: $Id: Contact.form.php,v 1.5 2006/12/17 23:14:53 arzen Exp $
  */
 class ContactForm
 {
@@ -226,6 +228,17 @@ class ContactForm
 		$detail_frame = wb_create_control($p_ctl, Frame, $wb->vars["Lang"]["lang_detail"], $form_x, $form_y+40, $dim[0]-120, 120, 0, WBC_VISIBLE,0,1);
 		wb_create_control($detail_frame, Label, $wb->vars["Lang"]["lang_category"], 20, 15, 150, 14, 0, WBC_VISIBLE, 0, 1);
 		$this->category_name = wb_create_control($detail_frame, EditBox, "", 50, 15, 150, 21, IDC_CATEGORY_KEYWORD, WBC_VISIBLE | WBC_ENABLED, 0, 1);
+		// Group A
+		include_once(PATH_CONFIG.'common.php');
+		$i=0;
+		foreach($ActiveOption as $key=>$value)
+		{
+			wb_create_control($detail_frame, RadioButton, "Option A1", 250, 24, 70, 14, 101, WBC_GROUP,0);
+			$i++;
+		}
+		wb_create_control($detail_frame, RadioButton, "Option A1", 250, 24, 70, 14, 101, WBC_GROUP,0);
+		wb_create_control($detail_frame, RadioButton, "Option A2", 250, 48, 70, 14, 102,0,1);
+		wb_create_control($detail_frame, RadioButton, "Option A3", 250, 73, 70, 14, 103,0,0);
 		
 				
 	}
