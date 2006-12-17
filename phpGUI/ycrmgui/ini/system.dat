@@ -5,3 +5,4 @@ db_password = "dev6543"
 db_dbname = "dev_apf"
 
 contact_table = "apf_contact"
+contact_category_table = "apf_contact_category"

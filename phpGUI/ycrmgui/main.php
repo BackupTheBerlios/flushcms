@@ -8,7 +8,7 @@ set_time_limit(0);
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: main.php,v 1.2 2006/12/17 06:00:36 arzen Exp $
+ * @version    CVS: $Id: main.php,v 1.3 2006/12/17 09:14:02 arzen Exp $
  */
 include_once "include/winbinder.php";
 define("PATH_RES",		"resource/");
@@ -81,8 +81,8 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 			{
 				case 2002:
 					include_once PATH_FORM.'Contact.form.php';
-					$contact = new ContactForm;
-					$wb->left_control = $contact->renderForm();
+					$wb->current_ctl = new ContactForm;
+					$wb->left_control = $wb->current_ctl->renderForm();
 					break;
 				case 2003:
 					$wb->left_control = wb_create_control($wb->mainwin, CheckBox, "Checkbox 1", 170, 105, 91, 14, 0);
