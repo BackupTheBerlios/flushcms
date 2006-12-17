@@ -25,7 +25,7 @@ if(!defined('IDC_CATEGORY_SEARCH_SUBMIT')) define('IDC_CATEGORY_SEARCH_SUBMIT', 
  *
  * @package    symfony.runtime.plugin
  * @author     John.meng <arzen1013@gmail.com>
- * @version    SVN: $Id: Contact.form.php,v 1.3 2006/12/17 09:14:02 arzen Exp $
+ * @version    SVN: $Id: Contact.form.php,v 1.4 2006/12/17 10:28:17 arzen Exp $
  */
 class ContactForm
 {
@@ -36,6 +36,8 @@ class ContactForm
 	var $category_list;
 	var $category_keyword;
 	var $left_control;
+
+	var $category_name;
 	
 	function renderForm () 
 	{
@@ -53,8 +55,8 @@ class ContactForm
 		$this->left_control = wb_create_control($wb->mainwin, TabControl, "{$wb->vars["Lang"]["lang_contact"]},{$wb->vars["Lang"]["lang_contact"]}{$wb->vars["Lang"]["lang_category"]}", 160, 2, $wb->winwidth-160, $wb->winheight-40, IDC_TABCONTROL, 0x00000000, 0|WBC_RESIZE, 0);
 		$dim = wb_get_size($this->left_control, true);
 		
-		$this->data_list = wb_create_control($this->left_control, ListView,		"",	   0, 10,$dim[0]-10, $dim[1]-250, 	102,WBC_VISIBLE | WBC_ENABLED | WBC_SORT | WBC_LINES | WBC_CHECKBOXES, 0, 0);
-		$this->category_list = wb_create_control($this->left_control, ListView,		"",	   0, 10,$dim[0]-10, $dim[1]-250, 	IDC_CATEGORY_LIST,WBC_VISIBLE | WBC_ENABLED | WBC_SORT | WBC_LINES | WBC_CHECKBOXES, 0, 1);
+		$this->data_list = wb_create_control($this->left_control, ListView,		"",	   0, 10,$dim[0]-10, $dim[1]-300, 	102,WBC_VISIBLE | WBC_ENABLED | WBC_SORT | WBC_LINES | WBC_CHECKBOXES, 0, 0);
+		$this->category_list = wb_create_control($this->left_control, ListView,		"",	   0, 10,$dim[0]-10, $dim[1]-300, 	IDC_CATEGORY_LIST,WBC_VISIBLE | WBC_ENABLED | WBC_SORT | WBC_LINES | WBC_CHECKBOXES, 0, 1);
 
 			
 		// Create ListView header
@@ -118,7 +120,7 @@ class ContactForm
 	
 		//	navigator
 		$dim = wb_get_size($this->left_control, true);
-		$nav_button_y=$dim[1]-230;
+		$nav_button_y=$dim[1]-280;
 		$nav_button_x=80+150;
 		$nav_button_space=120;
 		
@@ -143,6 +145,7 @@ class ContactForm
 			wb_set_enabled($nav_first,false);
 			
 		} 
+		
 	}
 	
 	function reset_category_listview ($keyword="") 
@@ -181,7 +184,7 @@ class ContactForm
 		
 		//category navigator
 		$dim = wb_get_size($this->left_control, true);
-		$nav_button_y=$dim[1]-230;
+		$nav_button_y=$dim[1]-280;
 		$nav_button_x=80+150;
 		$nav_button_space=120;
 
@@ -212,14 +215,19 @@ class ContactForm
 		global $wb;
 		//	navigator
 		$dim = wb_get_size($p_ctl, true);
-		$form_y=$dim[1]-230+30;
+		$form_y=$dim[1]-280+30;
 		$form_x=20;
 		
 		$search_frame = wb_create_control($p_ctl, Frame, $wb->vars["Lang"]["lang_search"], $form_x, $form_y, $dim[0]-120, 40, 0, WBC_VISIBLE,0,1);
 		$this->category_keyword = wb_create_control($search_frame, EditBox, "", 50, 15, 150, 21, IDC_CATEGORY_KEYWORD, WBC_VISIBLE | WBC_ENABLED, 0, 1);
 		$category_nav_last = wb_create_control($search_frame, PushButton, $wb->vars["Lang"]["lang_search"],  220, 15, 80, 22, IDC_CATEGORY_SEARCH_SUBMIT, WBC_VISIBLE, 0, 1);
 		wb_set_handler($search_frame, "process_main");
+		// detail form
+		$detail_frame = wb_create_control($p_ctl, Frame, $wb->vars["Lang"]["lang_detail"], $form_x, $form_y+40, $dim[0]-120, 120, 0, WBC_VISIBLE,0,1);
+		wb_create_control($detail_frame, Label, $wb->vars["Lang"]["lang_category"], 20, 15, 150, 14, 0, WBC_VISIBLE, 0, 1);
+		$this->category_name = wb_create_control($detail_frame, EditBox, "", 50, 15, 150, 21, IDC_CATEGORY_KEYWORD, WBC_VISIBLE | WBC_ENABLED, 0, 1);
 		
+				
 	}
 	
 }
@@ -236,10 +244,12 @@ function process_ContactForm ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 			break;
 		case IDC_NAV_PRE:
 			$wb->current_page -= 1;
+			$wb->current_page=$wb->current_page<1?1:$wb->current_page;
 			$wb->current_ctl->reset_listview();
 			break;
 		case IDC_NAV_NEXT:
 			$wb->current_page += 1;
+			$wb->current_page=$wb->current_page>$wb->total_page?$wb->total_page:$wb->current_page;
 			$wb->current_ctl->reset_listview();
 			break;
 		case IDC_NAV_LAST:
@@ -247,8 +257,18 @@ function process_ContactForm ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 			$wb->current_ctl->reset_listview();
 			break;
 		case IDC_CATEGORY_SEARCH_SUBMIT:
+			$wb->current_category_page = 1;
 			$wb->current_ctl->reset_category_listview (wb_get_text($wb->current_ctl->category_keyword));
-//			wb_message_box($wb->mainwin, wb_get_text($wb->current_ctl->category_keyword), $wb->vars["Lang"]["system_name"], WBC_QUESTION | WBC_YESNO);
+			break;
+		case IDC_CATEGORY_NAV_PRE:
+			$wb->current_category_page -= 1;
+			$wb->current_category_page=$wb->current_category_page<1?1:$wb->current_category_page;
+			$wb->current_ctl->reset_category_listview();
+			break;
+		case IDC_CATEGORY_NAV_NEXT:
+			$wb->current_category_page += 1;
+			$wb->current_category_page=$wb->current_category_page>$wb->total_category_page?$wb->total_category_page:$wb->current_category_page;
+			$wb->current_ctl->reset_category_listview();
 			break;
 
 	}
