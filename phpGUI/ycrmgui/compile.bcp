@@ -1,0 +1,11 @@
+; Bamcompile example project file
+; exe Icon
+icon resource\favicon.ico
+
+mainfile main.php
+outfile ..\bin\ycrm.exe
+compress
+windowed
+embed ..\ycrmgui
+extension ..\dll\php_winbinder.dll
+destination ..\ycrmgui

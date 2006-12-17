@@ -37,5 +37,15 @@
     	</exec>
     </target>
 	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: build_ycrmgui                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="build_ycrmgui">
+    	<exec dir="${ycrmgui.src.dir}" executable="${build.bin.home}/${build.bin.name}" >
+    	  <arg line=" ${ycrmgui.src.dir}/compile.bcp"/>
+    	</exec>
+    </target>
+
+	
 
 </project>
