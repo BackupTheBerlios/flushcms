@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_main.php,v 1.2 2006/12/18 10:26:10 arzen Exp $
+ * @version    CVS: $Id: yc_main.php,v 1.3 2006/12/18 11:04:04 arzen Exp $
  */
 
 set_time_limit(0);
@@ -59,7 +59,7 @@ function create_main_window()
 
 function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0) 
 {
-	global $wb, $statusbar;
+	global $wb;
 	switch ($id) 
 	{
 		case IDC_LEFT_TREE:
