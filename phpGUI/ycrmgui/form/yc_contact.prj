@@ -1,0 +1,40 @@
+;*******************************************************************************
+;
+; WINBINDER - form editor project
+;
+;*******************************************************************************
+
+[Projectsettings]
+formvar = "$wb->mainwin"
+parent = "null"
+prefix = "IDC_"
+startval = 1000
+localize = ""
+locprefix = "LANG_"
+istabpage = ""
+tabnumber = 0
+filllists = ""
+fillheaders = ""
+imagenames = ""
+insertontabs = 1
+applyvalues = ""
+ctrlvar = ""
+startctrlval = 1
+staticnullid = 1
+currentindex = 1
+
+[Form]
+class = "AppWindow"
+caption = ""
+geom = "WBC_CENTER WBC_CENTER 667 570"
+style = 0
+value = 0
+controls = 1
+
+[Form_ctrl1]
+class = "TabControl"
+caption = "Tab1,Tab2,Tab3"
+geom = "15 15 635 525"
+style = 0
+value = 0
+id = "IDC_TABCONTROL1001"
