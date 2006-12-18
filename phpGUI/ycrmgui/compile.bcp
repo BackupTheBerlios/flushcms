@@ -2,7 +2,7 @@
 ; exe Icon
 icon resource\favicon.ico
 
-mainfile main.php
+mainfile yc_main.php
 outfile ..\bin\ycrm.exe
 compress
 windowed

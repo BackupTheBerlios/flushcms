@@ -8,7 +8,7 @@ set_time_limit(0);
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: main.php,v 1.4 2006/12/17 23:14:53 arzen Exp $
+ * @version    CVS: $Id: main.php,v 1.5 2006/12/18 05:22:34 arzen Exp $
  */
 include_once "include/winbinder.php";
 define("PATH_RES",		"resource/");
@@ -106,11 +106,16 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 			if(wb_message_box($wb->mainwin, $wb->vars["Lang"]["lang_sure_logout"], $wb->vars["Lang"]["system_name"], WBC_QUESTION | WBC_YESNO))
 				wb_destroy_window($window);
 			break;
+			
+		case IDC_CATEGORY_LIST_VIEW:
+			$sel = wb_get_selected($ctrl);
+			$sel = $sel ? implode(", ", $sel) : "none";
+			wb_message_box($wb->mainwin, $sel);
+			
+			break;
 		default:
-//			echo $id . "\n";
-			include_once PATH_FORM.'Contact.form.php';
-			if(process_ContactForm($window, $id, $ctrl, $lparam1, $lparam2))
-				break;
+			include_once PATH_FORM.'contact.handle.php';
+			process_ContactForm($window, $id, $ctrl, $lparam1, $lparam2);
 			break;
 		
 	

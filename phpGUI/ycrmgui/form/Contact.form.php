@@ -4,7 +4,7 @@
 
 if(!defined('IDC_TABCONTROL')) define('IDC_TABCONTROL', 1002);
 if(!defined('IDC_DATA_LIST')) define('IDC_DATA_LIST', 3002);
-if(!defined('IDC_CATEGORY_LIST')) define('IDC_CATEGORY_LIST', 3003);
+if(!defined('IDC_CATEGORY_LIST_VIEW')) define('IDC_CATEGORY_LIST_VIEW', 304);
 
 if(!defined('IDC_NAV_PRE')) define('IDC_NAV_PRE', 2101);
 if(!defined('IDC_NAV_NEXT')) define('IDC_NAV_NEXT', 2102);
@@ -20,6 +20,7 @@ if(!defined('IDC_CATEGORY_KEYWORD')) define('IDC_CATEGORY_KEYWORD', 2109);
 if(!defined('IDC_CATEGORY_SEARCH_SUBMIT')) define('IDC_CATEGORY_SEARCH_SUBMIT', 2110);
 if(!defined('IDC_CATEGORY_NAME')) define('IDC_CATEGORY_NAME', 2111);
 if(!defined('IDC_CATEGORY_ACTIVE')) define('IDC_CATEGORY_ACTIVE', 2112);
+if(!defined('IDC_CATEGORY_SUBMIT')) define('IDC_CATEGORY_SUBMIT', 1005);
 
 /**
  *
@@ -27,7 +28,7 @@ if(!defined('IDC_CATEGORY_ACTIVE')) define('IDC_CATEGORY_ACTIVE', 2112);
  *
  * @package    symfony.runtime.plugin
  * @author     John.meng <arzen1013@gmail.com>
- * @version    SVN: $Id: Contact.form.php,v 1.5 2006/12/17 23:14:53 arzen Exp $
+ * @version    SVN: $Id: Contact.form.php,v 1.6 2006/12/18 05:22:34 arzen Exp $
  */
 class ContactForm
 {
@@ -40,6 +41,7 @@ class ContactForm
 	var $left_control;
 
 	var $category_name;
+	var $category_active;
 	
 	function renderForm () 
 	{
@@ -57,8 +59,8 @@ class ContactForm
 		$this->left_control = wb_create_control($wb->mainwin, TabControl, "{$wb->vars["Lang"]["lang_contact"]},{$wb->vars["Lang"]["lang_contact"]}{$wb->vars["Lang"]["lang_category"]}", 160, 2, $wb->winwidth-160, $wb->winheight-40, IDC_TABCONTROL, 0x00000000, 0|WBC_RESIZE, 0);
 		$dim = wb_get_size($this->left_control, true);
 		
-		$this->data_list = wb_create_control($this->left_control, ListView,		"",	   0, 10,$dim[0]-10, $dim[1]-300, 	102,WBC_VISIBLE | WBC_ENABLED | WBC_SORT | WBC_LINES | WBC_CHECKBOXES, 0, 0);
-		$this->category_list = wb_create_control($this->left_control, ListView,		"",	   0, 10,$dim[0]-10, $dim[1]-300, 	IDC_CATEGORY_LIST,WBC_VISIBLE | WBC_ENABLED | WBC_SORT | WBC_LINES | WBC_CHECKBOXES, 0, 1);
+		$this->data_list = wb_create_control($this->left_control, ListView,		"",	   0, 10,$dim[0]-10, $dim[1]-300, 	IDC_DATA_LIST,WBC_VISIBLE | WBC_ENABLED | WBC_SORT | WBC_LINES | WBC_CHECKBOXES, 0, 0);
+		$this->category_list = wb_create_control($this->left_control, ListView,		"",	   0, 10,$dim[0]-10, $dim[1]-300, 	IDC_CATEGORY_LIST_VIEW,WBC_VISIBLE | WBC_ENABLED | WBC_SORT | WBC_LINES | WBC_CHECKBOXES, 0, 1);
 
 			
 		// Create ListView header
@@ -224,69 +226,36 @@ class ContactForm
 		$this->category_keyword = wb_create_control($search_frame, EditBox, "", 50, 15, 150, 21, IDC_CATEGORY_KEYWORD, WBC_VISIBLE | WBC_ENABLED, 0, 1);
 		$category_nav_last = wb_create_control($search_frame, PushButton, $wb->vars["Lang"]["lang_search"],  220, 15, 80, 22, IDC_CATEGORY_SEARCH_SUBMIT, WBC_VISIBLE, 0, 1);
 		wb_set_handler($search_frame, "process_main");
+
 		// detail form
 		$detail_frame = wb_create_control($p_ctl, Frame, $wb->vars["Lang"]["lang_detail"], $form_x, $form_y+40, $dim[0]-120, 120, 0, WBC_VISIBLE,0,1);
-		wb_create_control($detail_frame, Label, $wb->vars["Lang"]["lang_category"], 20, 15, 150, 14, 0, WBC_VISIBLE, 0, 1);
-		$this->category_name = wb_create_control($detail_frame, EditBox, "", 50, 15, 150, 21, IDC_CATEGORY_KEYWORD, WBC_VISIBLE | WBC_ENABLED, 0, 1);
+		wb_create_control($detail_frame, Label, $wb->vars["Lang"]["lang_category"].$wb->vars["Lang"]["lang_name"], 60, 15, 150, 14, 0, WBC_VISIBLE, 0, 1);
+		$this->category_name = wb_create_control($detail_frame, EditBox, "", 120, 15, 150, 21, IDC_CATEGORY_KEYWORD, WBC_VISIBLE | WBC_ENABLED, 0, 1);
 		// Group A
 		include_once(PATH_CONFIG.'common.php');
 		$i=0;
 		foreach($ActiveOption as $key=>$value)
 		{
-			wb_create_control($detail_frame, RadioButton, "Option A1", 250, 24, 70, 14, 101, WBC_GROUP,0);
+			$this->category_active = wb_create_control($detail_frame, RadioButton, $key, 80+($i*70), 40, 70, 14, IDC_CATEGORY_ACTIVE, 0,0);
 			$i++;
 		}
-		wb_create_control($detail_frame, RadioButton, "Option A1", 250, 24, 70, 14, 101, WBC_GROUP,0);
-		wb_create_control($detail_frame, RadioButton, "Option A2", 250, 48, 70, 14, 102,0,1);
-		wb_create_control($detail_frame, RadioButton, "Option A3", 250, 73, 70, 14, 103,0,0);
+		wb_create_control($detail_frame, PushButton, $wb->vars["Lang"]["lang_new"], 130, 80, 90, 25, IDC_CATEGORY_SUBMIT, 0x00000000, 0, 0);
+		wb_set_handler($detail_frame, "process_main");
 		
 				
 	}
 	
-}
-
-function process_ContactForm ($window, $id, $ctrl, $lparam1=0, $lparam2=0) 
-{
-	global $wb;
-
-	switch($id) {
-
-		case IDC_NAV_FIRST:
-			$wb->current_page = 1;
-			$wb->current_ctl->reset_listview();
-			break;
-		case IDC_NAV_PRE:
-			$wb->current_page -= 1;
-			$wb->current_page=$wb->current_page<1?1:$wb->current_page;
-			$wb->current_ctl->reset_listview();
-			break;
-		case IDC_NAV_NEXT:
-			$wb->current_page += 1;
-			$wb->current_page=$wb->current_page>$wb->total_page?$wb->total_page:$wb->current_page;
-			$wb->current_ctl->reset_listview();
-			break;
-		case IDC_NAV_LAST:
-			$wb->current_page = $wb->total_page;
-			$wb->current_ctl->reset_listview();
-			break;
-		case IDC_CATEGORY_SEARCH_SUBMIT:
-			$wb->current_category_page = 1;
-			$wb->current_ctl->reset_category_listview (wb_get_text($wb->current_ctl->category_keyword));
-			break;
-		case IDC_CATEGORY_NAV_PRE:
-			$wb->current_category_page -= 1;
-			$wb->current_category_page=$wb->current_category_page<1?1:$wb->current_category_page;
-			$wb->current_ctl->reset_category_listview();
-			break;
-		case IDC_CATEGORY_NAV_NEXT:
-			$wb->current_category_page += 1;
-			$wb->current_category_page=$wb->current_category_page>$wb->total_category_page?$wb->total_category_page:$wb->current_category_page;
-			$wb->current_ctl->reset_category_listview();
-			break;
-
+	function execCategoryAddSubmit () 
+	{
+		global $wb;
+		$category_table_name = $wb->setting["Settings"]["contact_category_table"];
+		$category_name = wb_get_text($this->category_name);
+		$category_active = wb_get_text($this->category_active);
+		$sql = "INSERT INTO {$category_table_name} SET category_name = '{$category_name}' ";
+		$wb->db->query($sql);
+		
 	}
-	return true;
-}	
-
+	
+}
 
 ?>
