@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_main.php,v 1.3 2006/12/18 11:04:04 arzen Exp $
+ * @version    CVS: $Id: yc_main.php,v 1.4 2006/12/18 13:44:38 arzen Exp $
  */
 
 set_time_limit(0);
@@ -92,6 +92,10 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 		case IDCLOSE:		// IDCLOSE is predefined
 			if(wb_message_box($wb->mainwin, $wb->vars["Lang"]["lang_sure_logout"], $wb->vars["Lang"]["system_name"], WBC_QUESTION | WBC_YESNO))
 				wb_destroy_window($window);
+			break;
+		default:
+			if(process_contact($window, $id, $ctrl, $lparam1, $lparam2))
+				break;
 			break;
 	}		
 }
