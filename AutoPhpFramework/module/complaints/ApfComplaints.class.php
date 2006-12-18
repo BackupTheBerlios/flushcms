@@ -6,7 +6,7 @@
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
- * @version    CVS: $Id: ApfComplaints.class.php,v 1.4 2006/12/14 10:18:07 arzen Exp $
+ * @version    CVS: $Id: ApfComplaints.class.php,v 1.5 2006/12/18 23:41:23 arzen Exp $
  */
 
 class ApfComplaints  extends Actions
@@ -204,10 +204,10 @@ class ApfComplaints  extends Actions
 		$apf_complaints->orderBy('id desc');
 
 		$max_row = 10;
-		$ToltalNum = $apf_complaints->count();
 		$start_num = !isset($_GET['entrant'])?0:($_GET['entrant']-1)*$max_row;
 		$apf_complaints->limit($start_num,$max_row);
 		$apf_complaints->whereAdd(" userid = '$userid' OR access = 'public' ");
+		$ToltalNum = $apf_complaints->count();
 
 		$apf_complaints->find();
 		
