@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_main.php,v 1.5 2006/12/19 10:36:52 arzen Exp $
+ * @version    CVS: $Id: yc_main.php,v 1.6 2006/12/19 11:00:26 arzen Exp $
  */
 
 set_time_limit(0);
@@ -97,6 +97,10 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 		default:
 				if(process_contact($window, $id, $ctrl, $lparam1, $lparam2))
 					break;
+				if((wb_get_class($ctrl) == TabControl) && ($lparam1 & WBC_HEADERSEL)) {
+					wb_set_text($wb->statusbar, "Tab #$lparam2 of tab control #$id selected.");
+				} else
+					wb_set_text($wb->statusbar, "Control ID: " . $id);
 			break;
 	}		
 }

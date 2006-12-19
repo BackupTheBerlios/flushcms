@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_contact.form.inc.php,v 1.4 2006/12/19 10:36:52 arzen Exp $
+ * @version    CVS: $Id: yc_contact.form.inc.php,v 1.5 2006/12/19 11:00:26 arzen Exp $
  */
 // Control identifiers
 
@@ -171,13 +171,12 @@ function reset_contact_category_view ()
 	
 }
 
-function process_contact ($window, $id, $ctrl=0, $lparam=0) 
+function process_contact ($window, $id, $ctrl, $lparam1=0, $lparam2=0) 
 {
 	global $wb;
 	
 	switch($id) {
 
-				
 		case IDC_NAV_FIRST:
 			$wb->current_page = 1;
 			reset_contact_view ();
