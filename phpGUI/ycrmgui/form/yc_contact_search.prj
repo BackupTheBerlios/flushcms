@@ -1,0 +1,56 @@
+;*******************************************************************************
+;
+; WINBINDER - form editor project
+;
+;*******************************************************************************
+
+[Projectsettings]
+formvar = "$wb->contact_search"
+parent = "$wb->mainwin"
+prefix = "IDC_"
+startval = 1000
+localize = ""
+locprefix = "LANG_"
+istabpage = ""
+tabnumber = 0
+filllists = ""
+fillheaders = ""
+imagenames = ""
+insertontabs = 1
+applyvalues = ""
+ctrlvar = ""
+startctrlval = 1
+staticnullid = 1
+currentindex = 2
+
+[Form]
+class = "ModalDialog"
+caption = "Search"
+geom = "WBC_CENTER WBC_CENTER 258 118"
+style = 1
+value = 0
+controls = 3
+
+[Form_ctrl1]
+class = "Label"
+caption = "Label1"
+geom = "20 20 35 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl2]
+class = "EditBox"
+caption = ""
+geom = "80 10 145 30"
+style = 0
+value = 0
+id = "IDC_KEYWORD"
+
+[Form_ctrl3]
+class = "PushButton"
+caption = "PushButton3"
+geom = "90 55 90 25"
+style = 0
+value = 0
+id = "IDC_PUSHBUTTON1002"

@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_main.php,v 1.6 2006/12/19 11:00:26 arzen Exp $
+ * @version    CVS: $Id: yc_main.php,v 1.7 2006/12/19 23:43:35 arzen Exp $
  */
 
 set_time_limit(0);
@@ -42,6 +42,7 @@ function create_main_window()
 	$wb->setting = parse_ini(file_get_contents(PATH_INI.'system.dat'));
 	
 	include_once PATH_FORM."yc_main.form.inc.php";
+	include_once PATH_FORM."yc_contact_search.form.inc.php";
 	
 //	db init
 	$wb->db = new DB_Sql;
@@ -51,6 +52,7 @@ function create_main_window()
 	$Password = $wb->setting["Settings"]["db_password"];
 	$wb->db->connect($Database , $Host , $User , $Password );
 	$wb->right_control = null;
+	$wb->current_module = null;
 	
 	wb_set_image($wb->mainwin, PATH_RES."favicon.ico");
 	wb_set_handler($wb->mainwin, "process_main");
@@ -62,6 +64,20 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 	global $wb;
 	switch ($id) 
 	{
+
+		case IDC_TOOLBAR_SEARCH:
+			switch ($wb->current_module) 
+			{
+				case "contact":
+//					include(PATH_FORM.'yc_contact_search.form.php');
+					create_contact_search_dlg($window);
+					break;
+			
+			}
+			wb_set_text($wb->statusbar,
+				"Selected item: " . $wb->current_module
+			);
+			break;
 		case IDC_LEFT_TREE:
 				$selnode = wb_get_selected($wb->tree_view);	
 				if ($wb->right_control) 
@@ -98,6 +114,20 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 				if(process_contact($window, $id, $ctrl, $lparam1, $lparam2))
 					break;
 				if((wb_get_class($ctrl) == TabControl) && ($lparam1 & WBC_HEADERSEL)) {
+					switch ($id) 
+					{
+						case IDC_CONTACT_FORM:
+							if ($lparam2==0) 
+							{
+								$wb->current_module = "contact";
+							} 
+							else 
+							{
+								$wb->current_module = "contact_category";
+							}
+							break;
+					
+					}
 					wb_set_text($wb->statusbar, "Tab #$lparam2 of tab control #$id selected.");
 				} else
 					wb_set_text($wb->statusbar, "Control ID: " . $id);

@@ -8,7 +8,8 @@ WINBINDER - form editor PHP file (generated automatically)
 
 // Control identifiers
 
-if(!defined('IDC_LEFT_TREE')) define('IDC_LEFT_TREE', 1001);
+if(!defined('IDC_LEFT_TREE')) define('IDC_LEFT_TREE', 1011);
+if(!defined('IDC_TOOLBAR_SEARCH')) define('IDC_TOOLBAR_SEARCH', 1012);
 define("ID_ABOUT",          101);
 define("ID_OPEN",           102);
 
@@ -35,7 +36,7 @@ $wb->toolbar = wb_create_control($wb->mainwin, ToolBar, array(
     null,                                   // Toolbar separator
     array(ID_OPEN,  NULL,   "Open a file",              0),
     null,                                   // Toolbar separator
-    array(ID_ABOUT, NULL,   "About this application",   5),
+    array(IDC_TOOLBAR_SEARCH, NULL, $wb->vars["Lang"]["lang_search"],   5),
     array(IDCLOSE,  NULL,   "Exit this application",    12),
     array(IDCLOSE,  NULL,   "Exit this application",    13),
 ), 0, 10, 16, 15, 0, 0, PATH_RES . "toolbar.bmp");
