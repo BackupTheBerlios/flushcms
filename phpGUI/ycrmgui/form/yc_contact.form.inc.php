@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_contact.form.inc.php,v 1.3 2006/12/18 23:39:30 arzen Exp $
+ * @version    CVS: $Id: yc_contact.form.inc.php,v 1.4 2006/12/19 10:36:52 arzen Exp $
  */
 // Control identifiers
 
@@ -53,7 +53,7 @@ function reset_contact_view ()
 	global $wb;
 	// Empty listview
 	wb_delete_items($wb->contact_list, null);
-	$max_row = 25;
+	$max_row = 22;
 	$table_name = $wb->setting["Settings"]["contact_table"];
 	$start_num = ($wb->current_page-1)*$max_row;
 	$sql = " SELECT * FROM {$table_name} ";
@@ -84,7 +84,7 @@ function reset_contact_view ()
 	wb_create_items($wb->contact_list, $data);
 	//	navigator
 	$dim = wb_get_size($wb->right_control, true);
-	$nav_button_y=$dim[1]-70;
+	$nav_button_y=$dim[1]-80;
 	$nav_button_x=60+150;
 	$nav_button_space=100;
 	
@@ -119,7 +119,7 @@ function reset_contact_category_view ()
 
 	wb_delete_items($wb->contact_category_list, null);
 	
-	$max_row = 25;
+	$max_row = 22;
 	$where_is = " where 1 ";
 	$category_table_name = $wb->setting["Settings"]["contact_category_table"];
 	$start_num = ($wb->current_category_page-1)*$max_row;
@@ -145,7 +145,7 @@ function reset_contact_category_view ()
 	
 	//category navigator
 	$dim = wb_get_size($wb->right_control, true);
-	$nav_button_y=$dim[1]-70;
+	$nav_button_y=$dim[1]-80;
 	$nav_button_x=60+150;
 	$nav_button_space=100;
 
@@ -177,6 +177,7 @@ function process_contact ($window, $id, $ctrl=0, $lparam=0)
 	
 	switch($id) {
 
+				
 		case IDC_NAV_FIRST:
 			$wb->current_page = 1;
 			reset_contact_view ();
@@ -220,6 +221,9 @@ function process_contact ($window, $id, $ctrl=0, $lparam=0)
 			  " / contents: " . $text
 			);
 
+			return true;
+		case IDC_CONTACT_SEARCH:
+			wb_message_box($wb->mainwin, $wb->vars["Lang"]["lang_sure_logout"]);
 			return true;
 
 	}

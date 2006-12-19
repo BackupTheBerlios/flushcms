@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_main.php,v 1.4 2006/12/18 13:44:38 arzen Exp $
+ * @version    CVS: $Id: yc_main.php,v 1.5 2006/12/19 10:36:52 arzen Exp $
  */
 
 set_time_limit(0);
@@ -63,39 +63,40 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 	switch ($id) 
 	{
 		case IDC_LEFT_TREE:
-			$selnode = wb_get_selected($wb->tree_view);	
-			if ($wb->right_control) 
-			{
-				wb_set_visible($wb->right_control,false);
-			}
-			switch (wb_get_value($wb->tree_view)) 
-			{
-				case 2002:
-					displayContactForm ();
-					break;
-				case 2003:
-					$wb->right_control = wb_create_control($wb->mainwin, CheckBox, "Checkbox 1", 170, 105, 91, 14, 0);
-					break;
-				case 2004:
-					$wb->right_control = wb_create_control($wb->mainwin, RTFEditBox, "Rich text", 170, 120, 205, 55, 0);
-					break;
-			
-			}		
-			wb_set_text($wb->statusbar,
-				"Selected item: " . wb_get_text($wb->tree_view, $selnode) .
-				" / Value: " . wb_get_value($wb->tree_view) .
-				" / Parent: " . wb_get_parent($wb->tree_view, $selnode) .
-				" / Level: " . wb_get_level($wb->tree_view, $selnode) .
-				" / State: " . (wb_get_state($wb->tree_view, $selnode) ? "expanded" : "collapsed")
-			);
-		break;
+				$selnode = wb_get_selected($wb->tree_view);	
+				if ($wb->right_control) 
+				{
+					wb_set_visible($wb->right_control,false);
+				}
+				switch (wb_get_value($wb->tree_view)) 
+				{
+					case 2001:
+					case 2002:
+						displayContactForm ();
+						break;
+					case 2003:
+						$wb->right_control =  wb_create_control($wb->mainwin, CheckBox, "Checkbox 1", 170, 105, 91, 14, 0);
+						break;
+					case 2004:
+						$wb->right_control = wb_create_control($wb->mainwin, RTFEditBox, "Rich text", 170, 120, 205, 55, 0);
+						break;
+				
+				}		
+				wb_set_text($wb->statusbar,
+					"Selected item: " . wb_get_text($wb->tree_view, $selnode) .
+					" / Value: " . wb_get_value($wb->tree_view) .
+					" / Parent: " . wb_get_parent($wb->tree_view, $selnode) .
+					" / Level: " . wb_get_level($wb->tree_view, $selnode) .
+					" / State: " . (wb_get_state($wb->tree_view, $selnode) ? "expanded" : "collapsed")
+				);
+			break;
 		case IDCLOSE:		// IDCLOSE is predefined
-			if(wb_message_box($wb->mainwin, $wb->vars["Lang"]["lang_sure_logout"], $wb->vars["Lang"]["system_name"], WBC_QUESTION | WBC_YESNO))
-				wb_destroy_window($window);
+				if(wb_message_box($wb->mainwin, $wb->vars["Lang"]["lang_sure_logout"], $wb->vars["Lang"]["system_name"], WBC_QUESTION | WBC_YESNO))
+					wb_destroy_window($window);
 			break;
 		default:
-			if(process_contact($window, $id, $ctrl, $lparam1, $lparam2))
-				break;
+				if(process_contact($window, $id, $ctrl, $lparam1, $lparam2))
+					break;
 			break;
 	}		
 }
