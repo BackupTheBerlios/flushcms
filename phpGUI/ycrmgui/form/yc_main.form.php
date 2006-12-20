@@ -10,8 +10,9 @@ WINBINDER - form editor PHP file (generated automatically)
 
 if(!defined('IDC_LEFT_TREE')) define('IDC_LEFT_TREE', 1011);
 if(!defined('IDC_TOOLBAR_SEARCH')) define('IDC_TOOLBAR_SEARCH', 1012);
-define("ID_ABOUT",          101);
-define("ID_OPEN",           102);
+define("ID_DELETE",          1013);
+define("ID_CREATE",           1014);
+define("ID_HELP",           1015);
 
 // Create window
 
@@ -24,21 +25,21 @@ $wb->winheight = $dim[1];
 //main menu
 $wb->mainmenu = wb_create_control($wb->mainwin, Menu, array(
     "&File",
-        array(ID_OPEN,  "&Open...\tCtrl+O", NULL, NULL, "Ctrl+O"),
+        array(ID_CREATE,  "&".$wb->vars["Lang"]["lang_new"]."...\tCtrl+O", NULL, NULL, "Ctrl+O"),
         null,           // Separator
         array(IDCLOSE,  "E&xit\tAlt+F4",    NULL, NULL),
     "&Help",
-        array(ID_ABOUT, "&About...",        NULL, NULL)
+        array(ID_HELP, "&About...",        NULL, NULL)
 ));
 //main toolbar
 //$wb->toolbar = null;
 $wb->toolbar = wb_create_control($wb->mainwin, ToolBar, array(
     null,                                   // Toolbar separator
-    array(ID_OPEN,  NULL,   "Open a file",              0),
+    array(ID_CREATE,  NULL,   $wb->vars["Lang"]["lang_new"],     0),
     null,                                   // Toolbar separator
     array(IDC_TOOLBAR_SEARCH, NULL, $wb->vars["Lang"]["lang_search"],   5),
-    array(IDCLOSE,  NULL,   "Exit this application",    12),
-    array(IDCLOSE,  NULL,   "Exit this application",    13),
+    array(ID_DELETE,  NULL,   $wb->vars["Lang"]["lang_delete"],    12),
+    array(ID_HELP,  NULL,   $wb->vars["Lang"]["lang_help"],    13),
 ), 0, 10, 16, 15, 0, 0, PATH_RES . "toolbar.bmp");
 
 

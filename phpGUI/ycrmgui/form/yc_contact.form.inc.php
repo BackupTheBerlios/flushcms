@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_contact.form.inc.php,v 1.5 2006/12/19 11:00:26 arzen Exp $
+ * @version    CVS: $Id: yc_contact.form.inc.php,v 1.6 2006/12/20 04:49:59 arzen Exp $
  */
 // Control identifiers
 
@@ -53,16 +53,24 @@ function reset_contact_view ()
 	global $wb;
 	// Empty listview
 	wb_delete_items($wb->contact_list, null);
+	
+	$keyword = $wb->keyword;
+	$where_is = " where 1 ";
+	if ($keyword) 
+	{
+		$where_is .=" AND name LIKE '%{$keyword}%' ";
+	}
+	
 	$max_row = 22;
 	$table_name = $wb->setting["Settings"]["contact_table"];
 	$start_num = ($wb->current_page-1)*$max_row;
-	$sql = " SELECT * FROM {$table_name} ";
+	$sql = " SELECT * FROM {$table_name} {$where_is} ";
 	$wb->db->query($sql);
 	$total_num = $wb->db->num_rows();
 	$wb->total_page=ceil($total_num/$max_row);
 	
 	include PATH_CONFIG."common.php";
-	$sql = " SELECT * FROM {$table_name} ORDER BY id DESC LIMIT {$start_num},".$max_row;
+	$sql = " SELECT * FROM {$table_name} {$where_is} ORDER BY id DESC LIMIT {$start_num},".$max_row;
 	$wb->db->query($sql);
 	$data = array();
 	while ($wb->db->next_record()) 
@@ -119,8 +127,14 @@ function reset_contact_category_view ()
 
 	wb_delete_items($wb->contact_category_list, null);
 	
-	$max_row = 22;
+	$keyword = $wb->keyword;
 	$where_is = " where 1 ";
+	if ($keyword) 
+	{
+		$where_is .=" AND category_name LIKE '%{$keyword}%' ";
+	}
+	
+	$max_row = 22;
 	$category_table_name = $wb->setting["Settings"]["contact_category_table"];
 	$start_num = ($wb->current_category_page-1)*$max_row;
 	$sql2 = " SELECT * FROM {$category_table_name} {$where_is} ";

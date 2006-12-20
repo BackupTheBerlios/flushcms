@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_main.php,v 1.7 2006/12/19 23:43:35 arzen Exp $
+ * @version    CVS: $Id: yc_main.php,v 1.8 2006/12/20 04:49:59 arzen Exp $
  */
 
 set_time_limit(0);
@@ -43,6 +43,7 @@ function create_main_window()
 	
 	include_once PATH_FORM."yc_main.form.inc.php";
 	include_once PATH_FORM."yc_contact_search.form.inc.php";
+	include_once PATH_FORM."yc_contact_category_search.form.inc.php";
 	
 //	db init
 	$wb->db = new DB_Sql;
@@ -69,8 +70,10 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 			switch ($wb->current_module) 
 			{
 				case "contact":
-//					include(PATH_FORM.'yc_contact_search.form.php');
 					create_contact_search_dlg($window);
+					break;
+				case "contact_category":
+					create_category_contact_search_dlg($window);
 					break;
 			
 			}

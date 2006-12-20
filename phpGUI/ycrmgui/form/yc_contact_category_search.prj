@@ -25,7 +25,7 @@ currentindex = 2
 
 [Form]
 class = "ModalDialog"
-caption = "{$wb->vars[\"Lang\"][\"lang_search\"]}{$wb->vars[\"Lang\"][\"lang_contact\"]}"
+caption = "{$wb->vars[\"Lang\"][\"lang_search\"]}{$wb->vars[\"Lang\"][\"lang_contact\"]}{$wb->vars[\"Lang\"][\"lang_category\"]}"
 geom = "WBC_CENTER WBC_CENTER 258 118"
 style = 1
 value = 0

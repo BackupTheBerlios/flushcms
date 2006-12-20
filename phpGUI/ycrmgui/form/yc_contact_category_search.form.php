@@ -13,7 +13,7 @@ if(!defined('IDC_SEARCH_SUBMIT')) define('IDC_SEARCH_SUBMIT', 1002);
 
 // Create window
 
-$wb->contact_search = wb_create_window($wb->mainwin, ModalDialog, "{$wb->vars["Lang"]["lang_search"]}{$wb->vars["Lang"]["lang_contact"]}", WBC_CENTER, WBC_CENTER, 258, 118, 0x00000001, 0);
+$wb->contact_search = wb_create_window($wb->mainwin, ModalDialog, "{$wb->vars["Lang"]["lang_search"]}{$wb->vars["Lang"]["lang_contact"]}{$wb->vars["Lang"]["lang_category"]}", WBC_CENTER, WBC_CENTER, 258, 118, 0x00000001, 0);
 
 // Insert controls
 
