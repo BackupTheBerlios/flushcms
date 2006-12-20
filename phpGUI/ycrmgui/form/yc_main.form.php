@@ -16,7 +16,7 @@ define("ID_HELP",           1015);
 
 // Create window
 
-$wb->mainwin = wb_create_window(null, AppWindow, $wb->vars["Lang"]["system_name"], WBC_CENTER, WBC_CENTER, 800, 600, 0x00000200|WBC_NOTIFY, WBC_HEADERSEL);
+$wb->mainwin = wb_create_window(null, AppWindow, $wb->vars["Lang"]["system_name"], WBC_CENTER, WBC_CENTER, 800, 600, 0x00000200|WBC_NOTIFY, WBC_HEADERSEL|WBC_DBLCLICK);
 
 // Insert controls
 $dim = wb_get_size($wb->mainwin, true);

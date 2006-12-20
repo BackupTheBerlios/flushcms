@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_contact.form.inc.php,v 1.8 2006/12/20 06:27:24 arzen Exp $
+ * @version    CVS: $Id: yc_contact.form.inc.php,v 1.9 2006/12/20 23:36:13 arzen Exp $
  */
 // Control identifiers
 
@@ -254,6 +254,14 @@ function process_contact ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 			break;
 			
 		case IDC_CONTACT_DATA_LIST:
+			if($lparam1 == WBC_DBLCLICK) 
+			{
+				$current_rows = wb_get_text($ctrl);
+				$current_id = $current_rows[0][0];
+				include_once PATH_FORM."yc_contact_edit.form.inc.php";
+				create_contact_edit_dlg ();
+			}
+
 			// Show current selection and checked items
 			$sel = wb_get_selected($ctrl);
 			$sel = $sel ? implode(", ", $sel) : "none";
