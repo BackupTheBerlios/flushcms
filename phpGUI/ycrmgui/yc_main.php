@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_main.php,v 1.9 2006/12/20 05:44:50 arzen Exp $
+ * @version    CVS: $Id: yc_main.php,v 1.10 2006/12/20 06:27:24 arzen Exp $
  */
 
 set_time_limit(0);
@@ -53,6 +53,7 @@ function create_main_window()
 	$Password = $wb->setting["Settings"]["db_password"];
 	$wb->db->connect($Database , $Host , $User , $Password );
 	$wb->right_control = null;
+	$wb->del_ids = null;
 	$wb->current_module = "contact";
 	
 	wb_set_image($wb->mainwin, PATH_RES."favicon.ico");
@@ -85,7 +86,7 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 			switch ($wb->current_module) 
 			{
 				case "contact":
-					del_selected_contact ();
+					del_selected_contact();
 					break;
 				case "contact_category":
 					del_selected_contact_category ();

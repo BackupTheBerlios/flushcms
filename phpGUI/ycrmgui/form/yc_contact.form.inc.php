@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_contact.form.inc.php,v 1.7 2006/12/20 05:44:50 arzen Exp $
+ * @version    CVS: $Id: yc_contact.form.inc.php,v 1.8 2006/12/20 06:27:24 arzen Exp $
  */
 // Control identifiers
 
@@ -194,8 +194,9 @@ function del_selected_contact ()
 		$table_name = $wb->setting["Settings"]["contact_table"];
 		$where_is =" WHERE id IN ($wb->del_ids) ";
 		$sql = " DELETE FROM {$table_name} {$where_is} ";
+//		wb_message_box($wb->mainwin, $sql, $wb->vars["Lang"]["system_name"], WBC_WARNING);
 		$wb->db->query($sql);
-		reset_contact_category_view ();
+		reset_contact_view ();
 	}
 	else
 	{
@@ -213,6 +214,7 @@ function del_selected_contact_category ()
 		$category_table_name = $wb->setting["Settings"]["contact_category_table"];
 		$where_is =" WHERE id IN ($wb->del_ids) ";
 		$sql = " DELETE FROM {$category_table_name} {$where_is} ";
+//		wb_message_box($wb->mainwin, $sql, $wb->vars["Lang"]["system_name"], WBC_WARNING);
 		$wb->db->query($sql);
 		reset_contact_category_view ();
 	}
@@ -266,10 +268,10 @@ function process_contact ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 			$temp_str = "";
 			if ($checked) 
 			{
-				foreach($checked as $key=>$value)
+				foreach($checked as $value)
 				{
-					$row_data = wb_get_text($wb->contact_list,$value);
-					$temp_str .= $row_data[0].","; 
+					$row_data = wb_get_text($wb->contact_list,$value,0);
+					$temp_str .= $row_data.","; 
 				}
 				$del_ids = rtrim($temp_str,',');
 				$wb->del_ids = $del_ids;
@@ -301,10 +303,10 @@ function process_contact ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 			$temp_str = "";
 			if ($checked) 
 			{
-				foreach($checked as $key=>$value)
+				foreach($checked as $value)
 				{
-					$row_data = wb_get_text($wb->contact_category_list,$value);
-					$temp_str .= $row_data[0].","; 
+					$row_data = wb_get_text($wb->contact_category_list,$value,0);
+					$temp_str .= $row_data.","; 
 				}
 				$del_ids = rtrim($temp_str,',');
 				$wb->del_ids = $del_ids;
