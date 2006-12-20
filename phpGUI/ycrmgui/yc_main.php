@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_main.php,v 1.8 2006/12/20 04:49:59 arzen Exp $
+ * @version    CVS: $Id: yc_main.php,v 1.9 2006/12/20 05:44:50 arzen Exp $
  */
 
 set_time_limit(0);
@@ -53,7 +53,7 @@ function create_main_window()
 	$Password = $wb->setting["Settings"]["db_password"];
 	$wb->db->connect($Database , $Host , $User , $Password );
 	$wb->right_control = null;
-	$wb->current_module = null;
+	$wb->current_module = "contact";
 	
 	wb_set_image($wb->mainwin, PATH_RES."favicon.ico");
 	wb_set_handler($wb->mainwin, "process_main");
@@ -78,9 +78,24 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 			
 			}
 			wb_set_text($wb->statusbar,
-				"Selected item: " . $wb->current_module
+				"Search module: " . $wb->current_module
 			);
 			break;
+		case ID_DELETE:
+			switch ($wb->current_module) 
+			{
+				case "contact":
+					del_selected_contact ();
+					break;
+				case "contact_category":
+					del_selected_contact_category ();
+					break;
+			}
+			wb_set_text($wb->statusbar,
+				"Deleted module: " . $wb->current_module
+			);
+			break;
+
 		case IDC_LEFT_TREE:
 				$selnode = wb_get_selected($wb->tree_view);	
 				if ($wb->right_control) 

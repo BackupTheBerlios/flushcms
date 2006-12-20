@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_contact.form.inc.php,v 1.6 2006/12/20 04:49:59 arzen Exp $
+ * @version    CVS: $Id: yc_contact.form.inc.php,v 1.7 2006/12/20 05:44:50 arzen Exp $
  */
 // Control identifiers
 
@@ -185,6 +185,44 @@ function reset_contact_category_view ()
 	
 }
 
+function del_selected_contact () 
+{
+	global $wb;
+	
+	if ($wb->del_ids) 
+	{
+		$table_name = $wb->setting["Settings"]["contact_table"];
+		$where_is =" WHERE id IN ($wb->del_ids) ";
+		$sql = " DELETE FROM {$table_name} {$where_is} ";
+		$wb->db->query($sql);
+		reset_contact_category_view ();
+	}
+	else
+	{
+		wb_message_box($wb->mainwin, $wb->vars["Lang"]["lang_deleted_empty"], $wb->vars["Lang"]["system_name"], WBC_WARNING);
+	}
+	
+}
+
+function del_selected_contact_category () 
+{
+	global $wb;
+	
+	if ($wb->del_ids) 
+	{
+		$category_table_name = $wb->setting["Settings"]["contact_category_table"];
+		$where_is =" WHERE id IN ($wb->del_ids) ";
+		$sql = " DELETE FROM {$category_table_name} {$where_is} ";
+		$wb->db->query($sql);
+		reset_contact_category_view ();
+	}
+	else
+	{
+		wb_message_box($wb->mainwin, $wb->vars["Lang"]["lang_deleted_empty"], $wb->vars["Lang"]["system_name"], WBC_WARNING);
+	}
+	
+}
+
 function process_contact ($window, $id, $ctrl, $lparam1=0, $lparam2=0) 
 {
 	global $wb;
@@ -213,7 +251,6 @@ function process_contact ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 			reset_contact_view ();
 			break;
 			
-		case IDC_CONTACT_CATEGORY_DATA_LIST:
 		case IDC_CONTACT_DATA_LIST:
 			// Show current selection and checked items
 			$sel = wb_get_selected($ctrl);
@@ -226,18 +263,63 @@ function process_contact ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 					$text .= $row ? "[" . implode(", ", $row) . "]  " : "";
 
 			$checked = wb_get_value($wb->contact_list);
+			$temp_str = "";
+			if ($checked) 
+			{
+				foreach($checked as $key=>$value)
+				{
+					$row_data = wb_get_text($wb->contact_list,$value);
+					$temp_str .= $row_data[0].","; 
+				}
+				$del_ids = rtrim($temp_str,',');
+				$wb->del_ids = $del_ids;
+			}
+
 			$checked = $checked ? implode(", ", $checked) : "none";
 
 			wb_set_text($wb->statusbar,
 			  "Selected lines: " . $sel .
 			  " / checked: " . $checked .
+			  " / deleted: " . $del_ids .
 			  " / contents: " . $text
 			);
 
 			return true;
-		case IDC_CONTACT_SEARCH:
-			wb_message_box($wb->mainwin, $wb->vars["Lang"]["lang_sure_logout"]);
+			
+		case IDC_CONTACT_CATEGORY_DATA_LIST:
+			// Show current selection and checked items
+			$sel = wb_get_selected($ctrl);
+			$sel = $sel ? implode(", ", $sel) : "none";
+
+			$contents = wb_get_text($ctrl);
+			$text = "";
+			if($contents)
+				foreach($contents as $row)
+					$text .= $row ? "[" . implode(", ", $row) . "]  " : "";
+
+			$checked = wb_get_value($wb->contact_category_list);
+			$temp_str = "";
+			if ($checked) 
+			{
+				foreach($checked as $key=>$value)
+				{
+					$row_data = wb_get_text($wb->contact_category_list,$value);
+					$temp_str .= $row_data[0].","; 
+				}
+				$del_ids = rtrim($temp_str,',');
+				$wb->del_ids = $del_ids;
+			}
+			$checked = $checked ? implode(",", $checked) : "none";
+
+			wb_set_text($wb->statusbar,
+			  "Selected lines: " . $sel .
+			  " / checked: " . $checked .
+			  " / deleted: " . $del_ids .
+			  " / contents: " . $text
+			);
+
 			return true;
+
 
 	}
 	return false;	
