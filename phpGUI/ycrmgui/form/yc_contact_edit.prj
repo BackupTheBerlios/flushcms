@@ -1,0 +1,80 @@
+;*******************************************************************************
+;
+; WINBINDER - form editor project
+;
+;*******************************************************************************
+
+[Projectsettings]
+formvar = "$winmain"
+parent = "$wb->mainwin"
+prefix = "IDC_"
+startval = 1100
+localize = ""
+locprefix = "LANG_"
+istabpage = ""
+tabnumber = 0
+filllists = ""
+fillheaders = ""
+imagenames = ""
+insertontabs = 1
+applyvalues = ""
+ctrlvar = ""
+startctrlval = 1
+staticnullid = 1
+currentindex = 6
+
+[Form]
+class = "ModalDialog"
+caption = "{$wb->vars[\"Lang\"][\"lang_contact\"]}"
+geom = "WBC_CENTER WBC_CENTER 540 470"
+style = 1
+value = 0
+controls = 6
+
+[Form_ctrl1]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_name\"]}"
+geom = "20 20 45 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl2]
+class = "EditBox"
+caption = ""
+geom = "70 20 90 20"
+style = 0
+value = 0
+id = "IDC_CONTACT_USERNAME"
+
+[Form_ctrl3]
+class = "Frame"
+caption = "{$wb->vars[\"Lang\"][\"lang_gender\"]}"
+geom = "20 40 180 60"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl4]
+class = "RadioButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_male\"]}"
+geom = "30 70 120 15"
+style = 0
+value = 0
+id = "IDC_GENDER_MALE"
+
+[Form_ctrl5]
+class = "RadioButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_female\"]}"
+geom = "100 70 120 15"
+style = 0
+value = 0
+id = "IDC_GENDER_FEMALE"
+
+[Form_ctrl6]
+class = "PushButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_save\"]}"
+geom = "140 385 90 25"
+style = 0
+value = 0
+id = "IDC_CONTACT_SAVE"

@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_main.php,v 1.10 2006/12/20 06:27:24 arzen Exp $
+ * @version    CVS: $Id: yc_main.php,v 1.11 2006/12/20 10:36:37 arzen Exp $
  */
 
 set_time_limit(0);
@@ -66,6 +66,21 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 	global $wb;
 	switch ($id) 
 	{
+
+		case ID_CREATE:
+			switch ($wb->current_module) 
+			{
+				case "contact":
+					include_once PATH_FORM."yc_contact_edit.form.inc.php";
+					create_contact_edit_dlg ();
+					break;
+				case "contact_category":
+					break;
+			}
+			wb_set_text($wb->statusbar,
+				"Create module: " . $wb->current_module
+			);
+			break;
 
 		case IDC_TOOLBAR_SEARCH:
 			switch ($wb->current_module) 
