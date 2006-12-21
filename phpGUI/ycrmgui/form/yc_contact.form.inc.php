@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_contact.form.inc.php,v 1.9 2006/12/20 23:36:13 arzen Exp $
+ * @version    CVS: $Id: yc_contact.form.inc.php,v 1.10 2006/12/21 10:38:41 arzen Exp $
  */
 // Control identifiers
 
@@ -258,6 +258,9 @@ function process_contact ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 			{
 				$current_rows = wb_get_text($ctrl);
 				$current_id = $current_rows[0][0];
+				$wb->current_ids = $current_id;
+				$wb->current_form_state=false;
+				$wb->current_action='update';
 				include_once PATH_FORM."yc_contact_edit.form.inc.php";
 				create_contact_edit_dlg ();
 			}

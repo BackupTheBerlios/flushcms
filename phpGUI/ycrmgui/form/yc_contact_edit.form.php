@@ -21,6 +21,7 @@ if(!defined('IDC_CONTACT_MOBILE')) define('IDC_CONTACT_MOBILE', 1110);
 if(!defined('IDC_CONTACT_EMAIL')) define('IDC_CONTACT_EMAIL', 1111);
 if(!defined('IDC_CONTACT_HOMEPAGE')) define('IDC_CONTACT_HOMEPAGE', 1112);
 if(!defined('IDC_CONTACT_MEMO')) define('IDC_CONTACT_MEMO', 1113);
+if(!defined('IDC_CONTACT_UPDATE')) define('IDC_CONTACT_UPDATE', 1114);
 
 // Create window
 
@@ -53,6 +54,7 @@ wb_create_control($winmain, EditBox, "", 345, 275, 230, 20, IDC_CONTACT_HOMEPAGE
 wb_create_control($winmain, Label, "{$wb->vars["Lang"]["lang_memo"]}", 5, 325, 55, 15, 0, 0x00000000, 0, 0);
 wb_create_control($winmain, EditBox, "", 65, 310, 510, 110, IDC_CONTACT_MEMO, 0x00000000, 0, 0);
 wb_create_control($winmain, Frame, "{$wb->vars["Lang"]["lang_photo"]}", 350, 0, 180, 130, 0, 0x00000000, 0, 0);
+wb_create_control($winmain, PushButton, "{$wb->vars["Lang"]["lang_edit"]}", 315, 425, 90, 25, IDC_CONTACT_UPDATE, 0x00000000, 0, 0);
 
 // End controls
 

@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_main.php,v 1.11 2006/12/20 10:36:37 arzen Exp $
+ * @version    CVS: $Id: yc_main.php,v 1.12 2006/12/21 10:38:41 arzen Exp $
  */
 
 set_time_limit(0);
@@ -54,7 +54,10 @@ function create_main_window()
 	$wb->db->connect($Database , $Host , $User , $Password );
 	$wb->right_control = null;
 	$wb->del_ids = null;
+	$wb->current_ids = null;
+	$wb->current_form_state = true;
 	$wb->current_module = "contact";
+	$wb->current_action = "insert";
 	
 	wb_set_image($wb->mainwin, PATH_RES."favicon.ico");
 	wb_set_handler($wb->mainwin, "process_main");
@@ -68,6 +71,8 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 	{
 
 		case ID_CREATE:
+			$wb->current_ids=null;
+			$wb->current_action = "insert";
 			switch ($wb->current_module) 
 			{
 				case "contact":

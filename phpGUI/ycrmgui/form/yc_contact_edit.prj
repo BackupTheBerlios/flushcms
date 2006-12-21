@@ -21,7 +21,7 @@ applyvalues = ""
 ctrlvar = ""
 startctrlval = 1
 staticnullid = 1
-currentindex = 16
+currentindex = 17
 
 [Form]
 class = "ModalDialog"
@@ -29,7 +29,7 @@ caption = "{$wb->vars[\"Lang\"][\"lang_contact\"]}"
 geom = "WBC_CENTER WBC_CENTER 605 492"
 style = 1
 value = 0
-controls = 25
+controls = 26
 
 [Form_ctrl1]
 class = "Label"
@@ -230,3 +230,11 @@ geom = "350 0 180 130"
 style = 0
 value = 0
 id = ""
+
+[Form_ctrl26]
+class = "PushButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_edit\"]}"
+geom = "315 425 90 25"
+style = 0
+value = 0
+id = "IDC_CONTACT_UPDATE"
