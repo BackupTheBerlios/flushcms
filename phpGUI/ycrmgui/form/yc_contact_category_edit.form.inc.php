@@ -1,17 +1,17 @@
 <?php
 /**
  *
- * yc_contact_edit.form.inc.php
+ * yc_contact_category_edit.form.inc.php
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_contact_edit.form.inc.php,v 1.3 2006/12/21 23:43:52 arzen Exp $
+ * @version    CVS: $Id: yc_contact_category_edit.form.inc.php,v 1.1 2006/12/21 23:43:52 arzen Exp $
  */
  
 
-function ctrlMapping () 
+function ctrlContactCategoryMapping () 
 {
 	$ctrl_map = array(
 		IDC_CONTACT_USERNAME=>'name',
@@ -27,35 +27,35 @@ function ctrlMapping ()
 	return $ctrl_map;
 }
  
-function create_contact_edit_dlg () 
+function create_contact_category_edit_dlg () 
 {
 	global $wb;
 	
-	include(PATH_FORM."yc_contact_edit.form.php");
+	include(PATH_FORM."yc_contact_category_edit.form.php");
 	
 	//-------- view detail -------
-	if ($id=$wb->current_ids) 
-	{
-		getContactByID ($winmain,$id);
-//		wb_message_box($wb->mainwin,$id);//implode(",",$all_ctrl)
-	}
-	if ($wb->current_action == "insert") 
-	{
-		wb_set_enabled(wb_get_control($winmain,IDC_CONTACT_SAVE),true);
-		wb_set_enabled(wb_get_control($winmain,IDC_CONTACT_UPDATE),false);
-	}
-	else
-	{
-		wb_set_enabled(wb_get_control($winmain,IDC_CONTACT_SAVE),false);
-		wb_set_enabled(wb_get_control($winmain,IDC_CONTACT_UPDATE),true);
-	}
-		
-	wb_set_handler($winmain, "process_contact_edit");
+//	if ($id=$wb->current_ids) 
+//	{
+//		getContactByID ($winmain,$id);
+////		wb_message_box($wb->mainwin,$id);//implode(",",$all_ctrl)
+//	}
+//	if ($wb->current_action == "insert") 
+//	{
+//		wb_set_enabled(wb_get_control($winmain,IDC_CONTACT_SAVE),true);
+//		wb_set_enabled(wb_get_control($winmain,IDC_CONTACT_UPDATE),false);
+//	}
+//	else
+//	{
+//		wb_set_enabled(wb_get_control($winmain,IDC_CONTACT_SAVE),false);
+//		wb_set_enabled(wb_get_control($winmain,IDC_CONTACT_UPDATE),true);
+//	}
+//		
+	wb_set_handler($winmain, "process_contact_category_edit");
 	wb_set_visible($winmain, true);
 	
 }
 
-function getContactByID ($parent,$id) 
+function getContactCategoryByID ($parent,$id) 
 {
 	global $wb;
 	
@@ -75,7 +75,7 @@ function getContactByID ($parent,$id)
 	
 }
 
-function inserUpdateContact ($parent) 
+function inserUpdateContactCategory ($parent) 
 {
 	global $wb;
 	
@@ -116,26 +116,26 @@ function setCtrlEnabled ($ctrl_name,$state=true)
 	
 }
 
-function process_contact_edit ($window, $id, $ctrl) 
+function process_contact_category_edit ($window, $id, $ctrl) 
 {
 	global $wb;
 	
-	switch($id) 
-	{
-
-		case IDC_CONTACT_UPDATE:
-			$wb->current_action='update';
-			wb_set_enabled(wb_get_control($window,IDC_CONTACT_SAVE),true);
-			wb_set_enabled(wb_get_control($window,IDC_CONTACT_UPDATE),false);
-			break;
-		case IDC_CONTACT_SAVE:
-			inserUpdateContact ($window);
-			wb_destroy_window($window);
-			break;
-		case IDCANCEL:
-			wb_destroy_window($window);
-			break;
-	}	
+//	switch($id) 
+//	{
+//
+//		case IDC_CONTACT_UPDATE:
+//			$wb->current_action='update';
+//			wb_set_enabled(wb_get_control($window,IDC_CONTACT_SAVE),true);
+//			wb_set_enabled(wb_get_control($window,IDC_CONTACT_UPDATE),false);
+//			break;
+//		case IDC_CONTACT_SAVE:
+//			inserUpdateContactCategory ($window);
+//			wb_destroy_window($window);
+//			break;
+//		case IDCANCEL:
+//			wb_destroy_window($window);
+//			break;
+//	}	
 }
 
 ?>

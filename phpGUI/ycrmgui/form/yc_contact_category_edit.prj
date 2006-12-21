@@ -1,0 +1,48 @@
+;*******************************************************************************
+;
+; WINBINDER - form editor project
+;
+;*******************************************************************************
+
+[Projectsettings]
+formvar = "$winmain"
+parent = "$wb->mainwin"
+prefix = "IDC_"
+startval = 1200
+localize = ""
+locprefix = "LANG_"
+istabpage = ""
+tabnumber = 0
+filllists = ""
+fillheaders = ""
+imagenames = ""
+insertontabs = 1
+applyvalues = ""
+ctrlvar = ""
+startctrlval = 1
+staticnullid = 1
+currentindex = 18
+
+[Form]
+class = "ModalDialog"
+caption = "{$wb->vars[\"Lang\"][\"lang_contact\"]}{$wb->vars[\"Lang\"][\"lang_category\"]}"
+geom = "WBC_CENTER WBC_CENTER 605 492"
+style = 0
+value = 0
+controls = 2
+
+[Form_ctrl1]
+class = "PushButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_edit\"]}"
+geom = "265 425 90 25"
+style = 0
+value = 0
+id = "IDC_CONTACT_CATEGORY_UPDATE"
+
+[Form_ctrl2]
+class = "PushButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_cancel\"]}"
+geom = "385 425 90 25"
+style = 0
+value = 0
+id = "IDCANCEL"

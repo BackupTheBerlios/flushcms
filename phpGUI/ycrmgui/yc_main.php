@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_main.php,v 1.12 2006/12/21 10:38:41 arzen Exp $
+ * @version    CVS: $Id: yc_main.php,v 1.13 2006/12/21 23:43:52 arzen Exp $
  */
 
 set_time_limit(0);
@@ -80,6 +80,8 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 					create_contact_edit_dlg ();
 					break;
 				case "contact_category":
+					include_once PATH_FORM."yc_contact_category_edit.form.inc.php";
+					create_contact_category_edit_dlg ();
 					break;
 			}
 			wb_set_text($wb->statusbar,
