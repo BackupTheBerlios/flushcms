@@ -17,12 +17,12 @@ if(!defined('IDC_NAV_BAR')) define('IDC_NAV_BAR', 1306);
 
 // Insert controls
 
-wb_create_control($maintab, ListView, "Head1,Head2,Head3,Head4", 20, 20, 610, 385, IDC_COMPANY_LIST, 0x00010080, 0, 0);
-wb_create_control($maintab, PushButton, "{$wb->vars["Lang"]["lang_first_page"]}", 165, 415, 90, 25, IDC_NAV_FIRST, 0x00000000, 0, 0);
-wb_create_control($maintab, PushButton, "{$wb->vars["Lang"]["lang_pre_page"]}", 285, 415, 90, 25, IDC_NAV_PRE, 0x00000000, 0, 0);
-wb_create_control($maintab, PushButton, "{$wb->vars["Lang"]["lang_next_page"]}", 415, 415, 90, 25, IDC_NAV_NEXT, 0x00000000, 0, 0);
-wb_create_control($maintab, PushButton, "{$wb->vars["Lang"]["lang_last_page"]}", 530, 415, 90, 25, IDC_NAV_LAST, 0x00000000, 0, 0);
-wb_create_control($maintab, Label, "Label6", 35, 420, 90, 15, IDC_NAV_BAR, 0x00000000, 0, 0);
+wb_create_control($maintab, ListView, "Head1,Head2,Head3,Head4", 0, 10, 630, 425, IDC_COMPANY_LIST, 0x00010080, 0, 0);
+wb_create_control($maintab, PushButton, "{$wb->vars["Lang"]["lang_first_page"]}", 190, 450, 90, 25, IDC_NAV_FIRST, 0x00000000, 0, 0);
+wb_create_control($maintab, PushButton, "{$wb->vars["Lang"]["lang_pre_page"]}", 300, 450, 90, 25, IDC_NAV_PRE, 0x00000000, 0, 0);
+wb_create_control($maintab, PushButton, "{$wb->vars["Lang"]["lang_next_page"]}", 410, 450, 90, 25, IDC_NAV_NEXT, 0x00000000, 0, 0);
+wb_create_control($maintab, PushButton, "{$wb->vars["Lang"]["lang_last_page"]}", 515, 450, 90, 25, IDC_NAV_LAST, 0x00000000, 0, 0);
+wb_create_control($maintab, Label, "Label6", 25, 455, 155, 15, IDC_NAV_BAR, 0x00000000, 0, 0);
 
 // End controls
 
