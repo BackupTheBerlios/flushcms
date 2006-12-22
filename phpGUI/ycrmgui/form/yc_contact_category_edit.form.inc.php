@@ -7,22 +7,14 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_contact_category_edit.form.inc.php,v 1.1 2006/12/21 23:43:52 arzen Exp $
+ * @version    CVS: $Id: yc_contact_category_edit.form.inc.php,v 1.2 2006/12/22 08:51:09 arzen Exp $
  */
  
 
 function ctrlContactCategoryMapping () 
 {
 	$ctrl_map = array(
-		IDC_CONTACT_USERNAME=>'name',
-		IDC_CONTACT_PHONE=>'phone',
-		IDC_CONTACT_MOBILE=>'mobile',
-		IDC_CONTACT_EMAIL=>'email',
-		IDC_CONTACT_ADDREES=>'addrees',
-		IDC_CONTACT_OFFICEPHONE=>'office_phone',
-		IDC_CONTACT_FAX=>'fax',
-		IDC_CONTACT_HOMEPAGE=>'homepage',
-		IDC_CONTACT_MEMO=>'memo'
+		IDC_CONTACT_CATEGORY_NAME=>'category_name',
 	);
 	return $ctrl_map;
 }
@@ -34,22 +26,22 @@ function create_contact_category_edit_dlg ()
 	include(PATH_FORM."yc_contact_category_edit.form.php");
 	
 	//-------- view detail -------
-//	if ($id=$wb->current_ids) 
-//	{
-//		getContactByID ($winmain,$id);
-////		wb_message_box($wb->mainwin,$id);//implode(",",$all_ctrl)
-//	}
-//	if ($wb->current_action == "insert") 
-//	{
-//		wb_set_enabled(wb_get_control($winmain,IDC_CONTACT_SAVE),true);
-//		wb_set_enabled(wb_get_control($winmain,IDC_CONTACT_UPDATE),false);
-//	}
-//	else
-//	{
-//		wb_set_enabled(wb_get_control($winmain,IDC_CONTACT_SAVE),false);
-//		wb_set_enabled(wb_get_control($winmain,IDC_CONTACT_UPDATE),true);
-//	}
-//		
+	if ($id=$wb->current_ids) 
+	{
+		getContactCategoryByID ($winmain,$id);
+//		wb_message_box($wb->mainwin,$id);//implode(",",$all_ctrl)
+	}
+	if ($wb->current_action == "insert") 
+	{
+		wb_set_enabled(wb_get_control($winmain,IDC_SAVE),true);
+		wb_set_enabled(wb_get_control($winmain,IDC_UPDATE),false);
+	}
+	else
+	{
+		wb_set_enabled(wb_get_control($winmain,IDC_SAVE),false);
+		wb_set_enabled(wb_get_control($winmain,IDC_UPDATE),true);
+	}
+		
 	wb_set_handler($winmain, "process_contact_category_edit");
 	wb_set_visible($winmain, true);
 	
@@ -59,8 +51,8 @@ function getContactCategoryByID ($parent,$id)
 {
 	global $wb;
 	
-	$ctrl_map = ctrlMapping ();
-	$table_name = $wb->setting["Settings"]["contact_table"];
+	$ctrl_map = ctrlContactCategoryMapping ();
+	$table_name = $wb->setting["Settings"]["contact_category_table"];
 	$where_is = " WHERE id='{$id}' ";
 	$sql = " SELECT * FROM {$table_name} {$where_is} ";
 	$wb->db->query($sql);
@@ -79,8 +71,8 @@ function inserUpdateContactCategory ($parent)
 {
 	global $wb;
 	
-	$ctrl_map = ctrlMapping ();
-	$table_name = $wb->setting["Settings"]["contact_table"];
+	$ctrl_map = ctrlContactCategoryMapping ();
+	$table_name = $wb->setting["Settings"]["contact_category_table"];
 
 	$set_str = "";
 	while (list($ctrl_name, $field_name) = each($ctrl_map)) 
@@ -99,20 +91,9 @@ function inserUpdateContactCategory ($parent)
 		$sql = "INSERT INTO {$table_name} SET {$set_str} ";
 		
 	}
-//	wb_message_box($wb->mainwin,$sql);	
 	$wb->db->query($sql);
 //	include(PATH_FORM."yc_contact.form.inc.php");
-	reset_contact_view ();
-	
-}
-
-function setCtrlEnabled ($ctrl_name,$state=true) 
-{
-	$all_ctrl = wb_get_item_list($ctrl_name);
-	foreach($all_ctrl as $ctrl)
-	{
-		wb_set_enabled($ctrl,false);
-	}
+	reset_contact_category_view ();
 	
 }
 
@@ -120,22 +101,22 @@ function process_contact_category_edit ($window, $id, $ctrl)
 {
 	global $wb;
 	
-//	switch($id) 
-//	{
-//
-//		case IDC_CONTACT_UPDATE:
-//			$wb->current_action='update';
-//			wb_set_enabled(wb_get_control($window,IDC_CONTACT_SAVE),true);
-//			wb_set_enabled(wb_get_control($window,IDC_CONTACT_UPDATE),false);
-//			break;
-//		case IDC_CONTACT_SAVE:
-//			inserUpdateContactCategory ($window);
-//			wb_destroy_window($window);
-//			break;
-//		case IDCANCEL:
-//			wb_destroy_window($window);
-//			break;
-//	}	
+	switch($id) 
+	{
+
+		case IDC_UPDATE:
+			$wb->current_action='update';
+			wb_set_enabled(wb_get_control($window,IDC_SAVE),true);
+			wb_set_enabled(wb_get_control($window,IDC_UPDATE),false);
+			break;
+		case IDC_SAVE:
+			inserUpdateContactCategory ($window);
+			wb_destroy_window($window);
+			break;
+		case IDCANCEL:
+			wb_destroy_window($window);
+			break;
+	}	
 }
 
 ?>
