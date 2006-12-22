@@ -7,15 +7,15 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_company.form.inc.php,v 1.4 2006/12/22 14:23:18 arzen Exp $
+ * @version    CVS: $Id: yc_product.form.inc.php,v 1.1 2006/12/22 14:23:18 arzen Exp $
  */
-function displayCompanyMainTabForm () 
+function display_product_main_tab_form () 
 {
 	global $wb;
 	
-	include(PATH_FORM."yc_company.form.php");
+	include(PATH_FORM."yc_product.form.php");
 	$wb->right_control = $maintab = $tab;
-	include(PATH_FORM."yc_company_tab.form.php");
+	include(PATH_FORM."yc_product_tab.form.php");
 	
 	$wb->current_page=1;
 	$wb->total_page=1;
@@ -30,13 +30,13 @@ function displayCompanyMainTabForm ()
 	   array($wb->vars["Lang"]["lang_email"],	180),
 	   array($wb->vars["Lang"]["lang_addrees"],	200),
 	));
-	reset_company_view ();
-
-	wb_set_handler($wb->right_control, "process_company");
+//	reset_product_view ();
+//
+//	wb_set_handler($wb->right_control, "process_product");
 	
 }
 
-function reset_company_view () 
+function reset_product_view () 
 {
 	global $wb;
 	// Empty listview
@@ -50,7 +50,7 @@ function reset_company_view ()
 	}
 	
 	$max_row = 22;
-	$table_name = $wb->setting["Settings"]["company_table"];
+	$table_name = $wb->setting["Settings"]["product_table"];
 	$start_num = ($wb->current_page-1)*$max_row;
 	$sql = " SELECT COUNT(*) AS num FROM {$table_name} {$where_is} ";
 	$wb->db->query($sql);
@@ -99,7 +99,7 @@ function reset_company_view ()
 }
 
 
-function process_company ($window, $id, $ctrl, $lparam1=0, $lparam2=0) 
+function process_product ($window, $id, $ctrl, $lparam1=0, $lparam2=0) 
 {
 	global $wb;
 	
@@ -108,24 +108,24 @@ function process_company ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 
 		case IDC_NAV_FIRST:
 			$wb->current_page = 1;
-			reset_company_view ();
+			reset_product_view ();
 			break;
 			
 		case IDC_NAV_PRE:
 			$wb->current_page -= 1;
 			$wb->current_page=$wb->current_page<1?1:$wb->current_page;
-			reset_company_view ();
+			reset_product_view ();
 			break;
 
 		case IDC_NAV_NEXT:
 			$wb->current_page += 1;
 			$wb->current_page=$wb->current_page>$wb->total_page?$wb->total_page:$wb->current_page;
-			reset_company_view ();
+			reset_product_view ();
 			break;
 			
 		case IDC_NAV_LAST:
 			$wb->current_page = $wb->total_page;
-			reset_company_view ();
+			reset_product_view ();
 			break;
 	}
 

@@ -8,7 +8,7 @@ WINBINDER - form editor PHP file (generated automatically)
 
 // Control identifiers
 
-if(!defined('IDC_TABCONTROL1301')) define('IDC_TABCONTROL1301', 1301);
+if(!defined('IDC_PRODUCTS_TAB')) define('IDC_PRODUCTS_TAB', 1501);
 
 // Create window
 
@@ -16,7 +16,7 @@ if(!defined('IDC_TABCONTROL1301')) define('IDC_TABCONTROL1301', 1301);
 
 // Insert controls
 
-$tab = wb_create_control($wb->mainwin, TabControl, "{$wb->vars["Lang"]["lang_company"]}", 160, 30, $wb->winwidth-160, $wb->winheight-40, IDC_TABCONTROL1301, 0x00000000, 0, 0);
+$tab = wb_create_control($wb->mainwin, TabControl, "{$wb->vars["Lang"]["lang_products"]},{$wb->vars["Lang"]["lang_products"]}{$wb->vars["Lang"]["lang_category"]}",  160, 30, $wb->winwidth-160, $wb->winheight-40, IDC_PRODUCTS_TAB, 0x00000000, 0, 0);
 
 // End controls
 

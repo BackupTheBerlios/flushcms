@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_contact.form.inc.php,v 1.11 2006/12/22 08:51:09 arzen Exp $
+ * @version    CVS: $Id: yc_contact.form.inc.php,v 1.12 2006/12/22 14:23:18 arzen Exp $
  */
 // Control identifiers
 
@@ -64,9 +64,10 @@ function reset_contact_view ()
 	$max_row = 22;
 	$table_name = $wb->setting["Settings"]["contact_table"];
 	$start_num = ($wb->current_page-1)*$max_row;
-	$sql = " SELECT * FROM {$table_name} {$where_is} ";
+	$sql = " SELECT COUNT(*) AS num  FROM {$table_name} {$where_is} ";
 	$wb->db->query($sql);
-	$total_num = $wb->db->num_rows();
+	$wb->db->next_record();
+	$total_num = $wb->db->f("num");
 	$wb->total_page=ceil($total_num/$max_row);
 	
 	include PATH_CONFIG."common.php";

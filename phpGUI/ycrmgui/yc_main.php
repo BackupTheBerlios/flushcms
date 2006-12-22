@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_main.php,v 1.14 2006/12/22 10:09:43 arzen Exp $
+ * @version    CVS: $Id: yc_main.php,v 1.15 2006/12/22 14:23:18 arzen Exp $
  */
 
 set_time_limit(0);
@@ -134,10 +134,10 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 					case 2003:
 						include_once PATH_FORM."yc_company.form.inc.php";
 						displayCompanyMainTabForm ();
-//						$wb->right_control =  wb_create_control($wb->mainwin, CheckBox, "Checkbox 1", 170, 105, 91, 14, 0);
 						break;
 					case 2004:
-						$wb->right_control = wb_create_control($wb->mainwin, RTFEditBox, "Rich text", 170, 120, 205, 55, 0);
+						include_once PATH_FORM."yc_product.form.inc.php";
+						display_product_main_tab_form ();
 						break;
 				
 				}		
