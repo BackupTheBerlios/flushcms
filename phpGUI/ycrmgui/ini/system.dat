@@ -9,3 +9,22 @@ contact_category_table = "apf_contact_category"
 
 company_table = "apf_company"
 company_category_table = "apf_company_category"
+
+product_table = "apf_product"
+product_category_table = "apf_product_category"
+
+opportunity_table = "apf_opportunity"
+
+order_table = "apf_order"
+order_category_table = "apf_order_category"
+
+agreement_table = "apf_agreement"
+agreement_category_table = "apf_agreement_category"
+
+complaints_table = "apf_complaints"
+complaints_category_table = "apf_complaints_category"
+
+refundment_table = "apf_refundment"
+refundment_category_table = "apf_refundment_category"
+
+review_table = "apf_review"

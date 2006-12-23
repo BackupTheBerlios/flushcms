@@ -37,7 +37,7 @@ caption = "Head1,Head2,Head3,Head4"
 geom = "0 10 625 425"
 style = 327808
 value = 0
-id = "IDC_PRODUCT_LIST"
+id = "IDC_ORDER_LIST"
 
 [Form_ctrl2]
 class = "PushButton"

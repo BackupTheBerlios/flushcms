@@ -1,44 +1,44 @@
 <?php
 /**
  *
- * yc_company.form.inc.php
+ * yc_opportunity.form.inc.php
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_company.form.inc.php,v 1.5 2006/12/23 03:02:44 arzen Exp $
+ * @version    CVS: $Id: yc_opportunity.form.inc.php,v 1.1 2006/12/23 03:02:44 arzen Exp $
  */
-function displayCompanyMainTabForm () 
+function display_opportunity_main_tab_form () 
 {
 	global $wb;
 	
-	include(PATH_FORM."yc_company.form.php");
+	include(PATH_FORM."yc_opportunity.form.php");
 	$wb->right_control = $maintab = $tab;
-	include(PATH_FORM."yc_company_tab.form.php");
+	include(PATH_FORM."yc_opportunity_tab.form.php");
 	
 	$wb->current_page=1;
 	$wb->total_page=1;
 
-	wb_set_text(wb_get_control($maintab,IDC_COMPANY_LIST), array(
+	wb_set_text(wb_get_control($maintab,IDC_OPPORTUNITY_LIST), array(
 	   array($wb->vars["Lang"]["lang_id"], 	60),
-	   array($wb->vars["Lang"]["lang_name"],150),
+	   array($wb->vars["Lang"]["lang_title"],150),
 	   array($wb->vars["Lang"]["lang_linkman"],	100),
 	   array($wb->vars["Lang"]["lang_phone"],	100),
-	   array($wb->vars["Lang"]["lang_email"],	180),
+	   array($wb->vars["Lang"]["lang_state"],	60),
 	   array($wb->vars["Lang"]["lang_addrees"],	200),
 	));
-	reset_company_view ();
+	reset_opportunity_view ();
 
-	wb_set_handler($wb->right_control, "process_company");
+	wb_set_handler($wb->right_control, "process_opportunity");
 	
 }
 
-function reset_company_view () 
+function reset_opportunity_view () 
 {
 	global $wb;
 	// Empty listview
-	wb_delete_items(wb_get_control($wb->right_control,IDC_COMPANY_LIST), null);
+	wb_delete_items(wb_get_control($wb->right_control,IDC_OPPORTUNITY_LIST), null);
 	
 	$keyword = $wb->keyword;
 	$where_is = " where 1 ";
@@ -48,7 +48,7 @@ function reset_company_view ()
 	}
 	
 	$max_row = 22;
-	$table_name = $wb->setting["Settings"]["company_table"];
+	$table_name = $wb->setting["Settings"]["opportunity_table"];
 	$start_num = ($wb->current_page-1)*$max_row;
 	$sql = " SELECT COUNT(*) AS num FROM {$table_name} {$where_is} ";
 	$wb->db->query($sql);
@@ -64,16 +64,16 @@ function reset_company_view ()
 	{
 		$row = array();
 		$row[] = $wb->db->f("id");
-		$row[] = $wb->db->f("name");
+		$row[] = $wb->db->f("title");
 		$row[] = $wb->db->f("link_man");
 		$row[] = $wb->db->f("phone");
-		$row[] = $wb->db->f("email");
+		$row[] = $wb->db->f("state");
 		$row[] = $wb->db->f("addrees");
 
 		$data[] = $row;
 	}
 	// Create listview items
-	wb_create_items(wb_get_control($wb->right_control,IDC_COMPANY_LIST), $data);
+	wb_create_items(wb_get_control($wb->right_control,IDC_OPPORTUNITY_LIST), $data);
 
 	//	navigator
 	wb_set_text(wb_get_control($wb->right_control,IDC_NAV_BAR), $wb->vars["Lang"]["lang_total"]." ".$total_num." ".$wb->vars["Lang"]["lang_records"]." ".$wb->vars["Lang"]["lang_current"].$wb->current_page."/".$wb->total_page." ".$wb->vars["Lang"]["lang_page"]);
@@ -97,7 +97,7 @@ function reset_company_view ()
 }
 
 
-function process_company ($window, $id, $ctrl, $lparam1=0, $lparam2=0) 
+function process_opportunity ($window, $id, $ctrl, $lparam1=0, $lparam2=0) 
 {
 	global $wb;
 	
@@ -106,24 +106,24 @@ function process_company ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 
 		case IDC_NAV_FIRST:
 			$wb->current_page = 1;
-			reset_company_view ();
+			reset_opportunity_view ();
 			break;
 			
 		case IDC_NAV_PRE:
 			$wb->current_page -= 1;
 			$wb->current_page=$wb->current_page<1?1:$wb->current_page;
-			reset_company_view ();
+			reset_opportunity_view ();
 			break;
 
 		case IDC_NAV_NEXT:
 			$wb->current_page += 1;
 			$wb->current_page=$wb->current_page>$wb->total_page?$wb->total_page:$wb->current_page;
-			reset_company_view ();
+			reset_opportunity_view ();
 			break;
 			
 		case IDC_NAV_LAST:
 			$wb->current_page = $wb->total_page;
-			reset_company_view ();
+			reset_opportunity_view ();
 			break;
 	}
 

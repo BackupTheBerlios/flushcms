@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_main.php,v 1.15 2006/12/22 14:23:18 arzen Exp $
+ * @version    CVS: $Id: yc_main.php,v 1.16 2006/12/23 03:02:44 arzen Exp $
  */
 
 set_time_limit(0);
@@ -138,6 +138,19 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 					case 2004:
 						include_once PATH_FORM."yc_product.form.inc.php";
 						display_product_main_tab_form ();
+						break;
+					case 2005:
+					case 2006:
+						include_once PATH_FORM."yc_opportunity.form.inc.php";
+						display_opportunity_main_tab_form ();
+						break;
+					case 2007:
+						include_once PATH_FORM."yc_order.form.inc.php";
+						display_order_main_tab_form ();
+						break;
+					case 2008:
+						include_once PATH_FORM."yc_agreement.form.inc.php";
+						display_agreement_main_tab_form ();
 						break;
 				
 				}		

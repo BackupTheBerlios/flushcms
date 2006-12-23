@@ -1,52 +1,60 @@
 <?php
 /**
  *
- * yc_company.form.inc.php
+ * yc_agreement.form.inc.php
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_product.form.inc.php,v 1.2 2006/12/23 03:02:44 arzen Exp $
+ * @version    CVS: $Id: yc_agreement.form.inc.php,v 1.1 2006/12/23 03:02:44 arzen Exp $
  */
-function display_product_main_tab_form () 
+function display_agreement_main_tab_form () 
 {
 	global $wb;
 	
-	include(PATH_FORM."yc_product.form.php");
+	include(PATH_FORM."yc_agreement.form.php");
 	$wb->right_control = $maintab = $tab;
-	include(PATH_FORM."yc_product_tab.form.php");
-	include(PATH_FORM."yc_product_category_tab.form.php");
+	include(PATH_FORM."yc_agreement_tab.form.php");
+	include(PATH_FORM."yc_agreement_category_tab.form.php");
 	
 	$wb->current_page=1;
 	$wb->total_page=1;
 	$wb->current_category_page=1;
 	$wb->total_category_page=1;
 
-	wb_set_text(wb_get_control($maintab,IDC_PRODUCT_LIST), array(
+	wb_set_text(wb_get_control($maintab,IDC_AGREEMENT_LIST), array(
 	   array($wb->vars["Lang"]["lang_id"], 	60),
-	   array($wb->vars["Lang"]["lang_name"],150),
-	   array($wb->vars["Lang"]["lang_price"],	100),
+	   array($wb->vars["Lang"]["lang_noid"],80),
+	   array($wb->vars["Lang"]["lang_category"],	60),
+	   array($wb->vars["Lang"]["lang_effectdate"],	140),
+	   array($wb->vars["Lang"]["lang_expireddate"],	140),
+	   array($wb->vars["Lang"]["lang_buyer"],	140),
+	   array($wb->vars["Lang"]["lang_vender"],	140),
+	   array($wb->vars["Lang"]["lang_buyersignature"],	80),
+	   array($wb->vars["Lang"]["lang_vendersignature"],	80),
+	   array($wb->vars["Lang"]["lang_userid"],	60),
+	   array($wb->vars["Lang"]["lang_createdat"],	140),
 	));
-	reset_product_view ();
+	reset_agreement_view ();
 	// category header define
-	wb_set_text(wb_get_control($maintab,IDC_PRODUCT_CATEGORY_LIST), array(
+	wb_set_text(wb_get_control($maintab,IDC_AGREEMENT_CATEGORY_LIST), array(
 	   array($wb->vars["Lang"]["lang_id"],100),
 	   array($wb->vars["Lang"]["lang_category"].$wb->vars["Lang"]["lang_name"],	220),
 	   array($wb->vars["Lang"]["lang_state"],	140),
 	));
-	reset_product_category_view ();
+	reset_agreement_category_view ();
 	
 //
-//	wb_set_handler($wb->right_control, "process_product");
+//	wb_set_handler($wb->right_control, "process_agreement");
 	
 }
 
-function reset_product_view () 
+function reset_agreement_view () 
 {
 	global $wb;
 	// Empty listview
-	wb_delete_items(wb_get_control($wb->right_control,IDC_PRODUCT_LIST), null);
+	wb_delete_items(wb_get_control($wb->right_control,IDC_AGREEMENT_LIST), null);
 	
 	$keyword = $wb->keyword;
 	$where_is = " where 1 ";
@@ -56,7 +64,7 @@ function reset_product_view ()
 	}
 	
 	$max_row = 22;
-	$table_name = $wb->setting["Settings"]["product_table"];
+	$table_name = $wb->setting["Settings"]["agreement_table"];
 	$start_num = ($wb->current_page-1)*$max_row;
 	$sql = " SELECT COUNT(*) AS num FROM {$table_name} {$where_is} ";
 	$wb->db->query($sql);
@@ -72,13 +80,20 @@ function reset_product_view ()
 	{
 		$row = array();
 		$row[] = $wb->db->f("id");
-		$row[] = $wb->db->f("name");
-		$row[] = $wb->db->f("price");
-
+		$row[] = $wb->db->f("noid");
+		$row[] = $wb->db->f("category");
+		$row[] = $wb->db->f("effectdate");
+		$row[] = $wb->db->f("expireddate");
+		$row[] = $wb->db->f("buyer");
+		$row[] = $wb->db->f("vender");
+		$row[] = $wb->db->f("buyersignature");
+		$row[] = $wb->db->f("vendersignature");
+		$row[] = $wb->db->f("userid");
+		$row[] = $wb->db->f("created_at");
 		$data[] = $row;
 	}
 	// Create listview items
-	wb_create_items(wb_get_control($wb->right_control,IDC_PRODUCT_LIST), $data);
+	wb_create_items(wb_get_control($wb->right_control,IDC_AGREEMENT_LIST), $data);
 
 	//	navigator
 	wb_set_text(wb_get_control($wb->right_control,IDC_NAV_BAR), $wb->vars["Lang"]["lang_total"]." ".$total_num." ".$wb->vars["Lang"]["lang_records"]." ".$wb->vars["Lang"]["lang_current"].$wb->current_page."/".$wb->total_page." ".$wb->vars["Lang"]["lang_page"]);
@@ -101,11 +116,11 @@ function reset_product_view ()
 	} 
 }
 
-function reset_product_category_view () 
+function reset_agreement_category_view () 
 {
 	global $wb;
 	// Empty listview
-	wb_delete_items(wb_get_control($wb->right_control,IDC_PRODUCT_CATEGORY_LIST), null);
+	wb_delete_items(wb_get_control($wb->right_control,IDC_AGREEMENT_CATEGORY_LIST), null);
 	
 	$keyword = $wb->keyword;
 	$where_is = " where 1 ";
@@ -115,7 +130,7 @@ function reset_product_category_view ()
 	}
 	
 	$max_row = 22;
-	$table_name = $wb->setting["Settings"]["product_category_table"];
+	$table_name = $wb->setting["Settings"]["agreement_category_table"];
 	$start_num = ($wb->current_category_page-1)*$max_row;
 	$sql = " SELECT COUNT(*) AS num FROM {$table_name} {$where_is} ";
 	$wb->db->query($sql);
@@ -136,7 +151,7 @@ function reset_product_category_view ()
 		$data[] = $row;
 	}
 	// Create listview items
-	wb_create_items(wb_get_control($wb->right_control,IDC_PRODUCT_CATEGORY_LIST), $data);
+	wb_create_items(wb_get_control($wb->right_control,IDC_AGREEMENT_CATEGORY_LIST), $data);
 
 	//	navigator
 	wb_set_text(wb_get_control($wb->right_control,IDC_CATEGORY_NAV_BAR), $wb->vars["Lang"]["lang_total"]." ".$total_num." ".$wb->vars["Lang"]["lang_records"]." ".$wb->vars["Lang"]["lang_current"].$wb->current_category_page."/".$wb->total_category_page." ".$wb->vars["Lang"]["lang_page"]);
@@ -160,7 +175,7 @@ function reset_product_category_view ()
 }
 
 
-function process_product ($window, $id, $ctrl, $lparam1=0, $lparam2=0) 
+function process_agreement ($window, $id, $ctrl, $lparam1=0, $lparam2=0) 
 {
 	global $wb;
 	
@@ -169,24 +184,24 @@ function process_product ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 
 		case IDC_NAV_FIRST:
 			$wb->current_page = 1;
-			reset_product_view ();
+			reset_agreement_view ();
 			break;
 			
 		case IDC_NAV_PRE:
 			$wb->current_page -= 1;
 			$wb->current_page=$wb->current_page<1?1:$wb->current_page;
-			reset_product_view ();
+			reset_agreement_view ();
 			break;
 
 		case IDC_NAV_NEXT:
 			$wb->current_page += 1;
 			$wb->current_page=$wb->current_page>$wb->total_page?$wb->total_page:$wb->current_page;
-			reset_product_view ();
+			reset_agreement_view ();
 			break;
 			
 		case IDC_NAV_LAST:
 			$wb->current_page = $wb->total_page;
-			reset_product_view ();
+			reset_agreement_view ();
 			break;
 	}
 
