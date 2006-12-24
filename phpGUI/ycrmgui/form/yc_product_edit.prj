@@ -1,0 +1,104 @@
+;*******************************************************************************
+;
+; WINBINDER - form editor project
+;
+;*******************************************************************************
+
+[Projectsettings]
+formvar = "$winmain"
+parent = "$wb->mainwin"
+prefix = "IDC_"
+startval = 1370
+localize = ""
+locprefix = "LANG_"
+istabpage = ""
+tabnumber = 0
+filllists = ""
+fillheaders = ""
+imagenames = ""
+insertontabs = 1
+applyvalues = ""
+ctrlvar = ""
+startctrlval = 1
+staticnullid = 1
+currentindex = 21
+
+[Form]
+class = "ModalDialog"
+caption = "{$wb->vars[\"Lang\"][\"lang_new\"]}/{$wb->vars[\"Lang\"][\"lang_edit\"]} {$wb->vars[\"Lang\"][\"lang_product\"]}"
+geom = "WBC_CENTER WBC_CENTER 505 274"
+style = 1
+value = 0
+controls = 9
+
+[Form_ctrl1]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_name\"]}"
+geom = "10 5 45 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl2]
+class = "EditBox"
+caption = ""
+geom = "80 5 395 20"
+style = 0
+value = 0
+id = "IDC_PRODUCT_NAME"
+
+[Form_ctrl3]
+class = "PushButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_save\"]}"
+geom = "135 215 90 25"
+style = 0
+value = 0
+id = "IDC_SAVE"
+
+[Form_ctrl4]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_price\"]}"
+geom = "10 45 50 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl5]
+class = "EditBox"
+caption = ""
+geom = "80 40 120 20"
+style = 0
+value = 0
+id = "IDC_PRODUCT_PRICE"
+
+[Form_ctrl6]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_memo\"]}"
+geom = "10 80 55 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl7]
+class = "EditBox"
+caption = ""
+geom = "80 70 405 120"
+style = 128
+value = 0
+id = "IDC_PRODUCT_MEMO"
+
+[Form_ctrl8]
+class = "PushButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_edit\"]}"
+geom = "255 215 90 25"
+style = 0
+value = 0
+id = "IDC_UPDATE"
+
+[Form_ctrl9]
+class = "PushButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_cancel\"]}"
+geom = "370 215 90 25"
+style = 0
+value = 0
+id = "IDCANCEL"

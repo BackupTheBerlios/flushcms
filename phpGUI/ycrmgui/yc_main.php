@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_main.php,v 1.18 2006/12/24 02:18:19 arzen Exp $
+ * @version    CVS: $Id: yc_main.php,v 1.19 2006/12/24 06:35:53 arzen Exp $
  */
 
 set_time_limit(0);
@@ -81,9 +81,7 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 					break;
 				case "contact_category":
 				case "company":
-//					include_once PATH_FORM."yc_contact_category_edit.form.inc.php";
-//					create_contact_category_edit_dlg ();
-					
+				case "product":
 					$module_name = $wb->current_module;
 					$function_name = "create_{$module_name}_edit_dlg";
 					include_once PATH_FORM."yc_{$module_name}_edit.form.inc.php";
@@ -125,10 +123,10 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 					break;
 				case "contact_category":
 				case "company":
+				case "product":
 					$module_name = $wb->current_module;
 					$function_name = "del_selected_{$module_name}";
 					$function_name();
-//					del_selected_contact_category ();
 					break;
 					
 			}

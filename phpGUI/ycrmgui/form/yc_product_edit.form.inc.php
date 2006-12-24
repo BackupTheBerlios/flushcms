@@ -1,48 +1,36 @@
 <?php
 /**
  *
- * yc_company_edit.form.inc.php
+ * yc_product_edit.form.inc.php
  *
  * @package    core
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_company_edit.form.inc.php,v 1.3 2006/12/24 06:35:53 arzen Exp $
+ * @version    CVS: $Id: yc_product_edit.form.inc.php,v 1.1 2006/12/24 06:35:53 arzen Exp $
  */
  
 
-function company_ctrl_mapping () 
+function product_ctrl_mapping () 
 {
 	$ctrl_map = array(
-		IDC_COMPANY_NAME=>'name',
-		
-		IDC_COMPANY_EMPLOYEE=>'employee',
-		IDC_COMPANY_INDUSTRY=>'industry',
-		IDC_COMPANY_BANKROLL=>'bankroll',
-		IDC_COMPANY_INCORPORATOR=>'incorporator',
-		IDC_COMPANY_PRODUCT=>'products',
-		IDC_COMPANY_LINK_MAN=>'link_man',
-		
-		IDC_COMPANY_PHONE=>'phone',
-		IDC_COMPANY_FAX=>'fax',
-		IDC_COMPANY_EMAIL=>'email',
-		IDC_COMPANY_ADDREES=>'addrees',
-		IDC_COMPANY_HOMEPAGE=>'homepage',
-		IDC_COMPANY_MEMO=>'memo'
+		IDC_PRODUCT_NAME=>'name',
+		IDC_PRODUCT_PRICE=>'price',
+		IDC_PRODUCT_MEMO=>'memo'
 	);
 	return $ctrl_map;
 }
  
-function create_company_edit_dlg () 
+function create_product_edit_dlg () 
 {
 	global $wb;
 	
-	include(PATH_FORM."yc_company_edit.form.php");
+	include(PATH_FORM."yc_product_edit.form.php");
 	
 	//-------- view detail -------
 	if ($id=$wb->current_ids) 
 	{
-		get_company_by_id ($winmain,$id);
+		get_product_by_id ($winmain,$id);
 //		wb_message_box($wb->mainwin,$id);//implode(",",$all_ctrl)
 	}
 	if ($wb->current_action == "insert") 
@@ -56,17 +44,17 @@ function create_company_edit_dlg ()
 		wb_set_enabled(wb_get_control($winmain,IDC_UPDATE),true);
 	}
 		
-	wb_set_handler($winmain, "process_company_edit");
+	wb_set_handler($winmain, "process_product_edit");
 	wb_set_visible($winmain, true);
 	
 }
 
-function get_company_by_id ($parent,$id) 
+function get_product_by_id ($parent,$id) 
 {
 	global $wb;
 	
-	$ctrl_map = company_ctrl_mapping ();
-	$table_name = $wb->setting["Settings"]["company_table"];
+	$ctrl_map = product_ctrl_mapping ();
+	$table_name = $wb->setting["Settings"]["product_table"];
 	$where_is = " WHERE id='{$id}' ";
 	$sql = " SELECT * FROM {$table_name} {$where_is} ";
 	$wb->db->query($sql);
@@ -81,12 +69,12 @@ function get_company_by_id ($parent,$id)
 	
 }
 
-function inser_update_company ($parent) 
+function inser_update_product ($parent) 
 {
 	global $wb;
 	
-	$ctrl_map = company_ctrl_mapping ();
-	$table_name = $wb->setting["Settings"]["company_table"];
+	$ctrl_map = product_ctrl_mapping ();
+	$table_name = $wb->setting["Settings"]["product_table"];
 
 	$set_str = "";
 	while (list($ctrl_name, $field_name) = each($ctrl_map)) 
@@ -106,11 +94,11 @@ function inser_update_company ($parent)
 		
 	}
 	$wb->db->query($sql);
-	reset_company_view ();
+	reset_product_view ();
 	
 }
 
-function process_company_edit ($window, $id, $ctrl) 
+function process_product_edit ($window, $id, $ctrl) 
 {
 	global $wb;
 	
@@ -123,7 +111,7 @@ function process_company_edit ($window, $id, $ctrl)
 			wb_set_enabled(wb_get_control($window,IDC_UPDATE),false);
 			break;
 		case IDC_SAVE:
-			inser_update_company ($window);
+			inser_update_product ($window);
 			wb_destroy_window($window);
 			break;
 		case IDCANCEL:
