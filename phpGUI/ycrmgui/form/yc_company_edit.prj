@@ -21,15 +21,15 @@ applyvalues = ""
 ctrlvar = ""
 startctrlval = 1
 staticnullid = 1
-currentindex = 18
+currentindex = 21
 
 [Form]
 class = "ModalDialog"
 caption = "{$wb->vars[\"Lang\"][\"lang_new\"]}/{$wb->vars[\"Lang\"][\"lang_edit\"]} {$wb->vars[\"Lang\"][\"lang_company\"]}"
-geom = "WBC_CENTER WBC_CENTER 605 492"
+geom = "WBC_CENTER WBC_CENTER 597 493"
 style = 1
 value = 0
-controls = 27
+controls = 29
 
 [Form_ctrl1]
 class = "Label"
@@ -42,60 +42,36 @@ id = ""
 [Form_ctrl2]
 class = "EditBox"
 caption = ""
-geom = "65 5 200 20"
+geom = "65 5 510 20"
 style = 0
 value = 0
-id = "IDC_CONTACT_USERNAME"
+id = "IDC_COMPANY_NAME"
 
 [Form_ctrl3]
-class = "Frame"
-caption = "{$wb->vars[\"Lang\"][\"lang_gender\"]}"
-geom = "80 25 150 35"
-style = 0
-value = 0
-id = ""
-
-[Form_ctrl4]
-class = "RadioButton"
-caption = "{$wb->vars[\"Lang\"][\"lang_male\"]}"
-geom = "95 40 60 15"
-style = 0
-value = 0
-id = "IDC_GENDER_MALE"
-
-[Form_ctrl5]
-class = "RadioButton"
-caption = "{$wb->vars[\"Lang\"][\"lang_female\"]}"
-geom = "160 40 60 15"
-style = 0
-value = 0
-id = "IDC_GENDER_FEMALE"
-
-[Form_ctrl6]
 class = "PushButton"
 caption = "{$wb->vars[\"Lang\"][\"lang_save\"]}"
 geom = "145 425 90 25"
 style = 0
 value = 0
-id = "IDC_CONTACT_SAVE"
+id = "IDC_SAVE"
 
-[Form_ctrl7]
+[Form_ctrl4]
 class = "Label"
-caption = "{$wb->vars[\"Lang\"][\"lang_birthday\"]}"
-geom = "5 65 50 15"
+caption = "{$wb->vars[\"Lang\"][\"lang_contact\"]}"
+geom = "10 45 50 15"
 style = 0
 value = 0
 id = ""
 
-[Form_ctrl8]
+[Form_ctrl5]
 class = "EditBox"
 caption = ""
-geom = "65 65 200 20"
+geom = "65 40 120 20"
 style = 0
 value = 0
-id = "IDC_CONTACT_BIRTHDAY"
+id = "IDC_COMPANY_LINK_MAN"
 
-[Form_ctrl9]
+[Form_ctrl6]
 class = "Label"
 caption = "{$wb->vars[\"Lang\"][\"lang_addrees\"]}"
 geom = "5 235 50 15"
@@ -103,10 +79,34 @@ style = 0
 value = 0
 id = ""
 
+[Form_ctrl7]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_employee\"]}"
+geom = "195 45 55 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl8]
+class = "EditBox"
+caption = ""
+geom = "65 235 510 20"
+style = 0
+value = 0
+id = "IDC_COMPANY_ADDREES"
+
+[Form_ctrl9]
+class = "EditBox"
+caption = ""
+geom = "255 40 95 20"
+style = 0
+value = 0
+id = "IDC_COMPANY_EMPLOYEE"
+
 [Form_ctrl10]
 class = "Label"
-caption = "{$wb->vars[\"Lang\"][\"lang_officephone\"]}"
-geom = "5 185 60 15"
+caption = "{$wb->vars[\"Lang\"][\"lang_phone\"]}"
+geom = "5 195 50 15"
 style = 0
 value = 0
 id = ""
@@ -114,100 +114,76 @@ id = ""
 [Form_ctrl11]
 class = "EditBox"
 caption = ""
-geom = "65 235 510 20"
+geom = "65 195 200 20"
 style = 0
 value = 0
-id = "IDC_CONTACT_ADDREES"
+id = "IDC_COMPANY_PHONE"
 
 [Form_ctrl12]
-class = "EditBox"
-caption = ""
-geom = "65 185 200 20"
-style = 0
-value = 0
-id = "IDC_CONTACT_OFFICEPHONE"
-
-[Form_ctrl13]
-class = "Label"
-caption = "{$wb->vars[\"Lang\"][\"lang_phone\"]}"
-geom = "5 110 50 15"
-style = 0
-value = 0
-id = ""
-
-[Form_ctrl14]
-class = "EditBox"
-caption = ""
-geom = "65 110 200 20"
-style = 0
-value = 0
-id = "IDC_CONTACT_PHONE"
-
-[Form_ctrl15]
 class = "Label"
 caption = "{$wb->vars[\"Lang\"][\"lang_fax\"]}"
-geom = "285 185 50 15"
+geom = "280 195 50 15"
 style = 0
 value = 0
 id = ""
+
+[Form_ctrl13]
+class = "EditBox"
+caption = ""
+geom = "340 195 235 20"
+style = 0
+value = 0
+id = "IDC_COMPANY_FAX"
+
+[Form_ctrl14]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_industry\"]}"
+geom = "355 45 55 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl15]
+class = "EditBox"
+caption = ""
+geom = "420 40 155 20"
+style = 0
+value = 0
+id = "IDC_COMPANY_INDUSTRY"
 
 [Form_ctrl16]
-class = "EditBox"
-caption = ""
-geom = "340 185 235 20"
-style = 0
-value = 0
-id = "IDC_CONTACT_FAX"
-
-[Form_ctrl17]
-class = "Label"
-caption = "{$wb->vars[\"Lang\"][\"lang_mobile\"]}"
-geom = "5 145 50 15"
-style = 0
-value = 0
-id = ""
-
-[Form_ctrl18]
-class = "EditBox"
-caption = ""
-geom = "65 145 200 20"
-style = 0
-value = 0
-id = "IDC_CONTACT_MOBILE"
-
-[Form_ctrl19]
 class = "Label"
 caption = "{$wb->vars[\"Lang\"][\"lang_email\"]}"
-geom = "5 275 50 15"
+geom = "5 280 50 15"
 style = 0
 value = 0
 id = ""
 
-[Form_ctrl20]
+[Form_ctrl17]
 class = "EditBox"
 caption = ""
 geom = "65 275 205 20"
 style = 0
 value = 0
-id = "IDC_CONTACT_EMAIL"
+id = "IDC_COMPANY_EMAIL"
 
-[Form_ctrl21]
+[Form_ctrl18]
 class = "Label"
 caption = "{$wb->vars[\"Lang\"][\"lang_homepage\"]}"
-geom = "280 275 55 15"
+geom = "280 280 55 15"
 style = 0
 value = 0
 id = ""
 
-[Form_ctrl22]
+[Form_ctrl19]
 class = "EditBox"
 caption = ""
 geom = "345 275 230 20"
 style = 0
 value = 0
-id = "IDC_CONTACT_HOMEPAGE"
+id = "IDC_COMPANY_HOMEPAGE"
 
-[Form_ctrl23]
+[Form_ctrl20]
 class = "Label"
 caption = "{$wb->vars[\"Lang\"][\"lang_memo\"]}"
 geom = "5 325 55 15"
@@ -215,34 +191,74 @@ style = 0
 value = 0
 id = ""
 
-[Form_ctrl24]
+[Form_ctrl21]
 class = "EditBox"
 caption = ""
 geom = "65 310 510 110"
-style = 0
+style = 128
 value = 0
-id = "IDC_CONTACT_MEMO"
+id = "IDC_COMPANY_MEMO"
 
-[Form_ctrl25]
-class = "Frame"
-caption = "{$wb->vars[\"Lang\"][\"lang_photo\"]}"
-geom = "350 0 180 130"
-style = 0
-value = 0
-id = ""
-
-[Form_ctrl26]
+[Form_ctrl22]
 class = "PushButton"
 caption = "{$wb->vars[\"Lang\"][\"lang_edit\"]}"
 geom = "265 425 90 25"
 style = 0
 value = 0
-id = "IDC_CONTACT_UPDATE"
+id = "IDC_UPDATE"
 
-[Form_ctrl27]
+[Form_ctrl23]
 class = "PushButton"
 caption = "{$wb->vars[\"Lang\"][\"lang_cancel\"]}"
 geom = "385 425 90 25"
 style = 0
 value = 0
 id = "IDCANCEL"
+
+[Form_ctrl24]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_bankroll\"]}"
+geom = "10 90 55 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl25]
+class = "EditBox"
+caption = ""
+geom = "65 90 120 20"
+style = 0
+value = 0
+id = "IDC_COMPANY_BANKROLL"
+
+[Form_ctrl26]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_incorporator\"]}"
+geom = "240 90 80 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl27]
+class = "EditBox"
+caption = ""
+geom = "345 85 230 20"
+style = 0
+value = 0
+id = "IDC_COMPANY_INCORPORATOR"
+
+[Form_ctrl28]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_product\"]}"
+geom = "10 135 45 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl29]
+class = "EditBox"
+caption = ""
+geom = "65 130 510 50"
+style = 128
+value = 0
+id = "IDC_COMPANY_PRODUCT"

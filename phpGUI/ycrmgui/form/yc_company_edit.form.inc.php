@@ -7,22 +7,28 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_company_edit.form.inc.php,v 1.1 2006/12/24 02:18:19 arzen Exp $
+ * @version    CVS: $Id: yc_company_edit.form.inc.php,v 1.2 2006/12/24 02:58:28 arzen Exp $
  */
  
 
 function company_ctrl_mapping () 
 {
 	$ctrl_map = array(
-		IDC_CONTACT_USERNAME=>'name',
-		IDC_CONTACT_PHONE=>'phone',
-		IDC_CONTACT_MOBILE=>'mobile',
-		IDC_CONTACT_EMAIL=>'email',
-		IDC_CONTACT_ADDREES=>'addrees',
-		IDC_CONTACT_OFFICEPHONE=>'office_phone',
-		IDC_CONTACT_FAX=>'fax',
-		IDC_CONTACT_HOMEPAGE=>'homepage',
-		IDC_CONTACT_MEMO=>'memo'
+		IDC_COMPANY_NAME=>'name',
+		
+		IDC_COMPANY_EMPLOYEE=>'employee',
+		IDC_COMPANY_INDUSTRY=>'industry',
+		IDC_COMPANY_BANKROLL=>'bankroll',
+		IDC_COMPANY_INCORPORATOR=>'incorporator',
+		IDC_COMPANY_PRODUCT=>'products',
+		IDC_COMPANY_LINK_MAN=>'link_man',
+		
+		IDC_COMPANY_PHONE=>'phone',
+		IDC_COMPANY_FAX=>'fax',
+		IDC_COMPANY_EMAIL=>'email',
+		IDC_COMPANY_ADDREES=>'addrees',
+		IDC_COMPANY_HOMEPAGE=>'homepage',
+		IDC_COMPANY_MEMO=>'memo'
 	);
 	return $ctrl_map;
 }
@@ -41,13 +47,13 @@ function create_company_edit_dlg ()
 	}
 	if ($wb->current_action == "insert") 
 	{
-		wb_set_enabled(wb_get_control($winmain,IDC_CONTACT_SAVE),true);
-		wb_set_enabled(wb_get_control($winmain,IDC_CONTACT_UPDATE),false);
+		wb_set_enabled(wb_get_control($winmain,IDC_SAVE),true);
+		wb_set_enabled(wb_get_control($winmain,IDC_UPDATE),false);
 	}
 	else
 	{
-		wb_set_enabled(wb_get_control($winmain,IDC_CONTACT_SAVE),false);
-		wb_set_enabled(wb_get_control($winmain,IDC_CONTACT_UPDATE),true);
+		wb_set_enabled(wb_get_control($winmain,IDC_SAVE),false);
+		wb_set_enabled(wb_get_control($winmain,IDC_UPDATE),true);
 	}
 		
 	wb_set_handler($winmain, "process_company_edit");
@@ -113,12 +119,12 @@ function process_company_edit ($window, $id, $ctrl)
 	switch($id) 
 	{
 
-		case IDC_CONTACT_UPDATE:
+		case IDC_UPDATE:
 			$wb->current_action='update';
-			wb_set_enabled(wb_get_control($window,IDC_CONTACT_SAVE),true);
-			wb_set_enabled(wb_get_control($window,IDC_CONTACT_UPDATE),false);
+			wb_set_enabled(wb_get_control($window,IDC_SAVE),true);
+			wb_set_enabled(wb_get_control($window,IDC_UPDATE),false);
 			break;
-		case IDC_CONTACT_SAVE:
+		case IDC_SAVE:
 			inser_update_company ($window);
 			wb_destroy_window($window);
 			break;
