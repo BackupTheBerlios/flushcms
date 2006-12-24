@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_main.php,v 1.19 2006/12/24 06:35:53 arzen Exp $
+ * @version    CVS: $Id: yc_main.php,v 1.20 2006/12/24 07:50:17 arzen Exp $
  */
 
 set_time_limit(0);
@@ -82,6 +82,7 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 				case "contact_category":
 				case "company":
 				case "product":
+				case "product_category":
 					$module_name = $wb->current_module;
 					$function_name = "create_{$module_name}_edit_dlg";
 					include_once PATH_FORM."yc_{$module_name}_edit.form.inc.php";
@@ -104,6 +105,7 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 					break;
 				case "company":
 				case "product":
+				case "product_category":
 					$module_name = $wb->current_module;
 					$function_name = "create_{$module_name}_search_dlg";
 					include_once PATH_FORM."yc_{$module_name}_search.form.inc.php";
@@ -124,6 +126,7 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 				case "contact_category":
 				case "company":
 				case "product":
+				case "product_category":
 					$module_name = $wb->current_module;
 					$function_name = "del_selected_{$module_name}";
 					$function_name();
@@ -249,6 +252,16 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 							else 
 							{
 								$wb->current_module = "contact_category";
+							}
+							break;
+						case IDC_PRODUCTS_TAB:
+							if ($lparam2==0) 
+							{
+								$wb->current_module = "product";
+							} 
+							else 
+							{
+								$wb->current_module = "product_category";
 							}
 							break;
 					

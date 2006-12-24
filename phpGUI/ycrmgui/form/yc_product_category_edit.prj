@@ -1,0 +1,72 @@
+;*******************************************************************************
+;
+; WINBINDER - form editor project
+;
+;*******************************************************************************
+
+[Projectsettings]
+formvar = "$winmain"
+parent = "$wb->mainwin"
+prefix = "IDC_"
+startval = 1200
+localize = ""
+locprefix = "LANG_"
+istabpage = ""
+tabnumber = 0
+filllists = ""
+fillheaders = ""
+imagenames = ""
+insertontabs = 1
+applyvalues = ""
+ctrlvar = ""
+startctrlval = 1
+staticnullid = 1
+currentindex = 20
+
+[Form]
+class = "ModalDialog"
+caption = "{$wb->vars[\"Lang\"][\"lang_product\"]}{$wb->vars[\"Lang\"][\"lang_category\"]}"
+geom = "WBC_CENTER WBC_CENTER 370 160"
+style = 0
+value = 0
+controls = 5
+
+[Form_ctrl1]
+class = "PushButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_edit\"]}"
+geom = "145 80 90 25"
+style = 0
+value = 0
+id = "IDC_UPDATE"
+
+[Form_ctrl2]
+class = "PushButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_cancel\"]}"
+geom = "250 80 90 25"
+style = 0
+value = 0
+id = "IDCANCEL"
+
+[Form_ctrl3]
+class = "PushButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_save\"]}"
+geom = "30 80 90 25"
+style = 0
+value = 0
+id = "IDC_SAVE"
+
+[Form_ctrl4]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_category\"]}{$wb->vars[\"Lang\"][\"lang_name\"]}"
+geom = "35 20 80 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl5]
+class = "EditBox"
+caption = ""
+geom = "140 20 130 20"
+style = 0
+value = 0
+id = "IDC_CATEGORY_NAME"
