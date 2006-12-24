@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_complaints.form.inc.php,v 1.1 2006/12/24 01:17:28 arzen Exp $
+ * @version    CVS: $Id: yc_complaints.form.inc.php,v 1.2 2006/12/24 12:30:27 arzen Exp $
  */
 function display_complaints_main_tab_form () 
 {
@@ -44,7 +44,7 @@ function display_complaints_main_tab_form ()
 	reset_complaints_category_view ();
 	
 //
-//	wb_set_handler($wb->right_control, "process_complaints");
+	wb_set_handler($wb->right_control, "process_complaints");
 	
 }
 
@@ -58,7 +58,7 @@ function reset_complaints_view ()
 	$where_is = " where 1 ";
 	if ($keyword) 
 	{
-		$where_is .=" AND name LIKE '%{$keyword}%' ";
+		$where_is .=" AND (title LIKE '%{$keyword}%' OR complainanter LIKE '%{$keyword}%' ) ";
 	}
 	
 	$max_row = 22;
@@ -170,6 +170,43 @@ function reset_complaints_category_view ()
 	} 	
 }
 
+function del_selected_complaints () 
+{
+	global $wb;
+	
+	if ($wb->del_ids) 
+	{
+		$table_name = $wb->setting["Settings"]["complaints_table"];
+		$where_is =" WHERE id IN ($wb->del_ids) ";
+		$sql = " DELETE FROM {$table_name} {$where_is} ";
+		$wb->db->query($sql);
+		reset_complaints_view ();
+	}
+	else
+	{
+		wb_message_box($wb->mainwin, $wb->vars["Lang"]["lang_deleted_empty"], $wb->vars["Lang"]["system_name"], WBC_WARNING);
+	}
+	
+}
+
+function del_selected_complaints_category () 
+{
+	global $wb;
+	
+	if ($wb->del_ids) 
+	{
+		$category_table_name = $wb->setting["Settings"]["complaints_category_table"];
+		$where_is =" WHERE id IN ($wb->del_ids) ";
+		$sql = " DELETE FROM {$category_table_name} {$where_is} ";
+		$wb->db->query($sql);
+		reset_complaints_category_view ();
+	}
+	else
+	{
+		wb_message_box($wb->mainwin, $wb->vars["Lang"]["lang_deleted_empty"], $wb->vars["Lang"]["system_name"], WBC_WARNING);
+	}
+	
+}
 
 function process_complaints ($window, $id, $ctrl, $lparam1=0, $lparam2=0) 
 {
@@ -198,6 +235,95 @@ function process_complaints ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 		case IDC_NAV_LAST:
 			$wb->current_page = $wb->total_page;
 			reset_complaints_view ();
+			break;
+		case IDC_COMPLAINTS_LIST:
+			if($lparam1 == WBC_DBLCLICK) 
+			{
+				$current_rows = wb_get_text($ctrl);
+				$current_id = $current_rows[0][0];
+				$wb->current_ids = $current_id;
+				$wb->current_form_state=false;
+				$wb->current_action='update';
+				include_once PATH_FORM."yc_complaints_edit.form.inc.php";
+				create_complaints_edit_dlg ();
+			}
+
+			// Show current selection and checked items
+			$sel = wb_get_selected($ctrl);
+			$sel = $sel ? implode(", ", $sel) : "none";
+
+			$contents = wb_get_text($ctrl);
+			$text = "";
+			if($contents)
+				foreach($contents as $row)
+					$text .= $row ? "[" . implode(", ", $row) . "]  " : "";
+
+			$checked = wb_get_value($ctrl);
+			$temp_str = "";
+			if ($checked) 
+			{
+				foreach($checked as $value)
+				{
+					$row_data = wb_get_text($ctrl,$value,0);
+					$temp_str .= $row_data.","; 
+				}
+				$del_ids = rtrim($temp_str,',');
+				$wb->del_ids = $del_ids;
+			}
+
+			$checked = $checked ? implode(", ", $checked) : "none";
+
+			wb_set_text($wb->statusbar,
+			  "Selected lines: " . $sel .
+			  " / checked: " . $checked .
+			  " / deleted: " . $del_ids .
+			  " / contents: " . $text
+			);
+			break;
+
+		case IDC_COMPLAINTS_CATEGORY_LIST:
+			if($lparam1 == WBC_DBLCLICK) 
+			{
+				$current_rows = wb_get_text($ctrl);
+				$current_id = $current_rows[0][0];
+				$wb->current_ids = $current_id;
+				$wb->current_form_state=false;
+				$wb->current_action='update';
+				include_once PATH_FORM."yc_complaints_category_edit.form.inc.php";
+				create_complaints_category_edit_dlg ();
+			}
+
+			// Show current selection and checked items
+			$sel = wb_get_selected($ctrl);
+			$sel = $sel ? implode(", ", $sel) : "none";
+
+			$contents = wb_get_text($ctrl);
+			$text = "";
+			if($contents)
+				foreach($contents as $row)
+					$text .= $row ? "[" . implode(", ", $row) . "]  " : "";
+
+			$checked = wb_get_value($ctrl);
+			$temp_str = "";
+			if ($checked) 
+			{
+				foreach($checked as $value)
+				{
+					$row_data = wb_get_text($ctrl,$value,0);
+					$temp_str .= $row_data.","; 
+				}
+				$del_ids = rtrim($temp_str,',');
+				$wb->del_ids = $del_ids;
+			}
+
+			$checked = $checked ? implode(", ", $checked) : "none";
+
+			wb_set_text($wb->statusbar,
+			  "Selected lines: " . $sel .
+			  " / checked: " . $checked .
+			  " / deleted: " . $del_ids .
+			  " / contents: " . $text
+			);
 			break;
 	}
 

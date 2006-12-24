@@ -201,7 +201,7 @@ id = "IDCANCEL"
 
 [Form_ctrl22]
 class = "Label"
-caption = "{$wb->vars[\"Lang\"][\"lang_money\"]}{$wb->vars[\"Lang\"][\"lang_discount\"]}"
+caption = "{$wb->vars[\"Lang\"][\"lang_discount\"]}"
 geom = "285 85 70 15"
 style = 0
 value = 0

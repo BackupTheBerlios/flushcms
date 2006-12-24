@@ -49,7 +49,7 @@ wb_create_control($winmain, Label, "{$wb->vars["Lang"]["lang_memo"]}", 5, 230, 5
 wb_create_control($winmain, EditBox, "", 65, 205, 510, 125, IDC_ORDER_MEMO, 0x00000080, 0, 0);
 wb_create_control($winmain, PushButton, "{$wb->vars["Lang"]["lang_edit"]}", 265, 340, 90, 25, IDC_UPDATE, 0x00000000, 0, 0);
 wb_create_control($winmain, PushButton, "{$wb->vars["Lang"]["lang_cancel"]}", 390, 340, 90, 25, IDCANCEL, 0x00000000, 0, 0);
-wb_create_control($winmain, Label, "{$wb->vars["Lang"]["lang_money"]}{$wb->vars["Lang"]["lang_discount"]}", 285, 85, 70, 15, 0, 0x00000000, 0, 0);
+wb_create_control($winmain, Label, "{$wb->vars["Lang"]["lang_discount"]}", 285, 85, 70, 15, 0, 0x00000000, 0, 0);
 wb_create_control($winmain, EditBox, "", 355, 85, 195, 20, IDC_ORDER_DISCOUNT, 0x00000000, 0, 0);
 wb_create_control($winmain, Label, "{$wb->vars["Lang"]["lang_state"]}", 285, 165, 60, 15, 0, 0x00000000, 0, 0);
 wb_create_control($winmain, EditBox, "", 355, 165, 200, 20, IDC_ORDER_STATE, 0x00000000, 0, 0);

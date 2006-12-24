@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_main.php,v 1.22 2006/12/24 11:46:48 arzen Exp $
+ * @version    CVS: $Id: yc_main.php,v 1.23 2006/12/24 12:30:27 arzen Exp $
  */
 
 set_time_limit(0);
@@ -88,6 +88,8 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 				case "order_category":
 				case "agreement":
 				case "agreement_category":
+				case "complaints":
+				case "complaints_category":
 					$module_name = $wb->current_module;
 					$function_name = "create_{$module_name}_edit_dlg";
 					include_once PATH_FORM."yc_{$module_name}_edit.form.inc.php";
@@ -116,6 +118,8 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 				case "order_category":
 				case "agreement":
 				case "agreement_category":
+				case "complaints":
+				case "complaints_category":
 					$module_name = $wb->current_module;
 					$function_name = "create_{$module_name}_search_dlg";
 					include_once PATH_FORM."yc_{$module_name}_search.form.inc.php";
@@ -142,6 +146,8 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 				case "order_category":
 				case "agreement":
 				case "agreement_category":
+				case "complaints":
+				case "complaints_category":
 					$module_name = $wb->current_module;
 					$function_name = "del_selected_{$module_name}";
 					$function_name();
@@ -297,6 +303,16 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 							else 
 							{
 								$wb->current_module = "agreement_category";
+							}
+							break;
+						case IDC_COMPLAINTS_TAB:
+							if ($lparam2==0) 
+							{
+								$wb->current_module = "complaints";
+							} 
+							else 
+							{
+								$wb->current_module = "complaints_category";
 							}
 							break;
 					
