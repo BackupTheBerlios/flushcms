@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_main.php,v 1.21 2006/12/24 08:25:57 arzen Exp $
+ * @version    CVS: $Id: yc_main.php,v 1.22 2006/12/24 11:46:48 arzen Exp $
  */
 
 set_time_limit(0);
@@ -84,6 +84,10 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 				case "product":
 				case "product_category":
 				case "opportunity":
+				case "order":
+				case "order_category":
+				case "agreement":
+				case "agreement_category":
 					$module_name = $wb->current_module;
 					$function_name = "create_{$module_name}_edit_dlg";
 					include_once PATH_FORM."yc_{$module_name}_edit.form.inc.php";
@@ -108,6 +112,10 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 				case "product":
 				case "product_category":
 				case "opportunity":
+				case "order":
+				case "order_category":
+				case "agreement":
+				case "agreement_category":
 					$module_name = $wb->current_module;
 					$function_name = "create_{$module_name}_search_dlg";
 					include_once PATH_FORM."yc_{$module_name}_search.form.inc.php";
@@ -130,6 +138,10 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 				case "product":
 				case "product_category":
 				case "opportunity":
+				case "order":
+				case "order_category":
+				case "agreement":
+				case "agreement_category":
 					$module_name = $wb->current_module;
 					$function_name = "del_selected_{$module_name}";
 					$function_name();
@@ -265,6 +277,26 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 							else 
 							{
 								$wb->current_module = "product_category";
+							}
+							break;
+						case IDC_ORDER_TAB:
+							if ($lparam2==0) 
+							{
+								$wb->current_module = "order";
+							} 
+							else 
+							{
+								$wb->current_module = "order_category";
+							}
+							break;
+						case IDC_AGREEMENT_TAB:
+							if ($lparam2==0) 
+							{
+								$wb->current_module = "agreement";
+							} 
+							else 
+							{
+								$wb->current_module = "agreement_category";
 							}
 							break;
 					

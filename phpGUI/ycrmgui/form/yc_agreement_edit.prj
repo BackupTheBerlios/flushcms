@@ -1,0 +1,200 @@
+;*******************************************************************************
+;
+; WINBINDER - form editor project
+;
+;*******************************************************************************
+
+[Projectsettings]
+formvar = "$winmain"
+parent = "$wb->mainwin"
+prefix = "IDC_"
+startval = 1370
+localize = ""
+locprefix = "LANG_"
+istabpage = ""
+tabnumber = 0
+filllists = ""
+fillheaders = ""
+imagenames = ""
+insertontabs = 1
+applyvalues = ""
+ctrlvar = ""
+startctrlval = 1
+staticnullid = 1
+currentindex = 23
+
+[Form]
+class = "ModalDialog"
+caption = "{$wb->vars[\"Lang\"][\"lang_new\"]}/{$wb->vars[\"Lang\"][\"lang_edit\"]} {$wb->vars[\"Lang\"][\"lang_agreement\"]}"
+geom = "WBC_CENTER WBC_CENTER 597 372"
+style = 1
+value = 0
+controls = 21
+
+[Form_ctrl1]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_noid\"]}"
+geom = "5 5 45 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl2]
+class = "EditBox"
+caption = ""
+geom = "65 5 200 20"
+style = 0
+value = 0
+id = "IDC_AGREEMENT_NOID"
+
+[Form_ctrl3]
+class = "PushButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_save\"]}"
+geom = "145 310 90 25"
+style = 0
+value = 0
+id = "IDC_SAVE"
+
+[Form_ctrl4]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_category\"]}"
+geom = "285 5 50 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl5]
+class = "EditBox"
+caption = ""
+geom = "355 5 200 20"
+style = 0
+value = 0
+id = "IDC_AGREEMENT_CATEGORY"
+
+[Form_ctrl6]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_buyersignature\"]}"
+geom = "5 130 65 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl7]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_effectdate\"]}"
+geom = "5 45 55 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl8]
+class = "EditBox"
+caption = ""
+geom = "75 130 180 20"
+style = 0
+value = 0
+id = "IDC_AGREEMENT_BUYERSIGNATURE"
+
+[Form_ctrl9]
+class = "EditBox"
+caption = ""
+geom = "65 45 200 20"
+style = 0
+value = 0
+id = "IDC_AGREEMENT_EFFECTDATE"
+
+[Form_ctrl10]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_expireddate\"]}"
+geom = "280 45 50 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl11]
+class = "EditBox"
+caption = ""
+geom = "355 45 200 20"
+style = 0
+value = 0
+id = "IDC_AGREEMENT_EXPIREDDATE"
+
+[Form_ctrl12]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_buyer\"]}"
+geom = "5 85 50 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl13]
+class = "EditBox"
+caption = ""
+geom = "65 85 200 20"
+style = 0
+value = 0
+id = "IDC_AGREEMENT_BUYER"
+
+[Form_ctrl14]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_vendersignature\"]}"
+geom = "280 130 70 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl15]
+class = "EditBox"
+caption = ""
+geom = "355 130 205 20"
+style = 0
+value = 0
+id = "IDC_AGREEMENT_VENDERSIGNATURE"
+
+[Form_ctrl16]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_memo\"]}"
+geom = "0 180 55 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl17]
+class = "EditBox"
+caption = ""
+geom = "60 165 510 125"
+style = 128
+value = 0
+id = "IDC_AGREEMENT_MEMO"
+
+[Form_ctrl18]
+class = "PushButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_edit\"]}"
+geom = "260 310 90 25"
+style = 0
+value = 0
+id = "IDC_UPDATE"
+
+[Form_ctrl19]
+class = "PushButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_cancel\"]}"
+geom = "380 310 90 25"
+style = 0
+value = 0
+id = "IDCANCEL"
+
+[Form_ctrl20]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_vender\"]}"
+geom = "285 85 70 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl21]
+class = "EditBox"
+caption = ""
+geom = "355 85 195 20"
+style = 0
+value = 0
+id = "IDC_AGREEMENT_VENDER"
