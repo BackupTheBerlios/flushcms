@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_main.php,v 1.17 2006/12/24 01:17:28 arzen Exp $
+ * @version    CVS: $Id: yc_main.php,v 1.18 2006/12/24 02:18:19 arzen Exp $
  */
 
 set_time_limit(0);
@@ -80,8 +80,14 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 					create_contact_edit_dlg ();
 					break;
 				case "contact_category":
-					include_once PATH_FORM."yc_contact_category_edit.form.inc.php";
-					create_contact_category_edit_dlg ();
+				case "company":
+//					include_once PATH_FORM."yc_contact_category_edit.form.inc.php";
+//					create_contact_category_edit_dlg ();
+					
+					$module_name = $wb->current_module;
+					$function_name = "create_{$module_name}_edit_dlg";
+					include_once PATH_FORM."yc_{$module_name}_edit.form.inc.php";
+					$function_name();
 					break;
 			}
 			wb_set_text($wb->statusbar,
@@ -98,6 +104,13 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 				case "contact_category":
 					create_category_contact_search_dlg($window);
 					break;
+				case "company":
+				case "product":
+					$module_name = $wb->current_module;
+					$function_name = "create_{$module_name}_search_dlg";
+					include_once PATH_FORM."yc_{$module_name}_search.form.inc.php";
+					$function_name();
+					break;
 			
 			}
 			wb_set_text($wb->statusbar,
@@ -111,8 +124,13 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 					del_selected_contact();
 					break;
 				case "contact_category":
-					del_selected_contact_category ();
+				case "company":
+					$module_name = $wb->current_module;
+					$function_name = "del_selected_{$module_name}";
+					$function_name();
+//					del_selected_contact_category ();
 					break;
+					
 			}
 			wb_set_text($wb->statusbar,
 				"Deleted module: " . $wb->current_module
@@ -129,39 +147,75 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 				{
 					case 2001:
 					case 2002:
+						$wb->current_module = "contact";
+						$wb->keyword=null;
+						$wb->current_page = 1;
+						$wb->del_ids=null;
 						displayContactForm ();
 						break;
 					case 2003:
+						$wb->current_module = "company";
+						$wb->keyword=null;
+						$wb->current_page = 1;
+						$wb->del_ids=null;
 						include_once PATH_FORM."yc_company.form.inc.php";
 						displayCompanyMainTabForm ();
 						break;
 					case 2004:
+						$wb->current_module = "product";
+						$wb->keyword=null;
+						$wb->current_page = 1;
+						$wb->del_ids=null;
 						include_once PATH_FORM."yc_product.form.inc.php";
 						display_product_main_tab_form ();
 						break;
 					case 2005:
 					case 2006:
+						$wb->current_module = "opportunity";
+						$wb->keyword=null;
+						$wb->current_page = 1;
+						$wb->del_ids=null;
 						include_once PATH_FORM."yc_opportunity.form.inc.php";
 						display_opportunity_main_tab_form ();
 						break;
 					case 2007:
+						$wb->current_module = "order";
+						$wb->keyword=null;
+						$wb->current_page = 1;
+						$wb->del_ids=null;
 						include_once PATH_FORM."yc_order.form.inc.php";
 						display_order_main_tab_form ();
 						break;
 					case 2008:
+						$wb->current_module = "agreement";
+						$wb->keyword=null;
+						$wb->current_page = 1;
+						$wb->del_ids=null;
 						include_once PATH_FORM."yc_agreement.form.inc.php";
 						display_agreement_main_tab_form ();
 						break;
 					case 2009:
 					case 2010:
+						$wb->current_module = "complaints";
+						$wb->keyword=null;
+						$wb->current_page = 1;
+						$wb->del_ids=null;
 						include_once PATH_FORM."yc_complaints.form.inc.php";
 						display_complaints_main_tab_form ();
 						break;
 					case 2011:
+						$wb->current_module = "refundment";
+						$wb->keyword=null;
+						$wb->current_page = 1;
+						$wb->del_ids=null;
 						include_once PATH_FORM."yc_refundment.form.inc.php";
 						display_refundment_main_tab_form ();
 						break;
 					case 2012:
+						$wb->current_module = "review";
+						$wb->keyword=null;
+						$wb->current_page = 1;
+						$wb->del_ids=null;
 						include_once PATH_FORM."yc_review.form.inc.php";
 						display_review_main_tab_form ();
 						break;

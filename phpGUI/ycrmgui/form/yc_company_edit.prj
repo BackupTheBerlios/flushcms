@@ -1,0 +1,248 @@
+;*******************************************************************************
+;
+; WINBINDER - form editor project
+;
+;*******************************************************************************
+
+[Projectsettings]
+formvar = "$winmain"
+parent = "$wb->mainwin"
+prefix = "IDC_"
+startval = 1370
+localize = ""
+locprefix = "LANG_"
+istabpage = ""
+tabnumber = 0
+filllists = ""
+fillheaders = ""
+imagenames = ""
+insertontabs = 1
+applyvalues = ""
+ctrlvar = ""
+startctrlval = 1
+staticnullid = 1
+currentindex = 18
+
+[Form]
+class = "ModalDialog"
+caption = "{$wb->vars[\"Lang\"][\"lang_new\"]}/{$wb->vars[\"Lang\"][\"lang_edit\"]} {$wb->vars[\"Lang\"][\"lang_company\"]}"
+geom = "WBC_CENTER WBC_CENTER 605 492"
+style = 1
+value = 0
+controls = 27
+
+[Form_ctrl1]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_name\"]}"
+geom = "5 5 45 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl2]
+class = "EditBox"
+caption = ""
+geom = "65 5 200 20"
+style = 0
+value = 0
+id = "IDC_CONTACT_USERNAME"
+
+[Form_ctrl3]
+class = "Frame"
+caption = "{$wb->vars[\"Lang\"][\"lang_gender\"]}"
+geom = "80 25 150 35"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl4]
+class = "RadioButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_male\"]}"
+geom = "95 40 60 15"
+style = 0
+value = 0
+id = "IDC_GENDER_MALE"
+
+[Form_ctrl5]
+class = "RadioButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_female\"]}"
+geom = "160 40 60 15"
+style = 0
+value = 0
+id = "IDC_GENDER_FEMALE"
+
+[Form_ctrl6]
+class = "PushButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_save\"]}"
+geom = "145 425 90 25"
+style = 0
+value = 0
+id = "IDC_CONTACT_SAVE"
+
+[Form_ctrl7]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_birthday\"]}"
+geom = "5 65 50 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl8]
+class = "EditBox"
+caption = ""
+geom = "65 65 200 20"
+style = 0
+value = 0
+id = "IDC_CONTACT_BIRTHDAY"
+
+[Form_ctrl9]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_addrees\"]}"
+geom = "5 235 50 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl10]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_officephone\"]}"
+geom = "5 185 60 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl11]
+class = "EditBox"
+caption = ""
+geom = "65 235 510 20"
+style = 0
+value = 0
+id = "IDC_CONTACT_ADDREES"
+
+[Form_ctrl12]
+class = "EditBox"
+caption = ""
+geom = "65 185 200 20"
+style = 0
+value = 0
+id = "IDC_CONTACT_OFFICEPHONE"
+
+[Form_ctrl13]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_phone\"]}"
+geom = "5 110 50 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl14]
+class = "EditBox"
+caption = ""
+geom = "65 110 200 20"
+style = 0
+value = 0
+id = "IDC_CONTACT_PHONE"
+
+[Form_ctrl15]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_fax\"]}"
+geom = "285 185 50 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl16]
+class = "EditBox"
+caption = ""
+geom = "340 185 235 20"
+style = 0
+value = 0
+id = "IDC_CONTACT_FAX"
+
+[Form_ctrl17]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_mobile\"]}"
+geom = "5 145 50 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl18]
+class = "EditBox"
+caption = ""
+geom = "65 145 200 20"
+style = 0
+value = 0
+id = "IDC_CONTACT_MOBILE"
+
+[Form_ctrl19]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_email\"]}"
+geom = "5 275 50 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl20]
+class = "EditBox"
+caption = ""
+geom = "65 275 205 20"
+style = 0
+value = 0
+id = "IDC_CONTACT_EMAIL"
+
+[Form_ctrl21]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_homepage\"]}"
+geom = "280 275 55 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl22]
+class = "EditBox"
+caption = ""
+geom = "345 275 230 20"
+style = 0
+value = 0
+id = "IDC_CONTACT_HOMEPAGE"
+
+[Form_ctrl23]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_memo\"]}"
+geom = "5 325 55 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl24]
+class = "EditBox"
+caption = ""
+geom = "65 310 510 110"
+style = 0
+value = 0
+id = "IDC_CONTACT_MEMO"
+
+[Form_ctrl25]
+class = "Frame"
+caption = "{$wb->vars[\"Lang\"][\"lang_photo\"]}"
+geom = "350 0 180 130"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl26]
+class = "PushButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_edit\"]}"
+geom = "265 425 90 25"
+style = 0
+value = 0
+id = "IDC_CONTACT_UPDATE"
+
+[Form_ctrl27]
+class = "PushButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_cancel\"]}"
+geom = "385 425 90 25"
+style = 0
+value = 0
+id = "IDCANCEL"
