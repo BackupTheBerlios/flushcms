@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_main.php,v 1.16 2006/12/23 03:02:44 arzen Exp $
+ * @version    CVS: $Id: yc_main.php,v 1.17 2006/12/24 01:17:28 arzen Exp $
  */
 
 set_time_limit(0);
@@ -58,7 +58,7 @@ function create_main_window()
 	$wb->current_form_state = true;
 	$wb->current_module = "contact";
 	$wb->current_action = "insert";
-	
+	displayContactForm ();
 	wb_set_image($wb->mainwin, PATH_RES."favicon.ico");
 	wb_set_handler($wb->mainwin, "process_main");
 
@@ -152,6 +152,19 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 						include_once PATH_FORM."yc_agreement.form.inc.php";
 						display_agreement_main_tab_form ();
 						break;
+					case 2009:
+					case 2010:
+						include_once PATH_FORM."yc_complaints.form.inc.php";
+						display_complaints_main_tab_form ();
+						break;
+					case 2011:
+						include_once PATH_FORM."yc_refundment.form.inc.php";
+						display_refundment_main_tab_form ();
+						break;
+					case 2012:
+						include_once PATH_FORM."yc_review.form.inc.php";
+						display_review_main_tab_form ();
+						break;
 				
 				}		
 				wb_set_text($wb->statusbar,
@@ -165,6 +178,10 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 		case IDCLOSE:		// IDCLOSE is predefined
 				if(wb_message_box($wb->mainwin, $wb->vars["Lang"]["lang_sure_logout"], $wb->vars["Lang"]["system_name"], WBC_QUESTION | WBC_YESNO))
 					wb_destroy_window($window);
+			break;
+		case ID_ABOUT:
+				include_once PATH_FORM."yc_about.form.inc.php";
+				display_about_dlg ();
 			break;
 		default:
 				if(process_contact($window, $id, $ctrl, $lparam1, $lparam2))
@@ -187,6 +204,7 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 					wb_set_text($wb->statusbar, "Tab #$lparam2 of tab control #$id selected.");
 				} else
 					wb_set_text($wb->statusbar, "Control ID: " . $id);
+					
 			break;
 	}		
 }

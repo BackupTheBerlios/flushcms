@@ -13,6 +13,7 @@ if(!defined('IDC_TOOLBAR_SEARCH')) define('IDC_TOOLBAR_SEARCH', 1012);
 define("ID_DELETE",          1013);
 define("ID_CREATE",           1014);
 define("ID_HELP",           1015);
+define("ID_ABOUT",           1016);
 
 // Create window
 
@@ -24,12 +25,10 @@ $wb->winwidth = $dim[0];
 $wb->winheight = $dim[1];
 //main menu
 $wb->mainmenu = wb_create_control($wb->mainwin, Menu, array(
-    "&File",
-        array(ID_CREATE,  "&".$wb->vars["Lang"]["lang_new"]."...\tCtrl+O", NULL, NULL, "Ctrl+O"),
-        null,           // Separator
-        array(IDCLOSE,  "E&xit\tAlt+F4",    NULL, NULL),
-    "&Help",
-        array(ID_HELP, "&About...",        NULL, NULL)
+    $wb->vars["Lang"]["lang_file"],
+        array(IDCLOSE,  $wb->vars["Lang"]["lang_exit"]."\t",    NULL, NULL),
+    $wb->vars["Lang"]["lang_help"],
+        array(ID_ABOUT, $wb->vars["Lang"]["lang_about"]."...",        NULL, NULL)
 ));
 //main toolbar
 //$wb->toolbar = null;

@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_main.form.inc.php,v 1.1 2006/12/18 05:22:34 arzen Exp $
+ * @version    CVS: $Id: yc_main.form.inc.php,v 1.2 2006/12/24 01:17:28 arzen Exp $
  */
 include_once PATH_FORM."yc_main.form.php";
 
@@ -29,4 +29,9 @@ $items = wb_create_items($wb->tree_view, array(
 	array($wb->vars["Lang"]["lang_review"], 2012, 1),
 	
 ));
+
+wb_set_state($wb->tree_view, $items[0], true);
+wb_set_state($wb->tree_view, $items[4], true);
+wb_set_state($wb->tree_view, $items[8], true);
+
 ?>

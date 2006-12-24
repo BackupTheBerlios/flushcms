@@ -1,0 +1,80 @@
+;*******************************************************************************
+;
+; WINBINDER - form editor project
+;
+;*******************************************************************************
+
+[Projectsettings]
+formvar = "$maintab"
+parent = "$maintab"
+prefix = "IDC_"
+startval = 2800
+localize = ""
+locprefix = "LANG_"
+istabpage = 1
+tabnumber = 0
+filllists = ""
+fillheaders = ""
+imagenames = ""
+insertontabs = 1
+applyvalues = ""
+ctrlvar = ""
+startctrlval = 1
+staticnullid = 1
+currentindex = 5
+
+[Form]
+class = "AppWindow"
+caption = "{$wb->vars[\"Lang\"][\"lang_company\"]}"
+geom = "WBC_CENTER WBC_CENTER 636 511"
+style = 0
+value = 0
+controls = 6
+
+[Form_ctrl1]
+class = "ListView"
+caption = "Head1,Head2,Head3,Head4"
+geom = "0 10 625 425"
+style = 327808
+value = 0
+id = "IDC_REFUNDMENT_LIST"
+
+[Form_ctrl2]
+class = "PushButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_first_page\"]}"
+geom = "215 450 90 25"
+style = 0
+value = 0
+id = "IDC_NAV_FIRST"
+
+[Form_ctrl3]
+class = "PushButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_pre_page\"]}"
+geom = "320 450 90 25"
+style = 0
+value = 0
+id = "IDC_NAV_PRE"
+
+[Form_ctrl4]
+class = "PushButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_next_page\"]}"
+geom = "425 450 90 25"
+style = 0
+value = 0
+id = "IDC_NAV_NEXT"
+
+[Form_ctrl5]
+class = "PushButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_last_page\"]}"
+geom = "525 450 90 25"
+style = 0
+value = 0
+id = "IDC_NAV_LAST"
+
+[Form_ctrl6]
+class = "Label"
+caption = ""
+geom = "5 455 210 15"
+style = 0
+value = 0
+id = "IDC_NAV_BAR"
