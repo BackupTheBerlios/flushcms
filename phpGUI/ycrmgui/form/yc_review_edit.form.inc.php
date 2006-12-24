@@ -7,21 +7,19 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_review_edit.form.inc.php,v 1.1 2006/12/24 14:13:02 arzen Exp $
+ * @version    CVS: $Id: yc_review_edit.form.inc.php,v 1.2 2006/12/24 23:34:46 arzen Exp $
  */
  
 
 function review_ctrl_mapping () 
 {
 	$ctrl_map = array(
-		IDC_REFUNDMENT_COMPANY=>'company',
-		IDC_REFUNDMENT_REFUNDMENTER=>'reviewer',
-		IDC_REFUNDMENT_REPLY=>'reply',
-		IDC_REFUNDMENT_HANDLEMAN=>'handleman',
-		IDC_REFUNDMENT_HANDLEDATE=>'handledate',
-		IDC_REFUNDMENT_STATE=>'state',
+		IDC_REVIEW_COMPANY=>'company',
+		IDC_REVIEW_LINKMAN=>'linkman',
+		IDC_REVIEW_REVIEWDATE=>'reviewdate',
+		IDC_REVIEW_CATEGORY=>'category',
 
-		IDC_REFUNDMENT_MEMO=>'content'
+		IDC_REVIEW_MEMO=>'content'
 	);
 	return $ctrl_map;
 }

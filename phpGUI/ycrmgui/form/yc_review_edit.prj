@@ -29,7 +29,7 @@ caption = "{$wb->vars[\"Lang\"][\"lang_new\"]}/{$wb->vars[\"Lang\"][\"lang_edit\
 geom = "WBC_CENTER WBC_CENTER 597 313"
 style = 1
 value = 0
-controls = 17
+controls = 13
 
 [Form_ctrl1]
 class = "Label"
@@ -73,8 +73,8 @@ id = "IDC_REVIEW_LINKMAN"
 
 [Form_ctrl6]
 class = "Label"
-caption = "{$wb->vars[\"Lang\"][\"lang_reply\"]}"
-geom = "280 45 50 15"
+caption = "{$wb->vars[\"Lang\"][\"lang_reviewnote\"]}"
+geom = "0 130 55 15"
 style = 0
 value = 0
 id = ""
@@ -82,44 +82,12 @@ id = ""
 [Form_ctrl7]
 class = "EditBox"
 caption = ""
-geom = "355 45 35 20"
-style = 0
-value = 0
-id = "IDC_REVIEW_REPLY"
-
-[Form_ctrl8]
-class = "Label"
-caption = "{$wb->vars[\"Lang\"][\"lang_handleman\"]}"
-geom = "5 85 50 15"
-style = 0
-value = 0
-id = ""
-
-[Form_ctrl9]
-class = "EditBox"
-caption = ""
-geom = "65 85 200 20"
-style = 0
-value = 0
-id = "IDC_REVIEW_HANDLEMAN"
-
-[Form_ctrl10]
-class = "Label"
-caption = "{$wb->vars[\"Lang\"][\"lang_reasons\"]}"
-geom = "0 130 55 15"
-style = 0
-value = 0
-id = ""
-
-[Form_ctrl11]
-class = "EditBox"
-caption = ""
 geom = "65 115 510 125"
 style = 128
 value = 0
 id = "IDC_REVIEW_MEMO"
 
-[Form_ctrl12]
+[Form_ctrl8]
 class = "PushButton"
 caption = "{$wb->vars[\"Lang\"][\"lang_edit\"]}"
 geom = "265 250 90 25"
@@ -127,7 +95,7 @@ style = 0
 value = 0
 id = "IDC_UPDATE"
 
-[Form_ctrl13]
+[Form_ctrl9]
 class = "PushButton"
 caption = "{$wb->vars[\"Lang\"][\"lang_cancel\"]}"
 geom = "380 250 90 25"
@@ -135,34 +103,34 @@ style = 0
 value = 0
 id = "IDCANCEL"
 
-[Form_ctrl14]
+[Form_ctrl10]
 class = "Label"
-caption = "{$wb->vars[\"Lang\"][\"lang_handledate\"]}"
-geom = "285 85 70 15"
+caption = "{$wb->vars[\"Lang\"][\"lang_reviewdate\"]}"
+geom = "5 90 50 15"
 style = 0
 value = 0
 id = ""
 
-[Form_ctrl15]
+[Form_ctrl11]
 class = "EditBox"
 caption = ""
-geom = "355 85 195 20"
+geom = "65 90 200 20"
 style = 0
 value = 0
-id = "IDC_REVIEW_HANDLEDATE"
+id = "IDC_REVIEW_REVIEWDATE"
 
-[Form_ctrl16]
+[Form_ctrl12]
 class = "Label"
-caption = "{$wb->vars[\"Lang\"][\"lang_state\"]}"
-geom = "405 45 50 15"
+caption = "{$wb->vars[\"Lang\"][\"lang_category\"]}"
+geom = "295 90 50 15"
 style = 0
 value = 0
 id = ""
 
-[Form_ctrl17]
+[Form_ctrl13]
 class = "EditBox"
 caption = ""
-geom = "475 45 75 20"
+geom = "360 90 75 20"
 style = 0
 value = 0
-id = "IDC_REVIEW_STATE"
+id = "IDC_REVIEW_CATEGORY"
