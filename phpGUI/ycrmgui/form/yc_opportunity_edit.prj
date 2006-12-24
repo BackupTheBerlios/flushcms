@@ -1,0 +1,200 @@
+;*******************************************************************************
+;
+; WINBINDER - form editor project
+;
+;*******************************************************************************
+
+[Projectsettings]
+formvar = "$winmain"
+parent = "$wb->mainwin"
+prefix = "IDC_"
+startval = 1370
+localize = ""
+locprefix = "LANG_"
+istabpage = ""
+tabnumber = 0
+filllists = ""
+fillheaders = ""
+imagenames = ""
+insertontabs = 1
+applyvalues = ""
+ctrlvar = ""
+startctrlval = 1
+staticnullid = 1
+currentindex = 21
+
+[Form]
+class = "ModalDialog"
+caption = "{$wb->vars[\"Lang\"][\"lang_new\"]}/{$wb->vars[\"Lang\"][\"lang_edit\"]} {$wb->vars[\"Lang\"][\"lang_opportunity\"]}"
+geom = "WBC_CENTER WBC_CENTER 597 404"
+style = 1
+value = 0
+controls = 21
+
+[Form_ctrl1]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_name\"]}"
+geom = "5 5 45 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl2]
+class = "EditBox"
+caption = ""
+geom = "65 5 510 20"
+style = 0
+value = 0
+id = "IDC_OPPORTUNITY_TITLE"
+
+[Form_ctrl3]
+class = "PushButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_save\"]}"
+geom = "145 340 90 25"
+style = 0
+value = 0
+id = "IDC_SAVE"
+
+[Form_ctrl4]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_contact\"]}"
+geom = "10 45 50 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl5]
+class = "EditBox"
+caption = ""
+geom = "65 40 200 20"
+style = 0
+value = 0
+id = "IDC_OPPORTUNITY_LINK_MAN"
+
+[Form_ctrl6]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_addrees\"]}"
+geom = "10 135 50 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl7]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_state\"]}"
+geom = "270 40 55 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl8]
+class = "EditBox"
+caption = ""
+geom = "65 130 510 20"
+style = 0
+value = 0
+id = "IDC_OPPORTUNITY_ADDREES"
+
+[Form_ctrl9]
+class = "EditBox"
+caption = ""
+geom = "340 45 200 20"
+style = 0
+value = 0
+id = "IDC_OPPORTUNITY_STATE"
+
+[Form_ctrl10]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_phone\"]}"
+geom = "10 85 50 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl11]
+class = "EditBox"
+caption = ""
+geom = "65 80 200 20"
+style = 0
+value = 0
+id = "IDC_OPPORTUNITY_PHONE"
+
+[Form_ctrl12]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_fax\"]}"
+geom = "270 75 50 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl13]
+class = "EditBox"
+caption = ""
+geom = "340 75 235 20"
+style = 0
+value = 0
+id = "IDC_OPPORTUNITY_FAX"
+
+[Form_ctrl14]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_email\"]}"
+geom = "10 175 50 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl15]
+class = "EditBox"
+caption = ""
+geom = "65 170 205 20"
+style = 0
+value = 0
+id = "IDC_OPPORTUNITY_EMAIL"
+
+[Form_ctrl16]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_homepage\"]}"
+geom = "275 170 55 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl17]
+class = "EditBox"
+caption = ""
+geom = "340 170 230 20"
+style = 0
+value = 0
+id = "IDC_OPPORTUNITY_HOMEPAGE"
+
+[Form_ctrl18]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_memo\"]}"
+geom = "5 230 55 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl19]
+class = "EditBox"
+caption = ""
+geom = "65 205 510 125"
+style = 128
+value = 0
+id = "IDC_OPPORTUNITY_MEMO"
+
+[Form_ctrl20]
+class = "PushButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_edit\"]}"
+geom = "265 340 90 25"
+style = 0
+value = 0
+id = "IDC_UPDATE"
+
+[Form_ctrl21]
+class = "PushButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_cancel\"]}"
+geom = "390 340 90 25"
+style = 0
+value = 0
+id = "IDCANCEL"
