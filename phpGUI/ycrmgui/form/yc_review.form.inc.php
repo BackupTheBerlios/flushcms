@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_review.form.inc.php,v 1.1 2006/12/24 01:17:28 arzen Exp $
+ * @version    CVS: $Id: yc_review.form.inc.php,v 1.2 2006/12/24 14:13:01 arzen Exp $
  */
 function display_review_main_tab_form () 
 {
@@ -44,7 +44,7 @@ function reset_review_view ()
 	$where_is = " where 1 ";
 	if ($keyword) 
 	{
-		$where_is .=" AND name LIKE '%{$keyword}%' ";
+		$where_is .=" AND linkman LIKE '%{$keyword}%' ";
 	}
 	
 	$max_row = 22;
@@ -96,6 +96,24 @@ function reset_review_view ()
 	} 
 }
 
+function del_selected_review () 
+{
+	global $wb;
+	
+	if ($wb->del_ids) 
+	{
+		$table_name = $wb->setting["Settings"]["review_table"];
+		$where_is =" WHERE id IN ($wb->del_ids) ";
+		$sql = " DELETE FROM {$table_name} {$where_is} ";
+		$wb->db->query($sql);
+		reset_review_view ();
+	}
+	else
+	{
+		wb_message_box($wb->mainwin, $wb->vars["Lang"]["lang_deleted_empty"], $wb->vars["Lang"]["system_name"], WBC_WARNING);
+	}
+	
+}
 
 function process_review ($window, $id, $ctrl, $lparam1=0, $lparam2=0) 
 {
@@ -125,6 +143,51 @@ function process_review ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 			$wb->current_page = $wb->total_page;
 			reset_review_view ();
 			break;
+		case IDC_REVIEW_LIST:
+			if($lparam1 == WBC_DBLCLICK) 
+			{
+				$current_rows = wb_get_text($ctrl);
+				$current_id = $current_rows[0][0];
+				$wb->current_ids = $current_id;
+				$wb->current_form_state=false;
+				$wb->current_action='update';
+				include_once PATH_FORM."yc_review_edit.form.inc.php";
+				create_review_edit_dlg ();
+			}
+
+			// Show current selection and checked items
+			$sel = wb_get_selected($ctrl);
+			$sel = $sel ? implode(", ", $sel) : "none";
+
+			$contents = wb_get_text($ctrl);
+			$text = "";
+			if($contents)
+				foreach($contents as $row)
+					$text .= $row ? "[" . implode(", ", $row) . "]  " : "";
+
+			$checked = wb_get_value($ctrl);
+			$temp_str = "";
+			if ($checked) 
+			{
+				foreach($checked as $value)
+				{
+					$row_data = wb_get_text($ctrl,$value,0);
+					$temp_str .= $row_data.","; 
+				}
+				$del_ids = rtrim($temp_str,',');
+				$wb->del_ids = $del_ids;
+			}
+
+			$checked = $checked ? implode(", ", $checked) : "none";
+
+			wb_set_text($wb->statusbar,
+			  "Selected lines: " . $sel .
+			  " / checked: " . $checked .
+			  " / deleted: " . $del_ids .
+			  " / contents: " . $text
+			);
+			break;
+
 	}
 
 }

@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_main.php,v 1.24 2006/12/24 13:17:14 arzen Exp $
+ * @version    CVS: $Id: yc_main.php,v 1.25 2006/12/24 14:13:02 arzen Exp $
  */
 
 set_time_limit(0);
@@ -92,6 +92,7 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 				case "complaints_category":
 				case "refundment":
 				case "refundment_category":
+				case "review":
 					$module_name = $wb->current_module;
 					$function_name = "create_{$module_name}_edit_dlg";
 					include_once PATH_FORM."yc_{$module_name}_edit.form.inc.php";
@@ -124,6 +125,7 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 				case "complaints_category":
 				case "refundment":
 				case "refundment_category":
+				case "review":
 					$module_name = $wb->current_module;
 					$function_name = "create_{$module_name}_search_dlg";
 					include_once PATH_FORM."yc_{$module_name}_search.form.inc.php";
@@ -154,6 +156,7 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 				case "complaints_category":
 				case "refundment":
 				case "refundment_category":
+				case "review":
 					$module_name = $wb->current_module;
 					$function_name = "del_selected_{$module_name}";
 					$function_name();
