@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_review.form.inc.php,v 1.3 2006/12/25 05:36:38 arzen Exp $
+ * @version    CVS: $Id: yc_review.form.inc.php,v 1.4 2006/12/25 14:53:35 arzen Exp $
  */
 function display_review_main_tab_form () 
 {
@@ -67,7 +67,7 @@ function reset_review_view ()
 		$row[] = $wb->db->f("company");
 		$row[] = $wb->db->f("linkman");
 		$row[] = $wb->db->f("reviewdate");
-		$row[] = $wb->db->f("category");
+		$row[] = $ReviewwayOption[$wb->db->f("category")];
 		$row[] = $wb->db->f("created_at");
 
 		$data[] = $row;

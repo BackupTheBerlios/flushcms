@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     √œ‘∂Ú˚
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_main.php,v 1.27 2006/12/25 09:23:07 arzen Exp $
+ * @version    CVS: $Id: yc_main.php,v 1.28 2006/12/25 14:53:35 arzen Exp $
  */
 
 set_time_limit(0);
@@ -22,6 +22,7 @@ define("PATH_CLASS", "class/");
 define("PATH_CONFIG", "config/");
 
 include_once PATH_CLASS."db_mysql.php";
+include_once PATH_CLASS."formhelper.php";
 
 class Wb
 {

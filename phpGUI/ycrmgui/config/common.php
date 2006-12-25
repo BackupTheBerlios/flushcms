@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: common.php,v 1.4 2006/12/25 11:00:10 arzen Exp $
+ * @version    CVS: $Id: common.php,v 1.5 2006/12/25 14:53:35 arzen Exp $
  */
 $ActiveOption = array(	
 			$wb->vars["Lang"]["lang_new"]=>'new',
@@ -22,6 +22,12 @@ $GenderOption = array(
 $LangOption = array(	
 			'zh-cn'=>$wb->vars["Lang"]["lang_chinese"],
 			'en'=>$wb->vars["Lang"]["lang_english"],
+			);
+			
+$ReviewwayOption = array(	
+			'phone'=>$wb->vars["Lang"]["lang_reviewwayphone"],
+			'network'=>$wb->vars["Lang"]["lang_reviewwaynetwork"],
+			'visit'=>$wb->vars["Lang"]["lang_reviewwayvisit"],
 			);
 
 ?>

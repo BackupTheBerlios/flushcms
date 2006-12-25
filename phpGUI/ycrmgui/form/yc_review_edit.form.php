@@ -18,7 +18,7 @@ if(!defined('IDC_REVIEW_CATEGORY')) define('IDC_REVIEW_CATEGORY', 1377);
 
 // Create window
 
-$winmain = wb_create_window($wb->mainwin, ModalDialog, "{$wb->vars["Lang"]["lang_new"]}/{$wb->vars["Lang"]["lang_edit"]} {$wb->vars["Lang"]["lang_review"]}", WBC_CENTER, WBC_CENTER, 597, 313, 0x00000001, 0);
+$winmain = wb_create_window($wb->mainwin, ModalDialog, "{$wb->vars["Lang"]["lang_new"]}/{$wb->vars["Lang"]["lang_edit"]} {$wb->vars["Lang"]["lang_review"]}", WBC_CENTER, WBC_CENTER, 592, 320, 0x00000001, 0);
 
 // Insert controls
 
@@ -34,7 +34,7 @@ wb_create_control($winmain, PushButton, "{$wb->vars["Lang"]["lang_cancel"]}", 38
 wb_create_control($winmain, Label, "{$wb->vars["Lang"]["lang_reviewdate"]}", 5, 90, 50, 15, 0, 0x00000000, 0, 0);
 wb_create_control($winmain, EditBox, "", 65, 90, 200, 20, IDC_REVIEW_REVIEWDATE, 0x00000000, 0, 0);
 wb_create_control($winmain, Label, "{$wb->vars["Lang"]["lang_category"]}", 295, 90, 50, 15, 0, 0x00000000, 0, 0);
-wb_create_control($winmain, EditBox, "", 360, 90, 75, 20, IDC_REVIEW_CATEGORY, 0x00000000, 0, 0);
+wb_create_control($winmain, ComboBox, "", 360, 90, 120, 105, IDC_REVIEW_CATEGORY, 0x00000040, 0, 0);
 
 // End controls
 

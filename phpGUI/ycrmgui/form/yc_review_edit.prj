@@ -21,12 +21,12 @@ applyvalues = ""
 ctrlvar = ""
 startctrlval = 1
 staticnullid = 1
-currentindex = 24
+currentindex = 27
 
 [Form]
 class = "ModalDialog"
 caption = "{$wb->vars[\"Lang\"][\"lang_new\"]}/{$wb->vars[\"Lang\"][\"lang_edit\"]} {$wb->vars[\"Lang\"][\"lang_review\"]}"
-geom = "WBC_CENTER WBC_CENTER 597 313"
+geom = "WBC_CENTER WBC_CENTER 592 320"
 style = 1
 value = 0
 controls = 13
@@ -128,9 +128,9 @@ value = 0
 id = ""
 
 [Form_ctrl13]
-class = "EditBox"
+class = "ComboBox"
 caption = ""
-geom = "360 90 75 20"
-style = 0
+geom = "360 90 120 105"
+style = 64
 value = 0
 id = "IDC_REVIEW_CATEGORY"

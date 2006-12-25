@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_review_edit.form.inc.php,v 1.2 2006/12/24 23:34:46 arzen Exp $
+ * @version    CVS: $Id: yc_review_edit.form.inc.php,v 1.3 2006/12/25 14:53:35 arzen Exp $
  */
  
 
@@ -30,6 +30,13 @@ function create_review_edit_dlg ()
 	
 	include(PATH_FORM."yc_review_edit.form.php");
 	
+	include(PATH_CONFIG."common.php");
+	$items = array_values($ReviewwayOption);
+	
+	wb_set_text(wb_get_control($winmain, IDC_REVIEW_CATEGORY), $items);
+	wb_set_text(wb_get_control($winmain, IDC_REVIEW_REVIEWDATE), date("Y-m-d H:i:s"));
+//	wb_set_visible (wb_get_control($winmain, IDC_REVIEW_CALENDAR), false);
+
 	//-------- view detail -------
 	if ($id=$wb->current_ids) 
 	{
@@ -54,7 +61,7 @@ function create_review_edit_dlg ()
 
 function get_review_by_id ($parent,$id) 
 {
-	global $wb;
+	global $wb,$ReviewwayOption;
 	
 	$ctrl_map = review_ctrl_mapping ();
 	$table_name = $wb->setting["Settings"]["review_table"];
@@ -65,7 +72,16 @@ function get_review_by_id ($parent,$id)
 	{
 		while (list($ctrl_name, $field_name) = each($ctrl_map)) 
 		{
-			wb_set_text(wb_get_control($parent,$ctrl_name), $wb->db->f($field_name));
+			if ($field_name=='category') 
+			{
+				include(PATH_CONFIG."common.php");
+				wb_set_text(wb_get_control($parent, $ctrl_name), $ReviewwayOption[$wb->db->f($field_name)]);
+				
+			} 
+			else 
+			{
+				wb_set_text(wb_get_control($parent,$ctrl_name), $wb->db->f($field_name));
+			}
 		}
 
 	}
@@ -83,7 +99,16 @@ function inser_update_review ($parent)
 	while (list($ctrl_name, $field_name) = each($ctrl_map)) 
 	{
 		$value = wb_get_text(wb_get_control($parent,$ctrl_name));
-		$set_str .= "{$field_name}='{$value}',";
+		if ($field_name=='category') 
+		{
+			include(PATH_CONFIG."common.php");
+			$set_str .= "{$field_name}='".array_search($value, $ReviewwayOption)."',";
+			
+		} 
+		else 
+		{
+			$set_str .= "{$field_name}='{$value}',";
+		}
 	}
 	$set_str = rtrim($set_str,',');
 	if ($wb->current_action=='update') 
@@ -108,14 +133,30 @@ function process_review_edit ($window, $id, $ctrl)
 	switch($id) 
 	{
 
+//		case IDC_REVIEW_CAL_SELECT:
+//			wb_set_visible (wb_get_control($window, IDC_REVIEW_CALENDAR), true);
+//			break;
+//		case IDC_REVIEW_CALENDAR:
+//			$date = strftime("%Y-%m-%d %H:%M%:%S", wb_get_value($ctrl));
+//			wb_set_text(wb_get_control($window, IDC_REVIEW_REVIEWDATE), $date);
+////			wb_set_visible (wb_get_control($window, IDC_REVIEW_CALENDAR), false);
+//			break;
 		case IDC_UPDATE:
 			$wb->current_action='update';
 			wb_set_enabled(wb_get_control($window,IDC_SAVE),true);
 			wb_set_enabled(wb_get_control($window,IDC_UPDATE),false);
 			break;
 		case IDC_SAVE:
-			inser_update_review ($window);
-			wb_destroy_window($window);
+			if (!wb_get_text(wb_get_control($window,IDC_REVIEW_COMPANY))) 
+			{
+				empty_message_box ($window,$wb->vars["Lang"]["lang_please_fillup"].$wb->vars["Lang"]["lang_company"]);
+				wb_set_focus(wb_get_control($window,IDC_REVIEW_COMPANY));
+			} 
+			else 
+			{
+				inser_update_review ($window);
+				wb_destroy_window($window);
+			}
 			break;
 		case IDCANCEL:
 			wb_destroy_window($window);
