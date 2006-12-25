@@ -21,7 +21,7 @@ applyvalues = ""
 ctrlvar = ""
 startctrlval = 1
 staticnullid = 1
-currentindex = 7
+currentindex = 8
 
 [Form]
 class = "ModalDialog"
@@ -104,14 +104,6 @@ value = 0
 id = ""
 
 [Form_ctrl10]
-class = "ListBox"
-caption = "Chinese,English"
-geom = "120 230 150 60"
-style = 0
-value = 0
-id = "IDC_LANGUAGE"
-
-[Form_ctrl11]
 class = "PushButton"
 caption = "{$wb->vars[\"Lang\"][\"lang_save\"]}"
 geom = "55 330 90 25"
@@ -119,10 +111,18 @@ style = 0
 value = 0
 id = "IDOK"
 
-[Form_ctrl12]
+[Form_ctrl11]
 class = "PushButton"
 caption = "{$wb->vars[\"Lang\"][\"lang_cancel\"]}"
 geom = "185 330 90 25"
 style = 0
 value = 0
 id = "IDCANCEL"
+
+[Form_ctrl12]
+class = "ComboBox"
+caption = ""
+geom = "125 250 120 60"
+style = 64
+value = 0
+id = "IDC_LANGUAGE"

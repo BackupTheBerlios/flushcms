@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_main.php,v 1.26 2006/12/25 05:36:38 arzen Exp $
+ * @version    CVS: $Id: yc_main.php,v 1.27 2006/12/25 09:23:07 arzen Exp $
  */
 
 set_time_limit(0);
@@ -39,8 +39,8 @@ function create_main_window()
 	include PATH_FORM."yc_contact.form.inc.php";
 	
 	$wb = new Wb;
-	$wb->vars = parse_ini(file_get_contents(PATH_LANG.'en.ini'));//zh-cn.ini
 	$wb->setting = parse_ini(file_get_contents(PATH_INI.SEETING_DAT));
+	$wb->vars = parse_ini(file_get_contents(PATH_LANG.$wb->setting["Settings"]["lang_set"].'.ini'));//zh-cn.ini
 	
 	include_once PATH_FORM."yc_main.form.inc.php";
 	include_once PATH_FORM."yc_contact_search.form.inc.php";

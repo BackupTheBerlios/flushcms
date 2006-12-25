@@ -29,9 +29,9 @@ wb_create_control($winmain, EditBox, "", 120, 125, 175, 20, IDC_DB_PASSWORD, 0x0
 wb_create_control($winmain, Label, "{$wb->vars["Lang"]["lang_db_name"]}", 25, 185, 90, 15, 0, 0x00000000, 0, 0);
 wb_create_control($winmain, EditBox, "", 120, 185, 175, 20, IDC_DB_NAME, 0x00000000, 0, 0);
 wb_create_control($winmain, Label, "{$wb->vars["Lang"]["lang_language"]}", 20, 250, 90, 15, 0, 0x00000000, 0, 0);
-wb_create_control($winmain, ListBox, "Chinese,English", 120, 230, 150, 60, IDC_LANGUAGE, 0x00000000, 0, 0);
 wb_create_control($winmain, PushButton, "{$wb->vars["Lang"]["lang_save"]}", 55, 330, 90, 25, IDOK, 0x00000000, 0, 0);
 wb_create_control($winmain, PushButton, "{$wb->vars["Lang"]["lang_cancel"]}", 185, 330, 90, 25, IDCANCEL, 0x00000000, 0, 0);
+wb_create_control($winmain, ComboBox, "", 125, 250, 120, 60, IDC_LANGUAGE, 0x00000040, 0, 0);
 
 // End controls
 
