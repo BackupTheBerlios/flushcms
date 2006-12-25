@@ -28,6 +28,8 @@ $wb->winheight = $dim[1];
 $wb->mainmenu = wb_create_control($wb->mainwin, Menu, array(
     $wb->vars["Lang"]["lang_file"],
         array(IDCLOSE,  $wb->vars["Lang"]["lang_exit"]."\t",    NULL, NULL),
+    $wb->vars["Lang"]["lang_option"],
+        array(ID_SETTING,  $wb->vars["Lang"]["lang_setting"]."\t",    NULL, NULL),
     $wb->vars["Lang"]["lang_help"],
         array(ID_ABOUT, $wb->vars["Lang"]["lang_about"]."...",        NULL, NULL)
 ));

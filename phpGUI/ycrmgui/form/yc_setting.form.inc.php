@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_setting.form.inc.php,v 1.2 2006/12/25 09:23:07 arzen Exp $
+ * @version    CVS: $Id: yc_setting.form.inc.php,v 1.3 2006/12/25 11:00:10 arzen Exp $
  */
 function display_setting_dlg () 
 {
@@ -18,13 +18,12 @@ function display_setting_dlg ()
 	wb_set_text(wb_get_control($winmain,IDC_DB_USERNAME),$wb->setting["Settings"]["db_username"]);
 	wb_set_text(wb_get_control($winmain,IDC_DB_PASSWORD),$wb->setting["Settings"]["db_password"]);
 	wb_set_text(wb_get_control($winmain,IDC_DB_NAME),$wb->setting["Settings"]["db_dbname"]);
-	$items = array(
-		'chinese',
-		'english',
-	);
+	include(PATH_CONFIG."common.php");
+	$items = array_values($LangOption);
 	
 	wb_set_text(wb_get_control($winmain, IDC_LANGUAGE), $items);
-	
+	wb_set_text(wb_get_control($winmain, IDC_LANGUAGE), $LangOption[$wb->setting["Settings"]["lang_set"]]);
+//	wb_set_selected(wb_get_control($winmain, IDC_LANGUAGE),$LangOption[$wb->setting["Settings"]["lang_set"]]);	
 	wb_set_visible($winmain, true);
 	wb_set_handler($winmain, "process_setting");
 }
@@ -41,16 +40,19 @@ function process_setting ($window, $id, $ctrl)
 			$wb->setting["Settings"]["db_password"] = wb_get_text(wb_get_control($window,IDC_DB_PASSWORD));
 			$wb->setting["Settings"]["db_dbname"] = wb_get_text(wb_get_control($window,IDC_DB_NAME));
 			$current_lang = wb_get_text(wb_get_control($window,IDC_LANGUAGE));
-			switch ($current_lang)
-			{
-				case 'english':
-					$lang_value='en';
-					break;
-				case 'chinese':
-					$lang_value='zh-cn';
-					break;
+			include(PATH_CONFIG."common.php");
 			
-			}
+			$lang_value = array_search($current_lang, $LangOption); 
+//			switch ($current_lang)
+//			{
+//				case 'english':
+//					$lang_value='en';
+//					break;
+//				case 'chinese':
+//					$lang_value='zh-cn';
+//					break;
+//			
+//			}
 			$wb->setting["Settings"]["lang_set"] = $lang_value;
 			
 			$contents = generate_ini($wb->setting, "; Store Setting INI file\r\n");
