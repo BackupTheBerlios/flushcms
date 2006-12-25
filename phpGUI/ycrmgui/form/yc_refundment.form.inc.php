@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_refundment.form.inc.php,v 1.3 2006/12/25 05:36:38 arzen Exp $
+ * @version    CVS: $Id: yc_refundment.form.inc.php,v 1.4 2006/12/25 23:42:51 arzen Exp $
  */
 function display_refundment_main_tab_form () 
 {
@@ -246,8 +246,11 @@ function process_refundment ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 				$wb->current_ids = $current_id;
 				$wb->current_form_state=false;
 				$wb->current_action='update';
-				include_once PATH_FORM."yc_refundment_edit.form.inc.php";
-				create_refundment_edit_dlg ();
+				if ($wb->current_ids) 
+				{
+					include_once PATH_FORM."yc_refundment_edit.form.inc.php";
+					create_refundment_edit_dlg ();
+				}
 			}
 
 			// Show current selection and checked items
@@ -291,8 +294,11 @@ function process_refundment ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 				$wb->current_ids = $current_id;
 				$wb->current_form_state=false;
 				$wb->current_action='update';
-				include_once PATH_FORM."yc_refundment_category_edit.form.inc.php";
-				create_refundment_category_edit_dlg ();
+				if ($wb->current_ids) 
+				{
+					include_once PATH_FORM."yc_refundment_category_edit.form.inc.php";
+					create_refundment_category_edit_dlg ();
+				}
 			}
 
 			// Show current selection and checked items

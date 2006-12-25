@@ -8,15 +8,15 @@ WINBINDER - form editor PHP file (generated automatically)
 
 // Control identifiers
 
-if(!defined('IDC_REFUNDMENT_COMPANY')) define('IDC_REFUNDMENT_COMPANY', 1371);
-if(!defined('IDC_SAVE')) define('IDC_SAVE', 1372);
-if(!defined('IDC_REFUNDMENT_REFUNDMENTER')) define('IDC_REFUNDMENT_REFUNDMENTER', 1373);
-if(!defined('IDC_REFUNDMENT_REPLY')) define('IDC_REFUNDMENT_REPLY', 1374);
-if(!defined('IDC_REFUNDMENT_HANDLEMAN')) define('IDC_REFUNDMENT_HANDLEMAN', 1375);
-if(!defined('IDC_REFUNDMENT_MEMO')) define('IDC_REFUNDMENT_MEMO', 1376);
-if(!defined('IDC_UPDATE')) define('IDC_UPDATE', 1377);
-if(!defined('IDC_REFUNDMENT_HANDLEDATE')) define('IDC_REFUNDMENT_HANDLEDATE', 1378);
-if(!defined('IDC_REFUNDMENT_STATE')) define('IDC_REFUNDMENT_STATE', 1379);
+if(!defined('IDC_REFUNDMENT_COMPANY')) define('IDC_REFUNDMENT_COMPANY', 2771);
+if(!defined('IDC_SAVE')) define('IDC_SAVE', 2772);
+if(!defined('IDC_REFUNDMENT_REFUNDMENTER')) define('IDC_REFUNDMENT_REFUNDMENTER', 2773);
+if(!defined('IDC_REFUNDMENT_REPLY')) define('IDC_REFUNDMENT_REPLY', 2774);
+if(!defined('IDC_REFUNDMENT_HANDLEMAN')) define('IDC_REFUNDMENT_HANDLEMAN', 2775);
+if(!defined('IDC_REFUNDMENT_MEMO')) define('IDC_REFUNDMENT_MEMO', 2776);
+if(!defined('IDC_UPDATE')) define('IDC_UPDATE', 2777);
+if(!defined('IDC_REFUNDMENT_HANDLEDATE')) define('IDC_REFUNDMENT_HANDLEDATE', 2778);
+if(!defined('IDC_REFUNDMENT_STATE')) define('IDC_REFUNDMENT_STATE', 2779);
 
 // Create window
 

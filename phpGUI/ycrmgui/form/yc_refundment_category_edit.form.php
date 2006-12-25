@@ -8,9 +8,9 @@ WINBINDER - form editor PHP file (generated automatically)
 
 // Control identifiers
 
-if(!defined('IDC_UPDATE')) define('IDC_UPDATE', 1201);
-if(!defined('IDC_SAVE')) define('IDC_SAVE', 1202);
-if(!defined('IDC_CATEGORY_NAME')) define('IDC_CATEGORY_NAME', 1203);
+if(!defined('IDC_UPDATE')) define('IDC_UPDATE', 2971);
+if(!defined('IDC_SAVE')) define('IDC_SAVE', 2972);
+if(!defined('IDC_CATEGORY_NAME')) define('IDC_CATEGORY_NAME', 2973);
 
 // Create window
 

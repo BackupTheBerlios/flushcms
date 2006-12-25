@@ -8,13 +8,13 @@ WINBINDER - form editor PHP file (generated automatically)
 
 // Control identifiers
 
-if(!defined('IDC_REVIEW_COMPANY')) define('IDC_REVIEW_COMPANY', 1371);
-if(!defined('IDC_SAVE')) define('IDC_SAVE', 1372);
-if(!defined('IDC_REVIEW_LINKMAN')) define('IDC_REVIEW_LINKMAN', 1373);
-if(!defined('IDC_REVIEW_MEMO')) define('IDC_REVIEW_MEMO', 1374);
-if(!defined('IDC_UPDATE')) define('IDC_UPDATE', 1375);
-if(!defined('IDC_REVIEW_REVIEWDATE')) define('IDC_REVIEW_REVIEWDATE', 1376);
-if(!defined('IDC_REVIEW_CATEGORY')) define('IDC_REVIEW_CATEGORY', 1377);
+if(!defined('IDC_REVIEW_COMPANY')) define('IDC_REVIEW_COMPANY', 3071);
+if(!defined('IDC_SAVE')) define('IDC_SAVE', 3072);
+if(!defined('IDC_REVIEW_LINKMAN')) define('IDC_REVIEW_LINKMAN', 3073);
+if(!defined('IDC_REVIEW_MEMO')) define('IDC_REVIEW_MEMO', 3074);
+if(!defined('IDC_UPDATE')) define('IDC_UPDATE', 3075);
+if(!defined('IDC_REVIEW_REVIEWDATE')) define('IDC_REVIEW_REVIEWDATE', 3076);
+if(!defined('IDC_REVIEW_CATEGORY')) define('IDC_REVIEW_CATEGORY', 3077);
 
 // Create window
 

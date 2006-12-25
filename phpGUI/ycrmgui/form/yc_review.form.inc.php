@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_review.form.inc.php,v 1.4 2006/12/25 14:53:35 arzen Exp $
+ * @version    CVS: $Id: yc_review.form.inc.php,v 1.5 2006/12/25 23:42:51 arzen Exp $
  */
 function display_review_main_tab_form () 
 {
@@ -152,8 +152,11 @@ function process_review ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 				$wb->current_ids = $current_id;
 				$wb->current_form_state=false;
 				$wb->current_action='update';
-				include_once PATH_FORM."yc_review_edit.form.inc.php";
-				create_review_edit_dlg ();
+				if ($wb->current_ids) 
+				{
+					include_once PATH_FORM."yc_review_edit.form.inc.php";
+					create_review_edit_dlg ();
+				}
 			}
 
 			// Show current selection and checked items

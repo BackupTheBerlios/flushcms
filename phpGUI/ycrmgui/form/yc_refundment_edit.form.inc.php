@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_refundment_edit.form.inc.php,v 1.1 2006/12/24 13:17:14 arzen Exp $
+ * @version    CVS: $Id: yc_refundment_edit.form.inc.php,v 1.2 2006/12/25 23:42:51 arzen Exp $
  */
  
 
@@ -116,8 +116,16 @@ function process_refundment_edit ($window, $id, $ctrl)
 			wb_set_enabled(wb_get_control($window,IDC_UPDATE),false);
 			break;
 		case IDC_SAVE:
-			inser_update_refundment ($window);
-			wb_destroy_window($window);
+			if (!wb_get_text(wb_get_control($window,IDC_REFUNDMENT_COMPANY))) 
+			{
+				empty_message_box ($window,$wb->vars["Lang"]["lang_please_fillup"].$wb->vars["Lang"]["lang_company"]);
+				wb_set_focus(wb_get_control($window,IDC_REFUNDMENT_COMPANY));
+			} 
+			else 
+			{
+				inser_update_refundment ($window);
+				wb_destroy_window($window);
+			}
 			break;
 		case IDCANCEL:
 			wb_destroy_window($window);
