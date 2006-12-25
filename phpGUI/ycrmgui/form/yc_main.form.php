@@ -14,6 +14,7 @@ define("ID_DELETE",          1013);
 define("ID_CREATE",           1014);
 define("ID_HELP",           1015);
 define("ID_ABOUT",           1016);
+define("ID_SETTING",           1017);
 
 // Create window
 
@@ -38,7 +39,10 @@ $wb->toolbar = wb_create_control($wb->mainwin, ToolBar, array(
     null,                                   // Toolbar separator
     array(IDC_TOOLBAR_SEARCH, NULL, $wb->vars["Lang"]["lang_search"],   5),
     array(ID_DELETE,  NULL,   $wb->vars["Lang"]["lang_delete"],    12),
-    array(ID_HELP,  NULL,   $wb->vars["Lang"]["lang_help"],    13),
+    null,                                   // Toolbar separator
+    array(ID_SETTING,  NULL,   $wb->vars["Lang"]["lang_setting"],    19),
+    null,                                   // Toolbar separator
+    array(ID_ABOUT,  NULL,   $wb->vars["Lang"]["lang_help"],    13),
 ), 0, 10, 16, 15, 0, 0, PATH_RES . "toolbar.bmp");
 
 

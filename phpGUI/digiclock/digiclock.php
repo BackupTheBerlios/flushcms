@@ -7,13 +7,16 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     孟远螓
  * @author     QQ:3440895
- * @version    CVS: $Id: digiclock.php,v 1.10 2006/12/15 08:47:32 arzen Exp $
+ * @version    CVS: $Id: digiclock.php,v 1.11 2006/12/25 05:36:38 arzen Exp $
  */
 include_once "include/winbinder.php";
+include_once("wb_httpget.class.php");
+include_once "RSS.php";
 
 //-------------------------------------------------------------------- CONSTANTS
 
 define("ID_APP_TIMER",	201);
+define("ID_NEWS_TIMER",	301);
 define("SHORT_FMT",		"h:i:s A");
 define("LONG_FMT",		"l, F dS, Y --- ");
 define("WIDTH", 				150);
@@ -28,7 +31,12 @@ $mainwin = wb_create_window(NULL, PopupWindow, "现在时间", $dim[2] - WIDTH-30, $
 wb_set_handler($mainwin, "process_main");
 
 // Create label control inside the window
+class Wb
+{
 
+}
+$wb = new Wb;
+$wb->newscontent = null;
 $label = wb_create_control($mainwin, Label, getTimeShotFormat (date("h:i:s")), 0, 15, 108, 20, 0, WBC_CENTER);
 wb_set_font($label, wb_create_font("Tahoma", 11, null, FTA_BOLD));
 
@@ -52,6 +60,7 @@ wb_set_font($statusbar, wb_create_font("Simsun", 10));
 // Create the timer
 
 wb_create_timer($mainwin, ID_APP_TIMER, 500);
+wb_create_timer($mainwin, ID_NEWS_TIMER, 30000);
 
 // Enter application loop
 wb_set_image($mainwin,"resource/time.ico");
@@ -62,25 +71,29 @@ wb_main_loop();
 
 function process_main($window, $id)
 {
-	global $label, $statusbar,$top_bar,$foot_bar,$news_str;
+	global $label, $statusbar,$top_bar,$foot_bar,$news_str,$wb;
 	static $pos,$top_pos,$foot_pos;
 
 	$disks_str = "";
-	if ((date("H")/2)==0) 
-	{
-		$news_str="滚动新闻:".getNews ();
-		
-//		$disks = explode(" ", wb_get_system_info("diskdrives"));
-//		for ($index = 0; $index < sizeof($disks); $index++) 
-//		{
-//			$disks_str .= getTotalDiskSpace ($disks[$index]);
-//		}
-		
-	}
-	$news_str=$news_str?$news_str:"滚动新闻:".getNews ();
+	$news_str = $wb->newscontent;
+//	if ((date("i")%3)==0) 
+//	{
+//		$news_str="滚动新闻:".getNews ();
+//		
+////		$disks = explode(" ", wb_get_system_info("diskdrives"));
+////		for ($index = 0; $index < sizeof($disks); $index++) 
+////		{
+////			$disks_str .= getTotalDiskSpace ($disks[$index]);
+////		}
+//		
+//	}
+//	$news_str=$news_str?$news_str:"滚动新闻:".getNews ();
 	
 	switch($id) {
 
+		case ID_NEWS_TIMER:
+			$wb->newscontent = getNews ();
+			break;
 		case ID_APP_TIMER:
 
 			// Show the current time in hours, minutes and seconds
@@ -135,17 +148,27 @@ function getTotalDiskSpace ($disk)
 
 function getNews () 
 {
-	if (file_exists("news.txt")) 
-	{
-		$news_str = file_get_contents("news.txt");
-	}
-	else 
-	{
-		$news_str = "无新闻.......";
-	}
-	return $news_str;
+	$url = "http://rss.sina.com.cn/news/marquee/ddt.xml";
+	$content = getContents ($url);
+//	$rss =& new XML_RSS($content);
+//	$rss->parse();
+//	$news_str =  "";
+//	foreach ($rss->getItems() as $item) 
+//	{
+//	    $news_str .= $item['title']."  ";
+//	}
+	
+	return $content;
 }
 
+function getContents ($url) 
+{
+	$httpget = new wb_httpget();
+	$content = "";
+	$httpget->url=$url;
+	$httpget->get_file($content);
+	return mb_convert_encoding($content, "GB2312", "UTF-8");;	
+}
 
 
 function getTimeShotFormat ($source_time,$en=false) 

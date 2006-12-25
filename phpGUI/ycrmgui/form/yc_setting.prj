@@ -1,0 +1,128 @@
+;*******************************************************************************
+;
+; WINBINDER - form editor project
+;
+;*******************************************************************************
+
+[Projectsettings]
+formvar = "$winmain"
+parent = "$wb->mainwin"
+prefix = "IDC_"
+startval = 4000
+localize = ""
+locprefix = "LANG_"
+istabpage = ""
+tabnumber = 0
+filllists = ""
+fillheaders = ""
+imagenames = ""
+insertontabs = 1
+applyvalues = ""
+ctrlvar = ""
+startctrlval = 1
+staticnullid = 1
+currentindex = 7
+
+[Form]
+class = "ModalDialog"
+caption = "{$wb->vars[\"Lang\"][\"lang_setting\"]}"
+geom = "WBC_CENTER WBC_CENTER 339 407"
+style = 1
+value = 0
+controls = 12
+
+[Form_ctrl1]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_host\"]}"
+geom = "25 20 90 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl2]
+class = "EditBox"
+caption = ""
+geom = "120 20 175 20"
+style = 0
+value = 0
+id = "IDC_DB_HOST"
+
+[Form_ctrl3]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_db_username\"]}"
+geom = "25 75 90 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl4]
+class = "EditBox"
+caption = ""
+geom = "120 70 175 20"
+style = 0
+value = 0
+id = "IDC_DB_USERNAME"
+
+[Form_ctrl5]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_db_password\"]}"
+geom = "25 125 90 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl6]
+class = "EditBox"
+caption = ""
+geom = "120 125 175 20"
+style = 256
+value = 0
+id = "IDC_DB_PASSWORD"
+
+[Form_ctrl7]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_db_name\"]}"
+geom = "25 185 90 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl8]
+class = "EditBox"
+caption = ""
+geom = "120 185 175 20"
+style = 0
+value = 0
+id = "IDC_DB_NAME"
+
+[Form_ctrl9]
+class = "Label"
+caption = "{$wb->vars[\"Lang\"][\"lang_language\"]}"
+geom = "20 250 90 15"
+style = 0
+value = 0
+id = ""
+
+[Form_ctrl10]
+class = "ListBox"
+caption = "Chinese,English"
+geom = "120 230 150 60"
+style = 0
+value = 0
+id = "IDC_LANGUAGE"
+
+[Form_ctrl11]
+class = "PushButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_save\"]}"
+geom = "55 330 90 25"
+style = 0
+value = 0
+id = "IDOK"
+
+[Form_ctrl12]
+class = "PushButton"
+caption = "{$wb->vars[\"Lang\"][\"lang_cancel\"]}"
+geom = "185 330 90 25"
+style = 0
+value = 0
+id = "IDCANCEL"

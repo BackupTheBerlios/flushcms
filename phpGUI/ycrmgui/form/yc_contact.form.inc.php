@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_contact.form.inc.php,v 1.12 2006/12/22 14:23:18 arzen Exp $
+ * @version    CVS: $Id: yc_contact.form.inc.php,v 1.13 2006/12/25 05:36:38 arzen Exp $
  */
 // Control identifiers
 
@@ -198,6 +198,7 @@ function del_selected_contact ()
 //		wb_message_box($wb->mainwin, $sql, $wb->vars["Lang"]["system_name"], WBC_WARNING);
 		$wb->db->query($sql);
 		reset_contact_view ();
+		$wb->del_ids=null;
 	}
 	else
 	{
@@ -218,6 +219,7 @@ function del_selected_contact_category ()
 //		wb_message_box($wb->mainwin, $sql, $wb->vars["Lang"]["system_name"], WBC_WARNING);
 		$wb->db->query($sql);
 		reset_contact_category_view ();
+		$wb->del_ids=null;
 	}
 	else
 	{

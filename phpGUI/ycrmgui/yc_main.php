@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_main.php,v 1.25 2006/12/24 14:13:02 arzen Exp $
+ * @version    CVS: $Id: yc_main.php,v 1.26 2006/12/25 05:36:38 arzen Exp $
  */
 
 set_time_limit(0);
@@ -15,6 +15,7 @@ include_once "include/winbinder.php";
 
 define("PATH_RES", "resource/");
 define("PATH_INI", "ini/");
+define("SEETING_DAT", "system.dat");
 define("PATH_LANG", PATH_INI . "lang/");
 define("PATH_FORM", "form/");
 define("PATH_CLASS", "class/");
@@ -38,8 +39,8 @@ function create_main_window()
 	include PATH_FORM."yc_contact.form.inc.php";
 	
 	$wb = new Wb;
-	$wb->vars = parse_ini(file_get_contents(PATH_LANG.'zh-cn.ini'));
-	$wb->setting = parse_ini(file_get_contents(PATH_INI.'system.dat'));
+	$wb->vars = parse_ini(file_get_contents(PATH_LANG.'en.ini'));//zh-cn.ini
+	$wb->setting = parse_ini(file_get_contents(PATH_INI.SEETING_DAT));
 	
 	include_once PATH_FORM."yc_main.form.inc.php";
 	include_once PATH_FORM."yc_contact_search.form.inc.php";
@@ -267,6 +268,10 @@ function process_main ($window, $id, $ctrl, $lparam1=0, $lparam2=0)
 		case ID_ABOUT:
 				include_once PATH_FORM."yc_about.form.inc.php";
 				display_about_dlg ();
+			break;
+		case ID_SETTING:
+				include_once PATH_FORM."yc_setting.form.inc.php";
+				display_setting_dlg ();
 			break;
 		default:
 				if(process_contact($window, $id, $ctrl, $lparam1, $lparam2))

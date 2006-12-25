@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_review.form.inc.php,v 1.2 2006/12/24 14:13:01 arzen Exp $
+ * @version    CVS: $Id: yc_review.form.inc.php,v 1.3 2006/12/25 05:36:38 arzen Exp $
  */
 function display_review_main_tab_form () 
 {
@@ -107,6 +107,7 @@ function del_selected_review ()
 		$sql = " DELETE FROM {$table_name} {$where_is} ";
 		$wb->db->query($sql);
 		reset_review_view ();
+		$wb->del_ids=null;
 	}
 	else
 	{

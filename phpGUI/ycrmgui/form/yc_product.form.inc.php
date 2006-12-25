@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_product.form.inc.php,v 1.4 2006/12/24 07:50:17 arzen Exp $
+ * @version    CVS: $Id: yc_product.form.inc.php,v 1.5 2006/12/25 05:36:38 arzen Exp $
  */
 function display_product_main_tab_form () 
 {
@@ -53,6 +53,7 @@ function del_selected_product ()
 		$sql = " DELETE FROM {$table_name} {$where_is} ";
 		$wb->db->query($sql);
 		reset_product_view ();
+		$wb->del_ids=null;
 	}
 	else
 	{
@@ -72,6 +73,7 @@ function del_selected_product_category ()
 		$sql = " DELETE FROM {$category_table_name} {$where_is} ";
 		$wb->db->query($sql);
 		reset_product_category_view ();
+		$wb->del_ids=null;
 	}
 	else
 	{

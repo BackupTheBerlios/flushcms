@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_agreement.form.inc.php,v 1.2 2006/12/24 11:46:48 arzen Exp $
+ * @version    CVS: $Id: yc_agreement.form.inc.php,v 1.3 2006/12/25 05:36:38 arzen Exp $
  */
 function display_agreement_main_tab_form () 
 {
@@ -185,6 +185,7 @@ function del_selected_agreement ()
 		$sql = " DELETE FROM {$table_name} {$where_is} ";
 		$wb->db->query($sql);
 		reset_agreement_view ();
+		$wb->del_ids=null;
 	}
 	else
 	{
@@ -204,6 +205,7 @@ function del_selected_agreement_category ()
 		$sql = " DELETE FROM {$category_table_name} {$where_is} ";
 		$wb->db->query($sql);
 		reset_agreement_category_view ();
+		$wb->del_ids=null;
 	}
 	else
 	{
