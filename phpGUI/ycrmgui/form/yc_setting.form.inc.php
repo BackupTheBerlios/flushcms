@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_setting.form.inc.php,v 1.3 2006/12/25 11:00:10 arzen Exp $
+ * @version    CVS: $Id: yc_setting.form.inc.php,v 1.4 2006/12/25 12:37:27 arzen Exp $
  */
 function display_setting_dlg () 
 {
@@ -26,6 +26,35 @@ function display_setting_dlg ()
 //	wb_set_selected(wb_get_control($winmain, IDC_LANGUAGE),$LangOption[$wb->setting["Settings"]["lang_set"]]);	
 	wb_set_visible($winmain, true);
 	wb_set_handler($winmain, "process_setting");
+}
+
+function generates_ini($data, $comments="")
+{
+	if(!is_array($data)) {
+		trigger_error(__FUNCTION__ . ": Cannot save INI file.");
+		return null;
+	}
+	$text = $comments;
+	while(list($name, $section) = each($data))
+	{
+		$text .= "\r\n[$name]\r\n";
+
+		while(list($key, $value) = each($section)) {
+			$value = trim($value);
+			if((string)((int)$value) == (string)$value)
+				;	// Integer: does nothing
+			elseif((string)((float)$value) == (string)$value)
+				;	// Floating point: does nothing
+			elseif($value === "")
+				$value = '""';	// Empty string
+			elseif($value[0] == '"' && $value[strlen($value)-1] == '"')
+				;	// Has quotes already: does nothing
+			else
+				$value = '"' . $value . '"';
+			$text .= "$key = " . $value . "\r\n";
+		}
+	}
+	return $text;
 }
 
 function process_setting ($window, $id, $ctrl) 
@@ -54,8 +83,9 @@ function process_setting ($window, $id, $ctrl)
 //			
 //			}
 			$wb->setting["Settings"]["lang_set"] = $lang_value;
-			
-			$contents = generate_ini($wb->setting, "; Store Setting INI file\r\n");
+//			include('include/wb_generic.inc.php');
+//			$contents = generate_ini($wb->setting, "; Store Setting INI file\r\n");
+			$contents = generates_ini($wb->setting, "; Store Setting INI file\r\n");
 			file_put_contents(PATH_INI.SEETING_DAT, $contents);
 			wb_destroy_window($window);
 			break;		
