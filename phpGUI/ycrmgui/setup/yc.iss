@@ -15,7 +15,8 @@ OutputDir=D:\www\phpGUI\bin
 OutputBaseFilename=setup
 Compression=lzma
 SolidCompression=true
-UninstallFilesDir={userstartmenu}
+UninstallFilesDir={group}
+UninstallDisplayName=uninstall.exe
 
 [Languages]
 Name: english; MessagesFile: compiler:Default.isl
@@ -30,10 +31,12 @@ Source: ..\..\bin\resource\*; DestDir: {app}\resource; Flags: ignoreversion recu
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: {group}\YCRM; Filename: {app}\ycrm.exe
-Name: {commondesktop}\YCRM; Filename: {app}\ycrm.exe; Tasks: desktopicon
-Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\YCRM; Filename: {app}\ycrm.exe; Tasks: quicklaunchicon
+Name: {group}\YCRM; Filename: {app}\ycrm.exe; WorkingDir: {app}; IconIndex: 0
+Name: {commondesktop}\YCRM; Filename: {app}\ycrm.exe; Tasks: desktopicon; WorkingDir: {app}; IconIndex: 0
+Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\YCRM; Filename: {app}\ycrm.exe; Tasks: quicklaunchicon desktopicon; WorkingDir: {app}; IconIndex: 0; Flags: useapppaths; Languages: 
 
 [Run]
 Filename: {app}\ycrm.exe; Description: {cm:LaunchProgram,YCRM}; Flags: nowait postinstall skipifsilent
 
+[Dirs]
+Name: {app}\ini; Flags: uninsalwaysuninstall
