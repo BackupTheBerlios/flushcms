@@ -22,8 +22,8 @@ UninstallDisplayName=uninstall.exe
 Name: english; MessagesFile: compiler:Default.isl
 
 [Tasks]
-Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked
-Name: quicklaunchicon; Description: {cm:CreateQuickLaunchIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked
+Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}
+Name: quicklaunchicon; Description: {cm:CreateQuickLaunchIcon}; GroupDescription: {cm:AdditionalIcons}
 
 [Files]
 Source: D:\www\phpGUI\bin\ycrm.exe; DestDir: {app}; Flags: ignoreversion
@@ -32,7 +32,7 @@ Source: ..\..\bin\resource\*; DestDir: {app}\resource; Flags: ignoreversion recu
 
 [Icons]
 Name: {group}\YCRM; Filename: {app}\ycrm.exe; WorkingDir: {app}; IconIndex: 0
-Name: {commondesktop}\YCRM; Filename: {app}\ycrm.exe; Tasks: desktopicon; WorkingDir: {app}; IconIndex: 0
+Name: {commondesktop}\YCRM; Filename: {app}\ycrm.exe; Tasks: desktopicon quicklaunchicon; WorkingDir: {app}; IconIndex: 0; Languages: 
 Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\YCRM; Filename: {app}\ycrm.exe; Tasks: quicklaunchicon desktopicon; WorkingDir: {app}; IconIndex: 0; Flags: useapppaths; Languages: 
 
 [Run]
