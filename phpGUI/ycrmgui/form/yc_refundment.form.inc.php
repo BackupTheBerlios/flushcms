@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_refundment.form.inc.php,v 1.4 2006/12/25 23:42:51 arzen Exp $
+ * @version    CVS: $Id: yc_refundment.form.inc.php,v 1.5 2006/12/26 05:13:25 arzen Exp $
  */
 function display_refundment_main_tab_form () 
 {
@@ -39,7 +39,7 @@ function display_refundment_main_tab_form ()
 	wb_set_text(wb_get_control($maintab,IDC_REFUNDMENT_CATEGORY_LIST), array(
 	   array($wb->vars["Lang"]["lang_id"],100),
 	   array($wb->vars["Lang"]["lang_category"].$wb->vars["Lang"]["lang_name"],	220),
-	   array($wb->vars["Lang"]["lang_state"],	140),
+//	   array($wb->vars["Lang"]["lang_state"],	140),
 	));
 	reset_refundment_category_view ();
 	
@@ -99,7 +99,7 @@ function reset_refundment_view ()
 	wb_set_enabled(wb_get_control($wb->right_control,IDC_NAV_NEXT),true);
 	wb_set_enabled(wb_get_control($wb->right_control,IDC_NAV_LAST),true);
 		
-	if (  $wb->current_page==$wb->total_page  )
+	if ( ($wb->total_page==0) || ($wb->current_page==$wb->total_page)  )
 	{
 		wb_set_enabled(wb_get_control($wb->right_control,IDC_NAV_NEXT),false);
 		wb_set_enabled(wb_get_control($wb->right_control,IDC_NAV_LAST),false);
@@ -143,7 +143,7 @@ function reset_refundment_category_view ()
 		$row = array();
 		$row[] = $wb->db->f("id");
 		$row[] = $wb->db->f("category_name");
-		$row[] = $wb->db->f("active");
+//		$row[] = $ActiveOption[$wb->db->f("active")];
 		$data[] = $row;
 	}
 	// Create listview items

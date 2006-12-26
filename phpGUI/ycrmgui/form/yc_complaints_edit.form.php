@@ -8,15 +8,15 @@ WINBINDER - form editor PHP file (generated automatically)
 
 // Control identifiers
 
-if(!defined('IDC_COMPLAINTS_TITLE')) define('IDC_COMPLAINTS_TITLE', 1371);
-if(!defined('IDC_SAVE')) define('IDC_SAVE', 1372);
-if(!defined('IDC_COMPLAINTS_COMPLAINANTER')) define('IDC_COMPLAINTS_COMPLAINANTER', 1373);
-if(!defined('IDC_COMPLAINTS_REPLY')) define('IDC_COMPLAINTS_REPLY', 1374);
-if(!defined('IDC_COMPLAINTS_HANDLEMAN')) define('IDC_COMPLAINTS_HANDLEMAN', 1375);
-if(!defined('IDC_COMPLAINTS_MEMO')) define('IDC_COMPLAINTS_MEMO', 1376);
-if(!defined('IDC_UPDATE')) define('IDC_UPDATE', 1377);
-if(!defined('IDC_COMPLAINTS_HANDLEDATE')) define('IDC_COMPLAINTS_HANDLEDATE', 1378);
-if(!defined('IDC_COMPLAINTS_STATE')) define('IDC_COMPLAINTS_STATE', 1379);
+if(!defined('IDC_COMPLAINTS_TITLE')) define('IDC_COMPLAINTS_TITLE', 2571);
+if(!defined('IDC_SAVE')) define('IDC_SAVE', 2572);
+if(!defined('IDC_COMPLAINTS_COMPLAINANTER')) define('IDC_COMPLAINTS_COMPLAINANTER', 2573);
+if(!defined('IDC_COMPLAINTS_REPLY')) define('IDC_COMPLAINTS_REPLY', 2574);
+if(!defined('IDC_COMPLAINTS_HANDLEMAN')) define('IDC_COMPLAINTS_HANDLEMAN', 2575);
+if(!defined('IDC_COMPLAINTS_MEMO')) define('IDC_COMPLAINTS_MEMO', 2576);
+if(!defined('IDC_UPDATE')) define('IDC_UPDATE', 2577);
+if(!defined('IDC_COMPLAINTS_HANDLEDATE')) define('IDC_COMPLAINTS_HANDLEDATE', 2578);
+if(!defined('IDC_COMPLAINTS_STATE')) define('IDC_COMPLAINTS_STATE', 2579);
 
 // Create window
 

@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_review.form.inc.php,v 1.5 2006/12/25 23:42:51 arzen Exp $
+ * @version    CVS: $Id: yc_review.form.inc.php,v 1.6 2006/12/26 05:13:25 arzen Exp $
  */
 function display_review_main_tab_form () 
 {
@@ -83,7 +83,7 @@ function reset_review_view ()
 	wb_set_enabled(wb_get_control($wb->right_control,IDC_NAV_NEXT),true);
 	wb_set_enabled(wb_get_control($wb->right_control,IDC_NAV_LAST),true);
 		
-	if (  $wb->current_page==$wb->total_page  )
+	if ( ($wb->total_page==0) || ($wb->current_page==$wb->total_page)  )
 	{
 		wb_set_enabled(wb_get_control($wb->right_control,IDC_NAV_NEXT),false);
 		wb_set_enabled(wb_get_control($wb->right_control,IDC_NAV_LAST),false);

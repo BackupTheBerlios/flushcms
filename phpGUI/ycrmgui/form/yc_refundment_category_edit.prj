@@ -58,7 +58,7 @@ id = "IDC_SAVE"
 [Form_ctrl4]
 class = "Label"
 caption = "{$wb->vars[\"Lang\"][\"lang_category\"]}{$wb->vars[\"Lang\"][\"lang_name\"]}"
-geom = "35 20 80 15"
+geom = "45 30 80 15"
 style = 0
 value = 0
 id = ""
@@ -66,7 +66,7 @@ id = ""
 [Form_ctrl5]
 class = "EditBox"
 caption = ""
-geom = "140 20 130 20"
+geom = "140 30 130 20"
 style = 0
 value = 0
 id = "IDC_CATEGORY_NAME"

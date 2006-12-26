@@ -8,7 +8,7 @@
 formvar = "$winmain"
 parent = "$wb->mainwin"
 prefix = "IDC_"
-startval = 1370
+startval = 2570
 localize = ""
 locprefix = "LANG_"
 istabpage = ""

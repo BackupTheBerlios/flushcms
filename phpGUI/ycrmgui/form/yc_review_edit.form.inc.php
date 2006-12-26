@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_review_edit.form.inc.php,v 1.3 2006/12/25 14:53:35 arzen Exp $
+ * @version    CVS: $Id: yc_review_edit.form.inc.php,v 1.4 2006/12/26 05:13:25 arzen Exp $
  */
  
 
@@ -114,10 +114,12 @@ function inser_update_review ($parent)
 	if ($wb->current_action=='update') 
 	{
 		$id=$wb->current_ids;
+		$set_str .=" ,add_ip='".$wb->add_ip."',update_at=now() ";
 		$sql = "UPDATE {$table_name} SET {$set_str} WHERE id='{$id}' ";
 	}
 	else
 	{
+		$set_str .=" ,add_ip='".$wb->add_ip."',created_at=now() ";
 		$sql = "INSERT INTO {$table_name} SET {$set_str} ";
 		
 	}

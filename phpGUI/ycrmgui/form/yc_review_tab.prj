@@ -8,7 +8,7 @@
 formvar = "$maintab"
 parent = "$maintab"
 prefix = "IDC_"
-startval = 1300
+startval = 3050
 localize = ""
 locprefix = "LANG_"
 istabpage = 1

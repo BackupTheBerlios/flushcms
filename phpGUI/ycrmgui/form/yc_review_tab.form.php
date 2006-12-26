@@ -8,12 +8,12 @@ WINBINDER - form editor PHP file (generated automatically)
 
 // Control identifiers
 
-if(!defined('IDC_REVIEW_LIST')) define('IDC_REVIEW_LIST', 1301);
-if(!defined('IDC_NAV_FIRST')) define('IDC_NAV_FIRST', 1302);
-if(!defined('IDC_NAV_PRE')) define('IDC_NAV_PRE', 1303);
-if(!defined('IDC_NAV_NEXT')) define('IDC_NAV_NEXT', 1304);
-if(!defined('IDC_NAV_LAST')) define('IDC_NAV_LAST', 1305);
-if(!defined('IDC_NAV_BAR')) define('IDC_NAV_BAR', 1306);
+if(!defined('IDC_REVIEW_LIST')) define('IDC_REVIEW_LIST', 3051);
+if(!defined('IDC_NAV_FIRST')) define('IDC_NAV_FIRST', 3052);
+if(!defined('IDC_NAV_PRE')) define('IDC_NAV_PRE', 3053);
+if(!defined('IDC_NAV_NEXT')) define('IDC_NAV_NEXT', 3054);
+if(!defined('IDC_NAV_LAST')) define('IDC_NAV_LAST', 3055);
+if(!defined('IDC_NAV_BAR')) define('IDC_NAV_BAR', 3056);
 
 // Insert controls
 

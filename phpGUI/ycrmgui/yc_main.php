@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_main.php,v 1.28 2006/12/25 14:53:35 arzen Exp $
+ * @version    CVS: $Id: yc_main.php,v 1.29 2006/12/26 05:13:25 arzen Exp $
  */
 
 set_time_limit(0);
@@ -40,6 +40,8 @@ function create_main_window()
 	include PATH_FORM."yc_contact.form.inc.php";
 	
 	$wb = new Wb;
+	require_once PATH_CLASS."ClientEnv.class.php";
+	$wb->add_ip=getenv('REMOTE_ADDR');
 	$wb->setting = parse_ini(file_get_contents(PATH_INI.SEETING_DAT));
 	$wb->vars = parse_ini(file_get_contents(PATH_LANG.$wb->setting["Settings"]["lang_set"].'.ini'));//zh-cn.ini
 	

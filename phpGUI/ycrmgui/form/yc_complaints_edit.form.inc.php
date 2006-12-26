@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_complaints_edit.form.inc.php,v 1.1 2006/12/24 12:30:27 arzen Exp $
+ * @version    CVS: $Id: yc_complaints_edit.form.inc.php,v 1.2 2006/12/26 05:13:25 arzen Exp $
  */
  
 
@@ -32,6 +32,7 @@ function create_complaints_edit_dlg ()
 	
 	include(PATH_FORM."yc_complaints_edit.form.php");
 	
+	wb_set_text(wb_get_control($winmain, IDC_COMPLAINTS_HANDLEDATE), date("Y-m-d H:i:s"));
 	//-------- view detail -------
 	if ($id=$wb->current_ids) 
 	{
@@ -116,8 +117,16 @@ function process_complaints_edit ($window, $id, $ctrl)
 			wb_set_enabled(wb_get_control($window,IDC_UPDATE),false);
 			break;
 		case IDC_SAVE:
-			inser_update_complaints ($window);
-			wb_destroy_window($window);
+			if (!wb_get_text(wb_get_control($window,IDC_COMPLAINTS_TITLE))) 
+			{
+				empty_message_box ($window,$wb->vars["Lang"]["lang_please_fillup"].$wb->vars["Lang"]["lang_title"]);
+				wb_set_focus(wb_get_control($window,IDC_COMPLAINTS_TITLE));
+			} 
+			else 
+			{
+				inser_update_complaints ($window);
+				wb_destroy_window($window);
+			}
 			break;
 		case IDCANCEL:
 			wb_destroy_window($window);

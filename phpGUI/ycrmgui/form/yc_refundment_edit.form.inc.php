@@ -7,7 +7,7 @@
  * @author     John.meng <arzen1013@gmail.com>
  * @author     ÃÏÔ¶òû
  * @author     QQ:3440895
- * @version    CVS: $Id: yc_refundment_edit.form.inc.php,v 1.2 2006/12/25 23:42:51 arzen Exp $
+ * @version    CVS: $Id: yc_refundment_edit.form.inc.php,v 1.3 2006/12/26 05:13:25 arzen Exp $
  */
  
 
@@ -32,6 +32,7 @@ function create_refundment_edit_dlg ()
 	
 	include(PATH_FORM."yc_refundment_edit.form.php");
 	
+	wb_set_text(wb_get_control($winmain, IDC_REFUNDMENT_HANDLEDATE), date("0000-00-00 00:00:00"));
 	//-------- view detail -------
 	if ($id=$wb->current_ids) 
 	{
