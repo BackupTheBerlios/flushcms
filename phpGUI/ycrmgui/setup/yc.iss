@@ -14,25 +14,26 @@ LicenseFile=D:\www\phpGUI\ycrmgui\License.txt
 OutputDir=D:\www\phpGUI\bin
 OutputBaseFilename=setup
 Compression=lzma
-SolidCompression=yes
+SolidCompression=true
+UninstallFilesDir={userstartmenu}
 
 [Languages]
-Name: "english"; MessagesFile: "compiler:Default.isl"
+Name: english; MessagesFile: compiler:Default.isl
 
 [Tasks]
-Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
-Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked
+Name: quicklaunchicon; Description: {cm:CreateQuickLaunchIcon}; GroupDescription: {cm:AdditionalIcons}; Flags: unchecked
 
 [Files]
-Source: "D:\www\phpGUI\bin\ycrm.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\www\phpGUI\bin\resource\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: D:\www\phpGUI\bin\ycrm.exe; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\bin\resource\*; DestDir: {app}\resource; Flags: ignoreversion recursesubdirs createallsubdirs; Tasks: ; Languages: 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{group}\YCRM"; Filename: "{app}\ycrm.exe"
-Name: "{commondesktop}\YCRM"; Filename: "{app}\ycrm.exe"; Tasks: desktopicon
-Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\YCRM"; Filename: "{app}\ycrm.exe"; Tasks: quicklaunchicon
+Name: {group}\YCRM; Filename: {app}\ycrm.exe
+Name: {commondesktop}\YCRM; Filename: {app}\ycrm.exe; Tasks: desktopicon
+Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\YCRM; Filename: {app}\ycrm.exe; Tasks: quicklaunchicon
 
 [Run]
-Filename: "{app}\ycrm.exe"; Description: "{cm:LaunchProgram,YCRM}"; Flags: nowait postinstall skipifsilent
+Filename: {app}\ycrm.exe; Description: {cm:LaunchProgram,YCRM}; Flags: nowait postinstall skipifsilent
 
