@@ -22,21 +22,36 @@ UninstallDisplayName=uninstall.exe
 Name: english; MessagesFile: compiler:Default.isl
 
 [Tasks]
-Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}
-Name: quicklaunchicon; Description: {cm:CreateQuickLaunchIcon}; GroupDescription: {cm:AdditionalIcons}
+Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:AdditionalIcons}; Components: server_com client_com
+Name: quicklaunchicon; Description: {cm:CreateQuickLaunchIcon}; GroupDescription: {cm:AdditionalIcons}; Components: server_com client_com
 
 [Files]
-Source: D:\www\phpGUI\bin\ycrm.exe; DestDir: {app}; Flags: ignoreversion
-Source: ..\..\bin\resource\*; DestDir: {app}\resource; Flags: ignoreversion recursesubdirs createallsubdirs; Tasks: ; Languages: 
+Source: ..\..\bin\ycrm.exe; DestDir: {app}; Flags: ignoreversion; Components: " client_com server_com"; Tasks: 
+Source: ..\..\bin\resource\*; DestDir: {app}\resource; Flags: ignoreversion recursesubdirs createallsubdirs; Components: client_com server_com
+Source: ..\..\bin\data_base\*; DestDir: {app}\data_base; Flags: ignoreversion recursesubdirs createallsubdirs; Components: server_com data_com
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: {group}\YCRM; Filename: {app}\ycrm.exe; WorkingDir: {app}; IconIndex: 0
-Name: {commondesktop}\YCRM; Filename: {app}\ycrm.exe; Tasks: desktopicon quicklaunchicon; WorkingDir: {app}; IconIndex: 0; Languages: 
-Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\YCRM; Filename: {app}\ycrm.exe; Tasks: quicklaunchicon desktopicon; WorkingDir: {app}; IconIndex: 0; Flags: useapppaths; Languages: 
+Name: {group}\YCRM; Filename: {app}\ycrm.exe; WorkingDir: {app}; IconIndex: 0; Components: server_com client_com
+Name: {commondesktop}\YCRM; Filename: {app}\ycrm.exe; Tasks: desktopicon quicklaunchicon; WorkingDir: {app}; IconIndex: 0; Languages: ; Components: server_com client_com
+Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\YCRM; Filename: {app}\ycrm.exe; Tasks: quicklaunchicon desktopicon; WorkingDir: {app}; IconIndex: 0; Flags: useapppaths; Languages: ; Components: server_com client_com
 
 [Run]
-Filename: {app}\ycrm.exe; Description: {cm:LaunchProgram,YCRM}; Flags: nowait postinstall skipifsilent
+Filename: {app}\data_base\install_service.bat; WorkingDir: {app}\data_base\; Components: server_com data_com; Tasks: ; Flags: runhidden
+Filename: {app}\ycrm.exe; WorkingDir: {app}; Flags: postinstall unchecked nowait; Components: server_com client_com
 
 [Dirs]
-Name: {app}\ini; Flags: uninsalwaysuninstall
+Name: {app}\ini; Flags: uninsalwaysuninstall; Components: client_com server_com
+[Types]
+Name: server; Description: 服务端+客户端
+Name: client; Description: 客户端
+Name: database; Description: 数据库
+[Components]
+Name: server_com; Description: 数据库+应用程序; Types: server
+Name: client_com; Description: 应用程序; Types: client
+Name: data_com; Description: 数据库
+[UninstallRun]
+Filename: {app}\data_base\uninstallservice.bat; WorkingDir: {app}\data_base\; Components: server_com data_com; Tasks: ; Flags: runhidden
+[UninstallDelete]
+Name: {app}\data_base\*; Type: filesandordirs; Components: server_com data_com
+Name: {app}\resource\*; Type: filesandordirs; Components: server_com client_com
